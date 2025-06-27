@@ -18,7 +18,9 @@ const AllClassesViewer = () => {
   }, []);
 
   useEffect(() => {
-    const tagClasses = dataService.getClassesForTag(selectedTag);
+    const tagClasses = selectedTag === 'all' 
+      ? dataService.getAllClasses() 
+      : dataService.getClassesForTag(selectedTag);
     setClasses(tagClasses);
     setFilteredClasses(tagClasses);
   }, [selectedTag]);
@@ -39,6 +41,7 @@ const AllClassesViewer = () => {
             onChange={(e) => setSelectedTag(e.target.value)}
             className="tag-select"
           >
+            <option value="all">All Classes</option>
             {tags.map(tag => (
               <option key={tag.name} value={tag.name}>
                 {tag.name}
