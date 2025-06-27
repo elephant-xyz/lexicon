@@ -297,3 +297,52 @@ Route order matters in React Router v7 - most specific routes are listed first i
 ### Styling
 - `src/styles.css`: Comprehensive CSS with custom properties and responsive design
 - CSS patterns: BEM-like naming, component-specific classes, utility classes
+
+## SEO and Social Media Optimization (December 2024)
+
+### Meta Tags and Open Graph
+**Comprehensive SEO Setup**: Enhanced `index.html` with full SEO and social media optimization:
+
+**Basic SEO**:
+- **Title**: "Elephant Lexicon - Blockchain Schema Explorer"
+- **Description**: Comprehensive description highlighting search and exploration capabilities
+- **Keywords**: blockchain, lexicon, schema, data explorer, API documentation, elephant.xyz, smart contracts, web3
+- **Canonical URL**: https://lexicon.elephant.xyz
+- **Robots**: index, follow (search engine friendly)
+
+**Open Graph (Facebook/LinkedIn)**:
+- **Type**: website
+- **Title/Description**: Optimized for social sharing
+- **Image**: Uses existing Elephant.xyz favicon (framerusercontent.com hosted)
+- **Site Name**: Elephant Lexicon
+- **Locale**: en_US
+
+**Twitter Cards**:
+- **Card Type**: summary_large_image for better visual appeal
+- **Creator/Site**: @elephant_xyz
+- **Optimized titles and descriptions for Twitter's character limits
+
+**Mobile App Integration**:
+- **Apple Mobile Web App**: Configured for iOS home screen installation
+- **Progressive Web App**: Mobile-friendly configuration
+- **App Names**: Consistent across platforms
+
+**Schema.org Structured Data**:
+- **Type**: SoftwareApplication for better search engine understanding
+- **Category**: DeveloperApplication
+- **Free offering**: Price set to 0 for clear value proposition
+- **Organization**: Linked to elephant.xyz for authority
+
+### Social Sharing Benefits
+**Enhanced Discoverability**:
+- Rich previews when shared on social media platforms
+- Improved search engine indexing and ranking
+- Professional appearance in developer communities
+- Clear value proposition for blockchain/web3 developers
+
+**Technical Implementation**:
+- All meta tags follow current best practices
+- Uses existing Elephant.xyz brand assets for consistency
+- Proper Twitter card format
+- JSON-LD structured data for search engines
+- Canonical URLs to prevent duplicate content issues
