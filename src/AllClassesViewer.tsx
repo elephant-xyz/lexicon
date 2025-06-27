@@ -20,9 +20,21 @@ const AllClassesViewer = () => {
   const [canGoForward, setCanGoForward] = useState(false);
 
   useEffect(() => {
-    // Check if we can go back/forward
+    // Initialize session storage for navigation history if it doesn't exist
+    if (!sessionStorage.getItem('navHistory')) {
+      sessionStorage.setItem('navHistory', JSON.stringify([window.location.pathname]));
+      sessionStorage.setItem('navHistoryIndex', '0');
+      // On fresh load, no forward navigation is possible
+      setCanGoForward(false);
+    } else {
+      // Check if we can go forward using session storage
+      const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
+      const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
+      setCanGoForward(currentIndex < navHistory.length - 1);
+    }
+
+    // Check if we can go back
     setCanGoBack(window.history.length > 1);
-    setCanGoForward(false); // Forward is only available after going back
   }, []);
 
   useEffect(() => {
@@ -104,22 +116,22 @@ const AllClassesViewer = () => {
           </div>
         </div>
         
-        {canGoBack && (
+        {(canGoBack || canGoForward) && (
           <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
             <button 
               onClick={() => navigate(-1)}
               className="nav-button back-button"
+              disabled={!canGoBack}
             >
               ← Back
             </button>
-            {canGoForward && (
-              <button 
-                onClick={() => navigate(1)}
-                className="nav-button forward-button"
-              >
-                Forward →
-              </button>
-            )}
+            <button 
+              onClick={() => navigate(1)}
+              className="nav-button forward-button"
+              disabled={!canGoForward}
+            >
+              Forward →
+            </button>
           </div>
         )}
       </div>

@@ -15,32 +15,21 @@ const SingleClassViewer = () => {
   const [filteredClass, setFilteredClass] = useState<any>(null);
 
   useEffect(() => {
-    // Check if we can go back - simple check based on history length
-    setCanGoBack(window.history.length > 1);
-    
-    // For forward navigation, we'll track this with session storage
-    // This is a practical approach for SPA navigation
-    const updateNavigationState = () => {
-      // Store current location in session storage to track navigation
+    // Initialize session storage for navigation history if it doesn't exist
+    if (!sessionStorage.getItem('navHistory')) {
+      sessionStorage.setItem('navHistory', JSON.stringify([location.pathname]));
+      sessionStorage.setItem('navHistoryIndex', '0');
+      // On fresh load, no forward navigation is possible
+      setCanGoForward(false);
+    } else {
+      // Check if we can go forward using session storage
       const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
-      const currentPath = location.pathname;
-      
-      // Find current position in navigation history
-      const currentIndex = navHistory.indexOf(currentPath);
-      
-      if (currentIndex === -1) {
-        // New page - add to history
-        navHistory.push(currentPath);
-        sessionStorage.setItem('navHistory', JSON.stringify(navHistory));
-        setCanGoForward(false); // No forward when on newest page
-      } else {
-        // Existing page - check if we can go forward
-        const canForward = currentIndex < navHistory.length - 1;
-        setCanGoForward(canForward);
-      }
-    };
+      const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
+      setCanGoForward(currentIndex < navHistory.length - 1);
+    }
 
-    updateNavigationState();
+    // Check if we can go back
+    setCanGoBack(window.history.length > 1);
   }, [location]);
 
   // Scroll detection for scroll-to-top button
