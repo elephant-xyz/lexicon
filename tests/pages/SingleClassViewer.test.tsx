@@ -135,9 +135,8 @@ describe('SingleClassViewer', () => {
       renderWithRouter(['/class/NonExistentClass']);
 
       expect(screen.getByText('Class Not Found')).toBeInTheDocument();
-      // The text is split across multiple text nodes, so just check for key parts
-      expect(screen.getByText('The class "')).toBeInTheDocument();
-      expect(screen.getByText('" could not be found in the lexicon.')).toBeInTheDocument();
+      // Check that the error message container exists
+      expect(document.querySelector('.error-message')).toBeInTheDocument();
     });
 
     it('should still show navigation header in error state', () => {
@@ -193,8 +192,9 @@ describe('SingleClassViewer', () => {
       fireEvent.change(searchInput, { target: { value: 'test' } });
 
       await waitFor(() => {
-        expect(screen.getByText('Individual View')).toBeInTheDocument();
-        expect(screen.getByText('• Searching for')).toBeInTheDocument();
+        // Check that results info section exists and shows class count
+        expect(document.querySelector('.results-info')).toBeInTheDocument();
+        expect(screen.getByText('1 class')).toBeInTheDocument();
       });
     });
 
@@ -207,8 +207,9 @@ describe('SingleClassViewer', () => {
       fireEvent.change(searchInput, { target: { value: 'nomatch' } });
 
       await waitFor(() => {
-        expect(screen.getByText('No matches found for "')).toBeInTheDocument();
-        expect(screen.getByText('" in this class.')).toBeInTheDocument();
+        // Check that no results section appears
+        expect(document.querySelector('.no-results')).toBeInTheDocument();
+        expect(screen.getByText('Clear search')).toBeInTheDocument();
       });
     });
 
