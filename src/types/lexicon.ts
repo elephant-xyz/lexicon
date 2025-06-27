@@ -18,6 +18,12 @@ export interface LexiconClass {
   relationships?: Record<string, LexiconRelationship>;
 }
 
+export interface LexiconTag {
+  name: string;
+  classes: string[];
+}
+
 export interface LexiconData {
   classes: LexiconClass[];
+  tags: LexiconTag[];
 }

@@ -1,4 +1,4 @@
-import { LexiconData, LexiconClass } from '../types/lexicon';
+import { LexiconData, LexiconClass, LexiconTag } from '../types/lexicon';
 import lexiconData from '../data/lexicon.json';
 
 class DataService {
@@ -10,6 +10,19 @@ class DataService {
 
   getAllClasses(): LexiconClass[] {
     return this.lexicon.classes.sort((a, b) => a.type.localeCompare(b.type));
+  }
+
+  getTags(): LexiconTag[] {
+    return this.lexicon.tags || [];
+  }
+
+  getClassesForTag(tagName: string): LexiconClass[] {
+    const tag = this.lexicon.tags?.find(t => t.name === tagName);
+    if (!tag) return [];
+    
+    return this.lexicon.classes
+      .filter(cls => tag.classes.includes(cls.type))
+      .sort((a, b) => a.type.localeCompare(b.type));
   }
 
   getClassesForLanguage(languageName: string): LexiconClass[] {

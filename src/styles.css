@@ -13,10 +13,46 @@
   box-sizing: border-box;
 }
 
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tag-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tag-selector label {
+  font-weight: bold;
+  color: #333;
+}
+
+.tag-select {
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.tag-select:hover {
+  border-color: #999;
+}
+
+.tag-select:focus {
+  outline: none;
+  border-color: #007acc;
+}
+
 .search-bar {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
 }
 
 .search-input {

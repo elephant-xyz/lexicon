@@ -16918,5 +16918,27 @@
       },
       "relationships": {}
     }
+  ],
+  "tags": [
+    {
+      "name": "blockchain",
+      "classes": [
+        "property",
+        "address",
+        "structure",
+        "tax",
+        "loan",
+        "sales_history",
+        "person",
+        "room",
+        "school",
+        "utility",
+        "environmental_risk",
+        "homeowners_association",
+        "residency_policy",
+        "document_image",
+        "relationship"
+      ]
+    }
   ]
 }
