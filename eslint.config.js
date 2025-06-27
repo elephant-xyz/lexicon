@@ -103,6 +103,8 @@ export default [
         afterAll: 'readonly',
         jest: 'readonly',
         vi: 'readonly',
+        React: 'readonly',
+        HTMLSelectElement: 'readonly',
       },
     },
     rules: {
@@ -122,7 +124,7 @@ export default [
 
   // Ignore patterns
   {
-    ignores: ['dist/', 'build/', 'node_modules/', 'coverage/', '*.min.js', 'public/', 'tests/'],
+    ignores: ['dist/', 'build/', 'node_modules/', 'coverage/', '*.min.js', 'public/'],
   },
 
   // Prettier configuration (must be last)

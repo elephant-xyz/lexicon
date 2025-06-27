@@ -227,7 +227,7 @@ Route order matters in React Router v7 - most specific routes are listed first i
 
 **Build Settings**:
 - **Command**: `npm run build` (Vite build process)
-- **Publish Directory**: `dist` (Vite's default output)
+- **Publish Directory**: `build` (matches outDir in vite.config.ts)
 - **Node.js Version**: 22 (latest LTS for optimal performance)
 
 **SPA Routing**: Configured redirect rules to handle client-side routing:

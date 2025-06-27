@@ -2,8 +2,8 @@
   # Build command for Vite
   command = "npm run build"
   
-  # Directory to publish (Vite outputs to dist by default)
-  publish = "dist"
+  # Directory to publish (matches outDir in vite.config.ts)
+  publish = "build"
   
   # Set Node.js version
   environment = { NODE_VERSION = "22" }
