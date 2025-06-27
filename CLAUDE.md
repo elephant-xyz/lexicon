@@ -7,7 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This project uses **Vite** (migrated from Create React App) with TypeScript:
 
 - `npm start` or `npm run dev`: Start development server on http://localhost:3000
-- `npm run build`: TypeScript compilation + production build to `/build`
+- `npm run build`: TypeScript compilation + production build to `/dist`
+- `npm run test:coverage`: Run tests with coverage report
 - `npm run preview`: Preview production build locally
 - `npm test`: Run tests with Vitest
 
@@ -171,3 +172,128 @@ Route order matters in React Router v7 - most specific routes are listed first i
 - **Session Storage**: Minimal data stored to avoid storage bloat
 - **Navigation State**: Efficient state updates without unnecessary re-renders
 - **CSS Animations**: Uses CSS transitions for smooth user experience
+
+## Testing Infrastructure (December 2024)
+
+### Comprehensive Test Suite
+**Framework**: Vitest with React Testing Library + jsdom for modern, fast testing optimized for Vite projects.
+
+**Test Organization**: Tests are organized in separate `/tests` directory to avoid production bundle pollution:
+```
+/tests/
+├── setup.ts                           # Global test configuration
+├── services/dataService.test.ts       # Data access layer tests (27 tests)
+├── components/
+│   ├── LexiconClassViewer.test.tsx    # Main display component (24 tests)
+│   └── NavigationHeader.test.tsx      # Navigation component (7 tests)
+└── pages/
+    ├── AllClassesViewer.test.tsx      # Main landing page (20 tests)
+    └── SingleClassViewer.test.tsx     # Individual class view (19 tests)
+```
+
+**Test Coverage**: 
+- **97 tests total** with 100% success rate
+- **91.78% coverage** on dataService (core business logic)
+- **69.32% overall coverage** with focus on critical functionality
+
+**Key Testing Features**:
+- **React Router v7 Compatibility**: Uses `MemoryRouter` for isolated route testing
+- **Module Mocking**: Comprehensive mocking of dataService, components, and React Router hooks
+- **Component Integration**: Tests user interactions, search functionality, and navigation flows
+- **Error Handling**: Tests edge cases like missing classes and empty data states
+- **Accessibility**: Tests proper ARIA labels, button roles, and keyboard navigation
+
+### Test Commands
+- `npm test`: Run all tests in watch mode
+- `npm run test:coverage`: Generate coverage report with v8 provider
+- Tests run automatically in GitHub Actions CI/CD pipeline
+
+### Testing Patterns
+**Consistent Mock Setup**: All tests follow similar patterns:
+1. Mock external dependencies (dataService, React Router hooks)
+2. Render components with `MemoryRouter` for isolation
+3. Use `beforeEach` for clean mock state
+4. Test user interactions with `fireEvent` and `waitFor`
+
+**DOM Testing Strategy**: 
+- Use `screen.getByTestId()` for reliable element selection
+- Use `document.getElementById()` for elements with label associations
+- Avoid text matching across split DOM nodes (use container-based assertions)
+
+## Deployment Configuration (December 2024)
+
+### Netlify Deployment
+**Configuration**: `netlify.toml` provides comprehensive deployment settings:
+
+**Build Settings**:
+- **Command**: `npm run build` (Vite build process)
+- **Publish Directory**: `dist` (Vite's default output)
+- **Node.js Version**: 22 (latest LTS for optimal performance)
+
+**SPA Routing**: Configured redirect rules to handle client-side routing:
+```toml
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+```
+
+**Performance Optimizations**:
+- **Asset Caching**: Long-term caching (1 year) for immutable assets in `/assets/*`
+- **Font Optimization**: Aggressive caching for `.woff2` files
+- **Image Optimization**: Optimized caching for `.jpg`, `.png`, `.svg` files
+- **CSS/JS Bundling**: Enabled minification and bundling
+
+**Security Headers**:
+- **Content Security Policy**: Restricts script and style sources
+- **Frame Protection**: `X-Frame-Options: DENY`
+- **Content Type Protection**: `X-Content-Type-Options: nosniff`
+- **Referrer Policy**: `strict-origin-when-cross-origin`
+
+**Development Support**:
+- **Deploy Previews**: Automatic builds for pull requests
+- **Branch Deploys**: Automatic builds for feature branches
+- **Netlify Dev**: Local development with `npm run dev` on port 3000
+
+### CI/CD Pipeline
+**GitHub Actions**: Automated testing and quality checks on every push:
+- **Test Execution**: Runs full test suite with coverage reporting
+- **TypeScript Checking**: Validates type safety
+- **Build Verification**: Ensures production build succeeds
+- **Coverage Reporting**: Tracks test coverage metrics
+
+## Development Best Practices
+
+### Code Quality
+**TypeScript**: Strict mode enabled with ES2024 target for modern JavaScript features
+**Testing**: Comprehensive test coverage with focus on user interactions and edge cases
+**Performance**: Optimized bundle size with Vite's tree shaking and code splitting
+
+### Architecture Patterns
+**Component Composition**: Shared `LexiconClassViewer` component used across different views
+**Service Layer**: Centralized data access through `dataService.ts` singleton
+**Route-Based Architecture**: URL-driven filtering and navigation state
+
+### Future Considerations
+**Data Loading**: Consider lazy loading or chunking for larger datasets beyond 784KB
+**Search Optimization**: Consider search indexing for faster query performance
+**Accessibility**: Comprehensive ARIA labels and keyboard navigation support
+**Mobile Optimization**: Responsive design with mobile-first CSS approach
+
+## File Structure Reference
+
+### Critical Configuration Files
+- `vite.config.ts`: Build configuration with React plugin and path aliases
+- `netlify.toml`: Deployment configuration for Netlify hosting
+- `tests/setup.ts`: Global test environment configuration
+- `tsconfig.json`: TypeScript compiler configuration with strict mode
+- `package.json`: Dependencies and build scripts for Vite workflow
+
+### Data and Types
+- `src/data/lexicon.json`: 16,922 lines of lexicon data (784KB)
+- `src/types/lexicon.ts`: TypeScript interfaces for type safety
+- `src/services/dataService.ts`: Data access layer with filtering and search
+
+### Styling
+- `src/styles.css`: Comprehensive CSS with custom properties and responsive design
+- CSS patterns: BEM-like naming, component-specific classes, utility classes
