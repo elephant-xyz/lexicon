@@ -9,7 +9,7 @@ class DataService {
   }
 
   getAllClasses(): LexiconClass[] {
-    return this.lexicon.classes;
+    return this.lexicon.classes.sort((a, b) => a.type.localeCompare(b.type));
   }
 
   getClassesForLanguage(languageName: string): LexiconClass[] {
