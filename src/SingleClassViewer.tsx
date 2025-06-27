@@ -10,6 +10,7 @@ const SingleClassViewer = () => {
   const location = useLocation();
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   useEffect(() => {
     // Check if we can go back - simple check based on history length
@@ -40,6 +41,20 @@ const SingleClassViewer = () => {
     updateNavigationState();
   }, [location]);
 
+  // Scroll detection for scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button when scrolled down enough that header is not visible
+      // Header section is approximately 200px, so we'll use 300px threshold
+      const scrollY = window.scrollY;
+      const shouldShow = scrollY > 300;
+      setShowScrollToTop(shouldShow);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const lexiconClass = className ? dataService.getClassByName(className) : undefined;
 
   const handleBack = () => {
@@ -52,6 +67,10 @@ const SingleClassViewer = () => {
     if (canGoForward) {
       navigate(1);
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!lexiconClass) {
@@ -81,6 +100,18 @@ const SingleClassViewer = () => {
             </button>
           </div>
         </div>
+
+        {/* Scroll to Top Button */}
+        {showScrollToTop && (
+          <button
+            onClick={scrollToTop}
+            className="scroll-to-top-button"
+            title="Scroll to top"
+            aria-label="Scroll to top"
+          >
+            ↑
+          </button>
+        )}
       </div>
     );
   }
@@ -125,6 +156,18 @@ const SingleClassViewer = () => {
       </div>
 
       <LexiconClassViewer classes={[lexiconClass]} />
+
+      {/* Scroll to Top Button */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-button"
+          title="Scroll to top"
+          aria-label="Scroll to top"
+        >
+          ↑
+        </button>
+      )}
     </div>
   );
 };

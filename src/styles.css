@@ -747,6 +747,58 @@ mark {
   }
 }
 
+/* Scroll to Top Button */
+.scroll-to-top-button {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--primary-green);
+  color: var(--primary-white);
+  border: 2px solid var(--primary-green);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-fast);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.scroll-to-top-button:hover {
+  background-color: var(--primary-white);
+  color: var(--primary-green);
+  border-color: var(--primary-green);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  opacity: 1;
+}
+
+.scroll-to-top-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3), var(--shadow-lg);
+}
+
+.scroll-to-top-button:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive adjustments for scroll to top button */
+@media (max-width: 768px) {
+  .scroll-to-top-button {
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    width: 44px;
+    height: 44px;
+    font-size: var(--text-lg);
+  }
+}
+
 /* Dark Mode Support (Future Enhancement) */
 @media (prefers-color-scheme: dark) {
   :root {
