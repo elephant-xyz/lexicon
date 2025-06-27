@@ -52,7 +52,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
 
   const handleBack = () => {
     if (canGoBack) {
-      const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
+      const _navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
       const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
 
       if (currentIndex > 0) {

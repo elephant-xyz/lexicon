@@ -42,7 +42,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
     navigate(`/class/${className}`);
   };
 
-  const renderHighlightedText = (text: string): JSX.Element => {
+  const renderHighlightedText = (text: string): React.JSX.Element => {
     return <span dangerouslySetInnerHTML={{ __html: text }} />;
   };
 

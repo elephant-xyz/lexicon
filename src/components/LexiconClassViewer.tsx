@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LexiconClass, SearchMatch } from '../types/lexicon';
+import { LexiconClass } from '../types/lexicon';
 
 interface LexiconClassViewerProps {
   classes: LexiconClass[];
@@ -53,8 +53,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       await navigator.clipboard.writeText(value);
       setCopiedValue(value);
       setTimeout(() => setCopiedValue(null), 2000); // Clear feedback after 2 seconds
-    } catch (err) {
-      console.error('Failed to copy to clipboard:', err);
+    } catch {
       // Fallback for older browsers
       const textArea = document.createElement('textarea');
       textArea.value = value;
@@ -102,7 +101,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return true;
   };
 
-  const renderHighlightedText = (text: string): JSX.Element => {
+  const renderHighlightedText = (text: string): React.JSX.Element => {
     return <span dangerouslySetInnerHTML={{ __html: text }} />;
   };
 
@@ -370,7 +369,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                       {Object.entries(cls.relationships || {}).map(([relName, relData]) => {
                         if (!shouldShowRelationship(cls, relName)) return null;
 
-                        const matchedRels = getMatchedRelationships(cls);
                         const isMatchedRelationship = matchedRels.includes(relName);
                         const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
 

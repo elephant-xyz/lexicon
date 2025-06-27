@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import dataService from './services/dataService';
 import LexiconClassViewer from './components/LexiconClassViewer';
 import NavigationHeader from './components/NavigationHeader';
+import { LexiconClass } from './types/lexicon';
 import './styles.css';
 
 const SingleClassViewer = () => {
   const { className } = useParams<{ className: string }>();
-  const navigate = useNavigate();
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredClass, setFilteredClass] = useState<any>(null);
+  const [filteredClass, setFilteredClass] = useState<LexiconClass | null>(null);
 
   // Scroll detection for scroll-to-top button
   useEffect(() => {
@@ -85,7 +85,7 @@ const SingleClassViewer = () => {
         <div className="controls-section">
           <div className="error-message">
             <h2>Class Not Found</h2>
-            <p>The class "{className}" could not be found in the lexicon.</p>
+            <p>The class &ldquo;{className}&rdquo; could not be found in the lexicon.</p>
           </div>
 
           <NavigationHeader showHome={true} />
@@ -136,8 +136,10 @@ const SingleClassViewer = () => {
       <div className="controls-section">
         <div className="controls-grid">
           <div className="class-info">
-            <label>Viewing Class</label>
-            <div className="class-name">{lexiconClass.type}</div>
+            <label htmlFor="current-class-name">Viewing Class</label>
+            <div id="current-class-name" className="class-name">
+              {lexiconClass.type}
+            </div>
           </div>
           <div className="search-bar">
             <label htmlFor="single-search-input">Search</label>
@@ -168,7 +170,7 @@ const SingleClassViewer = () => {
 
       <div className="results-info">
         <span className="results-count">1 class</span>
-        <span>Individual View{searchTerm && ` • Searching for "${searchTerm}"`}</span>
+        <span>Individual View{searchTerm && ` • Searching for &ldquo;${searchTerm}&rdquo;`}</span>
       </div>
 
       {filteredClass ? (
@@ -179,7 +181,7 @@ const SingleClassViewer = () => {
         />
       ) : searchTerm && searchTerm.length >= 2 ? (
         <div className="no-results">
-          <p>No matches found for "{searchTerm}" in this class.</p>
+          <p>No matches found for &ldquo;{searchTerm}&rdquo; in this class.</p>
           <button onClick={() => setSearchTerm('')} className="clear-search-button-inline">
             Clear search
           </button>

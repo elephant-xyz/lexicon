@@ -21,7 +21,6 @@ export default [
         ecmaFeatures: {
           jsx: true,
         },
-        project: './tsconfig.json',
       },
       globals: {
         window: 'readonly',
@@ -34,6 +33,15 @@ export default [
         __filename: 'readonly',
         module: 'readonly',
         require: 'readonly',
+        navigator: 'readonly',
+        sessionStorage: 'readonly',
+        localStorage: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        JSX: 'readonly',
+        HTMLElement: 'readonly',
       },
     },
     plugins: {
@@ -70,6 +78,8 @@ export default [
       'prefer-const': 'error',
       'no-var': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      'react/no-unescaped-entities': 'error',
+      'jsx-a11y/label-has-associated-control': 'error',
     },
     settings: {
       react: {
@@ -80,7 +90,21 @@ export default [
 
   // Test files specific configuration
   {
-    files: ['**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
+    files: ['tests/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: {
+        test: 'readonly',
+        expect: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        jest: 'readonly',
+        vi: 'readonly',
+      },
+    },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       'no-console': 'off',
@@ -98,7 +122,7 @@ export default [
 
   // Ignore patterns
   {
-    ignores: ['dist/', 'build/', 'node_modules/', 'coverage/', '*.min.js', 'public/'],
+    ignores: ['dist/', 'build/', 'node_modules/', 'coverage/', '*.min.js', 'public/', 'tests/'],
   },
 
   // Prettier configuration (must be last)
