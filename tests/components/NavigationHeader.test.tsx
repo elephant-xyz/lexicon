@@ -24,7 +24,7 @@ const renderWithRouter = (component: React.ReactElement) => {
 describe('NavigationHeader - Simplified', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Mock sessionStorage with simple implementation
     Object.defineProperty(window, 'sessionStorage', {
       value: {
@@ -45,9 +45,7 @@ describe('NavigationHeader - Simplified', () => {
     });
 
     it('should apply custom className', () => {
-      renderWithRouter(
-        <NavigationHeader showHome={true} className="custom-navigation" />
-      );
+      renderWithRouter(<NavigationHeader showHome={true} className="custom-navigation" />);
 
       const navigationElement = screen.getByText('🏠 Home').closest('div');
       expect(navigationElement).toHaveClass('custom-navigation');
@@ -55,10 +53,8 @@ describe('NavigationHeader - Simplified', () => {
 
     it('should apply custom style', () => {
       const customStyle = { marginTop: '20px' };
-      
-      renderWithRouter(
-        <NavigationHeader showHome={true} style={customStyle} />
-      );
+
+      renderWithRouter(<NavigationHeader showHome={true} style={customStyle} />);
 
       const navigationElement = screen.getByText('🏠 Home').closest('div');
       expect(navigationElement).toHaveStyle('margin-top: 20px');

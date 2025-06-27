@@ -41,9 +41,7 @@ vi.mock('../../src/components/LexiconClassViewer', () => ({
 
 vi.mock('../../src/components/NavigationHeader', () => ({
   default: ({ showHome }: any) => (
-    <div data-testid="navigation-header">
-      Navigation (showHome: {showHome ? 'true' : 'false'})
-    </div>
+    <div data-testid="navigation-header">Navigation (showHome: {showHome ? 'true' : 'false'})</div>
   ),
 }));
 
@@ -73,14 +71,14 @@ const renderWithRouter = (initialEntries = ['/class/TestClass']) => {
 describe('SingleClassViewer', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Mock window.scrollTo
     window.scrollTo = vi.fn();
-    
+
     // Mock addEventListener for scroll events
     window.addEventListener = vi.fn();
     window.removeEventListener = vi.fn();
-    
+
     // Default useParams mock
     mockUseParams.mockReturnValue({ className: 'TestClass' });
   });
@@ -200,7 +198,7 @@ describe('SingleClassViewer', () => {
 
     it('should show no results message when search yields no matches', async () => {
       mockDataService.filterClassesForSearch.mockReturnValue([]);
-      
+
       renderWithRouter();
 
       const searchInput = screen.getByPlaceholderText('Search within this class...');
@@ -281,7 +279,7 @@ describe('SingleClassViewer', () => {
       mockUseParams.mockReturnValue({ className: 'MyCustomClass' });
       mockDataService.getClassByName.mockReturnValue(mockClass);
       renderWithRouter(['/class/MyCustomClass']);
-      
+
       expect(mockDataService.getClassByName).toHaveBeenCalledWith('MyCustomClass');
     });
 
@@ -289,7 +287,7 @@ describe('SingleClassViewer', () => {
       mockUseParams.mockReturnValue({ className: undefined });
       mockDataService.getClassByName.mockReturnValue(undefined);
       renderWithRouter(['/class/']);
-      
+
       // When className is undefined, component should show error state
       expect(screen.getByText('Class Not Found')).toBeInTheDocument();
     });

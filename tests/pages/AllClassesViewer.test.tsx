@@ -46,9 +46,7 @@ vi.mock('../../src/components/DataGroupViewer', () => ({
 
 vi.mock('../../src/components/NavigationHeader', () => ({
   default: ({ showHome }: any) => (
-    <div data-testid="navigation-header">
-      Navigation (showHome: {showHome ? 'true' : 'false'})
-    </div>
+    <div data-testid="navigation-header">Navigation (showHome: {showHome ? 'true' : 'false'})</div>
   ),
 }));
 
@@ -92,10 +90,10 @@ const renderWithRouter = (component: React.ReactElement) => {
 describe('AllClassesViewer - Simplified', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    
+
     // Mock window.scrollTo
     window.scrollTo = vi.fn();
-    
+
     // Mock addEventListener for scroll events
     window.addEventListener = vi.fn();
     window.removeEventListener = vi.fn();
@@ -114,7 +112,9 @@ describe('AllClassesViewer - Simplified', () => {
       renderWithRouter(<AllClassesViewer />);
 
       expect(screen.getByText('Elephant Lexicon')).toBeInTheDocument();
-      expect(screen.getByText('Explore and search through the comprehensive data schema definitions')).toBeInTheDocument();
+      expect(
+        screen.getByText('Explore and search through the comprehensive data schema definitions')
+      ).toBeInTheDocument();
     });
 
     it('should render external links', () => {
@@ -201,7 +201,9 @@ describe('AllClassesViewer - Simplified', () => {
     it('should render search input', () => {
       renderWithRouter(<AllClassesViewer />);
 
-      expect(screen.getByPlaceholderText('Type at least 3 characters to search...')).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText('Type at least 3 characters to search...')
+      ).toBeInTheDocument();
     });
 
     it('should filter results when searching', async () => {
@@ -211,8 +213,14 @@ describe('AllClassesViewer - Simplified', () => {
       fireEvent.change(searchInput, { target: { value: 'blockchain' } });
 
       await waitFor(() => {
-        expect(mockDataService.filterClassesForSearch).toHaveBeenCalledWith(mockClasses, 'blockchain');
-        expect(mockDataService.filterDataGroupsForSearch).toHaveBeenCalledWith(mockDataGroups, 'blockchain');
+        expect(mockDataService.filterClassesForSearch).toHaveBeenCalledWith(
+          mockClasses,
+          'blockchain'
+        );
+        expect(mockDataService.filterDataGroupsForSearch).toHaveBeenCalledWith(
+          mockDataGroups,
+          'blockchain'
+        );
       });
     });
 
@@ -248,7 +256,7 @@ describe('AllClassesViewer - Simplified', () => {
       await waitFor(() => {
         const classViewer = screen.getByTestId('lexicon-class-viewer');
         const dataGroupViewer = screen.getByTestId('data-group-viewer');
-        
+
         expect(classViewer).toHaveTextContent('Search: test');
         expect(dataGroupViewer).toHaveTextContent('Search: test');
       });

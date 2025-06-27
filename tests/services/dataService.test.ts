@@ -105,13 +105,13 @@ describe('DataService', () => {
   describe('getAllClasses', () => {
     it('should return all non-deprecated classes sorted by type', () => {
       const classes = dataService.getAllClasses();
-      
+
       expect(classes).toBeDefined();
       expect(classes.length).toBeGreaterThan(0);
-      
+
       // Should not include deprecated classes
       expect(classes.every(cls => !cls.is_deprecated)).toBe(true);
-      
+
       // Should be sorted by type
       const types = classes.map(cls => cls.type);
       const sortedTypes = [...types].sort();
@@ -122,7 +122,7 @@ describe('DataService', () => {
   describe('getTags', () => {
     it('should return all available tags', () => {
       const tags = dataService.getTags();
-      
+
       expect(tags).toBeDefined();
       expect(Array.isArray(tags)).toBe(true);
       expect(tags.length).toBeGreaterThan(0);
@@ -133,7 +133,7 @@ describe('DataService', () => {
   describe('getClassesForTag', () => {
     it('should return classes for a valid tag', () => {
       const classes = dataService.getClassesForTag('realestate');
-      
+
       expect(Array.isArray(classes)).toBe(true);
       // Should only include classes that belong to the tag
       classes.forEach(cls => {
@@ -143,7 +143,7 @@ describe('DataService', () => {
 
     it('should return empty array for invalid tag', () => {
       const classes = dataService.getClassesForTag('nonexistent');
-      
+
       expect(Array.isArray(classes)).toBe(true);
       expect(classes).toHaveLength(0);
     });
@@ -152,20 +152,20 @@ describe('DataService', () => {
   describe('getClassesForLanguage', () => {
     it('should return classes matching language name', () => {
       const classes = dataService.getClassesForLanguage('real');
-      
+
       expect(Array.isArray(classes)).toBe(true);
       classes.forEach(cls => {
         expect(cls.is_deprecated).toBe(false);
         expect(
           cls.type.toLowerCase().includes('real') ||
-          cls.container_name.toLowerCase().includes('real')
+            cls.container_name.toLowerCase().includes('real')
         ).toBe(true);
       });
     });
 
     it('should return empty array for non-matching language', () => {
       const classes = dataService.getClassesForLanguage('nonexistent');
-      
+
       expect(Array.isArray(classes)).toBe(true);
     });
   });
@@ -173,7 +173,7 @@ describe('DataService', () => {
   describe('getClassesForSchema', () => {
     it('should return classes matching schema parameters', () => {
       const classes = dataService.getClassesForSchema('test', 'container', 'class');
-      
+
       expect(Array.isArray(classes)).toBe(true);
       classes.forEach(cls => {
         expect(cls.is_deprecated).toBe(false);
@@ -184,7 +184,7 @@ describe('DataService', () => {
   describe('getClassesForCustomerApi', () => {
     it('should return classes matching customer API parameters', () => {
       const classes = dataService.getClassesForCustomerApi('test', 'container', 'class', 'output');
-      
+
       expect(Array.isArray(classes)).toBe(true);
       classes.forEach(cls => {
         expect(cls.is_deprecated).toBe(false);
@@ -195,7 +195,7 @@ describe('DataService', () => {
   describe('getClassByName', () => {
     it('should return class by exact name match', () => {
       const foundClass = dataService.getClassByName('TestClass');
-      
+
       expect(foundClass).toBeDefined();
       expect(foundClass?.type).toBe('TestClass');
       expect(foundClass?.is_deprecated).toBe(false);
@@ -203,13 +203,13 @@ describe('DataService', () => {
 
     it('should return undefined for non-existent class', () => {
       const foundClass = dataService.getClassByName('NonExistentClass');
-      
+
       expect(foundClass).toBeUndefined();
     });
 
     it('should not return deprecated classes', () => {
       const foundClass = dataService.getClassByName('DeprecatedClass');
-      
+
       expect(foundClass).toBeUndefined();
     });
   });
@@ -217,7 +217,7 @@ describe('DataService', () => {
   describe('getAllDataGroups', () => {
     it('should return all data groups', () => {
       const dataGroups = dataService.getAllDataGroups();
-      
+
       expect(Array.isArray(dataGroups)).toBe(true);
     });
   });
@@ -225,13 +225,13 @@ describe('DataService', () => {
   describe('getDataGroupsForTag', () => {
     it('should return data groups for blockchain tag', () => {
       const dataGroups = dataService.getDataGroupsForTag('blockchain');
-      
+
       expect(Array.isArray(dataGroups)).toBe(true);
     });
 
     it('should return empty array for non-blockchain tags', () => {
       const dataGroups = dataService.getDataGroupsForTag('realestate');
-      
+
       expect(Array.isArray(dataGroups)).toBe(true);
       expect(dataGroups).toHaveLength(0);
     });
@@ -240,24 +240,24 @@ describe('DataService', () => {
   describe('filterClassesForSearch', () => {
     it('should return empty array for short search terms', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'ab');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result).toHaveLength(0);
     });
 
     it('should return empty array for empty search term', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, '');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result).toHaveLength(0);
     });
 
     it('should find classes by type name', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'test');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBeGreaterThan(0);
-      
+
       const foundClass = result.find(cls => cls.type === 'TestClass');
       expect(foundClass).toBeDefined();
       expect(foundClass?._searchMatches).toBeDefined();
@@ -265,49 +265,43 @@ describe('DataService', () => {
 
     it('should find classes by property names', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'testProperty');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBeGreaterThan(0);
-      
-      const foundClass = result.find(cls => 
-        cls._searchMatches?.some(match => 
-          match.type === 'property' && match.field === 'name'
-        )
+
+      const foundClass = result.find(cls =>
+        cls._searchMatches?.some(match => match.type === 'property' && match.field === 'name')
       );
       expect(foundClass).toBeDefined();
     });
 
     it('should find classes by relationship names', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'testRelationship');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBeGreaterThan(0);
-      
-      const foundClass = result.find(cls => 
-        cls._searchMatches?.some(match => 
-          match.type === 'relationship' && match.field === 'name'
-        )
+
+      const foundClass = result.find(cls =>
+        cls._searchMatches?.some(match => match.type === 'relationship' && match.field === 'name')
       );
       expect(foundClass).toBeDefined();
     });
 
     it('should find classes by enum values', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'value1');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBeGreaterThan(0);
-      
-      const foundClass = result.find(cls => 
-        cls._searchMatches?.some(match => 
-          match.type === 'property' && match.field === 'enum'
-        )
+
+      const foundClass = result.find(cls =>
+        cls._searchMatches?.some(match => match.type === 'property' && match.field === 'enum')
       );
       expect(foundClass).toBeDefined();
     });
 
     it('should set search match flags correctly', () => {
       const result = dataService.filterClassesForSearch([mockSearchResultClass], 'matched');
-      
+
       expect(result).toHaveLength(1);
       const cls = result[0];
       expect(cls._hasPropertyMatches).toBe(true);
@@ -318,11 +312,11 @@ describe('DataService', () => {
 
     it('should sort results by relevance score', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'test');
-      
+
       if (result.length > 1) {
         // Check that scores are in descending order
         for (let i = 1; i < result.length; i++) {
-          const prevScore = Math.max(...(result[i-1]._searchMatches?.map(m => m.score) || [0]));
+          const prevScore = Math.max(...(result[i - 1]._searchMatches?.map(m => m.score) || [0]));
           const currentScore = Math.max(...(result[i]._searchMatches?.map(m => m.score) || [0]));
           expect(prevScore).toBeGreaterThanOrEqual(currentScore);
         }
@@ -331,11 +325,11 @@ describe('DataService', () => {
 
     it('should exclude deprecated properties from search', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'deprecatedProp');
-      
+
       // Should not find the deprecated property
-      const foundMatch = result.find(cls => 
-        cls._searchMatches?.some(match => 
-          match.type === 'property' && match.value.includes('deprecatedProp')
+      const foundMatch = result.find(cls =>
+        cls._searchMatches?.some(
+          match => match.type === 'property' && match.value.includes('deprecatedProp')
         )
       );
       expect(foundMatch).toBeUndefined();
@@ -345,7 +339,7 @@ describe('DataService', () => {
   describe('filterDataGroupsForSearch', () => {
     it('should return empty array for short search terms', () => {
       const result = dataService.filterDataGroupsForSearch([], 'ab');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result).toHaveLength(0);
     });
@@ -357,9 +351,9 @@ describe('DataService', () => {
           relationships: [{ from: 'A', to: 'B' }],
         },
       ];
-      
+
       const result = dataService.filterDataGroupsForSearch(mockDataGroups, 'test');
-      
+
       expect(Array.isArray(result)).toBe(true);
       expect(result.length).toBeGreaterThan(0);
       expect(result[0]._searchMatches).toBeDefined();
@@ -369,7 +363,7 @@ describe('DataService', () => {
   describe('fuzzy matching', () => {
     it('should handle exact matches with highlighting', () => {
       const result = dataService.filterClassesForSearch([mockLexiconClass], 'TestClass');
-      
+
       expect(result).toHaveLength(1);
       const match = result[0]._searchMatches?.find(m => m.type === 'class');
       expect(match?.value).toContain('<mark>');
@@ -378,7 +372,7 @@ describe('DataService', () => {
 
     it('should handle partial matches', () => {
       const result = dataService.filterClassesForSearch([mockLexiconClass], 'Test');
-      
+
       expect(result).toHaveLength(1);
       expect(result[0]._searchMatches).toBeDefined();
       expect(result[0]._searchMatches!.length).toBeGreaterThan(0);

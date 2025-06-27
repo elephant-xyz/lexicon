@@ -33,26 +33,20 @@ describe('LexiconClassViewer', () => {
 
   describe('Basic Rendering', () => {
     it('should render class names correctly', () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} />);
 
       expect(screen.getByText('TestClass')).toBeInTheDocument();
     });
 
     it('should render multiple classes', () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass, mockDeprecatedClass]} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass, mockDeprecatedClass]} />);
 
       expect(screen.getByText('TestClass')).toBeInTheDocument();
       expect(screen.getByText('DeprecatedClass')).toBeInTheDocument();
     });
 
     it('should show deprecated badge for deprecated classes', () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockDeprecatedClass]} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockDeprecatedClass]} />);
 
       expect(screen.getByText('DEPRECATED')).toBeInTheDocument();
     });
@@ -60,9 +54,7 @@ describe('LexiconClassViewer', () => {
 
   describe('Expand/Collapse Functionality', () => {
     it('should expand class when expand button is clicked', async () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} />);
 
       const expandButton = screen.getByRole('button', { name: /expand/i });
       fireEvent.click(expandButton);
@@ -73,9 +65,7 @@ describe('LexiconClassViewer', () => {
     });
 
     it('should collapse class when collapse button is clicked', async () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
 
       // Should be expanded by default
       expect(screen.getByText('Properties:')).toBeInTheDocument();
@@ -89,9 +79,7 @@ describe('LexiconClassViewer', () => {
     });
 
     it('should expand by default when expandByDefault is true', () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
 
       expect(screen.getByText('Properties:')).toBeInTheDocument();
       expect(screen.getByText('testProperty')).toBeInTheDocument();
@@ -100,9 +88,7 @@ describe('LexiconClassViewer', () => {
 
   describe('Properties Display', () => {
     beforeEach(() => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
     });
 
     it('should display property names and types', () => {
@@ -135,9 +121,7 @@ describe('LexiconClassViewer', () => {
 
   describe('Relationships Display', () => {
     beforeEach(() => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
     });
 
     it('should display relationships section', () => {
@@ -153,7 +137,7 @@ describe('LexiconClassViewer', () => {
       const targetButtons = screen.getAllByRole('button');
       const target1Button = targetButtons.find(btn => btn.textContent === 'TargetClass1');
       const target2Button = targetButtons.find(btn => btn.textContent === 'TargetClass2');
-      
+
       expect(target1Button).toBeInTheDocument();
       expect(target2Button).toBeInTheDocument();
     });
@@ -169,9 +153,7 @@ describe('LexiconClassViewer', () => {
 
   describe('Clipboard Functionality', () => {
     beforeEach(() => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
     });
 
     it('should copy enum value to clipboard when clicked', async () => {
@@ -179,7 +161,7 @@ describe('LexiconClassViewer', () => {
       fireEvent.click(enumButton);
 
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith('value1');
-      
+
       await waitFor(() => {
         expect(screen.getByText('✓ Copied!')).toBeInTheDocument();
       });
@@ -188,10 +170,10 @@ describe('LexiconClassViewer', () => {
     it('should handle clipboard API failure gracefully', async () => {
       // Mock clipboard.writeText to reject
       navigator.clipboard.writeText = vi.fn().mockRejectedValue(new Error('Clipboard error'));
-      
+
       // Mock document.execCommand for fallback
       document.execCommand = vi.fn().mockReturnValue(true);
-      
+
       const enumButton = screen.getByRole('button', { name: 'value1' });
       fireEvent.click(enumButton);
 
@@ -205,30 +187,34 @@ describe('LexiconClassViewer', () => {
   describe('Search Functionality', () => {
     it('should display search match indicators', () => {
       renderWithRouter(
-        <LexiconClassViewer 
-          classes={[mockSearchResultClass]} 
+        <LexiconClassViewer
+          classes={[mockSearchResultClass]}
           searchTerm="matched"
           expandByDefault={true}
         />
       );
 
-      expect(screen.getByText(/Found in \d+ propert(y|ies) and \d+ relationship/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Found in \d+ propert(y|ies) and \d+ relationship/)
+      ).toBeInTheDocument();
     });
 
     it('should highlight search matches in class names', () => {
       const classWithHighlight = {
         ...mockLexiconClass,
-        _searchMatches: [{
-          type: 'class' as const,
-          field: 'type' as const,
-          value: '<mark>Test</mark>Class',
-          score: 1.0,
-        }],
+        _searchMatches: [
+          {
+            type: 'class' as const,
+            field: 'type' as const,
+            value: '<mark>Test</mark>Class',
+            score: 1.0,
+          },
+        ],
       };
 
       renderWithRouter(
-        <LexiconClassViewer 
-          classes={[classWithHighlight]} 
+        <LexiconClassViewer
+          classes={[classWithHighlight]}
           searchTerm="test"
           expandByDefault={true}
         />
@@ -243,35 +229,32 @@ describe('LexiconClassViewer', () => {
 
     it('should auto-expand classes with search matches', () => {
       renderWithRouter(
-        <LexiconClassViewer 
-          classes={[mockSearchResultClass]} 
-          searchTerm="matched"
-        />
+        <LexiconClassViewer classes={[mockSearchResultClass]} searchTerm="matched" />
       );
 
       // Should be auto-expanded because it has matches and show search indicators
-      expect(screen.getByText(/Found in \d+ propert(y|ies) and \d+ relationship/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Found in \d+ propert(y|ies) and \d+ relationship/)
+      ).toBeInTheDocument();
     });
 
     it('should only show matched properties when searching', () => {
       const searchClass = {
         ...mockLexiconClass,
-        _searchMatches: [{
-          type: 'property' as const,
-          field: 'name' as const,
-          value: 'testProperty',
-          score: 1.0,
-        }],
+        _searchMatches: [
+          {
+            type: 'property' as const,
+            field: 'name' as const,
+            value: 'testProperty',
+            score: 1.0,
+          },
+        ],
         _hasPropertyMatches: true,
         _hasRelationshipMatches: false,
       };
 
       renderWithRouter(
-        <LexiconClassViewer 
-          classes={[searchClass]} 
-          searchTerm="test"
-          expandByDefault={true}
-        />
+        <LexiconClassViewer classes={[searchClass]} searchTerm="test" expandByDefault={true} />
       );
 
       expect(screen.getByText('testProperty')).toBeInTheDocument();
@@ -282,9 +265,7 @@ describe('LexiconClassViewer', () => {
 
   describe('Edge Cases', () => {
     it('should handle empty classes array', () => {
-      renderWithRouter(
-        <LexiconClassViewer classes={[]} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[]} />);
 
       expect(screen.queryByText('TestClass')).not.toBeInTheDocument();
     });
@@ -295,9 +276,7 @@ describe('LexiconClassViewer', () => {
         properties: {},
       };
 
-      renderWithRouter(
-        <LexiconClassViewer classes={[classWithoutProps]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[classWithoutProps]} expandByDefault={true} />);
 
       expect(screen.queryByText('Properties:')).not.toBeInTheDocument();
     });
@@ -308,9 +287,7 @@ describe('LexiconClassViewer', () => {
         relationships: {},
       };
 
-      renderWithRouter(
-        <LexiconClassViewer classes={[classWithoutRels]} expandByDefault={true} />
-      );
+      renderWithRouter(<LexiconClassViewer classes={[classWithoutRels]} expandByDefault={true} />);
 
       expect(screen.queryByText('Relationships:')).not.toBeInTheDocument();
     });
