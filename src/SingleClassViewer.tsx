@@ -1,36 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import dataService from './services/dataService';
 import LexiconClassViewer from './components/LexiconClassViewer';
+import NavigationHeader from './components/NavigationHeader';
 import './styles.css';
 
 const SingleClassViewer = () => {
   const { className } = useParams<{ className: string }>();
   const navigate = useNavigate();
-  const location = useLocation();
-  const [canGoBack, setCanGoBack] = useState(false);
-  const [canGoForward, setCanGoForward] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredClass, setFilteredClass] = useState<any>(null);
 
-  useEffect(() => {
-    // Initialize session storage for navigation history if it doesn't exist
-    if (!sessionStorage.getItem('navHistory')) {
-      sessionStorage.setItem('navHistory', JSON.stringify([location.pathname]));
-      sessionStorage.setItem('navHistoryIndex', '0');
-      // On fresh load, no forward navigation is possible
-      setCanGoForward(false);
-    } else {
-      // Check if we can go forward using session storage
-      const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
-      const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
-      setCanGoForward(currentIndex < navHistory.length - 1);
-    }
-
-    // Check if we can go back
-    setCanGoBack(window.history.length > 1);
-  }, [location]);
 
   // Scroll detection for scroll-to-top button
   useEffect(() => {
@@ -65,17 +46,6 @@ const SingleClassViewer = () => {
     setFilteredClass(filtered.length > 0 ? filtered[0] : null);
   }, [lexiconClass, searchTerm]);
 
-  const handleBack = () => {
-    if (canGoBack) {
-      navigate(-1);
-    }
-  };
-
-  const handleForward = () => {
-    if (canGoForward) {
-      navigate(1);
-    }
-  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -97,21 +67,7 @@ const SingleClassViewer = () => {
             <p>The class "{className}" could not be found in the lexicon.</p>
           </div>
           
-          <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
-            <button 
-              onClick={handleBack}
-              disabled={!canGoBack}
-              className="nav-button back-button"
-            >
-              ← Back
-            </button>
-            <button 
-              onClick={() => navigate('/')}
-              className="nav-button home-button"
-            >
-              🏠 Home
-            </button>
-          </div>
+          <NavigationHeader showHome={true} />
         </div>
 
         {/* Scroll to Top Button */}
@@ -168,28 +124,7 @@ const SingleClassViewer = () => {
           </div>
         </div>
         
-        <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
-          <button 
-            onClick={handleBack}
-            disabled={!canGoBack}
-            className="nav-button back-button"
-          >
-            ← Back
-          </button>
-          <button 
-            onClick={handleForward}
-            disabled={!canGoForward}
-            className="nav-button forward-button"
-          >
-            Forward →
-          </button>
-          <button 
-            onClick={() => navigate('/')}
-            className="nav-button home-button"
-          >
-            🏠 Home
-          </button>
-        </div>
+        <NavigationHeader showHome={true} />
       </div>
 
       <div className="results-info">

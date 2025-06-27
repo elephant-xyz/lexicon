@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import dataService from './services/dataService';
 import LexiconClassViewer from './components/LexiconClassViewer';
 import { DataGroupViewer } from './components/DataGroupViewer';
+import NavigationHeader from './components/NavigationHeader';
 import { LexiconClass, LexiconTag, DataGroup } from './types/lexicon';
 
 import './styles.css';
 
 const AllClassesViewer = () => {
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [classes, setClasses] = useState<LexiconClass[]>([]);
   const [filteredClasses, setFilteredClasses] = useState<LexiconClass[]>([]);
@@ -16,26 +15,7 @@ const AllClassesViewer = () => {
   const [filteredDataGroups, setFilteredDataGroups] = useState<DataGroup[]>([]);
   const [selectedTag, setSelectedTag] = useState('blockchain');
   const [tags, setTags] = useState<LexiconTag[]>([]);
-  const [canGoBack, setCanGoBack] = useState(false);
-  const [canGoForward, setCanGoForward] = useState(false);
 
-  useEffect(() => {
-    // Initialize session storage for navigation history if it doesn't exist
-    if (!sessionStorage.getItem('navHistory')) {
-      sessionStorage.setItem('navHistory', JSON.stringify([window.location.pathname]));
-      sessionStorage.setItem('navHistoryIndex', '0');
-      // On fresh load, no forward navigation is possible
-      setCanGoForward(false);
-    } else {
-      // Check if we can go forward using session storage
-      const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
-      const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
-      setCanGoForward(currentIndex < navHistory.length - 1);
-    }
-
-    // Check if we can go back
-    setCanGoBack(window.history.length > 1);
-  }, []);
 
   useEffect(() => {
     const availableTags = dataService.getTags();
@@ -115,25 +95,8 @@ const AllClassesViewer = () => {
             )}
           </div>
         </div>
-        
-        {(canGoBack || canGoForward) && (
-          <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
-            <button 
-              onClick={() => navigate(-1)}
-              className="nav-button back-button"
-              disabled={!canGoBack}
-            >
-              ← Back
-            </button>
-            <button 
-              onClick={() => navigate(1)}
-              className="nav-button forward-button"
-              disabled={!canGoForward}
-            >
-              Forward →
-            </button>
-          </div>
-        )}
+
+        <NavigationHeader />
       </div>
 
       <div className="results-info">
