@@ -155,7 +155,7 @@ const AllClassesViewer = () => {
       ) : (
         <div>
           {filteredDataGroups.length > 0 && (
-            <DataGroupViewer dataGroups={filteredDataGroups} />
+            <DataGroupViewer dataGroups={filteredDataGroups} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
           )}
           {filteredClasses.length > 0 && (
             <LexiconClassViewer classes={filteredClasses} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
