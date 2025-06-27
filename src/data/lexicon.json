@@ -16940,5 +16940,82 @@
         "relationship"
       ]
     }
+  ],
+  "data_groups": [
+    {
+      "label": "Source County",
+      "relationships": [
+        {
+          "from": "property",
+          "to": "address"
+        },
+        {
+          "from": "property",
+          "to": "tax"
+        },
+        {
+          "from": "property",
+          "to": "sales_history"
+        },
+        {
+          "from": "property",
+          "to": "document"
+        },
+        {
+          "from": "property",
+          "to": "document_image"
+        },
+        {
+          "from": "property",
+          "to": "layout"
+        }
+      ]
+    },
+    {
+      "label": "Image Metadata",
+      "relationships": [
+        {
+          "from": "property",
+          "to": "lot"
+        },
+        {
+          "from": "property",
+          "to": "layout"
+        },
+        {
+          "from": "property",
+          "to": "nearby_location"
+        },
+        {
+          "from": "property",
+          "to": "appliances"
+        },
+        {
+          "from": "property",
+          "to": "document_image"
+        }
+      ]
+    },
+    {
+      "label": "Source Mortgage Deed",
+      "relationships": [
+        {
+          "from": "property",
+          "to": "address"
+        },
+        {
+          "from": "person",
+          "to": "mortgage"
+        },
+        {
+          "from": "property",
+          "to": "mortgage"
+        },
+        {
+          "from": "person",
+          "to": "property"
+        }
+      ]
+    }
   ]
 }
