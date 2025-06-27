@@ -74,9 +74,19 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
     if (!searchTerm) return true; // Show all properties when not searching
     
     const matchedProps = getMatchedProperties(cls);
-    if (matchedProps.length === 0) return true; // If no property matches, show all
     
-    return matchedProps.includes(propName); // Only show matched properties
+    // If we have property matches, only show matched properties
+    if (matchedProps.length > 0) {
+      return matchedProps.includes(propName);
+    }
+    
+    // If no property matches but we have relationship matches, show no properties
+    if (cls._hasRelationshipMatches) {
+      return false;
+    }
+    
+    // If no property or relationship matches, show all (this shouldn't happen in filtered results)
+    return true;
   };
 
   const renderHighlightedText = (text: string): JSX.Element => {
