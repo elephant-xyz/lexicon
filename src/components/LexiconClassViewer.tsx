@@ -139,9 +139,19 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
     if (!searchTerm) return true; // Show all relationships when not searching
     
     const matchedRels = getMatchedRelationships(cls);
-    if (matchedRels.length === 0) return true; // If no relationship matches, show all
     
-    return matchedRels.includes(relName); // Only show matched relationships
+    // If we have relationship matches, only show matched relationships
+    if (matchedRels.length > 0) {
+      return matchedRels.includes(relName);
+    }
+    
+    // If no relationship matches but we have property matches, show no relationships
+    if (cls._hasPropertyMatches) {
+      return false;
+    }
+    
+    // If no property or relationship matches, show all (this shouldn't happen in filtered results)
+    return true;
   };
 
   const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
