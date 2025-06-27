@@ -8,6 +8,9 @@
 
 .search-container {
   padding: 10px;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .search-bar {

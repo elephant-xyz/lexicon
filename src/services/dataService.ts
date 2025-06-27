@@ -8,6 +8,10 @@ class DataService {
     this.lexicon = lexiconData as unknown as LexiconData;
   }
 
+  getAllClasses(): LexiconClass[] {
+    return this.lexicon.classes;
+  }
+
   getClassesForLanguage(languageName: string): LexiconClass[] {
     return this.lexicon.classes.filter(cls => 
       cls.type.toLowerCase().includes(languageName.toLowerCase()) ||
