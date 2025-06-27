@@ -17,6 +17,10 @@ const AllClassesViewer = () => {
   const [tags, setTags] = useState<LexiconTag[]>([]);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
+  // Scroll to top when component mounts (e.g., navigating back from a class view)
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   useEffect(() => {
     const availableTags = dataService.getTags();

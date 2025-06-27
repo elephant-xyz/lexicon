@@ -29,6 +29,11 @@ const SingleClassViewer = () => {
 
   const lexiconClass = className ? dataService.getClassByName(className) : undefined;
 
+  // Scroll to top when component mounts or className changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [className]);
+
   // Filter the class based on search term
   useEffect(() => {
     if (!lexiconClass) {
