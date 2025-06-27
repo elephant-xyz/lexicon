@@ -4,23 +4,23 @@
 /* CSS Custom Properties (Design Tokens) */
 :root {
   /* Primary Colors - New Design Guidelines */
-  --primary-espresso: #2C2E25;
-  --primary-off-white: #FDE8CF;
-  --primary-pink: #FF74C2;
-  --primary-white: #FFFFFF;
-  
+  --primary-espresso: #2c2e25;
+  --primary-off-white: #fde8cf;
+  --primary-pink: #ff74c2;
+  --primary-white: #ffffff;
+
   /* Secondary Colors */
-  --secondary-acid: #CDEA62;
-  --secondary-forest-green: #224E48;
-  --secondary-dark-red: #6E1335;
-  --secondary-blue: #74ABFF;
-  
+  --secondary-acid: #cdea62;
+  --secondary-forest-green: #224e48;
+  --secondary-dark-red: #6e1335;
+  --secondary-blue: #74abff;
+
   /* Extended Palette for UI */
-  --secondary-gray: #6B7280;
-  --secondary-light-gray: #F3F4F6;
-  --secondary-border: #E5E7EB;
-  --secondary-hover: #F9FAFB;
-  
+  --secondary-gray: #6b7280;
+  --secondary-light-gray: #f3f4f6;
+  --secondary-border: #e5e7eb;
+  --secondary-hover: #f9fafb;
+
   /* Semantic Colors */
   --background-primary: var(--primary-off-white);
   --background-secondary: var(--primary-white);
@@ -30,11 +30,12 @@
   --text-accent: var(--primary-pink);
   --border-color: var(--secondary-border);
   --hover-color: var(--secondary-hover);
-  
+
   /* Typography */
   --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-  
+  --font-family-mono:
+    'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
   /* Font Sizes */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -43,7 +44,7 @@
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
-  
+
   /* Spacing */
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
@@ -54,18 +55,18 @@
   --spacing-8: 2rem;
   --spacing-10: 2.5rem;
   --spacing-12: 3rem;
-  
+
   /* Border Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
+
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
   --transition-medium: 300ms ease-in-out;
@@ -114,7 +115,51 @@ body {
 .header-subtitle {
   font-size: var(--text-lg);
   color: var(--text-secondary);
+  margin-bottom: var(--spacing-4);
+}
+
+/* External Links */
+.external-links {
+  display: flex;
+  gap: var(--spacing-4);
+  justify-content: center;
+  align-items: center;
   margin-bottom: var(--spacing-6);
+  flex-wrap: wrap;
+}
+
+.external-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  text-decoration: none;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.external-link:hover {
+  background-color: var(--primary-pink);
+  color: var(--primary-white);
+  border-color: var(--primary-pink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.external-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
+}
+
+.external-link:active {
+  transform: translateY(0);
 }
 
 /* Controls Section */
@@ -823,8 +868,12 @@ mark {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Responsive Design */
@@ -832,27 +881,37 @@ mark {
   .search-container {
     padding: var(--spacing-4);
   }
-  
+
   .controls-section {
     padding: var(--spacing-4);
   }
-  
+
   .method-list-item-label {
     padding: var(--spacing-4);
   }
-  
+
   .method-list-item-content {
     padding: var(--spacing-4);
   }
-  
+
   .method-list-item-header {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-2);
   }
-  
+
   .expand-button {
     align-self: flex-end;
+  }
+
+  /* External links responsive */
+  .external-links {
+    gap: var(--spacing-2);
+  }
+
+  .external-link {
+    font-size: var(--text-xs);
+    padding: var(--spacing-1) var(--spacing-3);
   }
 }
 
@@ -860,11 +919,11 @@ mark {
   .header-title {
     font-size: var(--text-2xl);
   }
-  
+
   .header-subtitle {
     font-size: var(--text-base);
   }
-  
+
   .method-list-item-label-name {
     font-size: var(--text-lg);
   }
@@ -927,7 +986,9 @@ mark {
 
 .scroll-to-top-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.3), var(--shadow-lg);
+  box-shadow:
+    0 0 0 3px rgba(255, 116, 194, 0.3),
+    var(--shadow-lg);
 }
 
 .scroll-to-top-button:active {
@@ -1031,12 +1092,12 @@ mark {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .relationship-from,
   .relationship-to {
     width: 100%;
   }
-  
+
   .relationship-arrow {
     transform: rotate(90deg);
   }

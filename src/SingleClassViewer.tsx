@@ -12,7 +12,6 @@ const SingleClassViewer = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredClass, setFilteredClass] = useState<any>(null);
 
-
   // Scroll detection for scroll-to-top button
   useEffect(() => {
     const handleScroll = () => {
@@ -51,7 +50,6 @@ const SingleClassViewer = () => {
     setFilteredClass(filtered.length > 0 ? filtered[0] : null);
   }, [lexiconClass, searchTerm]);
 
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -64,14 +62,32 @@ const SingleClassViewer = () => {
           <p className="header-subtitle">
             Explore and search through the comprehensive data schema definitions
           </p>
+          <div className="external-links">
+            <a
+              href="https://elephant.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="external-link"
+            >
+              🐘 elephant.xyz
+            </a>
+            <a
+              href="https://elephant.xyz/whitepaper"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="external-link"
+            >
+              📄 Whitepaper
+            </a>
+          </div>
         </div>
-        
+
         <div className="controls-section">
           <div className="error-message">
             <h2>Class Not Found</h2>
             <p>The class "{className}" could not be found in the lexicon.</p>
           </div>
-          
+
           <NavigationHeader showHome={true} />
         </div>
 
@@ -97,6 +113,24 @@ const SingleClassViewer = () => {
         <p className="header-subtitle">
           Explore and search through the comprehensive data schema definitions
         </p>
+        <div className="external-links">
+          <a
+            href="https://elephant.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
+          >
+            🐘 elephant.xyz
+          </a>
+          <a
+            href="https://elephant.xyz/whitepaper"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
+          >
+            📄 Whitepaper
+          </a>
+        </div>
       </div>
 
       <div className="controls-section">
@@ -113,7 +147,7 @@ const SingleClassViewer = () => {
                 type="text"
                 placeholder="Search within this class..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 className="search-input"
               />
               {searchTerm && (
@@ -128,7 +162,7 @@ const SingleClassViewer = () => {
             </div>
           </div>
         </div>
-        
+
         <NavigationHeader showHome={true} />
       </div>
 
@@ -138,8 +172,8 @@ const SingleClassViewer = () => {
       </div>
 
       {filteredClass ? (
-        <LexiconClassViewer 
-          classes={[filteredClass]} 
+        <LexiconClassViewer
+          classes={[filteredClass]}
           searchTerm={searchTerm}
           expandByDefault={true}
         />
@@ -151,10 +185,7 @@ const SingleClassViewer = () => {
           </button>
         </div>
       ) : (
-        <LexiconClassViewer 
-          classes={[lexiconClass]} 
-          expandByDefault={true}
-        />
+        <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
       )}
 
       {/* Scroll to Top Button */}

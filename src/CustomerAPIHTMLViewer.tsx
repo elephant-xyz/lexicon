@@ -43,13 +43,13 @@ const CustomerAPIHTMLViewer = () => {
           type="text"
           placeholder="Search..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={e => setSearchTerm(e.target.value)}
           className="search-input"
         />
       </div>
       <LexiconClassViewer classes={filteredClasses} />
     </div>
-  );  
+  );
 };
 
 export default CustomerAPIHTMLViewer;

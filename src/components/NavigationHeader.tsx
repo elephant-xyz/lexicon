@@ -7,10 +7,10 @@ interface NavigationHeaderProps {
   style?: React.CSSProperties;
 }
 
-const NavigationHeader: React.FC<NavigationHeaderProps> = ({ 
-  showHome = false, 
+const NavigationHeader: React.FC<NavigationHeaderProps> = ({
+  showHome = false,
   className = 'navigation-controls',
-  style = { marginTop: 'var(--spacing-4)' }
+  style = { marginTop: 'var(--spacing-4)' },
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,7 +28,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
       // Check current navigation state
       const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
       const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
-      
+
       // Update navigation history if we're on a new page (not from back/forward navigation)
       const currentPath = location.pathname;
       if (navHistory[currentIndex] !== currentPath) {
@@ -36,10 +36,10 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
         const newHistory = navHistory.slice(0, currentIndex + 1);
         newHistory.push(currentPath);
         const newIndex = newHistory.length - 1;
-        
+
         sessionStorage.setItem('navHistory', JSON.stringify(newHistory));
         sessionStorage.setItem('navHistoryIndex', newIndex.toString());
-        
+
         setCanGoForward(false); // No forward navigation after new navigation
         setCanGoBack(newIndex > 0);
       } else {
@@ -54,7 +54,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
     if (canGoBack) {
       const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
       const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
-      
+
       if (currentIndex > 0) {
         const newIndex = currentIndex - 1;
         sessionStorage.setItem('navHistoryIndex', newIndex.toString());
@@ -67,7 +67,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
     if (canGoForward) {
       const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
       const currentIndex = parseInt(sessionStorage.getItem('navHistoryIndex') || '0');
-      
+
       if (currentIndex < navHistory.length - 1) {
         const newIndex = currentIndex + 1;
         sessionStorage.setItem('navHistoryIndex', newIndex.toString());
@@ -89,14 +89,10 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
     <div className={className} style={style}>
       {(canGoBack || canGoForward) && (
         <>
-          <button 
-            onClick={handleBack}
-            className="nav-button back-button"
-            disabled={!canGoBack}
-          >
+          <button onClick={handleBack} className="nav-button back-button" disabled={!canGoBack}>
             ← Back
           </button>
-          <button 
+          <button
             onClick={handleForward}
             className="nav-button forward-button"
             disabled={!canGoForward}
@@ -106,10 +102,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
         </>
       )}
       {showHome && (
-        <button 
-          onClick={handleHome}
-          className="nav-button home-button"
-        >
+        <button onClick={handleHome} className="nav-button home-button">
           🏠 Home
         </button>
       )}

@@ -14,7 +14,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
   // Auto-expand groups with matches when searching
   useEffect(() => {
     const newExpanded = new Set<number>();
-    
+
     if (searchTerm) {
       dataGroups.forEach((group, index) => {
         if (group._searchMatches && group._searchMatches.length > 0) {
@@ -48,7 +48,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
 
   const getHighlightedGroupName = (group: DataGroup): string => {
     if (!searchTerm || !group._searchMatches) return group.label;
-    
+
     const classMatch = group._searchMatches.find(m => m.type === 'class' && m.field === 'type');
     return classMatch?.value || group.label;
   };
@@ -62,7 +62,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
               <div className="method-list-item-label-name">
                 {renderHighlightedText(getHighlightedGroupName(group))}
               </div>
-              <button 
+              <button
                 className="expand-button"
                 onClick={() => toggleExpanded(index)}
                 aria-label={expandedGroups.has(index) ? 'Collapse' : 'Expand'}
@@ -72,11 +72,12 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
             </div>
             {searchTerm && group._searchMatches && group._searchMatches.length > 0 && (
               <div className="search-match-indicator">
-                Found in {group._searchMatches.length} match{group._searchMatches.length === 1 ? '' : 'es'}
+                Found in {group._searchMatches.length} match
+                {group._searchMatches.length === 1 ? '' : 'es'}
               </div>
             )}
           </div>
-          
+
           {expandedGroups.has(index) && (
             <div className="method-list-item-content">
               <div className="relationships-section">
@@ -92,8 +93,8 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                           <div className="relationship-targets-container">
                             <span className="relationship-targets-label">Links To</span>
                             <span className="relationship-from">
-                              From: 
-                              <button 
+                              From:
+                              <button
                                 className="relationship-target-link"
                                 onClick={() => handleClassClick(rel.from)}
                                 title={`Navigate to ${rel.from} class`}
@@ -103,8 +104,8 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                             </span>
                             <span className="relationship-arrow">→</span>
                             <span className="relationship-to">
-                              To: 
-                              <button 
+                              To:
+                              <button
                                 className="relationship-target-link"
                                 onClick={() => handleClassClick(rel.to)}
                                 title={`Navigate to ${rel.to} class`}
@@ -127,12 +128,15 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                     {group._searchMatches.map((match, matchIndex) => (
                       <div key={matchIndex} className="method-list-item method-list-item-isChild">
                         <div className="method-list-item-label">
-                          <div className="method-list-item-label-name">
-                            {match.field}
-                          </div>
+                          <div className="method-list-item-label-name">{match.field}</div>
                           <div className="method-list-item-label-description">
-                            {renderHighlightedText(match.highlightedRelationshipTarget || match.value)}
-                            <span className="match-score"> ({(match.score * 100).toFixed(0)}% match)</span>
+                            {renderHighlightedText(
+                              match.highlightedRelationshipTarget || match.value
+                            )}
+                            <span className="match-score">
+                              {' '}
+                              ({(match.score * 100).toFixed(0)}% match)
+                            </span>
                           </div>
                         </div>
                       </div>

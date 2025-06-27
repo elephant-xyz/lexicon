@@ -8,7 +8,11 @@ interface LexiconClassViewerProps {
   expandByDefault?: boolean;
 }
 
-const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, searchTerm, expandByDefault = false }) => {
+const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
+  classes,
+  searchTerm,
+  expandByDefault = false,
+}) => {
   const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
@@ -16,7 +20,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
   // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
     const newExpanded = new Set<number>();
-    
+
     if (expandByDefault) {
       // Expand all classes when expandByDefault is true
       classes.forEach((cls, index) => {
@@ -30,7 +34,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
         }
       });
     }
-    
+
     setExpandedClasses(newExpanded);
   }, [searchTerm, classes, expandByDefault]);
 
@@ -65,14 +69,14 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
 
   const getHighlightedClassName = (cls: LexiconClass): string => {
     if (!searchTerm || !cls._searchMatches) return cls.type;
-    
+
     const classMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'type');
     return classMatch?.value || cls.type;
   };
 
   const getMatchedProperties = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
-    
+
     return cls._searchMatches
       .filter(m => m.type === 'property')
       .map(m => m.value.replace(/<\/?mark>/g, '')) // Remove highlight tags to get property name
@@ -81,19 +85,19 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
 
   const shouldShowProperty = (cls: LexiconClass, propName: string): boolean => {
     if (!searchTerm) return true; // Show all properties when not searching
-    
+
     const matchedProps = getMatchedProperties(cls);
-    
+
     // If we have property matches, only show matched properties
     if (matchedProps.length > 0) {
       return matchedProps.includes(propName);
     }
-    
+
     // If no property matches but we have relationship matches, show no properties
     if (cls._hasRelationshipMatches) {
       return false;
     }
-    
+
     // If no property or relationship matches, show all (this shouldn't happen in filtered results)
     return true;
   };
@@ -104,11 +108,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
 
   const getHighlightedDescription = (cls: LexiconClass, propName: string): string => {
     if (!searchTerm || !cls._searchMatches) return '';
-    
-    const descMatch = cls._searchMatches.find(m => 
-      m.type === 'property' && 
-      m.field === 'description' && 
-      m.value === propName
+
+    const descMatch = cls._searchMatches.find(
+      m => m.type === 'property' && m.field === 'description' && m.value === propName
     );
     return descMatch?.highlightedDescription || '';
   };
@@ -116,13 +118,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
   const getHighlightedEnumValues = (cls: LexiconClass, propName: string): Map<string, string> => {
     const enumHighlights = new Map<string, string>();
     if (!searchTerm || !cls._searchMatches) return enumHighlights;
-    
-    const enumMatches = cls._searchMatches.filter(m => 
-      m.type === 'property' && 
-      m.field === 'enum' && 
-      m.value === propName
+
+    const enumMatches = cls._searchMatches.filter(
+      m => m.type === 'property' && m.field === 'enum' && m.value === propName
     );
-    
+
     enumMatches.forEach(match => {
       if (match.highlightedEnum) {
         // Extract the original enum value from the highlighted text
@@ -130,24 +130,22 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
         enumHighlights.set(originalValue, match.highlightedEnum);
       }
     });
-    
+
     return enumHighlights;
   };
 
   const getHighlightedType = (cls: LexiconClass, propName: string): string => {
     if (!searchTerm || !cls._searchMatches) return '';
-    
-    const typeMatch = cls._searchMatches.find(m => 
-      m.type === 'property' && 
-      m.field === 'type' && 
-      m.value === propName
+
+    const typeMatch = cls._searchMatches.find(
+      m => m.type === 'property' && m.field === 'type' && m.value === propName
     );
     return typeMatch?.highlightedType || '';
   };
 
   const getMatchedRelationships = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
-    
+
     return cls._searchMatches
       .filter(m => m.type === 'relationship')
       .map(m => m.value)
@@ -156,44 +154,43 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
 
   const shouldShowRelationship = (cls: LexiconClass, relName: string): boolean => {
     if (!searchTerm) return true; // Show all relationships when not searching
-    
+
     const matchedRels = getMatchedRelationships(cls);
-    
+
     // If we have relationship matches, only show matched relationships
     if (matchedRels.length > 0) {
       return matchedRels.includes(relName);
     }
-    
+
     // If no relationship matches but we have property matches, show no relationships
     if (cls._hasPropertyMatches) {
       return false;
     }
-    
+
     // If no property or relationship matches, show all (this shouldn't happen in filtered results)
     return true;
   };
 
   const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
     if (!searchTerm || !cls._searchMatches) return '';
-    
-    const relMatch = cls._searchMatches.find(m => 
-      m.type === 'relationship' && 
-      m.field === 'name' && 
-      m.value === relName
+
+    const relMatch = cls._searchMatches.find(
+      m => m.type === 'relationship' && m.field === 'name' && m.value === relName
     );
     return relMatch?.highlightedRelationshipName || '';
   };
 
-  const getHighlightedRelationshipTargets = (cls: LexiconClass, relName: string): Map<string, string> => {
+  const getHighlightedRelationshipTargets = (
+    cls: LexiconClass,
+    relName: string
+  ): Map<string, string> => {
     const targetHighlights = new Map<string, string>();
     if (!searchTerm || !cls._searchMatches) return targetHighlights;
-    
-    const targetMatches = cls._searchMatches.filter(m => 
-      m.type === 'relationship' && 
-      m.field === 'target' && 
-      m.value === relName
+
+    const targetMatches = cls._searchMatches.filter(
+      m => m.type === 'relationship' && m.field === 'target' && m.value === relName
     );
-    
+
     targetMatches.forEach(match => {
       if (match.highlightedRelationshipTarget) {
         // Extract the original target value from the highlighted text
@@ -201,17 +198,15 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
         targetHighlights.set(originalTarget, match.highlightedRelationshipTarget);
       }
     });
-    
+
     return targetHighlights;
   };
 
   const getHighlightedRelationshipDescription = (cls: LexiconClass, relName: string): string => {
     if (!searchTerm || !cls._searchMatches) return '';
-    
-    const relDescMatch = cls._searchMatches.find(m => 
-      m.type === 'relationship' && 
-      m.field === 'description' && 
-      m.value === relName
+
+    const relDescMatch = cls._searchMatches.find(
+      m => m.type === 'relationship' && m.field === 'description' && m.value === relName
     );
     return relDescMatch?.highlightedRelationshipDescription || '';
   };
@@ -225,7 +220,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
               <div className="method-list-item-label-name">
                 {renderHighlightedText(getHighlightedClassName(cls))}
               </div>
-              <button 
+              <button
                 className="expand-button"
                 onClick={() => toggleExpanded(index)}
                 aria-label={expandedClasses.has(index) ? 'Collapse' : 'Expand'}
@@ -236,13 +231,24 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
             {searchTerm && (cls._hasPropertyMatches || cls._hasRelationshipMatches) && (
               <div className="search-match-indicator">
                 {cls._hasPropertyMatches && cls._hasRelationshipMatches && (
-                  <>Found in {getMatchedProperties(cls).length} propert{getMatchedProperties(cls).length === 1 ? 'y' : 'ies'} and {getMatchedRelationships(cls).length} relationship{getMatchedRelationships(cls).length === 1 ? '' : 's'}</>
+                  <>
+                    Found in {getMatchedProperties(cls).length} propert
+                    {getMatchedProperties(cls).length === 1 ? 'y' : 'ies'} and{' '}
+                    {getMatchedRelationships(cls).length} relationship
+                    {getMatchedRelationships(cls).length === 1 ? '' : 's'}
+                  </>
                 )}
                 {cls._hasPropertyMatches && !cls._hasRelationshipMatches && (
-                  <>Found in {getMatchedProperties(cls).length} propert{getMatchedProperties(cls).length === 1 ? 'y' : 'ies'}</>
+                  <>
+                    Found in {getMatchedProperties(cls).length} propert
+                    {getMatchedProperties(cls).length === 1 ? 'y' : 'ies'}
+                  </>
                 )}
                 {!cls._hasPropertyMatches && cls._hasRelationshipMatches && (
-                  <>Found in {getMatchedRelationships(cls).length} relationship{getMatchedRelationships(cls).length === 1 ? '' : 's'}</>
+                  <>
+                    Found in {getMatchedRelationships(cls).length} relationship
+                    {getMatchedRelationships(cls).length === 1 ? '' : 's'}
+                  </>
                 )}
               </div>
             )}
@@ -252,13 +258,15 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
             <div className="method-list-item-content">
               {(() => {
                 const matchedProps = getMatchedProperties(cls);
-                const hasVisibleProperties = Object.entries(cls.properties || {}).some(([propName]) => {
-                  const isDeprecated = cls.deprecated_properties?.includes(propName);
-                  return !isDeprecated && shouldShowProperty(cls, propName);
-                });
-                
+                const hasVisibleProperties = Object.entries(cls.properties || {}).some(
+                  ([propName]) => {
+                    const isDeprecated = cls.deprecated_properties?.includes(propName);
+                    return !isDeprecated && shouldShowProperty(cls, propName);
+                  }
+                );
+
                 if (!hasVisibleProperties) return null;
-                
+
                 return (
                   <div className="properties-section">
                     <h4>Properties:</h4>
@@ -266,135 +274,147 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                       {Object.entries(cls.properties || {}).map(([propName, propData]) => {
                         const isDeprecated = cls.deprecated_properties?.includes(propName);
                         if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
-                        
+
                         const isMatchedProperty = matchedProps.includes(propName);
-                    
-                    return (
-                      <div 
-                        key={propName} 
-                        className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''}`}
-                      >
-                        <div className="method-list-item-label">
-                          <div className="method-list-item-label-name">
-                            {searchTerm && cls._searchMatches ? 
-                              renderHighlightedText(
-                                cls._searchMatches.find(m => 
-                                  m.type === 'property' && m.value.replace(/<\/?mark>/g, '') === propName
-                                )?.value || propName
-                              ) : 
-                              propName
-                            }
-                          </div>
-                          <div className="method-list-item-label-type">
-                            <span className="property-type-label">Data Type</span>
-                            <span className="property-type-value">
-                              {searchTerm && getHighlightedType(cls, propName) ? 
-                                renderHighlightedText(getHighlightedType(cls, propName)) :
-                                propData.type
-                              }
-                            </span>
-                          </div>
-                          {propData.enum && (
-                            <div className="method-list-item-label-enum">
-                              <span className="enum-label">Possible Values:</span>
-                              <div className="enum-values">
-                                {[...propData.enum].sort((a, b) => a.localeCompare(b)).map((value, idx) => {
-                                  const enumHighlights = getHighlightedEnumValues(cls, propName);
-                                  const highlightedValue = enumHighlights.get(value);
-                                  
-                                  return (
-                                    <button 
-                                      key={idx} 
-                                      className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
-                                      onClick={() => copyToClipboard(value)}
-                                      title="Click to copy to clipboard"
-                                    >
-                                      {copiedValue === value ? '✓ Copied!' : 
-                                        (searchTerm && highlightedValue ? 
-                                          <span dangerouslySetInnerHTML={{ __html: highlightedValue }} /> :
-                                          value
-                                        )
-                                      }
-                                    </button>
-                                  );
-                                })}
+
+                        return (
+                          <div
+                            key={propName}
+                            className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''}`}
+                          >
+                            <div className="method-list-item-label">
+                              <div className="method-list-item-label-name">
+                                {searchTerm && cls._searchMatches
+                                  ? renderHighlightedText(
+                                      cls._searchMatches.find(
+                                        m =>
+                                          m.type === 'property' &&
+                                          m.value.replace(/<\/?mark>/g, '') === propName
+                                      )?.value || propName
+                                    )
+                                  : propName}
+                              </div>
+                              <div className="method-list-item-label-type">
+                                <span className="property-type-label">Data Type</span>
+                                <span className="property-type-value">
+                                  {searchTerm && getHighlightedType(cls, propName)
+                                    ? renderHighlightedText(getHighlightedType(cls, propName))
+                                    : propData.type}
+                                </span>
+                              </div>
+                              {propData.enum && (
+                                <div className="method-list-item-label-enum">
+                                  <span className="enum-label">Possible Values:</span>
+                                  <div className="enum-values">
+                                    {[...propData.enum]
+                                      .sort((a, b) => a.localeCompare(b))
+                                      .map((value, idx) => {
+                                        const enumHighlights = getHighlightedEnumValues(
+                                          cls,
+                                          propName
+                                        );
+                                        const highlightedValue = enumHighlights.get(value);
+
+                                        return (
+                                          <button
+                                            key={idx}
+                                            className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                            onClick={() => copyToClipboard(value)}
+                                            title="Click to copy to clipboard"
+                                          >
+                                            {copiedValue === value ? (
+                                              '✓ Copied!'
+                                            ) : searchTerm && highlightedValue ? (
+                                              <span
+                                                dangerouslySetInnerHTML={{
+                                                  __html: highlightedValue,
+                                                }}
+                                              />
+                                            ) : (
+                                              value
+                                            )}
+                                          </button>
+                                        );
+                                      })}
+                                  </div>
+                                </div>
+                              )}
+                              <div className="method-list-item-label-description">
+                                {searchTerm && getHighlightedDescription(cls, propName)
+                                  ? renderHighlightedText(getHighlightedDescription(cls, propName))
+                                  : propData.comment || ''}
                               </div>
                             </div>
-                          )}
-                          <div className="method-list-item-label-description">
-                            {searchTerm && getHighlightedDescription(cls, propName) ? 
-                              renderHighlightedText(getHighlightedDescription(cls, propName)) :
-                              propData.comment || ''
-                            }
                           </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                        );
+                      })}
                     </div>
                   </div>
                 );
               })()}
-              
+
               {(() => {
                 const matchedRels = getMatchedRelationships(cls);
-                const hasVisibleRelationships = cls.relationships && Object.entries(cls.relationships).some(([relName]) => 
-                  shouldShowRelationship(cls, relName)
-                );
-                
+                const hasVisibleRelationships =
+                  cls.relationships &&
+                  Object.entries(cls.relationships).some(([relName]) =>
+                    shouldShowRelationship(cls, relName)
+                  );
+
                 if (!hasVisibleRelationships) return null;
-                
+
                 return (
                   <div className="relationships-section">
                     <h4>Relationships:</h4>
                     <div className="relationships-list">
                       {Object.entries(cls.relationships || {}).map(([relName, relData]) => {
                         if (!shouldShowRelationship(cls, relName)) return null;
-                      
-                      const matchedRels = getMatchedRelationships(cls);
-                      const isMatchedRelationship = matchedRels.includes(relName);
-                      const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
-                      
-                      return (
-                        <div 
-                          key={relName} 
-                          className={`method-list-item method-list-item-isChild ${isMatchedRelationship ? 'property-matched' : ''}`}
-                        >
-                          <div className="method-list-item-label">
-                            <div className="method-list-item-label-name">
-                              {searchTerm && getHighlightedRelationshipName(cls, relName) ? 
-                                renderHighlightedText(getHighlightedRelationshipName(cls, relName)) :
-                                relName
-                              }
-                            </div>
-                            <div className="relationship-targets-container">
-                              <span className="relationship-targets-label">Links To</span>
-                              {relData.targets?.map((target, idx) => {
-                                const highlightedTarget = targetHighlights.get(target);
-                                return (
-                                  <button
-                                    key={idx}
-                                    className="relationship-target-link"
-                                    onClick={() => navigate(`/class/${target}`)}
-                                    title={`Navigate to ${target} class`}
-                                  >
-                                    {searchTerm && highlightedTarget ? 
-                                      renderHighlightedText(highlightedTarget) :
-                                      target
-                                    }
-                                  </button>
-                                );
-                              }) || ''}
-                            </div>
-                            <div className="method-list-item-label-description">
-                              {searchTerm && getHighlightedRelationshipDescription(cls, relName) ? 
-                                renderHighlightedText(getHighlightedRelationshipDescription(cls, relName)) :
-                                relData.comment || ''
-                              }
+
+                        const matchedRels = getMatchedRelationships(cls);
+                        const isMatchedRelationship = matchedRels.includes(relName);
+                        const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
+
+                        return (
+                          <div
+                            key={relName}
+                            className={`method-list-item method-list-item-isChild ${isMatchedRelationship ? 'property-matched' : ''}`}
+                          >
+                            <div className="method-list-item-label">
+                              <div className="method-list-item-label-name">
+                                {searchTerm && getHighlightedRelationshipName(cls, relName)
+                                  ? renderHighlightedText(
+                                      getHighlightedRelationshipName(cls, relName)
+                                    )
+                                  : relName}
+                              </div>
+                              <div className="relationship-targets-container">
+                                <span className="relationship-targets-label">Links To</span>
+                                {relData.targets?.map((target, idx) => {
+                                  const highlightedTarget = targetHighlights.get(target);
+                                  return (
+                                    <button
+                                      key={idx}
+                                      className="relationship-target-link"
+                                      onClick={() => navigate(`/class/${target}`)}
+                                      title={`Navigate to ${target} class`}
+                                    >
+                                      {searchTerm && highlightedTarget
+                                        ? renderHighlightedText(highlightedTarget)
+                                        : target}
+                                    </button>
+                                  );
+                                }) || ''}
+                              </div>
+                              <div className="method-list-item-label-description">
+                                {searchTerm && getHighlightedRelationshipDescription(cls, relName)
+                                  ? renderHighlightedText(
+                                      getHighlightedRelationshipDescription(cls, relName)
+                                    )
+                                  : relData.comment || ''}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
+                        );
                       })}
                     </div>
                   </div>

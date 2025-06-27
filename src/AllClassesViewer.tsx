@@ -42,15 +42,14 @@ const AllClassesViewer = () => {
   }, []);
 
   useEffect(() => {
-    const tagClasses = selectedTag === 'all' 
-      ? dataService.getAllClasses() 
-      : dataService.getClassesForTag(selectedTag);
+    const tagClasses =
+      selectedTag === 'all'
+        ? dataService.getAllClasses()
+        : dataService.getClassesForTag(selectedTag);
     setClasses(tagClasses);
     setFilteredClasses(tagClasses);
 
-    const tagDataGroups = selectedTag === 'all' 
-      ? [] 
-      : dataService.getDataGroupsForTag(selectedTag);
+    const tagDataGroups = selectedTag === 'all' ? [] : dataService.getDataGroupsForTag(selectedTag);
     setDataGroups(tagDataGroups);
     setFilteredDataGroups(tagDataGroups);
   }, [selectedTag]);
@@ -62,7 +61,10 @@ const AllClassesViewer = () => {
     } else if (searchTerm.length >= 3) {
       const filteredClassResults = dataService.filterClassesForSearch(classes, searchTerm);
       setFilteredClasses(filteredClassResults);
-      const filteredDataGroupResults = dataService.filterDataGroupsForSearch(dataGroups, searchTerm);
+      const filteredDataGroupResults = dataService.filterDataGroupsForSearch(
+        dataGroups,
+        searchTerm
+      );
       setFilteredDataGroups(filteredDataGroupResults);
     } else {
       setFilteredClasses([]);
@@ -81,6 +83,24 @@ const AllClassesViewer = () => {
         <p className="header-subtitle">
           Explore and search through the comprehensive data schema definitions
         </p>
+        <div className="external-links">
+          <a
+            href="https://elephant.xyz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
+          >
+            🐘 elephant.xyz
+          </a>
+          <a
+            href="https://elephant.xyz/whitepaper"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
+          >
+            📄 Whitepaper
+          </a>
+        </div>
       </div>
 
       <div className="controls-section">
@@ -90,7 +110,7 @@ const AllClassesViewer = () => {
             <select
               id="tag-select"
               value={selectedTag}
-              onChange={(e) => setSelectedTag(e.target.value)}
+              onChange={e => setSelectedTag(e.target.value)}
               className="tag-select"
             >
               <option value="all">All Classes</option>
@@ -108,12 +128,13 @@ const AllClassesViewer = () => {
               type="text"
               placeholder="Type at least 3 characters to search..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className={`search-input ${searchTerm.length > 0 && searchTerm.length < 3 ? 'search-input-warning' : ''}`}
             />
             {searchTerm.length > 0 && searchTerm.length < 3 && (
               <div className="search-hint">
-                Type {3 - searchTerm.length} more character{3 - searchTerm.length !== 1 ? 's' : ''} to start searching
+                Type {3 - searchTerm.length} more character{3 - searchTerm.length !== 1 ? 's' : ''}{' '}
+                to start searching
               </div>
             )}
           </div>
@@ -124,11 +145,14 @@ const AllClassesViewer = () => {
 
       <div className="results-info">
         <span className="results-count">
-          {filteredDataGroups.length > 0 && `${filteredDataGroups.length} data ${filteredDataGroups.length === 1 ? 'group' : 'groups'}, `}
+          {filteredDataGroups.length > 0 &&
+            `${filteredDataGroups.length} data ${filteredDataGroups.length === 1 ? 'group' : 'groups'}, `}
           {filteredClasses.length} {filteredClasses.length === 1 ? 'class' : 'classes'}
         </span>
         <span>
-          {selectedTag === 'all' ? 'All Categories' : `Category: ${selectedTag.charAt(0).toUpperCase() + selectedTag.slice(1)}`}
+          {selectedTag === 'all'
+            ? 'All Categories'
+            : `Category: ${selectedTag.charAt(0).toUpperCase() + selectedTag.slice(1)}`}
         </span>
       </div>
 
@@ -136,18 +160,16 @@ const AllClassesViewer = () => {
         <div className="empty-state">
           <div className="empty-state-icon">📋</div>
           <div className="empty-state-title">
-            {searchTerm.length > 0 && searchTerm.length < 3 
-              ? 'Type more characters to search' 
-              : 'No data groups or classes found'
-            }
+            {searchTerm.length > 0 && searchTerm.length < 3
+              ? 'Type more characters to search'
+              : 'No data groups or classes found'}
           </div>
           <div className="empty-state-description">
             {searchTerm.length > 0 && searchTerm.length < 3
               ? 'Search requires at least 3 characters for better results and typo tolerance.'
-              : searchTerm 
+              : searchTerm
                 ? `No data groups or classes match "${searchTerm}". Try adjusting your search or selecting a different category.`
-                : 'No data groups or classes available in the selected category.'
-            }
+                : 'No data groups or classes available in the selected category.'}
           </div>
         </div>
       ) : (
@@ -159,7 +181,10 @@ const AllClassesViewer = () => {
                 <span className="separator-text">Data Groups</span>
                 <div className="separator-line"></div>
               </div>
-              <DataGroupViewer dataGroups={filteredDataGroups} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+              <DataGroupViewer
+                dataGroups={filteredDataGroups}
+                searchTerm={searchTerm.length >= 3 ? searchTerm : ''}
+              />
             </div>
           )}
           {filteredDataGroups.length > 0 && filteredClasses.length > 0 && (
@@ -171,7 +196,10 @@ const AllClassesViewer = () => {
           )}
           {filteredClasses.length > 0 && (
             <div className="classes-section">
-              <LexiconClassViewer classes={filteredClasses} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+              <LexiconClassViewer
+                classes={filteredClasses}
+                searchTerm={searchTerm.length >= 3 ? searchTerm : ''}
+              />
             </div>
           )}
         </div>
@@ -189,7 +217,7 @@ const AllClassesViewer = () => {
         </button>
       )}
     </div>
-  );  
+  );
 };
 
 export default AllClassesViewer;
