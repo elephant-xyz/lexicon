@@ -40,6 +40,39 @@
   border: 2px solid rgba(0, 0, 0, 0.1);
 }
 
+.method-list-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.expand-button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  color: #666;
+}
+
+.expand-button:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.expand-button:focus {
+  outline: 2px solid #007acc;
+  outline-offset: 2px;
+}
+
 :root {
     --ifm-color-primary: #ffff;
     --ifm-color-primary-dark: #29784c;
