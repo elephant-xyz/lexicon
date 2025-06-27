@@ -10,12 +10,12 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
-  // Auto-expand classes with property matches when searching
+  // Auto-expand classes with property or relationship matches when searching
   useEffect(() => {
     if (searchTerm) {
       const newExpanded = new Set<number>();
       classes.forEach((cls, index) => {
-        if (cls._hasPropertyMatches) {
+        if (cls._hasPropertyMatches || cls._hasRelationshipMatches) {
           newExpanded.add(index);
         }
       });
@@ -124,6 +124,67 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
     return typeMatch?.highlightedType || '';
   };
 
+  const getMatchedRelationships = (cls: LexiconClass): string[] => {
+    if (!searchTerm || !cls._searchMatches) return [];
+    
+    return cls._searchMatches
+      .filter(m => m.type === 'relationship')
+      .map(m => m.value)
+      .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+  };
+
+  const shouldShowRelationship = (cls: LexiconClass, relName: string): boolean => {
+    if (!searchTerm) return true; // Show all relationships when not searching
+    
+    const matchedRels = getMatchedRelationships(cls);
+    if (matchedRels.length === 0) return true; // If no relationship matches, show all
+    
+    return matchedRels.includes(relName); // Only show matched relationships
+  };
+
+  const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
+    if (!searchTerm || !cls._searchMatches) return '';
+    
+    const relMatch = cls._searchMatches.find(m => 
+      m.type === 'relationship' && 
+      m.field === 'name' && 
+      m.value === relName
+    );
+    return relMatch?.highlightedRelationshipName || '';
+  };
+
+  const getHighlightedRelationshipTargets = (cls: LexiconClass, relName: string): Map<string, string> => {
+    const targetHighlights = new Map<string, string>();
+    if (!searchTerm || !cls._searchMatches) return targetHighlights;
+    
+    const targetMatches = cls._searchMatches.filter(m => 
+      m.type === 'relationship' && 
+      m.field === 'target' && 
+      m.value === relName
+    );
+    
+    targetMatches.forEach(match => {
+      if (match.highlightedRelationshipTarget) {
+        // Extract the original target value from the highlighted text
+        const originalTarget = match.highlightedRelationshipTarget.replace(/<\/?mark>/g, '');
+        targetHighlights.set(originalTarget, match.highlightedRelationshipTarget);
+      }
+    });
+    
+    return targetHighlights;
+  };
+
+  const getHighlightedRelationshipDescription = (cls: LexiconClass, relName: string): string => {
+    if (!searchTerm || !cls._searchMatches) return '';
+    
+    const relDescMatch = cls._searchMatches.find(m => 
+      m.type === 'relationship' && 
+      m.field === 'description' && 
+      m.value === relName
+    );
+    return relDescMatch?.highlightedRelationshipDescription || '';
+  };
+
   return (
     <div className="lexicon-viewer">
       {classes.map((cls, index) => (
@@ -141,9 +202,17 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                 {expandedClasses.has(index) ? '−' : '+'}
               </button>
             </div>
-            {searchTerm && cls._hasPropertyMatches && (
+            {searchTerm && (cls._hasPropertyMatches || cls._hasRelationshipMatches) && (
               <div className="search-match-indicator">
-                Found in {getMatchedProperties(cls).length} propert{getMatchedProperties(cls).length === 1 ? 'y' : 'ies'}
+                {cls._hasPropertyMatches && cls._hasRelationshipMatches && (
+                  <>Found in {getMatchedProperties(cls).length} propert{getMatchedProperties(cls).length === 1 ? 'y' : 'ies'} and {getMatchedRelationships(cls).length} relationship{getMatchedRelationships(cls).length === 1 ? '' : 's'}</>
+                )}
+                {cls._hasPropertyMatches && !cls._hasRelationshipMatches && (
+                  <>Found in {getMatchedProperties(cls).length} propert{getMatchedProperties(cls).length === 1 ? 'y' : 'ies'}</>
+                )}
+                {!cls._hasPropertyMatches && cls._hasRelationshipMatches && (
+                  <>Found in {getMatchedRelationships(cls).length} relationship{getMatchedRelationships(cls).length === 1 ? '' : 's'}</>
+                )}
               </div>
             )}
             {cls.is_deprecated && <div className="deprecated-badge">DEPRECATED</div>}
@@ -226,17 +295,51 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                 <div className="relationships-section">
                   <h4>Relationships:</h4>
                   <div className="relationships-list">
-                    {Object.entries(cls.relationships).map(([relName, relData]) => (
-                      <div key={relName} className="method-list-item method-list-item-isChild">
-                        <div className="method-list-item-label">
-                          <div className="method-list-item-label-name">{relName}</div>
-                          <div className="method-list-item-label-type">
-                            Targets: [{relData.targets?.join(', ') || ''}]
+                    {Object.entries(cls.relationships).map(([relName, relData]) => {
+                      if (!shouldShowRelationship(cls, relName)) return null;
+                      
+                      const matchedRels = getMatchedRelationships(cls);
+                      const isMatchedRelationship = matchedRels.includes(relName);
+                      const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
+                      
+                      return (
+                        <div 
+                          key={relName} 
+                          className={`method-list-item method-list-item-isChild ${isMatchedRelationship ? 'property-matched' : ''}`}
+                        >
+                          <div className="method-list-item-label">
+                            <div className="method-list-item-label-name">
+                              {searchTerm && getHighlightedRelationshipName(cls, relName) ? 
+                                renderHighlightedText(getHighlightedRelationshipName(cls, relName)) :
+                                relName
+                              }
+                            </div>
+                            <div className="method-list-item-label-type">
+                              Targets: [
+                              {relData.targets?.map((target, idx) => {
+                                const highlightedTarget = targetHighlights.get(target);
+                                return (
+                                  <span key={idx}>
+                                    {searchTerm && highlightedTarget ? 
+                                      renderHighlightedText(highlightedTarget) :
+                                      target
+                                    }
+                                    {idx < (relData.targets?.length || 0) - 1 ? ', ' : ''}
+                                  </span>
+                                );
+                              }) || ''}
+                              ]
+                            </div>
+                            <div className="method-list-item-label-description">
+                              {searchTerm && getHighlightedRelationshipDescription(cls, relName) ? 
+                                renderHighlightedText(getHighlightedRelationshipDescription(cls, relName)) :
+                                relData.comment || ''
+                              }
+                            </div>
                           </div>
-                          <div className="method-list-item-label-description">{relData.comment || ''}</div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}

@@ -190,6 +190,53 @@ class DataService {
         });
       }
     });
+
+    // Check relationships
+    if (cls.relationships) {
+      Object.entries(cls.relationships).forEach(([relName, relData]) => {
+        // Relationship name match
+        const relNameMatch = this.fuzzyMatch(searchTerm, relName);
+        if (relNameMatch.matches) {
+          matches.push({
+            type: 'relationship',
+            field: 'name',
+            value: relName,
+            score: relNameMatch.score,
+            highlightedRelationshipName: relNameMatch.highlight || relName
+          });
+        }
+
+        // Relationship target match
+        if (relData.targets && relData.targets.length > 0) {
+          relData.targets.forEach(target => {
+            const targetMatch = this.fuzzyMatch(searchTerm, target);
+            if (targetMatch.matches) {
+              matches.push({
+                type: 'relationship',
+                field: 'target',
+                value: relName, // Relationship name for identification
+                score: targetMatch.score,
+                highlightedRelationshipTarget: targetMatch.highlight || target
+              });
+            }
+          });
+        }
+
+        // Relationship description match
+        if (relData.comment) {
+          const relDescMatch = this.fuzzyMatch(searchTerm, relData.comment);
+          if (relDescMatch.matches) {
+            matches.push({
+              type: 'relationship',
+              field: 'description',
+              value: relName, // Relationship name for identification
+              score: relDescMatch.score,
+              highlightedRelationshipDescription: relDescMatch.highlight || relData.comment
+            });
+          }
+        }
+      });
+    }
     
     return matches;
   }
@@ -213,7 +260,8 @@ class DataService {
       .map(item => ({
         ...item.class,
         _searchMatches: item.matches, // Store matches for UI use
-        _hasPropertyMatches: item.matches.some(m => m.type === 'property')
+        _hasPropertyMatches: item.matches.some(m => m.type === 'property'),
+        _hasRelationshipMatches: item.matches.some(m => m.type === 'relationship')
       }));
   }
 }

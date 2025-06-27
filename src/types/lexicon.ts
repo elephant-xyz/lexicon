@@ -10,13 +10,16 @@ export interface LexiconRelationship {
 }
 
 export interface SearchMatch {
-  type: 'class' | 'property';
+  type: 'class' | 'property' | 'relationship';
   field: string;
   value: string;
   score: number;
   highlightedDescription?: string;
   highlightedEnum?: string;
   highlightedType?: string;
+  highlightedRelationshipName?: string;
+  highlightedRelationshipTarget?: string;
+  highlightedRelationshipDescription?: string;
 }
 
 export interface LexiconClass {
@@ -28,6 +31,7 @@ export interface LexiconClass {
   relationships?: Record<string, LexiconRelationship>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
+  _hasRelationshipMatches?: boolean;
 }
 
 export interface LexiconTag {
