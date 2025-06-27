@@ -21,22 +21,37 @@ This project uses **Vite** (migrated from Create React App) with TypeScript:
 
 ```
 Data Flow: lexicon.json → dataService → Route Components → LexiconClassViewer
+Navigation: AllClassesViewer ↔ SingleClassViewer (via relationship links)
 ```
 
-**Key Pattern**: All three route components (`HTMLViewer`, `LanguageHTMLViewer`, `CustomerAPIHTMLViewer`) follow the same pattern:
+**Key Pattern**: Route components follow consistent patterns:
 1. Extract URL parameters via `useParams`
 2. Call appropriate `dataService` method for filtered data
 3. Apply search filtering via `dataService.filterClassesForSearch`
 4. Render via shared `LexiconClassViewer` component
 
+**Navigation System**: Added comprehensive navigation between classes:
+- **Clickable Relationship Targets**: Relationship targets are now interactive buttons that navigate to individual class views
+- **Browser History Integration**: Full back/forward button support with session storage tracking
+- **Individual Class Views**: Dedicated routes for viewing single classes (`/class/:className`)
+- **Navigation Controls**: Back, Forward, and Home buttons with proper state management
+
 ### Routing Structure
 
-The app uses hierarchical URL-based filtering:
+The app uses hierarchical URL-based filtering and individual class navigation:
+- `/` → `AllClassesViewer` (main landing page with all classes)
+- `/class/:className` → `SingleClassViewer` (individual class view)
 - `/:language_name` → `LanguageHTMLViewer`
 - `/:language_name/:product_api_identifier/:schema_type` → `HTMLViewer`  
 - `/:language_name/:product_api_identifier/:schema_type/:output_language` → `CustomerAPIHTMLViewer`
 
 Route order matters in React Router v7 - most specific routes are listed first in App.tsx.
+
+**Navigation Flow**:
+1. Users start at `AllClassesViewer` with category filtering and search
+2. Click relationship targets to navigate to `SingleClassViewer` for specific classes
+3. Use Back/Forward buttons for browser-style navigation
+4. Home button returns to main view
 
 ### Data Source
 
@@ -60,6 +75,7 @@ Route order matters in React Router v7 - most specific routes are listed first i
 `dataService.ts` provides filtered access to lexicon data:
 - **Filtering Methods**: Filter by language, schema type, product API identifier
 - **Search**: Multi-field text search across type, container, properties, and relationships
+- **Individual Class Access**: `getClassByName(className)` method for single class retrieval
 - **Pattern**: Singleton service instantiated as default export
 
 ## Technology Stack
@@ -79,10 +95,14 @@ Route order matters in React Router v7 - most specific routes are listed first i
 
 ## Key Files
 
-- `src/services/dataService.ts`: Data access layer with filtering logic
+- `src/services/dataService.ts`: Data access layer with filtering logic and individual class retrieval
 - `src/types/lexicon.ts`: TypeScript interfaces for lexicon data structure
-- `src/components/LexiconClassViewer.tsx`: Shared rendering component
+- `src/components/LexiconClassViewer.tsx`: Shared rendering component with clickable relationship targets
+- `src/AllClassesViewer.tsx`: Main landing page with category filtering and search
+- `src/SingleClassViewer.tsx`: Individual class view with navigation controls and scroll-to-top
+- `src/App.tsx`: Router configuration with individual class routes
 - `src/data/lexicon.json`: Static lexicon data (large file - 16,922 lines)
+- `src/styles.css`: Comprehensive CSS with navigation and scroll-to-top button styles
 - `vite.config.ts`: Vite configuration with React plugin and path aliases
 
 ## Development Notes
@@ -94,3 +114,60 @@ Route order matters in React Router v7 - most specific routes are listed first i
 **CSS Architecture**: Uses CSS custom properties and BEM-like naming. Main styles in `src/styles.css`, with component-specific styles following CSS class patterns like `method-list-item`.
 
 **Build Output**: Vite generates optimized bundles with asset hashing. Build warns about large chunks (>500KB) due to the lexicon data size.
+
+## New Features and Enhancements
+
+### Navigation System (December 2024)
+
+**Clickable Relationship Targets**: Relationship targets in the `LexiconClassViewer` component are now interactive buttons that navigate users to individual class views. Implementation details:
+- **Component**: Relationship targets rendered as `<button>` elements with `relationship-target-link` CSS class
+- **Navigation**: Uses React Router's `useNavigate` hook to navigate to `/class/:className` routes
+- **Styling**: Consistent blue link styling with hover effects and focus states
+- **Accessibility**: Proper ARIA labels and title attributes for screen readers
+
+**Browser History Integration**: Full browser-style navigation with session storage tracking:
+- **Back/Forward Detection**: Uses `window.history.length` and session storage to track navigation state
+- **Session Storage**: Maintains navigation history in `sessionStorage` under `navHistory` key
+- **State Management**: React state (`canGoBack`, `canGoForward`) reflects current navigation capabilities
+- **Forward Button Fix**: Implemented robust forward button detection using navigation history tracking
+
+**Individual Class Views**: Dedicated `SingleClassViewer` component for viewing single classes:
+- **Route Pattern**: `/class/:className` with URL parameter extraction via `useParams`
+- **Data Access**: Uses `dataService.getClassByName(className)` for individual class retrieval
+- **Error Handling**: Graceful handling of non-existent classes with user-friendly error page
+- **Navigation Controls**: Back, Forward, and Home buttons with proper state management
+
+### Scroll-to-Top Feature (December 2024)
+
+**Floating Button**: Sticky scroll-to-top button for long content pages:
+- **Trigger**: Appears when scrolled down more than 300px (past header section)
+- **Position**: Fixed bottom-right corner with responsive positioning
+- **Behavior**: Smooth scrolling back to top on click using `window.scrollTo({ top: 0, behavior: 'smooth' })`
+- **Visibility**: Automatically hides when at top of page
+
+**Implementation Details**:
+- **Scroll Detection**: `useEffect` with scroll event listener and cleanup
+- **State Management**: `showScrollToTop` React state controls button visibility
+- **Styling**: Circular button with consistent design system colors and shadows
+- **Responsive**: Adapts size and position for mobile devices
+- **Accessibility**: Proper ARIA labels and keyboard navigation support
+
+### Technical Implementation Notes
+
+**Session Storage Navigation**: The forward button detection uses a custom session storage solution because React Router doesn't provide direct access to forward navigation state. The implementation:
+1. Stores navigation paths in `sessionStorage.navHistory` array
+2. Tracks current position in navigation history
+3. Updates `canGoForward` state based on position in history array
+4. Handles new page visits vs. back navigation differently
+
+**Component Architecture**: New components follow established patterns:
+- **Shared Logic**: Both `AllClassesViewer` and `SingleClassViewer` use shared `LexiconClassViewer` component
+- **Navigation State**: Navigation controls implemented consistently across components
+- **CSS Organization**: All new styles added to main `styles.css` following existing naming conventions
+- **TypeScript**: Full type safety maintained with proper interfaces and type checking
+
+**Performance Considerations**:
+- **Scroll Listeners**: Properly cleaned up in `useEffect` to prevent memory leaks
+- **Session Storage**: Minimal data stored to avoid storage bloat
+- **Navigation State**: Efficient state updates without unnecessary re-renders
+- **CSS Animations**: Uses CSS transitions for smooth user experience
