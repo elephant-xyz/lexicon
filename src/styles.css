@@ -442,6 +442,9 @@ body {
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   font-family: var(--font-family-primary);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
 }
 
 .enum-value:hover {
@@ -450,6 +453,35 @@ body {
   border-color: var(--primary-green);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+}
+
+.enum-value:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
+}
+
+.enum-value:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.enum-value-copied {
+  background-color: var(--primary-green) !important;
+  color: var(--primary-white) !important;
+  border-color: var(--primary-green) !important;
+  animation: pulse-success 0.3s ease-in-out;
+}
+
+@keyframes pulse-success {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .method-list-item-isChild .method-list-item-label-description {

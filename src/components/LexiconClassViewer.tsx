@@ -7,6 +7,7 @@ interface LexiconClassViewerProps {
 
 const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes }) => {
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
+  const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
   const toggleExpanded = (index: number) => {
     const newExpanded = new Set(expandedClasses);
@@ -16,6 +17,25 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes }) => {
       newExpanded.add(index);
     }
     setExpandedClasses(newExpanded);
+  };
+
+  const copyToClipboard = async (value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedValue(value);
+      setTimeout(() => setCopiedValue(null), 2000); // Clear feedback after 2 seconds
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = value;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopiedValue(value);
+      setTimeout(() => setCopiedValue(null), 2000);
+    }
   };
 
   return (
@@ -53,10 +73,15 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes }) => {
                             <div className="method-list-item-label-enum">
                               <span className="enum-label">Possible Values:</span>
                               <div className="enum-values">
-                                {propData.enum.map((value, idx) => (
-                                  <span key={idx} className="enum-value">
-                                    {value}
-                                  </span>
+                                {[...propData.enum].sort((a, b) => a.localeCompare(b)).map((value, idx) => (
+                                  <button 
+                                    key={idx} 
+                                    className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                    onClick={() => copyToClipboard(value)}
+                                    title="Click to copy to clipboard"
+                                  >
+                                    {copiedValue === value ? '✓ Copied!' : value}
+                                  </button>
                                 ))}
                               </div>
                             </div>
