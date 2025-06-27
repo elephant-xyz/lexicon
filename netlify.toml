@@ -26,7 +26,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Role = ["visitor"] }
 
 # Security headers
 [[headers]]
