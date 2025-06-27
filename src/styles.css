@@ -219,6 +219,18 @@ body {
   box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.1);
 }
 
+.search-input-warning {
+  border-color: var(--accent-yellow) !important;
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.search-hint {
+  font-size: var(--text-xs);
+  color: var(--accent-yellow);
+  margin-top: var(--spacing-1);
+  font-weight: 500;
+}
+
 /* Results Info */
 .results-info {
   display: flex;
@@ -326,6 +338,18 @@ body {
 .expand-button:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
+}
+
+/* Search Match Indicator */
+.search-match-indicator {
+  font-size: var(--text-xs);
+  color: var(--primary-green);
+  background-color: rgba(43, 231, 134, 0.1);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-sm);
+  display: inline-block;
+  margin-top: var(--spacing-2);
+  font-weight: 600;
 }
 
 /* Deprecated Badge */
@@ -484,11 +508,36 @@ body {
   }
 }
 
+/* Property Matched Highlighting */
+.property-matched {
+  border-color: var(--primary-green) !important;
+  background-color: rgba(43, 231, 134, 0.05) !important;
+  position: relative;
+}
+
+.property-matched::before {
+  content: '🔍';
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  font-size: var(--text-xs);
+  opacity: 0.7;
+}
+
 .method-list-item-isChild .method-list-item-label-description {
   font-size: var(--text-sm);
   color: var(--text-secondary);
   margin-top: var(--spacing-2);
   line-height: 1.5;
+}
+
+/* Search Highlighting */
+mark {
+  background-color: var(--primary-green);
+  color: var(--primary-white);
+  padding: 0 var(--spacing-1);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
 }
 
 /* Empty State */

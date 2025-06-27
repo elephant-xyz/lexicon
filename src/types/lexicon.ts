@@ -9,6 +9,13 @@ export interface LexiconRelationship {
   comment?: string;
 }
 
+export interface SearchMatch {
+  type: 'class' | 'property';
+  field: string;
+  value: string;
+  score: number;
+}
+
 export interface LexiconClass {
   type: string;
   container_name: string;
@@ -16,6 +23,8 @@ export interface LexiconClass {
   deprecated_properties: string[];
   properties: Record<string, LexiconProperty>;
   relationships?: Record<string, LexiconRelationship>;
+  _searchMatches?: SearchMatch[];
+  _hasPropertyMatches?: boolean;
 }
 
 export interface LexiconTag {
