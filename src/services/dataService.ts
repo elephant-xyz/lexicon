@@ -9,7 +9,9 @@ class DataService {
   }
 
   getAllClasses(): LexiconClass[] {
-    return this.lexicon.classes.sort((a, b) => a.type.localeCompare(b.type));
+    return this.lexicon.classes
+      .filter(cls => !cls.is_deprecated)
+      .sort((a, b) => a.type.localeCompare(b.type));
   }
 
   getTags(): LexiconTag[] {
@@ -21,19 +23,23 @@ class DataService {
     if (!tag) return [];
     
     return this.lexicon.classes
-      .filter(cls => tag.classes.includes(cls.type))
+      .filter(cls => !cls.is_deprecated && tag.classes.includes(cls.type))
       .sort((a, b) => a.type.localeCompare(b.type));
   }
 
   getClassesForLanguage(languageName: string): LexiconClass[] {
     return this.lexicon.classes.filter(cls => 
-      cls.type.toLowerCase().includes(languageName.toLowerCase()) ||
-      cls.container_name.toLowerCase().includes(languageName.toLowerCase())
+      !cls.is_deprecated && (
+        cls.type.toLowerCase().includes(languageName.toLowerCase()) ||
+        cls.container_name.toLowerCase().includes(languageName.toLowerCase())
+      )
     );
   }
 
   getClassesForSchema(languageName: string, productApiIdentifier: string, schemaType: string): LexiconClass[] {
     return this.lexicon.classes.filter(cls => {
+      if (cls.is_deprecated) return false;
+      
       const matchesLanguage = cls.type.toLowerCase().includes(languageName.toLowerCase());
       const matchesProduct = cls.container_name.toLowerCase().includes(productApiIdentifier.toLowerCase());
       const matchesSchema = cls.type.toLowerCase().includes(schemaType.toLowerCase());
@@ -49,6 +55,8 @@ class DataService {
     outputLanguage: string
   ): LexiconClass[] {
     return this.lexicon.classes.filter(cls => {
+      if (cls.is_deprecated) return false;
+      
       const matchesLanguage = cls.type.toLowerCase().includes(languageName.toLowerCase());
       const matchesProduct = cls.container_name.toLowerCase().includes(productApiIdentifier.toLowerCase());
       const matchesSchema = cls.type.toLowerCase().includes(schemaType.toLowerCase());
