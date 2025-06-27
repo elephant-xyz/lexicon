@@ -15,11 +15,26 @@ const AllClassesViewer = () => {
   const [filteredDataGroups, setFilteredDataGroups] = useState<DataGroup[]>([]);
   const [selectedTag, setSelectedTag] = useState('blockchain');
   const [tags, setTags] = useState<LexiconTag[]>([]);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
 
   useEffect(() => {
     const availableTags = dataService.getTags();
     setTags(availableTags);
+  }, []);
+
+  // Scroll detection for scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button when scrolled down enough that header is not visible
+      // Header section is approximately 200px, so we'll use 300px threshold
+      const scrollY = window.scrollY;
+      const shouldShow = scrollY > 300;
+      setShowScrollToTop(shouldShow);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -50,6 +65,10 @@ const AllClassesViewer = () => {
       setFilteredDataGroups([]);
     }
   }, [searchTerm, classes, dataGroups]);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="search-container">
@@ -152,6 +171,18 @@ const AllClassesViewer = () => {
             </div>
           )}
         </div>
+      )}
+
+      {/* Scroll to Top Button */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-button"
+          title="Scroll to top"
+          aria-label="Scroll to top"
+        >
+          ↑
+        </button>
       )}
     </div>
   );  
