@@ -154,8 +154,9 @@ class DataService {
         matches.push({
           type: 'property',
           field: 'type',
-          value: propNameMatch.highlight || propName, // Show property name, not type
-          score: typeMatch.score
+          value: propName, // Property name for identification
+          score: typeMatch.score,
+          highlightedType: typeMatch.highlight || propData.type
         });
       }
       

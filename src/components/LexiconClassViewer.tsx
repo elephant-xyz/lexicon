@@ -113,6 +113,17 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
     return enumHighlights;
   };
 
+  const getHighlightedType = (cls: LexiconClass, propName: string): string => {
+    if (!searchTerm || !cls._searchMatches) return '';
+    
+    const typeMatch = cls._searchMatches.find(m => 
+      m.type === 'property' && 
+      m.field === 'type' && 
+      m.value === propName
+    );
+    return typeMatch?.highlightedType || '';
+  };
+
   return (
     <div className="lexicon-viewer">
       {classes.map((cls, index) => (
@@ -165,7 +176,12 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                               propName
                             }
                           </div>
-                          <div className="method-list-item-label-type">Type: {propData.type}</div>
+                          <div className="method-list-item-label-type">
+                            Type: {searchTerm && getHighlightedType(cls, propName) ? 
+                              renderHighlightedText(getHighlightedType(cls, propName)) :
+                              propData.type
+                            }
+                          </div>
                           {propData.enum && (
                             <div className="method-list-item-label-enum">
                               <span className="enum-label">Possible Values:</span>

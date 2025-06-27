@@ -16,6 +16,7 @@ export interface SearchMatch {
   score: number;
   highlightedDescription?: string;
   highlightedEnum?: string;
+  highlightedType?: string;
 }
 
 export interface LexiconClass {
