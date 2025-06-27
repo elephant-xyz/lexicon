@@ -241,6 +241,10 @@ class DataService {
     return matches;
   }
 
+  getClassByName(className: string): LexiconClass | undefined {
+    return this.lexicon.classes.find(cls => cls.type === className && !cls.is_deprecated);
+  }
+
   filterClassesForSearch(classes: LexiconClass[], searchTerm: string): LexiconClass[] {
     if (!searchTerm || searchTerm.length < 3) return [];
     

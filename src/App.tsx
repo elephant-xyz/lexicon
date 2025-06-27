@@ -4,12 +4,14 @@ import { Routes, Route } from 'react-router-dom'
 import LanguageHTMLViewer from "./LanguageHTMLViewer";
 import CustomerAPIHTMLViewer from "./CustomerAPIHTMLViewer";
 import AllClassesViewer from "./AllClassesViewer";
+import SingleClassViewer from "./SingleClassViewer";
 
 const App: React.FC = () => {
   return (
     <div>
         <Routes>
           <Route path="/" element={<AllClassesViewer />} />
+          <Route path="/class/:className" element={<SingleClassViewer />} />
           <Route path="/:language_name/:product_api_identifier/:schema_type/:output_language" element={<CustomerAPIHTMLViewer/>} />
           <Route path="/:language_name/:product_api_identifier/:schema_type" element={<HTMLViewer/>} />
           <Route path="/:language_name" element={<LanguageHTMLViewer/>} />

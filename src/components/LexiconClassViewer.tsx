@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LexiconClass, SearchMatch } from '../types/lexicon';
 
 interface LexiconClassViewerProps {
@@ -7,6 +8,7 @@ interface LexiconClassViewerProps {
 }
 
 const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, searchTerm }) => {
+  const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
@@ -339,10 +341,16 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                                 const highlightedTarget = targetHighlights.get(target);
                                 return (
                                   <span key={idx}>
-                                    {searchTerm && highlightedTarget ? 
-                                      renderHighlightedText(highlightedTarget) :
-                                      target
-                                    }
+                                    <button
+                                      className="relationship-target-link"
+                                      onClick={() => navigate(`/class/${target}`)}
+                                      title={`Navigate to ${target} class`}
+                                    >
+                                      {searchTerm && highlightedTarget ? 
+                                        renderHighlightedText(highlightedTarget) :
+                                        target
+                                      }
+                                    </button>
                                     {idx < (relData.targets?.length || 0) - 1 ? ', ' : ''}
                                   </span>
                                 );

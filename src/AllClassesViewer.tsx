@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import dataService from './services/dataService';
 import LexiconClassViewer from './components/LexiconClassViewer';
 import { LexiconClass, LexiconTag } from './types/lexicon';
@@ -6,11 +7,20 @@ import { LexiconClass, LexiconTag } from './types/lexicon';
 import './styles.css';
 
 const AllClassesViewer = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [classes, setClasses] = useState<LexiconClass[]>([]);
   const [filteredClasses, setFilteredClasses] = useState<LexiconClass[]>([]);
   const [selectedTag, setSelectedTag] = useState('blockchain');
   const [tags, setTags] = useState<LexiconTag[]>([]);
+  const [canGoBack, setCanGoBack] = useState(false);
+  const [canGoForward, setCanGoForward] = useState(false);
+
+  useEffect(() => {
+    // Check if we can go back/forward
+    setCanGoBack(window.history.length > 1);
+    setCanGoForward(false); // Forward is only available after going back
+  }, []);
 
   useEffect(() => {
     const availableTags = dataService.getTags();
@@ -80,6 +90,25 @@ const AllClassesViewer = () => {
             )}
           </div>
         </div>
+        
+        {canGoBack && (
+          <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
+            <button 
+              onClick={() => navigate(-1)}
+              className="nav-button back-button"
+            >
+              ← Back
+            </button>
+            {canGoForward && (
+              <button 
+                onClick={() => navigate(1)}
+                className="nav-button forward-button"
+              >
+                Forward →
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="results-info">
