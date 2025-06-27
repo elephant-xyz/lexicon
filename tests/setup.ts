@@ -36,6 +36,20 @@ Object.defineProperty(window, 'scrollTo', {
   writable: true,
 });
 
+// Mock global history for React Router compatibility
+Object.defineProperty(globalThis, 'globalHistory', {
+  value: {
+    length: 1,
+    pushState: vi.fn(),
+    replaceState: vi.fn(),
+    back: vi.fn(),
+    forward: vi.fn(),
+    go: vi.fn(),
+    state: {},
+  },
+  writable: true,
+});
+
 // Mock history API for React Router
 Object.defineProperty(window, 'history', {
   value: {

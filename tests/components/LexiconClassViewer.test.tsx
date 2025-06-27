@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import LexiconClassViewer from '../../src/components/LexiconClassViewer';
 import { mockLexiconClass, mockDeprecatedClass, mockSearchResultClass } from '../mockData';
 
@@ -16,7 +16,7 @@ vi.mock('react-router-dom', async () => {
 
 // Helper function to render with router
 const renderWithRouter = (component: React.ReactElement) => {
-  return render(<BrowserRouter>{component}</BrowserRouter>);
+  return render(<MemoryRouter>{component}</MemoryRouter>);
 };
 
 describe('LexiconClassViewer', () => {
@@ -107,7 +107,7 @@ describe('LexiconClassViewer', () => {
 
     it('should display property names and types', () => {
       expect(screen.getByText('testProperty')).toBeInTheDocument();
-      expect(screen.getByText('string')).toBeInTheDocument();
+      expect(screen.getAllByText('string')).toHaveLength(2); // testProperty and enumProperty are both string type
       expect(screen.getByText('number')).toBeInTheDocument();
     });
 
@@ -150,16 +150,18 @@ describe('LexiconClassViewer', () => {
     });
 
     it('should display relationship targets as clickable buttons', () => {
-      const target1Button = screen.getByRole('button', { name: /TargetClass1/i });
-      const target2Button = screen.getByRole('button', { name: /TargetClass2/i });
+      const targetButtons = screen.getAllByRole('button');
+      const target1Button = targetButtons.find(btn => btn.textContent === 'TargetClass1');
+      const target2Button = targetButtons.find(btn => btn.textContent === 'TargetClass2');
       
       expect(target1Button).toBeInTheDocument();
       expect(target2Button).toBeInTheDocument();
     });
 
     it('should navigate to target class when relationship target is clicked', () => {
-      const targetButton = screen.getByRole('button', { name: /TargetClass1/i });
-      fireEvent.click(targetButton);
+      const targetButtons = screen.getAllByRole('button');
+      const target1Button = targetButtons.find(btn => btn.textContent === 'TargetClass1');
+      fireEvent.click(target1Button!);
 
       expect(mockNavigate).toHaveBeenCalledWith('/class/TargetClass1');
     });
@@ -233,10 +235,10 @@ describe('LexiconClassViewer', () => {
       );
 
       // Should render highlighted text (mark tags will be rendered as HTML)
-      const element = screen.getByText((content, element) => {
+      const elements = screen.getAllByText((content, element) => {
         return element?.innerHTML.includes('<mark>Test</mark>Class') || false;
       });
-      expect(element).toBeInTheDocument();
+      expect(elements.length).toBeGreaterThan(0);
     });
 
     it('should auto-expand classes with search matches', () => {
