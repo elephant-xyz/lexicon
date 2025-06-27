@@ -219,15 +219,24 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
           </div>
           {expandedClasses.has(index) && (
             <div className="method-list-item-content">
-              <div className="properties-section">
-                <h4>Properties:</h4>
-                <div className="properties-list">
-                  {Object.entries(cls.properties || {}).map(([propName, propData]) => {
-                    const isDeprecated = cls.deprecated_properties?.includes(propName);
-                    if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
-                    
-                    const matchedProps = getMatchedProperties(cls);
-                    const isMatchedProperty = matchedProps.includes(propName);
+              {(() => {
+                const matchedProps = getMatchedProperties(cls);
+                const hasVisibleProperties = Object.entries(cls.properties || {}).some(([propName]) => {
+                  const isDeprecated = cls.deprecated_properties?.includes(propName);
+                  return !isDeprecated && shouldShowProperty(cls, propName);
+                });
+                
+                if (!hasVisibleProperties) return null;
+                
+                return (
+                  <div className="properties-section">
+                    <h4>Properties:</h4>
+                    <div className="properties-list">
+                      {Object.entries(cls.properties || {}).map(([propName, propData]) => {
+                        const isDeprecated = cls.deprecated_properties?.includes(propName);
+                        if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
+                        
+                        const isMatchedProperty = matchedProps.includes(propName);
                     
                     return (
                       <div 
@@ -288,15 +297,25 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                       </div>
                     );
                   })}
-                </div>
-              </div>
+                    </div>
+                  </div>
+                );
+              })()}
               
-              {cls.relationships && Object.keys(cls.relationships).length > 0 && (
-                <div className="relationships-section">
-                  <h4>Relationships:</h4>
-                  <div className="relationships-list">
-                    {Object.entries(cls.relationships).map(([relName, relData]) => {
-                      if (!shouldShowRelationship(cls, relName)) return null;
+              {(() => {
+                const matchedRels = getMatchedRelationships(cls);
+                const hasVisibleRelationships = cls.relationships && Object.entries(cls.relationships).some(([relName]) => 
+                  shouldShowRelationship(cls, relName)
+                );
+                
+                if (!hasVisibleRelationships) return null;
+                
+                return (
+                  <div className="relationships-section">
+                    <h4>Relationships:</h4>
+                    <div className="relationships-list">
+                      {Object.entries(cls.relationships || {}).map(([relName, relData]) => {
+                        if (!shouldShowRelationship(cls, relName)) return null;
                       
                       const matchedRels = getMatchedRelationships(cls);
                       const isMatchedRelationship = matchedRels.includes(relName);
@@ -339,10 +358,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                           </div>
                         </div>
                       );
-                    })}
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </div>
           )}
         </div>
