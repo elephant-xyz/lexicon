@@ -415,14 +415,41 @@ body {
 }
 
 .method-list-item-label-enum {
+  margin-bottom: var(--spacing-3);
+}
+
+.enum-label {
   font-size: var(--text-sm);
-  color: var(--accent-blue);
-  font-family: var(--font-family-mono);
-  background-color: rgba(59, 130, 246, 0.1);
-  padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--radius-sm);
-  display: inline-block;
+  font-weight: 600;
+  color: var(--text-primary);
   margin-bottom: var(--spacing-2);
+  display: block;
+}
+
+.enum-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.enum-value {
+  background-color: var(--background-accent);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  font-family: var(--font-family-primary);
+}
+
+.enum-value:hover {
+  background-color: var(--primary-green);
+  color: var(--primary-white);
+  border-color: var(--primary-green);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .method-list-item-isChild .method-list-item-label-description {

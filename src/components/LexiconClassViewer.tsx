@@ -51,7 +51,14 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes }) => {
                           <div className="method-list-item-label-type">Type: {propData.type}</div>
                           {propData.enum && (
                             <div className="method-list-item-label-enum">
-                              Enum: [{propData.enum.join(', ')}]
+                              <span className="enum-label">Possible Values:</span>
+                              <div className="enum-values">
+                                {propData.enum.map((value, idx) => (
+                                  <span key={idx} className="enum-value">
+                                    {value}
+                                  </span>
+                                ))}
+                              </div>
                             </div>
                           )}
                           <div className="method-list-item-label-description">{propData.comment || ''}</div>
