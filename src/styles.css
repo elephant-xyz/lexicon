@@ -942,6 +942,31 @@ mark {
   }
 }
 
+/* Section Separator */
+.section-separator {
+  display: flex;
+  align-items: center;
+  margin: var(--spacing-8) 0;
+  gap: var(--spacing-4);
+}
+
+.separator-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+}
+
+.separator-text {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 var(--spacing-4);
+  background-color: var(--background-primary);
+  white-space: nowrap;
+}
+
 /* Data Groups Styles */
 .data-group {
   background: linear-gradient(135deg, rgba(43, 231, 134, 0.03), rgba(43, 231, 134, 0.01));

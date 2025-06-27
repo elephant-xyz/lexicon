@@ -155,10 +155,21 @@ const AllClassesViewer = () => {
       ) : (
         <div>
           {filteredDataGroups.length > 0 && (
-            <DataGroupViewer dataGroups={filteredDataGroups} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+            <div className="data-groups-section">
+              <DataGroupViewer dataGroups={filteredDataGroups} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+            </div>
+          )}
+          {filteredDataGroups.length > 0 && filteredClasses.length > 0 && (
+            <div className="section-separator">
+              <div className="separator-line"></div>
+              <span className="separator-text">Classes</span>
+              <div className="separator-line"></div>
+            </div>
           )}
           {filteredClasses.length > 0 && (
-            <LexiconClassViewer classes={filteredClasses} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+            <div className="classes-section">
+              <LexiconClassViewer classes={filteredClasses} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+            </div>
           )}
         </div>
       )}

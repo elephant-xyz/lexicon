@@ -21,9 +21,11 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
           newExpanded.add(index);
         }
       });
+      setExpandedGroups(newExpanded);
+    } else {
+      // Collapse all when not searching
+      setExpandedGroups(new Set());
     }
-    
-    setExpandedGroups(newExpanded);
   }, [searchTerm, dataGroups]);
 
   const toggleExpanded = (index: number) => {
