@@ -33,7 +33,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes }) => {
                 {expandedClasses.has(index) ? '−' : '+'}
               </button>
             </div>
-            <div className="method-list-item-label-description">Container: {cls.container_name}</div>
             {cls.is_deprecated && <div className="deprecated-badge">DEPRECATED</div>}
           </div>
           {expandedClasses.has(index) && (
