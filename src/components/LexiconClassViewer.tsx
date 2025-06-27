@@ -5,25 +5,34 @@ import { LexiconClass, SearchMatch } from '../types/lexicon';
 interface LexiconClassViewerProps {
   classes: LexiconClass[];
   searchTerm?: string;
+  expandByDefault?: boolean;
 }
 
-const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, searchTerm }) => {
+const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, searchTerm, expandByDefault = false }) => {
   const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
-  // Auto-expand classes with property or relationship matches when searching
+  // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
-    if (searchTerm) {
-      const newExpanded = new Set<number>();
+    const newExpanded = new Set<number>();
+    
+    if (expandByDefault) {
+      // Expand all classes when expandByDefault is true
+      classes.forEach((cls, index) => {
+        newExpanded.add(index);
+      });
+    } else if (searchTerm) {
+      // Auto-expand classes with matches when searching
       classes.forEach((cls, index) => {
         if (cls._hasPropertyMatches || cls._hasRelationshipMatches) {
           newExpanded.add(index);
         }
       });
-      setExpandedClasses(newExpanded);
     }
-  }, [searchTerm, classes]);
+    
+    setExpandedClasses(newExpanded);
+  }, [searchTerm, classes, expandByDefault]);
 
   const toggleExpanded = (index: number) => {
     const newExpanded = new Set(expandedClasses);

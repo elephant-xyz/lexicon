@@ -245,6 +245,52 @@ body {
   box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.1);
 }
 
+/* Class Info */
+.class-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.class-info label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.class-name {
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--background-secondary);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-family-mono);
+}
+
+/* Error Message */
+.error-message {
+  text-align: center;
+  padding: var(--spacing-8);
+  background-color: var(--background-accent);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-4);
+}
+
+.error-message h2 {
+  color: var(--accent-red);
+  margin-bottom: var(--spacing-2);
+  font-size: var(--text-xl);
+}
+
+.error-message p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 /* Search Bar */
 .search-bar {
   display: flex;
@@ -297,6 +343,65 @@ body {
   color: var(--accent-yellow);
   margin-top: var(--spacing-1);
   font-weight: 500;
+}
+
+/* Search Input Container */
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-container .search-input {
+  padding-right: var(--spacing-10);
+}
+
+.clear-search-button {
+  position: absolute;
+  right: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-1);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.clear-search-button:hover {
+  color: var(--text-primary);
+  background-color: var(--hover-color);
+}
+
+.clear-search-button-inline {
+  background-color: var(--primary-green);
+  color: var(--primary-white);
+  border: none;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.clear-search-button-inline:hover {
+  background-color: var(--primary-dark);
+}
+
+/* No Results Message */
+.no-results {
+  text-align: center;
+  padding: var(--spacing-8);
+  color: var(--text-secondary);
+}
+
+.no-results p {
+  margin-bottom: var(--spacing-4);
+  font-size: var(--text-lg);
 }
 
 /* Results Info */

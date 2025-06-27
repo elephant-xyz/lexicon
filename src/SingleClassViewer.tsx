@@ -11,6 +11,8 @@ const SingleClassViewer = () => {
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredClass, setFilteredClass] = useState<any>(null);
 
   useEffect(() => {
     // Check if we can go back - simple check based on history length
@@ -57,6 +59,23 @@ const SingleClassViewer = () => {
 
   const lexiconClass = className ? dataService.getClassByName(className) : undefined;
 
+  // Filter the class based on search term
+  useEffect(() => {
+    if (!lexiconClass) {
+      setFilteredClass(null);
+      return;
+    }
+
+    if (!searchTerm || searchTerm.length < 2) {
+      setFilteredClass(lexiconClass);
+      return;
+    }
+
+    // Apply search filtering to the single class
+    const filtered = dataService.filterClassesForSearch([lexiconClass], searchTerm);
+    setFilteredClass(filtered.length > 0 ? filtered[0] : null);
+  }, [lexiconClass, searchTerm]);
+
   const handleBack = () => {
     if (canGoBack) {
       navigate(-1);
@@ -77,14 +96,19 @@ const SingleClassViewer = () => {
     return (
       <div className="search-container">
         <div className="header-section">
-          <h1 className="header-title">Class Not Found</h1>
+          <h1 className="header-title">Elephant Lexicon</h1>
           <p className="header-subtitle">
-            The class "{className}" could not be found in the lexicon.
+            Explore and search through the comprehensive data schema definitions
           </p>
         </div>
         
         <div className="controls-section">
-          <div className="navigation-controls">
+          <div className="error-message">
+            <h2>Class Not Found</h2>
+            <p>The class "{className}" could not be found in the lexicon.</p>
+          </div>
+          
+          <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
             <button 
               onClick={handleBack}
               disabled={!canGoBack}
@@ -119,14 +143,43 @@ const SingleClassViewer = () => {
   return (
     <div className="search-container">
       <div className="header-section">
-        <h1 className="header-title">{lexiconClass.type}</h1>
+        <h1 className="header-title">Elephant Lexicon</h1>
         <p className="header-subtitle">
-          Class details and relationships
+          Explore and search through the comprehensive data schema definitions
         </p>
       </div>
 
       <div className="controls-section">
-        <div className="navigation-controls">
+        <div className="controls-grid">
+          <div className="class-info">
+            <label>Viewing Class</label>
+            <div className="class-name">{lexiconClass.type}</div>
+          </div>
+          <div className="search-bar">
+            <label htmlFor="single-search-input">Search</label>
+            <div className="search-input-container">
+              <input
+                id="single-search-input"
+                type="text"
+                placeholder="Search within this class..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="clear-search-button"
+                  title="Clear search"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        <div className="navigation-controls" style={{ marginTop: 'var(--spacing-4)' }}>
           <button 
             onClick={handleBack}
             disabled={!canGoBack}
@@ -152,10 +205,28 @@ const SingleClassViewer = () => {
 
       <div className="results-info">
         <span className="results-count">1 class</span>
-        <span>Individual View</span>
+        <span>Individual View{searchTerm && ` • Searching for "${searchTerm}"`}</span>
       </div>
 
-      <LexiconClassViewer classes={[lexiconClass]} />
+      {filteredClass ? (
+        <LexiconClassViewer 
+          classes={[filteredClass]} 
+          searchTerm={searchTerm}
+          expandByDefault={true}
+        />
+      ) : searchTerm && searchTerm.length >= 2 ? (
+        <div className="no-results">
+          <p>No matches found for "{searchTerm}" in this class.</p>
+          <button onClick={() => setSearchTerm('')} className="clear-search-button-inline">
+            Clear search
+          </button>
+        </div>
+      ) : (
+        <LexiconClassViewer 
+          classes={[lexiconClass]} 
+          expandByDefault={true}
+        />
+      )}
 
       {/* Scroll to Top Button */}
       {showScrollToTop && (
