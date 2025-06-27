@@ -3,28 +3,31 @@
 
 /* CSS Custom Properties (Design Tokens) */
 :root {
-  /* Color Palette - Based on elephant.xyz */
-  --primary-dark: #423E3E;
-  --primary-green: #2BE786;
+  /* Primary Colors - New Design Guidelines */
+  --primary-espresso: #2C2E25;
+  --primary-off-white: #FDE8CF;
+  --primary-pink: #FF74C2;
   --primary-white: #FFFFFF;
-  --primary-off-white: #FFFDFA;
   
-  /* Extended Palette */
+  /* Secondary Colors */
+  --secondary-acid: #CDEA62;
+  --secondary-forest-green: #224E48;
+  --secondary-dark-red: #6E1335;
+  --secondary-blue: #74ABFF;
+  
+  /* Extended Palette for UI */
   --secondary-gray: #6B7280;
   --secondary-light-gray: #F3F4F6;
   --secondary-border: #E5E7EB;
   --secondary-hover: #F9FAFB;
-  --accent-blue: #3B82F6;
-  --accent-red: #EF4444;
-  --accent-yellow: #F59E0B;
   
   /* Semantic Colors */
   --background-primary: var(--primary-off-white);
   --background-secondary: var(--primary-white);
   --background-accent: var(--secondary-light-gray);
-  --text-primary: var(--primary-dark);
+  --text-primary: var(--primary-espresso);
   --text-secondary: var(--secondary-gray);
-  --text-accent: var(--primary-green);
+  --text-accent: var(--primary-pink);
   --border-color: var(--secondary-border);
   --hover-color: var(--secondary-hover);
   
@@ -163,16 +166,16 @@ body {
 }
 
 .nav-button:hover {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
-  border-color: var(--primary-green);
+  border-color: var(--primary-pink);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
 .nav-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
 }
 
 .nav-button:active {
@@ -196,14 +199,14 @@ body {
 }
 
 .home-button {
-  background-color: var(--accent-blue);
-  border-color: var(--accent-blue);
+  background-color: var(--secondary-blue);
+  border-color: var(--secondary-blue);
   color: var(--primary-white);
 }
 
 .home-button:hover {
-  background-color: var(--primary-green);
-  border-color: var(--primary-green);
+  background-color: var(--primary-pink);
+  border-color: var(--primary-pink);
 }
 
 /* Tag Selector */
@@ -241,8 +244,8 @@ body {
 
 .tag-select:focus {
   outline: none;
-  border-color: var(--primary-green);
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.1);
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.1);
 }
 
 /* Class Info */
@@ -281,7 +284,7 @@ body {
 }
 
 .error-message h2 {
-  color: var(--accent-red);
+  color: var(--secondary-dark-red);
   margin-bottom: var(--spacing-2);
   font-size: var(--text-xl);
 }
@@ -329,18 +332,18 @@ body {
 
 .search-input:focus {
   outline: none;
-  border-color: var(--primary-green);
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.1);
+  border-color: var(--primary-pink);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.1);
 }
 
 .search-input-warning {
-  border-color: var(--accent-yellow) !important;
-  background-color: rgba(245, 158, 11, 0.05);
+  border-color: var(--secondary-acid) !important;
+  background-color: rgba(205, 234, 98, 0.1);
 }
 
 .search-hint {
   font-size: var(--text-xs);
-  color: var(--accent-yellow);
+  color: var(--secondary-acid);
   margin-top: var(--spacing-1);
   font-weight: 500;
 }
@@ -377,7 +380,7 @@ body {
 }
 
 .clear-search-button-inline {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
   border: none;
   padding: var(--spacing-2) var(--spacing-4);
@@ -389,7 +392,7 @@ body {
 }
 
 .clear-search-button-inline:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-espresso);
 }
 
 /* No Results Message */
@@ -454,7 +457,7 @@ body {
   left: 0;
   width: 4px;
   height: 100%;
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
 }
 
 /* Class Header */
@@ -502,22 +505,22 @@ body {
 }
 
 .expand-button:hover {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
-  border-color: var(--primary-green);
+  border-color: var(--primary-pink);
   transform: scale(1.05);
 }
 
 .expand-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
 }
 
 /* Search Match Indicator */
 .search-match-indicator {
   font-size: var(--text-xs);
-  color: var(--primary-green);
-  background-color: rgba(43, 231, 134, 0.1);
+  color: var(--primary-pink);
+  background-color: rgba(255, 116, 194, 0.1);
   padding: var(--spacing-1) var(--spacing-2);
   border-radius: var(--radius-sm);
   display: inline-block;
@@ -529,7 +532,7 @@ body {
 .deprecated-badge {
   display: inline-block;
   padding: var(--spacing-1) var(--spacing-2);
-  background-color: var(--accent-red);
+  background-color: var(--secondary-dark-red);
   color: var(--primary-white);
   font-size: var(--text-xs);
   font-weight: 700;
@@ -563,7 +566,7 @@ body {
   color: var(--text-primary);
   margin-bottom: var(--spacing-4);
   padding-bottom: var(--spacing-2);
-  border-bottom: 2px solid var(--primary-green);
+  border-bottom: 2px solid var(--primary-pink);
   display: inline-block;
 }
 
@@ -585,7 +588,7 @@ body {
 
 .method-list-item-isChild:hover {
   background-color: var(--hover-color);
-  border-color: var(--primary-green);
+  border-color: var(--primary-pink);
 }
 
 .method-list-item-isChild .method-list-item-label {
@@ -623,7 +626,7 @@ body {
 }
 
 .property-type-value {
-  color: var(--accent-blue);
+  color: var(--secondary-blue);
   font-weight: 600;
   text-transform: capitalize;
 }
@@ -662,16 +665,16 @@ body {
 }
 
 .enum-value:hover {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
-  border-color: var(--primary-green);
+  border-color: var(--primary-pink);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
 
 .enum-value:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
 }
 
 .enum-value:active {
@@ -680,9 +683,9 @@ body {
 }
 
 .enum-value-copied {
-  background-color: var(--primary-green) !important;
+  background-color: var(--primary-pink) !important;
   color: var(--primary-white) !important;
-  border-color: var(--primary-green) !important;
+  border-color: var(--primary-pink) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
 
@@ -700,8 +703,8 @@ body {
 
 /* Property Matched Highlighting */
 .property-matched {
-  border-color: var(--primary-green) !important;
-  background-color: rgba(43, 231, 134, 0.05) !important;
+  border-color: var(--primary-pink) !important;
+  background-color: rgba(255, 116, 194, 0.05) !important;
   position: relative;
 }
 
@@ -725,7 +728,7 @@ body {
 .relationship-target-link {
   background-color: var(--background-accent);
   border: 1px solid var(--border-color);
-  color: var(--accent-blue);
+  color: var(--secondary-blue);
   text-decoration: none;
   cursor: pointer;
   font-family: var(--font-family-primary);
@@ -739,16 +742,16 @@ body {
 }
 
 .relationship-target-link:hover {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
-  border-color: var(--primary-green);
+  border-color: var(--primary-pink);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
 
 .relationship-target-link:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
 }
 
 .relationship-targets-label {
@@ -770,7 +773,7 @@ body {
 
 /* Search Highlighting */
 mark {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
   padding: 0 var(--spacing-1);
   border-radius: var(--radius-sm);
@@ -813,7 +816,7 @@ mark {
   width: 40px;
   height: 40px;
   border: 3px solid var(--border-color);
-  border-top: 3px solid var(--primary-green);
+  border-top: 3px solid var(--primary-pink);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto var(--spacing-4);
@@ -878,7 +881,7 @@ mark {
 
 /* Focus Styles */
 *:focus {
-  outline: 2px solid var(--primary-green);
+  outline: 2px solid var(--primary-pink);
   outline-offset: 2px;
 }
 
@@ -898,9 +901,9 @@ mark {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
-  border: 2px solid var(--primary-green);
+  border: 2px solid var(--primary-pink);
   font-size: var(--text-xl);
   font-weight: 700;
   cursor: pointer;
@@ -915,8 +918,8 @@ mark {
 
 .scroll-to-top-button:hover {
   background-color: var(--primary-white);
-  color: var(--primary-green);
-  border-color: var(--primary-green);
+  color: var(--primary-pink);
+  border-color: var(--primary-pink);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
   opacity: 1;
@@ -924,7 +927,7 @@ mark {
 
 .scroll-to-top-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3), var(--shadow-lg);
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.3), var(--shadow-lg);
 }
 
 .scroll-to-top-button:active {
@@ -969,12 +972,12 @@ mark {
 
 /* Data Groups Styles */
 .data-group {
-  background: linear-gradient(135deg, rgba(43, 231, 134, 0.03), rgba(43, 231, 134, 0.01));
-  border-left: 4px solid var(--primary-green);
+  background-color: var(--background-secondary);
+  border-left: 4px solid var(--primary-pink);
 }
 
 .data-group-badge {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
   font-weight: 600;
   font-size: var(--text-xs);
@@ -998,22 +1001,22 @@ mark {
 }
 
 .relationship-arrow {
-  color: var(--primary-green);
+  color: var(--primary-pink);
   font-size: var(--text-lg);
   font-weight: 700;
   margin: 0 var(--spacing-2);
 }
 
 .data-group .relationship-target-link {
-  background-color: rgba(43, 231, 134, 0.1);
-  border: 1px solid var(--primary-green);
-  color: var(--primary-green);
+  background-color: rgba(255, 116, 194, 0.1);
+  border: 1px solid var(--primary-pink);
+  color: var(--primary-pink);
 }
 
 .data-group .relationship-target-link:hover {
-  background-color: var(--primary-green);
+  background-color: var(--primary-pink);
   color: var(--primary-white);
-  border-color: var(--primary-green);
+  border-color: var(--primary-pink);
 }
 
 .match-score {
