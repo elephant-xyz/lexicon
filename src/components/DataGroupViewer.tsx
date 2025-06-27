@@ -75,7 +75,6 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                 Found in {group._searchMatches.length} match{group._searchMatches.length === 1 ? '' : 'es'}
               </div>
             )}
-            <div className="data-group-badge">DATA GROUP</div>
           </div>
           
           {expandedGroups.has(index) && (
