@@ -942,6 +942,110 @@ mark {
   }
 }
 
+/* Data Groups Styles */
+.data-groups-section {
+  margin-bottom: var(--spacing-8);
+}
+
+.data-groups-section h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-6);
+  border-bottom: 2px solid var(--primary-green);
+  padding-bottom: var(--spacing-2);
+}
+
+.data-group {
+  background: linear-gradient(135deg, rgba(43, 231, 134, 0.03), rgba(43, 231, 134, 0.01));
+  border-left: 4px solid var(--primary-green);
+}
+
+.data-group .class-type {
+  background-color: var(--primary-green);
+  color: var(--primary-white);
+  font-weight: 600;
+  font-size: var(--text-xs);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-group .class-name {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.relationship-from,
+.relationship-to {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin: var(--spacing-1) 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.relationship-arrow {
+  color: var(--primary-green);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin: 0 var(--spacing-2);
+}
+
+.relationship-item {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
+  background-color: var(--background-secondary);
+  transition: all var(--transition-fast);
+}
+
+.relationship-item:hover {
+  border-color: var(--primary-green);
+  box-shadow: 0 2px 8px rgba(43, 231, 134, 0.1);
+}
+
+.relationship-targets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-2);
+}
+
+.data-group .relationship-target-link {
+  background-color: rgba(43, 231, 134, 0.1);
+  border: 1px solid var(--primary-green);
+  color: var(--primary-green);
+}
+
+.data-group .relationship-target-link:hover {
+  background-color: var(--primary-green);
+  color: var(--primary-white);
+  border-color: var(--primary-green);
+}
+
+/* Responsive adjustments for data groups */
+@media (max-width: 768px) {
+  .relationship-targets {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .relationship-from,
+  .relationship-to {
+    width: 100%;
+  }
+  
+  .relationship-arrow {
+    transform: rotate(90deg);
+  }
+}
+
 /* Dark Mode Support (Future Enhancement) */
 @media (prefers-color-scheme: dark) {
   :root {

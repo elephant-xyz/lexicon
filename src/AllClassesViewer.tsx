@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dataService from './services/dataService';
 import LexiconClassViewer from './components/LexiconClassViewer';
-import { LexiconClass, LexiconTag } from './types/lexicon';
+import { DataGroupViewer } from './components/DataGroupViewer';
+import { LexiconClass, LexiconTag, DataGroup } from './types/lexicon';
 
 import './styles.css';
 
@@ -11,6 +12,8 @@ const AllClassesViewer = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [classes, setClasses] = useState<LexiconClass[]>([]);
   const [filteredClasses, setFilteredClasses] = useState<LexiconClass[]>([]);
+  const [dataGroups, setDataGroups] = useState<DataGroup[]>([]);
+  const [filteredDataGroups, setFilteredDataGroups] = useState<DataGroup[]>([]);
   const [selectedTag, setSelectedTag] = useState('blockchain');
   const [tags, setTags] = useState<LexiconTag[]>([]);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -33,18 +36,28 @@ const AllClassesViewer = () => {
       : dataService.getClassesForTag(selectedTag);
     setClasses(tagClasses);
     setFilteredClasses(tagClasses);
+
+    const tagDataGroups = selectedTag === 'all' 
+      ? [] 
+      : dataService.getDataGroupsForTag(selectedTag);
+    setDataGroups(tagDataGroups);
+    setFilteredDataGroups(tagDataGroups);
   }, [selectedTag]);
 
   useEffect(() => {
     if (searchTerm.length === 0) {
       setFilteredClasses(classes);
+      setFilteredDataGroups(dataGroups);
     } else if (searchTerm.length >= 3) {
-      const filtered = dataService.filterClassesForSearch(classes, searchTerm);
-      setFilteredClasses(filtered);
+      const filteredClassResults = dataService.filterClassesForSearch(classes, searchTerm);
+      setFilteredClasses(filteredClassResults);
+      const filteredDataGroupResults = dataService.filterDataGroupsForSearch(dataGroups, searchTerm);
+      setFilteredDataGroups(filteredDataGroupResults);
     } else {
       setFilteredClasses([]);
+      setFilteredDataGroups([]);
     }
-  }, [searchTerm, classes]);
+  }, [searchTerm, classes, dataGroups]);
 
   return (
     <div className="search-container">
@@ -113,6 +126,7 @@ const AllClassesViewer = () => {
 
       <div className="results-info">
         <span className="results-count">
+          {filteredDataGroups.length > 0 && `${filteredDataGroups.length} data ${filteredDataGroups.length === 1 ? 'group' : 'groups'}, `}
           {filteredClasses.length} {filteredClasses.length === 1 ? 'class' : 'classes'}
         </span>
         <span>
@@ -120,26 +134,33 @@ const AllClassesViewer = () => {
         </span>
       </div>
 
-      {filteredClasses.length === 0 ? (
+      {filteredDataGroups.length === 0 && filteredClasses.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">📋</div>
           <div className="empty-state-title">
             {searchTerm.length > 0 && searchTerm.length < 3 
               ? 'Type more characters to search' 
-              : 'No classes found'
+              : 'No data groups or classes found'
             }
           </div>
           <div className="empty-state-description">
             {searchTerm.length > 0 && searchTerm.length < 3
               ? 'Search requires at least 3 characters for better results and typo tolerance.'
               : searchTerm 
-                ? `No classes match "${searchTerm}". Try adjusting your search or selecting a different category.`
-                : 'No classes available in the selected category.'
+                ? `No data groups or classes match "${searchTerm}". Try adjusting your search or selecting a different category.`
+                : 'No data groups or classes available in the selected category.'
             }
           </div>
         </div>
       ) : (
-        <LexiconClassViewer classes={filteredClasses} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+        <div>
+          {filteredDataGroups.length > 0 && (
+            <DataGroupViewer dataGroups={filteredDataGroups} />
+          )}
+          {filteredClasses.length > 0 && (
+            <LexiconClassViewer classes={filteredClasses} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
+          )}
+        </div>
       )}
     </div>
   );  

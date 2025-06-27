@@ -39,7 +39,19 @@ export interface LexiconTag {
   classes: string[];
 }
 
+export interface DataGroupRelationship {
+  from: string;
+  to: string;
+}
+
+export interface DataGroup {
+  label: string;
+  relationships: DataGroupRelationship[];
+  _searchMatches?: SearchMatch[];
+}
+
 export interface LexiconData {
   classes: LexiconClass[];
   tags: LexiconTag[];
+  data_groups: DataGroup[];
 }

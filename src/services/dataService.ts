@@ -1,4 +1,4 @@
-import { LexiconData, LexiconClass, LexiconTag, SearchMatch } from '../types/lexicon';
+import { LexiconData, LexiconClass, LexiconTag, SearchMatch, DataGroup } from '../types/lexicon';
 import lexiconData from '../data/lexicon.json';
 
 class DataService {
@@ -243,6 +243,80 @@ class DataService {
 
   getClassByName(className: string): LexiconClass | undefined {
     return this.lexicon.classes.find(cls => cls.type === className && !cls.is_deprecated);
+  }
+
+  getAllDataGroups(): DataGroup[] {
+    return this.lexicon.data_groups || [];
+  }
+
+  getDataGroupsForTag(tagName: string): DataGroup[] {
+    // Only show data groups for blockchain tag
+    if (tagName.toLowerCase() !== 'blockchain') return [];
+    return this.getAllDataGroups();
+  }
+
+  private findMatchesInDataGroup(dataGroup: DataGroup, searchTerm: string): SearchMatch[] {
+    const matches: SearchMatch[] = [];
+    
+    // Check data group label match
+    const labelMatch = this.fuzzyMatch(searchTerm, dataGroup.label);
+    if (labelMatch.matches) {
+      matches.push({
+        type: 'class',
+        field: 'type',
+        value: labelMatch.highlight || dataGroup.label,
+        score: labelMatch.score
+      });
+    }
+    
+    // Check relationship from/to values
+    dataGroup.relationships.forEach(rel => {
+      const fromMatch = this.fuzzyMatch(searchTerm, rel.from);
+      if (fromMatch.matches) {
+        matches.push({
+          type: 'relationship',
+          field: 'target',
+          value: `${rel.from} → ${rel.to}`,
+          score: fromMatch.score,
+          highlightedRelationshipTarget: fromMatch.highlight || rel.from
+        });
+      }
+      
+      const toMatch = this.fuzzyMatch(searchTerm, rel.to);
+      if (toMatch.matches) {
+        matches.push({
+          type: 'relationship',
+          field: 'target',
+          value: `${rel.from} → ${rel.to}`,
+          score: toMatch.score,
+          highlightedRelationshipTarget: toMatch.highlight || rel.to
+        });
+      }
+    });
+    
+    return matches;
+  }
+
+  filterDataGroupsForSearch(dataGroups: DataGroup[], searchTerm: string): DataGroup[] {
+    if (!searchTerm || searchTerm.length < 3) return [];
+    
+    const groupMatches: Array<{ group: DataGroup; matches: SearchMatch[]; score: number }> = [];
+    
+    dataGroups.forEach(group => {
+      const matches = this.findMatchesInDataGroup(group, searchTerm);
+      if (matches.length > 0) {
+        const maxScore = Math.max(...matches.map(m => m.score));
+        groupMatches.push({ group, matches, score: maxScore });
+      }
+    });
+    
+    // Sort by score (highest first)
+    return groupMatches
+      .sort((a, b) => b.score - a.score)
+      .map(item => ({
+        ...item.group,
+        _searchMatches: item.matches
+      }));
   }
 
   filterClassesForSearch(classes: LexiconClass[], searchTerm: string): LexiconClass[] {
