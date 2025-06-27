@@ -14,6 +14,8 @@ export interface SearchMatch {
   field: string;
   value: string;
   score: number;
+  highlightedDescription?: string;
+  highlightedEnum?: string;
 }
 
 export interface LexiconClass {

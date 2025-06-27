@@ -166,8 +166,9 @@ class DataService {
           matches.push({
             type: 'property',
             field: 'description',
-            value: propNameMatch.highlight || propName, // Show property name
-            score: descMatch.score
+            value: propName, // Property name for identification
+            score: descMatch.score,
+            highlightedDescription: descMatch.highlight || propData.comment
           });
         }
       }
@@ -180,8 +181,9 @@ class DataService {
             matches.push({
               type: 'property',
               field: 'enum',
-              value: propNameMatch.highlight || propName, // Show property name
-              score: enumMatch.score
+              value: propName, // Property name for identification
+              score: enumMatch.score,
+              highlightedEnum: enumMatch.highlight || enumValue
             });
           }
         });

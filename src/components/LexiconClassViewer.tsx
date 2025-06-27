@@ -81,6 +81,38 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
     return <span dangerouslySetInnerHTML={{ __html: text }} />;
   };
 
+  const getHighlightedDescription = (cls: LexiconClass, propName: string): string => {
+    if (!searchTerm || !cls._searchMatches) return '';
+    
+    const descMatch = cls._searchMatches.find(m => 
+      m.type === 'property' && 
+      m.field === 'description' && 
+      m.value === propName
+    );
+    return descMatch?.highlightedDescription || '';
+  };
+
+  const getHighlightedEnumValues = (cls: LexiconClass, propName: string): Map<string, string> => {
+    const enumHighlights = new Map<string, string>();
+    if (!searchTerm || !cls._searchMatches) return enumHighlights;
+    
+    const enumMatches = cls._searchMatches.filter(m => 
+      m.type === 'property' && 
+      m.field === 'enum' && 
+      m.value === propName
+    );
+    
+    enumMatches.forEach(match => {
+      if (match.highlightedEnum) {
+        // Extract the original enum value from the highlighted text
+        const originalValue = match.highlightedEnum.replace(/<\/?mark>/g, '');
+        enumHighlights.set(originalValue, match.highlightedEnum);
+      }
+    });
+    
+    return enumHighlights;
+  };
+
   return (
     <div className="lexicon-viewer">
       {classes.map((cls, index) => (
@@ -138,20 +170,35 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                             <div className="method-list-item-label-enum">
                               <span className="enum-label">Possible Values:</span>
                               <div className="enum-values">
-                                {[...propData.enum].sort((a, b) => a.localeCompare(b)).map((value, idx) => (
-                                  <button 
-                                    key={idx} 
-                                    className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
-                                    onClick={() => copyToClipboard(value)}
-                                    title="Click to copy to clipboard"
-                                  >
-                                    {copiedValue === value ? '✓ Copied!' : value}
-                                  </button>
-                                ))}
+                                {[...propData.enum].sort((a, b) => a.localeCompare(b)).map((value, idx) => {
+                                  const enumHighlights = getHighlightedEnumValues(cls, propName);
+                                  const highlightedValue = enumHighlights.get(value);
+                                  
+                                  return (
+                                    <button 
+                                      key={idx} 
+                                      className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                      onClick={() => copyToClipboard(value)}
+                                      title="Click to copy to clipboard"
+                                    >
+                                      {copiedValue === value ? '✓ Copied!' : 
+                                        (searchTerm && highlightedValue ? 
+                                          <span dangerouslySetInnerHTML={{ __html: highlightedValue }} /> :
+                                          value
+                                        )
+                                      }
+                                    </button>
+                                  );
+                                })}
                               </div>
                             </div>
                           )}
-                          <div className="method-list-item-label-description">{propData.comment || ''}</div>
+                          <div className="method-list-item-label-description">
+                            {searchTerm && getHighlightedDescription(cls, propName) ? 
+                              renderHighlightedText(getHighlightedDescription(cls, propName)) :
+                              propData.comment || ''
+                            }
+                          </div>
                         </div>
                       </div>
                     );
