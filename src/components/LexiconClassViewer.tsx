@@ -277,10 +277,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                             }
                           </div>
                           <div className="method-list-item-label-type">
-                            Type: {searchTerm && getHighlightedType(cls, propName) ? 
-                              renderHighlightedText(getHighlightedType(cls, propName)) :
-                              propData.type
-                            }
+                            <span className="property-type-label">Data Type</span>
+                            <span className="property-type-value">
+                              {searchTerm && getHighlightedType(cls, propName) ? 
+                                renderHighlightedText(getHighlightedType(cls, propName)) :
+                                propData.type
+                              }
+                            </span>
                           </div>
                           {propData.enum && (
                             <div className="method-list-item-label-enum">
@@ -355,27 +358,24 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({ classes, search
                                 relName
                               }
                             </div>
-                            <div className="method-list-item-label-type">
-                              Targets: [
+                            <div className="relationship-targets-container">
+                              <span className="relationship-targets-label">Links To</span>
                               {relData.targets?.map((target, idx) => {
                                 const highlightedTarget = targetHighlights.get(target);
                                 return (
-                                  <span key={idx}>
-                                    <button
-                                      className="relationship-target-link"
-                                      onClick={() => navigate(`/class/${target}`)}
-                                      title={`Navigate to ${target} class`}
-                                    >
-                                      {searchTerm && highlightedTarget ? 
-                                        renderHighlightedText(highlightedTarget) :
-                                        target
-                                      }
-                                    </button>
-                                    {idx < (relData.targets?.length || 0) - 1 ? ', ' : ''}
-                                  </span>
+                                  <button
+                                    key={idx}
+                                    className="relationship-target-link"
+                                    onClick={() => navigate(`/class/${target}`)}
+                                    title={`Navigate to ${target} class`}
+                                  >
+                                    {searchTerm && highlightedTarget ? 
+                                      renderHighlightedText(highlightedTarget) :
+                                      target
+                                    }
+                                  </button>
                                 );
                               }) || ''}
-                              ]
                             </div>
                             <div className="method-list-item-label-description">
                               {searchTerm && getHighlightedRelationshipDescription(cls, relName) ? 
