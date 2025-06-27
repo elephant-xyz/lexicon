@@ -156,6 +156,11 @@ const AllClassesViewer = () => {
         <div>
           {filteredDataGroups.length > 0 && (
             <div className="data-groups-section">
+              <div className="section-separator">
+                <div className="separator-line"></div>
+                <span className="separator-text">Data Groups</span>
+                <div className="separator-line"></div>
+              </div>
               <DataGroupViewer dataGroups={filteredDataGroups} searchTerm={searchTerm.length >= 3 ? searchTerm : ''} />
             </div>
           )}
