@@ -12,10 +12,32 @@ const SingleClassViewer = () => {
   const [canGoForward, setCanGoForward] = useState(false);
 
   useEffect(() => {
-    // Check if we can go back/forward
-    // Note: These are browser navigation controls, not lexicon-specific
+    // Check if we can go back - simple check based on history length
     setCanGoBack(window.history.length > 1);
-    setCanGoForward(false); // Forward is only available after going back
+    
+    // For forward navigation, we'll track this with session storage
+    // This is a practical approach for SPA navigation
+    const updateNavigationState = () => {
+      // Store current location in session storage to track navigation
+      const navHistory = JSON.parse(sessionStorage.getItem('navHistory') || '[]');
+      const currentPath = location.pathname;
+      
+      // Find current position in navigation history
+      const currentIndex = navHistory.indexOf(currentPath);
+      
+      if (currentIndex === -1) {
+        // New page - add to history
+        navHistory.push(currentPath);
+        sessionStorage.setItem('navHistory', JSON.stringify(navHistory));
+        setCanGoForward(false); // No forward when on newest page
+      } else {
+        // Existing page - check if we can go forward
+        const canForward = currentIndex < navHistory.length - 1;
+        setCanGoForward(canForward);
+      }
+    };
+
+    updateNavigationState();
   }, [location]);
 
   const lexiconClass = className ? dataService.getClassByName(className) : undefined;
