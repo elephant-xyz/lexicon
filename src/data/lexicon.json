@@ -5705,7 +5705,9 @@
         "tray_image",
         "tray_label",
         "mailed_date",
-        "returned_date"
+        "returned_date",
+        "staircase_document_category_type",
+        "staircase_blob_identifier"
       ],
       "properties": {
         "property_image_url": {
