@@ -475,7 +475,9 @@
         "school_district_name",
         "address_type_other_description",
         "recording_jurisdiction_type_other_description",
-        "address_identifier"
+        "address_identifier",
+        "full_address",
+        "full_address_slug"
       ],
       "properties": {
         "full_address_slug": {
@@ -5671,7 +5673,7 @@
         },
         "image_url": {
           "type": "string",
-          "pattern": "^ipfs://[A-Za-z0-9]{46,59}$",
+          "format": "ipfs-uri",
           "comment": "The IPFS URL of the image. Must be a valid IPFS URL starting with 'ipfs://' followed by a content identifier hash."
         }
       },
@@ -5734,18 +5736,16 @@
         },
         "document_original_url": {
           "type": "string",
-          "pattern": "^https?://[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?$",
           "format": "uri",
           "comment": "The data source url for document. Must be a valid HTTP or HTTPS URL."
         },
         "document_url": {
           "type": "string",
-          "pattern": "^ipfs://[A-Za-z0-9]{46,59}$",
+          "format": "ipfs-uri",
           "comment": "The IPFS URL for the document. Must be a valid IPFS URL starting with 'ipfs://' followed by a content identifier hash."
         },
         "document_date": {
           "type": "date",
-          "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
           "comment": "A document date is a date found on the document that typically represents the document creation date."
         },
         "document_identifier": {
@@ -10246,7 +10246,6 @@
         },
         "assumed_loan_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "The dollar amount of an existing loan assumed by the borrower."
         },
@@ -10260,19 +10259,16 @@
         },
         "balloon_payment_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "The dollar amount of the final, or lump sum, balloon payment."
         },
         "balloon_payment_maximum_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "The largest scheduled lump sum payment over the life of loan. This applies when there are scheduled lump sum payments that are more than twice as large as the average of earlier scheduled payments."
         },
         "balloon_payment_minimum_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "The smallest scheduled lump sum payment over the life of loan. This applies when there are scheduled lump sum payments that are more than twice as large as the average of earlier scheduled payments."
         },
@@ -10290,7 +10286,6 @@
         },
         "base_loan_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "base loan amount in mortgage banking refers to the initial amount of money borrowed by a borrower, before any fees or additional costs are added. It is the principal amount of the loan and is used as the basis for calculating interest charges, monthly payments, and the overall cost of the loan. \n\nThe base loan amount is rdf:type key factor in determining the terms and conditions of rdf:type loan, including the interest rate, amortization period, and monthly payment amount. It is separate from any additional costs or fees, such as closing costs, origination fees, or prepaid interest, which are added to the base loan amount to arrive at the total loan amount."
         },
@@ -10316,13 +10311,11 @@
         },
         "borrower_requested_loan_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "The amount of the loan initially requested by the borrower. This amount may include financed PMI, MIP and Funding Fees."
         },
         "buydown_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "A mortgage buydown is a financing technique in which the borrower or a third party pays an upfront fee to lower the interest rate on a mortgage loan for a period of time, typically the first few years of the loan term. The amount of the buydown is typically calculated as a percentage of the loan amount. The mortgage buydown amount is the total amount of money that is paid upfront to lower the interest rate on the mortgage loan."
         },
@@ -11645,47 +11638,49 @@
     },
     {
       "type": "lot",
-      "lot_type": {
-        "type": "string",
-        "enum": [
-          "GreaterThanOneQuarterAcre",
-          "PavedRoad",
-          "LessThanOrEqualToOneQuarterAcre",
-          "Other"
-        ],
-        "comment": "Refers to characteristics associated with a lot and structure."
-      },
-      "lot_type_other_description": {
-        "type": "string",
-        "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
-      },
-      "lot_size_dimensions": {
-        "type": "string",
-        "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
-      },
-      "lot_size_area": {
-        "type": "integer",
-        "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
-      },
-      "lot_size_square_feet": {
-        "type": "integer",
-        "comment": "The size of the lot in square feet."
-      },
-      "driveway_material": {
-        "type": "string",
-        "enum": [
-          "Concrete",
-          "Asphalt",
-          "Pavers",
-          "Gravel",
-          "None",
-          "Other"
-        ],
-        "comment": "The material of the driveway on the lot."
-      },
-      "landscaping_features": {
-        "type": "array",
-        "items": {
+      "container_name": "mappings",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "properties": {
+        "lot_type": {
+          "type": "string",
+          "enum": [
+            "GreaterThanOneQuarterAcre",
+            "PavedRoad",
+            "LessThanOrEqualToOneQuarterAcre",
+            "Other"
+          ],
+          "comment": "Refers to characteristics associated with a lot and structure."
+        },
+        "lot_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
+        },
+        "lot_size_dimensions": {
+          "type": "string",
+          "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
+        },
+        "lot_size_area": {
+          "type": "integer",
+          "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
+        },
+        "lot_size_square_feet": {
+          "type": "integer",
+          "comment": "The size of the lot in square feet."
+        },
+        "driveway_material": {
+          "type": "string",
+          "enum": [
+            "Concrete",
+            "Asphalt",
+            "Pavers",
+            "Gravel",
+            "None",
+            "Other"
+          ],
+          "comment": "The material of the driveway on the lot."
+        },
+        "landscaping_features": {
           "type": "string",
           "enum": [
             "MatureTrees",
@@ -11711,16 +11706,44 @@
         "comment": "Descriptive tag of the view from the lot."
       },
       "fencing_type": {
-        "type": "string",
-        "enum": [
-          "Wood",
-          "ChainLink",
-          "WroughtIron",
-          "Vinyl",
-          "None",
-          "Other"
-        ],
-        "comment": "Fence material/type as visually detected."
+        "lot_type": {
+          "type": "string",
+          "enum": [
+            "GreaterThanOneQuarterAcre",
+            "PavedRoad",
+            "LessThanOrEqualToOneQuarterAcre",
+            "Other"
+          ],
+          "comment": "Refers to characteristics associated with a lot and structure."
+        },
+        "lot_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
+        },
+        "lot_size_dimensions": {
+          "type": "string",
+          "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
+        },
+        "lot_size_area": {
+          "type": "integer",
+          "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
+        },
+        "lot_size_square_feet": {
+          "type": "integer",
+          "comment": "The size of the lot in square feet."
+        },
+        "driveway_material": {
+          "type": "string",
+          "enum": [
+            "Concrete",
+            "Asphalt",
+            "Pavers",
+            "Gravel",
+            "None",
+            "Other"
+          ],
+          "comment": "The material of the driveway on the lot."
+        }
       },
       "driveway_condition": {
         "type": "string",
@@ -12401,7 +12424,6 @@
         },
         "birth_date": {
           "type": "date",
-          "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
           "comment": "A birth date is the date on which a person was born. It typically includes the day, month, and year of an individual's birth and is used to determine their age."
         },
         "death_date": {
@@ -12414,7 +12436,6 @@
         },
         "first_name": {
           "type": "string",
-          "pattern": "",
           "comment": "A person's first name is the name that they are given at birth or during infancy, and it is typically used to identify them in a personal or informal context."
         },
         "first_time_home_owner": {
@@ -13587,7 +13608,8 @@
         "construction_method_type_other_description",
         "land_use_type_other_description",
         "native_american_lands_type_other_description",
-        "unique_dwelling_type_other_description"
+        "unique_dwelling_type_other_description",
+        "property_identifier"
       ],
       "properties": {
         "accessory_unit_count": {
@@ -14743,23 +14765,20 @@
           "comment": "Assessment of natural light availability."
         },
         "decor_elements": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Vaulted Ceiling",
-              "Coffered Ceiling",
-              "Beamed Ceiling",
-              "Tray Ceiling",
-              "Accent Wall",
-              "Exposed Brick",
-              "Crown Molding",
-              "Wainscoting",
-              "Built-In Shelving",
-              "Wall Paneling",
-              "Other"
-            ]
-          },
+          "type": "string",
+          "enum": [
+            "Vaulted Ceiling",
+            "Coffered Ceiling",
+            "Beamed Ceiling",
+            "Tray Ceiling",
+            "Accent Wall",
+            "Exposed Brick",
+            "Crown Molding",
+            "Wainscoting",
+            "Built-In Shelving",
+            "Wall Paneling",
+            "Other"
+          ],
           "comment": "List of prominent design elements."
         },
         "decor_elements_other_description": {
@@ -14841,37 +14860,31 @@
           "comment": "A free-form field to describe the view if 'Other' is selected."
         },
         "lighting_features": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Recessed",
-              "Track",
-              "Pendant",
-              "Chandelier",
-              "FlushMount",
-              "WallSconces",
-              "NaturalLight",
-              "Skylight"
-            ]
-          },
+          "type": "string",
+          "enum": [
+            "Recessed",
+            "Track",
+            "Pendant",
+            "Chandelier",
+            "FlushMount",
+            "WallSconces",
+            "NaturalLight",
+            "Skylight"
+          ],
           "comment": "Observed lighting fixtures and types in room."
         },
         "condition_issues": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "PeelingPaint",
-              "VisibleMold",
-              "WaterStains",
-              "DamagedDrywall",
-              "Clutter",
-              "Unfinished",
-              "Unclean",
-              "PersonalItemsVisible"
-            ]
-          },
+          "type": "string",
+          "enum": [
+            "PeelingPaint",
+            "VisibleMold",
+            "WaterStains",
+            "DamagedDrywall",
+            "Clutter",
+            "Unfinished",
+            "Unclean",
+            "PersonalItemsVisible"
+          ],
           "comment": "AI-observed visual condition issues in the room."
         },
         "is_exterior": {
@@ -18925,7 +18938,8 @@
         "document_image",
         "document",
         "relationship",
-        "nearby_location"
+        "nearby_location",
+        "lot"
       ]
     }
   ],
@@ -18964,6 +18978,10 @@
         {
           "from": "property",
           "to": "layout"
+        },
+        {
+          "from": "property",
+          "to": "environment_risk"
         }
       ]
     },
