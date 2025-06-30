@@ -205,6 +205,34 @@ class DataService {
           }
         });
       }
+
+      // Pattern match
+      if (propData.pattern) {
+        const patternMatch = this.fuzzyMatch(searchTerm, propData.pattern);
+        if (patternMatch.matches) {
+          matches.push({
+            type: 'property',
+            field: 'pattern',
+            value: propName, // Property name for identification
+            score: patternMatch.score,
+            highlightedPattern: patternMatch.highlight || propData.pattern,
+          });
+        }
+      }
+
+      // Format match
+      if (propData.format) {
+        const formatMatch = this.fuzzyMatch(searchTerm, propData.format);
+        if (formatMatch.matches) {
+          matches.push({
+            type: 'property',
+            field: 'format',
+            value: propName, // Property name for identification
+            score: formatMatch.score,
+            highlightedFormat: formatMatch.highlight || propData.format,
+          });
+        }
+      }
     });
 
     // Check relationships

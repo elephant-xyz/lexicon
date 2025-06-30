@@ -1115,3 +1115,111 @@ mark {
     --hover-color: #404040;
   }
 }
+
+/* Pattern Display Styles */
+.pattern-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+  display: block;
+}
+
+.pattern-value {
+  background-color: var(--background-accent);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  font-family: var(--font-family-mono);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  display: inline-block;
+}
+
+.pattern-value:hover {
+  background-color: var(--primary-pink);
+  color: var(--primary-white);
+  border-color: var(--primary-pink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pattern-value:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
+}
+
+.pattern-value:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.pattern-value-copied {
+  background-color: var(--primary-pink) !important;
+  color: var(--primary-white) !important;
+  border-color: var(--primary-pink) !important;
+  animation: pulse-success 0.3s ease-in-out;
+}
+
+.method-list-item-label-pattern {
+  margin-bottom: var(--spacing-3);
+}
+
+/* Format Display Styles */
+.format-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+  display: block;
+}
+
+.format-value {
+  background-color: var(--background-accent);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  font-family: var(--font-family-mono);
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  display: inline-block;
+}
+
+.format-value:hover {
+  background-color: var(--primary-pink);
+  color: var(--primary-white);
+  border-color: var(--primary-pink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.format-value:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 116, 194, 0.2);
+}
+
+.format-value:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.format-value-copied {
+  background-color: var(--primary-pink) !important;
+  color: var(--primary-white) !important;
+  border-color: var(--primary-pink) !important;
+  animation: pulse-success 0.3s ease-in-out;
+}
+
+.method-list-item-label-format {
+  margin-bottom: var(--spacing-3);
+}
