@@ -35,6 +35,7 @@
   --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-mono:
     'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  --font-family-class-names: 'neue-haas-grotesk-display', 'Helvetica Neue', Arial, sans-serif;
 
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -317,7 +318,7 @@ body {
   font-size: var(--text-base);
   font-weight: 600;
   color: var(--text-primary);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-family-class-names);
 }
 
 /* Error Message */
@@ -524,7 +525,7 @@ body {
   font-size: var(--text-xl);
   font-weight: 700;
   color: var(--text-primary);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-family-class-names);
   letter-spacing: -0.025em;
 }
 
@@ -648,6 +649,7 @@ body {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
+  font-family: var(--font-family-class-names);
 }
 
 .method-list-item-label-type {
@@ -778,7 +780,7 @@ body {
   color: var(--secondary-blue);
   text-decoration: none;
   cursor: pointer;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-class-names);
   font-size: var(--text-sm);
   font-weight: 600;
   padding: var(--spacing-1) var(--spacing-3);
