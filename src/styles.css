@@ -31,10 +31,15 @@
   --border-color: var(--secondary-border);
   --hover-color: var(--secondary-hover);
 
-  /* Typography */
-  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Typography - Adobe Typekit Fonts */
+  --font-family-primary: 'proxima-nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-family-mono:
     'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+
+  /* Font Weights */
+  --font-weight-roman: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 
   /* Font Sizes */
   --text-xs: 0.75rem;
@@ -80,6 +85,7 @@
 body {
   font-family: var(--font-family-primary);
   font-size: var(--text-base);
+  font-weight: var(--font-weight-roman);
   line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--background-primary);
@@ -87,6 +93,26 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-primary);
+}
+
+/* Subheadings and labels */
+.header-subtitle,
+.tag-selector label,
+.search-bar label,
+.class-info label,
+.enum-label,
+.pattern-label,
+.format-label,
+.relationship-targets-label,
+.separator-text,
+.results-count {
+  font-weight: var(--font-weight-medium);
 }
 
 /* Main Container */
@@ -106,7 +132,7 @@ body {
 
 .header-title {
   font-size: var(--text-3xl);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
   letter-spacing: -0.025em;
@@ -114,6 +140,7 @@ body {
 
 .header-subtitle {
   font-size: var(--text-lg);
+  font-weight: var(--font-weight-medium);
   color: var(--text-secondary);
   margin-bottom: var(--spacing-4);
 }
@@ -139,7 +166,7 @@ body {
   border: 2px solid var(--border-color);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-sm);
 }
@@ -200,7 +227,7 @@ body {
   background-color: var(--background-secondary);
   color: var(--text-primary);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all var(--transition-fast);
   font-family: var(--font-family-primary);
@@ -264,7 +291,7 @@ body {
 
 .tag-selector label {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -276,7 +303,7 @@ body {
   border-radius: var(--radius-md);
   background-color: var(--background-secondary);
   font-size: var(--text-base);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
   color: var(--text-primary);
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -303,7 +330,7 @@ body {
 
 .class-info label {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -315,7 +342,7 @@ body {
   border-radius: var(--radius-md);
   background-color: var(--background-secondary);
   font-size: var(--text-base);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   font-family: var(--font-family-mono);
 }
@@ -333,11 +360,13 @@ body {
   color: var(--secondary-dark-red);
   margin-bottom: var(--spacing-2);
   font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
 }
 
 .error-message p {
   color: var(--text-secondary);
   margin: 0;
+  font-weight: var(--font-weight-roman);
 }
 
 /* Search Bar */
@@ -349,7 +378,7 @@ body {
 
 .search-bar label {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -362,6 +391,7 @@ body {
   border-radius: var(--radius-md);
   background-color: var(--background-secondary);
   font-size: var(--text-base);
+  font-weight: var(--font-weight-roman);
   font-family: var(--font-family-primary);
   color: var(--text-primary);
   transition: all var(--transition-fast);
@@ -391,7 +421,7 @@ body {
   font-size: var(--text-xs);
   color: var(--secondary-acid);
   margin-top: var(--spacing-1);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
 }
 
 /* Search Input Container */
@@ -432,7 +462,7 @@ body {
   padding: var(--spacing-2) var(--spacing-4);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
@@ -452,6 +482,7 @@ body {
 .no-results p {
   margin-bottom: var(--spacing-4);
   font-size: var(--text-lg);
+  font-weight: var(--font-weight-roman);
 }
 
 /* Results Info */
@@ -468,7 +499,7 @@ body {
 }
 
 .results-count {
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
 }
 
@@ -522,7 +553,7 @@ body {
 
 .method-list-item-label-name {
   font-size: var(--text-xl);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--text-primary);
   font-family: var(--font-family-mono);
   letter-spacing: -0.025em;
@@ -532,6 +563,7 @@ body {
   font-size: var(--text-sm);
   color: var(--text-secondary);
   margin-top: var(--spacing-2);
+  font-weight: var(--font-weight-roman);
 }
 
 /* Expand Button */
@@ -546,7 +578,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--text-secondary);
   transition: all var(--transition-fast);
 }
@@ -572,7 +604,7 @@ body {
   border-radius: var(--radius-sm);
   display: inline-block;
   margin-top: var(--spacing-2);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
 }
 
 /* Deprecated Badge */
@@ -582,7 +614,7 @@ body {
   background-color: var(--secondary-dark-red);
   color: var(--primary-white);
   font-size: var(--text-xs);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-radius: var(--radius-sm);
@@ -609,7 +641,7 @@ body {
 .properties-section h4,
 .relationships-section h4 {
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   color: var(--text-primary);
   margin-bottom: var(--spacing-4);
   padding-bottom: var(--spacing-2);
@@ -645,7 +677,7 @@ body {
 
 .method-list-item-isChild .method-list-item-label-name {
   font-size: var(--text-base);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
 }
@@ -659,14 +691,14 @@ body {
   border-radius: var(--radius-md);
   display: inline-block;
   margin-bottom: var(--spacing-2);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
   border: 1px solid var(--border-color);
 }
 
 .property-type-label {
   color: var(--text-secondary);
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-right: var(--spacing-2);
@@ -674,7 +706,7 @@ body {
 
 .property-type-value {
   color: var(--secondary-blue);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   text-transform: capitalize;
 }
 
@@ -684,7 +716,7 @@ body {
 
 .enum-label {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
   display: block;
@@ -701,7 +733,7 @@ body {
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
   padding: var(--spacing-1) var(--spacing-3);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
@@ -769,6 +801,7 @@ body {
   color: var(--text-secondary);
   margin-top: var(--spacing-2);
   line-height: 1.5;
+  font-weight: var(--font-weight-roman);
 }
 
 /* Relationship Target Links */
@@ -780,7 +813,7 @@ body {
   cursor: pointer;
   font-family: var(--font-family-primary);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   padding: var(--spacing-1) var(--spacing-3);
   margin: 0 var(--spacing-1);
   border-radius: var(--radius-md);
@@ -804,7 +837,7 @@ body {
 .relationship-targets-label {
   color: var(--text-secondary);
   font-size: var(--text-xs);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-right: var(--spacing-2);
@@ -824,7 +857,7 @@ mark {
   color: var(--primary-espresso);
   padding: 0 var(--spacing-1);
   border-radius: var(--radius-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
 }
 
 /* Empty State */
@@ -842,7 +875,7 @@ mark {
 
 .empty-state-title {
   font-size: var(--text-xl);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
 }
@@ -850,6 +883,7 @@ mark {
 .empty-state-description {
   font-size: var(--text-base);
   color: var(--text-secondary);
+  font-weight: var(--font-weight-roman);
 }
 
 /* Loading State */
@@ -966,7 +1000,7 @@ mark {
   color: var(--primary-espresso);
   border: 2px solid var(--primary-toxic-green);
   font-size: var(--text-xl);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
   box-shadow: var(--shadow-lg);
   transition: all var(--transition-fast);
@@ -1024,7 +1058,7 @@ mark {
 
 .separator-text {
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: var(--font-weight-medium);
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1042,7 +1076,7 @@ mark {
 .data-group-badge {
   background-color: var(--primary-toxic-green);
   color: var(--primary-espresso);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   font-size: var(--text-xs);
   padding: var(--spacing-1) var(--spacing-3);
   border-radius: var(--radius-full);
@@ -1060,13 +1094,13 @@ mark {
   margin: var(--spacing-1) 0;
   color: var(--text-secondary);
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
 }
 
 .relationship-arrow {
   color: var(--primary-toxic-green);
   font-size: var(--text-lg);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   margin: 0 var(--spacing-2);
 }
 
@@ -1085,7 +1119,7 @@ mark {
 .match-score {
   color: var(--text-secondary);
   font-size: var(--text-xs);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
 }
 
 /* Responsive adjustments for data groups */
@@ -1121,7 +1155,7 @@ mark {
 /* Pattern Display Styles */
 .pattern-label {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
   display: block;
@@ -1132,7 +1166,7 @@ mark {
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
   padding: var(--spacing-1) var(--spacing-3);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
@@ -1175,7 +1209,7 @@ mark {
 /* Format Display Styles */
 .format-label {
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
   display: block;
@@ -1186,7 +1220,7 @@ mark {
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: var(--font-weight-roman);
   padding: var(--spacing-1) var(--spacing-3);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
