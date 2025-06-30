@@ -12323,21 +12323,6 @@
           "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
           "comment": "A birth date is the date on which a person was born. It typically includes the day, month, and year of an individual's birth and is used to determine their age."
         },
-        "birth_day": {
-          "type": "string",
-          "pattern": "^(0?[1-9]|[12][0-9]|3[01])$",
-          "comment": "The day of the birth date."
-        },
-        "birth_month": {
-          "type": "string",
-          "pattern": "^(0?[1-9]|1[0-2])$",
-          "comment": "The month of the birth date."
-        },
-        "birth_year": {
-          "type": "string",
-          "pattern": "^(19|20)\\d{2}$",
-          "comment": "The year of the birth date. It may not be present in some instances."
-        },
         "death_date": {
           "type": "date",
           "comment": "Specifies the date on which a person passed away. This can be used in records to memorialize an individual and provide clarity in historical or genealogical contexts."
