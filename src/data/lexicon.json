@@ -11681,92 +11681,89 @@
           "comment": "The material of the driveway on the lot."
         },
         "landscaping_features": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "MatureTrees",
-              "ManicuredGarden",
-              "OvergrownVegetation",
-              "FlowerBeds",
-              "Planters",
-              "Lawn"
-            ]
-          },
-          "comment": "Features associated with the landscaping on the lot."
-        },
-        "view": {
           "type": "string",
           "enum": [
-            "OceanView",
-            "MountainView",
-            "CitySkylineView",
-            "ParkView",
+            "MatureTrees",
+            "ManicuredGarden",
+            "OvergrownVegetation",
+            "FlowerBeds",
+            "Planters",
+            "Lawn"
+          ]
+        },
+        "comment": "Features associated with the landscaping on the lot."
+      },
+      "view": {
+        "type": "string",
+        "enum": [
+          "OceanView",
+          "MountainView",
+          "CitySkylineView",
+          "ParkView",
+          "None",
+          "Other"
+        ],
+        "comment": "Descriptive tag of the view from the lot."
+      },
+      "fencing_type": {
+        "lot_type": {
+          "type": "string",
+          "enum": [
+            "GreaterThanOneQuarterAcre",
+            "PavedRoad",
+            "LessThanOrEqualToOneQuarterAcre",
+            "Other"
+          ],
+          "comment": "Refers to characteristics associated with a lot and structure."
+        },
+        "lot_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
+        },
+        "lot_size_dimensions": {
+          "type": "string",
+          "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
+        },
+        "lot_size_area": {
+          "type": "integer",
+          "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
+        },
+        "lot_size_square_feet": {
+          "type": "integer",
+          "comment": "The size of the lot in square feet."
+        },
+        "driveway_material": {
+          "type": "string",
+          "enum": [
+            "Concrete",
+            "Asphalt",
+            "Pavers",
+            "Gravel",
             "None",
             "Other"
           ],
-          "comment": "Descriptive tag of the view from the lot."
-        },
-        "fencing_type": {
-          "lot_type": {
-            "type": "string",
-            "enum": [
-              "GreaterThanOneQuarterAcre",
-              "PavedRoad",
-              "LessThanOrEqualToOneQuarterAcre",
-              "Other"
-            ],
-            "comment": "Refers to characteristics associated with a lot and structure."
-          },
-          "lot_type_other_description": {
-            "type": "string",
-            "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
-          },
-          "lot_size_dimensions": {
-            "type": "string",
-            "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
-          },
-          "lot_size_area": {
-            "type": "integer",
-            "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
-          },
-          "lot_size_square_feet": {
-            "type": "integer",
-            "comment": "The size of the lot in square feet."
-          },
-          "driveway_material": {
-            "type": "string",
-            "enum": [
-              "Concrete",
-              "Asphalt",
-              "Pavers",
-              "Gravel",
-              "None",
-              "Other"
-            ],
-            "comment": "The material of the driveway on the lot."
-          }
-        },
-        "driveway_condition": {
-          "type": "string",
-          "enum": [
-            "Good",
-            "Cracked",
-            "Stained",
-            "Worn"
-          ]
-        },
-        "lot_condition_issues": {
-          "type": "string",
-          "enum": [
-            "OvergrownWeeds",
-            "Clutter",
-            "TrashPiles",
-            "BrokenFence",
-            "CrackedDriveway"
-          ],
-          "comment": "AI-observed lot-level maintenance or neglect issues."
+          "comment": "The material of the driveway on the lot."
         }
+      },
+      "driveway_condition": {
+        "type": "string",
+        "enum": [
+          "Good",
+          "Cracked",
+          "Stained",
+          "Worn"
+        ]
+      },
+      "lot_condition_issues": {
+        "type": "string",
+        "enum": [
+          "OvergrownWeeds",
+          "Clutter",
+          "TrashPiles",
+          "BrokenFence",
+          "CrackedDriveway"
+        ],
+        "comment": "AI-observed lot-level maintenance or neglect issues."
       }
     },
     {
@@ -14768,23 +14765,20 @@
           "comment": "Assessment of natural light availability."
         },
         "decor_elements": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Vaulted Ceiling",
-              "Coffered Ceiling",
-              "Beamed Ceiling",
-              "Tray Ceiling",
-              "Accent Wall",
-              "Exposed Brick",
-              "Crown Molding",
-              "Wainscoting",
-              "Built-In Shelving",
-              "Wall Paneling",
-              "Other"
-            ]
-          },
+          "type": "string",
+          "enum": [
+            "Vaulted Ceiling",
+            "Coffered Ceiling",
+            "Beamed Ceiling",
+            "Tray Ceiling",
+            "Accent Wall",
+            "Exposed Brick",
+            "Crown Molding",
+            "Wainscoting",
+            "Built-In Shelving",
+            "Wall Paneling",
+            "Other"
+          ],
           "comment": "List of prominent design elements."
         },
         "decor_elements_other_description": {
@@ -14866,37 +14860,31 @@
           "comment": "A free-form field to describe the view if 'Other' is selected."
         },
         "lighting_features": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "Recessed",
-              "Track",
-              "Pendant",
-              "Chandelier",
-              "FlushMount",
-              "WallSconces",
-              "NaturalLight",
-              "Skylight"
-            ]
-          },
+          "type": "string",
+          "enum": [
+            "Recessed",
+            "Track",
+            "Pendant",
+            "Chandelier",
+            "FlushMount",
+            "WallSconces",
+            "NaturalLight",
+            "Skylight"
+          ],
           "comment": "Observed lighting fixtures and types in room."
         },
         "condition_issues": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": [
-              "PeelingPaint",
-              "VisibleMold",
-              "WaterStains",
-              "DamagedDrywall",
-              "Clutter",
-              "Unfinished",
-              "Unclean",
-              "PersonalItemsVisible"
-            ]
-          },
+          "type": "string",
+          "enum": [
+            "PeelingPaint",
+            "VisibleMold",
+            "WaterStains",
+            "DamagedDrywall",
+            "Clutter",
+            "Unfinished",
+            "Unclean",
+            "PersonalItemsVisible"
+          ],
           "comment": "AI-observed visual condition issues in the room."
         },
         "is_exterior": {
