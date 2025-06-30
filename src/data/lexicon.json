@@ -474,7 +474,8 @@
         "block",
         "school_district_name",
         "address_type_other_description",
-        "recording_jurisdiction_type_other_description"
+        "recording_jurisdiction_type_other_description",
+        "address_identifier"
       ],
       "properties": {
         "full_address_slug": {
@@ -7609,18 +7610,71 @@
       "properties": {
         "leasing_policy": {
           "type": "string",
+          "enum": [
+            "NoRental",
+            "ShortTermRental",
+            "LongTermRental",
+            "MinimumStay30Days",
+            "MinimumStay6Months",
+            "MinimumStay1Year",
+            "HOAApprovalRequired",
+            "OwnerOccupiedOnly",
+            "UnlimitedRental",
+            "SeasonalRentalOnly"
+          ],
           "comment": "Summary of leasing rules and duration limits (e.g., minimum stay, frequency, HOA approval)."
         },
         "pet_policy": {
           "type": "string",
+          "enum": [
+            "NoPets",
+            "PetFriendly",
+            "DogsOnly",
+            "CatsOnly",
+            "SmallPetsOnly",
+            "WeightRestriction25lbs",
+            "WeightRestriction50lbs",
+            "BreedRestrictions",
+            "MaxTwoPets",
+            "PetDeposit",
+            "PetFee",
+            "ServiceAnimalsOnly"
+          ],
           "comment": "Information about pet allowances and restrictions (e.g., pet friendly, breed/size restrictions)."
         },
         "vehicle_policy": {
           "type": "string",
+          "enum": [
+            "NoRestrictions",
+            "NoRVs",
+            "NoTrailers",
+            "NoCommercialVehicles",
+            "NoBoats",
+            "ReservedParkingOnly",
+            "GuestParkingRestricted",
+            "MaxTwoVehicles",
+            "CoveredParkingRequired",
+            "NoStreetParking",
+            "PermitRequired"
+          ],
           "comment": "Rules around parking and vehicle types (e.g., no RVs, reserved parking)."
         },
         "general_restrictions": {
           "type": "string",
+          "enum": [
+            "NoRestrictions",
+            "QuietHours",
+            "NoSmoking",
+            "NoStorage",
+            "DressCode",
+            "NoSatelliteDishes",
+            "NoExteriorModifications",
+            "NoPoolAccess",
+            "NoGym",
+            "AgeLimited55Plus",
+            "NoShortTermGuests",
+            "HOAApprovalRequired"
+          ],
           "comment": "Other HOA or property-wide lifestyle rules (e.g., quiet hours, storage bans, dress code)."
         }
       }
@@ -12337,7 +12391,8 @@
         "has_signature",
         "owned_environments",
         "subscribes_to",
-        "has_person_validation"
+        "has_person_validation",
+        "person_identifier"
       ],
       "properties": {
         "age": {
