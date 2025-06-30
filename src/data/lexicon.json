@@ -60,7 +60,7 @@
           "comment": "Private pool indicates that the property has a private pool."
         },
         "garage_spaces_indicator": {
-          "type": "boolean",
+          "type": "integer",
           "comment": "Refers to the number of parking spaces available within a garage on the property."
         },
         "price_drop_indicator": {
@@ -477,7 +477,30 @@
         "recording_jurisdiction_type_other_description",
         "address_identifier",
         "full_address",
-        "full_address_slug"
+        "full_address_slug",
+        "address_format_type",
+        "address_line_3",
+        "address_type",
+        "address_unit_designator_type",
+        "attention_to_name",
+        "created_datetime",
+        "last_updated_datetime",
+        "mail_stop_code",
+        "municipality_name",
+        "plus_four_postal_code_type",
+        "created_datetime",
+        "last_updated_datetime",
+        "mail_stop_code",
+        "municipality_name",
+        "post_office_box_identifier",
+        "post_office_box_identifier",
+        "unincorporated_area_name",
+        "country_code",
+        "county_code",
+        "sequence_number",
+        "street_primary_number",
+        "state_name",
+        "street_suffix"
       ],
       "properties": {
         "full_address_slug": {
@@ -727,8 +750,7 @@
         },
         "plus_four_postal_code": {
           "type": "string",
-          "comment": "A postal code plus four, also known as a ZIP code plus four (in the United States) is a numerical extension to a postal code.",
-          "pattern": "^[0-9]{4}$"
+          "comment": "A postal code plus four, also known as a ZIP code plus four (in the United States) is a numerical extension to a postal code."
         },
         "plus_four_postal_code_type": {
           "type": "string",
@@ -754,7 +776,6 @@
         },
         "postal_code": {
           "type": "string",
-          "pattern": "^[0-9]{5}$",
           "comment": "A postal code, also known as a ZIP code (in the United States) or postcode (in many other countries), is a numerical code used by postal services to identify specific geographic areas for efficient mail sorting and delivery."
         },
         "recording_jurisdiction_name": {
@@ -830,6 +851,10 @@
         "street_primary_number": {
           "type": "string",
           "comment": "Street primary number refers to the numerical part of a street address that indicates the specific location or position of a building or property along a street."
+        },
+        "street_number": {
+          "type": "string",
+          "comment": "Street  number refers to the numerical part of a street address that indicates the specific location or position of a building or property along a street."
         },
         "street_suffix": {
           "type": "string",
@@ -5650,7 +5675,8 @@
       "is_deprecated": false,
       "deprecated_properties": [
         "is_front",
-        "staircase_blob_identifier"
+        "staircase_blob_identifier",
+        "sequence_number"
       ],
       "properties": {
         "staircase_blob_identifier": {
@@ -5667,7 +5693,6 @@
         },
         "image_original_url": {
           "type": "string",
-          "pattern": "^https?://[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?$",
           "format": "uri",
           "comment": "The original URL of the image. Must be a valid HTTP or HTTPS URL."
         },
@@ -5713,7 +5738,8 @@
         "returned_date",
         "staircase_document_category_type",
         "staircase_blob_identifier",
-        "has_document_image"
+        "has_document_image",
+        "document_identifier"
       ],
       "properties": {
         "property_image_url": {
@@ -6715,7 +6741,9 @@
       "type": "exterior",
       "container_name": "exteriors",
       "is_deprecated": true,
-      "deprecated_properties": [],
+      "deprecated_properties": [
+        "lot_type_other_description"
+      ],
       "properties": {
         "lot_type": {
           "type": "string",
@@ -6897,13 +6925,6 @@
             "Urban"
           ],
           "comment": "Light pollution level affecting night sky visibility."
-        },
-        "view_type": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "comment": "Types of views available from the property (e.g., ocean, mountain, city, garden, wooded)."
         }
       }
     },
@@ -7548,7 +7569,8 @@
         },
         "homeowners_association_amount": {
           "type": "decimal",
-          "comment": "Amount of HOA fees"
+          "comment": "Amount of HOA fees",
+          "format": "currency"
         },
         "homeowners_association_year": {
           "type": "integer",
@@ -7568,11 +7590,45 @@
         },
         "amenities": {
           "type": "string",
-          "comment": "Free-text list or description of amenities offered (e.g., pool, clubhouse, gym, golf course)."
+          "enum": [
+            "pool",
+            "clubhouse",
+            "gym",
+            "golf_course",
+            "tennis_court",
+            "playground",
+            "dog_park",
+            "spa",
+            "sauna",
+            "business_center",
+            "game_room",
+            "bbq_area",
+            "marina",
+            "bike_trails",
+            "walking_paths",
+            "rooftop_deck",
+            "community_kitchen",
+            "co_working_space",
+            "package_lockers"
+          ],
+          "comment": "List of common amenities offered (e.g., pool, clubhouse, gym, golf course)."
         },
         "security_features": {
           "type": "string",
-          "comment": "Description of security infrastructure or services (e.g., 24/7 guard, gated entry, surveillance cameras)."
+          "enum": [
+            "24_7_guard",
+            "gated_entry",
+            "surveillance_cameras",
+            "keycard_access",
+            "security_patrols",
+            "doorman",
+            "intercom_system",
+            "secure_parking",
+            "fenced_perimeter",
+            "alarm_system",
+            "smart_locks"
+          ],
+          "comment": "Standard security infrastructure or services (e.g., 24/7 guard, gated entry, surveillance cameras)."
         }
       },
       "relationships": {
@@ -10155,7 +10211,67 @@
         "seasonal_payment_feature_description",
         "step_payments_feature_description",
         "lien_priority_type_other_description",
-        "loan_purpose_type_other_description"
+        "loan_purpose_type_other_description",
+        "loan_identifier",
+        "lender_loan_identifier",
+        "originator_loan_identifier",
+        "servicer_loan_identifier",
+        "investor_loan_identifier",
+        "mers_mortgage_identification_number",
+        "pool_identifier",
+        "pool_prefix_identifier",
+        "loan_application_date",
+        "application_received_date",
+        "loan_approval_date",
+        "loan_approval_expiration_date",
+        "loan_approval_period_days_count",
+        "loan_commitment_date",
+        "loan_commitment_expiration_date",
+        "loan_commitment_period_days_count",
+        "estimate_issued_date",
+        "loan_estimated_closing_date",
+        "loan_rate_lock_indicator",
+        "loan_rate_lock_expiration_date",
+        "loan_rate_lock_period_days_count",
+        "servicing_transfer_indicator",
+        "servicing_transfer_prohibited_indicator",
+        "servicing_transfer_status_type",
+        "creditor_servicing_of_loan_statement_type",
+        "loan_status",
+        "loan_status_date",
+        "loan_status_type",
+        "loan_asset_added_indicator",
+        "loan_sale_funding_date",
+        "pool_issue_date",
+        "correspondent_acquisition_type",
+        "delegated_underwriting_indicator",
+        "enote_indicator",
+        "enote_certified_indicator",
+        "day_one_certainty_indicator",
+        "trid_rule_indicator",
+        "warehouse_lender_indicator",
+        "accelerated_payment_program_indicator",
+        "ach_indicator",
+        "positive_rental_history_indicator",
+        "workout_active_indicator",
+        "closing_disclosure_waiting_period_waived_indicator",
+        "loan_estimate_waiting_period_waived_indicator",
+        "right_of_rescission_waiting_period_waived_indicator",
+        "generates_liability",
+        "has_late_charge_payment",
+        "has_automated_underwriting_system",
+        "has_closing_adjustment_item",
+        "has_closing_information",
+        "has_document",
+        "has_estimated_property_cost",
+        "has_finance_relation",
+        "has_loan_price_quote_adjustment_reason",
+        "has_loan_timeline",
+        "has_payoff",
+        "has_projected_payment",
+        "has_property",
+        "has_terms_of_loan",
+        "has_terms_of_refinance"
       ],
       "properties": {
         "accelerated_payment_program_indicator": {
@@ -11640,7 +11756,12 @@
       "type": "lot",
       "container_name": "mappings",
       "is_deprecated": false,
-      "deprecated_properties": [],
+      "deprecated_properties": [
+        "lot_type_other_description",
+        "lot_size_dimensions",
+        "lot_size_area",
+        "lot_size_square_feet"
+      ],
       "properties": {
         "lot_type": {
           "type": "string",
@@ -11668,6 +11789,18 @@
           "type": "integer",
           "comment": "The size of the lot in square feet."
         },
+        "lot_length_feet": {
+          "type": "integer",
+          "comment": "The length of the lot in feet (typically the side parallel to the street)."
+        },
+        "lot_width_feet": {
+          "type": "integer",
+          "comment": "The width of the lot in feet (typically the depth of the property from front to back)."
+        },
+        "lot_area_sqft": {
+          "type": "integer",
+          "comment": "Total lot area in square feet. Preferred normalized value for lot size."
+        },
         "driveway_material": {
           "type": "string",
           "enum": [
@@ -11689,81 +11822,81 @@
             "FlowerBeds",
             "Planters",
             "Lawn"
-          ]
-        },
-        "comment": "Features associated with the landscaping on the lot."
-      },
-      "view": {
-        "type": "string",
-        "enum": [
-          "OceanView",
-          "MountainView",
-          "CitySkylineView",
-          "ParkView",
-          "None",
-          "Other"
-        ],
-        "comment": "Descriptive tag of the view from the lot."
-      },
-      "fencing_type": {
-        "lot_type": {
-          "type": "string",
-          "enum": [
-            "GreaterThanOneQuarterAcre",
-            "PavedRoad",
-            "LessThanOrEqualToOneQuarterAcre",
-            "Other"
           ],
-          "comment": "Refers to characteristics associated with a lot and structure."
+          "comment": "Features associated with the landscaping on the lot."
         },
-        "lot_type_other_description": {
-          "type": "string",
-          "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
-        },
-        "lot_size_dimensions": {
-          "type": "string",
-          "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
-        },
-        "lot_size_area": {
-          "type": "integer",
-          "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
-        },
-        "lot_size_square_feet": {
-          "type": "integer",
-          "comment": "The size of the lot in square feet."
-        },
-        "driveway_material": {
+        "view": {
           "type": "string",
           "enum": [
-            "Concrete",
-            "Asphalt",
-            "Pavers",
-            "Gravel",
+            "OceanView",
+            "MountainView",
+            "CitySkylineView",
+            "ParkView",
             "None",
             "Other"
           ],
-          "comment": "The material of the driveway on the lot."
+          "comment": "Descriptive tag of the view from the lot."
+        },
+        "fencing_type": {
+          "lot_type": {
+            "type": "string",
+            "enum": [
+              "GreaterThanOneQuarterAcre",
+              "PavedRoad",
+              "LessThanOrEqualToOneQuarterAcre",
+              "Other"
+            ],
+            "comment": "Refers to characteristics associated with a lot and structure."
+          },
+          "lot_type_other_description": {
+            "type": "string",
+            "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
+          },
+          "lot_size_dimensions": {
+            "type": "string",
+            "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
+          },
+          "lot_size_area": {
+            "type": "integer",
+            "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
+          },
+          "lot_size_square_feet": {
+            "type": "integer",
+            "comment": "The size of the lot in square feet."
+          },
+          "driveway_material": {
+            "type": "string",
+            "enum": [
+              "Concrete",
+              "Asphalt",
+              "Pavers",
+              "Gravel",
+              "None",
+              "Other"
+            ],
+            "comment": "The material of the driveway on the lot."
+          }
+        },
+        "driveway_condition": {
+          "type": "string",
+          "enum": [
+            "Good",
+            "Cracked",
+            "Stained",
+            "Worn"
+          ]
+        },
+        "lot_condition_issues": {
+          "type": "string",
+          "enum": [
+            "OvergrownWeeds",
+            "Clutter",
+            "TrashPiles",
+            "BrokenFence",
+            "CrackedDriveway"
+          ],
+          "comment": "AI-observed lot-level maintenance or neglect issues."
         }
-      },
-      "driveway_condition": {
-        "type": "string",
-        "enum": [
-          "Good",
-          "Cracked",
-          "Stained",
-          "Worn"
-        ]
-      },
-      "lot_condition_issues": {
-        "type": "string",
-        "enum": [
-          "OvergrownWeeds",
-          "Clutter",
-          "TrashPiles",
-          "BrokenFence",
-          "CrackedDriveway"
-        ],
-        "comment": "AI-observed lot-level maintenance or neglect issues."
       }
     },
     {
@@ -11801,7 +11934,11 @@
             "property_has_structure",
             "property_has_tax",
             "property_has_utility",
-            "property_has_utilities"
+            "property_has_utilities",
+            "age",
+            "death_date",
+            "death_indicator",
+            "first_time_home_owner"
           ],
           "comment": "A reference to the associated schema for relashionship"
         }
@@ -12415,7 +12552,17 @@
         "owned_environments",
         "subscribes_to",
         "has_person_validation",
-        "person_identifier"
+        "person_identifier",
+        "full_name",
+        "raw_name",
+        "gender",
+        "ssn",
+        "age",
+        "death_date",
+        "death_indicator",
+        "first_time_home_owner",
+        "middle_initial",
+        "marital_status_type"
       ],
       "properties": {
         "age": {
@@ -12467,7 +12614,6 @@
         },
         "last_name": {
           "type": "string",
-          "pattern": "^[a-zA-Z\\s\\-\\.\\'']+$",
           "comment": "A person's last name, also known as surname or family name, is typically the name that is shared by all members of their immediate family."
         },
         "marital_status_type": {
@@ -12497,16 +12643,63 @@
         },
         "prefix_name": {
           "type": "string",
-          "comment": "Prefix_name refers to an honorific or title placed before a person's name, such as Mr., Mrs., Dr., or Ms. often used to denote gender, marital status, or professional qualifications."
+          "enum": [
+            "Mr.",
+            "Mrs.",
+            "Ms.",
+            "Miss",
+            "Mx.",
+            "Dr.",
+            "Prof.",
+            "Rev.",
+            "Fr.",
+            "Sr.",
+            "Br.",
+            "Capt.",
+            "Col.",
+            "Maj.",
+            "Lt.",
+            "Sgt.",
+            "Hon.",
+            "Judge",
+            "Rabbi",
+            "Imam",
+            "Sheikh",
+            "Sir",
+            "Dame"
+          ],
+          "comment": "Common honorifics or titles preceding names. Adjust this list based on cultural or domain-specific requirements."
         },
         "ssn": {
           "type": "string",
-          "pattern": "^\\d{3}-\\d{2}-\\d{4}$",
           "comment": "A Social Security number (SSN) is a unique nine-digit identification number assigned to individuals in the United States by the Social Security Administration (SSA). The SSN is used primarily for tracking individuals for Social Security and tax purposes, but it is also used for a variety of other purposes, such as credit reporting, employment verification, and financial transactions."
         },
         "suffix_name": {
           "type": "string",
-          "comment": "The name suffix of the individual represented by the parent object. (E.g., JR = Junior, SR = Senior, etc.)"
+          "enum": [
+            "Jr.",
+            "Sr.",
+            "II",
+            "III",
+            "IV",
+            "PhD",
+            "MD",
+            "Esq.",
+            "JD",
+            "LLM",
+            "MBA",
+            "RN",
+            "DDS",
+            "DVM",
+            "CFA",
+            "CPA",
+            "PE",
+            "PMP",
+            "Esq.",
+            "Emeritus",
+            "Ret."
+          ],
+          "comment": "Suffixes typically denote generational titles, academic degrees, or professional certifications."
         },
         "us_citizenship_status": {
           "type": "string",
@@ -13609,7 +13802,26 @@
         "land_use_type_other_description",
         "native_american_lands_type_other_description",
         "unique_dwelling_type_other_description",
-        "property_identifier"
+        "property_identifier",
+        "property_condition",
+        "unique_dwelling_type",
+        "property_previously_occupied_indicator",
+        "property_mixed_usage_indicator",
+        "construction_method_type",
+        "construction_status_type",
+        "garage_spaces",
+        "land_trust_type",
+        "land_use_description",
+        "land_use_description",
+        "lender_designated_declining_market_identifier",
+        "manufactured_home_indicator",
+        "manufactured_home_width_type",
+        "property_current_occupant_name",
+        "property_current_occupancy_type",
+        "property_condition_description",
+        "property_acreage_number",
+        "native_american_lands_type",
+        "land_use_type"
       ],
       "properties": {
         "accessory_unit_count": {
@@ -14425,7 +14637,9 @@
         "window_treatment_type_other_description",
         "design_style_other_description",
         "decor_elements_other_description",
-        "view_type_other_description"
+        "view_type_other_description",
+        "level",
+        "special_features"
       ],
       "properties": {
         "space_type": {
@@ -15013,7 +15227,8 @@
         },
         "distance_miles": {
           "type": "decimal",
-          "comment": "The approximate distance from the property in miles."
+          "format": "miles-distance",
+          "comment": "Distance in miles, allowing up to 3 decimal places (e.g., '0.123', '12', '5.7')"
         },
         "location_type": {
           "type": "string",
@@ -15037,76 +15252,74 @@
         },
         "features": {
           "type": "string",
-          "comment": "Description of amenities, services, or highlights (e.g., yoga studio, dog beach, guided tours)."
-        },
-        "is_walkable": {
-          "type": "boolean",
-          "comment": "Whether the location is considered walkable from the property."
-        }
-      },
-      "walkability_conditions": {
-        "type": "string",
-        "enum": [
-          "SidewalksPresent",
-          "NoSidewalks",
-          "CrosswalksVisible",
-          "HighTraffic",
-          "WheelchairAccessible",
-          "SteepTerrain"
-        ],
-        "comment": "Environment surrounding property that affects walkability and accessibility."
-      },
-      "scenic_quality": {
-        "type": "string",
-        "enum": [
-          "PanoramicView",
-          "PartialView",
-          "ObstructedView"
-        ],
-        "comment": "Qualitative assessment of scenic visibility."
-      },
-      "ambient_conditions": {
-        "type": "string",
-        "comment": "Description of ambient conditions relevant to the location or its accessibility (e.g., weather-dependent features, night vs. day access)."
-      }
-    },
-    {
-      "type": "nearby_location",
-      "container_name": "nearby_locations",
-      "is_deprecated": false,
-      "deprecated_properties": [],
-      "properties": {
-        "name": {
-          "type": "string",
-          "comment": "The name of the nearby location or attraction (e.g., Ocean Walk Plaza)."
-        },
-        "distance_miles": {
-          "type": "decimal",
-          "comment": "The approximate distance from the property in miles."
-        },
-        "location_type": {
-          "type": "string",
           "enum": [
-            "Shopping",
-            "Dining",
-            "Entertainment",
-            "Nature",
-            "Fitness",
-            "Beach",
-            "Historical Site",
-            "Park",
-            "Museum",
-            "Recreation",
-            "Pet Services",
-            "Wellness",
-            "Tourist Attraction",
-            "Other"
+            "grocery_store",
+            "mall",
+            "boutique",
+            "supermarket",
+            "convenience_store",
+            "cafe",
+            "fine_dining",
+            "food_truck",
+            "fast_food",
+            "rooftop_dining",
+            "cinema",
+            "live_music",
+            "arcade",
+            "nightclub",
+            "comedy_club",
+            "hiking_trail",
+            "birdwatching",
+            "scenic_outlook",
+            "nature_reserve",
+            "gym",
+            "yoga_studio",
+            "pilates_studio",
+            "crossfit_box",
+            "cycling_center",
+            "public_beach",
+            "private_beach",
+            "dog_beach",
+            "surf_spot",
+            "beach_boardwalk",
+            "landmark",
+            "heritage_building",
+            "historical_museum",
+            "memorial_site",
+            "playground",
+            "dog_park",
+            "sports_fields",
+            "picnic_area",
+            "botanical_garden",
+            "art_museum",
+            "science_center",
+            "children_museum",
+            "cultural_exhibit",
+            "tennis_courts",
+            "golf_course",
+            "community_pool",
+            "skate_park",
+            "recreation_center",
+            "veterinarian",
+            "pet_grooming",
+            "pet_daycare",
+            "pet_store",
+            "spa",
+            "massage_therapy",
+            "acupuncture",
+            "holistic_clinic",
+            "guided_tour",
+            "observation_deck",
+            "theme_park",
+            "aquarium",
+            "zoo",
+            "free_parking",
+            "wheelchair_accessible",
+            "public_restrooms",
+            "open_late",
+            "family_friendly"
           ],
-          "comment": "Category or type of nearby location."
-        },
-        "features": {
-          "type": "string",
-          "comment": "Description of amenities, services, or highlights (e.g., yoga studio, dog beach, guided tours)."
+          "comment": "Standardized list of nearby location features or highlights depending on location_type (e.g., yoga_studio, dog_beach, guided_tour)."
         },
         "is_walkable": {
           "type": "boolean",
@@ -16318,7 +16531,14 @@
         "sold_to",
         "has_property",
         "ownership_transfer_transaction_type_other_description",
-        "sale_type_other_description"
+        "sale_type_other_description",
+        "arms_length_indicator",
+        "current_sales_price_amount",
+        "for_sale_by_owner_indicator",
+        "ownership_transfer_comment_description",
+        "ownership_transfer_transaction_amount",
+        "ownership_transfer_transaction_type",
+        "sale_type"
       ],
       "properties": {
         "arms_length_indicator": {
@@ -16358,6 +16578,7 @@
         },
         "purchase_price_amount": {
           "type": "decimal",
+          "format": "currancy",
           "comment": "The total dollar amount paid by the borrower for the property. The purchase price is presented on the offer to purchase."
         },
         "sale_type": {
@@ -17139,7 +17360,8 @@
         "door_material_type_other_description",
         "building_material_type_other_description",
         "roof_design_type_other_description",
-        "roof_material_type_other_description"
+        "roof_material_type_other_description",
+        "building_area_total"
       ],
       "properties": {
         "architectural_style_type": {
@@ -17960,7 +18182,12 @@
       "container_name": "taxes",
       "is_deprecated": false,
       "deprecated_properties": [
-        "has_payment"
+        "has_payment",
+        "service_provider_identifier",
+        "service_provider_name",
+        "escrowed_indicator",
+        "authority_account_identifier",
+        "description"
       ],
       "properties": {
         "tax_year": {
@@ -17969,25 +18196,21 @@
         },
         "property_assessed_value_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "comment": "The estimated value of the property used as the basis for property tax calculations for a given tax year."
         },
         "property_exemption_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "description": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
         },
         "property_taxable_value_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "description": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
         "monthly_tax_amount": {
           "type": "decimal",
-          "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
           "format": "currency",
           "description": "The calculated property tax amount due for the specific month (if applicable)."
         },
@@ -18009,12 +18232,10 @@
         },
         "period_end_date": {
           "type": "date",
-          "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
           "comment": "period end date in mortgage banking expenses refers to the date that marks the end of a specific time period for which expenses are being reported. \nThis date is used to determine the duration of the time period for which expenses are being calculated and reported. The period end date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period end date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "period_start_date": {
           "type": "date",
-          "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
           "comment": "period start date in mortgage banking expenses refers to the date that marks the beginning of a specific time period for which expenses are being reported. \nThis date is used in conjunction with the period end date to determine the duration of the time period for which expenses are being calculated and reported. The period start date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period start date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "service_provider_identifier": {
@@ -18788,112 +19009,111 @@
         "water_source_type_other_description": {
           "type": "string",
           "comment": "A free-form field to capture additional detail when Other is selected for the water source type."
-        }
-      },
-      "plumbing_system_type": {
-        "type": "string",
-        "enum": [
-          "Copper",
-          "PEX",
-          "PVC",
-          "GalvanizedSteel",
-          "CastIron",
-          "Other"
-        ],
-        "comment": "Refers to the type of plumbing system used in the structure."
-      },
-      "plumbing_system_type_other_description": {
-        "type": "string",
-        "comment": "A free-form field to capture detail when Other is selected for the plumbing system type."
-      },
-      "electrical_panel_capacity": {
-        "type": "string",
-        "comment": "Describes the amperage or capacity of the electrical panel, e.g. '100 Amp', '200 Amp'."
-      },
-      "electrical_wiring_type": {
-        "type": "string",
-        "enum": [
-          "Copper",
-          "Aluminum",
-          "KnobAndTube",
-          "Other"
-        ],
-        "comment": "Specifies the type of electrical wiring used in the structure."
-      },
-      "electrical_wiring_type_other_description": {
-        "type": "string",
-        "comment": "A free-form field for describing the electrical wiring type if Other is selected."
-      },
-      "solar_panel_present": {
-        "type": "boolean",
-        "comment": "Indicates whether solar panels are installed on the structure."
-      },
-      "solar_panel_type": {
-        "type": "string",
-        "enum": [
-          "Photovoltaic",
-          "SolarThermal",
-          "Hybrid",
-          "Other"
-        ],
-        "comment": "Specifies the type of solar panel system."
-      },
-      "solar_panel_type_other_description": {
-        "type": "string",
-        "comment": "A free-form field to describe the solar panel system when Other is selected."
-      },
-      "smart_home_features": {
-        "type": "array",
-        "items": {
+        },
+        "plumbing_system_type": {
           "type": "string",
           "enum": [
-            "SmartThermostat",
-            "SmartLighting",
-            "SmartLocks",
-            "SmartSecuritySystem",
-            "SmartIrrigation",
-            "VoiceControlIntegration",
-            "EnergyMonitoring",
+            "Copper",
+            "PEX",
+            "PVC",
+            "GalvanizedSteel",
+            "CastIron",
             "Other"
-          ]
+          ],
+          "comment": "Refers to the type of plumbing system used in the structure."
         },
-        "comment": "List of smart home features installed in the property."
-      },
-      "smart_home_features_other_description": {
-        "type": "string",
-        "comment": "Free-form description if any smart home features are not covered by the predefined list."
-      },
-      "solar_inverter_visible": {
-        "type": "boolean",
-        "comment": "Whether a solar inverter box is visible on exterior or utility closet."
-      },
-      "hvac_unit_issues": {
-        "type": "string",
-        "enum": [
-          "RustyUnit",
-          "LeakingPipes",
-          "MissingGrilles",
-          "ObstructedVent",
-          "WornFanHousing"
-        ],
-        "comment": "Visual indicators of HVAC or external unit deterioration."
-      },
-      "hvac_unit_condition": {
-        "type": "string",
-        "enum": [
-          "New",
-          "Good",
-          "Rusty",
-          "Leaking",
-          "Damaged"
-        ],
-        "comment": "Visible exterior condition of the HVAC condensing unit, if present."
-      },
-      "hvac_condensing_unit_present": {
-        "type": "string",
-        "comment": "Indicates if an HVAC condensing unit is present, as visible externally."
-      },
-      "relationships": {}
+        "plumbing_system_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field to capture detail when Other is selected for the plumbing system type."
+        },
+        "electrical_panel_capacity": {
+          "type": "string",
+          "comment": "Describes the amperage or capacity of the electrical panel, e.g. '100 Amp', '200 Amp'."
+        },
+        "electrical_wiring_type": {
+          "type": "string",
+          "enum": [
+            "Copper",
+            "Aluminum",
+            "KnobAndTube",
+            "Other"
+          ],
+          "comment": "Specifies the type of electrical wiring used in the structure."
+        },
+        "hvac_condensing_unit_present": {
+          "type": "string",
+          "comment": "Indicates if an HVAC condensing unit is present, as visible externally."
+        },
+        "electrical_wiring_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field for describing the electrical wiring type if Other is selected."
+        },
+        "solar_panel_present": {
+          "type": "boolean",
+          "comment": "Indicates whether solar panels are installed on the structure."
+        },
+        "solar_panel_type": {
+          "type": "string",
+          "enum": [
+            "Photovoltaic",
+            "SolarThermal",
+            "Hybrid",
+            "Other"
+          ],
+          "comment": "Specifies the type of solar panel system."
+        },
+        "solar_panel_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field to describe the solar panel system when Other is selected."
+        },
+        "smart_home_features": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "SmartThermostat",
+              "SmartLighting",
+              "SmartLocks",
+              "SmartSecuritySystem",
+              "SmartIrrigation",
+              "VoiceControlIntegration",
+              "EnergyMonitoring",
+              "Other"
+            ]
+          },
+          "comment": "List of smart home features installed in the property."
+        },
+        "smart_home_features_other_description": {
+          "type": "string",
+          "comment": "Free-form description if any smart home features are not covered by the predefined list."
+        },
+        "hvac_unit_condition": {
+          "type": "string",
+          "enum": [
+            "New",
+            "Good",
+            "Rusty",
+            "Leaking",
+            "Damaged"
+          ],
+          "comment": "Visible exterior condition of the HVAC condensing unit, if present."
+        },
+        "solar_inverter_visible": {
+          "type": "boolean",
+          "comment": "Whether a solar inverter box is visible on exterior or utility closet."
+        },
+        "hvac_unit_issues": {
+          "type": "string",
+          "enum": [
+            "RustyUnit",
+            "LeakingPipes",
+            "MissingGrilles",
+            "ObstructedVent",
+            "WornFanHousing"
+          ],
+          "comment": "Visual indicators of HVAC or external unit deterioration."
+        }
+      }
     },
     {
       "type": "work_week",
