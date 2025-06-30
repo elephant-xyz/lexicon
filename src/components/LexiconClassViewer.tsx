@@ -188,21 +188,25 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return true;
   };
 
-  const shouldShowRelationshipBasedOnDeprecation = (cls: LexiconClass, relName: string): boolean => {
+  const shouldShowRelationshipBasedOnDeprecation = (
+    cls: LexiconClass,
+    relName: string
+  ): boolean => {
     // Check if this relationship name corresponds to a deprecated property
     // Relationship names often match property names, so we check if the relationship name
     // is in the deprecated_properties list
     if (cls.deprecated_properties?.includes(relName)) {
       return false;
     }
-    
+
     // Also check if the relationship name contains any deprecated property names
     // This handles cases where relationship names might be variations of property names
-    const isRelatedToDeprecatedProperty = cls.deprecated_properties?.some(deprecatedProp => 
-      relName.toLowerCase().includes(deprecatedProp.toLowerCase()) ||
-      deprecatedProp.toLowerCase().includes(relName.toLowerCase())
+    const isRelatedToDeprecatedProperty = cls.deprecated_properties?.some(
+      deprecatedProp =>
+        relName.toLowerCase().includes(deprecatedProp.toLowerCase()) ||
+        deprecatedProp.toLowerCase().includes(relName.toLowerCase())
     );
-    
+
     return !isRelatedToDeprecatedProperty;
   };
 
@@ -436,8 +440,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                 const matchedRels = getMatchedRelationships(cls);
                 const hasVisibleRelationships =
                   cls.relationships &&
-                  Object.entries(cls.relationships).some(([relName]) =>
-                    shouldShowRelationship(cls, relName) && shouldShowRelationshipBasedOnDeprecation(cls, relName)
+                  Object.entries(cls.relationships).some(
+                    ([relName]) =>
+                      shouldShowRelationship(cls, relName) &&
+                      shouldShowRelationshipBasedOnDeprecation(cls, relName)
                   );
 
                 if (!hasVisibleRelationships) return null;
@@ -447,7 +453,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     <h4>Relationships:</h4>
                     <div className="relationships-list">
                       {Object.entries(cls.relationships || {}).map(([relName, relData]) => {
-                        if (!shouldShowRelationship(cls, relName) || !shouldShowRelationshipBasedOnDeprecation(cls, relName)) return null;
+                        if (
+                          !shouldShowRelationship(cls, relName) ||
+                          !shouldShowRelationshipBasedOnDeprecation(cls, relName)
+                        )
+                          return null;
 
                         const isMatchedRelationship = matchedRels.includes(relName);
                         const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
