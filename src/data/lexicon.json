@@ -11708,37 +11708,88 @@
           "comment": "Descriptive tag of the view from the lot."
         },
         "fencing_type": {
-          "type": "string",
-          "enum": [
-            "Wood",
-            "ChainLink",
-            "WroughtIron",
-            "Vinyl",
-            "None",
-            "Other"
-          ],
-          "comment": "Fence material/type as visually detected."
-        },
-        "driveway_condition": {
-          "type": "string",
-          "enum": [
-            "Good",
-            "Cracked",
-            "Stained",
-            "Worn"
-          ]
-        },
-        "lot_condition_issues": {
-          "type": "string",
-          "enum": [
-            "OvergrownWeeds",
-            "Clutter",
-            "TrashPiles",
-            "BrokenFence",
-            "CrackedDriveway"
-          ],
-          "comment": "AI-observed lot-level maintenance or neglect issues."
-        }
+      "lot_type": {
+        "type": "string",
+        "enum": [
+          "GreaterThanOneQuarterAcre",
+          "PavedRoad",
+          "LessThanOrEqualToOneQuarterAcre",
+          "Other"
+        ],
+        "comment": "Refers to characteristics associated with a lot and structure."
+      },
+      "lot_type_other_description": {
+        "type": "string",
+        "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
+      },
+      "lot_size_dimensions": {
+        "type": "string",
+        "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
+      },
+      "lot_size_area": {
+        "type": "integer",
+        "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
+      },
+      "lot_size_square_feet": {
+        "type": "integer",
+        "comment": "The size of the lot in square feet."
+      },
+      "driveway_material": {
+        "type": "string",
+        "enum": [
+          "Concrete",
+          "Asphalt",
+          "Pavers",
+          "Gravel",
+          "None",
+          "Other"
+        ],
+        "comment": "The material of the driveway on the lot."
+      },
+         },
+      "view": {
+        "type": "string",
+        "enum": [
+          "OceanView",
+          "MountainView",
+          "CitySkylineView",
+          "ParkView",
+          "None",
+          "Other"
+        ],
+        "comment": "Descriptive tag of the view from the lot."
+      },
+      "fencing_type": {
+        "type": "string",
+        "enum": [
+          "Wood",
+          "ChainLink",
+          "WroughtIron",
+          "Vinyl",
+          "None",
+          "Other"
+        ],
+        "comment": "Fence material/type as visually detected."
+      },
+      "driveway_condition": {
+        "type": "string",
+        "enum": [
+          "Good",
+          "Cracked",
+          "Stained",
+          "Worn"
+        ]
+      },
+      "lot_condition_issues": {
+        "type": "string",
+        "enum": [
+          "OvergrownWeeds",
+          "Clutter",
+          "TrashPiles",
+          "BrokenFence",
+          "CrackedDriveway"
+        ],
+        "comment": "AI-observed lot-level maintenance or neglect issues."
       }
     },
     {
@@ -13585,6 +13636,7 @@
         "native_american_lands_type_other_description",
         "unique_dwelling_type_other_description",
         "property_identifier"
+
       ],
       "properties": {
         "accessory_unit_count": {
