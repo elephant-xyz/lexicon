@@ -2,6 +2,8 @@ export interface LexiconProperty {
   type: string;
   enum?: string[];
   comment?: string;
+  pattern?: string;
+  format?: string;
 }
 
 export interface LexiconRelationship {
@@ -17,6 +19,8 @@ export interface SearchMatch {
   highlightedDescription?: string;
   highlightedEnum?: string;
   highlightedType?: string;
+  highlightedPattern?: string;
+  highlightedFormat?: string;
   highlightedRelationshipName?: string;
   highlightedRelationshipTarget?: string;
   highlightedRelationshipDescription?: string;

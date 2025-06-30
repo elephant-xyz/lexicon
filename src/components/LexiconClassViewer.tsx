@@ -142,6 +142,24 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return typeMatch?.highlightedType || '';
   };
 
+  const getHighlightedPattern = (cls: LexiconClass, propName: string): string => {
+    if (!searchTerm || !cls._searchMatches) return '';
+
+    const patternMatch = cls._searchMatches.find(
+      m => m.type === 'property' && m.field === 'pattern' && m.value === propName
+    );
+    return patternMatch?.highlightedPattern || '';
+  };
+
+  const getHighlightedFormat = (cls: LexiconClass, propName: string): string => {
+    if (!searchTerm || !cls._searchMatches) return '';
+
+    const formatMatch = cls._searchMatches.find(
+      m => m.type === 'property' && m.field === 'format' && m.value === propName
+    );
+    return formatMatch?.highlightedFormat || '';
+  };
+
   const getMatchedRelationships = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
 
@@ -168,6 +186,28 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 
     // If no property or relationship matches, show all (this shouldn't happen in filtered results)
     return true;
+  };
+
+  const shouldShowRelationshipBasedOnDeprecation = (
+    cls: LexiconClass,
+    relName: string
+  ): boolean => {
+    // Check if this relationship name corresponds to a deprecated property
+    // Relationship names often match property names, so we check if the relationship name
+    // is in the deprecated_properties list
+    if (cls.deprecated_properties?.includes(relName)) {
+      return false;
+    }
+
+    // Also check if the relationship name contains any deprecated property names
+    // This handles cases where relationship names might be variations of property names
+    const isRelatedToDeprecatedProperty = cls.deprecated_properties?.some(
+      deprecatedProp =>
+        relName.toLowerCase().includes(deprecatedProp.toLowerCase()) ||
+        deprecatedProp.toLowerCase().includes(relName.toLowerCase())
+    );
+
+    return !isRelatedToDeprecatedProperty;
   };
 
   const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
@@ -338,6 +378,50 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                   </div>
                                 </div>
                               )}
+                              {propData.pattern && (
+                                <div className="method-list-item-label-pattern">
+                                  <span className="pattern-label">Pattern:</span>
+                                  <button
+                                    className={`pattern-value ${copiedValue === propData.pattern ? 'pattern-value-copied' : ''}`}
+                                    onClick={() => copyToClipboard(propData.pattern!)}
+                                    title="Click to copy pattern to clipboard"
+                                  >
+                                    {copiedValue === propData.pattern ? (
+                                      '✓ Copied!'
+                                    ) : searchTerm && getHighlightedPattern(cls, propName) ? (
+                                      <span
+                                        dangerouslySetInnerHTML={{
+                                          __html: getHighlightedPattern(cls, propName),
+                                        }}
+                                      />
+                                    ) : (
+                                      propData.pattern
+                                    )}
+                                  </button>
+                                </div>
+                              )}
+                              {propData.format && (
+                                <div className="method-list-item-label-format">
+                                  <span className="format-label">Format:</span>
+                                  <button
+                                    className={`format-value ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
+                                    onClick={() => copyToClipboard(propData.format!)}
+                                    title="Click to copy format to clipboard"
+                                  >
+                                    {copiedValue === propData.format ? (
+                                      '✓ Copied!'
+                                    ) : searchTerm && getHighlightedFormat(cls, propName) ? (
+                                      <span
+                                        dangerouslySetInnerHTML={{
+                                          __html: getHighlightedFormat(cls, propName),
+                                        }}
+                                      />
+                                    ) : (
+                                      propData.format
+                                    )}
+                                  </button>
+                                </div>
+                              )}
                               <div className="method-list-item-label-description">
                                 {searchTerm && getHighlightedDescription(cls, propName)
                                   ? renderHighlightedText(getHighlightedDescription(cls, propName))
@@ -356,8 +440,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                 const matchedRels = getMatchedRelationships(cls);
                 const hasVisibleRelationships =
                   cls.relationships &&
-                  Object.entries(cls.relationships).some(([relName]) =>
-                    shouldShowRelationship(cls, relName)
+                  Object.entries(cls.relationships).some(
+                    ([relName]) =>
+                      shouldShowRelationship(cls, relName) &&
+                      shouldShowRelationshipBasedOnDeprecation(cls, relName)
                   );
 
                 if (!hasVisibleRelationships) return null;
@@ -367,7 +453,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     <h4>Relationships:</h4>
                     <div className="relationships-list">
                       {Object.entries(cls.relationships || {}).map(([relName, relData]) => {
-                        if (!shouldShowRelationship(cls, relName)) return null;
+                        if (
+                          !shouldShowRelationship(cls, relName) ||
+                          !shouldShowRelationshipBasedOnDeprecation(cls, relName)
+                        )
+                          return null;
 
                         const isMatchedRelationship = matchedRels.includes(relName);
                         const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
