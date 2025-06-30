@@ -18847,6 +18847,10 @@
       "label": "Source County",
       "relationships": [
         {
+          "from": "person",
+          "to": "property"
+        },
+        {
           "from": "property",
           "to": "address"
         },
