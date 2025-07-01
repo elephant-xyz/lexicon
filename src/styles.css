@@ -142,7 +142,6 @@ p, span, div, label, input, button, select, textarea {
 .elephant-logo {
   height: 60px;
   width: auto;
-  filter: invert(1);
   opacity: 0.9;
   transition: all var(--transition-fast);
 }
