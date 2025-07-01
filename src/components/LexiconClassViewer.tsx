@@ -304,9 +304,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
             <div className="method-list-item-content">
               {cls.description && (
                 <div className="class-description-section">
-                  <div className="class-description">
-                    {cls.description}
-                  </div>
+                  <div className="class-description">{cls.description}</div>
                 </div>
               )}
               {(() => {
