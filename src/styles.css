@@ -285,7 +285,6 @@ p, span, div, label, input, button, select, textarea {
 
 .external-link:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3);
 }
 
 .external-link:active {
@@ -423,7 +422,6 @@ p, span, div, label, input, button, select, textarea {
 
 .nav-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3);
 }
 
 .nav-button:active {
@@ -517,7 +515,6 @@ p, span, div, label, input, button, select, textarea {
 .tag-select:focus {
   outline: none;
   border-color: var(--primary-toxic-green);
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.1);
 }
 
 /* Class Info */
@@ -611,7 +608,6 @@ p, span, div, label, input, button, select, textarea {
 .search-input:focus {
   outline: none;
   border-color: var(--primary-toxic-green);
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.1);
 }
 
 .search-input-warning {
@@ -816,7 +812,6 @@ p, span, div, label, input, button, select, textarea {
 
 .expand-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
 }
 
 /* Search Match Indicator */
@@ -999,7 +994,6 @@ p, span, div, label, input, button, select, textarea {
 
 .enum-value:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
 }
 
 .enum-value:active {
@@ -1077,7 +1071,6 @@ p, span, div, label, input, button, select, textarea {
 
 .relationship-target-link:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
 }
 
 .relationship-targets-label {
@@ -1252,10 +1245,9 @@ mark {
   }
 }
 
-/* Focus Styles */
+/* Focus Styles - Removed all outlines */
 *:focus {
-  outline: 2px solid var(--primary-toxic-green);
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* High Contrast Mode */
@@ -1315,7 +1307,6 @@ mark {
 
 .scroll-to-top-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3);
 }
 
 .scroll-to-top-button:active {
@@ -1500,7 +1491,6 @@ mark {
 
 .pattern-value:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
 }
 
 .pattern-value:active {
@@ -1576,7 +1566,6 @@ mark {
 
 .format-value:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.2);
 }
 
 .format-value:active {
