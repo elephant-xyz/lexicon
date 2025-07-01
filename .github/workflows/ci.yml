@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main, develop]
 
+env:
+  PINATA_JWT: ${{ secrets.PINATA_JWT }}
+
 jobs:
   lint-and-format:
     name: Lint and Format Check

@@ -3,3 +3,4 @@ build/
 .mcp.json
 coverage/
 .env
+public/json-schemas/
