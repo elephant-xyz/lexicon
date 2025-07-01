@@ -34,6 +34,7 @@ export interface LexiconClass {
   description?: string;
   properties: Record<string, LexiconProperty>;
   relationships?: Record<string, LexiconRelationship>;
+  required?: string[];
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;
@@ -57,8 +58,19 @@ export interface DataGroup {
   _searchMatches?: SearchMatch[];
 }
 
+export interface CommonPattern {
+  type: string;
+  properties: {
+    type: string;
+    pattern?: string;
+    format?: string;
+    description: string;
+  };
+}
+
 export interface LexiconData {
   classes: LexiconClass[];
   tags: LexiconTag[];
   data_groups: DataGroup[];
+  common_patterns: CommonPattern[];
 }
