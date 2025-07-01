@@ -3,7 +3,8 @@ import dataService from './services/dataService';
 import LexiconClassViewer from './components/LexiconClassViewer';
 import { DataGroupViewer } from './components/DataGroupViewer';
 import NavigationHeader from './components/NavigationHeader';
-import { LexiconClass, LexiconTag, DataGroup } from './types/lexicon';
+import CommonPatternsViewer from './components/CommonPatternsViewer';
+import { LexiconClass, LexiconTag, DataGroup, CommonPattern } from './types/lexicon';
 
 import './styles.css';
 
@@ -13,6 +14,8 @@ const AllClassesViewer = () => {
   const [filteredClasses, setFilteredClasses] = useState<LexiconClass[]>([]);
   const [dataGroups, setDataGroups] = useState<DataGroup[]>([]);
   const [filteredDataGroups, setFilteredDataGroups] = useState<DataGroup[]>([]);
+  const [commonPatterns, setCommonPatterns] = useState<CommonPattern[]>([]);
+  const [filteredCommonPatterns, setFilteredCommonPatterns] = useState<CommonPattern[]>([]);
   const [selectedTag, setSelectedTag] = useState('blockchain');
   const [tags, setTags] = useState<LexiconTag[]>([]);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -25,6 +28,11 @@ const AllClassesViewer = () => {
   useEffect(() => {
     const availableTags = dataService.getTags();
     setTags(availableTags);
+
+    // Load common patterns
+    const patterns = dataService.getAllCommonPatterns();
+    setCommonPatterns(patterns);
+    setFilteredCommonPatterns(patterns);
   }, []);
 
   // Scroll detection for scroll-to-top button
@@ -58,6 +66,7 @@ const AllClassesViewer = () => {
     if (searchTerm.length === 0) {
       setFilteredClasses(classes);
       setFilteredDataGroups(dataGroups);
+      setFilteredCommonPatterns(commonPatterns);
     } else if (searchTerm.length >= 3) {
       const filteredClassResults = dataService.filterClassesForSearch(classes, searchTerm);
       setFilteredClasses(filteredClassResults);
@@ -66,11 +75,14 @@ const AllClassesViewer = () => {
         searchTerm
       );
       setFilteredDataGroups(filteredDataGroupResults);
+      const filteredPatternResults = dataService.getCommonPatternsForSearch(searchTerm);
+      setFilteredCommonPatterns(filteredPatternResults);
     } else {
       setFilteredClasses([]);
       setFilteredDataGroups([]);
+      setFilteredCommonPatterns([]);
     }
-  }, [searchTerm, classes, dataGroups]);
+  }, [searchTerm, classes, dataGroups, commonPatterns]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -148,6 +160,8 @@ const AllClassesViewer = () => {
           {filteredDataGroups.length > 0 &&
             `${filteredDataGroups.length} data ${filteredDataGroups.length === 1 ? 'group' : 'groups'}, `}
           {filteredClasses.length} {filteredClasses.length === 1 ? 'class' : 'classes'}
+          {filteredCommonPatterns.length > 0 &&
+            `, ${filteredCommonPatterns.length} pattern${filteredCommonPatterns.length === 1 ? '' : 's'}`}
         </span>
         <span>
           {selectedTag === 'all'
@@ -156,7 +170,9 @@ const AllClassesViewer = () => {
         </span>
       </div>
 
-      {filteredDataGroups.length === 0 && filteredClasses.length === 0 ? (
+      {filteredDataGroups.length === 0 &&
+      filteredClasses.length === 0 &&
+      filteredCommonPatterns.length === 0 ? (
         <div className="empty-state">
           <div className="empty-state-icon">📋</div>
           <div className="empty-state-title">
@@ -198,6 +214,14 @@ const AllClassesViewer = () => {
             <div className="classes-section">
               <LexiconClassViewer
                 classes={filteredClasses}
+                searchTerm={searchTerm.length >= 3 ? searchTerm : ''}
+              />
+            </div>
+          )}
+          {filteredCommonPatterns.length > 0 && (
+            <div className="patterns-section">
+              <CommonPatternsViewer
+                patterns={filteredCommonPatterns}
                 searchTerm={searchTerm.length >= 3 ? searchTerm : ''}
               />
             </div>

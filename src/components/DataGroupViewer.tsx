@@ -87,7 +87,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                     <div key={relIndex} className="method-list-item method-list-item-isChild">
                       <div className="method-list-item-label">
                         <div className="method-list-item-label-name">
-                          Relationship {relIndex + 1}
+                          {rel.relationship_type || `has_${rel.to}`}
                         </div>
                         <div className="method-list-item-label-description">
                           <div className="relationship-targets-container">

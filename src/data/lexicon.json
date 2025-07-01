@@ -5,6 +5,7 @@
       "container_name": "schools",
       "is_deprecated": false,
       "deprecated_properties": [],
+      "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, and ranking to help evaluate the educational quality of a property's location.",
       "properties": {
         "school_name": {
           "type": "string",
@@ -30,6 +31,7 @@
       "container_name": "home_buy_searches",
       "is_deprecated": false,
       "deprecated_properties": [],
+      "description": "Represents a saved search criteria for home buyers. Contains search parameters like price range, property features (pets allowed, waterfront, etc.), and notification preferences to help buyers find properties that match their requirements.",
       "properties": {
         "search_name": {
           "type": "string",
@@ -107,6 +109,7 @@
       "container_name": "saved_properties",
       "is_deprecated": false,
       "deprecated_properties": [],
+      "description": "Represents a property that has been saved or liked by a user. Tracks user preferences and allows users to maintain a list of properties they are interested in for future reference.",
       "properties": {
         "listing_id": {
           "type": "string",
@@ -436,6 +439,8 @@
       "is_deprecated": false,
       "deprecated_properties": [
         "has_address_validation",
+        "address_line_1",
+        "address_line_2",
         "cbsa_code",
         "census_block_group_identifier",
         "census_block_identifier",
@@ -468,10 +473,6 @@
         "rural_route_box_identifier",
         "map_reference_identifier",
         "map_reference_second_identifier",
-        "township",
-        "range",
-        "section",
-        "block",
         "school_district_name",
         "address_type_other_description",
         "recording_jurisdiction_type_other_description",
@@ -495,13 +496,14 @@
         "post_office_box_identifier",
         "post_office_box_identifier",
         "unincorporated_area_name",
-        "country_code",
+        "country_name",
         "county_code",
         "sequence_number",
         "street_primary_number",
         "state_name",
         "street_suffix"
       ],
+      "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes and geographic identifiers.",
       "properties": {
         "full_address_slug": {
           "type": "string",
@@ -637,6 +639,7 @@
         },
         "county_name": {
           "type": "string",
+          "pattern": "^(?!.*\\b[Cc]ounty\\b).*$",
           "comment": "County name refers to the name of the county in which the address is located."
         },
         "created_datetime": {
@@ -750,6 +753,7 @@
         },
         "plus_four_postal_code": {
           "type": "string",
+          "pattern": "^\\d{4}$",
           "comment": "A postal code plus four, also known as a ZIP code plus four (in the United States) is a numerical extension to a postal code."
         },
         "plus_four_postal_code_type": {
@@ -776,6 +780,7 @@
         },
         "postal_code": {
           "type": "string",
+          "pattern": "^\\d{5}$",
           "comment": "A postal code, also known as a ZIP code (in the United States) or postcode (in many other countries), is a numerical code used by postal services to identify specific geographic areas for efficient mail sorting and delivery."
         },
         "recording_jurisdiction_name": {
@@ -810,6 +815,7 @@
         },
         "state_code": {
           "type": "string",
+          "pattern": "^[A-Z]{2}$",
           "comment": "State code is a code that represents the state in which the address is located."
         },
         "state_name": {
@@ -1074,23 +1080,23 @@
         "unit_identifier": {
           "type": "string",
           "comment": "A unit identifier is a reference to the specific unit, suite, apartment, or other secondary identifier associated with an address. It is used to differentiate individual units within a larger building or complex."
+        },
+        "township": {
+          "type": "string",
+          "comment": "A township is a 6-mile by 6-mile square of land, covering 36 square miles. Townships are numbered north or south from a designated baseline. In this case, Township 45 refers to the 45th tier of townships from the baseline."
+        },
+        "range": {
+          "type": "string",
+          "comment": " A range describes the east-west position of a township relative to a principal meridian. Range 24E means the township is located 24 tiers east of the principal meridian"
+        },
+        "section": {
+          "type": "string",
+          "comment": "Each township is divided into 36 sections, with each section being 1 square mile (640 acres). Section 03 refers to the third section within its township"
+        },
+        "block": {
+          "type": "string",
+          "comment": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision"
         }
-      },
-      "township": {
-        "type": "string",
-        "comment": "A township is a 6-mile by 6-mile square of land, covering 36 square miles. Townships are numbered north or south from a designated baseline. In this case, Township 45 refers to the 45th tier of townships from the baseline."
-      },
-      "range": {
-        "type": "string",
-        "comment": " A range describes the east-west position of a township relative to a principal meridian. Range 24E means the township is located 24 tiers east of the principal meridian"
-      },
-      "section": {
-        "type": "string",
-        "comment": "Each township is divided into 36 sections, with each section being 1 square mile (640 acres). Section 03 refers to the third section within its township"
-      },
-      "block": {
-        "type": "string",
-        "comment": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision"
       },
       "relationships": {
         "has_address_validation": {
@@ -1099,7 +1105,18 @@
           ],
           "comment": "The 'has_address_validation' property links an address to a specific address validation record. This connection provides details about the validation process and the results of the validation."
         }
-      }
+      },
+      "required": [
+        "city_name",
+        "country_code",
+        "county_name",
+        "postal_code",
+        "postal_code",
+        "state_code",
+        "street_name",
+        "street_number",
+        "street_suffix_type"
+      ]
     },
     {
       "type": "advertiser",
@@ -1374,7 +1391,8 @@
           "comment": "The cash or market value of the asset less any outstanding liabilities or obligations."
         },
         "asset_statement_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the asset statement was issued."
         },
         "asset_type": {
@@ -2337,7 +2355,8 @@
       "deprecated_properties": [],
       "properties": {
         "closing_cost_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the closing costs agreement between a borrower and a lender expires."
         }
       },
@@ -2625,7 +2644,8 @@
           "comment": "A unique identification number assigned to a business by the state in which a business resides, for tax purposes in specific jurisdictions."
         },
         "founded_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the company was officially established or incorporated."
         },
         "industry": {
@@ -3805,7 +3825,8 @@
           "comment": "Contact Attempt status provided by the Loan Officer. It can be 'Succesful', 'Attempted'."
         },
         "correspondance_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date when the correspondence took place."
         },
         "feedback_status": {
@@ -3862,7 +3883,8 @@
           "comment": "Additional detail regarding the credit comment code source type."
         },
         "credit_comment_reported_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Date that the credit comment was reported."
         },
         "credit_comment_text": {
@@ -3917,7 +3939,8 @@
       "deprecated_properties": [],
       "properties": {
         "credit_file_infile_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The Infile Date is the date that the credit data repository first established this credit data file on this borrower."
         },
         "credit_file_result_status_type": {
@@ -4146,7 +4169,8 @@
           "comment": "Details about the type of business that has extended a line of credit or loan to a borrower."
         },
         "credit_inquiry_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date of the credit inquiry."
         },
         "credit_inquiry_result_type": {
@@ -4263,7 +4287,8 @@
           "comment": "This element indicates whether or not the public record contains adverse or derogatory data."
         },
         "credit_public_record_disposition_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "This element provides the date that the Public Record Disposition Type first became effective."
         },
         "credit_public_record_disposition_type": {
@@ -4279,7 +4304,8 @@
           "comment": "The Docket Identifier can be a Case Number, Docket Number, Public Record Book, Page or Sequence Number."
         },
         "credit_public_record_filed_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the public record was filed by the court."
         },
         "credit_public_record_legal_obligation_amount": {
@@ -4291,7 +4317,8 @@
           "comment": "This element indicates whether or not the data in the public record has been manually updated by the credit bureau based on an investigation.."
         },
         "credit_public_record_paid_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the Legal Obligation Amount was paid to zero."
         },
         "credit_public_record_payment_frequency_type": {
@@ -4303,11 +4330,13 @@
           "comment": "A free-form text field used to collect additional information when Other is selected for Credit Public Record Payment Frequency Type."
         },
         "credit_public_record_reported_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the public record data was last reported by the court to the credit repository bureau."
         },
         "credit_public_record_settled_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the public record case was settled."
         },
         "credit_public_record_type": {
@@ -4546,7 +4575,8 @@
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for Credit Score Category Version Type."
         },
         "credit_score_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Date that the referenced credit score was produced."
         },
         "credit_score_exclusion_reason_type": {
@@ -4681,11 +4711,13 @@
           "comment": "Credit report action type (force_new, other, reissue, retrieve, secondary_use_notification, status_query, submit, update, and upgrade) refer to specific types of credit report action types."
         },
         "credit_report_first_issued_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Date and time the referenced credit report was first issued."
         },
         "credit_report_last_updated_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date and time that the referenced credit report was last updated or revised."
         },
         "credit_report_merge_type": {
@@ -5670,6 +5702,80 @@
       "relationships": {}
     },
     {
+      "type": "file",
+      "container_name": "files",
+      "is_deprecated": false,
+      "description": "The file class is a comprehensive data structure that represents all media and documents associated with a specific property, including images, PDFs, and floor plans across multiple file formats (JPEG, PNG, PDF). It supports both traditional HTTP/HTTPS and decentralized IPFS storage options while providing extensive semantic classification for property-related documents such as deeds, assignments, affidavits, building permits, inspection reports, and property images. The class includes human-friendly naming conventions and metadata management capabilities, making it ideal for organizing and retrieving all media assets and legal documents tied to individual properties within real estate platforms and property management systems.",
+      "deprecated_properties": [
+      ],
+      "properties": {
+        "file_format": {
+          "type": "string",
+          "enum": [
+            "jpeg",
+            "png",
+            "pdf",
+            "mp4",
+            "mp3",
+            "webm",
+            "obj",
+            "gltf"
+          ],
+          "comment": "The format or MIME type of the file."
+        },
+        "name": {
+          "type": "string",
+          "comment": "A human-friendly name for the media asset."
+        },
+        "original_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "HTTP/HTTPS source URL of the media asset."
+        },
+        "ipfs_url": {
+          "type": "string",
+          "format": "ipfs_uri",
+          "comment": "IPFS URL if the asset is stored on IPFS."
+        },
+        "document_type": {
+          "type": "string",
+          "enum": [
+            "ConveyanceDeedQuitClaimDeed",
+            "ConveyanceDeedBargainAndSaleDeed",
+            "ConveyanceDeedWarrantyDeed",
+            "ConveyanceDeed",
+            "AssignmentAssignmentOfDeedOfTrust",
+            "AssignmentAssignmentOfMortgage",
+            "AssignmentAssignmentOfRents",
+            "Assignment",
+            "AssignmentAssignmentOfTrade",
+            "AssignmentBlanketAssignment",
+            "AssignmentCooperativeAssignmentOfProprietaryLease",
+            "AffidavitOfDeath",
+            "AbstractOfJudgment",
+            "AttorneyInFactAffidavit",
+            "ArticlesOfIncorporation",
+            "BuildingPermit",
+            "ComplianceInspectionReport",
+            "ConditionalCommitment",
+            "CounselingCertification",
+            "AirportNoisePollutionAgreement",
+            "BreachNotice",
+            "BrokerPriceOpinion",
+            "AmendatoryClause",
+            "AssuranceOfCompletion",
+            "Bid",
+            "BuildersCertificationBuilderCertificationOfPlansAndSpecifications",
+            "BuildersCertificationBuildersCertificate",
+            "BuildersCertificationPropertyInspection",
+            "BuildersCertificationTermiteTreatment",
+            "PropertyImage"
+          ],
+          "comment": "Semantic role or classification of the document."
+        }
+      }
+    },
+    {
       "type": "document_image",
       "container_name": "document_images",
       "is_deprecated": false,
@@ -5698,7 +5804,7 @@
         },
         "image_url": {
           "type": "string",
-          "format": "ipfs-uri",
+          "format": "ipfs_uri",
           "comment": "The IPFS URL of the image. Must be a valid IPFS URL starting with 'ipfs://' followed by a content identifier hash."
         }
       },
@@ -5710,6 +5816,7 @@
       "is_deprecated": false,
       "deprecated_properties": [
         "property_image_url",
+        "document_date",
         "qr_code_image",
         "qr_code_text",
         "address_bar_code_image",
@@ -5771,7 +5878,8 @@
           "comment": "The IPFS URL for the document. Must be a valid IPFS URL starting with 'ipfs://' followed by a content identifier hash."
         },
         "document_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A document date is a date found on the document that typically represents the document creation date."
         },
         "document_identifier": {
@@ -5817,155 +5925,47 @@
         "document_type": {
           "type": "string",
           "enum": [
-            "IRS1040",
-            "ClosingDisclosure",
-            "PurchaseAgreement",
-            "LoanEstimate",
             "ConveyanceDeedQuitClaimDeed",
-            "BankruptcyDischargeNotice",
-            "ConservatorAndGuardianshipAgreement",
-            "AssignmentAssignmentOfRents",
-            "AssumptionAgreement",
-            "BankStatementMutualFundAccount",
-            "MortgageStatements",
-            "AutomatedUnderwritingFeedback",
-            "ListingAgreement",
-            "BuyingYourHomeSettlementCostsAndHelpfulInformation",
-            "AutomatedValuationReportWithInspection",
-            "BusinessLicense",
-            "BankStatement401K",
-            "ClosingInstructions",
-            "BenefitPlanDistributionStatement",
-            "BalloonRefinanceDisclosure",
-            "CreditCardAuthorization",
-            "AppraisalReportInteriorExterior",
-            "BuydownAgreement",
-            "AppraisalReviewExteriorOnlyWithoutValueOpinion",
-            "BenefitPlanDistributionStatementPension",
-            "ApplicationDisclosureAdditionalCreditAndDebt",
-            "CosignerNotice",
-            "ClosingDisclosureModelForm",
-            "AssignmentCooperativeAssignmentOfProprietaryLease",
+            "ConveyanceDeedBargainAndSaleDeed",
+            "ConveyanceDeedWarrantyDeed",
+            "ConveyanceDeed",
             "AssignmentAssignmentOfDeedOfTrust",
-            "AffidavitOfDeath",
-            "BuildersCertificationPropertyInspection",
-            "BalanceTransferAuthorizationNotice",
-            "CloseLineOfCreditRequest",
-            "CustomerIdentificationVerification",
-            "AmendatoryClause",
+            "AssignmentAssignmentOfMortgage",
+            "AssignmentAssignmentOfRents",
             "Assignment",
-            "Bid",
-            "BuildingPermit",
-            "ListingPostcard",
-            "ComparativeIncomeAnalysis",
-            "BuildersCertificationBuildersCertificate",
-            "Check",
-            "BorrowerLienAffidavit",
-            "AppraisalReport",
-            "AppraisalReviewInteriorExteriorInspectionWithValueOpinion",
-            "CondominiumOccupancyCertificate",
-            "CreditReportingAdjustment",
-            "BenefitPlanDistributionStatementAnnuity",
-            "CooperativeStockCertificate",
-            "BankStatementCheckingAccount",
-            "AchdebitAuthorization",
-            "AppraisalReportExteriorOnly",
-            "CooperativeStockPower",
             "AssignmentAssignmentOfTrade",
-            "AcknowledgmentOfNoticeOfRightToCancel",
+            "AssignmentBlanketAssignment",
+            "AssignmentCooperativeAssignmentOfProprietaryLease",
+            "AffidavitOfDeath",
+            "AbstractOfJudgment",
+            "AttorneyInFactAffidavit",
+            "ArticlesOfIncorporation",
+            "BuildingPermit",
+            "ComplianceInspectionReport",
+            "ConditionalCommitment",
+            "CounselingCertification",
+            "AirportNoisePollutionAgreement",
             "BreachNotice",
             "BrokerPriceOpinion",
-            "CreditInsuranceAgreement",
-            "ApplicationDisclosure",
-            "BrokerDisclosureStatement",
-            "ComplianceAgreement",
-            "AppraisalRecertification",
-            "ConveyanceDeedBargainAndSaleDeed",
-            "AttestationOfDamageToProperty",
-            "AssignmentBlanketAssignment",
-            "ClosingDisclosureSellerOnly",
-            "ConveyanceDeed",
-            "CreditReport",
-            "AppraisalReviewWithoutValueOpinion",
-            "CaivrsAuthorization",
-            "CooperativeRecognitionAgreement",
-            "AppraisalReviewRequest",
-            "Paystub",
-            "ArticlesOfIncorporation",
-            "AppraisalReviewInteriorExteriorWithoutValueOpinion",
-            "BankDepositSlip",
-            "CancellationOfListing",
-            "CollectionRegister",
-            "ConstructionCostBreakdown",
-            "FinancialStatements",
-            "BaileeLetter",
-            "ConsumerHandbookOnArm",
-            "AttorneysOpinionLetter",
-            "BorrowerAcknowledgmentOfPropertyCondition",
-            "AppraisalReview",
-            "ApprovalLetter",
-            "ComplianceInspectionReport",
-            "AbstractNoticeAgreement",
-            "CooperativeOperatingBudget",
-            "BuildersCertificationBuilderCertificationOfPlansAndSpecifications",
-            "AffiliatedBusinessArrangementDisclosure",
-            "ConversionOptionNotice",
-            "CounselingCertification",
-            "BankStatementSavingAccount",
-            "BirthCertificate",
-            "ClosingDisclosureBorrowerOnly",
-            "Conveyancetaxform,cooperativebylaws",
-            "AttorneyInFactAffidavit",
-            "BankStatement",
-            "BuildersCertification",
-            "BorrowerCorrespondenceLetterOfIntent",
-            "IRS1099MISC",
-            "CooperativeProprietaryLease",
-            "AffidavitOfLostNote",
-            "BorrowerCorrespondenceQualifiedWrittenRequest",
-            "BrokerPriceOpinionDesktop",
-            "ConveyanceDeedWarrantyDeed",
-            "AmortizationSchedule",
-            "AlternativeRequestForAgreementOfShortSale",
-            "BorrowerCorrespondenceLetterOfExplanation",
-            "ArmDisclosure",
-            "AvmFeedback",
-            "BenefitPlanDistributionStatement401K",
-            "AirportNoisePollutionAgreement",
-            "BorrowerAuthorizationToReleaseInformation",
-            "BenefitPlanDistributionStatementTrust",
-            "ConditionalCommitment",
+            "AmendatoryClause",
             "AssuranceOfCompletion",
-            "BorrowersContractWithRespectToHotelAndTransientUseOfProperty",
-            "AssignmentAssignmentOfMortgage",
-            "BankStatementStockAccount",
-            "CounselingCertificationHomeRetention",
-            "Checklist",
-            "ChildSupportVerification",
-            "AbstractOfJudgment",
-            "Borrowercorrespondence,borrowercorrespondencegapinemployment",
-            "BondCertificate",
+            "Bid",
+            "BuildersCertificationBuilderCertificationOfPlansAndSpecifications",
+            "BuildersCertificationBuildersCertificate",
+            "BuildersCertificationPropertyInspection",
             "BuildersCertificationTermiteTreatment",
-            "AppraisalReviewNoInspectionWithValueOpinion",
-            "BorrowersCertification",
-            "AutomatedValuationReport",
-            "CounselingChecklistForMilitaryHomebuyers",
-            "AppraisalReportDesktop",
-            "BrokerPriceOpinionExteriorInspection",
-            "CounselingCertificationHomeownership",
-            "AppraisalReviewExteriorOnlyInspectionWithValueOpinion",
-            "IRS1099NEC",
-            "ClosingDisclosureAlternateForm",
-            "BorrowerCorrespondenceTrailingSpouse"
+            "PropertyImage"
           ],
           "comment": "Document type refers to the classification or categorization of a document based on its purpose, content, or format."
         },
         "mailed_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Refers to the date that a document was mailed to a recipient."
         },
         "returned_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Refers to the date that a document was returned to a recipient."
         },
         "staircase_blob_identifier": {
@@ -6033,7 +6033,8 @@
           "comment": "The academic or professional title conferred upon the individual after completion of a course of study."
         },
         "end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The end date is the date when the borrower is expected to have fully repaid the mortgage loan and the mortgage is considered to be fully paid off. This date is typically specified in the mortgage agreement and is calculated based on the term of the mortgage, which is the length of time the borrower has to repay the loan."
         },
         "field": {
@@ -6123,7 +6124,8 @@
           ]
         },
         "employment_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the borrower left the position with the employer."
         },
         "employment_home_office_indicator": {
@@ -6155,19 +6157,23 @@
           "comment": "A free-form text field describing the borrower's employment position or title."
         },
         "employment_reported_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Indicates the date when the employment information was reported to the repository bureau."
         },
         "employment_self_owned_business_operations_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the business owned by the borrower ended operations."
         },
         "employment_self_owned_business_operations_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the business owned by the borrower began operating."
         },
         "employment_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the borrower started the employment position with the employer."
         },
         "employment_status_type": {
@@ -6333,7 +6339,8 @@
           "comment": "Environment last month cost amount refers to the total cost incurred by using a particular computing environment during the last billing cycle or month. This amount is calculated based on the resources consumed by the environment, such as compute, storage, and network usage, and any associated fees or charges for using additional services or features."
         },
         "last_used_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Environment last used date refers to the date and time when a specific environment was last accessed or used. It is used to monitor usage patterns and identify environments that are no longer needed or require maintenance."
         },
         "year_to_date_cost_amount": {
@@ -6709,11 +6716,13 @@
           "comment": "A free-form text field used to collect additional information when Other is selected for mortgage property expense type."
         },
         "period_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "period end date in mortgage banking expenses refers to the date that marks the end of a specific time period for which expenses are being reported. \nThis date is used to determine the duration of the time period for which expenses are being calculated and reported. The period end date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period end date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "period_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "period start date in mortgage banking expenses refers to the date that marks the beginning of a specific time period for which expenses are being reported. \nThis date is used in conjunction with the period end date to determine the duration of the time period for which expenses are being calculated and reported. The period start date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period start date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "reservist_and_other_business_expense_amount": {
@@ -6881,6 +6890,7 @@
     {
       "type": "environmental_risk",
       "container_name": "environmental_risks",
+      "description": "The EnvironmentalRisk class provides comprehensive environmental hazard assessment data for properties, documenting various natural and man-made risk factors that could impact property safety, desirability, and insurance requirements. It includes FEMA flood zone designations to assess flood risk levels, hurricane evacuation zone classifications for emergency planning, and wildfire risk zone information for fire-prone areas. The class also captures storm surge risk levels ranging from minimal to high, ambient noise levels from quiet to loud environments, and light pollution levels that affect night sky visibility. This data is essential for property buyers, insurance companies, and emergency management agencies to make informed decisions about property risks, evacuation procedures, and environmental quality assessments.",
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
@@ -6943,7 +6953,8 @@
           "comment": "Fee assessed amount refers to the monetary amount assessed to satisfy a fee."
         },
         "assessed_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Fee assessed date refers to the date a fee payment was assessed."
         },
         "description": {
@@ -7142,7 +7153,8 @@
           "comment": "The type of fee."
         },
         "payment_paid_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Fee payment paid date refers to the date a fee payment was made."
         }
       },
@@ -7178,7 +7190,8 @@
           ]
         },
         "demographic_collection_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date demographic information was collected for a borrower or applicant."
         },
         "demographic_collection_version_type": {
@@ -7545,6 +7558,7 @@
       "type": "homeowners_association",
       "container_name": "homeowners_associations",
       "is_deprecated": false,
+      "description": "The HomeownersAssociation class represents comprehensive information about homeowners associations (HOAs) governing residential properties, including community governance, financial obligations, and available amenities. It captures essential HOA details such as the association name, type (mandatory, voluntary, condominium, hybrid, or other), fee structure with amounts and payment frequencies (monthly, quarterly, annually, etc.), and applicable year information. The class documents extensive community amenities ranging from recreational facilities like pools, clubhouses, gyms, and golf courses to modern conveniences such as co-working spaces, package lockers, and rooftop decks. Additionally, it tracks security features including 24/7 guards, gated entries, surveillance systems, keycard access, and other safety measures. This information is crucial for property buyers to understand community living costs, available facilities, governance structure, and security provisions when evaluating properties within HOA-managed communities.",
       "deprecated_properties": [
         "has_payment",
         "has_expense",
@@ -7905,11 +7919,13 @@
           "comment": "Overtime income refers to the additional pay that an employee receives for working beyond their regular work hours or scheduled shift. Overtime pay is typically paid at a higher rate than regular pay in recognition of the additional time and effort required."
         },
         "period_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "period end date in mortgage banking expenses refers to the date that marks the end of a specific time period for which expenses are being reported. \nThis date is used to determine the duration of the time period for which expenses are being calculated and reported. The period end date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period end date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "period_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "period start date in mortgage banking expenses refers to the date that marks the beginning of a specific time period for which expenses are being reported. \nThis date is used in conjunction with the period end date to determine the duration of the time period for which expenses are being calculated and reported. The period start date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period start date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "predicted_net_worth_amount": {
@@ -8039,15 +8055,18 @@
           "comment": "A loan identifier type (other) description refers to a description for a non-standard type of loan identifier. Since the identifier is non-standard, it is typically designated as an 'other' type."
         },
         "policy_cancellation_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "An insurance policy cancellation date refers to the date on which an insurance policy is terminated or cancelled by either the insurance company or the policyholder."
         },
         "policy_effective_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "An insurance policy effective date is the date on which the insurance coverage begins. It is the date on which the policyholder's coverage is considered to be in force and the insurance company is obligated to pay for any covered losses or damages that occur after that date."
         },
         "policy_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "An insurance policy expiration date is the date on which an insurance policy ends and coverage under the policy ceases. The expiration date is typically specified in the policy documentation and is often one year from the date the policy was originally purchased or renewed."
         },
         "policy_identifier": {
@@ -8055,7 +8074,8 @@
           "comment": "An insurance policy identifier is a unique code or number that is assigned to an insurance policy to identify it within an insurance company's system. This identifier is used to track policy information, premiums paid, claims filed, and other important details related to the policy."
         },
         "policy_renewal_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "An insurance policy renewal date is the date on which an insurance policy comes up for renewal. Insurance policies typically have a fixed term, such as one year, and must be renewed at the end of that term to remain in effect."
         },
         "premium_amount": {
@@ -9009,7 +9029,8 @@
           "comment": "A unique alphanumeric string identifying the liability."
         },
         "liability_account_opened_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the liability account was opened."
         },
         "liability_account_ownership_type": {
@@ -9017,7 +9038,8 @@
           "comment": "The ownership relation of the borrower to the liability account (e.g. are they solely responsible, jointly responsible, etc.)"
         },
         "liability_account_reported_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the report regarding the liability account was produced."
         },
         "liability_current_rating_code": {
@@ -9076,7 +9098,8 @@
           "comment": "This is a set of previous monthly payment ratings beginning with the Payment Pattern Start Date. C=Current, 1-6=# Months Late, 7=Wage Earner Plan, 8=Repossession, 9=Collection, N=No Activity, X=No Data."
         },
         "liability_payment_pattern_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The start date for the liability account payment pattern."
         },
         "liability_payoff_status_indicator": {
@@ -9238,7 +9261,8 @@
           "comment": "License_exempt_indicator indicates whether the party is exempt from specific licensing requirement(s) or not."
         },
         "license_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "license expiration date indicates the date that the license expires."
         },
         "license_identifier": {
@@ -9246,7 +9270,8 @@
           "comment": "A license identifier is a unique code or number assigned to a license for identification purposes. It is often used in various administrative and legal systems to ensure accuracy and consistency in record-keeping and data management."
         },
         "license_issue_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "license issue date indicates the date that the license was issued."
         },
         "license_issuing_authority_name": {
@@ -9304,7 +9329,8 @@
           "comment": "The amount at which the property was listed or adjusted to at a specific point in time."
         },
         "price_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date when a specific price was set or adjusted for the listing."
         },
         "price_type": {
@@ -9332,7 +9358,8 @@
           "comment": "Enumerated values indicating the nature of the price"
         },
         "status_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date when the status of the listing was updated or changed."
         }
       },
@@ -9375,7 +9402,8 @@
       ],
       "properties": {
         "listed_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date when the property was listed for sale."
         },
         "deals_home_indicator": {
@@ -9569,7 +9597,8 @@
           "comment": "Gross Lease Value Percentage refers to a percentage of the total gross lease value that is used to calculate certain financial aspects of the lease."
         },
         "last_list_price_revision_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The most recent date when the property list price was revised."
         },
         "list_price_reduced_amount": {
@@ -9597,7 +9626,8 @@
           "comment": "Indicates if there are price terms associated with the listing agreement."
         },
         "listing_agreement_termination_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A specific date on which a real estate listing agreement between a property owner (seller or landlord) and a real estate broker or agent comes to an end."
         },
         "listing_agreement_termination_date_indicator": {
@@ -9613,11 +9643,13 @@
           "comment": "A detailed narrative that provides potential buyers or renters with essential information about a property."
         },
         "listing_status_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The disposition date related to the Listing Status Type."
         },
         "listing_sold_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date when the property was sold."
         },
         "original_list_price_amount": {
@@ -10533,6 +10565,7 @@
         "weighted_average_interest_rate_percent",
         "workout_active_indicator"
       ],
+      "description": "Represents a mortgage loan with comprehensive financial terms, conditions, and status information. Includes loan amounts, interest rates, payment schedules, borrower information, and regulatory compliance details for real estate financing transactions.",
       "properties": {
         "accelerated_payment_program_indicator": {
           "type": "boolean",
@@ -10564,7 +10597,8 @@
           "comment": "A free-form text field used to collect additional information or a description of the amortization_type when other is selected."
         },
         "application_received_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the creditor or originator received the application from the borrower for the subject mortgage loan."
         },
         "appraisal_value": {
@@ -10724,7 +10758,8 @@
           "comment": "Indicates that interest accrued, escrow disbursements made and/or fees charged are included in the unpaid principal balance."
         },
         "closing_cost_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the closing costs agreement between a borrower and a lender expires."
         },
         "closing_cost_financed_indicator": {
@@ -10894,7 +10929,8 @@
           "comment": "Indicates if the loan is part of an employee loan program.Renamed. Replaces \"MI Employee Loan Indicator\"."
         },
         "end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The end date is the date when the borrower is expected to have fully repaid the mortgage loan and the mortgage is considered to be fully paid off. This date is typically specified in the mortgage agreement and is calculated based on the term of the mortgage, which is the length of time the borrower has to repay the loan."
         },
         "energy_improvement_amount": {
@@ -10949,7 +10985,8 @@
           "comment": "When true, indicates the borrower has elected to establish an escrow account."
         },
         "estimate_issued_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Date that the loan estimate was issued by the loan originator."
         },
         "estimated_monthly_taxes_insurance_assessment_amount": {
@@ -11120,19 +11157,22 @@
         },
         "loan_annual_percentage_rate": {
           "type": "decimal",
-          "format": "rate-percent",
+          "format": "rate_percent",
           "comment": "A standardized way to express the true cost of borrowing on a loan, including both the interest rate and any applicable fees or costs. The APR is expressed as a percentage provides a more comprehensive view of the total cost of a loan than the nominal or stated interest rate alone."
         },
         "loan_application_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Loan Application Date refers to the date on which a borrower applies for a mortgage loan. \nThis date is the start of the mortgage loan process and marks the beginning of the lender's review of the borrower's financial information, credit history, and other relevant information to determine whether the borrower is eligible for the loan.\n\nThe loan application date is important because it establishes the timeline for the mortgage process and sets the deadline for the lender to complete its review and make rdf:type loan decision. The loan application date is also used to determine the interest rate and other loan terms that will be offered to the borrower.\n\nThe loan application date is usually recorded in the loan file and is used to track the progress of the loan through the mortgage process. This information is used by the lender, investor, and servicer to ensure that the correct information is associated with the loan at all times.\n\nThe loan application date is rdf:type critical component of the mortgage process and is used to help ensure that the correct information is associated with the loan at all times. This helps to minimize the risk of errors and reduces the likelihood of fraudulent activity."
         },
         "loan_approval_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the mortgage loan approval was made by the lender to the borrower. A loan approval involves verifying credit, down payment, employment history, etc. of the borrower(s) and will generally state that the borrower is approved for a loan upon satisfaction of certain conditions."
         },
         "loan_approval_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the mortgage loan approval expires."
         },
         "loan_approval_period_days_count": {
@@ -11144,7 +11184,8 @@
           "comment": "When true, indicates that this loan asset was added to the security in the current investor reporting period."
         },
         "loan_closing_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the mortgage loan is officially closed and the loan funds are disbursed to the borrower."
         },
         "loan_closing_status_type": {
@@ -11155,11 +11196,13 @@
           ]
         },
         "loan_commitment_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the mortgage loan commitment to the borrower was made. The loan commitment is a formal, binding offer from a lender that a specified amount of loan or line of credit will be made available to the named borrower at a certain interest rate, during a certain period and, usually, for a certain purpose. The commitment also specifies the terms and requirements under which the loan will be advanced."
         },
         "loan_commitment_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the mortgage loan commitment expires."
         },
         "loan_commitment_period_days_count": {
@@ -11179,7 +11222,8 @@
           "comment": "When true, indicates that upon receipt of the Loan Estimate, and due to a bona fide personal financial emergency, the consumer modified or waived the seven-business-day waiting period that must be met prior to consummation of the mortgage loan transaction."
         },
         "loan_estimated_closing_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The estimated closing date for loan at the time of application."
         },
         "loan_features_other_description": {
@@ -11191,7 +11235,8 @@
           "comment": "Boolean value that indicates Other has been selected as a loan feature on the 1003."
         },
         "loan_funding_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the loan funds were released from the original lender to the closing agent for disbursement to the borrower."
         },
         "loan_identifier": {
@@ -11241,7 +11286,8 @@
           "comment": "A textual description elaborating on the primary reason or motive for obtaining the loan, as specified in the loan_purpose_type."
         },
         "loan_rate_lock_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the interest rate lock agreement between a borrower and a lender expires."
         },
         "loan_rate_lock_indicator": {
@@ -11290,7 +11336,8 @@
           "comment": "Loan role type helps lenders understand a borrower's ability to repay a loan and determine loan terms and conditions. There are three types of loan roles: subject, related and historical. A subject loan is the loan that is being evaluated or underwritten by the lender. A related loan is a loan that is related to the subject loan in some way, such as a second mortgage or a home equity line of credit (HELOC) that is taken out on the same property. A historical loan is a loan that has already been repaid or closed."
         },
         "loan_sale_funding_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the investor releases funds to the seller of the loan."
         },
         "loan_secured_by_type": {
@@ -11344,7 +11391,8 @@
           "comment": "Loan status refers to the current state or condition of a loan. It indicates whether the borrower is up-to-date with their payments, in default, or in some other stage of the loan process."
         },
         "loan_status_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Loan status date indicates the date on which the status of a loan was last updated or changed. It is the date when the loan's status was evaluated and recorded by the lender or servicer, and can indicate whether the borrower is up-to-date on their payments, delinquent, or in default."
         },
         "loan_status_type": {
@@ -11470,12 +11518,13 @@
           "comment": "The city referenced at the top of the promissory note."
         },
         "note_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on the note."
         },
         "note_rate_percent": {
           "type": "decimal",
-          "format": "rate-percent",
+          "format": "rate_percent",
           "comment": "The actual interest rate as disclosed on the note."
         },
         "note_rate_percentage": {
@@ -11552,7 +11601,8 @@
           "comment": "The unique identifier for a group or pool of loans. May include relevant prefix and suffix when not parsed into applicable fields. See Pool Prefix Identifier or Pool Suffix Identifier."
         },
         "pool_issue_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date a mortgage backed security is issued to investors."
         },
         "pool_prefix_identifier": {
@@ -11716,7 +11766,8 @@
           "comment": "When true, indicates that due to a bona fide personal financial emergency, the consumer modified or waived the right to rescind waiting period requirement that must be met prior to consummation of the mortgage loan transaction."
         },
         "scheduled_amortization_midpoint_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Based on scheduled amortization, date at which the loan due date reaches the midpoint of the loans amortization period (e.g., for a 360 month loan, the date of month number 181)."
         },
         "scheduled_unpaid_principal_balance_upb_amount": {
@@ -12011,6 +12062,7 @@
       "type": "lot",
       "container_name": "mappings",
       "is_deprecated": false,
+       "description": "The Lot class captures comprehensive information about the land parcel and exterior property characteristics surrounding a structure, including physical dimensions, surface features, and condition assessments. It documents lot sizing through multiple metrics including square footage, length, width, and categorical classifications (greater than or less than quarter-acre), along with flexible dimension descriptions. The class tracks exterior infrastructure such as driveway mateClaude can make mistakes. Please double-check responses.",
       "deprecated_properties": [
         "lot_type_other_description",
         "lot_size_dimensions",
@@ -12172,28 +12224,21 @@
           "type": "string",
           "enum": [
             "layout_has_appliance",
-            "layout_has_image",
             "person_has_mortgage",
             "person_has_property",
             "person_owns_property",
             "property_appliance",
             "property_has_address",
-            "property_has_document",
-            "property_has_document_image",
+            "property_has_file",
             "property_has_layout",
             "property_has_lot",
             "property_has_mortgage",
-            "property_has_nearby_location",
             "property_has_nearby_locations",
             "property_has_sales_history",
             "property_has_structure",
             "property_has_tax",
-            "property_has_utility",
             "property_has_utilities",
-            "age",
-            "death_date",
-            "death_indicator",
-            "first_time_home_owner"
+            "property_has_environmental_risk"
           ],
           "comment": "A reference to the associated schema for relashionship"
         }
@@ -12263,11 +12308,13 @@
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for Military Service Classification Type."
         },
         "military_service_expected_completion_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date the active military term of service is scheduled to end."
         },
         "military_service_from_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date this period of service began."
         },
         "military_service_number_identifier": {
@@ -12279,7 +12326,8 @@
           "comment": "Name of veteran exactly as it appears on separation papers of Statement of Service."
         },
         "military_service_to_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date this period of service ended."
         },
         "military_status_type": {
@@ -12362,7 +12410,8 @@
           "comment": "The amount related to the Offering Type."
         },
         "offering_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date related to the Offering Type."
         },
         "offering_type": {
@@ -12440,11 +12489,13 @@
       "deprecated_properties": [],
       "properties": {
         "date_acquired": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the person acquired ownership of the property."
         },
         "date_sold": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date which the ownership has ended."
         },
         "owned_by": {
@@ -12533,7 +12584,8 @@
           "comment": "A unique identifier assigned to a loan by a specific company or institution. Different companies may use different identifiers for the same loan."
         },
         "order_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "An order date is the date on which a customer places an order for a product or service from a company."
         },
         "partner_CID": {
@@ -12608,11 +12660,13 @@
           "comment": "A last paid amount refers to the most recent date on which a payment was made or processed for a particular account or transaction. It signifies the date when the payment was successfully received and recorded by the payee or the entity managing the payment."
         },
         "last_paid_due_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A last payment paid due date refers to the deadline or the final date by which the most recent payment should have been made to fulfill an outstanding financial obligation."
         },
         "last_paid_received_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A last payment paid received date refers to the date on which the most recent payment was received by the payee or the entity managing the payment."
         },
         "late_charge_amount": {
@@ -12644,7 +12698,8 @@
           "comment": "Next payment amount refers to the specific value or sum of money that must next be transferred or exchanged as part of a payment transaction. It represents the monetary value or quantity that the payer will provide next to the payee."
         },
         "next_payment_due_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A next payment due date refers to the next date by which the next payment must be made to fulfill an outstanding financial obligation."
         },
         "next_second_payment_amount": {
@@ -12753,7 +12808,8 @@
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for the Payoff Requested By Type."
         },
         "payoff_requested_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date that the payoff was requested."
         },
         "payoff_specified_hud1_line_number_value": {
@@ -12761,7 +12817,8 @@
           "comment": "Payoff Specified HUD1 Line Number Value"
         },
         "payoff_through_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The last valid date that is covered in the payoff amount."
         }
       },
@@ -12819,17 +12876,20 @@
         "middle_initial",
         "marital_status_type"
       ],
+      "description": "Represents an individual person with comprehensive personal information including name, demographics, identification, citizenship status, and biographical details. Used for property ownership, loan applications, and other real estate transactions.",
       "properties": {
         "age": {
           "type": "integer",
           "comment": "Age of individual based on either date of birth or other statistical data."
         },
         "birth_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A birth date is the date on which a person was born. It typically includes the day, month, and year of an individual's birth and is used to determine their age."
         },
         "death_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Specifies the date on which a person passed away. This can be used in records to memorialize an individual and provide clarity in historical or genealogical contexts."
         },
         "death_indicator": {
@@ -12838,6 +12898,7 @@
         },
         "first_name": {
           "type": "string",
+          "pattern": "^[A-Z][a-zA-Z\\s\\-',.]*$",
           "comment": "A person's first name is the name that they are given at birth or during infancy, and it is typically used to identify them in a personal or informal context."
         },
         "first_time_home_owner": {
@@ -12869,6 +12930,7 @@
         },
         "last_name": {
           "type": "string",
+          "pattern": "^[A-Z][a-zA-Z\\s\\-',.]*$",
           "comment": "A person's last name, also known as surname or family name, is typically the name that is shared by all members of their immediate family."
         },
         "marital_status_type": {
@@ -12889,7 +12951,7 @@
         },
         "middle_name": {
           "type": "string",
-          "pattern": "^[a-zA-Z\\s\\-\\.\\'']+$",
+          "pattern": "^[A-Z][a-zA-Z\\s\\-',.]*$",
           "comment": "The middle name of the individual represented by the parent object"
         },
         "person_identifier": {
@@ -13143,7 +13205,11 @@
           ],
           "comment": "Indicates the validation status of the person."
         }
-      }
+      },
+      "required": [
+        "first_name",
+        "last_name"
+      ]
     },
     {
       "type": "communication_validation",
@@ -13876,6 +13942,7 @@
     },
     {
       "type": "property",
+       "description": "The Property class serves as the foundational data structure for capturing essential characteristics and legal identifiers of real estate properties, providing comprehensive documentation for financing, legal, and classification purposes. It defines physical attachment relationships through attachment types (attached, detached, semi-detached) and categorizes properties by unit count for mortgage banking purposes, ranging from single-family homes to multi-unit properties up to fourplexes, which directly impacts loan-to-value ratios, debt-to-income requirements, and lending risk assessments. The class maintains critical legal documentation including unique parcel identifiers that distinguish properties within jurisdictions and detailed legal descriptions outlining exact boundaries, dimensions, and governmental recognition for contracts and legal documents. It captures construction timeline data through built year information and provides extensive property type classifications spanning residential options from single-family detached homes and condominiums to manufactured housing, cooperatives, timeshares, and multi-family units. This comprehensive property classification system is essential for mortgage underwriting, legal documentation, zoning compliance, insurance purposes, and real estate market analysis, ensuring accurate property categorization across various real estate transactions and regulatory requirements.",
       "container_name": "properties",
       "is_deprecated": false,
       "deprecated_properties": [
@@ -14264,7 +14331,8 @@
           "comment": "A free-form text field used to describe the land use designation if Other is selected as the Property Land Use Type."
         },
         "lease_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Specific date on which a lease agreement between a landlord and a tenant comes to an end."
         },
         "lender_designated_declining_market_identifier": {
@@ -14578,7 +14646,7 @@
         },
         "property_structure_built_year": {
           "type": "integer",
-          "comment": "The year in which the dwelling on the property was completed.In Version 2, was Structure Year Built."
+          "comment": "The year in which the dwelling on the property was completed."
         },
         "property_structure_built_year_estimated_indicator": {
           "type": "boolean",
@@ -14896,6 +14964,8 @@
         "level",
         "special_features"
       ],
+       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
+
       "properties": {
         "space_type": {
           "type": "string",
@@ -15472,6 +15542,8 @@
     },
     {
       "type": "nearby_location",
+       "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
+
       "container_name": "nearby_locations",
       "is_deprecated": false,
       "deprecated_properties": [],
@@ -15653,7 +15725,8 @@
           "comment": "A measure of the dispersion or spread of the estimated property values."
         },
         "valuation_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the property valuation was estimated or determined."
         },
         "area_min_property_price_psf": {
@@ -16479,7 +16552,8 @@
       "deprecated_properties": [],
       "properties": {
         "end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The end date is the date when the borrower is expected to have fully repaid the mortgage loan and the mortgage is considered to be fully paid off. This date is typically specified in the mortgage agreement and is calculated based on the term of the mortgage, which is the length of time the borrower has to repay the loan."
         },
         "monthly_rate": {
@@ -16593,15 +16667,18 @@
           "comment": "residency duration years count refers to the length of time, in years, that a borrower has lived at a specific property, typically their primary residence. \n\nThis information is important in determining the borrower's stability and establishing their credit history at a specific address. The residency duration years count is used in evaluating the borrower's eligibility for certain mortgage products and loan underwriting criteria. The length of residency at a property can impact the terms and conditions of the mortgage loan and may affect the interest rate and other loan features."
         },
         "residency_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "residency end date refers to the date on which a borrower's residency at a specific property, typically their primary residence, comes to an end. \n\nThis information is important in determining the borrower's stability and establishing their credit history at a specific address. The residency end date is used in evaluating the borrower's eligibility for certain mortgage products and loan underwriting criteria. It can also impact the terms and conditions of the mortgage loan and may affect the interest rate and other loan features."
         },
         "residency_reported_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "residency reported date refers to the date on which a borrower's residency at a specific property, typically their primary residence, is reported or documented.\n\nThis information is important in determining the borrower's stability and establishing their credit history at a specific address. The residency reported date is used in evaluating the borrower's eligibility for certain mortgage products and loan underwriting criteria. It can also impact the terms and conditions of the mortgage loan and may affect the interest rate and other loan features."
         },
         "residency_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "residency start date in mortgage banking refers to the date when a borrower moves into a new home and begins living there as their primary residence. \n\nThis date is used to determine the start of the occupancy period for the property, which is rdf:type factor that lenders consider when underwriting rdf:type mortgage loan. It helps lenders to assess the borrower's ability to repay the loan and to determine the interest rate and terms of the loan."
         },
         "residency_type": {
@@ -16813,7 +16890,8 @@
           "comment": "Free-from comment regarding the transfer of ownership for a given property."
         },
         "ownership_transfer_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date of the transfer of ownership of real property as recognized in the jurisdiction in which it is located."
         },
         "ownership_transfer_transaction_amount": {
@@ -16877,7 +16955,8 @@
       "deprecated_properties": [],
       "properties": {
         "date_saved": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date when the search URL was saved."
         },
         "search_terms": {
@@ -17500,7 +17579,8 @@
       "deprecated_properties": [],
       "properties": {
         "source_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "A specific date for when this source has created"
         },
         "source_identifier": {
@@ -17618,6 +17698,7 @@
         "roof_material_type_other_description",
         "building_area_total"
       ],
+      "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
       "properties": {
         "architectural_style_type": {
           "type": "string",
@@ -18444,10 +18525,11 @@
         "authority_account_identifier",
         "description"
       ],
+      "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
       "properties": {
         "tax_year": {
           "type": "integer",
-          "description": "The tax year for which this property tax assessment applies."
+          "comment": "The tax year for which this property tax assessment applies."
         },
         "property_assessed_value_amount": {
           "type": "decimal",
@@ -18457,17 +18539,17 @@
         "property_exemption_amount": {
           "type": "decimal",
           "format": "currency",
-          "description": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
+          "comment": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
         },
         "property_taxable_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "description": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
+          "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
         "monthly_tax_amount": {
           "type": "decimal",
           "format": "currency",
-          "description": "The calculated property tax amount due for the specific month (if applicable)."
+          "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
         "authority_account_identifier": {
           "type": "string",
@@ -18486,11 +18568,13 @@
           "comment": "The escrowed indicator specifies whether a mortgage servicer takes a portion of the borrower's monthly mortgage payment and holds it in an escrow account until tax payments are due."
         },
         "period_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "period end date in mortgage banking expenses refers to the date that marks the end of a specific time period for which expenses are being reported. \nThis date is used to determine the duration of the time period for which expenses are being calculated and reported. The period end date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period end date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "period_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "period start date in mortgage banking expenses refers to the date that marks the beginning of a specific time period for which expenses are being reported. \nThis date is used in conjunction with the period end date to determine the duration of the time period for which expenses are being calculated and reported. The period start date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period start date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking."
         },
         "service_provider_identifier": {
@@ -18649,7 +18733,8 @@
           "comment": "A free-form text field used to collect the brand name of the loan product that the lender is offering. The loan product name is a brand name that is specific to the lender's portfolio."
         },
         "loan_rate_lock_expiration_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "The date on which the interest rate lock agreement between a borrower and a lender expires."
         },
         "loan_rate_lock_period_days_count": {
@@ -19377,11 +19462,13 @@
       "deprecated_properties": [],
       "properties": {
         "iteration_end_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Iteration end date is the last day in a time period defined as an iteration."
         },
         "iteration_start_date": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "comment": "Iteration start date is the first day in a time period defined as an iteration."
         },
         "work_week_number": {
@@ -19410,53 +19497,65 @@
         "environmental_risk",
         "homeowners_association",
         "residency_policy",
-        "document_image",
-        "document",
+        "file",
         "relationship",
         "nearby_location",
-        "lot"
+        "lot",
+        "appliance"
       ]
     }
   ],
   "data_groups": [
     {
-      "label": "Source County",
+      "label": "County Data",
       "relationships": [
         {
+          "type": "relationship",
           "from": "person",
-          "to": "property"
+          "to": "property",
+          "relationship_type": "person_has_property"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "address"
+          "to": "address",
+          "relationship_type": "property_has_address"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "tax"
+          "to": "tax",
+          "relationship_type": "property_has_tax"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "lot"
+          "to": "lot",
+          "relationship_type": "property_has_lot"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "sales_history"
+          "to": "sales_history",
+          "relationship_type": "property_has_sales_history"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "document"
+          "to": "file",
+          "relationship_type": "property_has_file"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "document_image"
+          "to": "layout",
+          "relationship_type": "property_has_layout"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "layout"
-        },
-        {
-          "from": "property",
-          "to": "environment_risk"
+          "to": "environmental_risk",
+          "relationship_type": "property_has_environmental_risk"
         }
       ]
     },
@@ -19464,38 +19563,96 @@
       "label": "Image Metadata",
       "relationships": [
         {
+          "type": "relationship",
           "from": "property",
-          "to": "lot"
+          "to": "lot",
+          "relationship_type": "property_has_lot"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "layout"
+          "to": "layout",
+          "relationship_type": "property_has_layout"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "structure"
+          "to": "structure",
+          "relationship_type": "property_has_structure"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "utility"
+          "to": "utility",
+          "relationship_type": "property_has_utility"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "appliances"
+          "to": "appliances",
+          "relationship_type": "property_appliance"
         },
         {
-          "from": "property",
-          "to": "document_image"
-        },
-        {
+          "type": "relationship",
           "from": "layout",
-          "to": "document_image"
+          "to": "file",
+          "relationship_type": "layout_has_file"
         },
         {
+          "type": "relationship",
           "from": "layout",
-          "to": "appliances"
+          "to": "appliances",
+          "relationship_type": "layout_has_appliance"
         }
       ]
+    }
+  ],
+  "common_patterns": [
+    {
+      "type": "currency",
+      "properties": {
+        "type": "string",
+        "pattern": "^\\$?([0-9]{1,3}(,[0-9]{3})*|[0-9]+)(\\.[0-9]{2})?$",
+        "format": "currency",
+        "description": "Standard currency format supporting dollar signs, commas for thousands, and exactly 2 decimal places"
+      }
+    },
+    {
+      "type": "date",
+      "format": "date",
+      "properties": {
+        "type": "string",
+        "format": "date",
+        "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
+        "description": "Date format in MM/DD/YYYY"
+      }
+    },
+    {
+      "type": "uri",
+      "properties": {
+        "type": "string",
+        "pattern": "^https?://[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-\\.,@?^=%&:/~\\+#]*[\\w\\-\\@?^=%&/~\\+#])?$",
+        "format": "uri",
+        "description": "Standard HTTP/HTTPS URL format"
+      }
+    },
+    {
+      "type": "ipfs_uri",
+      "properties": {
+        "type": "string",
+        "format": "ipfs_uri",
+        "pattern": "^ipfs://[A-Za-z0-9]{46,59}$",
+        "description": "IPFS URI format with content identifier (CID)"
+      }
+    },
+    {
+      "type": "rate_percent",
+      "properties": {
+        "type": "string",
+        "format": "rate_percent",
+        "pattern": "^\\d+\\.\\d{3}$",
+        "description": "Interest rate format with exactly 3 decimal places (e.g., 5.250)"
+      }
     }
   ]
 }

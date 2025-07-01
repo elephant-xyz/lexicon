@@ -66,13 +66,52 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     }
   };
 
+  const scrollToCommonPattern = (format: string) => {
+    console.log('scrollToCommonPattern called with format:', format);
+    const patternsSection = document.querySelector('.patterns-section');
+    console.log('patternsSection found:', !!patternsSection);
+
+    if (patternsSection) {
+      patternsSection.scrollIntoView({ behavior: 'smooth' });
+      // Highlight the specific pattern
+      setTimeout(() => {
+        const patternCards = document.querySelectorAll('.pattern-card');
+        console.log('Found pattern cards:', patternCards.length);
+
+        patternCards.forEach((card, index) => {
+          const patternName = card.querySelector('.pattern-name')?.textContent;
+          console.log(`Pattern card ${index}:`, patternName);
+
+          // Map format values to pattern types, handling inconsistencies
+          const formatToTypeMap: { [key: string]: string } = {
+            currency: 'currency',
+            currancy: 'currency', // Handle typo
+            date: 'date',
+            uri: 'uri',
+            'ipfs-uri': 'ipfs_uri', // Handle hyphen vs underscore
+            ipfs_uri: 'ipfs_uri',
+            rate_percent: 'rate_percent',
+          };
+
+          const expectedType = formatToTypeMap[format];
+          console.log('Expected type for format', format, ':', expectedType);
+
+          if (patternName === expectedType) {
+            console.log('Found matching pattern card, adding highlight');
+            card.classList.add('pattern-highlighted');
+            setTimeout(() => card.classList.remove('pattern-highlighted'), 3000);
+          }
+        });
+      }, 500);
+    }
+  };
+
   const getHighlightedClassName = (cls: LexiconClass): string => {
     if (!searchTerm || !cls._searchMatches) return cls.type;
 
     const classMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'type');
     return classMatch?.value || cls.type;
   };
-
   const getMatchedProperties = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
 
@@ -295,6 +334,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
           </div>
           {expandedClasses.has(index) && (
             <div className="method-list-item-content">
+              {cls.description && (
+                <div className="class-description-section">
+                  <div className="class-description">{cls.description}</div>
+                </div>
+              )}
               {(() => {
                 const matchedProps = getMatchedProperties(cls);
                 const hasVisibleProperties = Object.entries(cls.properties || {}).some(
@@ -323,15 +367,22 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                           >
                             <div className="method-list-item-label">
                               <div className="method-list-item-label-name">
-                                {searchTerm && cls._searchMatches
-                                  ? renderHighlightedText(
-                                      cls._searchMatches.find(
-                                        m =>
-                                          m.type === 'property' &&
-                                          m.value.replace(/<\/?mark>/g, '') === propName
-                                      )?.value || propName
-                                    )
-                                  : propName}
+                                <span className="property-name">
+                                  {searchTerm && cls._searchMatches
+                                    ? renderHighlightedText(
+                                        cls._searchMatches.find(
+                                          m =>
+                                            m.type === 'property' &&
+                                            m.value.replace(/<\/?mark>/g, '') === propName
+                                        )?.value || propName
+                                      )
+                                    : propName}
+                                </span>
+                                {cls.required?.includes(propName) && (
+                                  <span className="required-badge" title="This field is required">
+                                    Required
+                                  </span>
+                                )}
                               </div>
                               <div className="method-list-item-label-type">
                                 <span className="property-type-label">Data Type</span>
@@ -404,13 +455,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 <div className="method-list-item-label-format">
                                   <span className="format-label">Format:</span>
                                   <button
-                                    className={`format-value ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
-                                    onClick={() => copyToClipboard(propData.format!)}
-                                    title="Click to copy format to clipboard"
+                                    className={`format-value format-link ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
+                                    onClick={() => scrollToCommonPattern(propData.format!)}
+                                    title="Click to view format details in Common Patterns section"
                                   >
-                                    {copiedValue === propData.format ? (
-                                      '✓ Copied!'
-                                    ) : searchTerm && getHighlightedFormat(cls, propName) ? (
+                                    {searchTerm && getHighlightedFormat(cls, propName) ? (
                                       <span
                                         dangerouslySetInnerHTML={{
                                           __html: getHighlightedFormat(cls, propName),
