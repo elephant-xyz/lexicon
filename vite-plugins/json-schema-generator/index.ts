@@ -43,10 +43,13 @@ interface DataGroupSchema extends JSONSchema {
     };
     relationships: {
       type: string;
-      items: {
+      properties: Record<string, {
         type: string;
         cid: string;
-      };
+        description: string;
+      }>;
+      required: string[];
+      additionalProperties: boolean;
       description: string;
     };
   };
@@ -153,8 +156,21 @@ function generateJSONSchemaForRelationship(
 
 function generateJSONSchemaForDataGroup(
   dataGroup: DataGroup,
-  relationshipCids: string[]
+  relationshipCidsMap: Record<string, { cid: string; relationshipType: string }>
 ): DataGroupSchema {
+  const relationshipProperties: Record<string, any> = {};
+  const requiredRelationships: string[] = [];
+  
+  // Create properties object with relationship_type as keys
+  Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
+    relationshipProperties[relationshipType] = {
+      type: 'string',
+      cid,
+      description: `Reference to ${key} relationship schema`
+    };
+    requiredRelationships.push(relationshipType);
+  });
+  
   return {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
@@ -166,16 +182,11 @@ function generateJSONSchemaForDataGroup(
         description: 'Data group label'
       },
       relationships: {
-        type: 'array',
-        items: {
-          type: 'object',
-          oneOf: relationshipCids.map(cid => ({
-            type: 'object',
-            cid,
-            description: `Reference to relationship schema`
-          }))
-        } as any,
-        description: 'Array of relationships in this data group'
+        type: 'object',
+        properties: relationshipProperties,
+        required: requiredRelationships,
+        additionalProperties: false,
+        description: 'Object of relationships in this data group, keyed by relationship_type'
       }
     },
     required: ['label', 'relationships'],
@@ -275,22 +286,25 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         console.log('\n📊 Generating Data Group Schemas...');
         for (const dataGroup of lexiconData.data_groups) {
           // Get all relationships for this data group that are in blockchain
-          const groupRelationshipCids: string[] = [];
+          const groupRelationshipCidsMap: Record<string, { cid: string; relationshipType: string }> = {};
           
           for (const relationship of dataGroup.relationships) {
             const relKey = `${relationship.from}_to_${relationship.to}`;
             if (relationshipCids[relKey]) {
-              groupRelationshipCids.push(relationshipCids[relKey]);
+              groupRelationshipCidsMap[relKey] = {
+                cid: relationshipCids[relKey],
+                relationshipType: relationship.relationship_type || `has_${relationship.to}`
+              };
             }
           }
           
           // Only generate schema if there are blockchain relationships
-          if (groupRelationshipCids.length > 0) {
+          if (Object.keys(groupRelationshipCidsMap).length > 0) {
             const groupKey = dataGroup.label.replace(/\s+/g, '_');
             console.log(`  📊 Generating schema for ${dataGroup.label}...`);
             
             // Generate data group schema
-            const groupSchema = generateJSONSchemaForDataGroup(dataGroup, groupRelationshipCids);
+            const groupSchema = generateJSONSchemaForDataGroup(dataGroup, groupRelationshipCidsMap);
             
             // Canonicalize and upload
             const canonicalized = canonicalize(groupSchema);
