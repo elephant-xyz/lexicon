@@ -55,7 +55,7 @@ export async function uploadToIPFS(content: string, fileName: string): Promise<s
     const result = (await response.json()) as { IpfsHash: string };
     return result.IpfsHash;
   } catch (error) {
-    console.error('Error uploading to IPFS:', error);
+    // Error uploading to IPFS
     throw error;
   }
 }
