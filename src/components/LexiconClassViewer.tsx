@@ -487,9 +487,12 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                         <div key={index} className="example-item">
                           <div className="example-header">
                             <span className="example-label">Example {index + 1}:</span>
-                            {example.description && (
-                              <span className="example-description">{example.description}</span>
-                            )}
+                            {(() => {
+                              const desc = (example as Record<string, unknown>).description;
+                              return typeof desc === 'string' ? (
+                                <span className="example-description">{desc}</span>
+                              ) : null;
+                            })()}
                           </div>
                           <div className="example-content">
                             <button
