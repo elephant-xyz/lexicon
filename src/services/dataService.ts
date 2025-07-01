@@ -148,6 +148,20 @@ class DataService {
       });
     }
 
+    // Check class description match
+    if (cls.description) {
+      const descMatch = this.fuzzyMatch(searchTerm, cls.description);
+      if (descMatch.matches) {
+        matches.push({
+          type: 'class',
+          field: 'description',
+          value: cls.type, // Class name for identification
+          score: descMatch.score,
+          highlightedDescription: descMatch.highlight || cls.description,
+        });
+      }
+    }
+
     // Check properties
     Object.entries(cls.properties).forEach(([propName, propData]) => {
       // Skip deprecated properties

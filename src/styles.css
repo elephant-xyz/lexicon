@@ -595,6 +595,23 @@ body {
   background-color: var(--hover-color);
 }
 
+/* Class Description */
+.class-description-section {
+  margin-bottom: var(--spacing-6);
+  padding: var(--spacing-4);
+  background-color: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.class-description {
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0;
+}
+
 /* Sections */
 .properties-section,
 .relationships-section {

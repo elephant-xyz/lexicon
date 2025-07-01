@@ -73,6 +73,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return classMatch?.value || cls.type;
   };
 
+  const getHighlightedClassDescription = (cls: LexiconClass): string => {
+    if (!searchTerm || !cls._searchMatches) return cls.description || '';
+
+    const descMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'description');
+    return descMatch?.highlightedDescription || cls.description || '';
+  };
+
   const getMatchedProperties = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
 
@@ -295,6 +302,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
           </div>
           {expandedClasses.has(index) && (
             <div className="method-list-item-content">
+              {cls.description && (
+                <div className="class-description-section">
+                  <div className="class-description">
+                    {cls.description}
+                  </div>
+                </div>
+              )}
               {(() => {
                 const matchedProps = getMatchedProperties(cls);
                 const hasVisibleProperties = Object.entries(cls.properties || {}).some(

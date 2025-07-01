@@ -5,6 +5,7 @@
       "container_name": "schools",
       "is_deprecated": false,
       "deprecated_properties": [],
+      "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, and ranking to help evaluate the educational quality of a property's location.",
       "properties": {
         "school_name": {
           "type": "string",
@@ -30,6 +31,7 @@
       "container_name": "home_buy_searches",
       "is_deprecated": false,
       "deprecated_properties": [],
+      "description": "Represents a saved search criteria for home buyers. Contains search parameters like price range, property features (pets allowed, waterfront, etc.), and notification preferences to help buyers find properties that match their requirements.",
       "properties": {
         "search_name": {
           "type": "string",
@@ -107,6 +109,7 @@
       "container_name": "saved_properties",
       "is_deprecated": false,
       "deprecated_properties": [],
+      "description": "Represents a property that has been saved or liked by a user. Tracks user preferences and allows users to maintain a list of properties they are interested in for future reference.",
       "properties": {
         "listing_id": {
           "type": "string",
@@ -436,6 +439,8 @@
       "is_deprecated": false,
       "deprecated_properties": [
         "has_address_validation",
+        "address_line_1",
+        "address_line_2",
         "cbsa_code",
         "census_block_group_identifier",
         "census_block_identifier",
@@ -495,13 +500,14 @@
         "post_office_box_identifier",
         "post_office_box_identifier",
         "unincorporated_area_name",
-        "country_code",
+        "country_name",
         "county_code",
         "sequence_number",
         "street_primary_number",
         "state_name",
         "street_suffix"
       ],
+      "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes, geographic identifiers, and administrative boundaries. Supports various address formats and types for different use cases.",
       "properties": {
         "full_address_slug": {
           "type": "string",
@@ -5670,6 +5676,91 @@
       "relationships": {}
     },
     {
+      "type": "media_asset",
+      "container_name": "media_asset",
+      "is_deprecated": false,
+      "deprecated_properties": [
+      ],
+      "properties": {
+        "media_type": {
+          "type": "string",
+          "enum": [
+            "image",
+            "pdf",
+            "video",
+            "audio",
+            "floorplan",
+            "3d_model"
+          ],
+          "comment": "The general media category."
+        },
+        "file_format": {
+          "type": "string",
+          "enum": [
+            "jpeg",
+            "png",
+            "pdf",
+            "mp4",
+            "mp3",
+            "webm",
+            "obj",
+            "gltf"
+          ],
+          "comment": "The format or MIME type of the file."
+        },
+        "name": {
+          "type": "string",
+          "comment": "A human-friendly name for the media asset."
+        },
+        "original_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "HTTP/HTTPS source URL of the media asset."
+        },
+        "ipfs_url": {
+          "type": "string",
+          "format": "ipfs-uri",
+          "comment": "IPFS URL if the asset is stored on IPFS."
+        },
+        "document_type": {
+          "type": "string",
+          "enum": [
+            "ConveyanceDeedQuitClaimDeed",
+            "ConveyanceDeedBargainAndSaleDeed",
+            "ConveyanceDeedWarrantyDeed",
+            "ConveyanceDeed",
+            "AssignmentAssignmentOfDeedOfTrust",
+            "AssignmentAssignmentOfMortgage",
+            "AssignmentAssignmentOfRents",
+            "Assignment",
+            "AssignmentAssignmentOfTrade",
+            "AssignmentBlanketAssignment",
+            "AssignmentCooperativeAssignmentOfProprietaryLease",
+            "AffidavitOfDeath",
+            "AbstractOfJudgment",
+            "AttorneyInFactAffidavit",
+            "ArticlesOfIncorporation",
+            "BuildingPermit",
+            "ComplianceInspectionReport",
+            "ConditionalCommitment",
+            "CounselingCertification",
+            "AirportNoisePollutionAgreement",
+            "BreachNotice",
+            "BrokerPriceOpinion",
+            "AmendatoryClause",
+            "AssuranceOfCompletion",
+            "Bid",
+            "BuildersCertificationBuilderCertificationOfPlansAndSpecifications",
+            "BuildersCertificationBuildersCertificate",
+            "BuildersCertificationPropertyInspection",
+            "BuildersCertificationTermiteTreatment",
+            "PropertyImage"
+          ],
+          "comment": "Semantic role or classification of the document."
+        }
+      }
+    },
+    {
       "type": "document_image",
       "container_name": "document_images",
       "is_deprecated": false,
@@ -5710,6 +5801,7 @@
       "is_deprecated": false,
       "deprecated_properties": [
         "property_image_url",
+        "document_date",
         "qr_code_image",
         "qr_code_text",
         "address_bar_code_image",
@@ -5817,146 +5909,36 @@
         "document_type": {
           "type": "string",
           "enum": [
-            "IRS1040",
-            "ClosingDisclosure",
-            "PurchaseAgreement",
-            "LoanEstimate",
             "ConveyanceDeedQuitClaimDeed",
-            "BankruptcyDischargeNotice",
-            "ConservatorAndGuardianshipAgreement",
-            "AssignmentAssignmentOfRents",
-            "AssumptionAgreement",
-            "BankStatementMutualFundAccount",
-            "MortgageStatements",
-            "AutomatedUnderwritingFeedback",
-            "ListingAgreement",
-            "BuyingYourHomeSettlementCostsAndHelpfulInformation",
-            "AutomatedValuationReportWithInspection",
-            "BusinessLicense",
-            "BankStatement401K",
-            "ClosingInstructions",
-            "BenefitPlanDistributionStatement",
-            "BalloonRefinanceDisclosure",
-            "CreditCardAuthorization",
-            "AppraisalReportInteriorExterior",
-            "BuydownAgreement",
-            "AppraisalReviewExteriorOnlyWithoutValueOpinion",
-            "BenefitPlanDistributionStatementPension",
-            "ApplicationDisclosureAdditionalCreditAndDebt",
-            "CosignerNotice",
-            "ClosingDisclosureModelForm",
-            "AssignmentCooperativeAssignmentOfProprietaryLease",
+            "ConveyanceDeedBargainAndSaleDeed",
+            "ConveyanceDeedWarrantyDeed",
+            "ConveyanceDeed",
             "AssignmentAssignmentOfDeedOfTrust",
-            "AffidavitOfDeath",
-            "BuildersCertificationPropertyInspection",
-            "BalanceTransferAuthorizationNotice",
-            "CloseLineOfCreditRequest",
-            "CustomerIdentificationVerification",
-            "AmendatoryClause",
+            "AssignmentAssignmentOfMortgage",
+            "AssignmentAssignmentOfRents",
             "Assignment",
-            "Bid",
-            "BuildingPermit",
-            "ListingPostcard",
-            "ComparativeIncomeAnalysis",
-            "BuildersCertificationBuildersCertificate",
-            "Check",
-            "BorrowerLienAffidavit",
-            "AppraisalReport",
-            "AppraisalReviewInteriorExteriorInspectionWithValueOpinion",
-            "CondominiumOccupancyCertificate",
-            "CreditReportingAdjustment",
-            "BenefitPlanDistributionStatementAnnuity",
-            "CooperativeStockCertificate",
-            "BankStatementCheckingAccount",
-            "AchdebitAuthorization",
-            "AppraisalReportExteriorOnly",
-            "CooperativeStockPower",
             "AssignmentAssignmentOfTrade",
-            "AcknowledgmentOfNoticeOfRightToCancel",
+            "AssignmentBlanketAssignment",
+            "AssignmentCooperativeAssignmentOfProprietaryLease",
+            "AffidavitOfDeath",
+            "AbstractOfJudgment",
+            "AttorneyInFactAffidavit",
+            "ArticlesOfIncorporation",
+            "BuildingPermit",
+            "ComplianceInspectionReport",
+            "ConditionalCommitment",
+            "CounselingCertification",
+            "AirportNoisePollutionAgreement",
             "BreachNotice",
             "BrokerPriceOpinion",
-            "CreditInsuranceAgreement",
-            "ApplicationDisclosure",
-            "BrokerDisclosureStatement",
-            "ComplianceAgreement",
-            "AppraisalRecertification",
-            "ConveyanceDeedBargainAndSaleDeed",
-            "AttestationOfDamageToProperty",
-            "AssignmentBlanketAssignment",
-            "ClosingDisclosureSellerOnly",
-            "ConveyanceDeed",
-            "CreditReport",
-            "AppraisalReviewWithoutValueOpinion",
-            "CaivrsAuthorization",
-            "CooperativeRecognitionAgreement",
-            "AppraisalReviewRequest",
-            "Paystub",
-            "ArticlesOfIncorporation",
-            "AppraisalReviewInteriorExteriorWithoutValueOpinion",
-            "BankDepositSlip",
-            "CancellationOfListing",
-            "CollectionRegister",
-            "ConstructionCostBreakdown",
-            "FinancialStatements",
-            "BaileeLetter",
-            "ConsumerHandbookOnArm",
-            "AttorneysOpinionLetter",
-            "BorrowerAcknowledgmentOfPropertyCondition",
-            "AppraisalReview",
-            "ApprovalLetter",
-            "ComplianceInspectionReport",
-            "AbstractNoticeAgreement",
-            "CooperativeOperatingBudget",
-            "BuildersCertificationBuilderCertificationOfPlansAndSpecifications",
-            "AffiliatedBusinessArrangementDisclosure",
-            "ConversionOptionNotice",
-            "CounselingCertification",
-            "BankStatementSavingAccount",
-            "BirthCertificate",
-            "ClosingDisclosureBorrowerOnly",
-            "Conveyancetaxform,cooperativebylaws",
-            "AttorneyInFactAffidavit",
-            "BankStatement",
-            "BuildersCertification",
-            "BorrowerCorrespondenceLetterOfIntent",
-            "IRS1099MISC",
-            "CooperativeProprietaryLease",
-            "AffidavitOfLostNote",
-            "BorrowerCorrespondenceQualifiedWrittenRequest",
-            "BrokerPriceOpinionDesktop",
-            "ConveyanceDeedWarrantyDeed",
-            "AmortizationSchedule",
-            "AlternativeRequestForAgreementOfShortSale",
-            "BorrowerCorrespondenceLetterOfExplanation",
-            "ArmDisclosure",
-            "AvmFeedback",
-            "BenefitPlanDistributionStatement401K",
-            "AirportNoisePollutionAgreement",
-            "BorrowerAuthorizationToReleaseInformation",
-            "BenefitPlanDistributionStatementTrust",
-            "ConditionalCommitment",
+            "AmendatoryClause",
             "AssuranceOfCompletion",
-            "BorrowersContractWithRespectToHotelAndTransientUseOfProperty",
-            "AssignmentAssignmentOfMortgage",
-            "BankStatementStockAccount",
-            "CounselingCertificationHomeRetention",
-            "Checklist",
-            "ChildSupportVerification",
-            "AbstractOfJudgment",
-            "Borrowercorrespondence,borrowercorrespondencegapinemployment",
-            "BondCertificate",
+            "Bid",
+            "BuildersCertificationBuilderCertificationOfPlansAndSpecifications",
+            "BuildersCertificationBuildersCertificate",
+            "BuildersCertificationPropertyInspection",
             "BuildersCertificationTermiteTreatment",
-            "AppraisalReviewNoInspectionWithValueOpinion",
-            "BorrowersCertification",
-            "AutomatedValuationReport",
-            "CounselingChecklistForMilitaryHomebuyers",
-            "AppraisalReportDesktop",
-            "BrokerPriceOpinionExteriorInspection",
-            "CounselingCertificationHomeownership",
-            "AppraisalReviewExteriorOnlyInspectionWithValueOpinion",
-            "IRS1099NEC",
-            "ClosingDisclosureAlternateForm",
-            "BorrowerCorrespondenceTrailingSpouse"
+            "PropertyImage"
           ],
           "comment": "Document type refers to the classification or categorization of a document based on its purpose, content, or format."
         },
@@ -10533,6 +10515,7 @@
         "weighted_average_interest_rate_percent",
         "workout_active_indicator"
       ],
+      "description": "Represents a mortgage loan with comprehensive financial terms, conditions, and status information. Includes loan amounts, interest rates, payment schedules, borrower information, and regulatory compliance details for real estate financing transactions.",
       "properties": {
         "accelerated_payment_program_indicator": {
           "type": "boolean",
@@ -12179,7 +12162,7 @@
             "property_appliance",
             "property_has_address",
             "property_has_document",
-            "property_has_document_image",
+            "property_has_image",
             "property_has_layout",
             "property_has_lot",
             "property_has_mortgage",
@@ -12819,6 +12802,7 @@
         "middle_initial",
         "marital_status_type"
       ],
+      "description": "Represents an individual person with comprehensive personal information including name, demographics, identification, citizenship status, and biographical details. Used for property ownership, loan applications, and other real estate transactions.",
       "properties": {
         "age": {
           "type": "integer",
@@ -14578,7 +14562,7 @@
         },
         "property_structure_built_year": {
           "type": "integer",
-          "comment": "The year in which the dwelling on the property was completed.In Version 2, was Structure Year Built."
+          "comment": "The year in which the dwelling on the property was completed."
         },
         "property_structure_built_year_estimated_indicator": {
           "type": "boolean",
@@ -17618,6 +17602,7 @@
         "roof_material_type_other_description",
         "building_area_total"
       ],
+      "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
       "properties": {
         "architectural_style_type": {
           "type": "string",
@@ -18444,10 +18429,11 @@
         "authority_account_identifier",
         "description"
       ],
+      "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
       "properties": {
         "tax_year": {
           "type": "integer",
-          "description": "The tax year for which this property tax assessment applies."
+          "comment": "The tax year for which this property tax assessment applies."
         },
         "property_assessed_value_amount": {
           "type": "decimal",
@@ -18457,17 +18443,17 @@
         "property_exemption_amount": {
           "type": "decimal",
           "format": "currency",
-          "description": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
+          "comment": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
         },
         "property_taxable_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "description": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
+          "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
         "monthly_tax_amount": {
           "type": "decimal",
           "format": "currency",
-          "description": "The calculated property tax amount due for the specific month (if applicable)."
+          "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
         "authority_account_identifier": {
           "type": "string",
@@ -19410,8 +19396,7 @@
         "environmental_risk",
         "homeowners_association",
         "residency_policy",
-        "document_image",
-        "document",
+        "media_asset",
         "relationship",
         "nearby_location",
         "lot"
@@ -19420,43 +19405,61 @@
   ],
   "data_groups": [
     {
-      "label": "Source County",
+      "label": "County Data",
       "relationships": [
         {
+          "type": "relationship",
           "from": "person",
-          "to": "property"
+          "to": "property",
+          "relationship_type": "person_has_property"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "address"
+          "to": "address",
+          "relationship_type": "property_has_address"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "tax"
+          "to": "tax",
+          "relationship_type": "property_has_tax"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "lot"
+          "to": "lot",
+          "relationship_type": "property_has_lot"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "sales_history"
+          "to": "sales_history",
+          "relationship_type": "property_has_sales_history"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "document"
+          "to": "media_asset",
+          "relationship_type": "property_has_document"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "document_image"
+          "to": "media_asset",
+          "relationship_type": "property_has_image"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "layout"
+          "to": "layout",
+          "relationship_type": "property_has_layout"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "environment_risk"
+          "to": "environmental_risk",
+          "relationship_type": "property_has_nearby_location"
         }
       ]
     },
@@ -19464,36 +19467,52 @@
       "label": "Image Metadata",
       "relationships": [
         {
+          "type": "relationship",
           "from": "property",
-          "to": "lot"
+          "to": "lot",
+          "relationship_type": "property_has_lot"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "layout"
+          "to": "layout",
+          "relationship_type": "property_has_layout"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "structure"
+          "to": "structure",
+          "relationship_type": "property_has_structure"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "utility"
+          "to": "utility",
+          "relationship_type": "property_has_utility"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "appliances"
+          "to": "appliances",
+          "relationship_type": "property_appliance"
         },
         {
+          "type": "relationship",
           "from": "property",
-          "to": "document_image"
+          "to": "media_asset",
+          "relationship_type": "property_has_image"
         },
         {
+          "type": "relationship",
           "from": "layout",
-          "to": "document_image"
+          "to": "media_asset",
+          "relationship_type": "layout_has_image"
         },
         {
+          "type": "relationship",
           "from": "layout",
-          "to": "appliances"
+          "to": "appliances",
+          "relationship_type": "layout_has_appliance"
         }
       ]
     }
