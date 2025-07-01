@@ -98,7 +98,7 @@ body {
   color: var(--text-primary);
   background-color: var(--background-primary);
   margin: 0;
-  padding: 0;
+  padding: 48px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: var(--letter-spacing-standard);
@@ -118,10 +118,10 @@ p, span, div, label, input, button, select, textarea {
 
 /* Main Container */
 .search-container {
-  max-width: 1200px;
-  margin: 0;
-  padding: var(--spacing-6);
-  min-height: 100vh;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0;
+  min-height: calc(100vh - 96px);
   background-color: var(--background-primary);
 }
 
@@ -1223,9 +1223,23 @@ mark {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 876px) {
+  body {
+    padding: 24px;
+  }
+  
   .search-container {
-    padding: var(--spacing-4);
+    min-height: calc(100vh - 48px);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 16px;
+  }
+  
+  .search-container {
+    min-height: calc(100vh - 32px);
   }
 
   .controls-section {
