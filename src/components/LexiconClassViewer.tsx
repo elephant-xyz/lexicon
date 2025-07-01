@@ -104,7 +104,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       setTimeout(() => {
         const patternCards = document.querySelectorAll('.pattern-card');
 
-        patternCards.forEach((card) => {
+        patternCards.forEach(card => {
           const patternName = card.querySelector('.pattern-name')?.textContent;
 
           // Map format values to pattern types, handling inconsistencies
@@ -370,9 +370,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                       <span className="source-type">Type: {cls.source_url.type}</span>
                       <span className="source-format">Format: {cls.source_url.format}</span>
                     </div>
-                          {cls.source_url.comment && (
-        <div className="source-description">{cls.source_url.comment}</div>
-      )}
+                    {cls.source_url.comment && (
+                      <div className="source-description">{cls.source_url.comment}</div>
+                    )}
                   </div>
                 </div>
               )}
@@ -396,36 +396,46 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                       onClick={() => copyToClipboard(schemaManifest[cls.type].ipfsCid)}
                       title="Click to copy CID to clipboard"
                     >
-                      {copiedValue === schemaManifest[cls.type].ipfsCid ? '✓ Copied!' : `CID: ${schemaManifest[cls.type].ipfsCid}`}
+                      {copiedValue === schemaManifest[cls.type].ipfsCid
+                        ? '✓ Copied!'
+                        : `CID: ${schemaManifest[cls.type].ipfsCid}`}
                     </button>
                   </div>
                 </div>
               )}
               {/* Single Example Display */}
-              {cls.example && isBlockchainClass.has(cls.type) && schemaManifest[`${cls.type}_example`] && (
-                <div className="json-example-section">
-                  <div className="json-example-link">
-                    <span className="json-example-label">JSON Example:</span>
-                    <a
-                      href={schemaService.getIPFSUrl(schemaManifest[`${cls.type}_example`].ipfsCid)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ipfs-download-link"
-                      title="Download example from IPFS"
-                    >
-                      📥 Download from IPFS
-                    </a>
-                    <button
-                      className={`cid-copy-button ${copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid ? 'cid-copy-button-copied' : ''}`}
-                      onClick={() => copyToClipboard(schemaManifest[`${cls.type}_example`].ipfsCid)}
-                      title="Click to copy CID to clipboard"
-                    >
-                      {copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid ? '✓ Copied!' : `CID: ${schemaManifest[`${cls.type}_example`].ipfsCid}`}
-                    </button>
+              {cls.example &&
+                isBlockchainClass.has(cls.type) &&
+                schemaManifest[`${cls.type}_example`] && (
+                  <div className="json-example-section">
+                    <div className="json-example-link">
+                      <span className="json-example-label">JSON Example:</span>
+                      <a
+                        href={schemaService.getIPFSUrl(
+                          schemaManifest[`${cls.type}_example`].ipfsCid
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ipfs-download-link"
+                        title="Download example from IPFS"
+                      >
+                        📥 Download from IPFS
+                      </a>
+                      <button
+                        className={`cid-copy-button ${copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                        onClick={() =>
+                          copyToClipboard(schemaManifest[`${cls.type}_example`].ipfsCid)
+                        }
+                        title="Click to copy CID to clipboard"
+                      >
+                        {copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid
+                          ? '✓ Copied!'
+                          : `CID: ${schemaManifest[`${cls.type}_example`].ipfsCid}`}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              )}
-              
+                )}
+
               {/* Multiple Examples Display */}
               {cls.examples && cls.examples.length > 0 && (
                 <div className="json-examples-section">
@@ -437,7 +447,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                         const exampleType = (example as Record<string, unknown>).type as string;
                         const exampleKey = `${cls.type}_${exampleType}_example`;
                         const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
-                        
+
                         if (exampleCid) {
                           const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${exampleCid}`;
                           return (
@@ -461,7 +471,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                     onClick={() => copyToClipboard(exampleCid)}
                                     title="Click to copy CID to clipboard"
                                   >
-                                    {copiedValue === exampleCid ? '✓ Copied!' : `CID: ${exampleCid}`}
+                                    {copiedValue === exampleCid
+                                      ? '✓ Copied!'
+                                      : `CID: ${exampleCid}`}
                                   </button>
                                 </div>
                               </div>
@@ -469,7 +481,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                           );
                         }
                       }
-                      
+
                       // For other classes, show the full JSON with copy button
                       return (
                         <div key={index} className="example-item">
@@ -485,7 +497,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                               onClick={() => copyToClipboard(JSON.stringify(example, null, 2))}
                               title="Click to copy example to clipboard"
                             >
-                              {copiedValue === JSON.stringify(example, null, 2) ? '✓ Copied!' : 'Copy Example'}
+                              {copiedValue === JSON.stringify(example, null, 2)
+                                ? '✓ Copied!'
+                                : 'Copy Example'}
                             </button>
                             <div className="example-json">
                               <pre>{JSON.stringify(example, null, 2)}</pre>
@@ -715,8 +729,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                   </div>
                 );
               })()}
-
-
             </div>
           )}
         </div>

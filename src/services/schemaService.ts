@@ -21,7 +21,7 @@ class SchemaService {
     this.manifestPromise = fetch('/json-schemas/schema-manifest.json')
       .then(response => {
         if (!response.ok) {
-          console.warn('Schema manifest not found');
+          // Schema manifest not found
           return {};
         }
         return response.json();
@@ -31,7 +31,7 @@ class SchemaService {
         return data;
       })
       .catch(error => {
-        console.error('Error loading schema manifest:', error);
+        // Error loading schema manifest
         this.manifestPromise = null; // Allow retries
         return {};
       });

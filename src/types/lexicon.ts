@@ -62,7 +62,7 @@ export interface DataGroupRelationship {
 export interface DataGroup {
   label: string;
   relationships: DataGroupRelationship[];
-  example?: Record<string, any>;
+  example?: Record<string, unknown>;
   _searchMatches?: SearchMatch[];
 }
 

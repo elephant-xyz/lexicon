@@ -963,7 +963,7 @@ body {
   .example-ipfs-links {
     padding: var(--spacing-2);
   }
-  
+
   .ipfs-download-link,
   .cid-copy-button {
     padding: var(--spacing-2);
@@ -977,7 +977,7 @@ body {
     align-items: flex-start;
     gap: var(--spacing-2);
   }
-  
+
   .example-copy-button {
     position: static;
     margin-bottom: var(--spacing-2);
@@ -1823,11 +1823,14 @@ mark {
   padding: 0.3rem 0.9rem;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   margin-top: 0.2rem;
 }
 
-.copy-example-btn:hover, .copy-example-btn:focus {
+.copy-example-btn:hover,
+.copy-example-btn:focus {
   background: #2563eb;
   color: #fff;
   border-color: #2563eb;
