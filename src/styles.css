@@ -553,9 +553,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .method-list-item-label-name {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-family-primary);
   letter-spacing: -0.025em;
 }
 
