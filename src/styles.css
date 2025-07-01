@@ -1408,14 +1408,14 @@ mark {
 
 .separator-line {
   flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+  height: 1px;
+  background-color: #B3B2B2;
 }
 
 .separator-text {
   font-size: var(--text-lg);
   font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
+  color: var(--primary-white);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-standard);
   padding: 0 var(--spacing-4);
