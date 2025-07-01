@@ -731,10 +731,10 @@ p, span, div, label, input, button, select, textarea {
   gap: var(--spacing-6);
 }
 
-/* Class Item */
+/* Class Item - Removed all borders */
 .method-list-item {
   background-color: var(--background-secondary);
-  border: 1px solid var(--border-color);
+  border: none;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition-medium);
@@ -761,7 +761,7 @@ p, span, div, label, input, button, select, textarea {
 /* Class Header */
 .method-list-item-label {
   padding: var(--spacing-5);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: none;
   background-color: #686565;
 }
 
@@ -876,10 +876,10 @@ p, span, div, label, input, button, select, textarea {
   gap: var(--spacing-3);
 }
 
-/* Child Items - Removed background color */
+/* Child Items - Removed all borders */
 .method-list-item-isChild {
   background-color: transparent;
-  border: 1px solid var(--border-color);
+  border: none;
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   transition: all var(--transition-fast);
@@ -887,7 +887,6 @@ p, span, div, label, input, button, select, textarea {
 
 .method-list-item-isChild:hover {
   background-color: var(--hover-color);
-  border-color: var(--primary-toxic-green);
 }
 
 /* Specifically target the label inside child items to remove background */
@@ -915,7 +914,7 @@ p, span, div, label, input, button, select, textarea {
   display: inline-block;
   margin-bottom: var(--spacing-2);
   font-weight: var(--font-weight-roman);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: none;
   letter-spacing: var(--letter-spacing-standard);
 }
 
@@ -1024,9 +1023,8 @@ p, span, div, label, input, button, select, textarea {
   }
 }
 
-/* Property Matched Highlighting */
+/* Property Matched Highlighting - Removed border */
 .property-matched {
-  border-color: var(--primary-toxic-green) !important;
   background-color: rgba(43, 231, 134, 0.05) !important;
   position: relative;
 }
@@ -1350,10 +1348,9 @@ mark {
   white-space: nowrap;
 }
 
-/* Data Groups Styles - Removed border-left to use only pseudo-element */
+/* Data Groups Styles - Removed all borders */
 .data-group {
   background-color: var(--background-secondary);
-  /* Removed: border-left: 4px solid var(--primary-toxic-green); */
 }
 
 .data-group .method-list-item-label {
