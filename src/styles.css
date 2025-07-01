@@ -509,7 +509,7 @@ textarea {
 
 .tag-select {
   padding: var(--spacing-4) var(--spacing-4);
-  padding-right: var(--spacing-6);
+  padding-right: var(--spacing-10);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
   background-color: rgba(255, 255, 255, 0.1);
@@ -1600,4 +1600,118 @@ mark {
 
 .method-list-item-label-format {
   margin-bottom: var(--spacing-3);
+}
+
+/* Common Patterns Viewer */
+.common-patterns-viewer {
+  padding: var(--spacing-6);
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.patterns-header {
+  margin-bottom: var(--spacing-6);
+}
+
+.patterns-header h3 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.patterns-header p {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.patterns-grid {
+  display: grid;
+  gap: var(--spacing-4);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.pattern-card {
+  background-color: var(--primary-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  transition: all var(--transition-fast);
+}
+
+.pattern-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pattern-header {
+  margin-bottom: var(--spacing-3);
+}
+
+.pattern-name {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.pattern-description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-3);
+  line-height: 1.5;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.pattern-format,
+.pattern-regex {
+  margin-bottom: var(--spacing-2);
+}
+
+.pattern-format:last-child,
+.pattern-regex:last-child {
+  margin-bottom: 0;
+}
+
+.format-label,
+.pattern-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-1);
+  display: block;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.pattern-highlighted {
+  border-color: var(--primary-toxic-green);
+  background-color: rgba(43, 231, 134, 0.05);
+  animation: highlight-pulse 2s ease-in-out;
+}
+
+@keyframes highlight-pulse {
+  0% {
+    background-color: rgba(43, 231, 134, 0.05);
+  }
+  50% {
+    background-color: rgba(43, 231, 134, 0.15);
+  }
+  100% {
+    background-color: rgba(43, 231, 134, 0.05);
+  }
+}
+
+/* Responsive adjustments for patterns */
+@media (max-width: 768px) {
+  .patterns-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .common-patterns-viewer {
+    padding: var(--spacing-4);
+  }
 }
