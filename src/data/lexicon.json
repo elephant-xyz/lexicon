@@ -509,12 +509,12 @@
         "street_suffix"
       ],
       "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes and geographic identifiers.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "full_address_slug": {
           "type": "string",
           "comment": "A URL-friendly string derived from the full address by replacing non-alphanumeric characters (e.g., spaces, punctuation) with dashes."
@@ -5737,14 +5737,14 @@
       "container_name": "files",
       "is_deprecated": false,
       "description": "The file class is a comprehensive data structure that represents all media and documents associated with a specific property, including images, PDFs, and floor plans across multiple file formats (JPEG, PNG, PDF). It supports both traditional HTTP/HTTPS and decentralized IPFS storage options while providing extensive semantic classification for property-related documents such as deeds, assignments, affidavits, building permits, inspection reports, and property images. The class includes human-friendly naming conventions and metadata management capabilities, making it ideal for organizing and retrieving all media assets and legal documents tied to individual properties within real estate platforms and property management systems.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "file_format": {
           "type": "string",
           "enum": [
@@ -6927,14 +6927,14 @@
       "type": "environmental_risk",
       "container_name": "environmental_risks",
       "description": "The EnvironmentalRisk class provides comprehensive environmental hazard assessment data for properties, documenting various natural and man-made risk factors that could impact property safety, desirability, and insurance requirements. It includes FEMA flood zone designations to assess flood risk levels, hurricane evacuation zone classifications for emergency planning, and wildfire risk zone information for fire-prone areas. The class also captures storm surge risk levels ranging from minimal to high, ambient noise levels from quiet to loud environments, and light pollution levels that affect night sky visibility. This data is essential for property buyers, insurance companies, and emergency management agencies to make informed decisions about property risks, evacuation procedures, and environmental quality assessments.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "flood_zone": {
           "type": "string",
           "comment": "FEMA flood zone designation (e.g., A, AE, X, VE) indicating flood risk level."
@@ -7609,11 +7609,6 @@
       "container_name": "homeowners_associations",
       "is_deprecated": false,
       "description": "The HomeownersAssociation class represents comprehensive information about homeowners associations (HOAs) governing residential properties, including community governance, financial obligations, and available amenities. It captures essential HOA details such as the association name, type (mandatory, voluntary, condominium, hybrid, or other), fee structure with amounts and payment frequencies (monthly, quarterly, annually, etc.), and applicable year information. The class documents extensive community amenities ranging from recreational facilities like pools, clubhouses, gyms, and golf courses to modern conveniences such as co-working spaces, package lockers, and rooftop decks. Additionally, it tracks security features including 24/7 guards, gated entries, surveillance systems, keycard access, and other safety measures. This information is crucial for property buyers to understand community living costs, available facilities, governance structure, and security provisions when evaluating properties within HOA-managed communities.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [
         "has_payment",
         "has_expense",
@@ -7621,6 +7616,11 @@
         "has_homeowners_association_inclusion"
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "homeowners_association_name": {
           "type": "string",
           "comment": "Name of the homeowners association (e.g., Jupiter Shores HOA)."
@@ -10216,11 +10216,6 @@
       "type": "loan",
       "container_name": "loans",
       "is_deprecated": false,
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [
         "loan_purpose",
         "loan_term",
@@ -10632,6 +10627,11 @@
       ],
       "description": "Represents a mortgage loan with comprehensive financial terms, conditions, and status information. Includes loan amounts, interest rates, payment schedules, borrower information, and regulatory compliance details for real estate financing transactions.",
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "accelerated_payment_program_indicator": {
           "type": "boolean",
           "comment": "Indicates that mortgagor participates in some sort of accelerated principal re-payment program which may be administered by a third party."
@@ -12128,11 +12128,6 @@
       "container_name": "mappings",
       "is_deprecated": false,
       "description": "The Lot class captures comprehensive information about the land parcel and exterior property characteristics surrounding a structure, including physical dimensions, surface features, and condition assessments. It documents lot sizing through multiple metrics including square footage, length, width, and categorical classifications (greater than or less than quarter-acre), along with flexible dimension descriptions. The class tracks exterior infrastructure such as driveway mateClaude can make mistakes. Please double-check responses.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [
         "lot_type_other_description",
         "lot_size_dimensions",
@@ -12140,6 +12135,11 @@
         "lot_size_square_feet"
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "lot_type": {
           "type": "string",
           "enum": [
@@ -12992,12 +12992,12 @@
         "marital_status_type"
       ],
       "description": "Represents an individual person with comprehensive personal information including name, demographics, identification, citizenship status, and biographical details. Used for property ownership, loan applications, and other real estate transactions.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "age": {
           "type": "integer",
           "comment": "Age of individual based on either date of birth or other statistical data."
@@ -14075,10 +14075,6 @@
       "type": "property",
       "description": "The Property class serves as the foundational data structure for capturing essential characteristics and legal identifiers of real estate properties, providing comprehensive documentation for financing, legal, and classification purposes. It defines physical attachment relationships through attachment types (attached, detached, semi-detached) and categorizes properties by unit count for mortgage banking purposes, ranging from single-family homes to multi-unit properties up to fourplexes, which directly impacts loan-to-value ratios, debt-to-income requirements, and lending risk assessments. The class maintains critical legal documentation including unique parcel identifiers that distinguish properties within jurisdictions and detailed legal descriptions outlining exact boundaries, dimensions, and governmental recognition for contracts and legal documents. It captures construction timeline data through built year information and provides extensive property type classifications spanning residential options from single-family detached homes and condominiums to manufactured housing, cooperatives, timeshares, and multi-family units. This comprehensive property classification system is essential for mortgage underwriting, legal documentation, zoning compliance, insurance purposes, and real estate market analysis, ensuring accurate property categorization across various real estate transactions and regulatory requirements.",
       "container_name": "properties",
-      "source_url": {
-        "type": "string",
-        "format": "uri"
-      },
       "is_deprecated": false,
       "deprecated_properties": [
         "area",
@@ -14281,6 +14277,10 @@
         "land_use_type"
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
         "accessory_unit_count": {
           "type": "integer",
           "comment": "Describes the number of accessory units associated with the structure"
@@ -15109,12 +15109,12 @@
         "special_features"
       ],
       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "space_type": {
           "type": "string",
           "enum": [
@@ -15624,12 +15624,12 @@
       "type": "appliance",
       "container_name": "appliances",
       "is_deprecated": false,
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "appliance_type": {
           "type": "string",
           "enum": [
@@ -15696,15 +15696,15 @@
     {
       "type": "nearby_location",
       "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "container_name": "nearby_locations",
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "name": {
           "type": "string",
           "comment": "The name of the nearby location or attraction (e.g., Ocean Walk Plaza)."
