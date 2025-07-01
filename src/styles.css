@@ -775,6 +775,7 @@ p, span, div, label, input, button, select, textarea {
 .method-list-item-label {
   padding: var(--spacing-5);
   border-bottom: 1px solid var(--border-color);
+  background-color: #686565;
 }
 
 .method-list-item-header {
@@ -787,14 +788,14 @@ p, span, div, label, input, button, select, textarea {
 .method-list-item-label-name {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--primary-white);
   font-family: var(--font-family-primary);
   letter-spacing: var(--letter-spacing-standard);
 }
 
 .method-list-item-label-description {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.8);
   margin-top: var(--spacing-2);
   font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
@@ -1375,6 +1376,10 @@ mark {
 .data-group {
   background-color: var(--background-secondary);
   border-left: 4px solid var(--primary-toxic-green);
+}
+
+.data-group .method-list-item-label {
+  background-color: #686565;
 }
 
 .data-group-badge {
