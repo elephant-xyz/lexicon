@@ -74,11 +74,6 @@
   --radius-xl: 1rem;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
   --transition-medium: 300ms ease-in-out;
@@ -304,7 +299,6 @@ p, span, div, label, input, button, select, textarea {
   border-radius: var(--radius-xl);
   padding: var(--spacing-6);
   margin-bottom: var(--spacing-8);
-  box-shadow: var(--shadow-md);
 }
 
 .controls-grid {
@@ -450,7 +444,6 @@ p, span, div, label, input, button, select, textarea {
   background-color: var(--primary-white);
   color: var(--primary-espresso);
   transform: none;
-  box-shadow: none;
 }
 
 .back-button:disabled::after,
@@ -749,11 +742,9 @@ p, span, div, label, input, button, select, textarea {
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all var(--transition-medium);
-  box-shadow: var(--shadow-sm);
 }
 
 .method-list-item:hover {
-  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 
@@ -1004,7 +995,6 @@ p, span, div, label, input, button, select, textarea {
 .enum-value:hover {
   color: var(--primary-espresso);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
 }
 
 .enum-value:focus {
@@ -1014,7 +1004,6 @@ p, span, div, label, input, button, select, textarea {
 
 .enum-value:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
 }
 
 .enum-value-copied {
@@ -1291,7 +1280,6 @@ mark {
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
   cursor: pointer;
-  box-shadow: var(--shadow-lg);
   transition: all var(--transition-fast);
   z-index: 1000;
   display: flex;
@@ -1322,15 +1310,12 @@ mark {
 .scroll-to-top-button:hover {
   color: var(--primary-espresso);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
   opacity: 1;
 }
 
 .scroll-to-top-button:focus {
   outline: none;
-  box-shadow:
-    0 0 0 3px rgba(43, 231, 134, 0.3),
-    var(--shadow-lg);
+  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3);
 }
 
 .scroll-to-top-button:active {
@@ -1511,7 +1496,6 @@ mark {
 .pattern-value:hover {
   color: var(--primary-espresso);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
 }
 
 .pattern-value:focus {
@@ -1521,7 +1505,6 @@ mark {
 
 .pattern-value:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
 }
 
 .pattern-value-copied {
@@ -1589,7 +1572,6 @@ mark {
 .format-value:hover {
   color: var(--primary-espresso);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
 }
 
 .format-value:focus {
@@ -1599,7 +1581,6 @@ mark {
 
 .format-value:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
 }
 
 .format-value-copied {
