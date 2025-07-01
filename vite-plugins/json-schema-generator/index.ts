@@ -102,17 +102,23 @@ function mapLexiconTypeToJSONSchema(property: LexiconProperty, isRequired: boole
 
 function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   const properties: Record<string, any> = {};
+  const allRequiredFields: string[] = [];
   
   // Use the required field from the lexicon class if it exists
-  const requiredFields = lexiconClass.required || [];
+  const lexiconRequiredFields = lexiconClass.required || [];
 
   // Filter out deprecated properties
   const activeProperties = Object.entries(lexiconClass.properties)
     .filter(([key]) => !lexiconClass.deprecated_properties.includes(key));
 
   for (const [propName, propDef] of activeProperties) {
-    const isRequired = requiredFields.includes(propName);
+    // Fields in lexicon's required array cannot be null
+    // Fields NOT in lexicon's required array can be null
+    const isRequired = lexiconRequiredFields.includes(propName);
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
+    
+    // ALL active properties go into the JSON Schema required array
+    allRequiredFields.push(propName);
   }
 
   return {
@@ -121,7 +127,7 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
     title: lexiconClass.type,
     description: `JSON Schema for ${lexiconClass.type} class in Elephant Lexicon`,
     properties,
-    required: requiredFields.filter(field => !lexiconClass.deprecated_properties.includes(field)),
+    required: allRequiredFields, // All properties are required in JSON Schema
     additionalProperties: false
   };
 }
