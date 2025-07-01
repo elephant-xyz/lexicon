@@ -133,6 +133,39 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
+/* Logo Container */
+.logo-container {
+  margin-bottom: var(--spacing-4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elephant-logo {
+  height: 60px;
+  width: auto;
+  filter: invert(1);
+  opacity: 0.9;
+  transition: all var(--transition-fast);
+}
+
+.elephant-logo:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .elephant-logo {
+    height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .elephant-logo {
+    height: 40px;
+  }
+}
+
 .header-title {
   font-size: var(--text-3xl);
   font-weight: var(--font-weight-bold);
