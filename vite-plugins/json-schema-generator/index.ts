@@ -516,10 +516,8 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       // 📊 Generating Data Group Schemas and Examples...
       for (const dataGroup of lexiconData.data_groups) {
         // Get all relationships for this data group that are in blockchain
-        const groupRelationshipCidsMap: Record<
-          string,
-          { cid: string; relationshipType: string }
-        > = {};
+        const groupRelationshipCidsMap: Record<string, { cid: string; relationshipType: string }> =
+          {};
 
         for (const relationship of dataGroup.relationships) {
           const relKey = `${relationship.from}_to_${relationship.to}`;
