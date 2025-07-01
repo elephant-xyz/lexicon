@@ -1,4 +1,11 @@
-import { LexiconData, LexiconClass, LexiconTag, SearchMatch, DataGroup } from '../types/lexicon';
+import {
+  LexiconData,
+  LexiconClass,
+  LexiconTag,
+  SearchMatch,
+  DataGroup,
+  CommonPattern,
+} from '../types/lexicon';
 import lexiconData from '../data/lexicon.json';
 
 class DataService {
@@ -16,6 +23,10 @@ class DataService {
 
   getTags(): LexiconTag[] {
     return this.lexicon.tags || [];
+  }
+
+  getAllData(): LexiconData {
+    return this.lexicon;
   }
 
   getClassesForTag(tagName: string): LexiconClass[] {
@@ -146,6 +157,20 @@ class DataService {
         value: classMatch.highlight || cls.type,
         score: classMatch.score,
       });
+    }
+
+    // Check class description match
+    if (cls.description) {
+      const descMatch = this.fuzzyMatch(searchTerm, cls.description);
+      if (descMatch.matches) {
+        matches.push({
+          type: 'class',
+          field: 'description',
+          value: cls.type, // Class name for identification
+          score: descMatch.score,
+          highlightedDescription: descMatch.highlight || cls.description,
+        });
+      }
     }
 
     // Check properties
@@ -297,6 +322,27 @@ class DataService {
     // Only show data groups for blockchain tag
     if (tagName.toLowerCase() !== 'blockchain') return [];
     return this.getAllDataGroups();
+  }
+
+  getAllCommonPatterns(): CommonPattern[] {
+    return this.lexicon.common_patterns || [];
+  }
+
+  getCommonPatternsForSearch(searchTerm: string): CommonPattern[] {
+    if (!searchTerm.trim()) return this.getAllCommonPatterns();
+
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    return this.getAllCommonPatterns().filter(pattern => {
+      return (
+        pattern.type.toLowerCase().includes(lowerSearchTerm) ||
+        pattern.properties.type.toLowerCase().includes(lowerSearchTerm) ||
+        pattern.properties.description.toLowerCase().includes(lowerSearchTerm) ||
+        (pattern.properties.format &&
+          pattern.properties.format.toLowerCase().includes(lowerSearchTerm)) ||
+        (pattern.properties.pattern &&
+          pattern.properties.pattern.toLowerCase().includes(lowerSearchTerm))
+      );
+    });
   }
 
   private findMatchesInDataGroup(dataGroup: DataGroup, searchTerm: string): SearchMatch[] {

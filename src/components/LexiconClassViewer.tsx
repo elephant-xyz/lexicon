@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LexiconClass } from '../types/lexicon';
+import { LexiconClass, LexiconTag } from '../types/lexicon';
+import { schemaService } from '../services/schemaService';
+import dataService from '../services/dataService';
 
 interface LexiconClassViewerProps {
   classes: LexiconClass[];
@@ -15,7 +17,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 }) => {
   const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
+  const [_expandedExamples, setExpandedExamples] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
+  const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
+  const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
 
   // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
@@ -38,6 +43,20 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     setExpandedClasses(newExpanded);
   }, [searchTerm, classes, expandByDefault]);
 
+  // Load schema manifest and blockchain classes
+  useEffect(() => {
+    schemaService.getManifest().then(manifest => {
+      setSchemaManifest(manifest);
+    });
+
+    // Get blockchain classes
+    const lexiconData = dataService.getAllData();
+    const blockchainTag = lexiconData.tags.find((tag: LexiconTag) => tag.name === 'blockchain');
+    if (blockchainTag) {
+      setIsBlockchainClass(new Set(blockchainTag.classes));
+    }
+  }, []);
+
   const toggleExpanded = (index: number) => {
     const newExpanded = new Set(expandedClasses);
     if (newExpanded.has(index)) {
@@ -46,6 +65,16 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       newExpanded.add(index);
     }
     setExpandedClasses(newExpanded);
+  };
+
+  const _toggleExampleExpanded = (index: number) => {
+    const newExpanded = new Set(_expandedExamples);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
+    } else {
+      newExpanded.add(index);
+    }
+    setExpandedExamples(newExpanded);
   };
 
   const copyToClipboard = async (value: string) => {
@@ -66,13 +95,46 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     }
   };
 
+  const scrollToCommonPattern = (format: string) => {
+    const patternsSection = document.querySelector('.patterns-section');
+
+    if (patternsSection) {
+      patternsSection.scrollIntoView({ behavior: 'smooth' });
+      // Highlight the specific pattern
+      setTimeout(() => {
+        const patternCards = document.querySelectorAll('.pattern-card');
+
+        patternCards.forEach(card => {
+          const patternName = card.querySelector('.pattern-name')?.textContent;
+
+          // Map format values to pattern types, handling inconsistencies
+          const formatToTypeMap: { [key: string]: string } = {
+            currency: 'currency',
+            currancy: 'currency', // Handle typo
+            date: 'date',
+            uri: 'uri',
+            'ipfs-uri': 'ipfs_uri', // Handle hyphen vs underscore
+            ipfs_uri: 'ipfs_uri',
+            rate_percent: 'rate_percent',
+          };
+
+          const expectedType = formatToTypeMap[format];
+
+          if (patternName === expectedType) {
+            card.classList.add('pattern-highlighted');
+            setTimeout(() => card.classList.remove('pattern-highlighted'), 3000);
+          }
+        });
+      }, 500);
+    }
+  };
+
   const getHighlightedClassName = (cls: LexiconClass): string => {
     if (!searchTerm || !cls._searchMatches) return cls.type;
 
     const classMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'type');
     return classMatch?.value || cls.type;
   };
-
   const getMatchedProperties = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
 
@@ -295,6 +357,163 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
           </div>
           {expandedClasses.has(index) && (
             <div className="method-list-item-content">
+              {cls.description && (
+                <div className="class-description-section">
+                  <div className="class-description">{cls.description}</div>
+                </div>
+              )}
+              {cls.source_url && (
+                <div className="class-source-section">
+                  <div className="class-source">
+                    <span className="source-label">Source URL:</span>
+                    <div className="source-details">
+                      <span className="source-type">Type: {cls.source_url.type}</span>
+                      <span className="source-format">Format: {cls.source_url.format}</span>
+                    </div>
+                    {cls.source_url.comment && (
+                      <div className="source-description">{cls.source_url.comment}</div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* JSON Schema and Example Downloads for blockchain classes */}
+              {isBlockchainClass.has(cls.type) && schemaManifest[cls.type] && (
+                <div className="json-schema-section">
+                  <div className="json-schema-link">
+                    <span className="json-schema-label">JSON Schema:</span>
+                    <a
+                      href={schemaService.getIPFSUrl(schemaManifest[cls.type].ipfsCid)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ipfs-download-link"
+                      title="Download schema from IPFS"
+                    >
+                      📥 Download from IPFS
+                    </a>
+                    <button
+                      className={`cid-copy-button ${copiedValue === schemaManifest[cls.type].ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                      onClick={() => copyToClipboard(schemaManifest[cls.type].ipfsCid)}
+                      title="Click to copy CID to clipboard"
+                    >
+                      {copiedValue === schemaManifest[cls.type].ipfsCid
+                        ? '✓ Copied!'
+                        : `CID: ${schemaManifest[cls.type].ipfsCid}`}
+                    </button>
+                  </div>
+                </div>
+              )}
+              {/* Single Example Display */}
+              {cls.example &&
+                isBlockchainClass.has(cls.type) &&
+                schemaManifest[`${cls.type}_example`] && (
+                  <div className="json-example-section">
+                    <div className="json-example-link">
+                      <span className="json-example-label">JSON Example:</span>
+                      <a
+                        href={schemaService.getIPFSUrl(
+                          schemaManifest[`${cls.type}_example`].ipfsCid
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ipfs-download-link"
+                        title="Download example from IPFS"
+                      >
+                        📥 Download from IPFS
+                      </a>
+                      <button
+                        className={`cid-copy-button ${copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                        onClick={() =>
+                          copyToClipboard(schemaManifest[`${cls.type}_example`].ipfsCid)
+                        }
+                        title="Click to copy CID to clipboard"
+                      >
+                        {copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid
+                          ? '✓ Copied!'
+                          : `CID: ${schemaManifest[`${cls.type}_example`].ipfsCid}`}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+              {/* Multiple Examples Display */}
+              {cls.examples && cls.examples.length > 0 && (
+                <div className="json-examples-section">
+                  <h4>JSON Examples:</h4>
+                  <div className="examples-list">
+                    {cls.examples.map((example, index) => {
+                      // For relationship class, show IPFS download links with type labels
+                      if (cls.type === 'relationship' && 'type' in example) {
+                        const exampleType = (example as Record<string, unknown>).type as string;
+                        const exampleKey = `${cls.type}_${exampleType}_example`;
+                        const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
+
+                        if (exampleCid) {
+                          const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${exampleCid}`;
+                          return (
+                            <div key={index} className="example-item">
+                              <div className="example-header">
+                                <span className="example-label">{exampleType}:</span>
+                              </div>
+                              <div className="example-content">
+                                <div className="example-ipfs-links">
+                                  <a
+                                    href={ipfsUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="ipfs-download-link"
+                                    title="Download example from IPFS"
+                                  >
+                                    📥 Download from IPFS
+                                  </a>
+                                  <button
+                                    className={`cid-copy-button ${copiedValue === exampleCid ? 'cid-copy-button-copied' : ''}`}
+                                    onClick={() => copyToClipboard(exampleCid)}
+                                    title="Click to copy CID to clipboard"
+                                  >
+                                    {copiedValue === exampleCid
+                                      ? '✓ Copied!'
+                                      : `CID: ${exampleCid}`}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+                      }
+
+                      // For other classes, show the full JSON with copy button
+                      return (
+                        <div key={index} className="example-item">
+                          <div className="example-header">
+                            <span className="example-label">Example {index + 1}:</span>
+                            {(() => {
+                              const desc = (example as Record<string, unknown>).description;
+                              return typeof desc === 'string' ? (
+                                <span className="example-description">{desc}</span>
+                              ) : null;
+                            })()}
+                          </div>
+                          <div className="example-content">
+                            <button
+                              className={`example-copy-button ${copiedValue === JSON.stringify(example, null, 2) ? 'example-copy-button-copied' : ''}`}
+                              onClick={() => copyToClipboard(JSON.stringify(example, null, 2))}
+                              title="Click to copy example to clipboard"
+                            >
+                              {copiedValue === JSON.stringify(example, null, 2)
+                                ? '✓ Copied!'
+                                : 'Copy Example'}
+                            </button>
+                            <div className="example-json">
+                              <pre>{JSON.stringify(example, null, 2)}</pre>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
               {(() => {
                 const matchedProps = getMatchedProperties(cls);
                 const hasVisibleProperties = Object.entries(cls.properties || {}).some(
@@ -323,15 +542,22 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                           >
                             <div className="method-list-item-label">
                               <div className="method-list-item-label-name">
-                                {searchTerm && cls._searchMatches
-                                  ? renderHighlightedText(
-                                      cls._searchMatches.find(
-                                        m =>
-                                          m.type === 'property' &&
-                                          m.value.replace(/<\/?mark>/g, '') === propName
-                                      )?.value || propName
-                                    )
-                                  : propName}
+                                <span className="property-name">
+                                  {searchTerm && cls._searchMatches
+                                    ? renderHighlightedText(
+                                        cls._searchMatches.find(
+                                          m =>
+                                            m.type === 'property' &&
+                                            m.value.replace(/<\/?mark>/g, '') === propName
+                                        )?.value || propName
+                                      )
+                                    : propName}
+                                </span>
+                                {cls.required?.includes(propName) && (
+                                  <span className="required-badge" title="This field is required">
+                                    Required
+                                  </span>
+                                )}
                               </div>
                               <div className="method-list-item-label-type">
                                 <span className="property-type-label">Data Type</span>
@@ -404,13 +630,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 <div className="method-list-item-label-format">
                                   <span className="format-label">Format:</span>
                                   <button
-                                    className={`format-value ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
-                                    onClick={() => copyToClipboard(propData.format!)}
-                                    title="Click to copy format to clipboard"
+                                    className={`format-value format-link ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
+                                    onClick={() => scrollToCommonPattern(propData.format!)}
+                                    title="Click to view format details in Common Patterns section"
                                   >
-                                    {copiedValue === propData.format ? (
-                                      '✓ Copied!'
-                                    ) : searchTerm && getHighlightedFormat(cls, propName) ? (
+                                    {searchTerm && getHighlightedFormat(cls, propName) ? (
                                       <span
                                         dangerouslySetInnerHTML={{
                                           __html: getHighlightedFormat(cls, propName),

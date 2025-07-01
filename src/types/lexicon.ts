@@ -31,8 +31,17 @@ export interface LexiconClass {
   container_name: string;
   is_deprecated: boolean;
   deprecated_properties: string[];
+  description?: string;
+  source_url?: {
+    type: string;
+    format: string;
+    comment?: string;
+  };
   properties: Record<string, LexiconProperty>;
   relationships?: Record<string, LexiconRelationship>;
+  required?: string[];
+  example?: Record<string, unknown>;
+  examples?: Array<Record<string, unknown>>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;
@@ -44,18 +53,32 @@ export interface LexiconTag {
 }
 
 export interface DataGroupRelationship {
+  type: string;
   from: string;
   to: string;
+  relationship_type: string;
 }
 
 export interface DataGroup {
   label: string;
   relationships: DataGroupRelationship[];
+  example?: Record<string, unknown>;
   _searchMatches?: SearchMatch[];
+}
+
+export interface CommonPattern {
+  type: string;
+  properties: {
+    type: string;
+    pattern?: string;
+    format?: string;
+    description: string;
+  };
 }
 
 export interface LexiconData {
   classes: LexiconClass[];
   tags: LexiconTag[];
   data_groups: DataGroup[];
+  common_patterns: CommonPattern[];
 }
