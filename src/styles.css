@@ -753,7 +753,7 @@ p, span, div, label, input, button, select, textarea {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
+  width: 2px;
   height: 100%;
   background-color: var(--primary-toxic-green);
 }
@@ -1353,7 +1353,7 @@ mark {
 /* Data Groups Styles */
 .data-group {
   background-color: var(--background-secondary);
-  border-left: 4px solid var(--primary-toxic-green);
+  border-left: 2px solid var(--primary-toxic-green);
 }
 
 .data-group .method-list-item-label {
