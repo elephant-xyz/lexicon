@@ -25,6 +25,7 @@
   --background-primary: #423E3E;
   --background-secondary: var(--primary-white);
   --background-accent: var(--secondary-light-gray);
+  --background-controls: #2A2A2A; /* New dark background for controls section */
   
   /* Semantic Colors */
   --text-primary: var(--primary-espresso);
@@ -230,12 +231,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Controls Section */
 .controls-section {
-  background-color: var(--background-secondary);
-  border: 1px solid var(--border-color);
+  background-color: var(--background-controls);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--spacing-6);
   margin-bottom: var(--spacing-8);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
 .controls-grid {
@@ -261,10 +262,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-button {
   padding: var(--spacing-3) var(--spacing-4);
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  background-color: var(--background-secondary);
-  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-white);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -303,9 +304,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .back-button:disabled:hover,
 .forward-button:disabled:hover {
-  background-color: var(--background-secondary);
-  color: var(--text-primary);
-  border-color: var(--border-color);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--primary-white);
+  border-color: rgba(255, 255, 255, 0.2);
   transform: none;
   box-shadow: none;
 }
@@ -332,19 +333,19 @@ h1, h2, h3, h4, h5, h6 {
 .tag-selector label {
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--primary-white);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .tag-select {
   padding: var(--spacing-3) var(--spacing-4);
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  background-color: var(--background-secondary);
+  background-color: rgba(255, 255, 255, 0.1);
   font-size: var(--text-base);
   font-weight: var(--font-weight-roman);
-  color: var(--text-primary);
+  color: var(--primary-white);
   cursor: pointer;
   transition: all var(--transition-fast);
   font-family: var(--font-family-primary);
@@ -352,8 +353,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .tag-select:hover {
-  border-color: var(--secondary-gray);
-  background-color: var(--hover-color);
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .tag-select:focus {
@@ -372,19 +373,19 @@ h1, h2, h3, h4, h5, h6 {
 .class-info label {
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--primary-white);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .class-name {
   padding: var(--spacing-3) var(--spacing-4);
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  background-color: var(--background-secondary);
+  background-color: rgba(255, 255, 255, 0.1);
   font-size: var(--text-base);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--primary-white);
   font-family: var(--font-family-primary);
   letter-spacing: 0.04em;
 }
@@ -423,7 +424,7 @@ h1, h2, h3, h4, h5, h6 {
 .search-bar label {
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  color: var(--primary-white);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -431,25 +432,25 @@ h1, h2, h3, h4, h5, h6 {
 .search-input {
   width: 100%;
   padding: var(--spacing-4);
-  border: 2px solid var(--border-color);
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
-  background-color: var(--background-secondary);
+  background-color: rgba(255, 255, 255, 0.1);
   font-size: var(--text-base);
   font-weight: var(--font-weight-roman);
   font-family: var(--font-family-primary);
-  color: var(--text-primary);
+  color: var(--primary-white);
   transition: all var(--transition-fast);
   letter-spacing: 0.04em;
 }
 
 .search-input::placeholder {
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.6);
   letter-spacing: 0.04em;
 }
 
 .search-input:hover {
-  border-color: var(--secondary-gray);
-  background-color: var(--hover-color);
+  border-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .search-input:focus {
@@ -490,7 +491,7 @@ h1, h2, h3, h4, h5, h6 {
   background: none;
   border: none;
   font-size: var(--text-lg);
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   padding: var(--spacing-1);
   border-radius: var(--radius-sm);
@@ -498,8 +499,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .clear-search-button:hover {
-  color: var(--text-primary);
-  background-color: var(--hover-color);
+  color: var(--primary-white);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .clear-search-button-inline {
