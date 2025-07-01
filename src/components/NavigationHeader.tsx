@@ -90,20 +90,56 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
       {(canGoBack || canGoForward) && (
         <>
           <button onClick={handleBack} className="nav-button back-button" disabled={!canGoBack}>
-            ← Back
+            <span>← Back</span>
+            <div className="icon-container">
+              <div className="icon-left">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 6L6.86328 0.120117L7.51367 0.879883L2.12109 5.5H24.7686V6.5H2.12109L7.51367 11.1201L6.86328 11.8799L0 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div className="icon-right">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 6L6.86328 0.120117L7.51367 0.879883L2.12109 5.5H24.7686V6.5H2.12109L7.51367 11.1201L6.86328 11.8799L0 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
           </button>
           <button
             onClick={handleForward}
             className="nav-button forward-button"
             disabled={!canGoForward}
           >
-            Forward →
+            <span>Forward →</span>
+            <div className="icon-container">
+              <div className="icon-left">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div className="icon-right">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
           </button>
         </>
       )}
       {showHome && (
         <button onClick={handleHome} className="nav-button home-button">
-          🏠 Home
+          <span>🏠 Home</span>
+          <div className="icon-container">
+            <div className="icon-left">
+              <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div className="icon-right">
+              <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
         </button>
       )}
     </div>

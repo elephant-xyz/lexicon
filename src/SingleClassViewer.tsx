@@ -76,7 +76,19 @@ const SingleClassViewer = () => {
               rel="noopener noreferrer"
               className="external-link"
             >
-              elephant.xyz
+              <span>elephant.xyz</span>
+              <div className="icon-container">
+                <div className="icon-left">
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="icon-right">
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
             </a>
             <a
               href="https://elephant.xyz/whitepaper"
@@ -84,7 +96,19 @@ const SingleClassViewer = () => {
               rel="noopener noreferrer"
               className="external-link"
             >
-              Whitepaper
+              <span>Whitepaper</span>
+              <div className="icon-container">
+                <div className="icon-left">
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div className="icon-right">
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
             </a>
           </div>
         </div>
@@ -134,7 +158,19 @@ const SingleClassViewer = () => {
             rel="noopener noreferrer"
             className="external-link"
           >
-            elephant.xyz
+            <span>elephant.xyz</span>
+            <div className="icon-container">
+              <div className="icon-left">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div className="icon-right">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
           </a>
           <a
             href="https://elephant.xyz/whitepaper"
@@ -142,7 +178,19 @@ const SingleClassViewer = () => {
             rel="noopener noreferrer"
             className="external-link"
           >
-            Whitepaper
+            <span>Whitepaper</span>
+            <div className="icon-container">
+              <div className="icon-left">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+              <div className="icon-right">
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
           </a>
         </div>
       </div>
