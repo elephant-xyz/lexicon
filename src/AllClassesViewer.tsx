@@ -97,7 +97,7 @@ const AllClassesViewer = () => {
             rel="noopener noreferrer"
             className="external-link"
           >
-            🐘 elephant.xyz
+            elephant.xyz
           </a>
           <a
             href="https://elephant.xyz/whitepaper"
@@ -105,7 +105,7 @@ const AllClassesViewer = () => {
             rel="noopener noreferrer"
             className="external-link"
           >
-            📄 Whitepaper
+            Whitepaper
           </a>
         </div>
       </div>

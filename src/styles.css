@@ -200,17 +200,18 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-3);
-  padding: var(--spacing-3) var(--spacing-5);
+  padding: 0 16px;
+  height: 40px;
   background-color: var(--primary-white);
   color: var(--primary-espresso);
   text-decoration: none;
   border: 2px solid var(--primary-white);
   border-radius: var(--radius-full);
-  font-size: var(--text-sm);
+  font-size: 16px;
   font-weight: var(--font-weight-medium);
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-sm);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.0125rem;
   min-width: 140px;
   position: relative;
   overflow: hidden;
@@ -287,18 +288,19 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
-  padding: var(--spacing-3) var(--spacing-5);
+  padding: 0 16px;
+  height: 40px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-full);
   background-color: rgba(255, 255, 255, 0.1);
   color: var(--primary-white);
-  font-size: var(--text-sm);
+  font-size: 16px;
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   transition: all var(--transition-fast);
   font-family: var(--font-family-primary);
   text-decoration: none;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.0125rem;
   min-width: 100px;
   position: relative;
   overflow: hidden;
@@ -1037,8 +1039,8 @@ mark {
   }
 
   .external-link {
-    font-size: var(--text-xs);
-    padding: var(--spacing-2) var(--spacing-4);
+    font-size: 14px;
+    padding: 0 12px;
     min-width: 120px;
   }
 }
@@ -1058,7 +1060,7 @@ mark {
 
   .external-link {
     min-width: 100px;
-    padding: var(--spacing-2) var(--spacing-3);
+    padding: 0 12px;
   }
 }
 
