@@ -5679,6 +5679,7 @@
       "type": "media_asset",
       "container_name": "media_asset",
       "is_deprecated": false,
+      "description": "The MediaAsset class is a comprehensive data structure that represents all media and documents associated with a specific property, including images, PDFs, and floor plans across multiple file formats (JPEG, PNG, PDF). It supports both traditional HTTP/HTTPS and decentralized IPFS storage options while providing extensive semantic classification for property-related documents such as deeds, assignments, affidavits, building permits, inspection reports, and property images. The class includes human-friendly naming conventions and metadata management capabilities, making it ideal for organizing and retrieving all media assets and legal documents tied to individual properties within real estate platforms and property management systems.",
       "deprecated_properties": [
       ],
       "properties": {
