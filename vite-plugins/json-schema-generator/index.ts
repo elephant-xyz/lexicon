@@ -55,17 +55,14 @@ interface DataGroupSchema extends JSONSchema {
   };
 }
 
-function mapLexiconTypeToJSONSchema(property: LexiconProperty): any {
-  const schema: any = {
-    type: null,
-    nullable: true
-  };
+function mapLexiconTypeToJSONSchema(property: LexiconProperty, isRequired: boolean): any {
+  const schema: any = {};
 
   switch (property.type) {
     case 'string':
-      schema.type = ['string', 'null'];
+      schema.type = isRequired ? 'string' : ['string', 'null'];
       if (property.enum) {
-        schema.enum = [...property.enum, null];
+        schema.enum = isRequired ? property.enum : [...property.enum, null];
       }
       if (property.pattern) {
         schema.pattern = property.pattern;
@@ -75,25 +72,25 @@ function mapLexiconTypeToJSONSchema(property: LexiconProperty): any {
       }
       break;
     case 'integer':
-      schema.type = ['integer', 'null'];
+      schema.type = isRequired ? 'integer' : ['integer', 'null'];
       break;
     case 'decimal':
     case 'number':
-      schema.type = ['number', 'null'];
+      schema.type = isRequired ? 'number' : ['number', 'null'];
       break;
     case 'boolean':
-      schema.type = ['boolean', 'null'];
+      schema.type = isRequired ? 'boolean' : ['boolean', 'null'];
       break;
     case 'date':
-      schema.type = ['string', 'null'];
+      schema.type = isRequired ? 'string' : ['string', 'null'];
       schema.format = 'date';
       break;
     case 'datetime':
-      schema.type = ['string', 'null'];
+      schema.type = isRequired ? 'string' : ['string', 'null'];
       schema.format = 'date-time';
       break;
     default:
-      schema.type = ['string', 'null'];
+      schema.type = isRequired ? 'string' : ['string', 'null'];
   }
 
   if (property.comment) {
@@ -105,16 +102,17 @@ function mapLexiconTypeToJSONSchema(property: LexiconProperty): any {
 
 function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   const properties: Record<string, any> = {};
-  const required: string[] = [];
+  
+  // Use the required field from the lexicon class if it exists
+  const requiredFields = lexiconClass.required || [];
 
   // Filter out deprecated properties
   const activeProperties = Object.entries(lexiconClass.properties)
     .filter(([key]) => !lexiconClass.deprecated_properties.includes(key));
 
   for (const [propName, propDef] of activeProperties) {
-    properties[propName] = mapLexiconTypeToJSONSchema(propDef);
-    // All fields are required as per requirements
-    required.push(propName);
+    const isRequired = requiredFields.includes(propName);
+    properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 
   return {
@@ -123,7 +121,7 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
     title: lexiconClass.type,
     description: `JSON Schema for ${lexiconClass.type} class in Elephant Lexicon`,
     properties,
-    required,
+    required: requiredFields.filter(field => !lexiconClass.deprecated_properties.includes(field)),
     additionalProperties: false
   };
 }
