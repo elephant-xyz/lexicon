@@ -494,8 +494,8 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .tag-select {
-  padding: var(--spacing-3) var(--spacing-4);
-  padding-right: 16px;
+  padding: var(--spacing-4) var(--spacing-4);
+  padding-right: var(--spacing-6);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
   background-color: rgba(255, 255, 255, 0.1);
@@ -506,6 +506,8 @@ p, span, div, label, input, button, select, textarea {
   transition: all var(--transition-fast);
   font-family: var(--font-family-primary);
   letter-spacing: var(--letter-spacing-standard);
+  height: 48px;
+  min-height: 48px;
 }
 
 .tag-select:hover {
