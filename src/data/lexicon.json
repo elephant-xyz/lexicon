@@ -6,6 +6,11 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, and ranking to help evaluate the educational quality of a property's location.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "school_name": {
           "type": "string",
@@ -5732,6 +5737,11 @@
       "container_name": "files",
       "is_deprecated": false,
       "description": "The file class is a comprehensive data structure that represents all media and documents associated with a specific property, including images, PDFs, and floor plans across multiple file formats (JPEG, PNG, PDF). It supports both traditional HTTP/HTTPS and decentralized IPFS storage options while providing extensive semantic classification for property-related documents such as deeds, assignments, affidavits, building permits, inspection reports, and property images. The class includes human-friendly naming conventions and metadata management capabilities, making it ideal for organizing and retrieving all media assets and legal documents tied to individual properties within real estate platforms and property management systems.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [
       ],
       "properties": {
@@ -6917,6 +6927,11 @@
       "type": "environmental_risk",
       "container_name": "environmental_risks",
       "description": "The EnvironmentalRisk class provides comprehensive environmental hazard assessment data for properties, documenting various natural and man-made risk factors that could impact property safety, desirability, and insurance requirements. It includes FEMA flood zone designations to assess flood risk levels, hurricane evacuation zone classifications for emergency planning, and wildfire risk zone information for fire-prone areas. The class also captures storm surge risk levels ranging from minimal to high, ambient noise levels from quiet to loud environments, and light pollution levels that affect night sky visibility. This data is essential for property buyers, insurance companies, and emergency management agencies to make informed decisions about property risks, evacuation procedures, and environmental quality assessments.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
@@ -6962,6 +6977,15 @@
           ],
           "comment": "Light pollution level affecting night sky visibility."
         }
+      },
+      "example": {
+        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "flood_zone": null,
+        "evacuation_zone": null,
+        "fire_zone": null,
+        "storm_surge_risk": null,
+        "noise_level": null,
+        "light_pollution_level": null
       }
     },
     {
@@ -7585,6 +7609,11 @@
       "container_name": "homeowners_associations",
       "is_deprecated": false,
       "description": "The HomeownersAssociation class represents comprehensive information about homeowners associations (HOAs) governing residential properties, including community governance, financial obligations, and available amenities. It captures essential HOA details such as the association name, type (mandatory, voluntary, condominium, hybrid, or other), fee structure with amounts and payment frequencies (monthly, quarterly, annually, etc.), and applicable year information. The class documents extensive community amenities ranging from recreational facilities like pools, clubhouses, gyms, and golf courses to modern conveniences such as co-working spaces, package lockers, and rooftop decks. Additionally, it tracks security features including 24/7 guards, gated entries, surveillance systems, keycard access, and other safety measures. This information is crucial for property buyers to understand community living costs, available facilities, governance structure, and security provisions when evaluating properties within HOA-managed communities.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [
         "has_payment",
         "has_expense",
@@ -7702,6 +7731,11 @@
       "type": "residency_policy",
       "container_name": "residency_policies",
       "is_deprecated": false,
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [],
       "properties": {
         "leasing_policy": {
@@ -10182,6 +10216,11 @@
       "type": "loan",
       "container_name": "loans",
       "is_deprecated": false,
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [
         "loan_purpose",
         "loan_term",
@@ -12089,6 +12128,11 @@
       "container_name": "mappings",
       "is_deprecated": false,
       "description": "The Lot class captures comprehensive information about the land parcel and exterior property characteristics surrounding a structure, including physical dimensions, surface features, and condition assessments. It documents lot sizing through multiple metrics including square footage, length, width, and categorical classifications (greater than or less than quarter-acre), along with flexible dimension descriptions. The class tracks exterior infrastructure such as driveway mateClaude can make mistakes. Please double-check responses.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [
         "lot_type_other_description",
         "lot_size_dimensions",
@@ -12230,6 +12274,19 @@
           ],
           "comment": "AI-observed lot-level maintenance or neglect issues."
         }
+      },
+      "example": {
+        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "lot_type": "LessThanOrEqualToOneQuarterAcre",
+        "lot_length_feet": null,
+        "lot_width_feet": null,
+        "lot_area_sqft": 1307,
+        "driveway_material": null,
+        "landscaping_features": null,
+        "view": null,
+        "fencing_type": null,
+        "driveway_condition": null,
+        "lot_condition_issues": null
       }
     },
     {
@@ -12269,11 +12326,38 @@
           "comment": "A reference to the associated schema for relashionship"
         }
       },
-      "example": {
-        "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
-        "to": "bafkreichjl4lzxm5257p6jzvmm4zq4cu3s55torjiqju3crhstofeikvxm",
-        "type": "property_has_address"
-      }
+      "examples": [
+        {
+          "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+          "to": "bafkreichjl4lzxm5257p6jzvmm4zq4cu3s55torjiqju3crhstofeikvxm",
+          "type": "property_has_address"
+        },
+        {
+          "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+          "to": "bafkreifgtuq23rdrns74ietfwa3665gtpmmysnpcg7zagcuemcn3hxz23m",
+          "type": "property_has_tax"
+        },
+        {
+          "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+          "to": "bafkreig5r3ayhd6yocyqpt4hvfd2purz7o4x6lpmxikwnnk7depntizm24",
+          "type": "property_has_sales_history"
+        },
+        {
+          "from": "bafkreiehg5lxb6fwgrikpnbyj3hxouu5pmxnssbhkkx7lktrkqmlepb6li",
+          "to": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+          "type": "person_has_property"
+        },
+        {
+          "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+          "to": "bafkreiag2x7tfcnzmyz27vbrw4pglmwwz4ecgwr7bsq6y2mwnvphb3nfya",
+          "type": "property_has_environmental_risk"
+        },
+        {
+          "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+          "to": "bafkreigxf7tgjn2g2o4bhi4vo24aro5n4jidkyrbkos53s6mvxyie644aq",
+          "type": "property_has_lot"
+        }
+      ]
     },
     {
       "type": "mapping",
@@ -12908,6 +12992,11 @@
         "marital_status_type"
       ],
       "description": "Represents an individual person with comprehensive personal information including name, demographics, identification, citizenship status, and biographical details. Used for property ownership, loan applications, and other real estate transactions.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "age": {
           "type": "integer",
@@ -13066,6 +13155,17 @@
           "type": "boolean",
           "comment": "Veteran status refers to an individual's status as a former member of the armed forces. In the United States, a person is considered a veteran if they have served in the active military, naval, or air service and were discharged or released from that service under conditions other than dishonorable."
         }
+      },
+      "example": {
+        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "prefix_name": null,
+        "first_name": "Soofi",
+        "middle_name": null,
+        "last_name": "Safavi",
+        "suffix_name": null,
+        "birth_date": null,
+        "us_citizenship_status": null,
+        "veteran_status": null
       },
       "relationships": {
         "has_unsubscribed": {
@@ -15009,6 +15109,11 @@
         "special_features"
       ],
       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "space_type": {
           "type": "string",
@@ -15519,6 +15624,11 @@
       "type": "appliance",
       "container_name": "appliances",
       "is_deprecated": false,
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "appliance_type": {
           "type": "string",
@@ -15586,6 +15696,11 @@
     {
       "type": "nearby_location",
       "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "container_name": "nearby_locations",
       "is_deprecated": false,
       "deprecated_properties": [],
@@ -16901,6 +17016,11 @@
       "type": "sales_history",
       "container_name": "sales_histories",
       "is_deprecated": false,
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [
         "sold_to",
         "has_property",
@@ -16988,6 +17108,11 @@
           ],
           "comment": "The property that was sold."
         }
+      },
+      "example": {
+        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "ownership_transfer_date": "2022-04-07",
+        "purchase_price_amount": "560,000.00"
       }
     },
     {
@@ -17741,6 +17866,11 @@
         "building_area_total"
       ],
       "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "architectural_style_type": {
           "type": "string",
@@ -18568,6 +18698,11 @@
         "description"
       ],
       "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "tax_year": {
           "type": "integer",
@@ -18635,6 +18770,17 @@
           ],
           "comment": "A payment refers to the transfer of money, goods, or services from one party (the payer) to another party (the payee) in exchange for a product, service, or debt settlement. Payments can take various forms, including cash, checks, bank transfers, credit cards, electronic funds transfers, mobile payments, and digital currencies."
         }
+      },
+      "example": {
+        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "tax_year": 2024,
+        "property_assessed_value_amount": "465,000.00",
+        "property_exemption_amount": "0.00",
+        "property_taxable_value_amount": "465,000.00",
+        "monthly_tax_amount": "721.17",
+        "authority_name": "Palm Beach County Property Appraiser",
+        "period_start_date": "2024-01-01",
+        "period_end_date": "2024-12-31"
       }
     },
     {
@@ -19298,6 +19444,11 @@
       "type": "utility",
       "container_name": "utilities",
       "is_deprecated": false,
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "deprecated_properties": [
         "cooling_system_type_other_description",
         "heating_system_type_other_description",
@@ -19599,7 +19750,30 @@
           "to": "environmental_risk",
           "relationship_type": "property_has_environmental_risk"
         }
-      ]
+      ],
+      "example": {
+        "label": "County Data",
+        "relationships": {
+          "person_has_property": "bafkreifazwgu5sxvuglhd64bqzbyyszuyhlnwlchvtibiigr2l5k5spt4q",
+          "property_has_address": "bafkreieoku66zp5arhxvrt4cw6w6uqpprudqmnxvs32m65nff4qpqducte",
+          "property_has_tax": [
+            "bafkreiglxoulqxsd4ls34aqstmna5iiq7izcjaqlp7kgtwawcagezaoqha"
+          ],
+          "property_has_lot": "bafkreib5ktarm7dgwjvjzll537brhjz4544hjxmitfbxyxwhdzw23yjhha",
+          "property_has_sales_history": [
+            "bafkreihot7lcbmaalflxewczwnzbozk2zxmo6zhlkua24btqn7a4jsexem"
+          ],
+          "property_has_file": [
+            "bafkreifxlurkountcrlfkmdnsboims7xd45czkdsar2tqzilih4sbmlae4"
+          ],
+          "property_has_layout": [
+            "bafkreiczhraw42g55smnjjsqezypffdhi7ur2v4z6n44by2cznkg5llx4a"
+          ],
+          "property_has_environmental_risk": [
+            "bafkreiho4odjtw6cp6q3herzfs435u3j2jixns24k5p5jsdl7d6wynewyi"
+          ]
+        }
+      }
     },
     {
       "label": "Image Metadata",

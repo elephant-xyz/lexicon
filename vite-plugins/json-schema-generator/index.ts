@@ -377,8 +377,8 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
           }
         }
 
-        // Second pass: Generate relationship schemas
-        console.log('\n🔗 Generating Relationship Schemas...');
+        // Second pass: Generate relationship schemas and examples
+        console.log('\n🔗 Generating Relationship Schemas and Examples...');
         const relationshipCids: Record<string, string> = {};
 
         // Collect unique relationships
@@ -397,6 +397,10 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             }
           }
         }
+
+        // Find relationship class examples
+        const relationshipClass = lexiconData.classes.find(c => c.type === 'relationship');
+        const relationshipExamples = relationshipClass?.examples || [];
 
         // Create upload promises for parallel execution
         const relationshipUploadPromises = Array.from(uniqueRelationships.entries()).map(
@@ -421,7 +425,31 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
                 console.log(`  ✅ ${relKey} - saved locally`);
               }
 
-              return { relKey, ipfsCid };
+              // Generate and upload examples for this relationship type
+              const examplesForType = relationshipExamples.filter(example => 
+                example.type === relationship.relationship_type || 
+                example.type === `has_${relationship.to}`
+              );
+
+              const exampleCids: string[] = [];
+              for (const example of examplesForType) {
+                if (enableIPFSUpload) {
+                  const canonicalizedExample = canonicalize(example);
+                  const exampleCid = await uploadToIPFS(canonicalizedExample, `${relKey}_${example.type}_example.json`);
+                  exampleCids.push(exampleCid);
+                  console.log(`  ✅ ${relKey} ${example.type} example - CID: ${exampleCid}`);
+                } else {
+                  // Save example locally and generate a placeholder CID for manifest
+                  const localExamplePath = path.join(options.outputDir, `${relKey}_${example.type}_example.json`);
+                  await fs.writeFile(localExamplePath, canonicalize(example));
+                  // Generate a placeholder CID for local development
+                  const placeholderCid = `local_${relKey}_${example.type}_example`;
+                  exampleCids.push(placeholderCid);
+                  console.log(`  ✅ ${relKey} ${example.type} example - saved locally`);
+                }
+              }
+
+              return { relKey, ipfsCid, exampleCids, examplesForType };
             })();
           }
         );
@@ -436,10 +464,20 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             ipfsCid: result.ipfsCid,
             type: 'relationship',
           };
+          
+          // Store example CIDs with proper keys
+          for (let i = 0; i < result.exampleCids.length; i++) {
+            const example = result.examplesForType[i];
+            const exampleKey = `relationship_${example.type}_example`;
+            schemaManifest[exampleKey] = {
+              ipfsCid: result.exampleCids[i],
+              type: 'example',
+            };
+          }
         }
 
-        // Third pass: Generate data group schemas
-        console.log('\n📊 Generating Data Group Schemas...');
+        // Third pass: Generate data group schemas and examples
+        console.log('\n📊 Generating Data Group Schemas and Examples...');
         for (const dataGroup of lexiconData.data_groups) {
           // Get all relationships for this data group that are in blockchain
           const groupRelationshipCidsMap: Record<
@@ -483,6 +521,26 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
               ipfsCid,
               type: 'dataGroup',
             };
+
+            // Generate and upload example if it exists
+            if (dataGroup.example) {
+              console.log(`  📝 Generating example for ${dataGroup.label}...`);
+              const canonicalizedExample = canonicalize(dataGroup.example);
+              
+              if (enableIPFSUpload) {
+                const exampleCid = await uploadToIPFS(canonicalizedExample, `${groupKey}_example.json`);
+                console.log(`  ✅ ${dataGroup.label} example - CID: ${exampleCid}`);
+                schemaManifest[`${groupKey}_example`] = {
+                  ipfsCid: exampleCid,
+                  type: 'example',
+                };
+              } else {
+                // Save example locally
+                const localExamplePath = path.join(options.outputDir, `${groupKey}_example.json`);
+                await fs.writeFile(localExamplePath, canonicalizedExample);
+                console.log(`  ✅ ${dataGroup.label} example - saved locally`);
+              }
+            }
           }
         }
 

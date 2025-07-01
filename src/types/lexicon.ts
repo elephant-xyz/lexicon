@@ -41,6 +41,7 @@ export interface LexiconClass {
   relationships?: Record<string, LexiconRelationship>;
   required?: string[];
   example?: Record<string, any>;
+  examples?: Array<Record<string, any>>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;
@@ -61,6 +62,7 @@ export interface DataGroupRelationship {
 export interface DataGroup {
   label: string;
   relationships: DataGroupRelationship[];
+  example?: Record<string, any>;
   _searchMatches?: SearchMatch[];
 }
 
