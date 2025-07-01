@@ -298,6 +298,27 @@ Route order matters in React Router v7 - most specific routes are listed first i
 - `src/styles.css`: Comprehensive CSS with custom properties and responsive design
 - CSS patterns: BEM-like naming, component-specific classes, utility classes
 
+## JSON Schema Generation (December 2024)
+
+### Blockchain Class Schemas
+**Automatic Generation**: JSON Schemas are automatically generated for all blockchain-tagged classes during build:
+- **Vite Plugin**: Custom plugin in `vite-plugins/json-schema-generator/` 
+- **Build Process**: Generates schemas, canonicalizes them, and uploads to IPFS via Pinata
+- **IPFS Storage**: Uses CIDv1 format for content-addressed storage
+- **UI Integration**: Download links appear for blockchain classes in the viewer
+
+**Implementation Details**:
+- **Schema Generation**: All properties marked as required and nullable per requirements
+- **Type Mapping**: Lexicon types mapped to JSON Schema equivalents with proper formats
+- **Canonicalization**: Uses `canonicalize` library in CommonJS for deterministic output
+- **IPFS Upload**: Requires `PINATA_JWT` environment variable for authentication
+- **Manifest**: `public/json-schemas/schema-manifest.json` contains CID mappings
+
+**Configuration**:
+1. Set `PINATA_JWT` environment variable with your Pinata API token
+2. Run `npm run build` to generate and upload schemas
+3. Schemas accessible via IPFS gateway links in the UI
+
 ## SEO and Social Media Optimization (December 2024)
 
 ### Meta Tags and Open Graph

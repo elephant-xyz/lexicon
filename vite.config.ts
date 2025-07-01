@@ -2,10 +2,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import * as dotenv from 'dotenv';
+import { jsonSchemaGeneratorPlugin } from './vite-plugins/json-schema-generator';
+
+// Load environment variables
+dotenv.config();
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    jsonSchemaGeneratorPlugin({
+      lexiconPath: resolve(__dirname, './src/data/lexicon.json'),
+      outputDir: resolve(__dirname, './public/json-schemas')
+    })
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

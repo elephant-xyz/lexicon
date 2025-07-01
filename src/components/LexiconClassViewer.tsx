@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LexiconClass } from '../types/lexicon';
+import { LexiconClass, LexiconTag } from '../types/lexicon';
+import { schemaService } from '../services/schemaService';
+import dataService from '../services/dataService';
 
 interface LexiconClassViewerProps {
   classes: LexiconClass[];
@@ -16,6 +18,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
+  const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
+  const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
 
   // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
@@ -37,6 +41,20 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 
     setExpandedClasses(newExpanded);
   }, [searchTerm, classes, expandByDefault]);
+
+  // Load schema manifest and blockchain classes
+  useEffect(() => {
+    schemaService.getManifest().then(manifest => {
+      setSchemaManifest(manifest);
+    });
+
+    // Get blockchain classes
+    const lexiconData = dataService.getAllData();
+    const blockchainTag = lexiconData.tags.find((tag: LexiconTag) => tag.name === 'blockchain');
+    if (blockchainTag) {
+      setIsBlockchainClass(new Set(blockchainTag.classes));
+    }
+  }, []);
 
   const toggleExpanded = (index: number) => {
     const newExpanded = new Set(expandedClasses);
@@ -337,6 +355,23 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
               {cls.description && (
                 <div className="class-description-section">
                   <div className="class-description">{cls.description}</div>
+                </div>
+              )}
+              {/* JSON Schema Download for blockchain classes */}
+              {isBlockchainClass.has(cls.type) && schemaManifest[cls.type] && (
+                <div className="json-schema-section">
+                  <div className="json-schema-link">
+                    <span className="json-schema-label">JSON Schema:</span>
+                    <a 
+                      href={schemaService.getIPFSUrl(schemaManifest[cls.type].ipfsCid)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="json-schema-download"
+                    >
+                      Download from IPFS
+                    </a>
+                    <span className="json-schema-cid">CID: {schemaManifest[cls.type].ipfsCid}</span>
+                  </div>
                 </div>
               )}
               {(() => {

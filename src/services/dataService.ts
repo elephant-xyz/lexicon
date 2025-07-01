@@ -25,6 +25,10 @@ class DataService {
     return this.lexicon.tags || [];
   }
 
+  getAllData(): LexiconData {
+    return this.lexicon;
+  }
+
   getClassesForTag(tagName: string): LexiconClass[] {
     const tag = this.lexicon.tags?.find(t => t.name === tagName);
     if (!tag) return [];
