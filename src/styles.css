@@ -16,7 +16,7 @@
   --secondary-blue: #74abff;
 
   /* Extended Palette for UI */
-  --secondary-gray: #6b7280;
+  --secondary-gray: #423E3E;
   --secondary-light-gray: #f3f4f6;
   --secondary-border: #e5e7eb;
   --secondary-hover: #f9fafb;
@@ -29,7 +29,7 @@
   
   /* Semantic Colors */
   --text-primary: var(--primary-espresso);
-  --text-secondary: var(--secondary-gray);
+  --text-secondary: #423E3E;
   --text-accent: var(--primary-toxic-green);
   --border-color: var(--secondary-border);
   --hover-color: var(--secondary-hover);
@@ -695,7 +695,7 @@ p, span, div, label, input, button, select, textarea {
 .no-results {
   text-align: left;
   padding: var(--spacing-8);
-  color: var(--text-secondary);
+  color: #423E3E;
 }
 
 .no-results p {
@@ -906,7 +906,7 @@ p, span, div, label, input, button, select, textarea {
 
 .method-list-item-label-type {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: #423E3E;
   font-family: var(--font-family-primary);
   background-color: #686565;
   padding: var(--spacing-1) var(--spacing-3);
@@ -1040,7 +1040,7 @@ p, span, div, label, input, button, select, textarea {
 
 .method-list-item-isChild .method-list-item-label-description {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: #423E3E;
   margin-top: var(--spacing-2);
   line-height: 1.5;
   font-weight: var(--font-weight-roman);
@@ -1074,7 +1074,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .relationship-targets-label {
-  color: var(--text-secondary);
+  color: #423E3E;
   font-size: var(--text-xs);
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--letter-spacing-standard);
@@ -1103,7 +1103,7 @@ mark {
 .empty-state {
   text-align: left;
   padding: var(--spacing-12);
-  color: var(--text-secondary);
+  color: #423E3E;
 }
 
 .empty-state-icon {
@@ -1122,7 +1122,7 @@ mark {
 
 .empty-state-description {
   font-size: var(--text-base);
-  color: var(--text-secondary);
+  color: #423E3E;
   font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
 }
@@ -1131,7 +1131,7 @@ mark {
 .loading-state {
   text-align: left;
   padding: var(--spacing-12);
-  color: var(--text-secondary);
+  color: #423E3E;
 }
 
 .loading-spinner {
@@ -1375,7 +1375,7 @@ mark {
   align-items: center;
   gap: var(--spacing-2);
   margin: var(--spacing-1) 0;
-  color: var(--text-secondary);
+  color: #423E3E;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
@@ -1399,7 +1399,7 @@ mark {
 }
 
 .match-score {
-  color: var(--text-secondary);
+  color: #423E3E;
   font-size: var(--text-xs);
   font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
