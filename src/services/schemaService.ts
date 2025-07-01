@@ -30,7 +30,7 @@ class SchemaService {
         this.manifest = data;
         return data;
       })
-      .catch(error => {
+      .catch(_error => {
         // Error loading schema manifest
         this.manifestPromise = null; // Allow retries
         return {};

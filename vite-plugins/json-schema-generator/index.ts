@@ -21,7 +21,7 @@ interface JSONSchema {
   type: 'object';
   title: string;
   description: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   required: string[];
   additionalProperties: boolean;
 }
@@ -74,8 +74,8 @@ interface DataGroupSchema extends JSONSchema {
   };
 }
 
-function mapLexiconTypeToJSONSchema(property: LexiconProperty, isRequired: boolean): any {
-  const schema: any = {};
+function mapLexiconTypeToJSONSchema(property: LexiconProperty, isRequired: boolean): Record<string, unknown> {
+  const schema: Record<string, unknown> = {};
 
   switch (property.type) {
     case 'string':
@@ -120,7 +120,7 @@ function mapLexiconTypeToJSONSchema(property: LexiconProperty, isRequired: boole
 }
 
 function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
-  const properties: Record<string, any> = {};
+  const properties: Record<string, unknown> = {};
   const allRequiredFields: string[] = [];
 
   // Use the required field from the lexicon class if it exists
@@ -135,21 +135,10 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   // Add class-level fields (like source_url) to properties
   for (const [fieldName, fieldDef] of Object.entries(lexiconClass)) {
     // Skip standard class fields and properties (which are handled separately)
-    if (
-      [
-        'type',
-        'container_name',
-        'is_deprecated',
-        'deprecated_properties',
-        'description',
-        'required',
-        'properties',
-        'relationships',
-      ].includes(fieldName)
-    ) {
+    if (['type', 'container_name', 'is_deprecated', 'deprecated_properties', 'description', 'required', 'properties', 'relationships'].includes(fieldName)) {
       continue;
     }
-
+    
     // Add class-level fields to properties
     if (typeof fieldDef === 'object' && fieldDef !== null && 'type' in fieldDef) {
       properties[fieldName] = mapLexiconTypeToJSONSchema(fieldDef as LexiconProperty, false);
@@ -185,7 +174,7 @@ function generateJSONSchemaForRelationship(
 ): RelationshipSchema {
   // Determine if this is a one-to-many relationship based on relationship type
   const isOneToMany = isOneToManyRelationship(relationship.relationship_type);
-
+  
   return {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
@@ -197,21 +186,19 @@ function generateJSONSchemaForRelationship(
         cid: classCids[relationship.from] || '',
         description: `Reference to ${relationship.from} class schema`,
       },
-      to: isOneToMany
-        ? {
-            type: 'array',
-            items: {
-              type: 'string',
-              cid: classCids[relationship.to] || '',
-              description: `Reference to ${relationship.to} class schema`,
-            },
-            description: `Array of references to ${relationship.to} class schemas`,
-          }
-        : {
-            type: 'string',
-            cid: classCids[relationship.to] || '',
-            description: `Reference to ${relationship.to} class schema`,
-          },
+      to: isOneToMany ? {
+        type: 'array',
+        items: {
+          type: 'string',
+          cid: classCids[relationship.to] || '',
+          description: `Reference to ${relationship.to} class schema`,
+        },
+        description: `Array of references to ${relationship.to} class schemas`,
+      } : {
+        type: 'string',
+        cid: classCids[relationship.to] || '',
+        description: `Reference to ${relationship.to} class schema`,
+      },
     },
     required: ['from', 'to'],
     additionalProperties: false,
@@ -222,13 +209,13 @@ function isOneToManyRelationship(relationshipType: string): boolean {
   // Define which relationship types should be arrays (one-to-many)
   const oneToManyTypes = [
     'property_has_layout',
-    'property_has_sales_history',
+    'property_has_sales_history', 
     'property_has_tax',
     'property_has_file',
     'layout_has_file',
-    'property_has_environmental_risk',
+    'property_has_environmental_risk'
   ];
-
+  
   return oneToManyTypes.includes(relationshipType);
 }
 
@@ -242,22 +229,20 @@ function generateJSONSchemaForDataGroup(
   // Create properties object with relationship_type as keys
   Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
     const isOneToMany = isOneToManyRelationship(relationshipType);
-
-    relationshipProperties[relationshipType] = isOneToMany
-      ? {
-          type: 'array',
-          items: {
-            type: 'string',
-            cid,
-            description: `Reference to ${key} relationship schema`,
-          },
-          description: `Array of references to ${key} relationship schemas`,
-        }
-      : {
-          type: 'string',
-          cid,
-          description: `Reference to ${key} relationship schema`,
-        };
+    
+    relationshipProperties[relationshipType] = isOneToMany ? {
+      type: 'array',
+      items: {
+        type: 'string',
+        cid,
+        description: `Reference to ${key} relationship schema`,
+      },
+      description: `Array of references to ${key} relationship schemas`,
+    } : {
+      type: 'string',
+      cid,
+      description: `Reference to ${key} relationship schema`,
+    };
     requiredRelationships.push(relationshipType);
   });
 
@@ -293,11 +278,9 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       // Check if IPFS upload is available
       const pinataJWT = process.env.PINATA_JWT;
       const enableIPFSUpload = !!pinataJWT;
-
+      
       if (!enableIPFSUpload) {
-        console.log(
-          '⚠️  PINATA_JWT not set - skipping IPFS upload. Schemas will be generated locally only.'
-        );
+        // ⚠️  PINATA_JWT not set - skipping IPFS upload. Schemas will be generated locally only.
       }
 
       try {
@@ -308,7 +291,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         // Find blockchain tag
         const blockchainTag = lexiconData.tags.find(tag => tag.name === 'blockchain');
         if (!blockchainTag) {
-          console.warn('⚠️  No blockchain tag found in lexicon data');
+          // ⚠️  No blockchain tag found in lexicon data
           return;
         }
 
@@ -334,7 +317,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             }
 
             return (async () => {
-              console.log(`  📄 Generating schema for ${className}...`);
+              // 📄 Generating schema for ${className}...
 
               // Generate JSON Schema
               const jsonSchema = generateJSONSchemaForClass(lexiconClass);
@@ -346,26 +329,26 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
               if (enableIPFSUpload) {
                 // Upload to IPFS
                 ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
-                console.log(`  ✅ ${className} - CID: ${ipfsCid}`);
+                // ✅ ${className} - CID: ${ipfsCid}
               } else {
                 // Save locally instead
                 const localPath = path.join(options.outputDir, `${className}.json`);
                 await fs.writeFile(localPath, canonicalized);
-                console.log(`  ✅ ${className} - saved locally`);
+                // ✅ ${className} - saved locally
               }
 
               // Generate and upload example if it exists
               let exampleCid = '';
               if (lexiconClass.example && enableIPFSUpload) {
-                console.log(`  📝 Generating example for ${className}...`);
+                // 📝 Generating example for ${className}...
                 const canonicalizedExample = canonicalize(lexiconClass.example);
                 exampleCid = await uploadToIPFS(canonicalizedExample, `${className}_example.json`);
-                console.log(`  ✅ ${className} example - CID: ${exampleCid}`);
+                // ✅ ${className} example - CID: ${exampleCid}
               } else if (lexiconClass.example) {
                 // Save example locally
                 const localExamplePath = path.join(options.outputDir, `${className}_example.json`);
                 await fs.writeFile(localExamplePath, canonicalize(lexiconClass.example));
-                console.log(`  ✅ ${className} example - saved locally`);
+                // ✅ ${className} example - saved locally
               }
 
               return { className, ipfsCid, exampleCid };
@@ -388,14 +371,14 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             if (result.exampleCid) {
               schemaManifest[`${result.className}_example`] = {
                 ipfsCid: result.exampleCid,
-                type: 'example',
+                type: 'class',
               };
             }
           }
         }
 
         // Second pass: Generate relationship schemas and examples
-        console.log('\n🔗 Generating Relationship Schemas and Examples...');
+        // 🔗 Generating Relationship Schemas and Examples...
         const relationshipCids: Record<string, string> = {};
 
         // Collect unique relationships
@@ -423,18 +406,18 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         const relationshipUploadPromises = Array.from(uniqueRelationships.entries()).map(
           ([relKey, relationship]) => {
             return (async () => {
-              console.log(`  🔗 Generating schema for ${relKey}...`);
+              // 🔗 Generating schema for ${relKey}...
 
               // Generate relationship schema
               const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
 
               // Canonicalize and upload
               const canonicalized = canonicalize(relSchema);
-
+              
               let ipfsCid = '';
               if (enableIPFSUpload) {
                 ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
-                console.log(`  ✅ ${relKey} - CID: ${ipfsCid}`);
+                // ✅ ${relKey} - CID: ${ipfsCid}
               } else {
                 // Save locally instead
                 const localPath = path.join(options.outputDir, `${relKey}.json`);
@@ -443,28 +426,21 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
               }
 
               // Generate and upload examples for this relationship type
-              const examplesForType = relationshipExamples.filter(
-                example =>
-                  example.type === relationship.relationship_type ||
-                  example.type === `has_${relationship.to}`
+              const examplesForType = relationshipExamples.filter(example => 
+                example.type === relationship.relationship_type || 
+                example.type === `has_${relationship.to}`
               );
 
               const exampleCids: string[] = [];
               for (const example of examplesForType) {
                 if (enableIPFSUpload) {
                   const canonicalizedExample = canonicalize(example);
-                  const exampleCid = await uploadToIPFS(
-                    canonicalizedExample,
-                    `${relKey}_${example.type}_example.json`
-                  );
+                  const exampleCid = await uploadToIPFS(canonicalizedExample, `${relKey}_${example.type}_example.json`);
                   exampleCids.push(exampleCid);
                   console.log(`  ✅ ${relKey} ${example.type} example - CID: ${exampleCid}`);
                 } else {
                   // Save example locally and generate a placeholder CID for manifest
-                  const localExamplePath = path.join(
-                    options.outputDir,
-                    `${relKey}_${example.type}_example.json`
-                  );
+                  const localExamplePath = path.join(options.outputDir, `${relKey}_${example.type}_example.json`);
                   await fs.writeFile(localExamplePath, canonicalize(example));
                   // Generate a placeholder CID for local development
                   const placeholderCid = `local_${relKey}_${example.type}_example`;
@@ -488,14 +464,14 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             ipfsCid: result.ipfsCid,
             type: 'relationship',
           };
-
+          
           // Store example CIDs with proper keys
           for (let i = 0; i < result.exampleCids.length; i++) {
             const example = result.examplesForType[i];
             const exampleKey = `relationship_${example.type}_example`;
             schemaManifest[exampleKey] = {
               ipfsCid: result.exampleCids[i],
-              type: 'example',
+              type: 'class',
             };
           }
         }
@@ -529,7 +505,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
 
             // Canonicalize and upload
             const canonicalized = canonicalize(groupSchema);
-
+            
             let ipfsCid = '';
             if (enableIPFSUpload) {
               ipfsCid = await uploadToIPFS(canonicalized, `${groupKey}.json`);
@@ -550,16 +526,13 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             if (dataGroup.example) {
               console.log(`  📝 Generating example for ${dataGroup.label}...`);
               const canonicalizedExample = canonicalize(dataGroup.example);
-
+              
               if (enableIPFSUpload) {
-                const exampleCid = await uploadToIPFS(
-                  canonicalizedExample,
-                  `${groupKey}_example.json`
-                );
+                const exampleCid = await uploadToIPFS(canonicalizedExample, `${groupKey}_example.json`);
                 console.log(`  ✅ ${dataGroup.label} example - CID: ${exampleCid}`);
                 schemaManifest[`${groupKey}_example`] = {
                   ipfsCid: exampleCid,
-                  type: 'example',
+                  type: 'class',
                 };
               } else {
                 // Save example locally
