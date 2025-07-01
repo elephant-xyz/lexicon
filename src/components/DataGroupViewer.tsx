@@ -14,6 +14,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
   const [schemaManifest, setSchemaManifest] = useState<
     Record<string, { ipfsCid: string; type: string }>
   >({});
+  const [copiedValue, setCopiedValue] = useState<string | null>(null);
 
   // Load schema manifest
   useEffect(() => {
@@ -53,6 +54,24 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
     navigate(`/class/${className}`);
   };
 
+  const copyToClipboard = async (value: string) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedValue(value);
+      setTimeout(() => setCopiedValue(null), 2000); // Clear feedback after 2 seconds
+    } catch {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = value;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopiedValue(value);
+      setTimeout(() => setCopiedValue(null), 2000);
+    }
+  };
+
   const renderHighlightedText = (text: string): React.JSX.Element => {
     return <span dangerouslySetInnerHTML={{ __html: text }} />;
   };
@@ -62,6 +81,19 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
 
     const classMatch = group._searchMatches.find(m => m.type === 'class' && m.field === 'type');
     return classMatch?.value || group.label;
+  };
+
+  const isOneToManyRelationship = (relationshipType: string): boolean => {
+    // Define which relationship types should be arrays (one-to-many)
+    const oneToManyTypes = [
+      'property_has_layout',
+      'property_has_sales_history',
+      'property_has_tax',
+      'property_has_file',
+      'layout_has_file',
+    ];
+
+    return oneToManyTypes.includes(relationshipType);
   };
 
   return (
@@ -103,15 +135,89 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                         href={schemaService.getIPFSUrl(schemaInfo.ipfsCid)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="json-schema-download"
+                        className="ipfs-download-link"
+                        title="Download schema from IPFS"
                       >
-                        Download from IPFS
+                        📥 Download from IPFS
                       </a>
-                      <span className="json-schema-cid">CID: {schemaInfo.ipfsCid}</span>
+                      <button
+                        className={`cid-copy-button ${copiedValue === schemaInfo.ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                        onClick={() => copyToClipboard(schemaInfo.ipfsCid)}
+                        title="Click to copy CID to clipboard"
+                      >
+                        {copiedValue === schemaInfo.ipfsCid
+                          ? '✓ Copied!'
+                          : `CID: ${schemaInfo.ipfsCid}`}
+                      </button>
                     </div>
                   </div>
                 ) : null;
               })()}
+
+              {/* Data Group Example Display */}
+              {group.example &&
+                (() => {
+                  const groupKey = group.label.replace(/\s+/g, '_');
+                  const exampleKey = `${groupKey}_example`;
+                  const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
+
+                  if (exampleCid) {
+                    return (
+                      <div className="json-example-section">
+                        <div className="json-example-link">
+                          <span className="json-example-label">JSON Example:</span>
+                          <a
+                            href={schemaService.getIPFSUrl(exampleCid)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ipfs-download-link"
+                            title="Download example from IPFS"
+                          >
+                            📥 Download from IPFS
+                          </a>
+                          <button
+                            className={`cid-copy-button ${copiedValue === exampleCid ? 'cid-copy-button-copied' : ''}`}
+                            onClick={() => copyToClipboard(exampleCid)}
+                            title="Click to copy CID to clipboard"
+                          >
+                            {copiedValue === exampleCid ? '✓ Copied!' : `CID: ${exampleCid}`}
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  // Fallback to showing full JSON if no CID found
+                  return (
+                    <div className="json-examples-section">
+                      <h4>JSON Example:</h4>
+                      <div className="examples-list">
+                        <div className="example-item">
+                          <div className="example-header">
+                            <span className="example-label">Example</span>
+                          </div>
+                          <div className="example-content">
+                            <button
+                              className={`example-copy-button`}
+                              onClick={() =>
+                                navigator.clipboard.writeText(
+                                  JSON.stringify(group.example, null, 2)
+                                )
+                              }
+                              title="Click to copy example to clipboard"
+                            >
+                              Copy Example
+                            </button>
+                            <div className="example-json">
+                              <pre>{JSON.stringify(group.example, null, 2)}</pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
               <div className="relationships-section">
                 <h4>Relationships:</h4>
                 <div className="relationships-list">
@@ -124,6 +230,14 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                         <div className="method-list-item-label">
                           <div className="method-list-item-label-name">
                             {rel.relationship_type || `has_${rel.to}`}
+                            {isOneToManyRelationship(rel.relationship_type) && (
+                              <span
+                                className="array-indicator"
+                                title="One-to-many relationship (array)"
+                              >
+                                [Array]
+                              </span>
+                            )}
                           </div>
                           <div className="method-list-item-label-description">
                             <div className="relationship-targets-container">
@@ -156,10 +270,10 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                                   href={schemaService.getIPFSUrl(relSchemaInfo.ipfsCid)}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="json-schema-download-inline"
-                                  title={`JSON Schema for ${relKey}`}
+                                  className="ipfs-download-link"
+                                  title={`Download ${relKey} schema from IPFS`}
                                 >
-                                  Schema
+                                  📥 Schema
                                 </a>
                               </div>
                             )}

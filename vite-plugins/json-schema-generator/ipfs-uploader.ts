@@ -37,25 +37,20 @@ export async function uploadToIPFS(content: string, fileName: string): Promise<s
     })
   );
 
-  try {
-    const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${pinataJWT}`,
-        ...formData.getHeaders(),
-      },
-      body: formData,
-    });
+  const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${pinataJWT}`,
+      ...formData.getHeaders(),
+    },
+    body: formData,
+  });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Pinata API error: ${response.status} - ${errorText}`);
-    }
-
-    const result = (await response.json()) as { IpfsHash: string };
-    return result.IpfsHash;
-  } catch (error) {
-    console.error('Error uploading to IPFS:', error);
-    throw error;
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Pinata API error: ${response.status} - ${errorText}`);
   }
+
+  const result = (await response.json()) as { IpfsHash: string };
+  return result.IpfsHash;
 }

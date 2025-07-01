@@ -32,9 +32,16 @@ export interface LexiconClass {
   is_deprecated: boolean;
   deprecated_properties: string[];
   description?: string;
+  source_url?: {
+    type: string;
+    format: string;
+    comment?: string;
+  };
   properties: Record<string, LexiconProperty>;
   relationships?: Record<string, LexiconRelationship>;
   required?: string[];
+  example?: Record<string, unknown>;
+  examples?: Array<Record<string, unknown>>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;
@@ -55,6 +62,7 @@ export interface DataGroupRelationship {
 export interface DataGroup {
   label: string;
   relationships: DataGroupRelationship[];
+  example?: Record<string, unknown>;
   _searchMatches?: SearchMatch[];
 }
 
