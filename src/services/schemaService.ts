@@ -32,6 +32,7 @@ class SchemaService {
       })
       .catch(error => {
         console.error('Error loading schema manifest:', error);
+        this.manifestPromise = null; // Allow retries
         return {};
       });
 

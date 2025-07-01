@@ -120,7 +120,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                     const relSchemaInfo = schemaManifest[relKey];
 
                     return (
-                      <div key={relIndex} className="method-list-item method-list-item-isChild">
+                      <div key={relKey} className="method-list-item method-list-item-isChild">
                         <div className="method-list-item-label">
                           <div className="method-list-item-label-name">
                             {rel.relationship_type || `has_${rel.to}`}
