@@ -1350,10 +1350,10 @@ mark {
   white-space: nowrap;
 }
 
-/* Data Groups Styles */
+/* Data Groups Styles - Removed border-left to use only pseudo-element */
 .data-group {
   background-color: var(--background-secondary);
-  border-left: 4px solid var(--primary-toxic-green);
+  /* Removed: border-left: 4px solid var(--primary-toxic-green); */
 }
 
 .data-group .method-list-item-label {
