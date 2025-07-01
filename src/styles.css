@@ -876,10 +876,10 @@ p, span, div, label, input, button, select, textarea {
   gap: var(--spacing-3);
 }
 
-/* Child Items - Removed all borders */
+/* Child Items - Updated with white background and border */
 .method-list-item-isChild {
-  background-color: transparent;
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid #B3B2B2;
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   transition: all var(--transition-fast);
