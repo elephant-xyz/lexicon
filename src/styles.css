@@ -287,7 +287,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .external-link:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   text-decoration: none;
 }
 
@@ -427,7 +427,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .nav-button:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
 }
 
 .nav-button:focus {
@@ -488,7 +488,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .home-button:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
 }
 
 /* Tag Selector */
@@ -705,7 +705,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .clear-search-button-inline:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
 }
 
 /* No Results Message */
@@ -845,7 +845,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .expand-button:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
 }
 
 .expand-button:focus {
@@ -1030,7 +1030,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .enum-value:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
@@ -1047,7 +1047,7 @@ p, span, div, label, input, button, select, textarea {
 
 .enum-value-copied {
   background-color: var(--primary-toxic-green) !important;
-  color: var(--primary-white) !important;
+  color: var(--primary-espresso) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
 
@@ -1132,7 +1132,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .relationship-target-link:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
@@ -1162,7 +1162,7 @@ p, span, div, label, input, button, select, textarea {
 /* Search Highlighting */
 mark {
   background-color: var(--primary-toxic-green);
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   padding: 0 var(--spacing-1);
   border-radius: var(--radius-sm);
   font-weight: var(--font-weight-medium);
@@ -1358,7 +1358,7 @@ mark {
 }
 
 .scroll-to-top-button:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
   opacity: 1;
@@ -1419,7 +1419,7 @@ mark {
 
 .data-group-badge {
   background-color: var(--primary-toxic-green);
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-xs);
   padding: var(--spacing-1) var(--spacing-3);
@@ -1460,7 +1460,7 @@ mark {
 }
 
 .data-group .relationship-target-link:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
 }
 
 .match-score {
@@ -1549,7 +1549,7 @@ mark {
 }
 
 .pattern-value:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
@@ -1566,7 +1566,7 @@ mark {
 
 .pattern-value-copied {
   background-color: var(--primary-toxic-green) !important;
-  color: var(--primary-white) !important;
+  color: var(--primary-espresso) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
 
@@ -1627,7 +1627,7 @@ mark {
 }
 
 .format-value:hover {
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
@@ -1644,7 +1644,7 @@ mark {
 
 .format-value-copied {
   background-color: var(--primary-toxic-green) !important;
-  color: var(--primary-white) !important;
+  color: var(--primary-espresso) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
 
