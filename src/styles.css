@@ -188,7 +188,6 @@ p, span, div, label, input, button, select, textarea {
   align-items: center;
   margin-bottom: var(--spacing-6);
   flex-wrap: wrap;
-  background-color: #686565;
   padding: var(--spacing-4);
   border-radius: var(--radius-lg);
 }
