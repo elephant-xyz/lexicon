@@ -104,7 +104,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Subheadings and labels */
-.header-subtitle,
 .tag-selector label,
 .search-bar label,
 .class-info label,
@@ -176,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-subtitle {
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-roman);
   color: var(--text-secondary);
   margin-bottom: var(--spacing-4);
   letter-spacing: 0.04em;
