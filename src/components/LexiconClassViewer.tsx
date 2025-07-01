@@ -112,14 +112,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     const classMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'type');
     return classMatch?.value || cls.type;
   };
-
-  const getHighlightedClassDescription = (cls: LexiconClass): string => {
-    if (!searchTerm || !cls._searchMatches) return cls.description || '';
-
-    const descMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'description');
-    return descMatch?.highlightedDescription || cls.description || '';
-  };
-
   const getMatchedProperties = (cls: LexiconClass): string[] => {
     if (!searchTerm || !cls._searchMatches) return [];
 
