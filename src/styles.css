@@ -802,7 +802,7 @@ p, span, div, label, input, button, select, textarea {
 
 /* Expand Button */
 .expand-button {
-  background-color: var(--primary-white);
+  background-color: #686565;
   border: none;
   border-radius: var(--radius-md);
   width: 36px;
@@ -813,7 +813,7 @@ p, span, div, label, input, button, select, textarea {
   justify-content: center;
   font-size: var(--text-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   transition: all var(--transition-fast);
 }
 
