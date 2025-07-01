@@ -974,7 +974,7 @@ textarea {
 
 .enum-value {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
@@ -1442,7 +1442,7 @@ mark {
 
 .pattern-value {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
@@ -1491,7 +1491,7 @@ mark {
 
 .format-value {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
@@ -1695,6 +1695,7 @@ mark {
   letter-spacing: var(--letter-spacing-standard);
   padding: var(--spacing-4);
   background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #b3b2b2;
   border-radius: var(--radius-md);
   border-left: 4px solid var(--primary-toxic-green);
 }
@@ -1707,6 +1708,7 @@ mark {
 .class-source {
   padding: var(--spacing-4);
   background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #b3b2b2;
   border-radius: var(--radius-md);
   border-left: 4px solid var(--secondary-blue);
 }
@@ -1745,6 +1747,7 @@ mark {
   margin-bottom: var(--spacing-6);
   padding: var(--spacing-4);
   background-color: rgba(43, 231, 134, 0.05);
+  border: 1px solid #b3b2b2;
   border-radius: var(--radius-md);
   border-left: 4px solid var(--primary-toxic-green);
 }
@@ -1785,7 +1788,7 @@ mark {
 
 .cid-copy-button {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
   font-size: var(--text-xs);
   font-weight: var(--font-weight-roman);
@@ -1822,6 +1825,7 @@ mark {
   margin-bottom: var(--spacing-6);
   padding: var(--spacing-4);
   background-color: rgba(116, 171, 255, 0.05);
+  border: 1px solid #b3b2b2;
   border-radius: var(--radius-md);
   border-left: 4px solid var(--secondary-blue);
 }
@@ -1863,6 +1867,7 @@ mark {
 
 .example-item {
   background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid #b3b2b2;
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   border-left: 4px solid var(--secondary-blue);
@@ -1905,7 +1910,7 @@ mark {
 
 .example-copy-button {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
@@ -1939,6 +1944,7 @@ mark {
 
 .example-json {
   background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #b3b2b2;
   border-radius: var(--radius-md);
   padding: var(--spacing-3);
   overflow-x: auto;
