@@ -890,10 +890,11 @@ p, span, div, label, input, button, select, textarea {
   border-color: var(--primary-toxic-green);
 }
 
+/* Specifically target the label inside child items to remove background */
 .method-list-item-isChild .method-list-item-label {
   padding: 0;
   border: none;
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .method-list-item-isChild .method-list-item-label-name {
