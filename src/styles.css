@@ -119,7 +119,7 @@ p, span, div, label, input, button, select, textarea {
 /* Main Container */
 .search-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0;
   padding: var(--spacing-6);
   min-height: 100vh;
   background-color: var(--background-primary);
@@ -128,14 +128,14 @@ p, span, div, label, input, button, select, textarea {
 /* Header Section */
 .header-section {
   margin-bottom: var(--spacing-8);
-  text-align: center;
+  text-align: left;
 }
 
 /* Logo Container */
 .logo-container {
   margin-bottom: var(--spacing-4);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -184,7 +184,7 @@ p, span, div, label, input, button, select, textarea {
 .external-links {
   display: flex;
   gap: var(--spacing-3);
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: var(--spacing-6);
   flex-wrap: wrap;
@@ -559,7 +559,7 @@ p, span, div, label, input, button, select, textarea {
 
 /* Error Message */
 .error-message {
-  text-align: center;
+  text-align: left;
   padding: var(--spacing-8);
   background-color: #686565;
   border-radius: var(--radius-lg);
@@ -709,7 +709,7 @@ p, span, div, label, input, button, select, textarea {
 
 /* No Results Message */
 .no-results {
-  text-align: center;
+  text-align: left;
   padding: var(--spacing-8);
   color: var(--text-secondary);
 }
@@ -1170,7 +1170,7 @@ mark {
 
 /* Empty State */
 .empty-state {
-  text-align: center;
+  text-align: left;
   padding: var(--spacing-12);
   color: var(--text-secondary);
 }
@@ -1198,7 +1198,7 @@ mark {
 
 /* Loading State */
 .loading-state {
-  text-align: center;
+  text-align: left;
   padding: var(--spacing-12);
   color: var(--text-secondary);
 }
@@ -1210,7 +1210,7 @@ mark {
   border-top: 3px solid var(--primary-toxic-green);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto var(--spacing-4);
+  margin: 0 0 var(--spacing-4) 0;
 }
 
 @keyframes spin {
