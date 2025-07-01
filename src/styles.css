@@ -910,10 +910,6 @@ textarea {
   transition: all var(--transition-fast);
 }
 
-.method-list-item-isChild:hover {
-  background-color: var(--hover-color);
-}
-
 /* Specifically target the label inside child items to remove background */
 .method-list-item-isChild .method-list-item-label {
   padding: 0;
@@ -1630,10 +1626,6 @@ mark {
   background-color: var(--primary-toxic-green);
 }
 
-.common-patterns-viewer:hover {
-  transform: translateY(-2px);
-}
-
 .patterns-header {
   padding: var(--spacing-5);
   border-bottom: none;
@@ -1674,10 +1666,6 @@ mark {
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   transition: all var(--transition-fast);
-}
-
-.pattern-card:hover {
-  background-color: var(--hover-color);
 }
 
 .pattern-header {
