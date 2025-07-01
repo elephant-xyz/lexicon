@@ -1,7 +1,7 @@
 import { Plugin } from 'vite';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { LexiconData, LexiconClass, LexiconProperty } from '../../src/types/lexicon';
+import { LexiconData, LexiconClass, LexiconProperty, DataGroup, DataGroupRelationship } from '../../src/types/lexicon';
 import { uploadToIPFS } from './ipfs-uploader';
 import { canonicalize } from 'json-canonicalize';
 
@@ -18,6 +18,38 @@ interface JSONSchema {
   properties: Record<string, any>;
   required: string[];
   additionalProperties: boolean;
+}
+
+interface RelationshipSchema extends JSONSchema {
+  properties: {
+    from: {
+      type: string;
+      cid: string;
+      description: string;
+    };
+    to: {
+      type: string;
+      cid: string;
+      description: string;
+    };
+  };
+}
+
+interface DataGroupSchema extends JSONSchema {
+  properties: {
+    label: {
+      type: string;
+      description: string;
+    };
+    relationships: {
+      type: string;
+      items: {
+        type: string;
+        cid: string;
+      };
+      description: string;
+    };
+  };
 }
 
 function mapLexiconTypeToJSONSchema(property: LexiconProperty): any {
@@ -93,6 +125,64 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   };
 }
 
+function generateJSONSchemaForRelationship(
+  relationship: DataGroupRelationship, 
+  classCids: Record<string, string>
+): RelationshipSchema {
+  return {
+    $schema: 'https://json-schema.org/draft-07/schema#',
+    type: 'object',
+    title: `${relationship.from}_to_${relationship.to}`,
+    description: `JSON Schema for relationship from ${relationship.from} to ${relationship.to}`,
+    properties: {
+      from: {
+        type: 'string',
+        cid: classCids[relationship.from] || '',
+        description: `Reference to ${relationship.from} class schema`
+      },
+      to: {
+        type: 'string',
+        cid: classCids[relationship.to] || '',
+        description: `Reference to ${relationship.to} class schema`
+      }
+    },
+    required: ['from', 'to'],
+    additionalProperties: false
+  };
+}
+
+function generateJSONSchemaForDataGroup(
+  dataGroup: DataGroup,
+  relationshipCids: string[]
+): DataGroupSchema {
+  return {
+    $schema: 'https://json-schema.org/draft-07/schema#',
+    type: 'object',
+    title: dataGroup.label,
+    description: `JSON Schema for ${dataGroup.label} data group`,
+    properties: {
+      label: {
+        type: 'string',
+        description: 'Data group label'
+      },
+      relationships: {
+        type: 'array',
+        items: {
+          type: 'object',
+          oneOf: relationshipCids.map(cid => ({
+            type: 'object',
+            cid,
+            description: `Reference to relationship schema`
+          }))
+        } as any,
+        description: 'Array of relationships in this data group'
+      }
+    },
+    required: ['label', 'relationships'],
+    additionalProperties: false
+  };
+}
+
 export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): Plugin {
   return {
     name: 'json-schema-generator',
@@ -115,8 +205,11 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         await fs.mkdir(options.outputDir, { recursive: true });
         
         // Generate schemas for each blockchain class
-        const schemaManifest: Record<string, { ipfsCid: string }> = {};
+        const schemaManifest: Record<string, { ipfsCid: string; type: 'class' | 'relationship' | 'dataGroup' }> = {};
+        const classCids: Record<string, string> = {};
         
+        // First pass: Generate class schemas
+        console.log('\n📦 Generating Class Schemas...');
         for (const className of blockchainTag.classes) {
           const lexiconClass = lexiconData.classes.find(c => c.type === className);
           if (!lexiconClass || lexiconClass.is_deprecated) {
@@ -134,11 +227,82 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
           // Upload to IPFS
           const ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
           
+          classCids[className] = ipfsCid;
           schemaManifest[className] = {
-            ipfsCid
+            ipfsCid,
+            type: 'class'
           };
           
           console.log(`  ✅ ${className} - CID: ${ipfsCid}`);
+        }
+        
+        // Second pass: Generate relationship schemas
+        console.log('\n🔗 Generating Relationship Schemas...');
+        const relationshipCids: Record<string, string> = {};
+        
+        for (const dataGroup of lexiconData.data_groups) {
+          for (const relationship of dataGroup.relationships) {
+            // Only process relationships where both classes are in blockchain tag
+            if (blockchainTag.classes.includes(relationship.from) && 
+                blockchainTag.classes.includes(relationship.to)) {
+              
+              const relKey = `${relationship.from}_to_${relationship.to}`;
+              
+              // Skip if already processed
+              if (relationshipCids[relKey]) continue;
+              
+              console.log(`  🔗 Generating schema for ${relKey}...`);
+              
+              // Generate relationship schema
+              const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
+              
+              // Canonicalize and upload
+              const canonicalized = canonicalize(relSchema);
+              const ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
+              
+              relationshipCids[relKey] = ipfsCid;
+              schemaManifest[relKey] = {
+                ipfsCid,
+                type: 'relationship'
+              };
+              
+              console.log(`  ✅ ${relKey} - CID: ${ipfsCid}`);
+            }
+          }
+        }
+        
+        // Third pass: Generate data group schemas
+        console.log('\n📊 Generating Data Group Schemas...');
+        for (const dataGroup of lexiconData.data_groups) {
+          // Get all relationships for this data group that are in blockchain
+          const groupRelationshipCids: string[] = [];
+          
+          for (const relationship of dataGroup.relationships) {
+            const relKey = `${relationship.from}_to_${relationship.to}`;
+            if (relationshipCids[relKey]) {
+              groupRelationshipCids.push(relationshipCids[relKey]);
+            }
+          }
+          
+          // Only generate schema if there are blockchain relationships
+          if (groupRelationshipCids.length > 0) {
+            const groupKey = dataGroup.label.replace(/\s+/g, '_');
+            console.log(`  📊 Generating schema for ${dataGroup.label}...`);
+            
+            // Generate data group schema
+            const groupSchema = generateJSONSchemaForDataGroup(dataGroup, groupRelationshipCids);
+            
+            // Canonicalize and upload
+            const canonicalized = canonicalize(groupSchema);
+            const ipfsCid = await uploadToIPFS(canonicalized, `${groupKey}.json`);
+            
+            schemaManifest[groupKey] = {
+              ipfsCid,
+              type: 'dataGroup'
+            };
+            
+            console.log(`  ✅ ${dataGroup.label} - CID: ${ipfsCid}`);
+          }
         }
         
         // Write manifest file

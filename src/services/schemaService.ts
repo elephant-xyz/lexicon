@@ -1,5 +1,6 @@
 export interface SchemaManifestEntry {
   ipfsCid: string;
+  type: 'class' | 'relationship' | 'dataGroup';
 }
 
 export type SchemaManifest = Record<string, SchemaManifestEntry>;

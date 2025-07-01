@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGroup } from '../types/lexicon';
+import { schemaService } from '../services/schemaService';
 
 interface DataGroupViewerProps {
   dataGroups: DataGroup[];
@@ -10,6 +11,14 @@ interface DataGroupViewerProps {
 export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, searchTerm }) => {
   const navigate = useNavigate();
   const [expandedGroups, setExpandedGroups] = useState<Set<number>>(new Set());
+  const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string; type: string }>>({});
+
+  // Load schema manifest
+  useEffect(() => {
+    schemaService.getManifest().then(manifest => {
+      setSchemaManifest(manifest);
+    });
+  }, []);
 
   // Auto-expand groups with matches when searching
   useEffect(() => {
@@ -80,44 +89,83 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
 
           {expandedGroups.has(index) && (
             <div className="method-list-item-content">
+              {/* JSON Schema Download for data groups */}
+              {(() => {
+                const groupKey = group.label.replace(/\s+/g, '_');
+                const schemaInfo = schemaManifest[groupKey];
+                return schemaInfo && schemaInfo.type === 'dataGroup' ? (
+                  <div className="json-schema-section">
+                    <div className="json-schema-link">
+                      <span className="json-schema-label">Data Group Schema:</span>
+                      <a 
+                        href={schemaService.getIPFSUrl(schemaInfo.ipfsCid)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="json-schema-download"
+                      >
+                        Download from IPFS
+                      </a>
+                      <span className="json-schema-cid">CID: {schemaInfo.ipfsCid}</span>
+                    </div>
+                  </div>
+                ) : null;
+              })()}
               <div className="relationships-section">
                 <h4>Relationships:</h4>
                 <div className="relationships-list">
-                  {group.relationships.map((rel, relIndex) => (
-                    <div key={relIndex} className="method-list-item method-list-item-isChild">
-                      <div className="method-list-item-label">
-                        <div className="method-list-item-label-name">
-                          {rel.relationship_type || `has_${rel.to}`}
-                        </div>
-                        <div className="method-list-item-label-description">
-                          <div className="relationship-targets-container">
-                            <span className="relationship-targets-label">Links To</span>
-                            <span className="relationship-from">
-                              From:
-                              <button
-                                className="relationship-target-link"
-                                onClick={() => handleClassClick(rel.from)}
-                                title={`Navigate to ${rel.from} class`}
-                              >
-                                {rel.from}
-                              </button>
-                            </span>
-                            <span className="relationship-arrow">→</span>
-                            <span className="relationship-to">
-                              To:
-                              <button
-                                className="relationship-target-link"
-                                onClick={() => handleClassClick(rel.to)}
-                                title={`Navigate to ${rel.to} class`}
-                              >
-                                {rel.to}
-                              </button>
-                            </span>
+                  {group.relationships.map((rel, relIndex) => {
+                    const relKey = `${rel.from}_to_${rel.to}`;
+                    const relSchemaInfo = schemaManifest[relKey];
+                    
+                    return (
+                      <div key={relIndex} className="method-list-item method-list-item-isChild">
+                        <div className="method-list-item-label">
+                          <div className="method-list-item-label-name">
+                            {rel.relationship_type || `has_${rel.to}`}
+                          </div>
+                          <div className="method-list-item-label-description">
+                            <div className="relationship-targets-container">
+                              <span className="relationship-targets-label">Links To</span>
+                              <span className="relationship-from">
+                                From:
+                                <button
+                                  className="relationship-target-link"
+                                  onClick={() => handleClassClick(rel.from)}
+                                  title={`Navigate to ${rel.from} class`}
+                                >
+                                  {rel.from}
+                                </button>
+                              </span>
+                              <span className="relationship-arrow">→</span>
+                              <span className="relationship-to">
+                                To:
+                                <button
+                                  className="relationship-target-link"
+                                  onClick={() => handleClassClick(rel.to)}
+                                  title={`Navigate to ${rel.to} class`}
+                                >
+                                  {rel.to}
+                                </button>
+                              </span>
+                            </div>
+                            {relSchemaInfo && relSchemaInfo.type === 'relationship' && (
+                              <div className="relationship-schema-link">
+                                <a 
+                                  href={schemaService.getIPFSUrl(relSchemaInfo.ipfsCid)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="json-schema-download-inline"
+                                  title={`JSON Schema for ${relKey}`}
+                                >
+                                  Schema
+                                </a>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 

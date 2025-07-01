@@ -681,6 +681,27 @@ body {
   word-break: break-all;
 }
 
+/* Inline schema links for relationships */
+.relationship-schema-link {
+  margin-top: var(--spacing-2);
+}
+
+.json-schema-download-inline {
+  padding: var(--spacing-1) var(--spacing-2);
+  background-color: var(--secondary-acid);
+  color: var(--primary-espresso);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: var(--text-xs);
+  transition: all var(--transition);
+}
+
+.json-schema-download-inline:hover {
+  background-color: var(--primary-toxic-yellow);
+  transform: translateY(-1px);
+}
+
 .properties-section:last-child,
 .relationships-section:last-child {
   margin-bottom: 0;
