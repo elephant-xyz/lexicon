@@ -64,48 +64,50 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
         <p>Standard patterns and formats</p>
       </div>
 
-      <div className="patterns-grid">
-        {patterns.map((pattern, index) => (
-          <div key={index} className="pattern-card">
-            <div className="pattern-header">
-              <h4 className="pattern-name">{renderHighlightedText(pattern.type)}</h4>
-            </div>
-
-            <div className="pattern-description">
-              {renderHighlightedText(pattern.properties.description)}
-            </div>
-
-            {pattern.properties.format && (
-              <div className="pattern-format">
-                <span className="format-label">Format:</span>
-                <button
-                  className={`format-value ${copiedValue === pattern.properties.format ? 'format-value-copied' : ''}`}
-                  onClick={() => copyToClipboard(pattern.properties.format!)}
-                  title="Click to copy format to clipboard"
-                >
-                  {copiedValue === pattern.properties.format
-                    ? '✓ Copied!'
-                    : renderHighlightedText(pattern.properties.format)}
-                </button>
+      <div className="patterns-content">
+        <div className="patterns-grid">
+          {patterns.map((pattern, index) => (
+            <div key={index} className="pattern-card">
+              <div className="pattern-header">
+                <h4 className="pattern-name">{renderHighlightedText(pattern.type)}</h4>
               </div>
-            )}
 
-            {pattern.properties.pattern && (
-              <div className="pattern-regex">
-                <span className="pattern-label">Pattern:</span>
-                <button
-                  className={`pattern-value ${copiedValue === pattern.properties.pattern ? 'pattern-value-copied' : ''}`}
-                  onClick={() => copyToClipboard(pattern.properties.pattern!)}
-                  title="Click to copy pattern to clipboard"
-                >
-                  {copiedValue === pattern.properties.pattern
-                    ? '✓ Copied!'
-                    : renderHighlightedText(pattern.properties.pattern)}
-                </button>
+              <div className="pattern-description">
+                {renderHighlightedText(pattern.properties.description)}
               </div>
-            )}
-          </div>
-        ))}
+
+              {pattern.properties.format && (
+                <div className="pattern-format">
+                  <span className="format-label">Format:</span>
+                  <button
+                    className={`format-value ${copiedValue === pattern.properties.format ? 'format-value-copied' : ''}`}
+                    onClick={() => copyToClipboard(pattern.properties.format!)}
+                    title="Click to copy format to clipboard"
+                  >
+                    {copiedValue === pattern.properties.format
+                      ? '✓ Copied!'
+                      : renderHighlightedText(pattern.properties.format)}
+                  </button>
+                </div>
+              )}
+
+              {pattern.properties.pattern && (
+                <div className="pattern-regex">
+                  <span className="pattern-label">Pattern:</span>
+                  <button
+                    className={`pattern-value ${copiedValue === pattern.properties.pattern ? 'pattern-value-copied' : ''}`}
+                    onClick={() => copyToClipboard(pattern.properties.pattern!)}
+                    title="Click to copy pattern to clipboard"
+                  >
+                    {copiedValue === pattern.properties.pattern
+                      ? '✓ Copied!'
+                      : renderHighlightedText(pattern.properties.pattern)}
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

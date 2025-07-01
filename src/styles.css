@@ -1610,18 +1610,35 @@ mark {
   margin-bottom: var(--spacing-3);
 }
 
-/* Common Patterns Viewer - Updated to match page styling */
+/* Common Patterns Viewer - Restructured to match class layout */
 .common-patterns-viewer {
-  padding: 0;
-  background-color: transparent;
-  border-radius: 0;
+  background-color: var(--background-secondary);
+  border: none;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-medium);
+  position: relative;
+}
+
+.common-patterns-viewer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--primary-toxic-green);
+}
+
+.common-patterns-viewer:hover {
+  transform: translateY(-2px);
 }
 
 .patterns-header {
-  margin-bottom: var(--spacing-6);
   padding: var(--spacing-5);
+  border-bottom: none;
   background-color: #686565;
-  border-radius: var(--radius-lg);
+  margin-bottom: 0;
 }
 
 .patterns-header h3 {
@@ -1636,38 +1653,31 @@ mark {
   font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
+  font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
+}
+
+.patterns-content {
+  padding: var(--spacing-5);
+  background-color: var(--hover-color);
 }
 
 .patterns-grid {
   display: grid;
-  gap: var(--spacing-6);
+  gap: var(--spacing-3);
   grid-template-columns: 1fr;
 }
 
 .pattern-card {
-  background-color: var(--primary-white);
+  background-color: #ffffff;
   border: 1px solid #b3b2b2;
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-5);
-  transition: all var(--transition-medium);
-  position: relative;
-  overflow: hidden;
-}
-
-.pattern-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background-color: var(--primary-toxic-green);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+  transition: all var(--transition-fast);
 }
 
 .pattern-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--hover-color);
 }
 
 .pattern-header {
@@ -1675,18 +1685,19 @@ mark {
 }
 
 .pattern-name {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   font-weight: var(--font-weight-medium);
   color: var(--text-primary);
-  margin: 0;
+  margin: 0 0 var(--spacing-2) 0;
   letter-spacing: var(--letter-spacing-standard);
 }
 
 .pattern-description {
   font-size: var(--text-sm);
-  color: var(--text-secondary);
+  color: #423e3e;
   margin-bottom: var(--spacing-4);
   line-height: 1.5;
+  font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
 }
 
@@ -1730,15 +1741,11 @@ mark {
 
 /* Responsive adjustments for patterns */
 @media (max-width: 768px) {
-  .patterns-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .common-patterns-viewer {
-    padding: 0;
+  .patterns-header {
+    padding: var(--spacing-4);
   }
 
-  .patterns-header {
+  .patterns-content {
     padding: var(--spacing-4);
   }
 
