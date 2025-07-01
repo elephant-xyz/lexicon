@@ -11,7 +11,9 @@ interface DataGroupViewerProps {
 export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, searchTerm }) => {
   const navigate = useNavigate();
   const [expandedGroups, setExpandedGroups] = useState<Set<number>>(new Set());
-  const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string; type: string }>>({});
+  const [schemaManifest, setSchemaManifest] = useState<
+    Record<string, { ipfsCid: string; type: string }>
+  >({});
 
   // Load schema manifest
   useEffect(() => {
@@ -97,7 +99,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                   <div className="json-schema-section">
                     <div className="json-schema-link">
                       <span className="json-schema-label">Data Group Schema:</span>
-                      <a 
+                      <a
                         href={schemaService.getIPFSUrl(schemaInfo.ipfsCid)}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -116,7 +118,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                   {group.relationships.map((rel, relIndex) => {
                     const relKey = `${rel.from}_to_${rel.to}`;
                     const relSchemaInfo = schemaManifest[relKey];
-                    
+
                     return (
                       <div key={relIndex} className="method-list-item method-list-item-isChild">
                         <div className="method-list-item-label">
@@ -150,7 +152,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                             </div>
                             {relSchemaInfo && relSchemaInfo.type === 'relationship' && (
                               <div className="relationship-schema-link">
-                                <a 
+                                <a
                                   href={schemaService.getIPFSUrl(relSchemaInfo.ipfsCid)}
                                   target="_blank"
                                   rel="noopener noreferrer"

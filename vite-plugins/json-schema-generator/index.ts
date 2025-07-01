@@ -1,7 +1,13 @@
 import { Plugin } from 'vite';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { LexiconData, LexiconClass, LexiconProperty, DataGroup, DataGroupRelationship } from '../../src/types/lexicon';
+import {
+  LexiconData,
+  LexiconClass,
+  LexiconProperty,
+  DataGroup,
+  DataGroupRelationship,
+} from '../../src/types/lexicon';
 import { uploadToIPFS } from './ipfs-uploader';
 import { canonicalize } from 'json-canonicalize';
 
@@ -43,11 +49,14 @@ interface DataGroupSchema extends JSONSchema {
     };
     relationships: {
       type: string;
-      properties: Record<string, {
-        type: string;
-        cid: string;
-        description: string;
-      }>;
+      properties: Record<
+        string,
+        {
+          type: string;
+          cid: string;
+          description: string;
+        }
+      >;
       required: string[];
       additionalProperties: boolean;
       description: string;
@@ -103,20 +112,21 @@ function mapLexiconTypeToJSONSchema(property: LexiconProperty, isRequired: boole
 function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   const properties: Record<string, any> = {};
   const allRequiredFields: string[] = [];
-  
+
   // Use the required field from the lexicon class if it exists
   const lexiconRequiredFields = lexiconClass.required || [];
 
   // Filter out deprecated properties
-  const activeProperties = Object.entries(lexiconClass.properties)
-    .filter(([key]) => !lexiconClass.deprecated_properties.includes(key));
+  const activeProperties = Object.entries(lexiconClass.properties).filter(
+    ([key]) => !lexiconClass.deprecated_properties.includes(key)
+  );
 
   for (const [propName, propDef] of activeProperties) {
     // Fields in lexicon's required array cannot be null
     // Fields NOT in lexicon's required array can be null
     const isRequired = lexiconRequiredFields.includes(propName);
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
-    
+
     // ALL active properties go into the JSON Schema required array
     allRequiredFields.push(propName);
   }
@@ -128,12 +138,12 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
     description: `JSON Schema for ${lexiconClass.type} class in Elephant Lexicon`,
     properties,
     required: allRequiredFields, // All properties are required in JSON Schema
-    additionalProperties: false
+    additionalProperties: false,
   };
 }
 
 function generateJSONSchemaForRelationship(
-  relationship: DataGroupRelationship, 
+  relationship: DataGroupRelationship,
   classCids: Record<string, string>
 ): RelationshipSchema {
   return {
@@ -145,16 +155,16 @@ function generateJSONSchemaForRelationship(
       from: {
         type: 'string',
         cid: classCids[relationship.from] || '',
-        description: `Reference to ${relationship.from} class schema`
+        description: `Reference to ${relationship.from} class schema`,
       },
       to: {
         type: 'string',
         cid: classCids[relationship.to] || '',
-        description: `Reference to ${relationship.to} class schema`
-      }
+        description: `Reference to ${relationship.to} class schema`,
+      },
     },
     required: ['from', 'to'],
-    additionalProperties: false
+    additionalProperties: false,
   };
 }
 
@@ -164,17 +174,17 @@ function generateJSONSchemaForDataGroup(
 ): DataGroupSchema {
   const relationshipProperties: Record<string, any> = {};
   const requiredRelationships: string[] = [];
-  
+
   // Create properties object with relationship_type as keys
   Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
     relationshipProperties[relationshipType] = {
       type: 'string',
       cid,
-      description: `Reference to ${key} relationship schema`
+      description: `Reference to ${key} relationship schema`,
     };
     requiredRelationships.push(relationshipType);
   });
-  
+
   return {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
@@ -183,18 +193,18 @@ function generateJSONSchemaForDataGroup(
     properties: {
       label: {
         type: 'string',
-        description: 'Data group label'
+        description: 'Data group label',
       },
       relationships: {
         type: 'object',
         properties: relationshipProperties,
         required: requiredRelationships,
         additionalProperties: false,
-        description: 'Object of relationships in this data group, keyed by relationship_type'
-      }
+        description: 'Object of relationships in this data group, keyed by relationship_type',
+      },
     },
     required: ['label', 'relationships'],
-    additionalProperties: false
+    additionalProperties: false,
   };
 }
 
@@ -203,26 +213,29 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
     name: 'json-schema-generator',
     async buildStart() {
       console.log('🔨 Generating JSON Schemas for blockchain classes...');
-      
+
       try {
         // Read lexicon data
         const lexiconContent = await fs.readFile(options.lexiconPath, 'utf-8');
         const lexiconData: LexiconData = JSON.parse(lexiconContent);
-        
+
         // Find blockchain tag
         const blockchainTag = lexiconData.tags.find(tag => tag.name === 'blockchain');
         if (!blockchainTag) {
           console.warn('⚠️  No blockchain tag found in lexicon data');
           return;
         }
-        
+
         // Create output directory
         await fs.mkdir(options.outputDir, { recursive: true });
-        
+
         // Generate schemas for each blockchain class
-        const schemaManifest: Record<string, { ipfsCid: string; type: 'class' | 'relationship' | 'dataGroup' }> = {};
+        const schemaManifest: Record<
+          string,
+          { ipfsCid: string; type: 'class' | 'relationship' | 'dataGroup' }
+        > = {};
         const classCids: Record<string, string> = {};
-        
+
         // First pass: Generate class schemas
         console.log('\n📦 Generating Class Schemas...');
         for (const className of blockchainTag.classes) {
@@ -230,109 +243,112 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
           if (!lexiconClass || lexiconClass.is_deprecated) {
             continue;
           }
-          
+
           console.log(`  📄 Generating schema for ${className}...`);
-          
+
           // Generate JSON Schema
           const jsonSchema = generateJSONSchemaForClass(lexiconClass);
-          
+
           // Canonicalize the schema
           const canonicalized = canonicalize(jsonSchema);
-          
+
           // Upload to IPFS
           const ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
-          
+
           classCids[className] = ipfsCid;
           schemaManifest[className] = {
             ipfsCid,
-            type: 'class'
+            type: 'class',
           };
-          
+
           console.log(`  ✅ ${className} - CID: ${ipfsCid}`);
         }
-        
+
         // Second pass: Generate relationship schemas
         console.log('\n🔗 Generating Relationship Schemas...');
         const relationshipCids: Record<string, string> = {};
-        
+
         for (const dataGroup of lexiconData.data_groups) {
           for (const relationship of dataGroup.relationships) {
             // Only process relationships where both classes are in blockchain tag
-            if (blockchainTag.classes.includes(relationship.from) && 
-                blockchainTag.classes.includes(relationship.to)) {
-              
+            if (
+              blockchainTag.classes.includes(relationship.from) &&
+              blockchainTag.classes.includes(relationship.to)
+            ) {
               const relKey = `${relationship.from}_to_${relationship.to}`;
-              
+
               // Skip if already processed
               if (relationshipCids[relKey]) continue;
-              
+
               console.log(`  🔗 Generating schema for ${relKey}...`);
-              
+
               // Generate relationship schema
               const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
-              
+
               // Canonicalize and upload
               const canonicalized = canonicalize(relSchema);
               const ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
-              
+
               relationshipCids[relKey] = ipfsCid;
               schemaManifest[relKey] = {
                 ipfsCid,
-                type: 'relationship'
+                type: 'relationship',
               };
-              
+
               console.log(`  ✅ ${relKey} - CID: ${ipfsCid}`);
             }
           }
         }
-        
+
         // Third pass: Generate data group schemas
         console.log('\n📊 Generating Data Group Schemas...');
         for (const dataGroup of lexiconData.data_groups) {
           // Get all relationships for this data group that are in blockchain
-          const groupRelationshipCidsMap: Record<string, { cid: string; relationshipType: string }> = {};
-          
+          const groupRelationshipCidsMap: Record<
+            string,
+            { cid: string; relationshipType: string }
+          > = {};
+
           for (const relationship of dataGroup.relationships) {
             const relKey = `${relationship.from}_to_${relationship.to}`;
             if (relationshipCids[relKey]) {
               groupRelationshipCidsMap[relKey] = {
                 cid: relationshipCids[relKey],
-                relationshipType: relationship.relationship_type || `has_${relationship.to}`
+                relationshipType: relationship.relationship_type || `has_${relationship.to}`,
               };
             }
           }
-          
+
           // Only generate schema if there are blockchain relationships
           if (Object.keys(groupRelationshipCidsMap).length > 0) {
             const groupKey = dataGroup.label.replace(/\s+/g, '_');
             console.log(`  📊 Generating schema for ${dataGroup.label}...`);
-            
+
             // Generate data group schema
             const groupSchema = generateJSONSchemaForDataGroup(dataGroup, groupRelationshipCidsMap);
-            
+
             // Canonicalize and upload
             const canonicalized = canonicalize(groupSchema);
             const ipfsCid = await uploadToIPFS(canonicalized, `${groupKey}.json`);
-            
+
             schemaManifest[groupKey] = {
               ipfsCid,
-              type: 'dataGroup'
+              type: 'dataGroup',
             };
-            
+
             console.log(`  ✅ ${dataGroup.label} - CID: ${ipfsCid}`);
           }
         }
-        
+
         // Write manifest file
         const manifestPath = path.join(options.outputDir, 'schema-manifest.json');
         await fs.writeFile(manifestPath, JSON.stringify(schemaManifest, null, 2));
-        
+
         console.log('✨ JSON Schema generation complete!');
-        
       } catch (error) {
         console.error('❌ Error generating JSON Schemas:', error);
         throw error;
       }
-    }
+    },
   };
 }

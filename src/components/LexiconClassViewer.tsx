@@ -362,7 +362,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                 <div className="json-schema-section">
                   <div className="json-schema-link">
                     <span className="json-schema-label">JSON Schema:</span>
-                    <a 
+                    <a
                       href={schemaService.getIPFSUrl(schemaManifest[cls.type].ipfsCid)}
                       target="_blank"
                       rel="noopener noreferrer"

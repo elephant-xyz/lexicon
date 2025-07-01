@@ -14,8 +14,8 @@ export default defineConfig({
     react(),
     jsonSchemaGeneratorPlugin({
       lexiconPath: resolve(__dirname, './src/data/lexicon.json'),
-      outputDir: resolve(__dirname, './public/json-schemas')
-    })
+      outputDir: resolve(__dirname, './public/json-schemas'),
+    }),
   ],
   resolve: {
     alias: {
