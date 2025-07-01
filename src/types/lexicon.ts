@@ -32,9 +32,15 @@ export interface LexiconClass {
   is_deprecated: boolean;
   deprecated_properties: string[];
   description?: string;
+  source_url?: {
+    type: string;
+    format: string;
+    comment?: string;
+  };
   properties: Record<string, LexiconProperty>;
   relationships?: Record<string, LexiconRelationship>;
   required?: string[];
+  example?: Record<string, any>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;

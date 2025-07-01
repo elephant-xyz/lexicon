@@ -504,6 +504,11 @@
         "street_suffix"
       ],
       "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes and geographic identifiers.",
+      "source_url": {
+        "type": "string",
+        "format": "uri",
+        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+      },
       "properties": {
         "full_address_slug": {
           "type": "string",
@@ -1097,6 +1102,27 @@
           "type": "string",
           "comment": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision"
         }
+      },
+      "example": {
+        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "street_number": "2558",
+        "street_name": "GARDENS",
+        "street_suffix_type": "Pkwy",
+        "street_pre_directional_text": null,
+        "street_post_directional_text": null,
+        "unit_identifier": null,
+        "city_name": "PALM BEACH GARDENS",
+        "state_code": "FL",
+        "postal_code": "33410",
+        "plus_four_postal_code": null,
+        "county_name": "Palm Beach",
+        "country_code": "US",
+        "latitude": null,
+        "longitude": null,
+        "township": null,
+        "range": null,
+        "section": null,
+        "block": null
       },
       "relationships": {
         "has_address_validation": {
@@ -12062,7 +12088,7 @@
       "type": "lot",
       "container_name": "mappings",
       "is_deprecated": false,
-       "description": "The Lot class captures comprehensive information about the land parcel and exterior property characteristics surrounding a structure, including physical dimensions, surface features, and condition assessments. It documents lot sizing through multiple metrics including square footage, length, width, and categorical classifications (greater than or less than quarter-acre), along with flexible dimension descriptions. The class tracks exterior infrastructure such as driveway mateClaude can make mistakes. Please double-check responses.",
+      "description": "The Lot class captures comprehensive information about the land parcel and exterior property characteristics surrounding a structure, including physical dimensions, surface features, and condition assessments. It documents lot sizing through multiple metrics including square footage, length, width, and categorical classifications (greater than or less than quarter-acre), along with flexible dimension descriptions. The class tracks exterior infrastructure such as driveway mateClaude can make mistakes. Please double-check responses.",
       "deprecated_properties": [
         "lot_type_other_description",
         "lot_size_dimensions",
@@ -12242,6 +12268,11 @@
           ],
           "comment": "A reference to the associated schema for relashionship"
         }
+      },
+      "example": {
+        "from": "bafkreihafl4lemfq65qba5uw55wfzzq6xnpj2gs7ympothg573wi3zgd7i",
+        "to": "bafkreichjl4lzxm5257p6jzvmm4zq4cu3s55torjiqju3crhstofeikvxm",
+        "type": "property_has_address"
       }
     },
     {
@@ -13942,8 +13973,12 @@
     },
     {
       "type": "property",
-       "description": "The Property class serves as the foundational data structure for capturing essential characteristics and legal identifiers of real estate properties, providing comprehensive documentation for financing, legal, and classification purposes. It defines physical attachment relationships through attachment types (attached, detached, semi-detached) and categorizes properties by unit count for mortgage banking purposes, ranging from single-family homes to multi-unit properties up to fourplexes, which directly impacts loan-to-value ratios, debt-to-income requirements, and lending risk assessments. The class maintains critical legal documentation including unique parcel identifiers that distinguish properties within jurisdictions and detailed legal descriptions outlining exact boundaries, dimensions, and governmental recognition for contracts and legal documents. It captures construction timeline data through built year information and provides extensive property type classifications spanning residential options from single-family detached homes and condominiums to manufactured housing, cooperatives, timeshares, and multi-family units. This comprehensive property classification system is essential for mortgage underwriting, legal documentation, zoning compliance, insurance purposes, and real estate market analysis, ensuring accurate property categorization across various real estate transactions and regulatory requirements.",
+      "description": "The Property class serves as the foundational data structure for capturing essential characteristics and legal identifiers of real estate properties, providing comprehensive documentation for financing, legal, and classification purposes. It defines physical attachment relationships through attachment types (attached, detached, semi-detached) and categorizes properties by unit count for mortgage banking purposes, ranging from single-family homes to multi-unit properties up to fourplexes, which directly impacts loan-to-value ratios, debt-to-income requirements, and lending risk assessments. The class maintains critical legal documentation including unique parcel identifiers that distinguish properties within jurisdictions and detailed legal descriptions outlining exact boundaries, dimensions, and governmental recognition for contracts and legal documents. It captures construction timeline data through built year information and provides extensive property type classifications spanning residential options from single-family detached homes and condominiums to manufactured housing, cooperatives, timeshares, and multi-family units. This comprehensive property classification system is essential for mortgage underwriting, legal documentation, zoning compliance, insurance purposes, and real estate market analysis, ensuring accurate property categorization across various real estate transactions and regulatory requirements.",
       "container_name": "properties",
+      "source_url": {
+        "type": "string",
+        "format": "uri"
+      },
       "is_deprecated": false,
       "deprecated_properties": [
         "area",
@@ -14833,6 +14868,15 @@
           "comment": "The size of the living area in square feet."
         }
       },
+      "example": {
+        "source_url": "https://www.pbcgov.org/papa/Property/Details?parcelID=52434205310037080",
+        "attachment_type": "Attached",
+        "number_of_units_type": "One",
+        "parcel_identifier": "52-43-42-05-31-003-7080",
+        "property_legal_description_text": "HARBOUR OAKS  LT 3708",
+        "property_structure_built_year": 2005,
+        "property_type": "Townhouse"
+      },
       "relationships": {
         "has_comparable": {
           "targets": [
@@ -14964,8 +15008,7 @@
         "level",
         "special_features"
       ],
-       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
-
+      "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
       "properties": {
         "space_type": {
           "type": "string",
@@ -15542,8 +15585,7 @@
     },
     {
       "type": "nearby_location",
-       "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
-
+      "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
       "container_name": "nearby_locations",
       "is_deprecated": false,
       "deprecated_properties": [],

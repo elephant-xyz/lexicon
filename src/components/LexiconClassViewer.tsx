@@ -17,6 +17,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 }) => {
   const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
+  const [expandedExamples, setExpandedExamples] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
   const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
@@ -64,6 +65,16 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       newExpanded.add(index);
     }
     setExpandedClasses(newExpanded);
+  };
+
+  const toggleExampleExpanded = (index: number) => {
+    const newExpanded = new Set(expandedExamples);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
+    } else {
+      newExpanded.add(index);
+    }
+    setExpandedExamples(newExpanded);
   };
 
   const copyToClipboard = async (value: string) => {
@@ -357,7 +368,22 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                   <div className="class-description">{cls.description}</div>
                 </div>
               )}
-              {/* JSON Schema Download for blockchain classes */}
+              {cls.source_url && (
+                <div className="class-source-section">
+                  <div className="class-source">
+                    <span className="source-label">Source URL:</span>
+                    <div className="source-details">
+                      <span className="source-type">Type: {cls.source_url.type}</span>
+                      <span className="source-format">Format: {cls.source_url.format}</span>
+                    </div>
+                          {cls.source_url.comment && (
+        <div className="source-description">{cls.source_url.comment}</div>
+      )}
+                  </div>
+                </div>
+              )}
+
+              {/* JSON Schema and Example Downloads for blockchain classes */}
               {isBlockchainClass.has(cls.type) && schemaManifest[cls.type] && (
                 <div className="json-schema-section">
                   <div className="json-schema-link">
@@ -371,6 +397,22 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                       Download from IPFS
                     </a>
                     <span className="json-schema-cid">CID: {schemaManifest[cls.type].ipfsCid}</span>
+                  </div>
+                </div>
+              )}
+              {cls.example && isBlockchainClass.has(cls.type) && schemaManifest[`${cls.type}_example`] && (
+                <div className="json-example-section">
+                  <div className="json-example-link">
+                    <span className="json-example-label">JSON Example:</span>
+                    <a
+                      href={schemaService.getIPFSUrl(schemaManifest[`${cls.type}_example`].ipfsCid)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="json-example-download"
+                    >
+                      Download from IPFS
+                    </a>
+                    <span className="json-example-cid">CID: {schemaManifest[`${cls.type}_example`].ipfsCid}</span>
                   </div>
                 </div>
               )}
@@ -592,6 +634,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                   </div>
                 );
               })()}
+
+
             </div>
           )}
         </div>

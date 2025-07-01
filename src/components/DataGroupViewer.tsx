@@ -64,6 +64,19 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
     return classMatch?.value || group.label;
   };
 
+  const isOneToManyRelationship = (relationshipType: string): boolean => {
+    // Define which relationship types should be arrays (one-to-many)
+    const oneToManyTypes = [
+      'property_has_layout',
+      'property_has_sales_history', 
+      'property_has_tax',
+      'property_has_file',
+      'layout_has_file',
+    ];
+    
+    return oneToManyTypes.includes(relationshipType);
+  };
+
   return (
     <div className="lexicon-viewer">
       {dataGroups.map((group, index) => (
@@ -124,6 +137,11 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                         <div className="method-list-item-label">
                           <div className="method-list-item-label-name">
                             {rel.relationship_type || `has_${rel.to}`}
+                            {isOneToManyRelationship(rel.relationship_type) && (
+                              <span className="array-indicator" title="One-to-many relationship (array)">
+                                [Array]
+                              </span>
+                            )}
                           </div>
                           <div className="method-list-item-label-description">
                             <div className="relationship-targets-container">
