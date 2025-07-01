@@ -115,7 +115,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
               <div className="relationships-section">
                 <h4>Relationships:</h4>
                 <div className="relationships-list">
-                  {group.relationships.map((rel, relIndex) => {
+                  {group.relationships.map((rel, _relIndex) => {
                     const relKey = `${rel.from}_to_${rel.to}`;
                     const relSchemaInfo = schemaManifest[relKey];
 

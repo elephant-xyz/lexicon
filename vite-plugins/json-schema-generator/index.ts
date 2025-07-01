@@ -239,7 +239,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
 
         // First pass: Generate class schemas
         console.log('\n📦 Generating Class Schemas...');
-        
+
         // Create upload promises for parallel execution
         const classUploadPromises = blockchainTag.classes
           .map(className => {
@@ -247,7 +247,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             if (!lexiconClass || lexiconClass.is_deprecated) {
               return null;
             }
-            
+
             return (async () => {
               console.log(`  📄 Generating schema for ${className}...`);
 
@@ -261,15 +261,15 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
               const ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
 
               console.log(`  ✅ ${className} - CID: ${ipfsCid}`);
-              
+
               return { className, ipfsCid };
             })();
           })
           .filter(promise => promise !== null);
-        
+
         // Execute all class uploads in parallel
         const classResults = await Promise.all(classUploadPromises);
-        
+
         // Store results
         for (const result of classResults) {
           if (result) {
@@ -284,7 +284,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         // Second pass: Generate relationship schemas
         console.log('\n🔗 Generating Relationship Schemas...');
         const relationshipCids: Record<string, string> = {};
-        
+
         // Collect unique relationships
         const uniqueRelationships = new Map<string, DataGroupRelationship>();
         for (const dataGroup of lexiconData.data_groups) {
@@ -301,10 +301,10 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
             }
           }
         }
-        
+
         // Create upload promises for parallel execution
-        const relationshipUploadPromises = Array.from(uniqueRelationships.entries())
-          .map(([relKey, relationship]) => {
+        const relationshipUploadPromises = Array.from(uniqueRelationships.entries()).map(
+          ([relKey, relationship]) => {
             return (async () => {
               console.log(`  🔗 Generating schema for ${relKey}...`);
 
@@ -316,14 +316,15 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
               const ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
 
               console.log(`  ✅ ${relKey} - CID: ${ipfsCid}`);
-              
+
               return { relKey, ipfsCid };
             })();
-          });
-        
+          }
+        );
+
         // Execute all relationship uploads in parallel
         const relationshipResults = await Promise.all(relationshipUploadPromises);
-        
+
         // Store results
         for (const result of relationshipResults) {
           relationshipCids[result.relKey] = result.ipfsCid;
