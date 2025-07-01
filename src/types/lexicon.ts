@@ -40,8 +40,8 @@ export interface LexiconClass {
   properties: Record<string, LexiconProperty>;
   relationships?: Record<string, LexiconRelationship>;
   required?: string[];
-  example?: Record<string, any>;
-  examples?: Array<Record<string, any>>;
+  example?: Record<string, unknown>;
+  examples?: Array<Record<string, unknown>>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;

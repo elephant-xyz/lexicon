@@ -17,7 +17,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 }) => {
   const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
-  const [expandedExamples, setExpandedExamples] = useState<Set<number>>(new Set());
+  const [_expandedExamples, setExpandedExamples] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
   const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
@@ -67,8 +67,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     setExpandedClasses(newExpanded);
   };
 
-  const toggleExampleExpanded = (index: number) => {
-    const newExpanded = new Set(expandedExamples);
+  const _toggleExampleExpanded = (index: number) => {
+    const newExpanded = new Set(_expandedExamples);
     if (newExpanded.has(index)) {
       newExpanded.delete(index);
     } else {
@@ -96,20 +96,16 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const scrollToCommonPattern = (format: string) => {
-    console.log('scrollToCommonPattern called with format:', format);
     const patternsSection = document.querySelector('.patterns-section');
-    console.log('patternsSection found:', !!patternsSection);
 
     if (patternsSection) {
       patternsSection.scrollIntoView({ behavior: 'smooth' });
       // Highlight the specific pattern
       setTimeout(() => {
         const patternCards = document.querySelectorAll('.pattern-card');
-        console.log('Found pattern cards:', patternCards.length);
 
-        patternCards.forEach((card, index) => {
+        patternCards.forEach((card) => {
           const patternName = card.querySelector('.pattern-name')?.textContent;
-          console.log(`Pattern card ${index}:`, patternName);
 
           // Map format values to pattern types, handling inconsistencies
           const formatToTypeMap: { [key: string]: string } = {
@@ -123,10 +119,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
           };
 
           const expectedType = formatToTypeMap[format];
-          console.log('Expected type for format', format, ':', expectedType);
 
           if (patternName === expectedType) {
-            console.log('Found matching pattern card, adding highlight');
             card.classList.add('pattern-highlighted');
             setTimeout(() => card.classList.remove('pattern-highlighted'), 3000);
           }
@@ -440,7 +434,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     {cls.examples.map((example, index) => {
                       // For relationship class, show IPFS download links with type labels
                       if (cls.type === 'relationship' && 'type' in example) {
-                        const exampleType = (example as any).type;
+                        const exampleType = (example as Record<string, unknown>).type as string;
                         const exampleKey = `${cls.type}_${exampleType}_example`;
                         const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
                         
