@@ -219,8 +219,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .external-link::after {
   content: '';
-  width: 16px;
-  height: 16px;
+  width: 24.769px;
+  height: 11.908px;
   background-image: url("data:image/svg+xml,%3Csvg width='25' height='12' viewBox='0 0 25 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z' fill='%23423E3E'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
@@ -1043,6 +1043,11 @@ mark {
     padding: 0 12px;
     min-width: 120px;
   }
+
+  .external-link::after {
+    width: 19.815px;
+    height: 9.526px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1061,6 +1066,11 @@ mark {
   .external-link {
     min-width: 100px;
     padding: 0 12px;
+  }
+
+  .external-link::after {
+    width: 16.513px;
+    height: 7.938px;
   }
 }
 
