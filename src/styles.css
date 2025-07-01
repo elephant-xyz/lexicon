@@ -814,11 +814,12 @@ p, span, div, label, input, button, select, textarea {
   font-size: var(--text-lg);
   font-weight: var(--font-weight-bold);
   color: var(--primary-espresso);
-  transition: opacity var(--transition-fast);
+  transition: all var(--transition-fast);
 }
 
 .expand-button:hover {
-  opacity: 0.5;
+  background-color: var(--primary-toxic-green);
+  color: #423E3E;
 }
 
 .expand-button:focus {
