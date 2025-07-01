@@ -1076,14 +1076,13 @@ p, span, div, label, input, button, select, textarea {
   padding: var(--spacing-1) var(--spacing-3);
   margin: 0 var(--spacing-1);
   border-radius: var(--radius-md);
-  transition: all var(--transition-fast);
+  transition: opacity var(--transition-fast);
   display: inline-block;
   letter-spacing: var(--letter-spacing-standard);
 }
 
 .relationship-target-link:hover {
-  background-color: var(--primary-toxic-green);
-  color: #423E3E;
+  opacity: 0.5;
 }
 
 .relationship-target-link:focus {
@@ -1416,8 +1415,7 @@ mark {
 }
 
 .data-group .relationship-target-link:hover {
-  background-color: var(--primary-toxic-green);
-  color: #423E3E;
+  opacity: 0.5;
 }
 
 .match-score {
