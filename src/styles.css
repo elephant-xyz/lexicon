@@ -1471,12 +1471,12 @@ mark {
 }
 
 .pattern-value {
-  background-color: var(--primary-white);
-  border: none;
-  color: var(--primary-espresso);
+  background-color: #686565;
+  border: 1px solid #b3b2b2;
+  color: var(--primary-white);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
-  padding: var(--spacing-1) var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   font-family: var(--font-family-mono);
@@ -1546,12 +1546,12 @@ mark {
 }
 
 .format-value {
-  background-color: var(--primary-white);
-  border: none;
-  color: var(--primary-espresso);
+  background-color: #686565;
+  border: 1px solid #b3b2b2;
+  color: var(--primary-white);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
-  padding: var(--spacing-1) var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   font-family: var(--font-family-mono);
@@ -1610,44 +1610,59 @@ mark {
   margin-bottom: var(--spacing-3);
 }
 
-/* Common Patterns Viewer */
+/* Common Patterns Viewer - Updated to match page styling */
 .common-patterns-viewer {
-  padding: var(--spacing-6);
-  background-color: var(--background-secondary);
-  border-radius: var(--radius-lg);
+  padding: 0;
+  background-color: transparent;
+  border-radius: 0;
 }
 
 .patterns-header {
   margin-bottom: var(--spacing-6);
+  padding: var(--spacing-5);
+  background-color: #686565;
+  border-radius: var(--radius-lg);
 }
 
 .patterns-header h3 {
-  font-size: var(--text-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-primary);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--primary-white);
   margin-bottom: var(--spacing-2);
   letter-spacing: var(--letter-spacing-standard);
 }
 
 .patterns-header p {
-  font-size: var(--text-base);
-  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
   letter-spacing: var(--letter-spacing-standard);
 }
 
 .patterns-grid {
   display: grid;
-  gap: var(--spacing-4);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-6);
+  grid-template-columns: 1fr;
 }
 
 .pattern-card {
   background-color: var(--primary-white);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-4);
-  transition: all var(--transition-fast);
+  border: 1px solid #b3b2b2;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+  transition: all var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--primary-toxic-green);
 }
 
 .pattern-card:hover {
@@ -1661,7 +1676,7 @@ mark {
 
 .pattern-name {
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   color: var(--text-primary);
   margin: 0;
   letter-spacing: var(--letter-spacing-standard);
@@ -1670,14 +1685,14 @@ mark {
 .pattern-description {
   font-size: var(--text-sm);
   color: var(--text-secondary);
-  margin-bottom: var(--spacing-3);
+  margin-bottom: var(--spacing-4);
   line-height: 1.5;
   letter-spacing: var(--letter-spacing-standard);
 }
 
 .pattern-format,
 .pattern-regex {
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-3);
 }
 
 .pattern-format:last-child,
@@ -1687,10 +1702,10 @@ mark {
 
 .format-label,
 .pattern-label {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
-  margin-bottom: var(--spacing-1);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
   display: block;
   letter-spacing: var(--letter-spacing-standard);
 }
@@ -1720,6 +1735,14 @@ mark {
   }
   
   .common-patterns-viewer {
+    padding: 0;
+  }
+
+  .patterns-header {
+    padding: var(--spacing-4);
+  }
+
+  .pattern-card {
     padding: var(--spacing-4);
   }
 }
