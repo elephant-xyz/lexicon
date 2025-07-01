@@ -10,6 +10,8 @@ vi.mock('../../src/services/dataService', () => ({
     getAllClasses: vi.fn(),
     getClassesForTag: vi.fn(),
     getDataGroupsForTag: vi.fn(),
+    getAllCommonPatterns: vi.fn(),
+    getCommonPatternsForSearch: vi.fn(),
     filterClassesForSearch: vi.fn(),
     filterDataGroupsForSearch: vi.fn(),
   },
@@ -39,6 +41,18 @@ vi.mock('../../src/components/DataGroupViewer', () => ({
       <div>Search: {searchTerm || 'none'}</div>
       {dataGroups.map((group: any, index: number) => (
         <div key={index}>{group.label}</div>
+      ))}
+    </div>
+  ),
+}));
+
+vi.mock('../../src/components/CommonPatternsViewer', () => ({
+  default: ({ patterns, searchTerm }: any) => (
+    <div data-testid="common-patterns-viewer">
+      <div>Patterns: {patterns.length}</div>
+      <div>Search: {searchTerm || 'none'}</div>
+      {patterns.map((pattern: any, index: number) => (
+        <div key={index}>{pattern.type}</div>
       ))}
     </div>
   ),
@@ -103,6 +117,8 @@ describe('AllClassesViewer - Simplified', () => {
     mockDataService.getAllClasses.mockReturnValue(mockClasses);
     mockDataService.getClassesForTag.mockReturnValue(mockClasses);
     mockDataService.getDataGroupsForTag.mockReturnValue(mockDataGroups);
+    mockDataService.getAllCommonPatterns.mockReturnValue([]);
+    mockDataService.getCommonPatternsForSearch.mockReturnValue([]);
     mockDataService.filterClassesForSearch.mockReturnValue(mockClasses);
     mockDataService.filterDataGroupsForSearch.mockReturnValue(mockDataGroups);
   });
