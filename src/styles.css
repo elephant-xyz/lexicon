@@ -200,10 +200,10 @@ p, span, div, label, input, button, select, textarea {
   gap: var(--spacing-3);
   padding: 0 16px;
   height: 40px;
-  background-color: transparent;
-  color: var(--primary-white);
+  background-color: var(--primary-white);
+  color: var(--primary-espresso);
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--primary-white);
   border-radius: var(--radius-full);
   font-size: 16px;
   font-weight: var(--font-weight-medium);
@@ -253,7 +253,7 @@ p, span, div, label, input, button, select, textarea {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-white);
+  background: var(--primary-toxic-green);
   border-radius: var(--radius-full);
   z-index: 1;
   transition: transform var(--transition-slide);
@@ -287,14 +287,14 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .external-link:hover {
-  color: var(--primary-espresso);
-  border-color: var(--primary-white);
+  color: var(--primary-white);
+  border-color: var(--primary-toxic-green);
   text-decoration: none;
 }
 
 .external-link:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3);
 }
 
 .external-link:active {
@@ -339,10 +339,10 @@ p, span, div, label, input, button, select, textarea {
   gap: var(--spacing-2);
   padding: 0 16px;
   height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--primary-white);
   border-radius: var(--radius-full);
-  background-color: transparent;
-  color: var(--primary-white);
+  background-color: var(--primary-white);
+  color: var(--primary-espresso);
   font-size: 16px;
   font-weight: var(--font-weight-medium);
   cursor: pointer;
@@ -394,7 +394,7 @@ p, span, div, label, input, button, select, textarea {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-white);
+  background: var(--primary-toxic-green);
   border-radius: var(--radius-full);
   z-index: 1;
   transition: transform var(--transition-slide);
@@ -428,13 +428,13 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .nav-button:hover {
-  color: var(--primary-espresso);
-  border-color: var(--primary-white);
+  color: var(--primary-white);
+  border-color: var(--primary-toxic-green);
 }
 
 .nav-button:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(43, 231, 134, 0.3);
 }
 
 .nav-button:active {
@@ -446,13 +446,16 @@ p, span, div, label, input, button, select, textarea {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
+  background-color: var(--primary-white);
+  color: var(--primary-espresso);
+  border-color: var(--primary-white);
 }
 
 .back-button:disabled:hover,
 .forward-button:disabled:hover {
-  background-color: transparent;
-  color: var(--primary-white);
-  border-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--primary-white);
+  color: var(--primary-espresso);
+  border-color: var(--primary-white);
   transform: none;
   box-shadow: none;
 }
@@ -486,12 +489,12 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .home-button::after {
-  background: var(--primary-white);
+  background: var(--primary-toxic-green);
 }
 
 .home-button:hover {
-  color: var(--primary-espresso);
-  border-color: var(--primary-white);
+  color: var(--primary-white);
+  border-color: var(--primary-toxic-green);
 }
 
 /* Tag Selector */
@@ -675,9 +678,9 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .clear-search-button-inline {
-  background-color: var(--primary-toxic-green);
+  background-color: var(--primary-white);
   color: var(--primary-espresso);
-  border: none;
+  border: 1px solid var(--primary-white);
   padding: var(--spacing-2) var(--spacing-4);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
@@ -696,7 +699,7 @@ p, span, div, label, input, button, select, textarea {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-espresso);
+  background: var(--primary-toxic-green);
   border-radius: var(--radius-md);
   z-index: 1;
   transition: transform var(--transition-slide);
@@ -708,7 +711,8 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .clear-search-button-inline:hover {
-  color: var(--primary-toxic-green);
+  color: var(--primary-white);
+  border-color: var(--primary-toxic-green);
 }
 
 /* No Results Message */
@@ -811,8 +815,8 @@ p, span, div, label, input, button, select, textarea {
 
 /* Expand Button */
 .expand-button {
-  background-color: #686565;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: var(--primary-white);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   width: 36px;
   height: 36px;
@@ -822,7 +826,7 @@ p, span, div, label, input, button, select, textarea {
   justify-content: center;
   font-size: var(--text-lg);
   font-weight: var(--font-weight-bold);
-  color: var(--primary-white);
+  color: var(--primary-espresso);
   transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
@@ -848,7 +852,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .expand-button:hover {
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
 }
 
@@ -997,9 +1001,9 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .enum-value {
-  background-color: #686565;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--primary-white);
+  background-color: var(--primary-white);
+  border: 1px solid var(--border-color);
+  color: var(--primary-espresso);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
   padding: var(--spacing-1) var(--spacing-3);
@@ -1034,7 +1038,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .enum-value:hover {
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -1052,7 +1056,7 @@ p, span, div, label, input, button, select, textarea {
 
 .enum-value-copied {
   background-color: var(--primary-toxic-green) !important;
-  color: var(--primary-espresso) !important;
+  color: var(--primary-white) !important;
   border-color: var(--primary-toxic-green) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
@@ -1100,9 +1104,9 @@ p, span, div, label, input, button, select, textarea {
 
 /* Relationship Target Links */
 .relationship-target-link {
-  background-color: #686565;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--primary-white);
+  background-color: var(--primary-white);
+  border: 1px solid var(--border-color);
+  color: var(--secondary-blue);
   text-decoration: none;
   cursor: pointer;
   font-family: var(--font-family-primary);
@@ -1138,7 +1142,7 @@ p, span, div, label, input, button, select, textarea {
 }
 
 .relationship-target-link:hover {
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -1169,7 +1173,7 @@ p, span, div, label, input, button, select, textarea {
 /* Search Highlighting */
 mark {
   background-color: var(--primary-toxic-green);
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   padding: 0 var(--spacing-1);
   border-radius: var(--radius-sm);
   font-weight: var(--font-weight-medium);
@@ -1330,9 +1334,9 @@ mark {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: var(--primary-toxic-green);
+  background-color: var(--primary-white);
   color: var(--primary-espresso);
-  border: 2px solid var(--primary-toxic-green);
+  border: 2px solid var(--primary-white);
   font-size: var(--text-xl);
   font-weight: var(--font-weight-bold);
   cursor: pointer;
@@ -1353,7 +1357,7 @@ mark {
   inset: 0;
   width: 100%;
   height: 100%;
-  background: var(--primary-white);
+  background: var(--primary-toxic-green);
   border-radius: 50%;
   z-index: 1;
   transition: transform var(--transition-slide);
@@ -1365,7 +1369,7 @@ mark {
 }
 
 .scroll-to-top-button:hover {
-  color: var(--primary-toxic-green);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
@@ -1427,7 +1431,7 @@ mark {
 
 .data-group-badge {
   background-color: var(--primary-toxic-green);
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   font-weight: var(--font-weight-medium);
   font-size: var(--text-xs);
   padding: var(--spacing-1) var(--spacing-3);
@@ -1468,7 +1472,7 @@ mark {
 }
 
 .data-group .relationship-target-link:hover {
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
 }
 
@@ -1520,9 +1524,9 @@ mark {
 }
 
 .pattern-value {
-  background-color: #686565;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--primary-white);
+  background-color: var(--primary-white);
+  border: 1px solid var(--border-color);
+  color: var(--primary-espresso);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
   padding: var(--spacing-1) var(--spacing-3);
@@ -1558,7 +1562,7 @@ mark {
 }
 
 .pattern-value:hover {
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -1576,7 +1580,7 @@ mark {
 
 .pattern-value-copied {
   background-color: var(--primary-toxic-green) !important;
-  color: var(--primary-espresso) !important;
+  color: var(--primary-white) !important;
   border-color: var(--primary-toxic-green) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
@@ -1600,9 +1604,9 @@ mark {
 }
 
 .format-value {
-  background-color: #686565;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--primary-white);
+  background-color: var(--primary-white);
+  border: 1px solid var(--border-color);
+  color: var(--primary-espresso);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-roman);
   padding: var(--spacing-1) var(--spacing-3);
@@ -1638,7 +1642,7 @@ mark {
 }
 
 .format-value:hover {
-  color: var(--primary-espresso);
+  color: var(--primary-white);
   border-color: var(--primary-toxic-green);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -1656,7 +1660,7 @@ mark {
 
 .format-value-copied {
   background-color: var(--primary-toxic-green) !important;
-  color: var(--primary-espresso) !important;
+  color: var(--primary-white) !important;
   border-color: var(--primary-toxic-green) !important;
   animation: pulse-success 0.3s ease-in-out;
 }
