@@ -136,15 +136,15 @@ describe('AllClassesViewer - Simplified', () => {
     it('should render external links', () => {
       renderWithRouter(<AllClassesViewer />);
 
-      expect(screen.getByText('🐘 elephant.xyz')).toBeInTheDocument();
-      expect(screen.getByText('📄 Whitepaper')).toBeInTheDocument();
+      expect(screen.getByText('elephant.xyz')).toBeInTheDocument();
+      expect(screen.getByText('Whitepaper')).toBeInTheDocument();
     });
 
     it('should have correct external link attributes', () => {
       renderWithRouter(<AllClassesViewer />);
 
-      const elephantLink = screen.getByText('🐘 elephant.xyz').closest('a');
-      const whitepaperLink = screen.getByText('📄 Whitepaper').closest('a');
+      const elephantLink = screen.getByText('elephant.xyz').closest('a');
+      const whitepaperLink = screen.getByText('Whitepaper').closest('a');
 
       expect(elephantLink).toHaveAttribute('href', 'https://elephant.xyz');
       expect(elephantLink).toHaveAttribute('target', '_blank');
