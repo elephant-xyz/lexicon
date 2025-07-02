@@ -1624,16 +1624,16 @@ mark {
   }
 }
 
-/* Required Badge */
+/* Required Badge - Updated with #B3B2B2 background and 8px corners */
 .required-badge {
   display: inline-block;
   padding: var(--spacing-1) var(--spacing-2);
-  background-color: var(--secondary-dark-red);
+  background-color: #B3B2B2;
   color: var(--primary-white);
   font-size: var(--text-xs);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-standard);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   margin-left: var(--spacing-2);
 }
 
