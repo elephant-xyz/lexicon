@@ -1294,69 +1294,66 @@ mark {
   }
 }
 
-/* Scroll to Top Button */
+/* --- Scroll to Top Button: Adjusted Size --- */
 .scroll-to-top-button {
   position: fixed;
-  bottom: var(--spacing-6);
-  right: var(--spacing-6);
-  width: 48px;
-  height: 48px;
+  bottom: 32px;
+  right: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: var(--primary-white);
-  color: var(--primary-espresso);
+  background: #2be786;
+  color: #222;
   border: none;
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
+  font-size: 1.25rem;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-weight: 700;
   cursor: pointer;
-  transition: all var(--transition-fast);
-  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.9;
-  position: relative;
-  overflow: hidden;
-}
-
-.scroll-to-top-button::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-toxic-green);
-  border-radius: 50%;
-  z-index: 1;
-  transition: transform var(--transition-slide);
-  transform: translateX(-100%);
-}
-
-.scroll-to-top-button:hover::after {
-  transform: translateX(70%);
+  opacity: 0.95;
+  z-index: 1000;
+  transition:
+    opacity 0.2s,
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+  box-shadow: none;
 }
 
 .scroll-to-top-button:hover {
-  color: var(--primary-espresso);
-  transform: translateY(-2px);
-  opacity: 1;
+  opacity: 0.5;
+  background: #2be786;
+  color: #222;
 }
 
 .scroll-to-top-button:focus {
-  outline: none;
+  outline: 2px solid #2be786;
+  outline-offset: 2px;
 }
 
 .scroll-to-top-button:active {
-  transform: translateY(-1px);
+  opacity: 0.7;
 }
 
-/* Responsive adjustments for scroll to top button */
-@media (max-width: 768px) {
+@media (prefers-color-scheme: dark) {
   .scroll-to-top-button {
-    bottom: var(--spacing-4);
-    right: var(--spacing-4);
-    width: 44px;
-    height: 44px;
-    font-size: var(--text-lg);
+    background: #2be786;
+    color: #181a1b;
+    opacity: 0.95;
+  }
+  .scroll-to-top-button:hover {
+    opacity: 0.5;
+    background: #2be786;
+    color: #181a1b;
   }
 }
 
@@ -1491,50 +1488,56 @@ mark {
 
 /* Common Patterns Viewer - Restructured to match class layout */
 .common-patterns-viewer {
-  background-color: var(--background-secondary);
-  border: none;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: all var(--transition-medium);
-  position: relative;
-}
-
-.common-patterns-viewer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background-color: var(--primary-toxic-green);
+  background: #fff;
+  border: 1px solid #b3b2b2;
+  border-radius: 12px;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  box-shadow: none;
+  margin-bottom: var(--spacing-6);
 }
 
 .patterns-header {
   padding: var(--spacing-5);
-  border-bottom: none;
-  background-color: #686565;
-  margin-bottom: 0;
+  border-bottom: 1px solid #b3b2b2;
+  background: #fff;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .patterns-header h3 {
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-medium);
-  color: var(--primary-white);
+  font-weight: 700;
+  color: #222;
   margin-bottom: var(--spacing-2);
-  letter-spacing: var(--letter-spacing-standard);
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
 }
 
 .patterns-header p {
   font-size: var(--text-sm);
-  color: rgba(255, 255, 255, 0.8);
+  color: #686565;
   margin: 0;
-  font-weight: var(--font-weight-roman);
-  letter-spacing: var(--letter-spacing-standard);
+  font-weight: 400;
 }
 
 .patterns-content {
   padding: var(--spacing-5);
-  background-color: var(--hover-color);
+  background: #fff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 .patterns-grid {
@@ -1544,10 +1547,18 @@ mark {
 }
 
 .pattern-card {
-  background-color: #ffffff;
+  background: #fff;
   border: 1px solid #b3b2b2;
-  border-radius: var(--radius-md);
+  border-radius: 12px;
   padding: var(--spacing-4);
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
   transition: all var(--transition-fast);
 }
 
@@ -1557,10 +1568,9 @@ mark {
 
 .pattern-name {
   font-size: var(--text-base);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  font-weight: 700;
+  color: #222;
   margin: 0 0 var(--spacing-2) 0;
-  letter-spacing: var(--letter-spacing-standard);
 }
 
 .pattern-description {
@@ -1568,8 +1578,7 @@ mark {
   color: #423e3e;
   margin-bottom: var(--spacing-4);
   line-height: 1.5;
-  font-weight: var(--font-weight-roman);
-  letter-spacing: var(--letter-spacing-standard);
+  font-weight: 400;
 }
 
 .pattern-format,
@@ -1585,43 +1594,70 @@ mark {
 .format-label,
 .pattern-label {
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-primary);
+  font-weight: 600;
+  color: #222;
   margin-bottom: var(--spacing-2);
   display: block;
-  letter-spacing: var(--letter-spacing-standard);
+}
+
+.pattern-format button,
+.pattern-regex button {
+  background: #2be786;
+  color: #222;
+  border-radius: 9999px;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-weight: 600;
+  border: none;
+  padding: 0.5em 1.2em;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.pattern-format button:hover,
+.pattern-regex button:hover {
+  opacity: 0.5;
 }
 
 .pattern-highlighted {
-  border-color: var(--primary-toxic-green);
-  background-color: rgba(43, 231, 134, 0.05);
+  border-color: #2be786 !important;
+  background: rgba(43, 231, 134, 0.1) !important;
   animation: highlight-pulse 2s ease-in-out;
 }
 
-@keyframes highlight-pulse {
-  0% {
-    background-color: rgba(43, 231, 134, 0.05);
-  }
-  50% {
-    background-color: rgba(43, 231, 134, 0.15);
-  }
-  100% {
-    background-color: rgba(43, 231, 134, 0.05);
-  }
-}
-
-/* Responsive adjustments for patterns */
-@media (max-width: 768px) {
-  .patterns-header {
-    padding: var(--spacing-4);
-  }
-
-  .patterns-content {
-    padding: var(--spacing-4);
-  }
-
+@media (prefers-color-scheme: dark) {
+  .common-patterns-viewer,
+  .patterns-header,
+  .patterns-content,
   .pattern-card {
-    padding: var(--spacing-4);
+    background: #232323 !important;
+    color: #fff !important;
+    border-color: #444 !important;
+  }
+  .patterns-header h3,
+  .pattern-name,
+  .format-label,
+  .pattern-label {
+    color: #fff !important;
+  }
+  .patterns-header p,
+  .pattern-description {
+    color: #b3b2b2 !important;
+  }
+  .pattern-format button,
+  .pattern-regex button {
+    background: #2be786 !important;
+    color: #181a1b !important;
+  }
+  .pattern-highlighted {
+    background: rgba(43, 231, 134, 0.18) !important;
+    border-color: #2be786 !important;
   }
 }
 
@@ -1728,23 +1764,40 @@ mark {
 }
 
 .ipfs-download-link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-1);
-  padding: var(--spacing-1) var(--spacing-3);
-  background-color: var(--primary-toxic-green);
-  color: var(--primary-espresso);
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-medium);
-  transition: all var(--transition-fast);
-  letter-spacing: var(--letter-spacing-standard);
+  background: #d9d8d8;
+  color: #222;
+  border-radius: 9999px;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-weight: 600;
+  border: none;
+  padding: 0.5em 1.2em;
+  transition: opacity 0.2s;
+  cursor: pointer;
 }
 
 .ipfs-download-link:hover {
-  opacity: 0.8;
-  transform: translateY(-1px);
+  opacity: 0.5;
+  background: #d9d8d8;
+  color: #222;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ipfs-download-link {
+    background: #d9d8d8;
+    color: #181a1b;
+  }
+  .ipfs-download-link:hover {
+    background: #d9d8d8;
+    color: #181a1b;
+    opacity: 0.5;
+  }
 }
 
 /* JSON Example Section */
@@ -1888,4 +1941,152 @@ mark {
 .search-matches-list {
   display: grid;
   gap: var(--spacing-2);
+}
+
+/* --- SCHEMA & EXAMPLE SECTIONS: NEW DESIGN --- */
+.json-schema-section,
+.json-example-section,
+.json-examples-section,
+.example-item {
+  background: #fff;
+  border: 1px solid #b3b2b2;
+  border-radius: 12px;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  box-shadow: none;
+}
+
+.json-schema-section {
+  border-left: 4px solid #2be786;
+}
+
+.json-example-section {
+  border-left: 4px solid #2be786;
+}
+
+.example-item {
+  border-left: 4px solid #2be786;
+}
+
+/* Buttons: fully rounded, green, Neue Haas Grotesk, 50% opacity hover */
+.ipfs-download-link,
+.cid-copy-button,
+.example-copy-button {
+  background: #2be786;
+  color: #222;
+  border-radius: 9999px;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-weight: 600;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.ipfs-download-link:hover,
+.cid-copy-button:hover,
+.example-copy-button:hover {
+  opacity: 0.5;
+}
+
+/* Section headers */
+.json-schema-label,
+.json-example-label,
+.example-label {
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  font-weight: 700;
+}
+
+/* Ensure all text in these sections uses Neue Haas Grotesk */
+.json-schema-section *,
+.json-example-section *,
+.json-examples-section *,
+.example-item * {
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  body,
+  .search-container,
+  .header-section,
+  .controls-section,
+  .data-group,
+  .method-list-item,
+  .properties-section,
+  .relationships-section,
+  .pattern-card,
+  .common-patterns-viewer,
+  .navigation-header,
+  .tag-selector,
+  .search-bar,
+  .results-info,
+  .no-results,
+  .error-message,
+  .empty-state,
+  .json-schema-section,
+  .json-example-section,
+  .json-examples-section,
+  .example-item {
+    background: #232323 !important;
+    color: #fff !important;
+    border-color: #444 !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  label,
+  .header-title,
+  .header-subtitle,
+  .json-schema-label,
+  .json-example-label,
+  .example-label {
+    color: #fff !important;
+  }
+
+  .ipfs-download-link,
+  .cid-copy-button,
+  .example-copy-button,
+  .nav-button,
+  .expand-button,
+  .clear-search-button,
+  .clear-search-button-inline {
+    background: #2be786 !important;
+    color: #181a1b !important;
+  }
+
+  .example-json,
+  .pattern-card {
+    background: #181a1b !important;
+    color: #fff !important;
+    border-color: #444 !important;
+  }
 }

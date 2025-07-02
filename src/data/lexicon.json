@@ -6,12 +6,12 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, and ranking to help evaluate the educational quality of a property's location.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "school_name": {
           "type": "string",
           "comment": "The name of the school."
@@ -7731,13 +7731,13 @@
       "type": "residency_policy",
       "container_name": "residency_policies",
       "is_deprecated": false,
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "leasing_policy": {
           "type": "string",
           "enum": [
@@ -17016,11 +17016,6 @@
       "type": "sales_history",
       "container_name": "sales_histories",
       "is_deprecated": false,
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [
         "sold_to",
         "has_property",
@@ -17035,6 +17030,11 @@
         "sale_type"
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "arms_length_indicator": {
           "type": "boolean",
           "comment": "Indicates that this is an arm's length transaction. An arm's length transaction is between a willing buyer and a willing seller with no undue influence on either party and there is no relationship between the parties except that of the specific transactio"
@@ -17866,12 +17866,12 @@
         "building_area_total"
       ],
       "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "architectural_style_type": {
           "type": "string",
           "enum": [
@@ -18698,12 +18698,12 @@
         "description"
       ],
       "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "tax_year": {
           "type": "integer",
           "comment": "The tax year for which this property tax assessment applies."
@@ -19444,11 +19444,6 @@
       "type": "utility",
       "container_name": "utilities",
       "is_deprecated": false,
-      "source_url": {
-        "type": "string",
-        "format": "uri",
-        "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
-      },
       "deprecated_properties": [
         "cooling_system_type_other_description",
         "heating_system_type_other_description",
@@ -19457,6 +19452,11 @@
         "water_source_type_other_description"
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "cooling_system_type": {
           "type": "string",
           "enum": [
