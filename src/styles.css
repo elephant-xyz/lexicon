@@ -972,7 +972,7 @@ textarea {
   gap: var(--spacing-2);
 }
 
-/* UNIVERSAL NESTED BUTTON STYLES - MATCHING DATA GROUPS FORMAT */
+/* UNIVERSAL NESTED BUTTON STYLES - NO BORDER, NEUE HAAS GROTESK MEDIUM */
 /* This applies to ALL nested buttons throughout the application */
 .enum-value,
 .pattern-value,
@@ -981,14 +981,14 @@ textarea {
 .cid-copy-button,
 .example-copy-button {
   background-color: var(--primary-toxic-green) !important;
-  border: 1px solid #b3b2b2 !important;
+  border: none !important;
   color: #423e3e !important;
   font-size: var(--text-sm) !important;
-  font-weight: var(--font-weight-roman) !important;
+  font-weight: var(--font-weight-medium) !important;
+  font-family: 'neue-haas-grotesk-display', 'Neue Haas Grotesk', var(--font-family-primary) !important;
   padding: var(--spacing-2) var(--spacing-3) !important;
   border-radius: var(--radius-md) !important;
   transition: opacity var(--transition-fast) !important;
-  font-family: var(--font-family-primary) !important;
   cursor: pointer !important;
   outline: none !important;
   user-select: none !important;
@@ -1066,16 +1066,10 @@ textarea {
   opacity: 1 !important;
 }
 
-/* Special font family for code-related buttons */
-.pattern-value,
-.format-value {
-  font-family: var(--font-family-mono) !important;
-}
-
+/* Special adjustments for specific button types */
 .cid-copy-button {
   font-size: var(--text-xs) !important;
   padding: var(--spacing-1) var(--spacing-2) !important;
-  font-family: var(--font-family-mono) !important;
 }
 
 @keyframes pulse-success {
