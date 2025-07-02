@@ -972,39 +972,64 @@ textarea {
   gap: var(--spacing-2);
 }
 
-/* Universal nested button styles - matching data groups format */
+/* UNIVERSAL NESTED BUTTON STYLES - MATCHING DATA GROUPS FORMAT */
+/* This applies to ALL nested buttons throughout the application */
 .enum-value,
 .pattern-value,
 .format-value,
 .relationship-target-link,
 .cid-copy-button,
 .example-copy-button {
-  background-color: var(--primary-toxic-green);
-  border: 1px solid #b3b2b2;
-  color: #423e3e;
-  font-size: var(--text-sm);
-  font-weight: var(--font-weight-roman);
-  padding: var(--spacing-2) var(--spacing-3);
-  border-radius: var(--radius-md);
-  transition: opacity var(--transition-fast);
-  font-family: var(--font-family-primary);
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  letter-spacing: var(--letter-spacing-standard);
-  text-decoration: none;
-  display: inline-block;
-  margin: 0 var(--spacing-1);
+  background-color: var(--primary-toxic-green) !important;
+  border: 1px solid #b3b2b2 !important;
+  color: #423e3e !important;
+  font-size: var(--text-sm) !important;
+  font-weight: var(--font-weight-roman) !important;
+  padding: var(--spacing-2) var(--spacing-3) !important;
+  border-radius: var(--radius-md) !important;
+  transition: opacity var(--transition-fast) !important;
+  font-family: var(--font-family-primary) !important;
+  cursor: pointer !important;
+  outline: none !important;
+  user-select: none !important;
+  letter-spacing: var(--letter-spacing-standard) !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  margin: 0 var(--spacing-1) !important;
+  /* Remove all complex animations and effects */
+  position: static !important;
+  overflow: visible !important;
+  z-index: auto !important;
+  transform: none !important;
 }
 
-/* Hover state for all nested buttons */
+/* Override any pseudo-elements that might interfere */
+.enum-value::before,
+.enum-value::after,
+.pattern-value::before,
+.pattern-value::after,
+.format-value::before,
+.format-value::after,
+.relationship-target-link::before,
+.relationship-target-link::after,
+.cid-copy-button::before,
+.cid-copy-button::after,
+.example-copy-button::before,
+.example-copy-button::after {
+  display: none !important;
+}
+
+/* Simple hover state for all nested buttons */
 .enum-value:hover,
 .pattern-value:hover,
 .format-value:hover,
 .relationship-target-link:hover,
 .cid-copy-button:hover,
 .example-copy-button:hover {
-  opacity: 0.5;
+  opacity: 0.5 !important;
+  transform: none !important;
+  background-color: var(--primary-toxic-green) !important;
+  color: #423e3e !important;
 }
 
 /* Focus state for all nested buttons */
@@ -1014,7 +1039,8 @@ textarea {
 .relationship-target-link:focus,
 .cid-copy-button:focus,
 .example-copy-button:focus {
-  outline: none;
+  outline: none !important;
+  opacity: 0.5 !important;
 }
 
 /* Active state for all nested buttons */
@@ -1024,7 +1050,8 @@ textarea {
 .relationship-target-link:active,
 .cid-copy-button:active,
 .example-copy-button:active {
-  transform: translateY(0);
+  transform: none !important;
+  opacity: 0.5 !important;
 }
 
 /* Copied state for all copy buttons */
@@ -1035,19 +1062,20 @@ textarea {
 .example-copy-button-copied {
   background-color: var(--primary-toxic-green) !important;
   color: #423e3e !important;
-  animation: pulse-success 0.3s ease-in-out;
+  animation: pulse-success 0.3s ease-in-out !important;
+  opacity: 1 !important;
 }
 
-/* Special styling for specific button types */
+/* Special font family for code-related buttons */
 .pattern-value,
 .format-value {
-  font-family: var(--font-family-mono);
+  font-family: var(--font-family-mono) !important;
 }
 
 .cid-copy-button {
-  font-size: var(--text-xs);
-  padding: var(--spacing-1) var(--spacing-2);
-  font-family: var(--font-family-mono);
+  font-size: var(--text-xs) !important;
+  padding: var(--spacing-1) var(--spacing-2) !important;
+  font-family: var(--font-family-mono) !important;
 }
 
 @keyframes pulse-success {
