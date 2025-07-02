@@ -8,6 +8,7 @@ interface CommonPatternsViewerProps {
 
 const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, searchTerm }) => {
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
+  const [expandedPatterns, setExpandedPatterns] = useState<Set<number>>(new Set());
 
   const copyToClipboard = async (value: string) => {
     try {
@@ -27,19 +28,25 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
     }
   };
 
+  const toggleExpanded = (index: number) => {
+    const newExpanded = new Set(expandedPatterns);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
+    } else {
+      newExpanded.add(index);
+    }
+    setExpandedPatterns(newExpanded);
+  };
+
   const renderHighlightedText = (text: string): React.JSX.Element => {
     if (!searchTerm) return <span>{text}</span>;
-
     const lowerText = text.toLowerCase();
     const lowerSearch = searchTerm.toLowerCase();
     const index = lowerText.indexOf(lowerSearch);
-
     if (index === -1) return <span>{text}</span>;
-
     const before = text.substring(0, index);
     const match = text.substring(index, index + searchTerm.length);
     const after = text.substring(index + searchTerm.length);
-
     return (
       <span>
         {before}
@@ -58,55 +65,67 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
   }
 
   return (
-    <div className="common-patterns-viewer">
-      <div className="patterns-header">
-        <h3>Common Patterns & Formats</h3>
-        <p>Standard patterns and formats</p>
+    <div className="lexicon-viewer">
+      <div className="section-separator">
+        <div className="separator-line"></div>
+        <span className="separator-text">Common Patterns & Formats</span>
+        <div className="separator-line"></div>
       </div>
-
-      <div className="patterns-grid">
-        {patterns.map((pattern, index) => (
-          <div key={index} className="pattern-card">
-            <div className="pattern-header">
-              <h4 className="pattern-name">{renderHighlightedText(pattern.type)}</h4>
-            </div>
-
-            <div className="pattern-description">
-              {renderHighlightedText(pattern.properties.description)}
-            </div>
-
-            {pattern.properties.format && (
-              <div className="pattern-format">
-                <span className="format-label">Format:</span>
-                <button
-                  className={`format-value ${copiedValue === pattern.properties.format ? 'format-value-copied' : ''}`}
-                  onClick={() => copyToClipboard(pattern.properties.format!)}
-                  title="Click to copy format to clipboard"
-                >
-                  {copiedValue === pattern.properties.format
-                    ? '✓ Copied!'
-                    : renderHighlightedText(pattern.properties.format)}
-                </button>
+      {patterns.map((pattern, index) => (
+        <div key={index} className="method-list-item data-group" data-type={pattern.type}>
+          <div className="method-list-item-label">
+            <div className="method-list-item-header">
+              <div className="method-list-item-label-name">
+                {renderHighlightedText(pattern.type)}
               </div>
-            )}
-
-            {pattern.properties.pattern && (
-              <div className="pattern-regex">
-                <span className="pattern-label">Pattern:</span>
-                <button
-                  className={`pattern-value ${copiedValue === pattern.properties.pattern ? 'pattern-value-copied' : ''}`}
-                  onClick={() => copyToClipboard(pattern.properties.pattern!)}
-                  title="Click to copy pattern to clipboard"
-                >
-                  {copiedValue === pattern.properties.pattern
-                    ? '✓ Copied!'
-                    : renderHighlightedText(pattern.properties.pattern)}
-                </button>
-              </div>
-            )}
+              <button
+                className="expand-button"
+                onClick={() => toggleExpanded(index)}
+                aria-label={expandedPatterns.has(index) ? 'Collapse' : 'Expand'}
+              >
+                {expandedPatterns.has(index) ? '−' : '+'}
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
+          {expandedPatterns.has(index) && (
+            <div className="method-list-item-content">
+              <div className="pattern-description" style={{ marginBottom: 16 }}>
+                {renderHighlightedText(pattern.properties.description)}
+              </div>
+              {pattern.properties.format && (
+                <div className="pattern-format" style={{ marginBottom: 16 }}>
+                  <span className="format-label">Format:</span>
+                  <button
+                    className={`format-value ${copiedValue === pattern.properties.format ? 'format-value-copied' : ''}`}
+                    onClick={() => copyToClipboard(pattern.properties.format!)}
+                    title="Click to copy format to clipboard"
+                    style={{ marginLeft: 8 }}
+                  >
+                    {copiedValue === pattern.properties.format
+                      ? '✓ Copied!'
+                      : renderHighlightedText(pattern.properties.format)}
+                  </button>
+                </div>
+              )}
+              {pattern.properties.pattern && (
+                <div className="pattern-regex">
+                  <span className="pattern-label">Pattern:</span>
+                  <button
+                    className={`pattern-value ${copiedValue === pattern.properties.pattern ? 'pattern-value-copied' : ''}`}
+                    onClick={() => copyToClipboard(pattern.properties.pattern!)}
+                    title="Click to copy pattern to clipboard"
+                    style={{ marginLeft: 8 }}
+                  >
+                    {copiedValue === pattern.properties.pattern
+                      ? '✓ Copied!'
+                      : renderHighlightedText(pattern.properties.pattern)}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

@@ -112,8 +112,8 @@ describe('SingleClassViewer', () => {
     it('should display external links', () => {
       renderWithRouter();
 
-      expect(screen.getByText('🐘 elephant.xyz')).toBeInTheDocument();
-      expect(screen.getByText('📄 Whitepaper')).toBeInTheDocument();
+      expect(screen.getByText('elephant.xyz')).toBeInTheDocument();
+      expect(screen.getByText('Whitepaper')).toBeInTheDocument();
     });
 
     it('should scroll to top when component mounts', () => {
@@ -147,8 +147,8 @@ describe('SingleClassViewer', () => {
     it('should still show external links in error state', () => {
       renderWithRouter(['/class/NonExistentClass']);
 
-      expect(screen.getByText('🐘 elephant.xyz')).toBeInTheDocument();
-      expect(screen.getByText('📄 Whitepaper')).toBeInTheDocument();
+      expect(screen.getByText('elephant.xyz')).toBeInTheDocument();
+      expect(screen.getByText('Whitepaper')).toBeInTheDocument();
     });
   });
 
@@ -254,8 +254,8 @@ describe('SingleClassViewer', () => {
     it('should have correct href attributes for external links', () => {
       renderWithRouter();
 
-      const elephantLink = screen.getByText('🐘 elephant.xyz').closest('a');
-      const whitepaperLink = screen.getByText('📄 Whitepaper').closest('a');
+      const elephantLink = screen.getByText('elephant.xyz').closest('a');
+      const whitepaperLink = screen.getByText('Whitepaper').closest('a');
 
       expect(elephantLink).toHaveAttribute('href', 'https://elephant.xyz');
       expect(whitepaperLink).toHaveAttribute('href', 'https://elephant.xyz/whitepaper');
@@ -264,8 +264,8 @@ describe('SingleClassViewer', () => {
     it('should open external links in new tab', () => {
       renderWithRouter();
 
-      const elephantLink = screen.getByText('🐘 elephant.xyz').closest('a');
-      const whitepaperLink = screen.getByText('📄 Whitepaper').closest('a');
+      const elephantLink = screen.getByText('elephant.xyz').closest('a');
+      const whitepaperLink = screen.getByText('Whitepaper').closest('a');
 
       expect(elephantLink).toHaveAttribute('target', '_blank');
       expect(whitepaperLink).toHaveAttribute('target', '_blank');
