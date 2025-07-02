@@ -439,6 +439,35 @@
       "relationships": {}
     },
     {
+      "type": "unnormalized_address",
+      "container_name": "unnormalized_address",
+      "description": "An unnormalized address schema containing raw address data as typically found in source systems before standardization or parsing into individual components.",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "properties": {
+        "full_address": {
+          "type": "string",
+          "pattern": "^\\d+\\s+[A-Za-z0-9\\s]+,\\s*[A-Za-z\\s]+,\\s*[A-Z]{2}$",
+          "comment": "The street address of the property including street number, street name, city, and state. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL'."
+        },
+        "postal_code": {
+          "type": "string",
+          "pattern": "^\\d{5}$",
+          "comment": "The 5-digit postal code for the property address. Format: '12345'."
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
+        "county_jurisdiction": {
+          "type": "string",
+          "pattern": "^(?!.*\\b[Cc]ounty\\b)[A-Za-z\\s]+$",
+          "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value."
+        }
+      }
+    },
+    {
       "type": "address",
       "container_name": "addresses",
       "is_deprecated": false,
@@ -5777,12 +5806,7 @@
           "enum": [
             "jpeg",
             "png",
-            "pdf",
-            "mp4",
-            "mp3",
-            "webm",
-            "obj",
-            "gltf"
+            "txt"
           ],
           "comment": "The format or MIME type of the file."
         },
@@ -6953,36 +6977,46 @@
     {
       "type": "environmental_risk",
       "container_name": "environmental_risks",
-      "description": "The EnvironmentalRisk class provides comprehensive environmental hazard assessment data for properties, documenting various natural and man-made risk factors that could impact property safety, desirability, and insurance requirements. It includes FEMA flood zone designations to assess flood risk levels, hurricane evacuation zone classifications for emergency planning, and wildfire risk zone information for fire-prone areas. The class also captures storm surge risk levels ranging from minimal to high, ambient noise levels from quiet to loud environments, and light pollution levels that affect night sky visibility. This data is essential for property buyers, insurance companies, and emergency management agencies to make informed decisions about property risks, evacuation procedures, and environmental quality assessments.",
+      "description": "The EnvironmentalRisk class provides environmental quality and hazard assessment data for properties, focusing on ambient conditions and specific natural hazards that affect daily living and property desirability. It captures wildfire risk zones, ambient noise levels from quiet to loud environments, and light pollution levels that affect night sky visibility. This streamlined class focuses on environmental quality factors while working in conjunction with specialized FloodInsurance and StormInformation classes for comprehensive property risk assessment.",
       "is_deprecated": false,
-      "deprecated_properties": [],
+      "deprecated_properties": [
+        "flood_zone",
+        "evacuation_zone",
+        "storm_surge_risk"
+      ],
       "properties": {
         "source_url": {
           "type": "string",
           "format": "uri",
           "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
         },
-        "flood_zone": {
-          "type": "string",
-          "comment": "FEMA flood zone designation (e.g., A, AE, X, VE) indicating flood risk level."
-        },
-        "evacuation_zone": {
-          "type": "string",
-          "comment": "Hurricane or emergency evacuation zone designation (e.g., A, B, C, Non-evacuation)."
-        },
         "fire_zone": {
           "type": "string",
-          "comment": "Wildfire risk zone or fire district designation."
+          "comment": "Wildfire risk zone or fire district designation indicating wildfire hazard level and emergency response district."
         },
-        "storm_surge_risk": {
+        "wildfire_risk_level": {
           "type": "string",
           "enum": [
-            "Minimal",
+            "Very Low",
             "Low",
             "Moderate",
-            "High"
+            "High",
+            "Very High",
+            "Extreme"
           ],
-          "comment": "Storm surge risk level (e.g., high, moderate, low, minimal)."
+          "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history."
+        },
+        "air_quality_index": {
+          "type": "string",
+          "enum": [
+            "Good",
+            "Moderate",
+            "Unhealthy for Sensitive Groups",
+            "Unhealthy",
+            "Very Unhealthy",
+            "Hazardous"
+          ],
+          "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area."
         },
         "noise_level": {
           "type": "string",
@@ -6992,7 +7026,7 @@
             "Busy",
             "Loud"
           ],
-          "comment": "Ambient noise level in the area."
+          "comment": "Ambient noise level in the area affecting quality of life and property desirability."
         },
         "light_pollution_level": {
           "type": "string",
@@ -7002,17 +7036,29 @@
             "Suburban",
             "Urban"
           ],
-          "comment": "Light pollution level affecting night sky visibility."
+          "comment": "Light pollution level affecting night sky visibility and natural darkness."
+        },
+        "earthquake_zone": {
+          "type": "string",
+          "comment": "Seismic zone designation or earthquake risk classification for the area."
+        },
+        "soil_stability": {
+          "type": "string",
+          "enum": [
+            "Stable",
+            "Moderate",
+            "Unstable",
+            "High Risk"
+          ],
+          "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk."
+        },
+        "environmental_hazards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "comment": "List of additional environmental hazards present in the area (e.g., 'Radon', 'Industrial Pollution', 'Mining Activity')."
         }
-      },
-      "example": {
-        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
-        "flood_zone": null,
-        "evacuation_zone": null,
-        "fire_zone": null,
-        "storm_surge_risk": null,
-        "noise_level": null,
-        "light_pollution_level": null
       }
     },
     {
@@ -12349,7 +12395,9 @@
             "property_has_structure",
             "property_has_tax",
             "property_has_utilities",
-            "property_has_environmental_risk"
+            "property_has_environmental_risk",
+            "property_root",
+            "property_flood_storm_information"
           ],
           "comment": "A reference to the associated schema for relashionship"
         }
@@ -14096,6 +14144,24 @@
             "ticket"
           ],
           "comment": "A ticket is a record of a customer's or engineer's question, request, or issue that needs to be addressed by a support team."
+        }
+      }
+    },
+    {
+      "type": "property_root",
+      "container_name": "property_root",
+      "description": "A minimum set of house property root data containing essential identifying information for property records.",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
+        "parcel_id": {
+          "type": "string",
+          "comment": "A unique identifier for the property parcel as assigned by the local assessor or jurisdiction."
         }
       }
     },
@@ -17863,6 +17929,57 @@
       }
     },
     {
+      "type": "flood_storm_information",
+      "container_name": "flood_storm_information",
+      "description": "FEMA flood and storm information data containing flood zone classifications, insurance requirements, and evacuation zone designations for property locations.",
+      "is_deprecated": false,
+      "deprecated_properties": [
+        "flood_insurance_legacy",
+        "storm_info_legacy"
+      ],
+      "properties": {
+        "community_id": {
+          "type": "string",
+          "comment": "The FEMA community identifier code for the jurisdiction where the property is located."
+        },
+        "panel_number": {
+          "type": "string",
+          "comment": "The FEMA flood insurance rate map (FIRM) panel number that contains the property location."
+        },
+        "map_version": {
+          "type": "string",
+          "comment": "The version identifier of the FEMA flood map panel."
+        },
+        "effective_date": {
+          "type": "string",
+          "format": "date",
+          "comment": "The date when the current flood map version became effective. Format: MM/DD/YYYY or YYYY-MM-DD."
+        },
+        "evacuation_zone": {
+          "type": "string",
+          "comment": "The evacuation zone designation (e.g., A, B, C) assigned to the property location for emergency planning purposes."
+        },
+        "flood_zone": {
+          "type": "string",
+          "comment": "The FEMA flood zone designation indicating the level of flood risk (e.g., AE, X, VE)."
+        },
+        "flood_insurance_required": {
+          "type": "boolean",
+          "comment": "Indicates whether flood insurance is required based on the flood zone designation and federal regulations."
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
+        "fema_search_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "The FEMA Map Service Center URL used to search and verify flood information for the specific property address."
+        }
+      }
+    },
+    {
       "type": "structure",
       "container_name": "structures",
       "is_deprecated": false,
@@ -19705,6 +19822,8 @@
       "name": "blockchain",
       "classes": [
         "property",
+        "property_root",
+        "unnormalized_address",
         "address",
         "company",
         "structure",
@@ -19723,11 +19842,23 @@
         "relationship",
         "nearby_location",
         "lot",
-        "appliance"
+        "appliance",
+        "flood_storm_information"
       ]
     }
   ],
   "data_groups": [
+    {
+      "label": "Root",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property_root",
+          "to": "unnormalized_address",
+          "relationship_type": "property_root"
+        }
+      ]
+    },
     {
       "label": "County",
       "relationships": [
@@ -19739,7 +19870,7 @@
         },
         {
           "type": "relationship",
-          "from": "person",
+          "from": "company",
           "to": "property",
           "relationship_type": "company_has_property"
         },
@@ -19782,8 +19913,8 @@
         {
           "type": "relationship",
           "from": "property",
-          "to": "environmental_risk",
-          "relationship_type": "property_has_environmental_risk"
+          "to": "flood_storm_information",
+          "relationship_type": "property_has_flood_storm_information"
         }
       ],
       "example": {

@@ -237,7 +237,6 @@ const AllClassesViewer = () => {
       filteredClasses.length === 0 &&
       filteredCommonPatterns.length === 0 ? (
         <div className="empty-state">
-          <div className="empty-state-icon">📋</div>
           <div className="empty-state-title">
             {searchTerm.length > 0 && searchTerm.length < 3
               ? 'Type more characters to search'

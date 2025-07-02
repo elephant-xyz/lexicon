@@ -116,6 +116,9 @@ class DataService {
     searchTerm: string,
     target: string
   ): { matches: boolean; score: number; highlight?: string } {
+    if (typeof target !== 'string') {
+      return { matches: false, score: 0, highlight: '' };
+    }
     const lowerSearch = searchTerm.toLowerCase();
     const lowerTarget = target.toLowerCase();
 

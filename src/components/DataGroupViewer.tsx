@@ -241,9 +241,9 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                           </div>
                           <div className="method-list-item-label-description">
                             <div className="relationship-targets-container">
-                              <span className="relationship-targets-label">Links To</span>
+                              <span className="relationship-targets-label">Links to</span>
                               <span className="relationship-from">
-                                From:
+                                From
                                 <button
                                   className="relationship-target-link"
                                   onClick={() => handleClassClick(rel.from)}
@@ -254,7 +254,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                               </span>
                               <span className="relationship-arrow">→</span>
                               <span className="relationship-to">
-                                To:
+                                To
                                 <button
                                   className="relationship-target-link"
                                   onClick={() => handleClassClick(rel.to)}
