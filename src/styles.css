@@ -1045,14 +1045,14 @@ textarea {
 /* Relationship Target Links */
 .relationship-target-link {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
   text-decoration: none;
   cursor: pointer;
   font-family: var(--font-family-primary);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-medium);
-  padding: var(--spacing-1) var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3);
   margin: 0 var(--spacing-1);
   border-radius: var(--radius-md);
   transition: opacity var(--transition-fast);
@@ -1385,7 +1385,7 @@ mark {
 
 .data-group .relationship-target-link {
   background-color: var(--primary-toxic-green);
-  border: none;
+  border: 1px solid #b3b2b2;
   color: #423e3e;
 }
 
