@@ -1,0 +1,20 @@
+Favicon Setup Notes
+===================
+
+The favicon is configured to use Elephant.xyz logos:
+- Light mode: https://framerusercontent.com/images/2hXAKtXXSRCwzbI8IDqyCryYV8I.svg
+- Dark mode: https://framerusercontent.com/images/NlmBK5eOjEd2s853YMUMjpy1w.svg
+
+For production deployment:
+1. The current favicon.ico is the React default - replace it with an Elephant logo .ico file
+2. Replace logo192.png and logo512.png with PNG versions of the Elephant logo
+3. Consider hosting proper PNG versions on elephant.xyz for Open Graph/Twitter cards
+
+The SVG files have been downloaded to:
+- /public/elephant-logo-light.svg
+- /public/elephant-logo-dark.svg
+
+To generate PNG versions from SVG, you can use tools like:
+- ImageMagick: convert -background none elephant-logo-light.svg -resize 512x512 logo512.png
+- Online converters: cloudconvert.com, convertio.co
+- Node.js packages: sharp, svg2png
