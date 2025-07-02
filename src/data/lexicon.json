@@ -439,6 +439,35 @@
       "relationships": {}
     },
     {
+      "type": "unnormalized_address",
+      "container_name": "unnormalized_address",
+      "description": "An unnormalized address schema containing raw address data as typically found in source systems before standardization or parsing into individual components.",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "properties": {
+        "full_address": {
+          "type": "string",
+          "pattern": "^\\d+\\s+[A-Za-z0-9\\s]+,\\s*[A-Za-z\\s]+,\\s*[A-Z]{2}$",
+          "comment": "The street address of the property including street number, street name, city, and state. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL'."
+        },
+        "postal_code": {
+          "type": "string",
+          "pattern": "^\\d{5}$",
+          "comment": "The 5-digit postal code for the property address. Format: '12345'."
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
+        "county_jurisdiction": {
+          "type": "string",
+          "pattern": "^(?!.*\\b[Cc]ounty\\b)[A-Za-z\\s]+$",
+          "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value."
+        }
+      }
+    },
+    {
       "type": "address",
       "container_name": "addresses",
       "is_deprecated": false,
@@ -14096,10 +14125,10 @@
     },
     {
       "type": "property_root",
-      "container_name": "properties",
+      "container_name": "property_root",
+      "description": "A minimum set of house property root data containing essential identifying information for property records.",
       "is_deprecated": false,
       "deprecated_properties": [],
-      "description": "A minimum set of house property root data containing essential identifying information for property records.",
       "properties": {
         "source_url": {
           "type": "string",
@@ -19746,9 +19775,9 @@
       "relationships": [
         {
           "type": "relationship",
-          "from": "property",
-          "to": "address",
-          "relationship_type": "property_has_address"
+          "from": "property_root",
+          "to": "unnormalized_address",
+          "relationship_type": "property_root"
         }
       ]
     },
