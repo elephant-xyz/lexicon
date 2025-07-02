@@ -92,7 +92,7 @@ const AllClassesViewer = () => {
     <div className="search-container">
       <div className="header-section">
         <div className="logo-container">
-          <img src="/src/logoElephant-white.svg" alt="Elephant Logo" className="elephant-logo" />
+          <img src="/logoElephant-white.svg" alt="Elephant Logo" className="elephant-logo" />
         </div>
         <h1 className="header-title">Elephant Lexicon</h1>
         <p className="header-subtitle">
