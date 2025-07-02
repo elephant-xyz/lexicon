@@ -2627,6 +2627,28 @@
       "container_name": "companies",
       "is_deprecated": false,
       "deprecated_properties": [
+        "has_address",
+        "has_brand",
+        "has_communication_method",
+        "has_company_relation",
+        "has_contract",
+        "has_finance_relation",
+        "has_language",
+        "has_license",
+        "has_product",
+        "has_product_configuration",
+        "offered_contract",
+        "subscribes_to",
+        "company_abbreviation",
+        "company_identifier",
+        "company_size_value",
+        "company_type",
+        "description",
+        "employer_identification_number",
+        "industry",
+        "mers_organization_identifier",
+        "employer_state_identification_number",
+        "founded_date",
         "asana_task_identifier",
         "company_investor_connector_type",
         "company_los_type",
@@ -2646,6 +2668,11 @@
         "email"
       ],
       "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
         "company_abbreviation": {
           "type": "string",
           "comment": "A company abbreviation is a shortened version of a company name."
@@ -12309,6 +12336,7 @@
             "layout_has_appliance",
             "person_has_mortgage",
             "person_has_property",
+            "company_has_person",
             "person_owns_property",
             "property_appliance",
             "property_has_address",
@@ -19678,6 +19706,7 @@
       "classes": [
         "property",
         "address",
+        "company",
         "structure",
         "tax",
         "loan",
@@ -19700,13 +19729,19 @@
   ],
   "data_groups": [
     {
-      "label": "County Data",
+      "label": "County",
       "relationships": [
         {
           "type": "relationship",
           "from": "person",
           "to": "property",
           "relationship_type": "person_has_property"
+        },
+        {
+          "type": "relationship",
+          "from": "person",
+          "to": "property",
+          "relationship_type": "company_has_property"
         },
         {
           "type": "relationship",
@@ -19776,7 +19811,7 @@
       }
     },
     {
-      "label": "Image Metadata",
+      "label": "Photo Metadata",
       "relationships": [
         {
           "type": "relationship",
