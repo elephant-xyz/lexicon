@@ -1109,20 +1109,31 @@ textarea {
   letter-spacing: var(--letter-spacing-standard);
 }
 
-.relationship-targets-label {
-  color: #423e3e;
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-standard);
-  margin-right: var(--spacing-2);
-}
-
 .relationship-targets-container {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-1);
-  margin-bottom: var(--spacing-2);
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.relationship-targets-label {
+  margin-right: 16px;
+  min-width: 70px;
+}
+
+.relationship-from,
+.relationship-to {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.relationship-arrow {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0 8px;
+  align-self: center;
 }
 
 /* Search Highlighting */
@@ -1404,13 +1415,10 @@ mark {
 
 .relationship-from,
 .relationship-to {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  margin: var(--spacing-1) 0;
-  color: #423e3e;
+  color: #222;
+  font-weight: 600;
   font-size: var(--text-sm);
-  font-weight: var(--font-weight-roman);
+  margin-right: 8px;
   letter-spacing: var(--letter-spacing-standard);
 }
 
@@ -2088,5 +2096,45 @@ mark {
     background: #181a1b !important;
     color: #fff !important;
     border-color: #444 !important;
+  }
+
+  .class-description,
+  .pattern-description,
+  .source-description,
+  .example-description,
+  .method-list-item-label-description {
+    color: #fff !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .class-description {
+    background: #181a1b !important;
+    color: #fff !important;
+    border-color: #444 !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .relationship-targets-label,
+  .relationship-from,
+  .relationship-to,
+  .relationship-target-link {
+    color: #fff !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .relationship-target-link {
+    color: #222 !important;
+    background: #2be786 !important;
+    border-radius: 9999px;
+    font-weight: 700;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .empty-state-description {
+    color: #fff !important;
   }
 }

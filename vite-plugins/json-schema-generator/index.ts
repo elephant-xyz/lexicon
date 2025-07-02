@@ -51,6 +51,7 @@ interface DataGroupSchema extends JSONSchema {
     label: {
       type: string;
       description: string;
+      enum?: string[];
     };
     relationships: {
       type: string;
@@ -237,7 +238,8 @@ function isOneToManyRelationship(relationshipType: string): boolean {
 
 function generateJSONSchemaForDataGroup(
   dataGroup: DataGroup,
-  relationshipCidsMap: Record<string, { cid: string; relationshipType: string }>
+  relationshipCidsMap: Record<string, { cid: string; relationshipType: string }>,
+  allDataGroupLabels: string[]
 ): DataGroupSchema {
   const relationshipProperties: Record<
     string,
@@ -285,6 +287,7 @@ function generateJSONSchemaForDataGroup(
       label: {
         type: 'string',
         description: 'Data group label',
+        enum: allDataGroupLabels,
       },
       relationships: {
         type: 'object',
@@ -514,6 +517,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
 
       // Third pass: Generate data group schemas and examples
       // 📊 Generating Data Group Schemas and Examples...
+      const allDataGroupLabels = lexiconData.data_groups.map(g => g.label);
       for (const dataGroup of lexiconData.data_groups) {
         // Get all relationships for this data group that are in blockchain
         const groupRelationshipCidsMap: Record<string, { cid: string; relationshipType: string }> =
@@ -535,7 +539,11 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
           // 📊 Generating schema for ${dataGroup.label}...
 
           // Generate data group schema
-          const groupSchema = generateJSONSchemaForDataGroup(dataGroup, groupRelationshipCidsMap);
+          const groupSchema = generateJSONSchemaForDataGroup(
+            dataGroup,
+            groupRelationshipCidsMap,
+            allDataGroupLabels
+          );
 
           // Canonicalize and upload
           const canonicalized = canonicalize(groupSchema);

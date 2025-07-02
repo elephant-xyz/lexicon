@@ -5777,12 +5777,7 @@
           "enum": [
             "jpeg",
             "png",
-            "pdf",
-            "mp4",
-            "mp3",
-            "webm",
-            "obj",
-            "gltf"
+            "txt"
           ],
           "comment": "The format or MIME type of the file."
         },
@@ -14100,6 +14095,24 @@
       }
     },
     {
+      "type": "property_root",
+      "container_name": "properties",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "A minimum set of house property root data containing essential identifying information for property records.",
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+        },
+        "parcel_id": {
+          "type": "string",
+          "comment": "A unique identifier for the property parcel as assigned by the local assessor or jurisdiction."
+        }
+      }
+    },
+    {
       "type": "property",
       "description": "The Property class serves as the foundational data structure for capturing essential characteristics and legal identifiers of real estate properties, providing comprehensive documentation for financing, legal, and classification purposes. It defines physical attachment relationships through attachment types (attached, detached, semi-detached) and categorizes properties by unit count for mortgage banking purposes, ranging from single-family homes to multi-unit properties up to fourplexes, which directly impacts loan-to-value ratios, debt-to-income requirements, and lending risk assessments. The class maintains critical legal documentation including unique parcel identifiers that distinguish properties within jurisdictions and detailed legal descriptions outlining exact boundaries, dimensions, and governmental recognition for contracts and legal documents. It captures construction timeline data through built year information and provides extensive property type classifications spanning residential options from single-family detached homes and condominiums to manufactured housing, cooperatives, timeshares, and multi-family units. This comprehensive property classification system is essential for mortgage underwriting, legal documentation, zoning compliance, insurance purposes, and real estate market analysis, ensuring accurate property categorization across various real estate transactions and regulatory requirements.",
       "container_name": "properties",
@@ -19729,6 +19742,17 @@
   ],
   "data_groups": [
     {
+      "label": "Root",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "address",
+          "relationship_type": "property_has_address"
+        }
+      ]
+    },
+    {
       "label": "County",
       "relationships": [
         {
@@ -19739,7 +19763,7 @@
         },
         {
           "type": "relationship",
-          "from": "person",
+          "from": "company",
           "to": "property",
           "relationship_type": "company_has_property"
         },
