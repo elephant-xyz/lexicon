@@ -19997,7 +19997,8 @@
           "to": "appliances",
           "relationship_type": "layout_has_appliance"
         }
-      ]
+      ],
+      "required": ["property_has_layout"]
     }
   ],
   "common_patterns": [
