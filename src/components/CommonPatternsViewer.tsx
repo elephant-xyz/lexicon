@@ -34,7 +34,7 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
     if (patternElement) {
       // Scroll to the pattern
       patternElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
+
       // Add highlight effect
       patternElement.classList.add('pattern-highlighted');
       setTimeout(() => {
@@ -87,9 +87,9 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
         <div className="separator-line"></div>
       </div>
       {patterns.map((pattern, index) => (
-        <div 
-          key={index} 
-          className="method-list-item data-group" 
+        <div
+          key={index}
+          className="method-list-item data-group"
           data-type={pattern.type}
           data-pattern-type={pattern.properties.format || pattern.format}
         >
