@@ -1644,7 +1644,7 @@ mark {
   letter-spacing: var(--letter-spacing-standard);
   padding: var(--spacing-4);
   background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: var(--radius-md);
   border-left: 4px solid var(--primary-toxic-green);
 }
@@ -1657,7 +1657,7 @@ mark {
 .class-source {
   padding: var(--spacing-4);
   background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: var(--radius-md);
   border-left: 4px solid #686565;
 }
@@ -1696,7 +1696,7 @@ mark {
   margin-bottom: var(--spacing-6);
   padding: var(--spacing-4);
   background-color: rgba(43, 231, 134, 0.05);
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: var(--radius-md);
   border-left: 4px solid var(--primary-toxic-green);
 }
@@ -1745,7 +1745,7 @@ mark {
   margin-bottom: var(--spacing-6);
   padding: var(--spacing-4);
   background-color: rgba(104, 101, 101, 0.05);
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: var(--radius-md);
   border-left: 4px solid #686565;
 }
@@ -1764,9 +1764,21 @@ mark {
   letter-spacing: var(--letter-spacing-standard);
 }
 
-/* JSON Examples Section */
+/* JSON Examples Section - REMOVED BORDER/OUTLINE */
 .json-examples-section {
   margin-bottom: var(--spacing-6);
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family:
+    'neue-haas-grotesk-display',
+    'Neue Haas Grotesk',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  box-shadow: none;
 }
 
 .json-examples-section h4 {
@@ -1787,7 +1799,7 @@ mark {
 
 .example-item {
   background-color: rgba(255, 255, 255, 0.5);
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   border-left: 4px solid #686565;
@@ -1830,7 +1842,7 @@ mark {
 
 .example-json {
   background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: var(--radius-md);
   padding: var(--spacing-3);
   overflow-x: auto;
@@ -1889,7 +1901,7 @@ mark {
 .json-examples-section,
 .example-item {
   background: #fff;
-  border: 1px solid #b3b2b2;
+  border: none;
   border-radius: 12px;
   font-family:
     'neue-haas-grotesk-display',
