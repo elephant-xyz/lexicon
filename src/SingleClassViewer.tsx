@@ -155,46 +155,16 @@ const SingleClassViewer = () => {
           <NavigationHeader showHome={true} />
         </div>
 
-        {/* Scroll to Top Button with SVG Icons */}
-        {showScrollToTop && (
-          <button
-            onClick={scrollToTop}
-            className="scroll-to-top-button"
-            title="Scroll to top"
-            aria-label="Scroll to top"
-          >
-            <div className="icon-container">
-              <div className="icon-top">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 4L4 10L5.4 11.4L9 7.8V16H11V7.8L14.6 11.4L16 10L10 4Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </div>
-              <div className="icon-bottom">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 4L4 10L5.4 11.4L9 7.8V16H11V7.8L14.6 11.4L16 10L10 4Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </div>
-            </div>
-          </button>
-        )}
+        {/* ALWAYS VISIBLE SCROLL TO TOP BUTTON FOR DEBUGGING */}
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-button"
+          title="Scroll to top"
+          aria-label="Scroll to top"
+          style={{ display: 'flex !important' }}
+        >
+          ↑
+        </button>
       </div>
     );
   }
@@ -267,127 +237,97 @@ const SingleClassViewer = () => {
                   <path
                     d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
                     fill="currentColor"
-                  />
-                </svg>
-              </div>
-              <div className="icon-right">
-                <svg
-                  width="25"
-                  height="12"
-                  viewBox="0 0 25 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div className="controls-section">
-        <div className="controls-grid">
-          <div className="class-info">
-            <label htmlFor="current-class-name">Viewing Class</label>
-            <div id="current-class-name" className="class-name">
-              {lexiconClass.type}
-            </div>
-          </div>
-          <div className="search-bar">
-            <label htmlFor="single-search-input">Search</label>
-            <div className="search-input-container">
-              <input
-                id="single-search-input"
-                type="text"
-                placeholder="Search within this class..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm('')}
-                  className="clear-search-button"
-                  title="Clear search"
-                >
-                  ×
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <NavigationHeader showHome={true} />
-      </div>
-
-      <div className="results-info">
-        <span className="results-count">1 class</span>
-        <span>Individual View{searchTerm && ` • Searching for &ldquo;${searchTerm}&rdquo;`}</span>
-      </div>
-
-      {filteredClass ? (
-        <LexiconClassViewer
-          classes={[filteredClass]}
-          searchTerm={searchTerm}
-          expandByDefault={true}
-        />
-      ) : searchTerm && searchTerm.length >= 2 ? (
-        <div className="no-results">
-          <p>No matches found for &ldquo;{searchTerm}&rdquo; in this class.</p>
-          <button onClick={() => setSearchTerm('')} className="clear-search-button-inline">
-            Clear search
-          </button>
-        </div>
-      ) : (
-        <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
-      )}
-
-      {/* Scroll to Top Button with SVG Icons */}
-      {showScrollToTop && (
-        <button
-          onClick={scrollToTop}
-          className="scroll-to-top-button"
-          title="Scroll to top"
-          aria-label="Scroll to top"
-        >
-          <div className="icon-container">
-            <div className="icon-top">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 4L4 10L5.4 11.4L9 7.8V16H11V7.8L14.6 11.4L16 10L10 4Z"
-                  fill="currentColor"
                 />
               </svg>
             </div>
-            <div className="icon-bottom">
+            <div className="icon-right">
               <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 4L4 10L5.4 11.4L9 7.8V16H11V7.8L14.6 11.4L16 10L10 4Z"
+                  d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
                   fill="currentColor"
                 />
               </svg>
             </div>
           </div>
-        </button>
-      )}
+        </a>
+      </div>
     </div>
-  );
+
+    <div className="controls-section">
+      <div className="controls-grid">
+        <div className="class-info">
+          <label htmlFor="current-class-name">Viewing Class</label>
+          <div id="current-class-name" className="class-name">
+            {lexiconClass.type}
+          </div>
+        </div>
+        <div className="search-bar">
+          <label htmlFor="single-search-input">Search</label>
+          <div className="search-input-container">
+            <input
+              id="single-search-input"
+              type="text"
+              placeholder="Search within this class..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="clear-search-button"
+                title="Clear search"
+              >
+                ×
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <NavigationHeader showHome={true} />
+    </div>
+
+    <div className="results-info">
+      <span className="results-count">1 class</span>
+      <span>Individual View{searchTerm && ` • Searching for &ldquo;${searchTerm}&rdquo;`}</span>
+    </div>
+
+    {filteredClass ? (
+      <LexiconClassViewer
+        classes={[filteredClass]}
+        searchTerm={searchTerm}
+        expandByDefault={true}
+      />
+    ) : searchTerm && searchTerm.length >= 2 ? (
+      <div className="no-results">
+        <p>No matches found for &ldquo;{searchTerm}&rdquo; in this class.</p>
+        <button onClick={() => setSearchTerm('')} className="clear-search-button-inline">
+          Clear search
+        </button>
+      </div>
+    ) : (
+      <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
+    )}
+
+    {/* ALWAYS VISIBLE SCROLL TO TOP BUTTON FOR DEBUGGING */}
+    <button
+      onClick={scrollToTop}
+      className="scroll-to-top-button"
+      title="Scroll to top"
+      aria-label="Scroll to top"
+      style={{ display: 'flex !important' }}
+    >
+      ↑
+    </button>
+  </div>
+);
 };
 
 export default SingleClassViewer;

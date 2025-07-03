@@ -292,46 +292,16 @@ const AllClassesViewer = () => {
         </div>
       )}
 
-      {/* Scroll to Top Button with SVG Icons */}
-      {showScrollToTop && (
-        <button
-          onClick={scrollToTop}
-          className="scroll-to-top-button"
-          title="Scroll to top"
-          aria-label="Scroll to top"
-        >
-          <div className="icon-container">
-            <div className="icon-top">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 4L4 10L5.4 11.4L9 7.8V16H11V7.8L14.6 11.4L16 10L10 4Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-            <div className="icon-bottom">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 4L4 10L5.4 11.4L9 7.8V16H11V7.8L14.6 11.4L16 10L10 4Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-          </div>
-        </button>
-      )}
+      {/* ALWAYS VISIBLE SCROLL TO TOP BUTTON FOR DEBUGGING */}
+      <button
+        onClick={scrollToTop}
+        className="scroll-to-top-button"
+        title="Scroll to top"
+        aria-label="Scroll to top"
+        style={{ display: 'flex !important' }}
+      >
+        ↑
+      </button>
     </div>
   );
 };

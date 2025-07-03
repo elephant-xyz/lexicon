@@ -1377,122 +1377,44 @@ mark {
   }
 }
 
-/* --- Scroll to Top Button: Enhanced with Upward Animation and SVG Arrow --- */
+/* --- SCROLL TO TOP BUTTON: SIMPLIFIED AND ALWAYS VISIBLE FOR DEBUGGING --- */
 .scroll-to-top-button {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #2be786;
-  color: #222;
-  border: none;
-  font-size: 1.25rem;
-  font-family:
-    'neue-haas-grotesk-display',
-    'Neue Haas Grotesk',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    sans-serif;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 1;
-  z-index: 1000;
-  transition: all var(--transition-fast);
-  box-shadow: 0 4px 12px rgba(43, 231, 134, 0.3);
-  overflow: hidden;
-  position: relative;
-}
-
-/* Icon container for scroll-to-top button */
-.scroll-to-top-button .icon-container {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform var(--transition-slide);
-  z-index: 3;
-}
-
-.scroll-to-top-button .icon-bottom {
-  position: absolute;
-  transform: translateY(200%);
-  opacity: 0;
-  transition: all var(--transition-slide);
-}
-
-.scroll-to-top-button .icon-top {
-  position: absolute;
-  transform: translateY(0);
-  opacity: 1;
-  transition: all var(--transition-slide);
-}
-
-.scroll-to-top-button .icon-bottom svg,
-.scroll-to-top-button .icon-top svg {
-  width: 100%;
-  height: 100%;
-}
-
-.scroll-to-top-button::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-toxic-green);
-  border-radius: 50%;
-  z-index: 1;
-  transition: transform var(--transition-slide);
-  transform: translateY(100%);
-}
-
-.scroll-to-top-button:hover::after,
-.scroll-to-top-button:focus::after,
-.scroll-to-top-button:active::after {
-  transform: translateY(-70%);
-}
-
-.scroll-to-top-button:hover .icon-container,
-.scroll-to-top-button:focus .icon-container,
-.scroll-to-top-button:active .icon-container {
-  transform: translateY(-125%);
-}
-
-.scroll-to-top-button:hover .icon-bottom,
-.scroll-to-top-button:focus .icon-bottom,
-.scroll-to-top-button:active .icon-bottom {
-  transform: translateY(100%);
-  opacity: 1;
-}
-
-.scroll-to-top-button:hover .icon-top,
-.scroll-to-top-button:focus .icon-top,
-.scroll-to-top-button:active .icon-top {
-  transform: translateY(-200%);
-  opacity: 0;
+  position: fixed !important;
+  bottom: 32px !important;
+  right: 32px !important;
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  background: #2be786 !important;
+  color: #222 !important;
+  border: none !important;
+  font-size: 1.5rem !important;
+  font-family: var(--font-family-primary) !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 1 !important;
+  z-index: 9999 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 20px rgba(43, 231, 134, 0.4) !important;
+  visibility: visible !important;
 }
 
 .scroll-to-top-button:hover {
-  color: #222;
-  box-shadow: 0 6px 20px rgba(43, 231, 134, 0.4);
+  opacity: 0.7 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 25px rgba(43, 231, 134, 0.6) !important;
 }
 
 .scroll-to-top-button:focus {
-  outline: 2px solid #2be786;
-  outline-offset: 2px;
+  outline: 2px solid #2be786 !important;
+  outline-offset: 2px !important;
 }
 
 .scroll-to-top-button:active {
-  opacity: 0.7;
+  transform: translateY(-2px) !important;
 }
 
 /* Section Separator */
