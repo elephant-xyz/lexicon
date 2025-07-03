@@ -1257,6 +1257,37 @@ mark {
     width: 19.815px;
     height: 9.526px;
   }
+
+  /* Responsive adjustments for relationship targets - KEEP ARROW HORIZONTAL */
+  .relationship-targets-container {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .relationship-targets-label {
+    width: auto;
+    margin-right: var(--spacing-2);
+    min-width: auto;
+  }
+
+  .relationship-from,
+  .relationship-to {
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Keep arrow horizontal and pointing right */
+  .relationship-arrow {
+    transform: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 var(--spacing-2);
+    color: var(--primary-toxic-green);
+  }
 }
 
 @media (max-width: 480px) {
@@ -1280,6 +1311,31 @@ mark {
   .external-link .icon-container {
     width: 16.513px;
     height: 7.938px;
+  }
+
+  /* Responsive adjustments for relationship targets on very small screens */
+  .relationship-targets-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-1);
+  }
+
+  .relationship-targets-label {
+    width: 100%;
+    margin-bottom: var(--spacing-1);
+  }
+
+  .relationship-from,
+  .relationship-to {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* Position arrow at beginning of "To" line on very small screens */
+  .relationship-arrow {
+    order: -1;
+    margin-right: var(--spacing-2);
+    margin-left: 0;
   }
 }
 
@@ -1421,23 +1477,6 @@ mark {
   font-size: var(--text-xs);
   font-weight: var(--font-weight-roman);
   letter-spacing: var(--letter-spacing-standard);
-}
-
-/* Responsive adjustments for data groups */
-@media (max-width: 768px) {
-  .relationship-targets-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .relationship-from,
-  .relationship-to {
-    width: 100%;
-  }
-
-  .relationship-arrow {
-    transform: rotate(90deg);
-  }
 }
 
 /* Pattern Display Styles */
