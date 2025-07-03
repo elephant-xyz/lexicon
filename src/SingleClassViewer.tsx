@@ -12,20 +12,30 @@ const SingleClassViewer = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredClass, setFilteredClass] = useState<LexiconClass | null>(null);
 
-  // Scroll detection for scroll-to-top button
+  // Scroll detection for scroll-to-top button - SIMPLIFIED AND BULLETPROOF
   useEffect(() => {
     const handleScroll = () => {
-      // Show button when scrolled down enough that header is not visible
-      // Header section is approximately 200px, so we'll use 300px threshold
-      const scrollY = window.scrollY;
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
       const shouldShow = scrollY > 300;
-      console.log('Scroll Y:', scrollY, 'Should show button:', shouldShow); // Debug log
+      
+      console.log('=== SCROLL DEBUG (SingleClass) ===');
+      console.log('scrollY:', scrollY);
+      console.log('shouldShow:', shouldShow);
+      console.log('showScrollToTop state:', showScrollToTop);
+      console.log('================================');
+      
       setShowScrollToTop(shouldShow);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Check initial scroll position
+    handleScroll();
+    
+    // Cleanup
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [showScrollToTop]);
 
   const lexiconClass = className ? dataService.getClassByName(className) : undefined;
 
@@ -52,8 +62,14 @@ const SingleClassViewer = () => {
   }, [lexiconClass, searchTerm]);
 
   const scrollToTop = () => {
+    console.log('Scroll to top clicked! (SingleClass)');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Debug: Log when showScrollToTop changes
+  useEffect(() => {
+    console.log('showScrollToTop changed to (SingleClass):', showScrollToTop);
+  }, [showScrollToTop]);
 
   if (!lexiconClass) {
     return (
@@ -155,13 +171,61 @@ const SingleClassViewer = () => {
           <NavigationHeader showHome={true} />
         </div>
 
-        {/* Scroll to Top Button - SIMPLIFIED VERSION */}
+        {/* SCROLL TO TOP BUTTON - ALWAYS VISIBLE FOR TESTING */}
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-button-test"
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            backgroundColor: '#2be786',
+            color: '#222',
+            border: 'none',
+            fontSize: '24px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          }}
+          title="Scroll to top (TEST BUTTON)"
+          aria-label="Scroll to top (TEST BUTTON)"
+        >
+          ↑
+        </button>
+
+        {/* CONDITIONAL SCROLL TO TOP BUTTON */}
         {showScrollToTop && (
           <button
             onClick={scrollToTop}
-            className="scroll-to-top-button"
-            title="Scroll to top"
-            aria-label="Scroll to top"
+            className="scroll-to-top-button-conditional"
+            style={{
+              position: 'fixed',
+              bottom: '90px',
+              right: '20px',
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              backgroundColor: '#ffffff',
+              color: '#222',
+              border: 'none',
+              fontSize: '24px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              zIndex: 99999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+            }}
+            title="Scroll to top (CONDITIONAL)"
+            aria-label="Scroll to top (CONDITIONAL)"
           >
             ↑
           </button>
@@ -317,13 +381,61 @@ const SingleClassViewer = () => {
         <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
       )}
 
-      {/* Scroll to Top Button - SIMPLIFIED VERSION */}
+      {/* SCROLL TO TOP BUTTON - ALWAYS VISIBLE FOR TESTING */}
+      <button
+        onClick={scrollToTop}
+        className="scroll-to-top-button-test"
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          width: '60px',
+          height: '60px',
+          borderRadius: '50%',
+          backgroundColor: '#2be786',
+          color: '#222',
+          border: 'none',
+          fontSize: '24px',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          zIndex: 99999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+        }}
+        title="Scroll to top (TEST BUTTON)"
+        aria-label="Scroll to top (TEST BUTTON)"
+      >
+        ↑
+      </button>
+
+      {/* CONDITIONAL SCROLL TO TOP BUTTON */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
-          className="scroll-to-top-button"
-          title="Scroll to top"
-          aria-label="Scroll to top"
+          className="scroll-to-top-button-conditional"
+          style={{
+            position: 'fixed',
+            bottom: '90px',
+            right: '20px',
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            backgroundColor: '#ffffff',
+            color: '#222',
+            border: 'none',
+            fontSize: '24px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          }}
+          title="Scroll to top (CONDITIONAL)"
+          aria-label="Scroll to top (CONDITIONAL)"
         >
           ↑
         </button>
