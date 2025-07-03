@@ -1331,23 +1331,27 @@ mark {
     order: 1;
   }
 
+  /* Position arrow at the beginning of the "To" line */
   .relationship-to {
     width: 100%;
     justify-content: flex-start;
-    order: 3;
+    order: 2;
     display: flex;
     align-items: center;
     gap: 4px;
   }
 
-  /* Position arrow at beginning of "To" line on very small screens */
-  .relationship-arrow {
-    order: 2;
+  .relationship-to::before {
+    content: '→';
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primary-toxic-green);
     margin-right: var(--spacing-2);
-    margin-left: 0;
-    align-self: flex-start;
-    width: 100%;
-    text-align: left;
+  }
+
+  /* Hide the separate arrow element on very small screens */
+  .relationship-arrow {
+    display: none;
   }
 }
 
