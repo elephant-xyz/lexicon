@@ -1400,13 +1400,14 @@ mark {
   letter-spacing: var(--letter-spacing-standard);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Icon containers for scroll-to-top button */
 .scroll-to-top-button .icon-container {
   position: relative;
-  width: 24.769px;
-  height: 11.908px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -303,31 +303,35 @@ const AllClassesViewer = () => {
           <div className="icon-container">
             <div className="icon-up">
               <svg
-                width="25"
-                height="12"
-                viewBox="0 0 25 12"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M0 6L6.86328 11.8799L7.51367 11.1201L2.12109 6.5H24.7686V5.5H2.12109L7.51367 0.879883L6.86328 0.120117L0 6Z"
-                  fill="currentColor"
-                  transform="rotate(-90 12.5 6)"
+                  d="M12 19V5M5 12L12 5L19 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </div>
             <div className="icon-down">
               <svg
-                width="25"
-                height="12"
-                viewBox="0 0 25 12"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M25 6L18.1367 0.120117L17.4863 0.879883L22.8789 5.5H0.231445V6.5H22.8789L17.4863 11.1201L18.1367 11.8799L25 6Z"
-                  fill="currentColor"
-                  transform="rotate(90 12.5 6)"
+                  d="M12 5V19M19 12L12 19L5 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </div>
