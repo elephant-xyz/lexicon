@@ -1687,7 +1687,7 @@ mark {
   gap: var(--spacing-1);
 }
 
-/* Class Description Section */
+/* Class Description Section - REMOVED BORDER/OUTLINE AND UPDATED BACKGROUND */
 .class-description-section {
   margin-bottom: var(--spacing-6);
 }
@@ -1698,23 +1698,21 @@ mark {
   line-height: 1.6;
   letter-spacing: var(--letter-spacing-standard);
   padding: var(--spacing-4);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #d9d8d8;
   border: none;
   border-radius: var(--radius-md);
-  border-left: 4px solid var(--primary-toxic-green);
 }
 
-/* Class Source Section */
+/* Class Source Section - REMOVED BORDER/OUTLINE AND UPDATED BACKGROUND */
 .class-source-section {
   margin-bottom: var(--spacing-6);
 }
 
 .class-source {
   padding: var(--spacing-4);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #d9d8d8;
   border: none;
   border-radius: var(--radius-md);
-  border-left: 4px solid #686565;
 }
 
 .source-label {
