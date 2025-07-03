@@ -10,7 +10,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "school_name": {
           "type": "string",
@@ -458,7 +458,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "county_jurisdiction": {
           "type": "string",
@@ -542,7 +542,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "full_address_slug": {
           "type": "string",
@@ -2700,7 +2700,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "company_abbreviation": {
           "type": "string",
@@ -2745,7 +2745,7 @@
         },
         "name": {
           "type": "string",
-          "comment": "The API schema field name refers to the identifier or label assigned to a specific attribute or property within the schema definition of an Application Programming Interface (API)."
+          "comment": "The official name of the company."
         }
       },
       "relationships": {
@@ -5799,7 +5799,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "file_format": {
           "type": "string",
@@ -6988,7 +6988,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "fire_zone": {
           "type": "string",
@@ -7692,7 +7692,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "homeowners_association_name": {
           "type": "string",
@@ -7809,7 +7809,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "leasing_policy": {
           "type": "string",
@@ -10703,7 +10703,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "accelerated_payment_program_indicator": {
           "type": "boolean",
@@ -12211,7 +12211,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "lot_type": {
           "type": "string",
@@ -13072,7 +13072,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "age": {
           "type": "integer",
@@ -14157,7 +14157,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "parcel_id": {
           "type": "string",
@@ -15207,7 +15207,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "space_type": {
           "type": "string",
@@ -15722,7 +15722,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "appliance_type": {
           "type": "string",
@@ -15797,7 +15797,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "name": {
           "type": "string",
@@ -17127,7 +17127,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "arms_length_indicator": {
           "type": "boolean",
@@ -17970,7 +17970,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "fema_search_url": {
           "type": "string",
@@ -18015,7 +18015,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "architectural_style_type": {
           "type": "string",
@@ -18847,7 +18847,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "tax_year": {
           "type": "integer",
@@ -19600,7 +19600,7 @@
         "source_url": {
           "type": "string",
           "format": "uri",
-          "comment": "A canonical URL or API endpoint that identifies the authoritative source of this data record. This link allows users to verify, trace, or retrieve the original data from its provider."
+          "comment": "The URL where this data was originally retrieved from."
         },
         "cooling_system_type": {
           "type": "string",
