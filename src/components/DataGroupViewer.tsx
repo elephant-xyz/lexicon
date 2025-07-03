@@ -238,6 +238,11 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                                 [Array]
                               </span>
                             )}
+                            {group.required?.includes(rel.relationship_type) && (
+                              <span className="required-badge" title="This relationship is required">
+                                Required
+                              </span>
+                            )}
                           </div>
                           <div className="method-list-item-label-description">
                             <div className="relationship-targets-container">
