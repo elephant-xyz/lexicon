@@ -28,6 +28,21 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
     }
   };
 
+  const navigateToPattern = (patternType: string) => {
+    // Find the pattern element by its type
+    const patternElement = document.querySelector(`[data-pattern-type="${patternType}"]`);
+    if (patternElement) {
+      // Scroll to the pattern
+      patternElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Add highlight effect
+      patternElement.classList.add('pattern-highlighted');
+      setTimeout(() => {
+        patternElement.classList.remove('pattern-highlighted');
+      }, 2000);
+    }
+  };
+
   const toggleExpanded = (index: number) => {
     const newExpanded = new Set(expandedPatterns);
     if (newExpanded.has(index)) {
@@ -72,7 +87,12 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
         <div className="separator-line"></div>
       </div>
       {patterns.map((pattern, index) => (
-        <div key={index} className="method-list-item data-group" data-type={pattern.type}>
+        <div 
+          key={index} 
+          className="method-list-item data-group" 
+          data-type={pattern.type}
+          data-pattern-type={pattern.properties.format || pattern.format}
+        >
           <div className="method-list-item-label">
             <div className="method-list-item-header">
               <div className="method-list-item-label-name">
@@ -92,18 +112,21 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
               <div className="pattern-description" style={{ marginBottom: 16 }}>
                 {renderHighlightedText(pattern.properties.description)}
               </div>
-              {pattern.properties.format && (
+              {(pattern.properties.format || pattern.format) && (
                 <div className="pattern-format" style={{ marginBottom: 16 }}>
                   <span className="format-label">Format:</span>
                   <button
-                    className={`format-value ${copiedValue === pattern.properties.format ? 'format-value-copied' : ''}`}
-                    onClick={() => copyToClipboard(pattern.properties.format!)}
-                    title="Click to copy format to clipboard"
+                    className={`format-value ${copiedValue === (pattern.properties.format || pattern.format) ? 'format-value-copied' : ''}`}
+                    onClick={() => {
+                      copyToClipboard(pattern.properties.format || pattern.format!);
+                      navigateToPattern(pattern.properties.format || pattern.format!);
+                    }}
+                    title="Click to copy format and navigate to pattern"
                     style={{ marginLeft: 8 }}
                   >
-                    {copiedValue === pattern.properties.format
+                    {copiedValue === (pattern.properties.format || pattern.format)
                       ? '✓ Copied!'
-                      : renderHighlightedText(pattern.properties.format)}
+                      : renderHighlightedText(pattern.properties.format || pattern.format!)}
                   </button>
                 </div>
               )}

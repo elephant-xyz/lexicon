@@ -7801,8 +7801,8 @@
       }
     },
     {
-      "type": "residency_policy",
-      "container_name": "residency_policies",
+      "type": "hoa_policy",
+      "container_name": "hoa_policies",
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
@@ -10590,6 +10590,7 @@
         "loan_status",
         "loan_status_date",
         "loan_status_type",
+        "loan_type",
         "loan_to_value_ltv_ratio_percent",
         "loan_total_interest_percent",
         "loan_total_interest_percentage",
@@ -10657,6 +10658,8 @@
         "scheduled_amortization_midpoint_date",
         "scheduled_unpaid_principal_balance_upb_amount",
         "scra_indicator",
+        "balloon_indicator",
+        "loan_annual_percentage_rate",
         "scra_relief_forbearance_requested_indicator",
         "scra_relief_status_type",
         "scra_relief_status_type_other_description",
@@ -11286,7 +11289,8 @@
           "comment": ""
         },
         "loan_amount": {
-          "type": "integer",
+          "type": "decimal",
+          "format": "currency",
           "comment": "Loan amount refers to the total amount of money that a borrower borrows from a lender to purchase a property. This amount is typically based on the purchase price of the property, minus any down payment that the borrower is able to make."
         },
         "loan_amount_increase_indicator": {
@@ -11649,6 +11653,7 @@
         },
         "note_amount": {
           "type": "decimal",
+          "format": "currency",
           "comment": "The amount to be repaid as disclosed on the note."
         },
         "note_city_name": {
@@ -14154,6 +14159,7 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
+
         "source_url": {
           "type": "string",
           "format": "uri",
@@ -15718,6 +15724,11 @@
       "type": "appliance",
       "container_name": "appliances",
       "is_deprecated": false,
+      "deprecated_properties": [
+        "appliance_type_other_description",
+        "finish_other_description",
+        "location_hint"
+      ],
       "properties": {
         "source_url": {
           "type": "string",
@@ -15785,6 +15796,107 @@
           "type": "string",
           "comment": "Optional free-text note indicating where the appliance is located."
         }
+      }
+    },
+    {
+      "type": "property_improvement",
+      "container_name": "property_improvements",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "properties": {
+        "source_url": {
+          "type": "string",
+          "format": "uri",
+          "comment": "The URL where this data was originally retrieved from."
+        },
+        "improvement_type": {
+          "type": "string",
+          "enum": [
+            "KitchenRemodel",
+            "BathroomRenovation",
+            "FlooringUpgrade",
+            "PaintingInterior",
+            "PaintingExterior",
+            "RoofReplacement",
+            "WindowReplacement",
+            "HVACUpgrade",
+            "PlumbingUpgrade",
+            "ElectricalUpgrade",
+            "SidingReplacement",
+            "DeckAddition",
+            "PatioAddition",
+            "PoolInstallation",
+            "LandscapingImprovement",
+            "DrivewaySealcoating",
+            "FencingInstallation",
+            "InsulationUpgrade",
+            "SolarPanelInstallation",
+            "ApplianceUpgrade",
+            "CountertopReplacement",
+            "CabinetRefacing",
+            "TileInstallation",
+            "CarpetReplacement",
+            "BasementFinishing",
+            "AtticConversion",
+            "GarageConversion",
+            "RoomAddition",
+            "AccessibilityUpgrade",
+            "SecuritySystemInstallation",
+            "SmartHomeUpgrade",
+            "WaterHeaterReplacement",
+            "FireplaceInstallation",
+            "StorageSolutionInstallation",
+            "Other"
+          ],
+          "comment": "Specific type of improvement or renovation performed."
+        },
+        "improvement_status": {
+          "type": "string",
+          "enum": [
+            "Completed",
+            "InProgress",
+            "Planned",
+            "Permitted",
+            "OnHold",
+            "Cancelled"
+          ],
+          "comment": "Current status of the improvement project."
+        },
+        "completion_date": {
+          "type": "string",
+          "format": "date",
+          "comment": "Date when the improvement work was completed."
+        },
+        "improvement_cost": {
+          "type": "number",
+          "comment": "Total cost of the improvement in dollars."
+        },
+        "contractor_type": {
+          "type": "string",
+          "enum": [
+            "GeneralContractor",
+            "Specialist",
+            "DIY",
+            "PropertyManager",
+            "Builder",
+            "HandymanService",
+            "Unknown"
+          ],
+          "comment": "Type of contractor or method used for the work."
+        },
+        "permit_required": {
+          "type": "boolean",
+          "comment": "Whether the improvement required building permits."
+        }
+      },
+      "example": {
+        "source_url": "https://egweb1.cityofbonitasprings.org/energov/selfservice#/permit/e7e6ec95-4042-4710-ad00-f946bb30291f",
+        "improvement_type": "ElectricalUpgrade",
+        "improvement_status": "Completed",
+        "completion_date": "2025-04-17",
+        "improvement_cost": null,
+        "contractor_type": "Unknown",
+        "permit_required": true
       }
     },
     {
@@ -19830,6 +19942,7 @@
         "tax",
         "loan",
         "school",
+        "property_improvements",
         "sales_history",
         "person",
         "layout",
@@ -19929,7 +20042,7 @@
         "property_has_address"
       ],
       "example": {
-        "label": "County Data",
+        "label": "County",
         "relationships": {
           "person_has_property": "bafkreifazwgu5sxvuglhd64bqzbyyszuyhlnwlchvtibiigr2l5k5spt4q",
           "property_has_address": "bafkreieoku66zp5arhxvrt4cw6w6uqpprudqmnxvs32m65nff4qpqducte",
@@ -19998,7 +20111,66 @@
           "relationship_type": "layout_has_appliance"
         }
       ],
-      "required": ["property_has_layout"]
+      "required": [
+        "property_has_layout"
+      ]
+    },
+    {
+      "label": "HOA ",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "homeowners_association",
+          "relationship_type": "property_has_hoa_policy"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "hoa_policy",
+          "relationship_type": "property_has_hoa_policy"
+        }
+      ],
+      "required": [
+      ]
+    },
+    {
+      "label": "Mortgage",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "loan",
+          "relationship_type": "property_has_loan"
+        },
+        {
+          "type": "relationship",
+          "from": "person",
+          "to": "loan",
+          "relationship_type": "person_has_loan"
+        }
+      ],
+      "required": ["property_has_loan","person_has_loan"
+      ]
+    },
+    {
+      "label": "Property Improvement",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "file",
+          "relationship_type": "property_has_permit"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "property_improvement",
+          "relationship_type": "person_has_property_improvement"
+        }
+      ],
+      "required": ["property_has_loan","person_has_loan"
+      ]
     }
   ],
   "common_patterns": [
