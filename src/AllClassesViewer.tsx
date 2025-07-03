@@ -121,7 +121,7 @@ const AllClassesViewer = () => {
                 >
                   <path
                     d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                    fill="currentColor"
+                    fill="#2be786"
                   />
                 </svg>
               </div>
@@ -135,7 +135,7 @@ const AllClassesViewer = () => {
                 >
                   <path
                     d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                    fill="currentColor"
+                    fill="#2be786"
                   />
                 </svg>
               </div>
@@ -159,7 +159,7 @@ const AllClassesViewer = () => {
                 >
                   <path
                     d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                    fill="currentColor"
+                    fill="#2be786"
                   />
                 </svg>
               </div>
@@ -173,7 +173,7 @@ const AllClassesViewer = () => {
                 >
                   <path
                     d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                    fill="currentColor"
+                    fill="#2be786"
                   />
                 </svg>
               </div>
@@ -295,7 +295,7 @@ const AllClassesViewer = () => {
         </div>
       )}
 
-      {/* Scroll to Top Button with Upward Animation - MATCHING EXTERNAL LINK ARROWS */}
+      {/* Scroll to Top Button with Upward Animation - NEW GREEN ARROW */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
@@ -315,7 +315,7 @@ const AllClassesViewer = () => {
               >
                 <path
                   d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                  fill="currentColor"
+                  fill="#2be786"
                 />
               </svg>
             </div>
@@ -330,7 +330,7 @@ const AllClassesViewer = () => {
               >
                 <path
                   d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                  fill="currentColor"
+                  fill="#2be786"
                 />
               </svg>
             </div>
