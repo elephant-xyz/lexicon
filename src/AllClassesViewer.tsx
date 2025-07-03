@@ -292,16 +292,48 @@ const AllClassesViewer = () => {
         </div>
       )}
 
-      {/* ALWAYS VISIBLE SCROLL TO TOP BUTTON FOR DEBUGGING */}
-      <button
-        onClick={scrollToTop}
-        className="scroll-to-top-button"
-        title="Scroll to top"
-        aria-label="Scroll to top"
-        style={{ display: 'flex !important' }}
-      >
-        ↑
-      </button>
+      {/* Scroll to Top Button with External Link Animation */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-button"
+          title="Scroll to top"
+          aria-label="Scroll to top"
+        >
+          <div className="icon-container">
+            <div className="icon-up">
+              <svg
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 6L6.86328 11.8799L7.51367 11.1201L2.12109 6.5H24.7686V5.5H2.12109L7.51367 0.879883L6.86328 0.120117L0 6Z"
+                  fill="currentColor"
+                  transform="rotate(-90 12.5 6)"
+                />
+              </svg>
+            </div>
+            <div className="icon-down">
+              <svg
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25 6L18.1367 0.120117L17.4863 0.879883L22.8789 5.5H0.231445V6.5H22.8789L17.4863 11.1201L18.1367 11.8799L25 6Z"
+                  fill="currentColor"
+                  transform="rotate(90 12.5 6)"
+                />
+              </svg>
+            </div>
+          </div>
+        </button>
+      )}
     </div>
   );
 };

@@ -1377,44 +1377,112 @@ mark {
   }
 }
 
-/* --- SCROLL TO TOP BUTTON: SIMPLIFIED AND ALWAYS VISIBLE FOR DEBUGGING --- */
+/* --- SCROLL TO TOP BUTTON: MATCHING EXTERNAL LINK ANIMATION --- */
 .scroll-to-top-button {
-  position: fixed !important;
-  bottom: 32px !important;
-  right: 32px !important;
-  width: 56px !important;
-  height: 56px !important;
-  border-radius: 50% !important;
-  background: #2be786 !important;
-  color: #222 !important;
-  border: none !important;
-  font-size: 1.5rem !important;
-  font-family: var(--font-family-primary) !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  opacity: 1 !important;
-  z-index: 9999 !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 4px 20px rgba(43, 231, 134, 0.4) !important;
-  visibility: visible !important;
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--primary-white);
+  color: var(--primary-espresso);
+  border: none;
+  font-size: 16px;
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: all var(--transition-fast);
+  letter-spacing: var(--letter-spacing-standard);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Icon containers for scroll-to-top button */
+.scroll-to-top-button .icon-container {
+  position: relative;
+  width: 24.769px;
+  height: 11.908px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-slide);
+  z-index: 3;
+}
+
+.scroll-to-top-button .icon-up {
+  position: absolute;
+  transform: translateY(200%);
+  opacity: 0;
+  transition: all var(--transition-slide);
+}
+
+.scroll-to-top-button .icon-down {
+  position: absolute;
+  transform: translateY(0);
+  opacity: 1;
+  transition: all var(--transition-slide);
+}
+
+.scroll-to-top-button .icon-up svg,
+.scroll-to-top-button .icon-down svg {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll-to-top-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-toxic-green);
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform var(--transition-slide);
+  transform: translateY(100%);
+}
+
+.scroll-to-top-button:hover::after,
+.scroll-to-top-button:focus::after,
+.scroll-to-top-button:active::after {
+  transform: translateY(-70%);
+}
+
+.scroll-to-top-button:hover .icon-container,
+.scroll-to-top-button:focus .icon-container,
+.scroll-to-top-button:active .icon-container {
+  transform: translateY(-125%);
+}
+
+.scroll-to-top-button:hover .icon-up,
+.scroll-to-top-button:focus .icon-up,
+.scroll-to-top-button:active .icon-up {
+  transform: translateY(100%);
+  opacity: 1;
+}
+
+.scroll-to-top-button:hover .icon-down,
+.scroll-to-top-button:focus .icon-down,
+.scroll-to-top-button:active .icon-down {
+  transform: translateY(-200%);
+  opacity: 0;
 }
 
 .scroll-to-top-button:hover {
-  opacity: 0.7 !important;
-  transform: translateY(-4px) !important;
-  box-shadow: 0 8px 25px rgba(43, 231, 134, 0.6) !important;
+  color: var(--primary-espresso);
 }
 
 .scroll-to-top-button:focus {
-  outline: 2px solid #2be786 !important;
-  outline-offset: 2px !important;
+  outline: none;
 }
 
 .scroll-to-top-button:active {
-  transform: translateY(-2px) !important;
+  transform: translateY(0);
 }
 
 /* Section Separator */
