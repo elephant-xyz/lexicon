@@ -1355,19 +1355,6 @@ mark {
   opacity: 0.7;
 }
 
-@media (prefers-color-scheme: dark) {
-  .scroll-to-top-button {
-    background: #2be786;
-    color: #181a1b;
-    opacity: 0.95;
-  }
-  .scroll-to-top-button:hover {
-    opacity: 0.5;
-    background: #2be786;
-    color: #181a1b;
-  }
-}
-
 /* Section Separator */
 .section-separator {
   display: flex;
@@ -1450,19 +1437,6 @@ mark {
 
   .relationship-arrow {
     transform: rotate(90deg);
-  }
-}
-
-/* Dark Mode Support (Future Enhancement) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background-primary: #1a1a1a;
-    --background-secondary: #2d2d2d;
-    --background-accent: #3a3a3a;
-    --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --border-color: #404040;
-    --hover-color: #404040;
   }
 }
 
@@ -1639,36 +1613,6 @@ mark {
   animation: highlight-pulse 2s ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  .common-patterns-viewer,
-  .patterns-header,
-  .patterns-content,
-  .pattern-card {
-    background: #232323 !important;
-    color: #fff !important;
-    border-color: #444 !important;
-  }
-  .patterns-header h3,
-  .pattern-name,
-  .format-label,
-  .pattern-label {
-    color: #fff !important;
-  }
-  .patterns-header p,
-  .pattern-description {
-    color: #b3b2b2 !important;
-  }
-  .pattern-format button,
-  .pattern-regex button {
-    background: #2be786 !important;
-    color: #181a1b !important;
-  }
-  .pattern-highlighted {
-    background: rgba(43, 231, 134, 0.18) !important;
-    border-color: #2be786 !important;
-  }
-}
-
 /* Required Badge - Updated with #B3B2B2 background and 8px corners */
 .required-badge {
   display: inline-block;
@@ -1794,18 +1738,6 @@ mark {
   opacity: 0.5;
   background: #d9d8d8;
   color: #222;
-}
-
-@media (prefers-color-scheme: dark) {
-  .ipfs-download-link {
-    background: #d9d8d8;
-    color: #181a1b;
-  }
-  .ipfs-download-link:hover {
-    background: #d9d8d8;
-    color: #181a1b;
-    opacity: 0.5;
-  }
 }
 
 /* JSON Example Section */
@@ -2036,105 +1968,4 @@ mark {
     'Segoe UI',
     Roboto,
     sans-serif !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  body,
-  .search-container,
-  .header-section,
-  .controls-section,
-  .data-group,
-  .method-list-item,
-  .properties-section,
-  .relationships-section,
-  .pattern-card,
-  .common-patterns-viewer,
-  .navigation-header,
-  .tag-selector,
-  .search-bar,
-  .results-info,
-  .no-results,
-  .error-message,
-  .empty-state,
-  .json-schema-section,
-  .json-example-section,
-  .json-examples-section,
-  .example-item {
-    background: #232323 !important;
-    color: #fff !important;
-    border-color: #444 !important;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  label,
-  .header-title,
-  .header-subtitle,
-  .json-schema-label,
-  .json-example-label,
-  .example-label {
-    color: #fff !important;
-  }
-
-  .ipfs-download-link,
-  .cid-copy-button,
-  .example-copy-button,
-  .nav-button,
-  .expand-button,
-  .clear-search-button,
-  .clear-search-button-inline {
-    background: #2be786 !important;
-    color: #181a1b !important;
-  }
-
-  .example-json,
-  .pattern-card {
-    background: #181a1b !important;
-    color: #fff !important;
-    border-color: #444 !important;
-  }
-
-  .class-description,
-  .pattern-description,
-  .source-description,
-  .example-description,
-  .method-list-item-label-description {
-    color: #fff !important;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .class-description {
-    background: #181a1b !important;
-    color: #fff !important;
-    border-color: #444 !important;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .relationship-targets-label,
-  .relationship-from,
-  .relationship-to,
-  .relationship-target-link {
-    color: #fff !important;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .relationship-target-link {
-    color: #222 !important;
-    background: #2be786 !important;
-    border-radius: 9999px;
-    font-weight: 700;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .empty-state-description {
-    color: #fff !important;
-  }
 }
