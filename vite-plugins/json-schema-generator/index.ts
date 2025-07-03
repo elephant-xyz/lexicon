@@ -221,7 +221,7 @@ function isOneToManyRelationship(relationshipType: string): boolean {
     'layout_has_file',
     'property_has_environmental_risk',
     'person_has_property',
-    'company_has_property'
+    'company_has_property',
   ];
 
   return oneToManyTypes.includes(relationshipType);
