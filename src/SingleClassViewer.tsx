@@ -155,7 +155,7 @@ const SingleClassViewer = () => {
           <NavigationHeader showHome={true} />
         </div>
 
-        {/* Scroll to Top Button with External Link Animation */}
+        {/* Scroll to Top Button - SIMPLIFIED VERSION */}
         {showScrollToTop && (
           <button
             onClick={scrollToTop}
@@ -163,42 +163,7 @@ const SingleClassViewer = () => {
             title="Scroll to top"
             aria-label="Scroll to top"
           >
-            <div className="icon-container">
-              <div className="icon-up">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 19V5M5 12L12 5L19 12"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-              <div className="icon-down">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M12 5V19M19 12L12 19L5 12"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
-            </div>
+            ↑
           </button>
         )}
       </div>
@@ -237,169 +202,134 @@ const SingleClassViewer = () => {
                     fill="currentColor"
                   />
                 </svg>
-                </div>
-                <div className="icon-right">
-                  <svg
-                    width="25"
-                    height="12"
-                    viewBox="0 0 25 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
               </div>
-            </a>
-            <a
-              href="https://elephant.xyz/whitepaper"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="external-link"
-            >
-              <span>Whitepaper</span>
-              <div className="icon-container">
-                <div className="icon-left">
-                  <svg
-                    width="25"
-                    height="12"
-                    viewBox="0 0 25 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-                <div className="icon-right">
-                  <svg
-                    width="25"
-                    height="12"
-                    viewBox="0 0 25 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div className="controls-section">
-          <div className="controls-grid">
-            <div className="class-info">
-              <label htmlFor="current-class-name">Viewing Class</label>
-              <div id="current-class-name" className="class-name">
-                {lexiconClass.type}
+              <div className="icon-right">
+                <svg
+                  width="25"
+                  height="12"
+                  viewBox="0 0 25 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
+                    fill="currentColor"
+                  />
+                </svg>
               </div>
             </div>
-            <div className="search-bar">
-              <label htmlFor="single-search-input">Search</label>
-              <div className="search-input-container">
-                <input
-                  id="single-search-input"
-                  type="text"
-                  placeholder="Search within this class..."
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  className="search-input"
-                />
-                {searchTerm && (
-                  <button
-                    onClick={() => setSearchTerm('')}
-                    className="clear-search-button"
-                    title="Clear search"
-                  >
-                    ×
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <NavigationHeader showHome={true} />
-        </div>
-
-        <div className="results-info">
-          <span className="results-count">1 class</span>
-          <span>Individual View{searchTerm && ` • Searching for &ldquo;${searchTerm}&rdquo;`}</span>
-        </div>
-
-        {filteredClass ? (
-          <LexiconClassViewer
-            classes={[filteredClass]}
-            searchTerm={searchTerm}
-            expandByDefault={true}
-          />
-        ) : searchTerm && searchTerm.length >= 2 ? (
-          <div className="no-results">
-            <p>No matches found for &ldquo;{searchTerm}&rdquo; in this class.</p>
-            <button onClick={() => setSearchTerm('')} className="clear-search-button-inline">
-              Clear search
-            </button>
-          </div>
-        ) : (
-          <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
-        )}
-
-        {/* Scroll to Top Button with External Link Animation */}
-        {showScrollToTop && (
-          <button
-            onClick={scrollToTop}
-            className="scroll-to-top-button"
-            title="Scroll to top"
-            aria-label="Scroll to top"
+          </a>
+          <a
+            href="https://elephant.xyz/whitepaper"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="external-link"
           >
+            <span>Whitepaper</span>
             <div className="icon-container">
-              <div className="icon-up">
+              <div className="icon-left">
                 <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+                  width="25"
+                  height="12"
+                  viewBox="0 0 25 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M12 19V5M5 12L12 5L19 12"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
+                    fill="currentColor"
                   />
                 </svg>
               </div>
-              <div className="icon-down">
+              <div className="icon-right">
                 <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+                  width="25"
+                  height="12"
+                  viewBox="0 0 25 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M12 5V19M19 12L12 19L5 12"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
+                    fill="currentColor"
                   />
                 </svg>
               </div>
             </div>
-          </button>
-        )}
+          </a>
+        </div>
       </div>
-    );
-  };
 
-  export default SingleClassViewer;
+      <div className="controls-section">
+        <div className="controls-grid">
+          <div className="class-info">
+            <label htmlFor="current-class-name">Viewing Class</label>
+            <div id="current-class-name" className="class-name">
+              {lexiconClass.type}
+            </div>
+          </div>
+          <div className="search-bar">
+            <label htmlFor="single-search-input">Search</label>
+            <div className="search-input-container">
+              <input
+                id="single-search-input"
+                type="text"
+                placeholder="Search within this class..."
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="clear-search-button"
+                  title="Clear search"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <NavigationHeader showHome={true} />
+      </div>
+
+      <div className="results-info">
+        <span className="results-count">1 class</span>
+        <span>Individual View{searchTerm && ` • Searching for &ldquo;${searchTerm}&rdquo;`}</span>
+      </div>
+
+      {filteredClass ? (
+        <LexiconClassViewer
+          classes={[filteredClass]}
+          searchTerm={searchTerm}
+          expandByDefault={true}
+        />
+      ) : searchTerm && searchTerm.length >= 2 ? (
+        <div className="no-results">
+          <p>No matches found for &ldquo;{searchTerm}&rdquo; in this class.</p>
+          <button onClick={() => setSearchTerm('')} className="clear-search-button-inline">
+            Clear search
+          </button>
+        </div>
+      ) : (
+        <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
+      )}
+
+      {/* Scroll to Top Button - SIMPLIFIED VERSION */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="scroll-to-top-button"
+          title="Scroll to top"
+          aria-label="Scroll to top"
+        >
+          ↑
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default SingleClassViewer;
