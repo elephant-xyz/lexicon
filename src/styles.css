@@ -1382,8 +1382,8 @@ mark {
   position: fixed;
   bottom: 32px;
   right: 32px;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #2be786;
   color: #222;
@@ -1402,10 +1402,10 @@ mark {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.95;
+  opacity: 1;
   z-index: 1000;
   transition: all var(--transition-fast);
-  box-shadow: none;
+  box-shadow: 0 4px 12px rgba(43, 231, 134, 0.3);
   overflow: hidden;
   position: relative;
 }
@@ -1413,8 +1413,8 @@ mark {
 /* Icon container for scroll-to-top button */
 .scroll-to-top-button .icon-container {
   position: relative;
-  width: 24.769px;
-  height: 11.908px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1483,6 +1483,7 @@ mark {
 
 .scroll-to-top-button:hover {
   color: #222;
+  box-shadow: 0 6px 20px rgba(43, 231, 134, 0.4);
 }
 
 .scroll-to-top-button:focus {
