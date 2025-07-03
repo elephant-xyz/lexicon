@@ -1325,17 +1325,29 @@ mark {
     margin-bottom: var(--spacing-1);
   }
 
-  .relationship-from,
+  .relationship-from {
+    width: 100%;
+    justify-content: flex-start;
+    order: 1;
+  }
+
   .relationship-to {
     width: 100%;
     justify-content: flex-start;
+    order: 3;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
   /* Position arrow at beginning of "To" line on very small screens */
   .relationship-arrow {
-    order: -1;
+    order: 2;
     margin-right: var(--spacing-2);
     margin-left: 0;
+    align-self: flex-start;
+    width: 100%;
+    text-align: left;
   }
 }
 
