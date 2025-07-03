@@ -40,13 +40,6 @@ const AllClassesViewer = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
       const shouldShow = scrollY > 300;
-      
-      console.log('=== SCROLL DEBUG ===');
-      console.log('scrollY:', scrollY);
-      console.log('shouldShow:', shouldShow);
-      console.log('showScrollToTop state:', showScrollToTop);
-      console.log('==================');
-      
       setShowScrollToTop(shouldShow);
     };
 
@@ -96,14 +89,8 @@ const AllClassesViewer = () => {
   }, [searchTerm, classes, dataGroups, commonPatterns]);
 
   const scrollToTop = () => {
-    console.log('Scroll to top clicked!');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  // Debug: Log when showScrollToTop changes
-  useEffect(() => {
-    console.log('showScrollToTop changed to:', showScrollToTop);
-  }, [showScrollToTop]);
 
   return (
     <div className="search-container">
@@ -308,63 +295,44 @@ const AllClassesViewer = () => {
         </div>
       )}
 
-      {/* SCROLL TO TOP BUTTON - ALWAYS VISIBLE FOR TESTING */}
-      <button
-        onClick={scrollToTop}
-        className="scroll-to-top-button-test"
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-          width: '60px',
-          height: '60px',
-          borderRadius: '50%',
-          backgroundColor: '#2be786',
-          color: '#222',
-          border: 'none',
-          fontSize: '24px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          zIndex: 99999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-        }}
-        title="Scroll to top (TEST BUTTON)"
-        aria-label="Scroll to top (TEST BUTTON)"
-      >
-        ↑
-      </button>
-
-      {/* CONDITIONAL SCROLL TO TOP BUTTON */}
+      {/* Scroll to Top Button with Upward Animation */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
-          className="scroll-to-top-button-conditional"
-          style={{
-            position: 'fixed',
-            bottom: '90px',
-            right: '20px',
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            backgroundColor: '#ffffff',
-            color: '#222',
-            border: 'none',
-            fontSize: '24px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            zIndex: 99999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-          }}
-          title="Scroll to top (CONDITIONAL)"
-          aria-label="Scroll to top (CONDITIONAL)"
+          className="scroll-to-top-button"
+          title="Scroll to top"
+          aria-label="Scroll to top"
         >
-          ↑
+          <div className="icon-container">
+            <div className="icon-up">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 4L6 10L7.41 11.41L11 7.83V20H13V7.83L16.59 11.41L18 10L12 4Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+            <div className="icon-down">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 20L18 14L16.59 12.59L13 16.17V4H11V16.17L7.41 12.59L6 14L12 20Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
         </button>
       )}
     </div>

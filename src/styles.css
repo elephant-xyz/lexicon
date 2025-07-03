@@ -1377,113 +1377,115 @@ mark {
   }
 }
 
-/* --- SCROLL TO TOP BUTTON: SIMPLIFIED AND WORKING --- */
+/* --- SCROLL TO TOP BUTTON: UPWARD ANIMATION LIKE EXTERNAL LINKS --- */
 .scroll-to-top-button {
-  position: fixed !important;
-  bottom: 32px !important;
-  right: 32px !important;
-  width: 56px !important;
-  height: 56px !important;
-  border-radius: 50% !important;
-  background-color: var(--primary-white) !important;
-  color: var(--primary-espresso) !important;
-  border: none !important;
-  font-size: 24px !important;
-  font-weight: var(--font-weight-bold) !important;
-  font-family: var(--font-family-primary) !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 99999 !important;
-  transition: all var(--transition-fast) !important;
-  letter-spacing: var(--letter-spacing-standard) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  position: relative !important;
-  overflow: hidden !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: 0;
+  width: 56px;
+  height: 56px;
+  background-color: var(--primary-white);
+  color: var(--primary-espresso);
+  text-decoration: none;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 24px;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  letter-spacing: var(--letter-spacing-standard);
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  overflow: hidden;
+  z-index: 99999;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Icon containers for scroll-to-top button */
 .scroll-to-top-button .icon-container {
-  position: relative !important;
-  width: 24px !important;
-  height: 24px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transition: transform var(--transition-slide) !important;
-  z-index: 3 !important;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-slide);
+  z-index: 3;
 }
 
 .scroll-to-top-button .icon-up {
-  position: absolute !important;
-  transform: translateY(200%) !important;
-  opacity: 0 !important;
-  transition: all var(--transition-slide) !important;
+  position: absolute;
+  transform: translateY(200%);
+  opacity: 0;
+  transition: all var(--transition-slide);
 }
 
 .scroll-to-top-button .icon-down {
-  position: absolute !important;
-  transform: translateY(0) !important;
-  opacity: 1 !important;
-  transition: all var(--transition-slide) !important;
+  position: absolute;
+  transform: translateY(0);
+  opacity: 1;
+  transition: all var(--transition-slide);
 }
 
 .scroll-to-top-button .icon-up svg,
 .scroll-to-top-button .icon-down svg {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100%;
+  height: 100%;
 }
 
 .scroll-to-top-button::after {
-  content: '' !important;
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  background: var(--primary-toxic-green) !important;
-  border-radius: 50% !important;
-  z-index: 1 !important;
-  transition: transform var(--transition-slide) !important;
-  transform: translateY(100%) !important;
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-toxic-green);
+  border-radius: var(--radius-full);
+  z-index: 1;
+  transition: transform var(--transition-slide);
+  transform: translateY(100%);
 }
 
 .scroll-to-top-button:hover::after,
 .scroll-to-top-button:focus::after,
 .scroll-to-top-button:active::after {
-  transform: translateY(-70%) !important;
+  transform: translateY(-70%);
 }
 
 .scroll-to-top-button:hover .icon-container,
 .scroll-to-top-button:focus .icon-container,
 .scroll-to-top-button:active .icon-container {
-  transform: translateY(-125%) !important;
+  transform: translateY(-125%);
 }
 
 .scroll-to-top-button:hover .icon-up,
 .scroll-to-top-button:focus .icon-up,
 .scroll-to-top-button:active .icon-up {
-  transform: translateY(100%) !important;
-  opacity: 1 !important;
+  transform: translateY(100%);
+  opacity: 1;
 }
 
 .scroll-to-top-button:hover .icon-down,
 .scroll-to-top-button:focus .icon-down,
 .scroll-to-top-button:active .icon-down {
-  transform: translateY(-200%) !important;
-  opacity: 0 !important;
+  transform: translateY(-200%);
+  opacity: 0;
 }
 
 .scroll-to-top-button:hover {
-  color: var(--primary-espresso) !important;
+  color: var(--primary-espresso);
+  text-decoration: none;
 }
 
 .scroll-to-top-button:focus {
-  outline: none !important;
+  outline: none;
 }
 
 .scroll-to-top-button:active {
-  transform: translateY(0) !important;
+  transform: translateY(0);
 }
 
 /* Section Separator */
