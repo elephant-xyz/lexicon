@@ -91,6 +91,8 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
       'property_has_tax',
       'property_has_file',
       'layout_has_file',
+      'company_has_property',
+      'person_has_property',
     ];
 
     return oneToManyTypes.includes(relationshipType);
@@ -236,6 +238,14 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                                 title="One-to-many relationship (array)"
                               >
                                 [Array]
+                              </span>
+                            )}
+                            {group.required?.includes(rel.relationship_type) && (
+                              <span
+                                className="required-badge"
+                                title="This relationship is required"
+                              >
+                                Required
                               </span>
                             )}
                           </div>

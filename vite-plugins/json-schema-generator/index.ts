@@ -188,7 +188,6 @@ function generateJSONSchemaForRelationship(
   classCids: Record<string, string>
 ): RelationshipSchema {
   // Determine if this is a one-to-many relationship based on relationship type
-  const isOneToMany = isOneToManyRelationship(relationship.relationship_type);
 
   return {
     $schema: 'https://json-schema.org/draft-07/schema#',
@@ -201,21 +200,11 @@ function generateJSONSchemaForRelationship(
         cid: classCids[relationship.from] || '',
         description: `Reference to ${relationship.from} class schema`,
       },
-      to: isOneToMany
-        ? {
-            type: 'array',
-            items: {
-              type: 'string',
-              cid: classCids[relationship.to] || '',
-              description: `Reference to ${relationship.to} class schema`,
-            },
-            description: `Array of references to ${relationship.to} class schemas`,
-          }
-        : {
-            type: 'string',
-            cid: classCids[relationship.to] || '',
-            description: `Reference to ${relationship.to} class schema`,
-          },
+      to: {
+        type: 'string',
+        cid: classCids[relationship.to] || '',
+        description: `Reference to ${relationship.to} class schema`,
+      },
     },
     required: ['from', 'to'],
     additionalProperties: false,
@@ -231,6 +220,8 @@ function isOneToManyRelationship(relationshipType: string): boolean {
     'property_has_file',
     'layout_has_file',
     'property_has_environmental_risk',
+    'person_has_property',
+    'company_has_property',
   ];
 
   return oneToManyTypes.includes(relationshipType);
