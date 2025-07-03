@@ -291,7 +291,7 @@ const AllClassesViewer = () => {
         </div>
       )}
 
-      {/* Scroll to Top Button */}
+      {/* Scroll to Top Button with SVG Icons */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
@@ -299,7 +299,38 @@ const AllClassesViewer = () => {
           title="Scroll to top"
           aria-label="Scroll to top"
         >
-          ↑
+          <div className="icon-container">
+            <div className="icon-top">
+              <svg
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 6L6.86328 11.8799L7.51367 11.1201L2.12109 6.5H24.7686V5.5H2.12109L7.51367 0.879883L6.86328 0.120117L0 6Z"
+                  fill="currentColor"
+                  transform="rotate(90 12.5 6)"
+                />
+              </svg>
+            </div>
+            <div className="icon-bottom">
+              <svg
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 6L6.86328 11.8799L7.51367 11.1201L2.12109 6.5H24.7686V5.5H2.12109L7.51367 0.879883L6.86328 0.120117L0 6Z"
+                  fill="currentColor"
+                  transform="rotate(90 12.5 6)"
+                />
+              </svg>
+            </div>
+          </div>
         </button>
       )}
     </div>
