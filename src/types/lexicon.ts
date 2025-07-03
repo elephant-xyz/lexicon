@@ -69,10 +69,11 @@ export interface DataGroup {
 
 export interface CommonPattern {
   type: string;
+  format?: string; // Some patterns have format at top level
   properties: {
     type: string;
     pattern?: string;
-    format?: string;
+    format?: string; // Some patterns have format nested in properties
     description: string;
   };
 }
