@@ -1112,13 +1112,13 @@ textarea {
 .relationship-targets-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--spacing-4);
   flex-wrap: wrap;
   margin-top: 4px;
 }
 
 .relationship-targets-label {
-  margin-right: 16px;
+  margin-right: var(--spacing-4);
   min-width: 70px;
 }
 
