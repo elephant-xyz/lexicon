@@ -19843,6 +19843,7 @@
         "nearby_location",
         "lot",
         "appliance",
+        "appliances",
         "flood_storm_information"
       ]
     }
@@ -19857,6 +19858,9 @@
           "to": "unnormalized_address",
           "relationship_type": "property_root"
         }
+      ],
+      "required": [
+        "property_root"
       ]
     },
     {
@@ -19916,6 +19920,13 @@
           "to": "flood_storm_information",
           "relationship_type": "property_has_flood_storm_information"
         }
+      ],
+      "required": [
+        "property_has_layout",
+        "property_has_sales_history",
+        "property_has_lot",
+        "property_has_tax",
+        "property_has_address"
       ],
       "example": {
         "label": "County Data",

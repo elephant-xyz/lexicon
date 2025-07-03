@@ -58,7 +58,7 @@ interface DataGroupSchema extends JSONSchema {
       properties: Record<
         string,
         {
-          type: string | 'array';
+          type: string | 'array' | (string | 'array')[];
           cid?: string;
           items?: {
             type: string;
@@ -244,7 +244,7 @@ function generateJSONSchemaForDataGroup(
   const relationshipProperties: Record<
     string,
     {
-      type: string | 'array';
+      type: string | 'array' | (string | 'array')[];
       cid?: string;
       items?: {
         type: string;
@@ -256,26 +256,38 @@ function generateJSONSchemaForDataGroup(
   > = {};
   const requiredRelationships: string[] = [];
 
+  // Get the required relationships from the data group
+  const dataGroupRequired = dataGroup.required || [];
+
   // Create properties object with relationship_type as keys
   Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
     const isOneToMany = isOneToManyRelationship(relationshipType);
+    const isRequired = dataGroupRequired.includes(relationshipType);
 
     relationshipProperties[relationshipType] = isOneToMany
       ? {
-          type: 'array',
+          type: isRequired ? 'array' : ['array', 'null'],
           items: {
             type: 'string',
             cid,
             description: `Reference to ${key} relationship schema`,
           },
-          description: `Array of references to ${key} relationship schemas`,
+          description: isRequired
+            ? `Array of references to ${key} relationship schemas (required)`
+            : `Array of references to ${key} relationship schemas (can be null)`,
         }
       : {
-          type: 'string',
+          type: isRequired ? 'string' : ['string', 'null'],
           cid,
-          description: `Reference to ${key} relationship schema`,
+          description: isRequired
+            ? `Reference to ${key} relationship schema (required)`
+            : `Reference to ${key} relationship schema (can be null)`,
         };
-    requiredRelationships.push(relationshipType);
+
+    // Add to required list if this relationship is required
+    if (isRequired) {
+      requiredRelationships.push(relationshipType);
+    }
   });
 
   return {
