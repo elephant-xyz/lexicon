@@ -158,7 +158,7 @@ const SingleClassViewer = () => {
           <NavigationHeader showHome={true} />
         </div>
 
-        {/* Scroll to Top Button with Upward Animation */}
+        {/* Scroll to Top Button with Upward Animation - MATCHING EXTERNAL LINK ARROWS */}
         {showScrollToTop && (
           <button
             onClick={scrollToTop}
@@ -169,28 +169,30 @@ const SingleClassViewer = () => {
             <div className="icon-container">
               <div className="icon-up">
                 <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+                  width="25"
+                  height="12"
+                  viewBox="0 0 25 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  style={{ transform: 'rotate(-90deg)' }}
                 >
                   <path
-                    d="M12 4L6 10L7.41 11.41L11 7.83V20H13V7.83L16.59 11.41L18 10L12 4Z"
+                    d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
                     fill="currentColor"
                   />
                 </svg>
               </div>
               <div className="icon-down">
                 <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
+                  width="25"
+                  height="12"
+                  viewBox="0 0 25 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  style={{ transform: 'rotate(-90deg)' }}
                 >
                   <path
-                    d="M12 20L18 14L16.59 12.59L13 16.17V4H11V16.17L7.41 12.59L6 14L12 20Z"
+                    d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
                     fill="currentColor"
                   />
                 </svg>
@@ -349,7 +351,7 @@ const SingleClassViewer = () => {
         <LexiconClassViewer classes={[lexiconClass]} expandByDefault={true} />
       )}
 
-      {/* Scroll to Top Button with Upward Animation */}
+      {/* Scroll to Top Button with Upward Animation - MATCHING EXTERNAL LINK ARROWS */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
@@ -360,28 +362,30 @@ const SingleClassViewer = () => {
           <div className="icon-container">
             <div className="icon-up">
               <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                style={{ transform: 'rotate(-90deg)' }}
               >
                 <path
-                  d="M12 4L6 10L7.41 11.41L11 7.83V20H13V7.83L16.59 11.41L18 10L12 4Z"
+                  d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
                   fill="currentColor"
                 />
               </svg>
             </div>
             <div className="icon-down">
               <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                style={{ transform: 'rotate(-90deg)' }}
               >
                 <path
-                  d="M12 20L18 14L16.59 12.59L13 16.17V4H11V16.17L7.41 12.59L6 14L12 20Z"
+                  d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
                   fill="currentColor"
                 />
               </svg>

@@ -1377,7 +1377,7 @@ mark {
   }
 }
 
-/* --- SCROLL TO TOP BUTTON: UPWARD ANIMATION LIKE EXTERNAL LINKS --- */
+/* --- SCROLL TO TOP BUTTON: UPWARD ANIMATION LIKE EXTERNAL LINKS WITH MATCHING ARROWS --- */
 .scroll-to-top-button {
   display: inline-flex;
   align-items: center;
@@ -1404,11 +1404,11 @@ mark {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Icon containers for scroll-to-top button */
+/* Icon containers for scroll-to-top button - MATCHING EXTERNAL LINK STRUCTURE */
 .scroll-to-top-button .icon-container {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 24.769px;
+  height: 11.908px;
   display: flex;
   align-items: center;
   justify-content: center;
