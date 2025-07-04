@@ -813,7 +813,7 @@ textarea {
   letter-spacing: var(--letter-spacing-standard);
 }
 
-/* Expand Button - NEW GREEN ARROW DESIGN */
+/* Expand Button */
 .expand-button {
   background-color: var(--primary-white);
   border: none;
@@ -828,37 +828,11 @@ textarea {
   font-weight: var(--font-weight-bold);
   color: var(--primary-espresso);
   transition: all var(--transition-fast);
-  position: relative;
-  overflow: hidden;
-}
-
-.expand-button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
-  background-image: url("data:image/svg+xml,%3Csvg width='25' height='12' viewBox='0 0 25 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z' fill='%232be786'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  transform: translate(-50%, -50%) rotate(90deg);
-  transition: all var(--transition-fast);
-}
-
-.expand-button[aria-expanded="true"]::before {
-  transform: translate(-50%, -50%) rotate(-90deg);
 }
 
 .expand-button:hover {
   background-color: var(--primary-toxic-green);
   color: #423e3e;
-}
-
-.expand-button:hover::before {
-  filter: brightness(0) saturate(100%) invert(25%) sepia(8%) saturate(1058%) hue-rotate(314deg) brightness(95%) contrast(89%);
 }
 
 .expand-button:focus {
@@ -1403,7 +1377,7 @@ mark {
   }
 }
 
-/* --- SCROLL TO TOP BUTTON: UPWARD ANIMATION LIKE EXTERNAL LINKS WITH NEW GREEN ARROWS --- */
+/* --- SCROLL TO TOP BUTTON: UPWARD ANIMATION LIKE EXTERNAL LINKS WITH MATCHING ARROWS --- */
 .scroll-to-top-button {
   display: inline-flex;
   align-items: center;
