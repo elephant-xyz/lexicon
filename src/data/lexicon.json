@@ -5,12 +5,16 @@
       "container_name": "schools",
       "is_deprecated": false,
       "deprecated_properties": [],
-      "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, and ranking to help evaluate the educational quality of a property's location.",
+      "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, ranking, and additional details to help evaluate the educational quality of a property's location.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "school_name": {
           "type": "string",
@@ -28,6 +32,437 @@
         "school_ranking": {
           "type": "string",
           "comment": "Ranking of the school."
+        },
+        "rating_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "comment": "Numerical rating score out of 10."
+        },
+        "grade_rating": {
+          "type": "string",
+          "enum": [
+            "A+",
+            "A",
+            "A-",
+            "B+",
+            "B",
+            "B-",
+            "C+",
+            "C",
+            "C-",
+            "D+",
+            "D",
+            "D-",
+            "F"
+          ],
+          "comment": "Letter grade rating for the school."
+        },
+        "distance_miles": {
+          "type": "number",
+          "comment": "Distance from the property to the school in miles."
+        },
+        "description": {
+          "type": "string",
+          "comment": "Additional description about the school's programs, reputation, or special features."
+        },
+        "overall_district_rating": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "comment": "Overall school district rating out of 10."
+        }
+      }
+    },
+    {
+      "type": "transportation_access",
+      "container_name": "transportation_access",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Transportation and commute quality including walkability, highway access, and overall commute assessment.",
+      "properties": {
+        "source_http_request": {
+          "type": "string",
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
+        },
+        "commute_quality": {
+          "type": "string",
+          "enum": [
+            "Excellent",
+            "Great",
+            "Good",
+            "Fair",
+            "Poor"
+          ],
+          "comment": "Overall commute quality assessment."
+        },
+        "walkability_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "comment": "Walk Score rating for walkability to amenities."
+        },
+        "walkability_description": {
+          "type": "string",
+          "comment": "Description of walkable amenities and access."
+        },
+        "highway_access": {
+          "type": "string",
+          "enum": [
+            "Excellent",
+            "Great",
+            "Good",
+            "Fair",
+            "Poor"
+          ],
+          "comment": "Quality of highway access."
+        },
+        "major_highways": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "highway_name": {
+                "type": "string"
+              },
+              "access_type": {
+                "type": "string",
+                "enum": [
+                  "Immediate",
+                  "Close",
+                  "Moderate",
+                  "Distant"
+                ]
+              },
+              "distance_miles": {
+                "type": "number"
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          },
+          "comment": "List of major highways and their accessibility."
+        }
+      }
+    },
+    {
+      "type": "safety_security",
+      "container_name": "safety_security",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Safety and security metrics including crime rates, emergency services response times, and overall safety assessments.",
+      "properties": {
+        "source_http_request": {
+          "type": "string",
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
+        },
+        "crime_rate": {
+          "type": "string",
+          "enum": [
+            "VeryLow",
+            "Low",
+            "Moderate",
+            "High",
+            "VeryHigh"
+          ],
+          "comment": "Overall crime rate assessment for the area."
+        },
+        "crime_rate_comparison": {
+          "type": "string",
+          "comment": "Comparison to national average (e.g., '70% below national avg')."
+        },
+        "emergency_services_response": {
+          "type": "string",
+          "enum": [
+            "FastResponse",
+            "GoodResponse",
+            "AverageResponse",
+            "SlowResponse"
+          ],
+          "comment": "Emergency services response time quality."
+        },
+        "emergency_response_time": {
+          "type": "string",
+          "comment": "Specific response time range (e.g., '5-7 min response time')."
+        },
+        "overall_safety_grade": {
+          "type": "string",
+          "enum": [
+            "A+",
+            "A",
+            "A-",
+            "B+",
+            "B",
+            "B-",
+            "C+",
+            "C",
+            "C-",
+            "D+",
+            "D",
+            "D-",
+            "F"
+          ],
+          "comment": "Overall safety grade for the area."
+        }
+      }
+    },
+    {
+      "type": "environment_characteristics",
+      "container_name": "environment_characteristics",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Environmental factors, natural disaster risks, and surroundings that affect property desirability and safety.",
+      "properties": {
+        "source_http_request": {
+          "type": "string",
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
+        },
+        "fire_zone": {
+          "type": "string",
+          "comment": "Wildfire risk zone or fire district designation indicating wildfire hazard level and emergency response district."
+        },
+        "wildfire_risk_level": {
+          "type": "string",
+          "enum": [
+            "VeryLow",
+            "Low",
+            "Moderate",
+            "High",
+            "VeryHigh",
+            "Extreme"
+          ],
+          "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history."
+        },
+        "air_quality_index": {
+          "type": "string",
+          "enum": [
+            "Good",
+            "Moderate",
+            "UnhealthyForSensitiveGroups",
+            "Unhealthy",
+            "VeryUnhealthy",
+            "Hazardous"
+          ],
+          "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area."
+        },
+        "air_quality_compliance": {
+          "type": "boolean",
+          "comment": "Whether area is in attainment for all EPA ambient air quality standards."
+        },
+        "noise_level": {
+          "type": "string",
+          "enum": [
+            "Quiet",
+            "Moderate",
+            "Busy",
+            "Loud"
+          ],
+          "comment": "Ambient noise level in the area affecting quality of life and property desirability."
+        },
+        "noise_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Highway",
+              "Railroad",
+              "Airport",
+              "Industrial",
+              "Traffic",
+              "Suburban",
+              "None"
+            ]
+          },
+          "comment": "Specific sources of noise in the area."
+        },
+        "light_pollution_level": {
+          "type": "string",
+          "enum": [
+            "Dark",
+            "Rural",
+            "Suburban",
+            "Urban"
+          ],
+          "comment": "Light pollution level affecting night sky visibility and natural darkness."
+        },
+        "earthquake_zone": {
+          "type": "string",
+          "comment": "Seismic zone designation or earthquake risk classification for the area."
+        },
+        "soil_stability": {
+          "type": "string",
+          "enum": [
+            "Stable",
+            "Moderate",
+            "Unstable",
+            "HighRisk"
+          ],
+          "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk."
+        },
+        "environmental_hazards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "comment": "List of additional environmental hazards present in the area (e.g., 'Radon', 'Industrial Pollution', 'Mining Activity')."
+        },
+        "flood_risk_level": {
+          "type": "string",
+          "enum": [
+            "Minimal",
+            "Low",
+            "Moderate",
+            "High",
+            "Extreme"
+          ],
+          "comment": "Flood risk assessment based on FEMA flood zone data."
+        },
+        "flood_zone_designation": {
+          "type": "string",
+          "comment": "FEMA flood zone designation (e.g., 'Zone X', 'Zone AE')."
+        },
+        "flood_insurance_required": {
+          "type": "boolean",
+          "comment": "Whether flood insurance is required for the property."
+        },
+        "wind_storm_risk": {
+          "type": "string",
+          "enum": [
+            "Minimal",
+            "Low",
+            "Moderate",
+            "High",
+            "Extreme"
+          ],
+          "comment": "Wind storm and hurricane risk assessment."
+        },
+        "hurricane_engineering_compliance": {
+          "type": "boolean",
+          "comment": "Whether building is engineered for hurricane winds per current code."
+        },
+        "radon_risk_level": {
+          "type": "string",
+          "enum": [
+            "Low",
+            "Moderate",
+            "High",
+            "Concern"
+          ],
+          "comment": "Radon gas exposure risk assessment."
+        },
+        "radon_building_type_assessment": {
+          "type": "string",
+          "comment": "Radon risk specific to building type (e.g., 'rarely an issue in low-rise wood frame condos')."
+        },
+        "environmental_surroundings": {
+          "type": "string",
+          "enum": [
+            "CoastalBeach",
+            "Mountains",
+            "Desert",
+            "Forest",
+            "Urban",
+            "Suburban",
+            "Rural",
+            "Industrial"
+          ],
+          "comment": "Primary environmental setting surrounding the property."
+        },
+        "beach_proximity": {
+          "type": "object",
+          "properties": {
+            "walking_distance": {
+              "type": "boolean"
+            },
+            "beach_name": {
+              "type": "string"
+            },
+            "distance_description": {
+              "type": "string"
+            }
+          },
+          "comment": "Details about nearby beach access if applicable."
+        }
+      }
+    },
+    {
+      "type": "property_ranking_overall",
+      "container_name": "property_ranking_overall",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Overall property ranking and assessment scores based on multiple factors including climate, safety, wellness, ambience, and location quality.",
+      "properties": {
+        "source_http_request": {
+          "type": "string",
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
+        },
+        "overall_ranking_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "comment": "Overall property ranking score out of 100."
+        },
+        "ranking_percentile": {
+          "type": "string",
+          "comment": "Percentile ranking description (e.g., 'top 5% of similar listings')."
+        },
+        "climate_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "comment": "Climate assessment score."
+        },
+        "safety_grade": {
+          "type": "string",
+          "enum": [
+            "A+",
+            "A",
+            "A-",
+            "B+",
+            "B",
+            "B-",
+            "C+",
+            "C",
+            "C-",
+            "D+",
+            "D",
+            "D-",
+            "F"
+          ],
+          "comment": "Safety grade assessment."
+        },
+        "wellness_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "comment": "Wellness and health factors score."
+        },
+        "ambience_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "comment": "Ambience and livability score."
         }
       }
     },
@@ -455,10 +890,14 @@
           "pattern": "^\\d{5}$",
           "comment": "The 5-digit postal code for the property address. Format: '12345'."
         },
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "county_jurisdiction": {
           "type": "string",
@@ -539,10 +978,14 @@
       ],
       "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes and geographic identifiers.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "full_address_slug": {
           "type": "string",
@@ -1138,7 +1581,8 @@
         }
       },
       "example": {
-        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "street_number": "2558",
         "street_name": "GARDENS",
         "street_suffix_type": "Pkwy",
@@ -2697,10 +3141,14 @@
         "email"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "company_abbreviation": {
           "type": "string",
@@ -5796,10 +6244,14 @@
       "deprecated_properties": [
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "file_format": {
           "type": "string",
@@ -6985,10 +7437,14 @@
         "storm_surge_risk"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "fire_zone": {
           "type": "string",
@@ -7689,10 +8145,14 @@
         "has_homeowners_association_inclusion"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "homeowners_association_name": {
           "type": "string",
@@ -7806,10 +8266,14 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "leasing_policy": {
           "type": "string",
@@ -10703,10 +11167,14 @@
       ],
       "description": "Represents a mortgage loan with comprehensive financial terms, conditions, and status information. Includes loan amounts, interest rates, payment schedules, borrower information, and regulatory compliance details for real estate financing transactions.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "accelerated_payment_program_indicator": {
           "type": "boolean",
@@ -12213,10 +12681,14 @@
         "lot_size_square_feet"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "lot_type": {
           "type": "string",
@@ -12354,7 +12826,8 @@
         }
       },
       "example": {
-        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "lot_type": "LessThanOrEqualToOneQuarterAcre",
         "lot_length_feet": null,
         "lot_width_feet": null,
@@ -13074,10 +13547,14 @@
       ],
       "description": "Represents an individual person with comprehensive personal information including name, demographics, identification, citizenship status, and biographical details. Used for property ownership, loan applications, and other real estate transactions.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "age": {
           "type": "integer",
@@ -13238,7 +13715,8 @@
         }
       },
       "example": {
-        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "prefix_name": null,
         "first_name": "Soofi",
         "middle_name": null,
@@ -14159,16 +14637,24 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
-
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "parcel_id": {
           "type": "string",
           "comment": "A unique identifier for the property parcel as assigned by the local assessor or jurisdiction."
         }
+      },
+      "example": {
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
+        "parcel_id": "52434205310037080"
       }
     },
     {
@@ -14377,9 +14863,14 @@
         "land_use_type"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri"
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "accessory_unit_count": {
           "type": "integer",
@@ -15069,7 +15560,8 @@
         }
       },
       "example": {
-        "source_url": "https://www.pbcgov.org/papa/Property/Details?parcelID=52434205310037080",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "attachment_type": "Attached",
         "number_of_units_type": "One",
         "parcel_identifier": "52-43-42-05-31-003-7080",
@@ -15210,10 +15702,14 @@
       ],
       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "space_type": {
           "type": "string",
@@ -15239,6 +15735,7 @@
             "Laundry Room",
             "Mudroom",
             "Closet",
+            "Bedroom",
             "Walk-in Closet",
             "Mechanical Room",
             "Storage Room",
@@ -15730,10 +16227,14 @@
         "location_hint"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "appliance_type": {
           "type": "string",
@@ -15804,10 +16305,14 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "improvement_type": {
           "type": "string",
@@ -15890,7 +16395,8 @@
         }
       },
       "example": {
-        "source_url": "https://egweb1.cityofbonitasprings.org/energov/selfservice#/permit/e7e6ec95-4042-4710-ad00-f946bb30291f",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "improvement_type": "ElectricalUpgrade",
         "improvement_status": "Completed",
         "completion_date": "2025-04-17",
@@ -15906,10 +16412,14 @@
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "name": {
           "type": "string",
@@ -17236,10 +17746,14 @@
         "sale_type"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "arms_length_indicator": {
           "type": "boolean",
@@ -17316,7 +17830,8 @@
         }
       },
       "example": {
-        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "ownership_transfer_date": "2022-04-07",
         "purchase_price_amount": "560,000.00"
       }
@@ -18079,10 +18594,14 @@
           "type": "boolean",
           "comment": "Indicates whether flood insurance is required based on the flood zone designation and federal regulations."
         },
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "fema_search_url": {
           "type": "string",
@@ -18124,10 +18643,14 @@
       ],
       "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "architectural_style_type": {
           "type": "string",
@@ -18956,10 +19479,14 @@
       ],
       "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "tax_year": {
           "type": "integer",
@@ -19029,7 +19556,8 @@
         }
       },
       "example": {
-        "source_url": "https://pbcpao.gov/Property/Details?parcelId=52434205310037080",
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
         "tax_year": 2024,
         "property_assessed_value_amount": "465,000.00",
         "property_exemption_amount": "0.00",
@@ -19709,10 +20237,14 @@
         "water_source_type_other_description"
       ],
       "properties": {
-        "source_url": {
+        "source_http_request": {
           "type": "string",
-          "format": "uri",
-          "comment": "The URL where this data was originally retrieved from."
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "cooling_system_type": {
           "type": "string",
@@ -19957,7 +20489,13 @@
         "lot",
         "appliance",
         "appliances",
-        "flood_storm_information"
+        "flood_storm_information",
+        "property_ranking_overall",
+        "environment_characteristics",
+        "safety_security",
+        "transportation_access"
+
+
       ]
     }
   ],
@@ -20041,6 +20579,7 @@
         "property_has_tax",
         "property_has_address"
       ],
+      "one_to_many_relationships": ["person_has_property","company_has_property","property_has_layout","property_has_tax","property_has_sales_history","property_has_file"],
       "example": {
         "label": "County",
         "relationships": {
@@ -20113,7 +20652,8 @@
       ],
       "required": [
         "property_has_layout"
-      ]
+      ],
+      "one_to_many_relationships": ["property_has_layout","property_appliance","layout_has_file","layout_has_appliance"]
     },
     {
       "label": "HOA ",
@@ -20122,7 +20662,7 @@
           "type": "relationship",
           "from": "property",
           "to": "homeowners_association",
-          "relationship_type": "property_has_hoa_policy"
+          "relationship_type": "property_has_homeowners_association"
         },
         {
           "type": "relationship",
@@ -20131,8 +20671,7 @@
           "relationship_type": "property_has_hoa_policy"
         }
       ],
-      "required": [
-      ]
+      "required": ["property_has_homeowners_association","property_has_hoa_policy"]
     },
     {
       "label": "Mortgage",
@@ -20150,7 +20689,24 @@
           "relationship_type": "person_has_loan"
         }
       ],
-      "required": ["property_has_loan","person_has_loan"
+      "required": [
+        "property_has_loan",
+        "person_has_loan"
+      ],
+      "one_to_many_relationships": ["person_has_loan"]
+    },
+    {
+      "label": "Property Ranking",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "property_ranking_overall",
+          "relationship_type": "property_has_ranking"
+        }
+      ],
+      "required": [
+        "property_has_ranking"
       ]
     },
     {
@@ -20166,11 +20722,74 @@
           "type": "relationship",
           "from": "property",
           "to": "property_improvement",
-          "relationship_type": "person_has_property_improvement"
+          "relationship_type": "property_has_property_improvement"
         }
       ],
-      "required": ["property_has_loan","person_has_loan"
-      ]
+      "required": [
+        "property_has_permit",
+        "property_has_property_improvement"
+      ],
+      "one_to_many_relationships": ["property_has_permit","property_has_property_improvement"]
+    },
+    {
+      "label": "Environment Characteristics",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "environment_characteristics",
+          "relationship_type": "property_has_environment_characteristics"
+        }
+      ],
+      "required": [
+        "property_has_environment_characteristics"
+      ],
+      "one_to_many_relationships": []
+    },
+    {
+      "label": "Safety and Security",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "safety_security",
+          "relationship_type": "property_has_safety_security"
+        }
+      ],
+      "required": [
+        "property_has_safety_security"
+      ],
+      "one_to_many_relationships": []
+    },
+    {
+      "label": "Transportation and Access",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "transportation_access",
+          "relationship_type": "property_has_transportation_access"
+        }
+      ],
+      "required": [
+        "property_has_transportation_access"
+      ],
+      "one_to_many_relationships": []
+    },
+    {
+      "label": "School",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "school",
+          "relationship_type": "property_has_school"
+        }
+      ],
+      "required": [
+        "property_has_school"
+      ],
+      "one_to_many_relationships": ["property_has_school"]
     }
   ],
   "common_patterns": [

@@ -83,19 +83,9 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
     return classMatch?.value || group.label;
   };
 
-  const isOneToManyRelationship = (relationshipType: string): boolean => {
-    // Define which relationship types should be arrays (one-to-many)
-    const oneToManyTypes = [
-      'property_has_layout',
-      'property_has_sales_history',
-      'property_has_tax',
-      'property_has_file',
-      'layout_has_file',
-      'company_has_property',
-      'person_has_property',
-    ];
-
-    return oneToManyTypes.includes(relationshipType);
+  const isOneToManyRelationship = (relationshipType: string, group: DataGroup): boolean => {
+    // Check if the group has one_to_many_relationships property and if the relationship type is in it
+    return group.one_to_many_relationships?.includes(relationshipType) || false;
   };
 
   return (
@@ -232,7 +222,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                         <div className="method-list-item-label">
                           <div className="method-list-item-label-name">
                             {rel.relationship_type || `has_${rel.to}`}
-                            {isOneToManyRelationship(rel.relationship_type) && (
+                            {isOneToManyRelationship(rel.relationship_type, group) && (
                               <span
                                 className="array-indicator"
                                 title="One-to-many relationship (array)"

@@ -211,20 +211,13 @@ function generateJSONSchemaForRelationship(
   };
 }
 
-function isOneToManyRelationship(relationshipType: string): boolean {
-  // Define which relationship types should be arrays (one-to-many)
-  const oneToManyTypes = [
-    'property_has_layout',
-    'property_has_sales_history',
-    'property_has_tax',
-    'property_has_file',
-    'layout_has_file',
-    'property_has_environmental_risk',
-    'person_has_property',
-    'company_has_property',
-  ];
-
-  return oneToManyTypes.includes(relationshipType);
+// Updated function to accept the one-to-many relationships array
+function isOneToManyRelationship(
+  relationshipType: string | undefined,
+  oneToManyRelationships: string[]
+): boolean {
+  if (!relationshipType) return false;
+  return oneToManyRelationships.includes(relationshipType);
 }
 
 function generateJSONSchemaForDataGroup(
@@ -250,9 +243,12 @@ function generateJSONSchemaForDataGroup(
   // Get the required relationships from the data group
   const dataGroupRequired = dataGroup.required || [];
 
+  // Get the one-to-many relationships from the data group
+  const oneToManyRelationships = dataGroup.one_to_many_relationships || [];
+
   // Create properties object with relationship_type as keys
   Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
-    const isOneToMany = isOneToManyRelationship(relationshipType);
+    const isOneToMany = isOneToManyRelationship(relationshipType, oneToManyRelationships);
     const isRequired = dataGroupRequired.includes(relationshipType);
 
     relationshipProperties[relationshipType] = isOneToMany
