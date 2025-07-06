@@ -6241,8 +6241,7 @@
       "container_name": "files",
       "is_deprecated": false,
       "description": "The file class is a comprehensive data structure that represents all media and documents associated with a specific property, including images, PDFs, and floor plans across multiple file formats (JPEG, PNG, PDF). It supports both traditional HTTP/HTTPS and decentralized IPFS storage options while providing extensive semantic classification for property-related documents such as deeds, assignments, affidavits, building permits, inspection reports, and property images. The class includes human-friendly naming conventions and metadata management capabilities, making it ideal for organizing and retrieving all media assets and legal documents tied to individual properties within real estate platforms and property management systems.",
-      "deprecated_properties": [
-      ],
+      "deprecated_properties": [],
       "properties": {
         "source_http_request": {
           "type": "string",
@@ -20529,8 +20528,6 @@
         "environment_characteristics",
         "safety_security",
         "transportation_access"
-
-
       ]
     }
   ],
@@ -20614,7 +20611,14 @@
         "property_has_tax",
         "property_has_address"
       ],
-      "one_to_many_relationships": ["person_has_property","company_has_property","property_has_layout","property_has_tax","property_has_sales_history","property_has_file"],
+      "one_to_many_relationships": [
+        "person_has_property",
+        "company_has_property",
+        "property_has_layout",
+        "property_has_tax",
+        "property_has_sales_history",
+        "property_has_file"
+      ],
       "example": {
         "label": "County",
         "relationships": {
@@ -20688,7 +20692,12 @@
       "required": [
         "property_has_layout"
       ],
-      "one_to_many_relationships": ["property_has_layout","property_appliance","layout_has_file","layout_has_appliance"]
+      "one_to_many_relationships": [
+        "property_has_layout",
+        "property_appliance",
+        "layout_has_file",
+        "layout_has_appliance"
+      ]
     },
     {
       "label": "HOA ",
@@ -20706,7 +20715,10 @@
           "relationship_type": "property_has_hoa_policy"
         }
       ],
-      "required": ["property_has_homeowners_association","property_has_hoa_policy"]
+      "required": [
+        "property_has_homeowners_association",
+        "property_has_hoa_policy"
+      ]
     },
     {
       "label": "Mortgage",
@@ -20728,7 +20740,9 @@
         "property_has_loan",
         "person_has_loan"
       ],
-      "one_to_many_relationships": ["person_has_loan"]
+      "one_to_many_relationships": [
+        "person_has_loan"
+      ]
     },
     {
       "label": "Property Ranking",
@@ -20764,7 +20778,10 @@
         "property_has_permit",
         "property_has_property_improvement"
       ],
-      "one_to_many_relationships": ["property_has_permit","property_has_property_improvement"]
+      "one_to_many_relationships": [
+        "property_has_permit",
+        "property_has_property_improvement"
+      ]
     },
     {
       "label": "Environment Characteristics",
@@ -20824,7 +20841,9 @@
       "required": [
         "property_has_school"
       ],
-      "one_to_many_relationships": ["property_has_school"]
+      "one_to_many_relationships": [
+        "property_has_school"
+      ]
     }
   ],
   "common_patterns": [
@@ -20843,8 +20862,8 @@
       "properties": {
         "type": "string",
         "format": "date",
-        "pattern": "^(0?[1-9]|1[0-2])\\/(0?[1-9]|[12]\\d|3[01])\\/(19|20)\\d{2}$",
-        "description": "Date format in MM/DD/YYYY"
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "Date in isoformat. F.e : 2025-07-06"
       }
     },
     {
