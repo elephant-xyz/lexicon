@@ -35,19 +35,23 @@ const AllClassesViewer = () => {
     setFilteredCommonPatterns(patterns);
   }, []);
 
-  // Scroll detection for scroll-to-top button
+  // Scroll detection for scroll-to-top button - SIMPLIFIED AND BULLETPROOF
   useEffect(() => {
     const handleScroll = () => {
-      // Show button when scrolled down enough that header is not visible
-      // Header section is approximately 200px, so we'll use 300px threshold
-      const scrollY = window.scrollY;
+      const scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
       const shouldShow = scrollY > 300;
       setShowScrollToTop(shouldShow);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Check initial scroll position
+    handleScroll();
+
+    // Cleanup
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [showScrollToTop]);
 
   useEffect(() => {
     const tagClasses =
@@ -291,7 +295,7 @@ const AllClassesViewer = () => {
         </div>
       )}
 
-      {/* Scroll to Top Button */}
+      {/* Scroll to Top Button with Upward Animation - MATCHING EXTERNAL LINK ARROWS */}
       {showScrollToTop && (
         <button
           onClick={scrollToTop}
@@ -299,7 +303,38 @@ const AllClassesViewer = () => {
           title="Scroll to top"
           aria-label="Scroll to top"
         >
-          ↑
+          <div className="icon-container">
+            <div className="icon-up">
+              <svg
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ transform: 'rotate(-90deg)' }}
+              >
+                <path
+                  d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+            <div className="icon-down">
+              <svg
+                width="25"
+                height="12"
+                viewBox="0 0 25 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ transform: 'rotate(-90deg)' }}
+              >
+                <path
+                  d="M25 6L18.1367 11.8799L17.4863 11.1201L22.8789 6.5H0.231445V5.5H22.8789L17.4863 0.879883L18.1367 0.120117L25 6Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+          </div>
         </button>
       )}
     </div>
