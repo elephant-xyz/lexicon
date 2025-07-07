@@ -883,12 +883,7 @@
         "full_address": {
           "type": "string",
           "pattern": "^\\d+\\s+[A-Za-z0-9\\s]+,\\s*[A-Za-z\\s]+,\\s*[A-Z]{2}$",
-          "comment": "The street address of the property including street number, street name, city, and state. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL'."
-        },
-        "postal_code": {
-          "type": "string",
-          "pattern": "^\\d{5}$",
-          "comment": "The 5-digit postal code for the property address. Format: '12345'."
+          "comment": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'."
         },
         "source_http_request": {
           "type": "string",
@@ -19548,11 +19543,11 @@
         },
         "authority_account_identifier": {
           "type": "string",
-          "comment": "Authority account identifier is a tax identifier issued to individuals and organizations to track tax obligations and payments they make to a tax authority."
+          "comment": "A unique ID number assigned by the tax authority to identify a specific taxpayer's account for tracking their tax payments and obligations."
         },
         "authority_name": {
           "type": "string",
-          "comment": "Authority name refers to the name of an organization authorized to collect taxes from individuals and other organizations."
+          "comment": "The name of the government agency or organization that has the legal right to collect taxes (e.g., 'City of Springfield', 'Cook County', 'ABC School District')."
         },
         "description": {
           "type": "string",
