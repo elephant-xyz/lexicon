@@ -787,7 +787,7 @@ textarea {
 .method-list-item-label {
   padding: var(--spacing-5);
   border-bottom: none;
-  background-color: #9E9D9D;
+  background-color: #9e9d9d;
 }
 
 .method-list-item-header {
@@ -826,7 +826,7 @@ textarea {
   justify-content: center;
   font-size: var(--text-lg);
   font-weight: 400;
-  color: #423E3E;
+  color: #423e3e;
   transition: all var(--transition-fast);
 }
 
@@ -1728,8 +1728,8 @@ mark {
 .required-badge {
   display: inline-block;
   padding: 2px, 8px;
-  background-color: #D9D8D8;
-  color: #423E3E;
+  background-color: #d9d8d8;
+  color: #423e3e;
   font-size: var(--text-xs);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-standard);
@@ -1825,7 +1825,7 @@ mark {
 }
 
 .ipfs-download-link {
-  color: #423E3E;
+  color: #423e3e;
   border-radius: 9999px;
   font-family:
     'neue-haas-grotesk-display',
@@ -1837,7 +1837,7 @@ mark {
     sans-serif;
   font-weight: 600;
   text-decoration: none;
-  border: solid 1px #423E3E;
+  border: solid 1px #423e3e;
   padding: 0.5em 1.2em;
   transition: opacity 0.2s;
   cursor: pointer;
@@ -1845,7 +1845,7 @@ mark {
 
 .ipfs-download-link:hover {
   opacity: 0.5;
-  border: solid 1px #423E3E;
+  border: solid 1px #423e3e;
   background: #ffffff;
   color: #222;
 }
@@ -1970,20 +1970,20 @@ mark {
 .array-indicator {
   display: inline-block;
   padding: 2px, 8px;
-  background-color: rgba(43, 231, 134, .2);
-  color: #423E3E;
+  background-color: rgba(43, 231, 134, 0.2);
+  color: #423e3e;
   font-size: var(--text-xs);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--letter-spacing-standard);
   border-radius: 8px;
-  border: solid 1px #2BE786;
+  border: solid 1px #2be786;
   margin-left: var(--spacing-2);
 }
 
 /* Relationship Schema Link */
 .relationship-schema-link {
   margin-left: -4px;
-  margin-top: 18px
+  margin-top: 18px;
 }
 
 /* Search Matches Section */

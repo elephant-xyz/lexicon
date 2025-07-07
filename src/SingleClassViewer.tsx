@@ -22,10 +22,10 @@ const SingleClassViewer = () => {
 
     // Add scroll listener
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     // Check initial scroll position
     handleScroll();
-    
+
     // Cleanup
     return () => window.removeEventListener('scroll', handleScroll);
   }, [showScrollToTop]);
