@@ -12847,6 +12847,11 @@
           "type": "string",
           "comment": "The CID of to class in relationship"
         },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "comment": "The date where the relationship has existed"
+        },
         "type": {
           "type": "string",
           "enum": [
@@ -20532,12 +20537,14 @@
           "type": "relationship",
           "from": "person",
           "to": "property",
+          "date": "",
           "relationship_type": "person_has_property"
         },
         {
           "type": "relationship",
           "from": "company",
           "to": "property",
+          "date": "",
           "relationship_type": "company_has_property"
         },
         {
