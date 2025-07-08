@@ -882,7 +882,6 @@
       "properties": {
         "full_address": {
           "type": "string",
-          "pattern": "^\\d+\\s+[A-Za-z0-9\\s]+,\\s*[A-Za-z\\s]+,\\s*[A-Z]{2}$",
           "comment": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'."
         },
         "source_http_request": {
@@ -15807,8 +15806,7 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate",
-            "Other"
+            "Laminate"
           ],
           "comment": "Refers to the type of material used for a floor."
         },
@@ -15829,8 +15827,7 @@
             "Upper",
             "Attic",
             "Loft",
-            "Mezzanine",
-            "Other"
+            "Mezzanine"
           ],
           "comment": "The floor or level the room is on, useful for multi-story properties."
         },
@@ -15864,8 +15861,7 @@
             "Bow",
             "Greenhouse",
             "Picture",
-            "Casement",
-            "Other"
+            "Casement"
           ],
           "comment": "Refers to the window design."
         },
@@ -15894,8 +15890,7 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate",
-            "Other"
+            "Laminate"
           ],
           "comment": "Refers to the type of material a window is made from."
         },
@@ -15927,8 +15922,7 @@
             "StainedGlass",
             "BambooShades",
             "WoodShades",
-            "WovenShades",
-            "Other"
+            "WovenShades"
           ],
           "comment": "Refers to the type of window treatment that covers the windows."
         },
@@ -15991,8 +15985,7 @@
             "Laminate",
             "Wood",
             "Tile",
-            "Concrete",
-            "Other"
+            "Concrete"
           ],
           "comment": "Material of visible countertops, if present."
         },
@@ -16003,8 +15996,7 @@
             "Shaker",
             "Traditional",
             "Flat Panel",
-            "Glass Front",
-            "Other"
+            "Glass Front"
           ],
           "comment": "Visual cabinet style present in the room, if any."
         },
@@ -16024,8 +16016,7 @@
             "Rustic",
             "Eclectic",
             "Minimalist",
-            "Transitional",
-            "Other"
+            "Transitional"
           ],
           "comment": "Dominant design style observed in the room."
         },
@@ -16054,8 +16045,7 @@
             "Crown Molding",
             "Wainscoting",
             "Built-In Shelving",
-            "Wall Paneling",
-            "Other"
+            "Wall Paneling"
           ],
           "comment": "List of prominent design elements."
         },
@@ -16076,8 +16066,7 @@
             "Infinity",
             "Fiberglass",
             "Vinyl",
-            "Natural",
-            "Other"
+            "Natural"
           ],
           "comment": "Specifies the structural or functional type of the pool if applicable to this room."
         },
@@ -16094,8 +16083,7 @@
             "WoodFiredHotTub",
             "JapaneseSoakingTub",
             "Saltwater",
-            "Heated",
-            "Other"
+            "Heated"
           ],
           "comment": "Specifies the type of spa or hot tub present, if applicable."
         },
@@ -16110,8 +16098,7 @@
             "Lifebuoy",
             "WarningSignage",
             "SurveillanceCamera",
-            "Lighting",
-            "Other"
+            "Lighting"
           ],
           "comment": "Visible safety features such as fencing, alarms, slip-resistant surfaces, or pool covers."
         },
@@ -16128,8 +16115,7 @@
             "Park",
             "Waterfront",
             "Street",
-            "None",
-            "Other"
+            "None"
           ],
           "comment": "The dominant view visible from this room."
         },
@@ -16288,8 +16274,7 @@
             "Ice Maker",
             "Garbage Disposal",
             "Smart Display",
-            "Toaster Oven",
-            "Other"
+            "Toaster Oven"
           ],
           "comment": "The appliance type observed in the space."
         },
@@ -16309,8 +16294,7 @@
             "Custom Panel",
             "Chrome",
             "Copper",
-            "Brushed Nickel",
-            "Other"
+            "Brushed Nickel"
           ],
           "comment": "The visible finish of the appliance."
         },
@@ -20839,8 +20823,73 @@
       "one_to_many_relationships": [
         "property_has_school"
       ]
+    },
+    {
+      "label": "Tax",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "tax",
+          "relationship_type": "property_has_tax"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "file",
+          "relationship_type": "property_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "tax",
+          "to": "file",
+          "relationship_type": "tax_has_file"
+        }
+      ],
+      "required": [
+        "property_has_tax","property_has_file","tax_has_file"
+      ],
+
+      "one_to_many_relationships": [
+        "property_has_tax",
+        "property_has_file",
+        "tax_has_file"
+      ]
+    },
+    {
+      "label": "Sales History",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "sales_history",
+          "relationship_type": "property_has_sales_history"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "file",
+          "relationship_type": "property_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "file",
+          "relationship_type": "property_has_sales_history"
+        }
+      ],
+      "required": [
+        "property_has_tax","property_has_file","tax_has_file"
+      ],
+
+      "one_to_many_relationships": [
+        "property_has_tax",
+        "property_has_file",
+        "tax_has_file"
+      ]
     }
-  ],
+
+    ],
   "common_patterns": [
     {
       "type": "currency",
