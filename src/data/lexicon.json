@@ -19527,7 +19527,7 @@
         },
         "authority_account_identifier": {
           "type": "string",
-          "comment": "A unique ID number assigned by the tax authority to identify a specific taxpayer's account for tracking their tax payments and obligations."
+          "comment": "A unique identifier assigned to the tax authority itself, used to distinguish this authority from other tax collecting entities in the system."
         },
         "authority_name": {
           "type": "string",
