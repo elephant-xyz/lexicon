@@ -817,7 +817,7 @@ textarea {
 .expand-button {
   background-color: var(--primary-white);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: 9999px;
   width: 36px;
   height: 24px;
   cursor: pointer;
@@ -977,7 +977,6 @@ textarea {
 .pattern-value,
 .format-value,
 .relationship-target-link,
-.cid-copy-button,
 .example-copy-button {
   background-color: var(--primary-toxic-green) !important;
   border: none !important;
@@ -1024,7 +1023,6 @@ textarea {
 .pattern-value:hover,
 .format-value:hover,
 .relationship-target-link:hover,
-.cid-copy-button:hover,
 .example-copy-button:hover {
   opacity: 0.5 !important;
   transform: none !important;
@@ -1111,7 +1109,7 @@ textarea {
 .relationship-targets-container {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4);
+  gap: 8px;
   flex-wrap: wrap;
   margin-top: 4px;
 }
@@ -1531,7 +1529,7 @@ mark {
 
 .relationship-from,
 .relationship-to {
-  color: #222;
+  color: #423e3e;
   font-weight: 600;
   font-size: var(--text-sm);
   letter-spacing: var(--letter-spacing-standard);
@@ -1540,8 +1538,8 @@ mark {
 .relationship-arrow {
   color: var(--primary-toxic-green);
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-bold);
-  margin: 0 var(--spacing-2);
+  font-weight: 400;
+  margin: 0;
 }
 
 .match-score {
@@ -1607,7 +1605,7 @@ mark {
 .patterns-header h3 {
   font-size: var(--text-xl);
   font-weight: 700;
-  color: #222;
+  color: #423e3e;
   margin-bottom: var(--spacing-2);
   font-family:
     'neue-haas-grotesk-display',
@@ -1662,7 +1660,7 @@ mark {
 .pattern-name {
   font-size: var(--text-base);
   font-weight: 700;
-  color: #222;
+  color: #423e3e;
   margin: 0 0 var(--spacing-2) 0;
 }
 
@@ -1688,7 +1686,7 @@ mark {
 .pattern-label {
   font-size: var(--text-sm);
   font-weight: 600;
-  color: #222;
+  color: #423e3e;
   margin-bottom: var(--spacing-2);
   display: block;
 }
@@ -1696,7 +1694,7 @@ mark {
 .pattern-format button,
 .pattern-regex button {
   background: #2be786;
-  color: #222;
+  color: #423e3e;
   border-radius: 9999px;
   font-family:
     'neue-haas-grotesk-display',
@@ -1727,7 +1725,7 @@ mark {
 /* Required Badge - Updated with #B3B2B2 background and 8px corners */
 .required-badge {
   display: inline-block;
-  padding: 2px, 8px;
+  padding: 2px 8px;
   background-color: #d9d8d8;
   color: #423e3e;
   font-size: var(--text-xs);
@@ -1836,6 +1834,7 @@ mark {
     Roboto,
     sans-serif;
   font-weight: 600;
+  font-size: 14px;
   text-decoration: none;
   border: solid 1px #423e3e;
   padding: 0.5em 1.2em;
@@ -1847,7 +1846,7 @@ mark {
   opacity: 0.5;
   border: solid 1px #423e3e;
   background: #ffffff;
-  color: #222;
+  color: #423e3e;
 }
 
 /* JSON Example Section */
@@ -1969,7 +1968,7 @@ mark {
 /* Array Indicator - Updated with 8px border radius */
 .array-indicator {
   display: inline-block;
-  padding: 2px, 8px;
+  padding: 2px 8px;
   background-color: rgba(43, 231, 134, 0.2);
   color: #423e3e;
   font-size: var(--text-xs);
@@ -2026,11 +2025,11 @@ mark {
 }
 
 .json-schema-section {
-  border-left: 4px solid #2be786;
+  border: 1px solid #dfdede;
 }
 
 .json-example-section {
-  border-left: 4px solid #2be786;
+  border: 1px solid #dfdede;
 }
 
 .example-item {
@@ -2038,11 +2037,9 @@ mark {
 }
 
 /* Buttons: fully rounded, green, Neue Haas Grotesk, 50% opacity hover */
-.ipfs-download-link,
-.cid-copy-button,
 .example-copy-button {
-  background: #2be786;
-  color: #222;
+  background: #f0f0f0;
+  color: #423e3e;
   border-radius: 9999px;
   font-family:
     'neue-haas-grotesk-display',
@@ -2057,10 +2054,14 @@ mark {
   transition: opacity 0.2s;
 }
 
-.ipfs-download-link:hover,
 .cid-copy-button:hover,
 .example-copy-button:hover {
   opacity: 0.5;
+}
+
+.cid-copy-button {
+  border: 1px solid #b3b2b2 !important;
+  background: rgba(43, 231, 134, 0.2) !important;
 }
 
 /* Section headers */
