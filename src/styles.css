@@ -1529,7 +1529,7 @@ mark {
 
 .relationship-from,
 .relationship-to {
-  color: #423E3E;
+  color: #423e3e;
   font-weight: 600;
   font-size: var(--text-sm);
   letter-spacing: var(--letter-spacing-standard);
@@ -1539,7 +1539,7 @@ mark {
   color: var(--primary-toxic-green);
   font-size: var(--text-lg);
   font-weight: 400;
-  margin: 0 ;
+  margin: 0;
 }
 
 .match-score {
@@ -1605,7 +1605,7 @@ mark {
 .patterns-header h3 {
   font-size: var(--text-xl);
   font-weight: 700;
-  color: #423E3E;
+  color: #423e3e;
   margin-bottom: var(--spacing-2);
   font-family:
     'neue-haas-grotesk-display',
@@ -1660,7 +1660,7 @@ mark {
 .pattern-name {
   font-size: var(--text-base);
   font-weight: 700;
-  color: #423E3E;
+  color: #423e3e;
   margin: 0 0 var(--spacing-2) 0;
 }
 
@@ -1686,7 +1686,7 @@ mark {
 .pattern-label {
   font-size: var(--text-sm);
   font-weight: 600;
-  color: #423E3E;
+  color: #423e3e;
   margin-bottom: var(--spacing-2);
   display: block;
 }
@@ -1694,7 +1694,7 @@ mark {
 .pattern-format button,
 .pattern-regex button {
   background: #2be786;
-  color: #423E3E;
+  color: #423e3e;
   border-radius: 9999px;
   font-family:
     'neue-haas-grotesk-display',
@@ -1725,7 +1725,7 @@ mark {
 /* Required Badge - Updated with #B3B2B2 background and 8px corners */
 .required-badge {
   display: inline-block;
-  padding: 2px 8px ;
+  padding: 2px 8px;
   background-color: #d9d8d8;
   color: #423e3e;
   font-size: var(--text-xs);
@@ -1846,7 +1846,7 @@ mark {
   opacity: 0.5;
   border: solid 1px #423e3e;
   background: #ffffff;
-  color: #423E3E;
+  color: #423e3e;
 }
 
 /* JSON Example Section */
@@ -2039,7 +2039,7 @@ mark {
 /* Buttons: fully rounded, green, Neue Haas Grotesk, 50% opacity hover */
 .example-copy-button {
   background: #f0f0f0;
-  color: #423E3E;
+  color: #423e3e;
   border-radius: 9999px;
   font-family:
     'neue-haas-grotesk-display',
@@ -2060,10 +2060,9 @@ mark {
 }
 
 .cid-copy-button {
-  border: 1px solid #b3b2b2!important;
+  border: 1px solid #b3b2b2 !important;
   background: rgba(43, 231, 134, 0.2) !important;
-    }
-  
+}
 
 /* Section headers */
 .json-schema-label,
