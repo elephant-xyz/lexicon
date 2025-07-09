@@ -1087,7 +1087,7 @@
         },
         "city_name": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "City name refers to the name of the city in which the address is located."
         },
         "congressional_district_identifier": {
@@ -1104,7 +1104,7 @@
         },
         "country_code": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "Country code is a code that represents the country in which the address is located."
         },
         "country_name": {
@@ -1302,7 +1302,7 @@
         },
         "street_name": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A street name is the name of a street on which an address is located."
         },
         "street_post_directional_text": {
@@ -1339,7 +1339,7 @@
         },
         "street_number": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "Street  number refers to the numerical part of a street address that indicates the specific location or position of a building or property along a street."
         },
         "street_suffix": {
@@ -1559,7 +1559,7 @@
         },
         "unit_identifier": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A unit identifier is a reference to the specific unit, suite, apartment, or other secondary identifier associated with an address. It is used to differentiate individual units within a larger building or complex."
         },
         "township": {
@@ -3192,7 +3192,7 @@
         },
         "name": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "The official name of the company."
         }
       },
@@ -15185,7 +15185,7 @@
         },
         "parcel_identifier": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
         },
         "pets_allowed_indicator": {
@@ -15363,7 +15363,7 @@
         },
         "property_legal_description_text": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A detailed legal description of the property, often used in legal documents and contracts. This typically outlines the exact boundaries, dimensions, and location of the property as recognized by local or state governments."
         },
         "property_mixed_usage_indicator": {
@@ -15443,27 +15443,27 @@
         },
         "township": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A township is a 6-mile by 6-mile square of land, covering 36 square miles. Townships are numbered north or south from a designated baseline. In this case, Township 45 refers to the 45th tier of townships from the baseline."
         },
         "range": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": " A range describes the east-west position of a township relative to a principal meridian. Range 24E means the township is located 24 tiers east of the principal meridian"
         },
         "section": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "Each township is divided into 36 sections, with each section being 1 square mile (640 acres). Section 03 refers to the third section within its township"
         },
         "block": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision"
         },
         "lot": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A lot is an individually designated parcel within a block. Lot 0190 identifies the specific plot of land within Block 0000G"
         },
         "purchase_price_amount": {
@@ -15488,7 +15488,7 @@
         },
         "subdivision": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "Subdivision refers to the name for a specific, delineated area within a larger community or city that has been divided into individual plots or lots, typically for the purpose of residential or commercial development."
         },
         "total_room_count": {
@@ -18606,10 +18606,12 @@
         },
         "panel_number": {
           "type": "string",
+          "minLength": 1,
           "comment": "The FEMA flood insurance rate map (FIRM) panel number that contains the property location."
         },
         "map_version": {
           "type": "string",
+          "minLength": 1,
           "comment": "The version identifier of the FEMA flood map panel."
         },
         "effective_date": {
@@ -18619,10 +18621,12 @@
         },
         "evacuation_zone": {
           "type": "string",
+          "minLength": 1,
           "comment": "The evacuation zone designation (e.g., A, B, C) assigned to the property location for emergency planning purposes."
         },
         "flood_zone": {
           "type": "string",
+          "minLength": 1,
           "comment": "The FEMA flood zone designation indicating the level of flood risk (e.g., AE, X, VE)."
         },
         "flood_insurance_required": {
@@ -18640,6 +18644,7 @@
         },
         "fema_search_url": {
           "type": "string",
+          "minLength": 1,
           "format": "uri",
           "comment": "The FEMA Map Service Center URL used to search and verify flood information for the specific property address."
         }
@@ -19550,12 +19555,12 @@
         },
         "authority_account_identifier": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "A unique identifier assigned to the tax authority itself, used to distinguish this authority from other tax collecting entities in the system."
         },
         "authority_name": {
           "type": "string",
-          "pattern": "^.+$",
+          "minLength": 1,
           "comment": "The name of the government agency or organization that has the legal right to collect taxes (e.g., 'City of Springfield', 'Cook County', 'ABC School District')."
         },
         "description": {

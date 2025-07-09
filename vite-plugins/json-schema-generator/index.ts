@@ -66,6 +66,7 @@ interface DataGroupSchema extends JSONSchema {
             description: string;
           };
           description: string;
+          minItems?: number;
         }
       >;
       required: string[];
@@ -90,9 +91,14 @@ function mapLexiconTypeToJSONSchema(
       if (property.pattern) {
         schema.pattern = property.pattern;
       }
+      if (property.minLength !== undefined) {
+        schema.minLength = property.minLength;
+      }
+
       if (property.format) {
         schema.format = property.format;
       }
+
       break;
     case 'integer':
       schema.type = isRequired ? 'integer' : ['integer', 'null'];
@@ -236,6 +242,7 @@ function generateJSONSchemaForDataGroup(
         description: string;
       };
       description: string;
+      minItems?: number;
     }
   > = {};
   const requiredRelationships: string[] = [];
@@ -259,6 +266,7 @@ function generateJSONSchemaForDataGroup(
             cid,
             description: `Reference to ${key} relationship schema`,
           },
+          minItems: 1,
           description: isRequired
             ? `Array of references to ${key} relationship schemas (required)`
             : `Array of references to ${key} relationship schemas (can be null)`,
