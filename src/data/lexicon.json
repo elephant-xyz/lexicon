@@ -13569,7 +13569,7 @@
         },
         "first_name": {
           "type": "string",
-          "pattern": "^[A-Z][a-zA-Z\\s\\-',.]*$",
+          "pattern": "^[A-Z][a-z]*([ \\-',.][A-Za-z][a-z]*)*$",
           "comment": "A person's first name is the name that they are given at birth or during infancy, and it is typically used to identify them in a personal or informal context."
         },
         "first_time_home_owner": {
@@ -13601,7 +13601,7 @@
         },
         "last_name": {
           "type": "string",
-          "pattern": "^[A-Z][a-zA-Z\\s\\-',.]*$",
+          "pattern": "^[A-Z][a-z]*([ \\-',.][A-Za-z][a-z]*)*$",
           "comment": "A person's last name, also known as surname or family name, is typically the name that is shared by all members of their immediate family."
         },
         "marital_status_type": {
