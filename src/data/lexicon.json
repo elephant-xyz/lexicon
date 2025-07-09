@@ -12727,18 +12727,6 @@
           "type": "integer",
           "comment": "Total lot area in square feet. Preferred normalized value for lot size."
         },
-        "driveway_material": {
-          "type": "string",
-          "enum": [
-            "Concrete",
-            "Asphalt",
-            "Pavers",
-            "Gravel",
-            "None",
-            "Other"
-          ],
-          "comment": "The material of the driveway on the lot."
-        },
         "landscaping_features": {
           "type": "string",
           "enum": [
@@ -12764,80 +12752,99 @@
           "comment": "Descriptive tag of the view from the lot."
         },
         "fencing_type": {
-          "lot_type": {
-            "type": "string",
-            "enum": [
-              "GreaterThanOneQuarterAcre",
-              "PavedRoad",
-              "LessThanOrEqualToOneQuarterAcre",
-              "Other"
-            ],
-            "comment": "Refers to characteristics associated with a lot and structure."
-          },
-          "lot_type_other_description": {
-            "type": "string",
-            "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
-          },
-          "lot_size_dimensions": {
-            "type": "string",
-            "comment": "A free-form field to capture dimensions given for a lot, such as length x width."
-          },
-          "lot_size_area": {
-            "type": "integer",
-            "comment": "The total surface area of a piece of land on which a property is situated. It is typically measured in square feet (sq ft) or square meters (sq m) and includes the entire land parcel, regardless of whether the land is built upon or left as open space. "
-          },
-          "lot_size_square_feet": {
-            "type": "integer",
-            "comment": "The size of the lot in square feet."
-          },
-          "driveway_material": {
-            "type": "string",
-            "enum": [
-              "Concrete",
-              "Asphalt",
-              "Pavers",
-              "Gravel",
-              "None",
-              "Other"
-            ],
-            "comment": "The material of the driveway on the lot."
-          }
-        },
-        "driveway_condition": {
           "type": "string",
           "enum": [
-            "Good",
-            "Cracked",
-            "Stained",
-            "Worn"
+            "Wood",
+            "ChainLink",
+            "Vinyl",
+            "Aluminum",
+            "WroughtIron",
+            "Bamboo",
+            "Composite",
+            "Privacy",
+            "Picket",
+            "SplitRail",
+            "Stockade",
+            "Board",
+            "PostAndRail",
+            "Lattice"
           ]
         },
-        "lot_condition_issues": {
+        "fence_height": {
           "type": "string",
           "enum": [
-            "OvergrownWeeds",
-            "Clutter",
-            "TrashPiles",
-            "BrokenFence",
-            "CrackedDriveway"
-          ],
-          "comment": "AI-observed lot-level maintenance or neglect issues."
-        }
+            "3ft",
+            "4ft",
+            "5ft",
+            "6ft",
+            "8ft",
+            "10ft",
+            "12ft"
+          ]
+        },
+        "fence_length": {
+          "type": "string",
+          "enum": [
+            "25ft",
+            "50ft",
+            "75ft",
+            "100ft",
+            "150ft",
+            "200ft",
+            "300ft",
+            "500ft",
+            "1000ft"
+          ]
+        },
+      "driveway_material": {
+        "type": "string",
+        "enum": [
+          "Concrete",
+          "Asphalt",
+          "Pavers",
+          "Gravel",
+          "None",
+          "Other"
+        ],
+        "comment": "The material of the driveway on the lot."
       },
-      "example": {
-        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
-        "request_identifier": "52434205310037080",
-        "lot_type": "LessThanOrEqualToOneQuarterAcre",
-        "lot_length_feet": null,
-        "lot_width_feet": null,
-        "lot_area_sqft": 1307,
-        "driveway_material": null,
-        "landscaping_features": null,
-        "view": null,
-        "fencing_type": null,
-        "driveway_condition": null,
-        "lot_condition_issues": null
+      "driveway_condition": {
+        "type": "string",
+        "enum": [
+          "Good",
+          "Cracked",
+          "Stained",
+          "Worn"
+        ]
+      },
+      "lot_condition_issues": {
+        "type": "string",
+        "enum": [
+          "OvergrownWeeds",
+          "Clutter",
+          "TrashPiles",
+          "BrokenFence",
+          "CrackedDriveway"
+        ],
+        "comment": "AI-observed lot-level maintenance or neglect issues."
       }
+    },
+    "example"
+    :
+    {
+      "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+      "request_identifier": "52434205310037080",
+      "lot_type": "LessThanOrEqualToOneQuarterAcre",
+      "lot_length_feet": null,
+      "lot_width_feet": null,
+      "lot_area_sqft": 1307,
+      "driveway_material": null,
+      "landscaping_features": null,
+      "view": null,
+      "fencing_type": null,
+      "driveway_condition": null,
+      "lot_condition_issues": null
+    }
     },
     {
       "type": "relationship",
@@ -20865,9 +20872,10 @@
         }
       ],
       "required": [
-        "property_has_tax","property_has_file","tax_has_file"
+        "property_has_tax",
+        "property_has_file",
+        "tax_has_file"
       ],
-
       "one_to_many_relationships": [
         "property_has_tax",
         "property_has_file",
@@ -20897,17 +20905,17 @@
         }
       ],
       "required": [
-        "property_has_tax","property_has_file","tax_has_file"
+        "property_has_tax",
+        "property_has_file",
+        "tax_has_file"
       ],
-
       "one_to_many_relationships": [
         "property_has_tax",
         "property_has_file",
         "tax_has_file"
       ]
     }
-
-    ],
+  ],
   "common_patterns": [
     {
       "type": "currency",
