@@ -4,6 +4,7 @@ export interface LexiconProperty {
   comment?: string;
   pattern?: string;
   format?: string;
+  minLength?: number;
 }
 
 export interface LexiconRelationship {
