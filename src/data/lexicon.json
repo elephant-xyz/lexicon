@@ -1551,7 +1551,8 @@
             "Blf",
             "Grv",
             "Crk"
-          ]
+          ],
+          "minLength": 1
         },
         "unincorporated_area_name": {
           "type": "string",
@@ -7300,7 +7301,7 @@
             "LessThanOrEqualToOneQuarterAcre",
             "Other"
           ],
-          "comment": "Refers to characteristics associated with a lot and structure."
+          "comment": "Describes key physical attributes of the lot, including size and access. This classification helps differentiate between lots that are larger than a quarter acre, smaller or equal to a quarter acre, have direct access to a paved road, or possess other distinguishing features."
         },
         "lot_type_other_description": {
           "type": "string",
@@ -12796,55 +12797,53 @@
             "1000ft"
           ]
         },
-      "driveway_material": {
-        "type": "string",
-        "enum": [
-          "Concrete",
-          "Asphalt",
-          "Pavers",
-          "Gravel",
-          "None",
-          "Other"
-        ],
-        "comment": "The material of the driveway on the lot."
+        "driveway_material": {
+          "type": "string",
+          "enum": [
+            "Concrete",
+            "Asphalt",
+            "Pavers",
+            "Gravel",
+            "None",
+            "Other"
+          ],
+          "comment": "The material of the driveway on the lot."
+        },
+        "driveway_condition": {
+          "type": "string",
+          "enum": [
+            "Good",
+            "Cracked",
+            "Stained",
+            "Worn"
+          ]
+        },
+        "lot_condition_issues": {
+          "type": "string",
+          "enum": [
+            "OvergrownWeeds",
+            "Clutter",
+            "TrashPiles",
+            "BrokenFence",
+            "CrackedDriveway"
+          ],
+          "comment": "AI-observed lot-level maintenance or neglect issues."
+        }
       },
-      "driveway_condition": {
-        "type": "string",
-        "enum": [
-          "Good",
-          "Cracked",
-          "Stained",
-          "Worn"
-        ]
-      },
-      "lot_condition_issues": {
-        "type": "string",
-        "enum": [
-          "OvergrownWeeds",
-          "Clutter",
-          "TrashPiles",
-          "BrokenFence",
-          "CrackedDriveway"
-        ],
-        "comment": "AI-observed lot-level maintenance or neglect issues."
+      "example": {
+        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
+        "request_identifier": "52434205310037080",
+        "lot_type": "LessThanOrEqualToOneQuarterAcre",
+        "lot_length_feet": null,
+        "lot_width_feet": null,
+        "lot_area_sqft": 1307,
+        "driveway_material": null,
+        "landscaping_features": null,
+        "view": null,
+        "fencing_type": null,
+        "driveway_condition": null,
+        "lot_condition_issues": null
       }
-    },
-    "example"
-    :
-    {
-      "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
-      "request_identifier": "52434205310037080",
-      "lot_type": "LessThanOrEqualToOneQuarterAcre",
-      "lot_length_feet": null,
-      "lot_width_feet": null,
-      "lot_area_sqft": 1307,
-      "driveway_material": null,
-      "landscaping_features": null,
-      "view": null,
-      "fencing_type": null,
-      "driveway_condition": null,
-      "lot_condition_issues": null
-    }
     },
     {
       "type": "relationship",
@@ -14901,7 +14900,7 @@
             "SemiDetached",
             "Detached"
           ],
-          "comment": "Specifies the type of physical attachment, if any, between the dwelling unit and adjacent dwelling units."
+          "comment": "Indicates the structural relationship of the dwelling to other units. 'Attached' means the unit shares walls on both sides with adjacent dwellings (e.g., rowhouse or townhouse); 'SemiDetached' means it shares a wall with one other unit (e.g., duplex); 'Detached' means the unit stands alone with no shared walls."
         },
         "bedroom_count": {
           "type": "integer",
