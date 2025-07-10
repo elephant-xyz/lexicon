@@ -1550,6 +1550,7 @@
             "Hvn",
             "Blf",
             "Grv",
+            "Crk",
             "Crk"
           ],
           "minLength": 1
@@ -12803,9 +12804,7 @@
             "Concrete",
             "Asphalt",
             "Pavers",
-            "Gravel",
-            "None",
-            "Other"
+            "Gravel"
           ],
           "comment": "The material of the driveway on the lot."
         },
