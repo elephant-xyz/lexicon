@@ -1302,8 +1302,9 @@
         },
         "street_name": {
           "type": "string",
+          "pattern": "^(?!.*(\\b(E|N|NE|NW|S|SE|SW|W)\\b)).*$",
           "minLength": 1,
-          "comment": "A street name is the name of a street on which an address is located."
+          "comment": "A street name that doesn't contain directional abbreviations"
         },
         "street_post_directional_text": {
           "type": "string",
@@ -19513,7 +19514,9 @@
         "service_provider_name",
         "escrowed_indicator",
         "authority_account_identifier",
-        "description"
+        "description",
+        "authority_name",
+        "property_exemption_amount"
       ],
       "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
       "properties": {
@@ -19534,12 +19537,27 @@
         "property_assessed_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The estimated value of the property used as the basis for property tax calculations for a given tax year."
+          "comment": "The assessed or SOH value of the property used as the basis for property tax calculations for a given tax year."
+        },
+        "property_market_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The just or market  value of the property used as the basis for property tax calculations for a given tax year."
         },
         "property_exemption_amount": {
           "type": "decimal",
           "format": "currency",
           "comment": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
+        },
+        "property_building_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The building or improvement value of the property used as the basis for property tax calculations for a given tax year."
+        },
+        "property_land_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The land value of the property used as the basis for property tax calculations for a given tax year."
         },
         "property_taxable_value_amount": {
           "type": "decimal",
@@ -19607,6 +19625,98 @@
         "authority_name": "Palm Beach County Property Appraiser",
         "period_start_date": "2024-01-01",
         "period_end_date": "2024-12-31"
+      }
+    },
+    {
+      "type": "tax_exemption",
+      "container_name": "tax_exemptions",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Represents property tax exemptions including homestead, senior, portability, and other exemption types. Tracks exemption eligibility, amounts, and status for real estate properties.",
+      "properties": {
+        "source_http_request": {
+          "type": "string",
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
+        },
+        "tax_year": {
+          "type": "integer",
+          "pattern": "^[0-9]{4}$",
+          "comment": "The tax year for which this exemption applies."
+        },
+        "property_exemption_type": {
+          "type": "string",
+          "enum": [
+            "Portability",
+            "Assessed/SOH",
+            "Homestead",
+            "Add. Homestead",
+            "Wid/Vet/Dis",
+            "Senior",
+            "Affordable Housing"
+          ],
+          "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types."
+        },
+        "property_exemption_value": {
+          "type": "string",
+          "comment": "The value associated with the exemption."
+        }
+      }
+    },
+    {
+      "type": "tax_authority",
+      "container_name": "tax_authorities",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Represents tax collecting authorities including county, municipal, school district, and other special district entities that have the legal right to levy and collect property taxes.",
+      "properties": {
+        "source_http_request": {
+          "type": "string",
+          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+        },
+        "request_identifier": {
+          "type": "string",
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
+        },
+        "authority_name": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "The name of the government agency or organization that has the legal right to collect taxes (e.g., 'Miami-Dade County', 'City of Miami', 'Miami-Dade School Board')."
+        },
+        "authority_account_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "A unique identifier assigned to the tax authority itself, used to distinguish this authority from other tax collecting entities in the system."
+        },
+        "authority_category": {
+          "type": "string",
+          "enum": [
+            "County",
+            "Municipal",
+            "School Board",
+            "School District",
+            "Independent School District",
+            "Independent",
+            "Special District",
+            "Water District",
+            "Fire District",
+            "Library District",
+            "Hospital District",
+            "Community College District",
+            "Transit Authority",
+            "Port Authority",
+            "Utility District",
+            "Improvement District",
+            "State",
+            "Federal"
+          ],
+          "comment": "The category or type of tax authority that determines its jurisdiction and tax collection scope."
+        }
       }
     },
     {
@@ -20609,6 +20719,18 @@
           "from": "property",
           "to": "flood_storm_information",
           "relationship_type": "property_has_flood_storm_information"
+        },
+        {
+          "type": "relationship",
+          "from": "tax",
+          "to": "tax_exemption",
+          "relationship_type": "tax_has_exemptions"
+        },
+        {
+          "type": "relationship",
+          "from": "tax",
+          "to": "tax_authority",
+          "relationship_type": "tax_has_authority"
         }
       ],
       "required": [
