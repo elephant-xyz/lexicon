@@ -19662,7 +19662,8 @@
           "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types."
         },
         "property_exemption_value": {
-          "type": "string",
+          "type": "decimal",
+          "format": "currency",
           "comment": "The value associated with the exemption."
         }
       }
@@ -20644,7 +20645,9 @@
         "property_ranking_overall",
         "environment_characteristics",
         "safety_security",
-        "transportation_access"
+        "transportation_access",
+        "tax_exemption",
+        "tax_authority"
       ]
     }
   ],
