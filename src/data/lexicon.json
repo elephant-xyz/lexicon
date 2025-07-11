@@ -20994,6 +20994,18 @@
           "from": "tax",
           "to": "file",
           "relationship_type": "tax_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "tax",
+          "to": "tax_exemption",
+          "relationship_type": "tax_has_exemptions"
+        },
+          {
+          "type": "relationship",
+          "from": "tax",
+          "to": "tax_authority",
+          "relationship_type": "tax_has_authority"
         }
       ],
       "required": [
