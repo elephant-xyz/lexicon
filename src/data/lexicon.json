@@ -20708,12 +20708,6 @@
         {
           "type": "relationship",
           "from": "property",
-          "to": "tax_authority",
-          "relationship_type": "property_has_tax_authority"
-        },
-        {
-          "type": "relationship",
-          "from": "property",
           "to": "layout",
           "relationship_type": "property_has_layout"
         },
