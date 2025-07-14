@@ -15070,6 +15070,11 @@
           "type": "string",
           "comment": "Identifies the type of declining market based on lender analysis."
         },
+        "livable_floor_area": {
+          "type": "string",
+          "comment": "The total square footage of attached, livable area excluding balconies, porches, garages, car ports, elevators, and utility rooms."
+
+        },
         "lien_type": {
           "type": "string",
           "enum": [
