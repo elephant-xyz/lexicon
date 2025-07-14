@@ -15070,6 +15070,11 @@
           "type": "string",
           "comment": "Identifies the type of declining market based on lender analysis."
         },
+        "livable_floor_area": {
+          "type": "string",
+          "comment": "The total square footage of attached, livable area excluding balconies, porches, garages, car ports, elevators, and utility rooms."
+
+        },
         "lien_type": {
           "type": "string",
           "enum": [
@@ -19643,11 +19648,6 @@
           "type": "string",
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
-        "tax_year": {
-          "type": "integer",
-          "pattern": "^[0-9]{4}$",
-          "comment": "The tax year for which this exemption applies."
-        },
         "property_exemption_type": {
           "type": "string",
           "enum": [
@@ -20713,12 +20713,6 @@
         {
           "type": "relationship",
           "from": "property",
-          "to": "tax_authority",
-          "relationship_type": "property_has_tax_authority"
-        },
-        {
-          "type": "relationship",
-          "from": "property",
           "to": "layout",
           "relationship_type": "property_has_layout"
         },
@@ -20727,18 +20721,6 @@
           "from": "property",
           "to": "flood_storm_information",
           "relationship_type": "property_has_flood_storm_information"
-        },
-        {
-          "type": "relationship",
-          "from": "tax",
-          "to": "tax_exemption",
-          "relationship_type": "tax_has_exemptions"
-        },
-        {
-          "type": "relationship",
-          "from": "tax",
-          "to": "tax_authority",
-          "relationship_type": "tax_has_authority"
         }
       ],
       "required": [
