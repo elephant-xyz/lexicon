@@ -19643,11 +19643,6 @@
           "type": "string",
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
-        "tax_year": {
-          "type": "integer",
-          "pattern": "^[0-9]{4}$",
-          "comment": "The tax year for which this exemption applies."
-        },
         "property_exemption_type": {
           "type": "string",
           "enum": [
