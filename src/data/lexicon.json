@@ -20722,18 +20722,6 @@
           "from": "property",
           "to": "flood_storm_information",
           "relationship_type": "property_has_flood_storm_information"
-        },
-        {
-          "type": "relationship",
-          "from": "tax",
-          "to": "tax_exemption",
-          "relationship_type": "tax_has_exemptions"
-        },
-        {
-          "type": "relationship",
-          "from": "tax",
-          "to": "tax_authority",
-          "relationship_type": "tax_has_authority"
         }
       ],
       "required": [
