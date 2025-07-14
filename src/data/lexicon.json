@@ -19652,7 +19652,6 @@
           "type": "string",
           "enum": [
             "Portability",
-            "Assessed/SOH",
             "Homestead",
             "Add. Homestead",
             "Wid/Vet/Dis",
