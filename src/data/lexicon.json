@@ -20744,7 +20744,6 @@
       "required": [
         "property_has_layout",
         "property_has_sales_history",
-        "property_has_lot",
         "property_has_tax",
         "property_has_address"
       ],
