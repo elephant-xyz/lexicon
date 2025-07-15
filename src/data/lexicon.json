@@ -12728,6 +12728,7 @@
         },
         "lot_area_sqft": {
           "type": "integer",
+          "minLength": 1,
           "comment": "Total lot area in square feet. Preferred normalized value for lot size."
         },
         "landscaping_features": {
@@ -14893,15 +14894,6 @@
           "type": "boolean",
           "comment": "When true, indicates that a signed Assignment of Rents associated with the property is in effect."
         },
-        "attachment_type": {
-          "type": "string",
-          "enum": [
-            "Attached",
-            "SemiDetached",
-            "Detached"
-          ],
-          "comment": "Indicates the structural relationship of the dwelling to other units. 'Attached' means the unit shares walls on both sides with adjacent dwellings (e.g., rowhouse or townhouse); 'SemiDetached' means it shares a wall with one other unit (e.g., duplex); 'Detached' means the unit stands alone with no shared walls."
-        },
         "bedroom_count": {
           "type": "integer",
           "comment": "The total number of bedrooms in a property."
@@ -15069,6 +15061,11 @@
         "lender_designated_declining_market_identifier": {
           "type": "string",
           "comment": "Identifies the type of declining market based on lender analysis."
+        },
+        "livable_floor_area": {
+          "type": "string",
+          "comment": "The total square footage of attached, livable area excluding balconies, porches, garages, car ports, elevators, and utility rooms."
+
         },
         "lien_type": {
           "type": "string",
@@ -18710,6 +18707,15 @@
           "type": "string",
           "comment": "A free-form field to capture additional detail when Other is selected for the architectural style type."
         },
+        "attachment_type": {
+          "type": "string",
+          "enum": [
+            "Attached",
+            "SemiDetached",
+            "Detached"
+          ],
+          "comment": "Indicates the structural relationship of the dwelling to other units. 'Attached' means the unit shares walls on both sides with adjacent dwellings (e.g., rowhouse or townhouse); 'SemiDetached' means it shares a wall with one other unit (e.g., duplex); 'Detached' means the unit stands alone with no shared walls."
+        },
         "building_material_type": {
           "type": "string",
           "enum": [
@@ -19642,17 +19648,11 @@
         "request_identifier": {
           "type": "string",
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
-        },
-        "tax_year": {
-          "type": "integer",
-          "pattern": "^[0-9]{4}$",
-          "comment": "The tax year for which this exemption applies."
-        },
+
         "property_exemption_type": {
           "type": "string",
           "enum": [
             "Portability",
-            "Assessed/SOH",
             "Homestead",
             "Add. Homestead",
             "Wid/Vet/Dis",
@@ -20745,9 +20745,9 @@
       "required": [
         "property_has_layout",
         "property_has_sales_history",
-        "property_has_lot",
         "property_has_tax",
-        "property_has_address"
+        "property_has_address",
+        "property_has_lot"
       ],
       "one_to_many_relationships": [
         "person_has_property",
