@@ -95,6 +95,10 @@ function mapLexiconTypeToJSONSchema(
         schema.minLength = property.minLength;
       }
 
+      if (property.minimum !== undefined) {
+        schema.minimum = property.minimum;
+      }
+
       if (property.format) {
         schema.format = property.format;
       }
