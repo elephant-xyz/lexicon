@@ -6,6 +6,11 @@ export interface LexiconProperty {
   format?: string;
   minLength?: number;
   minimum?: number;
+  maximum?: number;
+  properties?: Record<string, LexiconProperty>;
+  patternProperties?: Record<string, LexiconProperty>;
+  items?: LexiconProperty;
+  minItems?: number;
 }
 
 export interface LexiconRelationship {

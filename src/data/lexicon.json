@@ -8,9 +8,67 @@
       "description": "Represents an educational institution such as an elementary, middle, or high school. Contains information about the school's name, type, ranking, and additional details to help evaluate the educational quality of a property's location.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -82,9 +140,67 @@
       "description": "Transportation and commute quality including walkability, highway access, and overall commute assessment.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -159,9 +275,67 @@
       "description": "Safety and security metrics including crime rates, emergency services response times, and overall safety assessments.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -225,9 +399,67 @@
       "description": "Environmental factors, natural disaster risks, and surroundings that affect property desirability and safety.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -409,8 +641,66 @@
       "description": "Overall property ranking and assessment scores based on multiple factors including climate, safety, wellness, ambience, and location quality.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
           "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
         },
         "request_identifier": {
@@ -885,9 +1175,67 @@
           "comment": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'."
         },
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -973,9 +1321,67 @@
       "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes and geographic identifiers.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -3144,9 +3550,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -6247,9 +6711,67 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -7440,9 +7962,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -8148,9 +8728,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -8269,9 +8907,67 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -11170,9 +11866,67 @@
       "description": "Represents a mortgage loan with comprehensive financial terms, conditions, and status information. Includes loan amounts, interest rates, payment schedules, borrower information, and regulatory compliance details for real estate financing transactions.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -12684,9 +13438,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -13554,9 +14366,67 @@
       "description": "Represents an individual person with comprehensive personal information including name, demographics, identification, citizenship status, and biographical details. Used for property ownership, loan applications, and other real estate transactions.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -14644,9 +15514,67 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -14870,9 +15798,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -15714,9 +16700,67 @@
       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -16261,9 +17305,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -16337,9 +17439,67 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -16444,9 +17604,67 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -17778,9 +18996,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -18630,9 +19906,67 @@
           "comment": "Indicates whether flood insurance is required based on the flood zone designation and federal regulations."
         },
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -18680,9 +20014,67 @@
       "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -19527,9 +20919,67 @@
       "description": "Represents property tax information including assessed values, exemptions, tax amounts, and payment details. Tracks tax obligations and payments for real estate properties with authority and service provider information.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -19641,9 +21091,67 @@
       "description": "Represents property tax exemptions including homestead, senior, portability, and other exemption types. Tracks exemption eligibility, amounts, and status for real estate properties.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -19676,9 +21184,67 @@
       "description": "Represents tax collecting authorities including county, municipal, school district, and other special district entities that have the legal right to levy and collect property taxes.",
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
@@ -20390,9 +21956,67 @@
       ],
       "properties": {
         "source_http_request": {
-          "type": "string",
-          "pattern": "^[A-Z]+ .+ HTTP/[0-9]\\.[0-9]\\r\\n.*",
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+                "enum": [
+                    "GET",
+                    "POST"
+                ]
+            },
+            "url": {
+              "type": "string",
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+
+            },
+            "multiValueQueryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Query string parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "queryString": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "string",
+                            "comment": "Query string parameters for the request, where each key has a single value."
+                        }
+                    }
+            },
+            "multiValuePostData": {
+                "type": "object",
+                    "patternProperties": {
+                        "^[a-zA-Z0-9_-]+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1,
+                            "comment": "Post data parameters for the request, where each key can have multiple values."
+                        }
+                    }
+                },
+            "postData": {
+              "type": "object",
+              "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": {
+                  "type": "string",
+                  "comment": "Post data parameters for the request, where each key has a single value."
+                }
+              }
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": "string",
