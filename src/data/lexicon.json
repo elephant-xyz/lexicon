@@ -19648,7 +19648,7 @@
         "request_identifier": {
           "type": "string",
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
-
+        },
         "property_exemption_type": {
           "type": "string",
           "enum": [
