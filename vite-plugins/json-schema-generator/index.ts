@@ -82,11 +82,14 @@ function mapLexiconTypeToJSONSchema(
 ): Record<string, unknown> {
   const schema: Record<string, unknown> = {};
 
+  // If property has minimum constraint, it cannot be null
+  const effectiveRequired = isRequired || property.minimum !== undefined;
+
   switch (property.type) {
     case 'string':
-      schema.type = isRequired ? 'string' : ['string', 'null'];
+      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
       if (property.enum) {
-        schema.enum = isRequired ? property.enum : [...property.enum, null];
+        schema.enum = effectiveRequired ? property.enum : [...property.enum, null];
       }
       if (property.pattern) {
         schema.pattern = property.pattern;
@@ -105,14 +108,17 @@ function mapLexiconTypeToJSONSchema(
 
       break;
     case 'integer':
-      schema.type = isRequired ? 'integer' : ['integer', 'null'];
+      schema.type = effectiveRequired ? 'integer' : ['integer', 'null'];
       if (property.minimum !== undefined) {
         schema.minimum = property.minimum;
       }
       break;
     case 'decimal':
     case 'number':
-      schema.type = isRequired ? 'number' : ['number', 'null'];
+      schema.type = effectiveRequired ? 'number' : ['number', 'null'];
+      if (property.minimum !== undefined) {
+        schema.minimum = property.minimum;
+      }
       break;
     case 'boolean':
       schema.type = isRequired ? 'boolean' : ['boolean', 'null'];
