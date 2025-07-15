@@ -15484,7 +15484,7 @@
         },
         "subdivision": {
           "type": "string",
-          "minLength": 1,
+          "minimum": 1,
           "comment": "Subdivision refers to the name for a specific, delineated area within a larger community or city that has been divided into individual plots or lots, typically for the purpose of residential or commercial development."
         },
         "total_room_count": {
