@@ -12729,7 +12729,7 @@
         "lot_area_sqft": {
           "type": "integer",
           "minimum": 1,
-          "comment": "Total lot area in square feet. Preferred normalized value for lot size."
+          "comment": "Total land size in square feet for a property"
         },
         "landscaping_features": {
           "type": "string",
