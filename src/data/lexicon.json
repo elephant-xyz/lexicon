@@ -20710,7 +20710,7 @@
           "from": "property",
           "to": "file",
           "relationship_type": "property_has_file"
-        }
+        },
         {
           "type": "relationship",
           "from": "property",

@@ -106,6 +106,9 @@ function mapLexiconTypeToJSONSchema(
       break;
     case 'integer':
       schema.type = isRequired ? 'integer' : ['integer', 'null'];
+      if (property.minimum !== undefined) {
+        schema.minimum = property.minimum;
+      }
       break;
     case 'decimal':
     case 'number':
