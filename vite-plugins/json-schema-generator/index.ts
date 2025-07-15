@@ -131,6 +131,58 @@ function mapLexiconTypeToJSONSchema(
       schema.type = isRequired ? 'string' : ['string', 'null'];
       schema.format = 'date-time';
       break;
+    case 'object':
+      // Handle object types with nested properties
+      if (effectiveRequired) {
+        schema.type = 'object';
+      } else {
+        schema.type = ['object', 'null'];
+      }
+      
+      // Add nested properties if they exist
+      if (property.properties) {
+        schema.properties = {};
+        const requiredProps: string[] = [];
+        
+        for (const [propName, propDef] of Object.entries(property.properties)) {
+          schema.properties[propName] = mapLexiconTypeToJSONSchema(propDef, true);
+          requiredProps.push(propName);
+        }
+        
+        if (requiredProps.length > 0) {
+          schema.required = requiredProps;
+        }
+        schema.additionalProperties = false;
+      }
+      
+      // Add pattern properties if they exist
+      if (property.patternProperties) {
+        schema.patternProperties = {};
+        
+        for (const [pattern, propDef] of Object.entries(property.patternProperties)) {
+          schema.patternProperties[pattern] = mapLexiconTypeToJSONSchema(propDef, true);
+        }
+        
+        if (!schema.properties) {
+          schema.additionalProperties = false;
+        }
+      }
+      
+      break;
+    case 'array':
+      schema.type = effectiveRequired ? 'array' : ['array', 'null'];
+      
+      // Add items schema if it exists
+      if (property.items) {
+        schema.items = mapLexiconTypeToJSONSchema(property.items, true);
+      }
+      
+      // Add minimum items constraint if it exists
+      if (property.minItems !== undefined) {
+        schema.minItems = property.minItems;
+      }
+      
+      break;
     default:
       schema.type = isRequired ? 'string' : ['string', 'null'];
   }
