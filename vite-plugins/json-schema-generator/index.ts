@@ -95,6 +95,10 @@ function mapLexiconTypeToJSONSchema(
         schema.minLength = property.minLength;
       }
 
+      if (property.minimum !== undefined) {
+        schema.minimum = property.minimum;
+      }
+
       if (property.format) {
         schema.format = property.format;
       }
@@ -102,6 +106,9 @@ function mapLexiconTypeToJSONSchema(
       break;
     case 'integer':
       schema.type = isRequired ? 'integer' : ['integer', 'null'];
+      if (property.minimum !== undefined) {
+        schema.minimum = property.minimum;
+      }
       break;
     case 'decimal':
     case 'number':
