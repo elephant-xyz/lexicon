@@ -86,6 +86,57 @@ function mapLexiconTypeToJSONSchema(
   // If property has minimum constraint, it cannot be null
   const effectiveRequired = isRequired || property.minimum !== undefined;
 
+  // Handle oneOf first (before checking type)
+  if (property.oneOf) {
+    // Check if this is a simple type union (only contains basic types without additional properties)
+    const isSimpleTypeUnion = property.oneOf.every(
+      subSchema =>
+        subSchema.type &&
+        typeof subSchema.type === 'string' &&
+        !subSchema.properties &&
+        !subSchema.enum &&
+        !subSchema.pattern &&
+        !subSchema.format &&
+        !subSchema.minLength &&
+        !subSchema.minimum &&
+        !subSchema.items &&
+        !subSchema.additionalProperties
+    );
+
+    if (isSimpleTypeUnion) {
+      // Use simple array syntax for basic type unions
+      const types = property.oneOf.map(subSchema => subSchema.type as string);
+
+      if (!effectiveRequired) {
+        types.push('null');
+      }
+
+      schema.type = types.length === 1 ? types[0] : types;
+
+      // Add description if available
+      if (property.comment) {
+        schema.description = property.comment;
+      }
+
+      return schema;
+    } else {
+      // Use oneOf for complex schemas
+      schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
+
+      // If not required, add null as an option
+      if (!effectiveRequired) {
+        schema.oneOf.push({ type: 'null' });
+      }
+
+      // Add description if available
+      if (property.comment) {
+        schema.description = property.comment;
+      }
+
+      return schema;
+    }
+  }
+
   switch (property.type) {
     case 'string':
       schema.type = effectiveRequired ? 'string' : ['string', 'null'];
@@ -186,11 +237,6 @@ function mapLexiconTypeToJSONSchema(
         if (!schema.properties && property.additionalProperties === undefined) {
           schema.additionalProperties = false;
         }
-      }
-
-      // Handle oneOf
-      if (property.oneOf) {
-        schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
       }
 
       // Handle allOf

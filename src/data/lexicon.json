@@ -32,11 +32,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -168,11 +164,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -307,11 +299,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -435,11 +423,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -1220,11 +1204,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -1371,11 +1351,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -3604,11 +3580,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -6769,11 +6741,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -8024,11 +7992,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -8794,11 +8758,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -8977,11 +8937,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -11940,11 +11896,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -13516,11 +13468,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -14448,11 +14396,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -15600,11 +15544,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -15888,11 +15828,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -16794,11 +16730,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -17403,11 +17335,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -17541,11 +17469,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -17710,11 +17634,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -19106,11 +19026,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -20020,11 +19936,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -20132,11 +20044,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -21041,11 +20949,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -21217,11 +21121,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -21314,11 +21214,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
@@ -22090,11 +21986,7 @@
                   "type": "string",
                   "enum": [
                     "application/json",
-                    "application/x-www-form-urlencoded",
                     "multipart/form-data",
-                    "text/plain",
-                    "text/html",
-                    "application/xml",
                     "text/xml"
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
