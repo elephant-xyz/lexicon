@@ -18,12 +18,13 @@ interface JSONSchemaGeneratorOptions {
 
 interface JSONSchema {
   $schema: string;
-  type: 'object';
+  type: 'object' | string;
   title: string;
   description: string;
   properties: Record<string, unknown>;
   required: string[];
   additionalProperties: boolean;
+  allOf?: unknown[];
 }
 
 interface RelationshipSchema extends JSONSchema {
@@ -145,14 +146,26 @@ function mapLexiconTypeToJSONSchema(
         const requiredProps: string[] = [];
         
         for (const [propName, propDef] of Object.entries(property.properties)) {
-          schema.properties[propName] = mapLexiconTypeToJSONSchema(propDef, true);
-          requiredProps.push(propName);
+          (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(propDef, propDef.required || false);
+          if (propDef.required) {
+            requiredProps.push(propName);
+          }
         }
         
         if (requiredProps.length > 0) {
           schema.required = requiredProps;
         }
-        schema.additionalProperties = false;
+        
+        // Handle additionalProperties
+        if (property.additionalProperties !== undefined) {
+          if (typeof property.additionalProperties === 'boolean') {
+            schema.additionalProperties = property.additionalProperties;
+          } else {
+            schema.additionalProperties = mapLexiconTypeToJSONSchema(property.additionalProperties, false);
+          }
+        } else {
+          schema.additionalProperties = false;
+        }
       }
       
       // Add pattern properties if they exist
@@ -160,12 +173,22 @@ function mapLexiconTypeToJSONSchema(
         schema.patternProperties = {};
         
         for (const [pattern, propDef] of Object.entries(property.patternProperties)) {
-          schema.patternProperties[pattern] = mapLexiconTypeToJSONSchema(propDef, true);
+          (schema.patternProperties as Record<string, unknown>)[pattern] = mapLexiconTypeToJSONSchema(propDef, true);
         }
         
-        if (!schema.properties) {
+        if (!schema.properties && property.additionalProperties === undefined) {
           schema.additionalProperties = false;
         }
+      }
+      
+      // Handle oneOf
+      if (property.oneOf) {
+        schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
+      }
+      
+      // Handle allOf
+      if (property.allOf) {
+        schema.allOf = property.allOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
       }
       
       break;
@@ -187,11 +210,138 @@ function mapLexiconTypeToJSONSchema(
       schema.type = isRequired ? 'string' : ['string', 'null'];
   }
 
+  // Handle const keyword
+  if (property.const !== undefined) {
+    schema.const = property.const;
+  }
+
+  // Handle not keyword
+  if (property.not) {
+    schema.not = mapLexiconTypeToJSONSchema(property.not, true);
+  }
+
   if (property.comment) {
     schema.description = property.comment;
   }
 
   return schema;
+}
+
+function generateHTTPRequestValidationRules(): Record<string, unknown> {
+  return {
+    allOf: [
+      {
+        if: {
+          properties: {
+            method: {
+              enum: ["GET"]
+            }
+          }
+        },
+        then: {
+          not: {
+            anyOf: [
+              {
+                required: ["body"]
+              },
+              {
+                required: ["json"]
+              },
+              {
+                properties: {
+                  headers: {
+                    required: ["content-type"]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        if: {
+          properties: {
+            method: {
+              enum: ["POST", "PUT", "PATCH"]
+            },
+            headers: {
+              properties: {
+                "content-type": {
+                  const: "application/json"
+                }
+              }
+            }
+          }
+        },
+        then: {
+          required: ["json"],
+          not: {
+            required: ["body"]
+          }
+        }
+      },
+      {
+        if: {
+          properties: {
+            method: {
+              enum: ["POST", "PUT", "PATCH"]
+            },
+            headers: {
+              properties: {
+                "content-type": {
+                  not: {
+                    const: "application/json"
+                  }
+                }
+              }
+            }
+          }
+        },
+        then: {
+          required: ["body"],
+          not: {
+            required: ["json"]
+          }
+        }
+      },
+      {
+        if: {
+          required: ["json"]
+        },
+        then: {
+          properties: {
+            headers: {
+              required: ["content-type"],
+              properties: {
+                "content-type": {
+                  const: "application/json"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        if: {
+          required: ["body"]
+        },
+        then: {
+          properties: {
+            headers: {
+              required: ["content-type"],
+              properties: {
+                "content-type": {
+                  not: {
+                    const: "application/json"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  };
 }
 
 function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
@@ -243,7 +393,8 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
     allRequiredFields.push(propName);
   }
 
-  return {
+  // Create base schema
+  const baseSchema = {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
     title: lexiconClass.type,
@@ -252,6 +403,40 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
     required: allRequiredFields, // All properties are required in JSON Schema
     additionalProperties: false,
   };
+
+  // Add HTTP request validation rules if source_http_request is present
+  if (properties.source_http_request) {
+    const validationRules = generateHTTPRequestValidationRules();
+    return {
+      ...baseSchema,
+      allOf: [
+        {
+          // Base schema validation
+          type: 'object',
+          properties,
+          required: allRequiredFields,
+          additionalProperties: false,
+        },
+        {
+          // HTTP request specific validation
+          if: {
+            properties: {
+              source_http_request: {
+                type: 'object'
+              }
+            }
+          },
+          then: {
+            properties: {
+              source_http_request: validationRules
+            }
+          }
+        }
+      ]
+    };
+  }
+
+  return baseSchema;
 }
 
 function generateJSONSchemaForRelationship(

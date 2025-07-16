@@ -12,60 +12,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -144,60 +145,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -279,60 +281,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -403,60 +406,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -645,10 +649,13 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "PATCH"
+              ]
             },
             "url": {
               "type": "string",
@@ -656,50 +663,52 @@
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
 
             },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                  "Content-Type": {
+                    "type": "string",
+                     "enum":  [
+                        "application/json",
+                        "application/x-www-form-urlencoded",
+                        "multipart/form-data",
+                        "text/plain",
+                        "text/html",
+                        "application/xml",
+                        "text/xml"
+                      ],
+                    "comment": "Content-Type header for the request, indicating the media type of the resource."
+                  }
+                }
+            },
             "multiValueQueryString": {
                 "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "minItems": 1,
+                        "comment": "Query string parameters for the request, where each key can have multiple values."
                     }
                 },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
+            "body": {
+                "type": "string",
+                "comment": "The body of the request, which may contain JSON or other data formats."
                 },
-            "postData": {
-              "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
                 }
-              }
+              ]
             }
+
           },
           "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
         },
@@ -1179,60 +1188,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -1325,60 +1335,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -3554,60 +3565,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -6715,60 +6727,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -7966,60 +7979,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -8732,60 +8746,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -8911,60 +8926,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -11870,60 +11886,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -13442,60 +13459,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -14370,60 +14388,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -15518,60 +15537,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -15802,60 +15822,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -16704,60 +16725,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -17309,60 +17331,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -17443,60 +17466,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -17608,60 +17632,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -19000,60 +19025,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -19910,60 +19936,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -20018,60 +20045,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -20923,60 +20951,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -21095,60 +21124,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -21188,60 +21218,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."
@@ -21960,60 +21991,61 @@
           "properties": {
             "method": {
               "type": "string",
-                "enum": [
-                    "GET",
-                    "POST"
-                ]
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
+              ]
             },
             "url": {
               "type": "string",
               "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
+            },
+            "headers": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": [
+                  "application/json",
+                  "application/x-www-form-urlencoded",
+                  "multipart/form-data",
+                  "text/plain",
+                  "text/html",
+                  "application/xml",
+                  "text/xml"
+                ],
+                "comment": "Content-Type header for the request, indicating the media type of the resource."
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Query string parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "queryString": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "string",
-                            "comment": "Query string parameters for the request, where each key has a single value."
-                        }
-                    }
-            },
-            "multiValuePostData": {
-                "type": "object",
-                    "patternProperties": {
-                        "^[a-zA-Z0-9_-]+$": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "minItems": 1,
-                            "comment": "Post data parameters for the request, where each key can have multiple values."
-                        }
-                    }
-                },
-            "postData": {
               "type": "object",
-              "patternProperties": {
-                "^[a-zA-Z0-9_-]+$": {
-                  "type": "string",
-                  "comment": "Post data parameters for the request, where each key has a single value."
-                }
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
               }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
             }
           },
           "comment": "HTTP request configuration for retrieving this data."

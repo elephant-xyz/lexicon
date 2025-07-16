@@ -9,8 +9,14 @@ export interface LexiconProperty {
   maximum?: number;
   properties?: Record<string, LexiconProperty>;
   patternProperties?: Record<string, LexiconProperty>;
+  additionalProperties?: LexiconProperty | boolean;
   items?: LexiconProperty;
   minItems?: number;
+  required?: boolean;
+  oneOf?: LexiconProperty[];
+  allOf?: LexiconProperty[];
+  const?: string;
+  not?: LexiconProperty;
 }
 
 export interface LexiconRelationship {
