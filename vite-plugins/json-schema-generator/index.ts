@@ -399,9 +399,6 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   const properties: Record<string, unknown> = {};
   const allRequiredFields: string[] = [];
 
-  // Use the required field from the lexicon class if it exists
-  const lexiconRequiredFields = lexiconClass.required || [];
-
   // Filter out deprecated properties
   const deprecatedPropsSet = new Set(lexiconClass.deprecated_properties);
   const activeProperties = Object.entries(lexiconClass.properties).filter(

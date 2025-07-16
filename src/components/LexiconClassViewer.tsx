@@ -15,14 +15,12 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   searchTerm,
   expandByDefault = false,
 }) => {
-  const navigate = useNavigate();
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [_expandedExamples, setExpandedExamples] = useState<Set<number>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
   const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
   const validationRulesRef = useRef<HTMLDivElement | null>(null);
-  const [highlightRules, setHighlightRules] = useState(false);
 
   // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
@@ -341,28 +339,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return true;
   };
 
-  const shouldShowRelationshipBasedOnDeprecation = (
-    cls: LexiconClass,
-    relName: string
-  ): boolean => {
-    // Check if this relationship name corresponds to a deprecated property
-    // Relationship names often match property names, so we check if the relationship name
-    // is in the deprecated_properties list
-    if (cls.deprecated_properties?.includes(relName)) {
-      return false;
-    }
-
-    // Also check if the relationship name contains any deprecated property names
-    // This handles cases where relationship names might be variations of property names
-    const isRelatedToDeprecatedProperty = cls.deprecated_properties?.some(
-      deprecatedProp =>
-        relName.toLowerCase().includes(deprecatedProp.toLowerCase()) ||
-        deprecatedProp.toLowerCase().includes(relName.toLowerCase())
-    );
-
-    return !isRelatedToDeprecatedProperty;
-  };
-
   const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
     if (!searchTerm || !cls._searchMatches) return '';
 
@@ -512,8 +488,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   const scrollToValidationRules = () => {
     if (validationRulesRef.current) {
       validationRulesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      setHighlightRules(true);
-      setTimeout(() => setHighlightRules(false), 2000);
+      // setHighlightRules(true); // This line was removed as per the edit hint
+      // setTimeout(() => setHighlightRules(false), 2000); // This line was removed as per the edit hint
     }
   };
 
@@ -891,8 +867,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                   nestedPropData.oneOf.length > 0
                                                     ? nestedPropData.oneOf
                                                         .map(
-                                                          (option: any, index: number) =>
-                                                            `${option.type}${index < nestedPropData.oneOf!.length - 1 ? ' | ' : ''}`
+                                                          (option: LexiconProperty, _index: number) =>
+                                                            `${option.type}${option.oneOf!.length - 1 > _index ? ' | ' : ''}`
                                                         )
                                                         .join('')
                                                     : nestedPropData.type}
