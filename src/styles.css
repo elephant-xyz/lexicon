@@ -2404,7 +2404,9 @@ mark {
   text-underline-offset: 2px;
   padding: var(--spacing-1) var(--spacing-2);
   border-radius: var(--radius-md);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
@@ -2447,9 +2449,15 @@ mark {
 }
 
 @keyframes highlight-fade {
-  0% { box-shadow: 0 0 0 4px var(--primary-toxic-green); }
-  80% { box-shadow: 0 0 0 4px var(--primary-toxic-green); }
-  100% { box-shadow: none; }
+  0% {
+    box-shadow: 0 0 0 4px var(--primary-toxic-green);
+  }
+  80% {
+    box-shadow: 0 0 0 4px var(--primary-toxic-green);
+  }
+  100% {
+    box-shadow: none;
+  }
 }
 
 .property-validation-rules {
@@ -2499,7 +2507,7 @@ mark {
   .property-validation-rules {
     padding: var(--spacing-1);
   }
-  
+
   .validation-rule-text-inline {
     font-size: var(--text-xs);
   }
