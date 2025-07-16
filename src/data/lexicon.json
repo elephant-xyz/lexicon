@@ -27,19 +27,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -160,19 +163,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -296,19 +302,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -421,19 +430,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -1203,19 +1215,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -1350,19 +1365,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -3580,19 +3598,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -6742,19 +6763,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -7994,19 +8018,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -8761,19 +8788,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -8941,19 +8971,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -11901,19 +11934,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -13474,19 +13510,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -14403,19 +14442,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -15552,19 +15594,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -15837,19 +15882,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -16740,19 +16788,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -17346,19 +17397,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -17481,19 +17535,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -17647,19 +17704,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -19040,19 +19100,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -19951,19 +20014,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -20060,19 +20126,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -20966,19 +21035,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -21139,19 +21211,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -21233,19 +21308,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
@@ -22006,19 +22084,22 @@
             },
             "headers": {
               "type": "object",
-              "additionalProperties": {
-                "type": "string",
-                "enum": [
-                  "application/json",
-                  "application/x-www-form-urlencoded",
-                  "multipart/form-data",
-                  "text/plain",
-                  "text/html",
-                  "application/xml",
-                  "text/xml"
-                ],
-                "comment": "Content-Type header for the request, indicating the media type of the resource."
-              }
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
             },
             "multiValueQueryString": {
               "type": "object",
