@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 
 export async function uploadToIPFS(content: string, fileName: string): Promise<string> {
   const pinataJWT = process.env.PINATA_JWT;
