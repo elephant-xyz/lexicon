@@ -1234,13 +1234,13 @@
             },
             "multiValueQueryString": {
               "type": "object",
+              "comment": "Query string parameters for the request, where each key can have multiple values.",
               "additionalProperties": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "minItems": 1,
-                "comment": "Query string parameters for the request, where each key can have multiple values."
+                "minItems": 1
               }
             },
             "body": {
@@ -1248,6 +1248,7 @@
               "comment": "The body of the request, which may contain JSON or other data formats."
             },
             "json": {
+              "comment": "the JSON data that is returned from the request.",
               "oneOf": [
                 {
                   "type": "object",
