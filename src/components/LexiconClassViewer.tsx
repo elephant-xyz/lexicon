@@ -712,11 +712,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     <h4>Properties:</h4>
                     <div className="properties-list">
                       {Object.entries(cls.properties || {}).map(
-                                                                ([propName, propData], _propIdx, _arr) => {
+                        ([propName, propData], _propIdx, _arr) => {
                           const isDeprecated = cls.deprecated_properties?.includes(propName);
                           if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
                           const isMatchedProperty = matchedProps.includes(propName);
-                                                      const _isSourceHttpRequest =
+                          const _isSourceHttpRequest =
                             (propName === 'source_http_request' && propData.type === 'object') ||
                             propData.type === 'source_http_request';
                           return (
