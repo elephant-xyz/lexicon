@@ -41,7 +41,7 @@ export interface SearchMatch {
 
 export interface LexiconClass {
   type: string;
-  container_name: string; 
+  container_name: string;
   is_deprecated: boolean;
   deprecated_properties: string[];
   description?: string;
