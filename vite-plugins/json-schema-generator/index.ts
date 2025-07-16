@@ -459,13 +459,6 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
       ...baseSchema,
       allOf: [
         {
-          // Base schema validation
-          type: 'object',
-          properties,
-          required: allRequiredFields,
-          additionalProperties: false,
-        },
-        {
           // HTTP request specific validation
           if: {
             properties: {
