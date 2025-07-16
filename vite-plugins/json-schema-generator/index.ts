@@ -437,7 +437,7 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   for (const [propName, propDef] of activeProperties) {
     // ALL active properties go into the JSON Schema required array
     allRequiredFields.push(propName);
-    
+
     // Since all properties are required in the final schema, treat them as required for type generation
     const isRequired = true;
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);

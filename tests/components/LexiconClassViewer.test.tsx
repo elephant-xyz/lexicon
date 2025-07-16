@@ -119,7 +119,6 @@ describe('LexiconClassViewer', () => {
     });
   });
 
-
   describe('Clipboard Functionality', () => {
     beforeEach(() => {
       renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
