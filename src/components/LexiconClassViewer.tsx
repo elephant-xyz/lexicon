@@ -403,6 +403,63 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return relDescMatch?.highlightedRelationshipDescription || '';
   };
 
+  // Function to get validation rules for specific properties within source_http_request
+  const getPropertyPatterns = (propertyName: string): { patterns: string[], conditionalPatterns: string[] } => {
+    const patterns: string[] = [];
+    const conditionalPatterns: string[] = [];
+    
+    // Extract rules from the actual HTTP request validation schema
+    const httpRequestRules = {
+      method: [
+        'GET requests cannot have body, json, or headers',
+        'POST/PUT/PATCH with application/json must have json field',
+        'POST/PUT/PATCH with non-application/json must have body field'
+      ],
+      headers: [
+        'If method is POST/PUT/PATCH with application/json, content-type must be application/json',
+        'If method is POST/PUT/PATCH with non-JSON payload, content-type must not be application/json'
+      ],
+      body: [
+        'Only allowed for POST/PUT/PATCH with non-JSON content-type',
+        'Cannot be used with json field'
+      ],
+      json: [
+        'Only allowed for POST/PUT/PATCH with application/json content-type',
+        'Cannot be used with body field'
+      ],
+      'content-type': [
+        'Must be valid MIME type format'
+      ]
+    };
+    
+    // Add patterns for properties that have format requirements
+    switch (propertyName) {
+      case 'url':
+        // URL already has pattern in lexicon data, so we don't add duplicate patterns
+        break;
+      case 'multiValueQueryString':
+        patterns.push('^[^=]+=[^&]*(&[^=]+=[^&]*)*$');
+        break;
+      case 'contentType':
+        patterns.push('^[a-zA-Z0-9!#$%&\'*+-.^_`|~]+/[a-zA-Z0-9!#$%&\'*+-.^_`|~]+$');
+        break;
+      case 'content-type':
+        patterns.push('^[a-zA-Z0-9!#$%&\'*+-.^_`|~]+/[a-zA-Z0-9!#$%&\'*+-.^_`|~]+$');
+        break;
+      case 'authorization':
+        patterns.push('^Bearer\\s+[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.?[A-Za-z0-9-_.+/=]*$');
+        patterns.push('^Basic\\s+[A-Za-z0-9+/=]+$');
+        break;
+    }
+    
+    // Add conditional patterns from the validation rules
+    if (httpRequestRules[propertyName as keyof typeof httpRequestRules]) {
+      conditionalPatterns.push(...httpRequestRules[propertyName as keyof typeof httpRequestRules]);
+    }
+    
+    return { patterns, conditionalPatterns };
+  };
+
   // Function to extract and format HTTP request validation rules with detailed visualization
   const getHTTPRequestValidationRules = (cls: LexiconClass): Array<{
     method: string;
@@ -542,33 +599,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                 </div>
               )}
 
-              {/* HTTP Request Validation Rules */}
-              {cls.properties?.source_http_request && (
-                <div className="http-validation-section">
-                  <h4>HTTP Request Validation Rules:</h4>
-                  <div className="validation-rules-list">
-                    {getHTTPRequestValidationRules(cls).map((rule, index) => (
-                      <div key={index} className="validation-rule-card">
-                        <div className="validation-rule-header">
-                          <span className="validation-rule-icon">{rule.icon}</span>
-                          <span className="validation-rule-method">{rule.method}</span>
-                        </div>
-                        <div className="validation-rule-content">
-                          <div className="validation-rule-condition">
-                            <strong>Condition:</strong> {rule.condition}
-                          </div>
-                          <div className="validation-rule-requirement">
-                            <strong>Requirement:</strong> {rule.requirement}
-                          </div>
-                          <div className="validation-rule-restriction">
-                            <strong>Restriction:</strong> {rule.restriction}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+
 
               {/* JSON Schema and Example Downloads for blockchain classes */}
               {isBlockchainClass.has(cls.type) && schemaManifest[cls.type] && (
@@ -756,34 +787,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 <div className="method-list-item-label-type">
                                   <span className="property-type-label">Data Type</span>
                                   <span className="property-type-value">
-                                    {(propData.type === 'object' && propName === 'source_http_request') ||
-                                    propData.type === 'source_http_request' ? (
-                                      <button
-                                        className="property-type-link"
-                                        onClick={() => navigate(`/class/source_http_request`)}
-                                        title="Click to view source_http_request class details"
-                                      >
-                                        {searchTerm && getHighlightedType(cls, propName)
-                                          ? renderHighlightedText(getHighlightedType(cls, propName))
-                                          : propData.type}
-                                      </button>
-                                    ) : searchTerm && getHighlightedType(cls, propName)
-                                    ? renderHighlightedText(getHighlightedType(cls, propName))
-                                    : propData.type}
+                                    {searchTerm && getHighlightedType(cls, propName)
+                                      ? renderHighlightedText(getHighlightedType(cls, propName))
+                                      : propData.type}
                                   </span>
                                 </div>
-                                {/* Add Validation Rules link beside source_http_request property */}
-                                {isSourceHttpRequest && (
-                                  <div className="validation-rules-link-inline">
-                                    <button
-                                      className="validation-rules-link-btn"
-                                      onClick={scrollToValidationRules}
-                                      title="Show HTTP validation rules for this class"
-                                    >
-                                      <span role="img" aria-label="rules">📜</span> Validation Rules
-                                    </button>
-                                  </div>
-                                )}
                                 {propData.enum && (
                                   <div className="method-list-item-label-enum">
                                     <span className="enum-label">Possible Values:</span>
@@ -872,8 +880,119 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 {/* Render nested properties for object types */}
                                 {propData.type === 'object' && propData.properties && (
                                   <div className="nested-properties-section">
-                                    <h5>Object Properties:</h5>
-                                    {renderNestedProperties(propData.properties, 0, propName)}
+                                    <h5>Properties:</h5>
+                                    {Object.entries(propData.properties).map(([nestedPropName, nestedPropData]) => {
+                                      const { patterns, conditionalPatterns } = getPropertyPatterns(nestedPropName);
+                                      return (
+                                        <div key={nestedPropName} className="method-list-item method-list-item-isChild">
+                                          <div className="method-list-item-label">
+                                            <span className="method-list-item-label-name">
+                                              {nestedPropName}
+                                            </span>
+                                          </div>
+                                          <div className="method-list-item-label-type">
+                                            <span className="property-type-label">Data Type</span>
+                                            <span className="property-type-value">
+                                              {nestedPropData.oneOf && nestedPropData.oneOf.length > 0 ? 
+                                                nestedPropData.oneOf.map((option: any, index: number) => 
+                                                  `${option.type}${index < nestedPropData.oneOf!.length - 1 ? ' | ' : ''}`
+                                                ).join('')
+                                                : nestedPropData.type
+                                              }
+                                            </span>
+                                          </div>
+
+                                          {/* Show enum values if present */}
+                                          {nestedPropData.enum && (
+                                            <div className="method-list-item-label-enum">
+                                              <span className="enum-label">Possible Values:</span>
+                                              <div className="enum-values">
+                                                {nestedPropData.enum.map((value, idx) => (
+                                                  <button
+                                                    key={idx}
+                                                    className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                                    onClick={() => copyToClipboard(value)}
+                                                    title="Click to copy to clipboard"
+                                                  >
+                                                    {copiedValue === value ? '✓ Copied!' : value}
+                                                  </button>
+                                                ))}
+                                              </div>
+                                            </div>
+                                          )}
+
+                                          {/* Show pattern if present */}
+                                          {nestedPropData.pattern && (
+                                            <div className="method-list-item-label-pattern">
+                                              <span className="pattern-label">Pattern:</span>
+                                              <button
+                                                className={`pattern-value ${copiedValue === nestedPropData.pattern ? 'pattern-value-copied' : ''}`}
+                                                onClick={() => copyToClipboard(nestedPropData.pattern!)}
+                                                title="Click to copy pattern to clipboard"
+                                              >
+                                                {copiedValue === nestedPropData.pattern ? '✓ Copied!' : nestedPropData.pattern}
+                                              </button>
+                                            </div>
+                                          )}
+
+                                          {/* Show patterns inline with the property */}
+                                          {patterns.length > 0 && (
+                                            <div className="method-list-item-label-patterns">
+                                              <span className="pattern-label">Patterns:</span>
+                                              <div className="patterns-list-inline">
+                                                {patterns.map((pattern, patternIndex) => (
+                                                  <button
+                                                    key={patternIndex}
+                                                    className={`pattern-value ${copiedValue === pattern ? 'pattern-value-copied' : ''}`}
+                                                    onClick={() => copyToClipboard(pattern)}
+                                                    title="Click to copy pattern to clipboard"
+                                                  >
+                                                    {copiedValue === pattern ? '✓ Copied!' : pattern}
+                                                  </button>
+                                                ))}
+                                              </div>
+                                            </div>
+                                          )}
+
+                                          {/* Show conditional patterns inline with the property */}
+                                          {conditionalPatterns.length > 0 && (
+                                            <div className="method-list-item-label-description">
+                                              <span className="pattern-label">Rules:</span>
+                                              <div className="rules-list-inline">
+                                                {conditionalPatterns.map((conditionalPattern, patternIndex) => (
+                                                  <div key={patternIndex} className="rule-inline">
+                                                    {conditionalPattern}
+                                                  </div>
+                                                ))}
+                                              </div>
+                                            </div>
+                                          )}
+
+                                          {/* Show format if present */}
+                                          {nestedPropData.format && (
+                                            <div className="method-list-item-label-format">
+                                              <span className="format-label">Format:</span>
+                                              <button
+                                                className={`format-value format-link ${copiedValue === nestedPropData.format ? 'format-value-copied' : ''}`}
+                                                onClick={() => scrollToCommonPattern(nestedPropData.format!)}
+                                                title="Click to view format details in Common Patterns section"
+                                              >
+                                                {nestedPropData.format}
+                                              </button>
+                                            </div>
+                                          )}
+
+                                          {nestedPropData.comment && (
+                                            <div className="method-list-item-label-description">
+                                              <span className="pattern-label">Description:</span>
+                                              <div className="description-text">
+                                                {nestedPropData.comment}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </div>
+                                      );
+                                    })}
                                   </div>
                                 )}
 
@@ -924,247 +1043,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                               </div>
                             </div>
                           </React.Fragment>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Separate Validation Rules Section */}
-              {cls.properties?.source_http_request && (
-                <div
-                  ref={validationRulesRef}
-                  className={`validation-rules-section${highlightRules ? ' validation-rules-section-highlighted' : ''}`}
-                >
-                  <h4>Validation Rules:</h4>
-                  <div className="validation-rules-list">
-                    {getHTTPRequestValidationRules(cls).map((rule, index) => (
-                      <div key={index} className="validation-rule-card">
-                        <div className="validation-rule-header">
-                          <span className="validation-rule-icon">{rule.icon}</span>
-                          <span className="validation-rule-method">{rule.method}</span>
-                        </div>
-                        <div className="validation-rule-content">
-                          <div className="validation-rule-condition">
-                            <strong>Condition:</strong> {rule.condition}
-                          </div>
-                          <div className="validation-rule-requirement">
-                            <strong>Requirement:</strong> {rule.requirement}
-                          </div>
-                          <div className="validation-rule-restriction">
-                            <strong>Restriction:</strong> {rule.restriction}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* JSON Schema and Example Downloads for blockchain classes */}
-              {isBlockchainClass.has(cls.type) && schemaManifest[cls.type] && (
-                <div className="json-schema-section">
-                  <div className="json-schema-link">
-                    <span className="json-schema-label">JSON Schema:</span>
-                    <a
-                      href={schemaService.getIPFSUrl(schemaManifest[cls.type].ipfsCid)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ipfs-download-link"
-                      title="Download schema from IPFS"
-                    >
-                      📥 Download from IPFS
-                    </a>
-                    <button
-                      className={`cid-copy-button ${copiedValue === schemaManifest[cls.type].ipfsCid ? 'cid-copy-button-copied' : ''}`}
-                      onClick={() => copyToClipboard(schemaManifest[cls.type].ipfsCid)}
-                      title="Click to copy CID to clipboard"
-                    >
-                      {copiedValue === schemaManifest[cls.type].ipfsCid
-                        ? '✓ Copied!'
-                        : `CID: ${schemaManifest[cls.type].ipfsCid}`}
-                    </button>
-                  </div>
-                </div>
-              )}
-              {/* Single Example Display */}
-              {cls.example &&
-                isBlockchainClass.has(cls.type) &&
-                schemaManifest[`${cls.type}_example`] && (
-                  <div className="json-example-section">
-                    <div className="json-example-link">
-                      <span className="json-example-label">JSON Example:</span>
-                      <a
-                        href={schemaService.getIPFSUrl(
-                          schemaManifest[`${cls.type}_example`].ipfsCid
-                        )}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ipfs-download-link"
-                        title="Download example from IPFS"
-                      >
-                        📥 Download from IPFS
-                      </a>
-                      <button
-                        className={`cid-copy-button ${copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid ? 'cid-copy-button-copied' : ''}`}
-                        onClick={() =>
-                          copyToClipboard(schemaManifest[`${cls.type}_example`].ipfsCid)
-                        }
-                        title="Click to copy CID to clipboard"
-                      >
-                        {copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid
-                          ? '✓ Copied!'
-                          : `CID: ${schemaManifest[`${cls.type}_example`].ipfsCid}`}
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-              {/* Multiple Examples Display */}
-              {cls.examples && cls.examples.length > 0 && (
-                <div className="json-examples-section">
-                  <h4>JSON Examples:</h4>
-                  <div className="examples-list">
-                    {cls.examples.map((example, index) => {
-                      // For relationship class, show IPFS download links with type labels
-                      if (cls.type === 'relationship' && 'type' in example) {
-                        const exampleType = (example as Record<string, unknown>).type as string;
-                        const exampleKey = `${cls.type}_${exampleType}_example`;
-                        const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
-
-                        if (exampleCid) {
-                          const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${exampleCid}`;
-                          return (
-                            <div key={index} className="example-item">
-                              <div className="example-header">
-                                <span className="example-label">{exampleType}:</span>
-                              </div>
-                              <div className="example-content">
-                                <div className="example-ipfs-links">
-                                  <a
-                                    href={ipfsUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="ipfs-download-link"
-                                    title="Download example from IPFS"
-                                  >
-                                    📥 Download from IPFS
-                                  </a>
-                                  <button
-                                    className={`cid-copy-button ${copiedValue === exampleCid ? 'cid-copy-button-copied' : ''}`}
-                                    onClick={() => copyToClipboard(exampleCid)}
-                                    title="Click to copy CID to clipboard"
-                                  >
-                                    {copiedValue === exampleCid
-                                      ? '✓ Copied!'
-                                      : `CID: ${exampleCid}`}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        }
-                      }
-
-                      // For other classes, show the full JSON with copy button
-                      return (
-                        <div key={index} className="example-item">
-                          <div className="example-header">
-                            <span className="example-label">Example {index + 1}:</span>
-                            {(() => {
-                              const desc = (example as Record<string, unknown>).description;
-                              return typeof desc === 'string' ? (
-                                <span className="example-description">{desc}</span>
-                              ) : null;
-                            })()}
-                          </div>
-                          <div className="example-content">
-                            <button
-                              className={`example-copy-button ${copiedValue === JSON.stringify(example, null, 2) ? 'example-copy-button-copied' : ''}`}
-                              onClick={() => copyToClipboard(JSON.stringify(example, null, 2))}
-                              title="Click to copy example to clipboard"
-                            >
-                              {copiedValue === JSON.stringify(example, null, 2)
-                                ? '✓ Copied!'
-                                : 'Copy Example'}
-                            </button>
-                            <div className="example-json">
-                              <pre>{JSON.stringify(example, null, 2)}</pre>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-              {(() => {
-                const matchedRels = getMatchedRelationships(cls);
-                const hasVisibleRelationships =
-                  cls.relationships &&
-                  Object.entries(cls.relationships).some(
-                    ([relName]) =>
-                      shouldShowRelationship(cls, relName) &&
-                      shouldShowRelationshipBasedOnDeprecation(cls, relName)
-                  );
-
-                if (!hasVisibleRelationships) return null;
-
-                return (
-                  <div className="relationships-section">
-                    <h4>Relationships:</h4>
-                    <div className="relationships-list">
-                      {Object.entries(cls.relationships || {}).map(([relName, relData]) => {
-                        if (
-                          !shouldShowRelationship(cls, relName) ||
-                          !shouldShowRelationshipBasedOnDeprecation(cls, relName)
-                        )
-                          return null;
-
-                        const isMatchedRelationship = matchedRels.includes(relName);
-                        const targetHighlights = getHighlightedRelationshipTargets(cls, relName);
-
-                        return (
-                          <div
-                            key={relName}
-                            className={`method-list-item method-list-item-isChild ${isMatchedRelationship ? 'property-matched' : ''}`}
-                          >
-                            <div className="method-list-item-label">
-                              <div className="method-list-item-label-name">
-                                {searchTerm && getHighlightedRelationshipName(cls, relName)
-                                  ? renderHighlightedText(
-                                      getHighlightedRelationshipName(cls, relName)
-                                    )
-                                  : relName}
-                              </div>
-                              <div className="relationship-targets-container">
-                                <span className="relationship-targets-label">Links To</span>
-                                {relData.targets?.map((target, idx) => {
-                                  const highlightedTarget = targetHighlights.get(target);
-                                  return (
-                                    <button
-                                      key={idx}
-                                      className="relationship-target-link"
-                                      onClick={() => navigate(`/class/${target}`)}
-                                      title={`Navigate to ${target} class`}
-                                    >
-                                      {searchTerm && highlightedTarget
-                                        ? renderHighlightedText(highlightedTarget)
-                                        : target}
-                                    </button>
-                                  );
-                                }) || ''}
-                              </div>
-                              <div className="method-list-item-label-description">
-                                {searchTerm && getHighlightedRelationshipDescription(cls, relName)
-                                  ? renderHighlightedText(
-                                      getHighlightedRelationshipDescription(cls, relName)
-                                    )
-                                  : relData.comment || ''}
-                              </div>
-                            </div>
-                          </div>
                         );
                       })}
                     </div>
