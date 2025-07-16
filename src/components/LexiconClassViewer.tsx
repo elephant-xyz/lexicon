@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { LexiconClass, LexiconTag, LexiconProperty } from '../types/lexicon';
 import { schemaService, extractHTTPRequestRules } from '../services/schemaService';
 import dataService from '../services/dataService';
@@ -20,7 +19,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
   const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
-  const validationRulesRef = useRef<HTMLDivElement | null>(null);
+  const validationRulesRef = useRef<HTMLElement>(null);
 
   // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
@@ -223,7 +222,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return formatMatch?.highlightedFormat || '';
   };
 
-  const renderNestedProperties = (
+  const _renderNestedProperties = (
     properties: Record<string, LexiconProperty>,
     level: number = 0,
     parentPath: string = ''
@@ -266,7 +265,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
               {propData.properties && (
                 <div className="nested-object-properties">
                   <span className="nested-label">Properties:</span>
-                  {renderNestedProperties(propData.properties, level + 1, fullPath)}
+                  {_renderNestedProperties(propData.properties, level + 1, fullPath)}
                 </div>
               )}
 
@@ -321,7 +320,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
   };
 
-  const shouldShowRelationship = (cls: LexiconClass, relName: string): boolean => {
+  const _shouldShowRelationship = (cls: LexiconClass, relName: string): boolean => {
     if (!searchTerm) return true; // Show all relationships when not searching
 
     const matchedRels = getMatchedRelationships(cls);
@@ -340,7 +339,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return true;
   };
 
-  const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
+  const _getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
     if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const relMatch = cls._searchMatches.find(
@@ -349,7 +348,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return relMatch?.highlightedRelationshipName || '';
   };
 
-  const getHighlightedRelationshipTargets = (
+  const _getHighlightedRelationshipTargets = (
     cls: LexiconClass,
     relName: string
   ): Map<string, string> => {
@@ -372,7 +371,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return targetHighlights;
   };
 
-  const getHighlightedRelationshipDescription = (cls: LexiconClass, relName: string): string => {
+  const _getHighlightedRelationshipDescription = (cls: LexiconClass, relName: string): string => {
     if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const relDescMatch = cls._searchMatches.find(
@@ -420,7 +419,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   // Function to extract and format HTTP request validation rules with detailed visualization
-  const getHTTPRequestValidationRules = (
+  const _getHTTPRequestValidationRules = (
     cls: LexiconClass
   ): Array<{
     method: string;
@@ -487,7 +486,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   // Function to scroll to and highlight the validation rules section
-  const scrollToValidationRules = () => {
+  const _scrollToValidationRules = () => {
     if (validationRulesRef.current) {
       validationRulesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
       // setHighlightRules(true); // This line was removed as per the edit hint
@@ -713,11 +712,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     <h4>Properties:</h4>
                     <div className="properties-list">
                       {Object.entries(cls.properties || {}).map(
-                        ([propName, propData], propIdx, arr) => {
+                                                                ([propName, propData], _propIdx, _arr) => {
                           const isDeprecated = cls.deprecated_properties?.includes(propName);
                           if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
                           const isMatchedProperty = matchedProps.includes(propName);
-                          const isSourceHttpRequest =
+                                                      const _isSourceHttpRequest =
                             (propName === 'source_http_request' && propData.type === 'object') ||
                             propData.type === 'source_http_request';
                           return (
