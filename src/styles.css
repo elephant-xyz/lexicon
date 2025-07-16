@@ -2289,3 +2289,165 @@ mark {
   font-size: var(--text-xs);
   font-weight: var(--font-weight-medium);
 }
+
+/* HTTP Request Validation Rules Visualization */
+.validation-rules-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.validation-rule-card {
+  background-color: var(--background-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.validation-rule-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.validation-rule-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  background: linear-gradient(135deg, var(--primary-toxic-green), var(--secondary-forest-green));
+  color: var(--primary-white);
+  font-weight: var(--font-weight-bold);
+}
+
+.validation-rule-icon {
+  font-size: var(--text-lg);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.validation-rule-method {
+  font-size: var(--text-sm);
+  font-family: var(--font-family-mono);
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.validation-rule-content {
+  padding: var(--spacing-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.validation-rule-condition,
+.validation-rule-requirement,
+.validation-rule-restriction {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.validation-rule-condition strong,
+.validation-rule-requirement strong,
+.validation-rule-restriction strong {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.validation-rule-condition {
+  border-left: 3px solid var(--primary-toxic-green);
+  padding-left: var(--spacing-2);
+}
+
+.validation-rule-requirement {
+  border-left: 3px solid var(--secondary-forest-green);
+  padding-left: var(--spacing-2);
+}
+
+.validation-rule-restriction {
+  border-left: 3px solid var(--secondary-dark-red);
+  padding-left: var(--spacing-2);
+}
+
+@media (max-width: 768px) {
+  .validation-rule-card {
+    margin-bottom: var(--spacing-2);
+  }
+  .validation-rule-header {
+    padding: var(--spacing-2);
+  }
+  .validation-rule-content {
+    padding: var(--spacing-2);
+  }
+  .validation-rule-condition,
+  .validation-rule-requirement,
+  .validation-rule-restriction {
+    font-size: var(--text-xs);
+  }
+}
+
+.validation-rules-link-inline {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-3);
+}
+
+.validation-rules-link-btn {
+  background: none;
+  border: none;
+  color: var(--primary-toxic-green);
+  font-size: var(--text-sm);
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast), color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.validation-rules-link-btn:hover,
+.validation-rules-link-btn:focus {
+  background: var(--background-accent);
+  color: var(--secondary-forest-green);
+  outline: 2px solid var(--primary-toxic-green);
+}
+
+.validation-rules-section {
+  margin: var(--spacing-4) 0;
+  padding: var(--spacing-4);
+  background-color: var(--background-accent);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+}
+
+.validation-rules-section h4 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.validation-rules-section h4::before {
+  content: '📜';
+  font-size: var(--text-lg);
+}
+
+.validation-rules-section-highlighted {
+  box-shadow: 0 0 0 4px var(--primary-toxic-green);
+  transition: box-shadow 0.3s;
+  animation: highlight-fade 2s;
+}
+
+@keyframes highlight-fade {
+  0% { box-shadow: 0 0 0 4px var(--primary-toxic-green); }
+  80% { box-shadow: 0 0 0 4px var(--primary-toxic-green); }
+  100% { box-shadow: none; }
+}

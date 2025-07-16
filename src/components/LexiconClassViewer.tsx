@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LexiconClass, LexiconTag, LexiconProperty } from '../types/lexicon';
 import { schemaService } from '../services/schemaService';
@@ -21,6 +21,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
   const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
+  const validationRulesRef = useRef<HTMLDivElement | null>(null);
+  const [highlightRules, setHighlightRules] = useState(false);
 
   // Auto-expand classes with property or relationship matches when searching, or expand by default
   useEffect(() => {
@@ -401,6 +403,80 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return relDescMatch?.highlightedRelationshipDescription || '';
   };
 
+  // Function to extract and format HTTP request validation rules with detailed visualization
+  const getHTTPRequestValidationRules = (cls: LexiconClass): Array<{
+    method: string;
+    condition: string;
+    requirement: string;
+    restriction: string;
+    icon: string;
+  }> => {
+    const rules: Array<{
+      method: string;
+      condition: string;
+      requirement: string;
+      restriction: string;
+      icon: string;
+    }> = [];
+    
+    // Check if this class has source_http_request property
+    if (!cls.properties?.source_http_request) {
+      return rules;
+    }
+
+    // Add detailed HTTP request validation rules
+    rules.push({
+      method: 'GET',
+      condition: 'Method is GET',
+      requirement: 'Must NOT have: body, json, or content-type headers',
+      restriction: 'GET requests are read-only and cannot have payload',
+      icon: '🚫'
+    });
+
+    rules.push({
+      method: 'POST/PUT/PATCH',
+      condition: 'Method is POST/PUT/PATCH + content-type: application/json',
+      requirement: 'Must have: json field',
+      restriction: 'Must NOT have: body field',
+      icon: '📝'
+    });
+
+    rules.push({
+      method: 'POST/PUT/PATCH',
+      condition: 'Method is POST/PUT/PATCH + non-JSON content-type',
+      requirement: 'Must have: body field',
+      restriction: 'Must NOT have: json field',
+      icon: '📄'
+    });
+
+    rules.push({
+      method: 'Any',
+      condition: 'json field is present',
+      requirement: 'Must have: content-type: application/json',
+      restriction: 'JSON data requires proper content-type header',
+      icon: '🔗'
+    });
+
+    rules.push({
+      method: 'Any',
+      condition: 'body field is present',
+      requirement: 'Must have: content-type (not application/json)',
+      restriction: 'Non-JSON body requires different content-type',
+      icon: '🔗'
+    });
+
+    return rules;
+  };
+
+  // Function to scroll to and highlight the validation rules section
+  const scrollToValidationRules = () => {
+    if (validationRulesRef.current) {
+      validationRulesRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setHighlightRules(true);
+      setTimeout(() => setHighlightRules(false), 2000);
+    }
+  };
+
   return (
     <div className="lexicon-viewer">
       {classes.map((cls, index) => (
@@ -462,6 +538,34 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     {cls.source_url.comment && (
                       <div className="source-description">{cls.source_url.comment}</div>
                     )}
+                  </div>
+                </div>
+              )}
+
+              {/* HTTP Request Validation Rules */}
+              {cls.properties?.source_http_request && (
+                <div className="http-validation-section">
+                  <h4>HTTP Request Validation Rules:</h4>
+                  <div className="validation-rules-list">
+                    {getHTTPRequestValidationRules(cls).map((rule, index) => (
+                      <div key={index} className="validation-rule-card">
+                        <div className="validation-rule-header">
+                          <span className="validation-rule-icon">{rule.icon}</span>
+                          <span className="validation-rule-method">{rule.method}</span>
+                        </div>
+                        <div className="validation-rule-content">
+                          <div className="validation-rule-condition">
+                            <strong>Condition:</strong> {rule.condition}
+                          </div>
+                          <div className="validation-rule-requirement">
+                            <strong>Requirement:</strong> {rule.requirement}
+                          </div>
+                          <div className="validation-rule-restriction">
+                            <strong>Restriction:</strong> {rule.restriction}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -618,183 +722,208 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                   <div className="properties-section">
                     <h4>Properties:</h4>
                     <div className="properties-list">
-                      {Object.entries(cls.properties || {}).map(([propName, propData]) => {
+                      {Object.entries(cls.properties || {}).map(([propName, propData], propIdx, arr) => {
                         const isDeprecated = cls.deprecated_properties?.includes(propName);
                         if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
-
                         const isMatchedProperty = matchedProps.includes(propName);
-
+                        const isSourceHttpRequest =
+                          (propName === 'source_http_request' && propData.type === 'object') ||
+                          propData.type === 'source_http_request';
                         return (
-                          <div
-                            key={propName}
-                            className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''}`}
-                          >
-                            <div className="method-list-item-label">
-                              <div className="method-list-item-label-name">
-                                <span className="property-name">
-                                  {searchTerm && cls._searchMatches
-                                    ? renderHighlightedText(
-                                        cls._searchMatches.find(
-                                          m =>
-                                            m.type === 'property' &&
-                                            m.value.replace(/<\/?mark>/g, '') === propName
-                                        )?.value || propName
-                                      )
-                                    : propName}
-                                </span>
-                                {cls.required?.includes(propName) && (
-                                  <span className="required-badge" title="This field is required">
-                                    Required
+                          <React.Fragment key={propName}>
+                            <div
+                              className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''}`}
+                            >
+                              <div className="method-list-item-label">
+                                <div className="method-list-item-label-name">
+                                  <span className="property-name">
+                                    {searchTerm && cls._searchMatches
+                                      ? renderHighlightedText(
+                                          cls._searchMatches.find(
+                                            m =>
+                                              m.type === 'property' &&
+                                              m.value.replace(/<\/?mark>/g, '') === propName
+                                          )?.value || propName
+                                        )
+                                      : propName}
                                   </span>
-                                )}
-                              </div>
-                              <div className="method-list-item-label-type">
-                                <span className="property-type-label">Data Type</span>
-                                <span className="property-type-value">
-                                  {searchTerm && getHighlightedType(cls, propName)
+                                  {cls.required?.includes(propName) && (
+                                    <span className="required-badge" title="This field is required">
+                                      Required
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="method-list-item-label-type">
+                                  <span className="property-type-label">Data Type</span>
+                                  <span className="property-type-value">
+                                    {(propData.type === 'object' && propName === 'source_http_request') ||
+                                    propData.type === 'source_http_request' ? (
+                                      <button
+                                        className="property-type-link"
+                                        onClick={() => navigate(`/class/source_http_request`)}
+                                        title="Click to view source_http_request class details"
+                                      >
+                                        {searchTerm && getHighlightedType(cls, propName)
+                                          ? renderHighlightedText(getHighlightedType(cls, propName))
+                                          : propData.type}
+                                      </button>
+                                    ) : searchTerm && getHighlightedType(cls, propName)
                                     ? renderHighlightedText(getHighlightedType(cls, propName))
                                     : propData.type}
-                                </span>
-                              </div>
-                              {propData.enum && (
-                                <div className="method-list-item-label-enum">
-                                  <span className="enum-label">Possible Values:</span>
-                                  <div className="enum-values">
-                                    {[...propData.enum]
-                                      .sort((a, b) => a.localeCompare(b))
-                                      .map((value, idx) => {
-                                        const enumHighlights = getHighlightedEnumValues(
-                                          cls,
-                                          propName
-                                        );
-                                        const highlightedValue = enumHighlights.get(value);
-
-                                        return (
-                                          <button
-                                            key={idx}
-                                            className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
-                                            onClick={() => copyToClipboard(value)}
-                                            title="Click to copy to clipboard"
-                                          >
-                                            {copiedValue === value ? (
-                                              '✓ Copied!'
-                                            ) : searchTerm && highlightedValue ? (
-                                              <span
-                                                dangerouslySetInnerHTML={{
-                                                  __html: highlightedValue,
-                                                }}
-                                              />
-                                            ) : (
-                                              value
-                                            )}
-                                          </button>
-                                        );
-                                      })}
+                                  </span>
+                                </div>
+                                {/* Add Validation Rules link beside source_http_request property */}
+                                {isSourceHttpRequest && (
+                                  <div className="validation-rules-link-inline">
+                                    <button
+                                      className="validation-rules-link-btn"
+                                      onClick={scrollToValidationRules}
+                                      title="Show HTTP validation rules for this class"
+                                    >
+                                      <span role="img" aria-label="rules">📜</span> Validation Rules
+                                    </button>
                                   </div>
-                                </div>
-                              )}
-                              {propData.pattern && (
-                                <div className="method-list-item-label-pattern">
-                                  <span className="pattern-label">Pattern:</span>
-                                  <button
-                                    className={`pattern-value ${copiedValue === propData.pattern ? 'pattern-value-copied' : ''}`}
-                                    onClick={() => copyToClipboard(propData.pattern!)}
-                                    title="Click to copy pattern to clipboard"
-                                  >
-                                    {copiedValue === propData.pattern ? (
-                                      '✓ Copied!'
-                                    ) : searchTerm && getHighlightedPattern(cls, propName) ? (
-                                      <span
-                                        dangerouslySetInnerHTML={{
-                                          __html: getHighlightedPattern(cls, propName),
-                                        }}
-                                      />
-                                    ) : (
-                                      propData.pattern
-                                    )}
-                                  </button>
-                                </div>
-                              )}
-                              {propData.format && (
-                                <div className="method-list-item-label-format">
-                                  <span className="format-label">Format:</span>
-                                  <button
-                                    className={`format-value format-link ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
-                                    onClick={() => scrollToCommonPattern(propData.format!)}
-                                    title="Click to view format details in Common Patterns section"
-                                  >
-                                    {searchTerm && getHighlightedFormat(cls, propName) ? (
-                                      <span
-                                        dangerouslySetInnerHTML={{
-                                          __html: getHighlightedFormat(cls, propName),
-                                        }}
-                                      />
-                                    ) : (
-                                      propData.format
-                                    )}
-                                  </button>
-                                </div>
-                              )}
-                              <div className="method-list-item-label-description">
-                                {searchTerm && getHighlightedDescription(cls, propName)
-                                  ? renderHighlightedText(getHighlightedDescription(cls, propName))
-                                  : propData.comment || ''}
-                              </div>
+                                )}
+                                {propData.enum && (
+                                  <div className="method-list-item-label-enum">
+                                    <span className="enum-label">Possible Values:</span>
+                                    <div className="enum-values">
+                                      {[...propData.enum]
+                                        .sort((a, b) => a.localeCompare(b))
+                                        .map((value, idx) => {
+                                          const enumHighlights = getHighlightedEnumValues(
+                                            cls,
+                                            propName
+                                          );
+                                          const highlightedValue = enumHighlights.get(value);
 
-                              {/* Render nested properties for object types */}
-                              {propData.type === 'object' && propData.properties && (
-                                <div className="nested-properties-section">
-                                  <h5>Object Properties:</h5>
-                                  {renderNestedProperties(propData.properties, 0, propName)}
+                                          return (
+                                            <button
+                                              key={idx}
+                                              className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                              onClick={() => copyToClipboard(value)}
+                                              title="Click to copy to clipboard"
+                                            >
+                                              {copiedValue === value ? (
+                                                '✓ Copied!'
+                                              ) : searchTerm && highlightedValue ? (
+                                                <span
+                                                  dangerouslySetInnerHTML={{
+                                                    __html: highlightedValue,
+                                                  }}
+                                                />
+                                              ) : (
+                                                value
+                                              )}
+                                            </button>
+                                          );
+                                        })}
+                                    </div>
+                                  </div>
+                                )}
+                                {propData.pattern && (
+                                  <div className="method-list-item-label-pattern">
+                                    <span className="pattern-label">Pattern:</span>
+                                    <button
+                                      className={`pattern-value ${copiedValue === propData.pattern ? 'pattern-value-copied' : ''}`}
+                                      onClick={() => copyToClipboard(propData.pattern!)}
+                                      title="Click to copy pattern to clipboard"
+                                    >
+                                      {copiedValue === propData.pattern ? (
+                                        '✓ Copied!'
+                                      ) : searchTerm && getHighlightedPattern(cls, propName) ? (
+                                        <span
+                                          dangerouslySetInnerHTML={{
+                                            __html: getHighlightedPattern(cls, propName),
+                                          }}
+                                        />
+                                      ) : (
+                                        propData.pattern
+                                      )}
+                                    </button>
+                                  </div>
+                                )}
+                                {propData.format && (
+                                  <div className="method-list-item-label-format">
+                                    <span className="format-label">Format:</span>
+                                    <button
+                                      className={`format-value format-link ${copiedValue === propData.format ? 'format-value-copied' : ''}`}
+                                      onClick={() => scrollToCommonPattern(propData.format!)}
+                                      title="Click to view format details in Common Patterns section"
+                                    >
+                                      {searchTerm && getHighlightedFormat(cls, propName) ? (
+                                        <span
+                                          dangerouslySetInnerHTML={{
+                                            __html: getHighlightedFormat(cls, propName),
+                                          }}
+                                        />
+                                      ) : (
+                                        propData.format
+                                      )}
+                                    </button>
+                                  </div>
+                                )}
+                                <div className="method-list-item-label-description">
+                                  {searchTerm && getHighlightedDescription(cls, propName)
+                                    ? renderHighlightedText(getHighlightedDescription(cls, propName))
+                                    : propData.comment || ''}
                                 </div>
-                              )}
 
-                              {/* Render pattern properties for object types */}
-                              {propData.type === 'object' && propData.patternProperties && (
-                                <div className="pattern-properties-section">
-                                  <h5>Pattern Properties:</h5>
-                                  {Object.entries(propData.patternProperties).map(
-                                    ([pattern, patternProp]) => {
-                                      const typedPatternProp = patternProp as LexiconProperty;
-                                      return (
-                                        <div key={pattern} className="pattern-property-item">
-                                          <div className="pattern-property-info">
-                                            <span className="pattern-key">
-                                              Pattern: <code>{pattern}</code>
-                                            </span>
-                                            <span className="pattern-property-type">
-                                              {typedPatternProp.type}
-                                            </span>
-                                            {typedPatternProp.comment && (
-                                              <span className="pattern-property-comment">
-                                                {typedPatternProp.comment}
-                                              </span>
-                                            )}
-                                          </div>
+                                {/* Render nested properties for object types */}
+                                {propData.type === 'object' && propData.properties && (
+                                  <div className="nested-properties-section">
+                                    <h5>Object Properties:</h5>
+                                    {renderNestedProperties(propData.properties, 0, propName)}
+                                  </div>
+                                )}
 
-                                          {typedPatternProp.items && (
-                                            <div className="array-items-info">
-                                              <span className="array-items-label">
-                                                Array Items:
+                                {/* Render pattern properties for object types */}
+                                {propData.type === 'object' && propData.patternProperties && (
+                                  <div className="pattern-properties-section">
+                                    <h5>Pattern Properties:</h5>
+                                    {Object.entries(propData.patternProperties).map(
+                                      ([pattern, patternProp]) => {
+                                        const typedPatternProp = patternProp as LexiconProperty;
+                                        return (
+                                          <div key={pattern} className="pattern-property-item">
+                                            <div className="pattern-property-info">
+                                              <span className="pattern-key">
+                                                Pattern: <code>{pattern}</code>
                                               </span>
-                                              <span className="array-items-type">
-                                                {typedPatternProp.items.type}
+                                              <span className="pattern-property-type">
+                                                {typedPatternProp.type}
                                               </span>
-                                              {typedPatternProp.minItems && (
-                                                <span className="array-min-items">
-                                                  Min Items: {typedPatternProp.minItems}
+                                              {typedPatternProp.comment && (
+                                                <span className="pattern-property-comment">
+                                                  {typedPatternProp.comment}
                                                 </span>
                                               )}
                                             </div>
-                                          )}
-                                        </div>
-                                      );
-                                    }
-                                  )}
-                                </div>
-                              )}
+
+                                            {typedPatternProp.items && (
+                                              <div className="array-items-info">
+                                                <span className="array-items-label">
+                                                  Array Items:
+                                                </span>
+                                                <span className="array-items-type">
+                                                  {typedPatternProp.items.type}
+                                                </span>
+                                                {typedPatternProp.minItems && (
+                                                  <span className="array-min-items">
+                                                    Min Items: {typedPatternProp.minItems}
+                                                  </span>
+                                                )}
+                                              </div>
+                                            )}
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </div>
+                          </React.Fragment>
                         );
                       })}
                     </div>
@@ -802,6 +931,174 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                 );
               })()}
 
+              {/* Separate Validation Rules Section */}
+              {cls.properties?.source_http_request && (
+                <div
+                  ref={validationRulesRef}
+                  className={`validation-rules-section${highlightRules ? ' validation-rules-section-highlighted' : ''}`}
+                >
+                  <h4>Validation Rules:</h4>
+                  <div className="validation-rules-list">
+                    {getHTTPRequestValidationRules(cls).map((rule, index) => (
+                      <div key={index} className="validation-rule-card">
+                        <div className="validation-rule-header">
+                          <span className="validation-rule-icon">{rule.icon}</span>
+                          <span className="validation-rule-method">{rule.method}</span>
+                        </div>
+                        <div className="validation-rule-content">
+                          <div className="validation-rule-condition">
+                            <strong>Condition:</strong> {rule.condition}
+                          </div>
+                          <div className="validation-rule-requirement">
+                            <strong>Requirement:</strong> {rule.requirement}
+                          </div>
+                          <div className="validation-rule-restriction">
+                            <strong>Restriction:</strong> {rule.restriction}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* JSON Schema and Example Downloads for blockchain classes */}
+              {isBlockchainClass.has(cls.type) && schemaManifest[cls.type] && (
+                <div className="json-schema-section">
+                  <div className="json-schema-link">
+                    <span className="json-schema-label">JSON Schema:</span>
+                    <a
+                      href={schemaService.getIPFSUrl(schemaManifest[cls.type].ipfsCid)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ipfs-download-link"
+                      title="Download schema from IPFS"
+                    >
+                      📥 Download from IPFS
+                    </a>
+                    <button
+                      className={`cid-copy-button ${copiedValue === schemaManifest[cls.type].ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                      onClick={() => copyToClipboard(schemaManifest[cls.type].ipfsCid)}
+                      title="Click to copy CID to clipboard"
+                    >
+                      {copiedValue === schemaManifest[cls.type].ipfsCid
+                        ? '✓ Copied!'
+                        : `CID: ${schemaManifest[cls.type].ipfsCid}`}
+                    </button>
+                  </div>
+                </div>
+              )}
+              {/* Single Example Display */}
+              {cls.example &&
+                isBlockchainClass.has(cls.type) &&
+                schemaManifest[`${cls.type}_example`] && (
+                  <div className="json-example-section">
+                    <div className="json-example-link">
+                      <span className="json-example-label">JSON Example:</span>
+                      <a
+                        href={schemaService.getIPFSUrl(
+                          schemaManifest[`${cls.type}_example`].ipfsCid
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ipfs-download-link"
+                        title="Download example from IPFS"
+                      >
+                        📥 Download from IPFS
+                      </a>
+                      <button
+                        className={`cid-copy-button ${copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                        onClick={() =>
+                          copyToClipboard(schemaManifest[`${cls.type}_example`].ipfsCid)
+                        }
+                        title="Click to copy CID to clipboard"
+                      >
+                        {copiedValue === schemaManifest[`${cls.type}_example`].ipfsCid
+                          ? '✓ Copied!'
+                          : `CID: ${schemaManifest[`${cls.type}_example`].ipfsCid}`}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+              {/* Multiple Examples Display */}
+              {cls.examples && cls.examples.length > 0 && (
+                <div className="json-examples-section">
+                  <h4>JSON Examples:</h4>
+                  <div className="examples-list">
+                    {cls.examples.map((example, index) => {
+                      // For relationship class, show IPFS download links with type labels
+                      if (cls.type === 'relationship' && 'type' in example) {
+                        const exampleType = (example as Record<string, unknown>).type as string;
+                        const exampleKey = `${cls.type}_${exampleType}_example`;
+                        const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
+
+                        if (exampleCid) {
+                          const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${exampleCid}`;
+                          return (
+                            <div key={index} className="example-item">
+                              <div className="example-header">
+                                <span className="example-label">{exampleType}:</span>
+                              </div>
+                              <div className="example-content">
+                                <div className="example-ipfs-links">
+                                  <a
+                                    href={ipfsUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="ipfs-download-link"
+                                    title="Download example from IPFS"
+                                  >
+                                    📥 Download from IPFS
+                                  </a>
+                                  <button
+                                    className={`cid-copy-button ${copiedValue === exampleCid ? 'cid-copy-button-copied' : ''}`}
+                                    onClick={() => copyToClipboard(exampleCid)}
+                                    title="Click to copy CID to clipboard"
+                                  >
+                                    {copiedValue === exampleCid
+                                      ? '✓ Copied!'
+                                      : `CID: ${exampleCid}`}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+                      }
+
+                      // For other classes, show the full JSON with copy button
+                      return (
+                        <div key={index} className="example-item">
+                          <div className="example-header">
+                            <span className="example-label">Example {index + 1}:</span>
+                            {(() => {
+                              const desc = (example as Record<string, unknown>).description;
+                              return typeof desc === 'string' ? (
+                                <span className="example-description">{desc}</span>
+                              ) : null;
+                            })()}
+                          </div>
+                          <div className="example-content">
+                            <button
+                              className={`example-copy-button ${copiedValue === JSON.stringify(example, null, 2) ? 'example-copy-button-copied' : ''}`}
+                              onClick={() => copyToClipboard(JSON.stringify(example, null, 2))}
+                              title="Click to copy example to clipboard"
+                            >
+                              {copiedValue === JSON.stringify(example, null, 2)
+                                ? '✓ Copied!'
+                                : 'Copy Example'}
+                            </button>
+                            <div className="example-json">
+                              <pre>{JSON.stringify(example, null, 2)}</pre>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
               {(() => {
                 const matchedRels = getMatchedRelationships(cls);
                 const hasVisibleRelationships =
