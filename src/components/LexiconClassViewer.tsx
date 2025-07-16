@@ -130,16 +130,16 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const getHighlightedClassName = (cls: LexiconClass): string => {
-    if (!searchTerm || !cls._searchMatches) return cls.type;
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return cls.type;
 
-    const classMatch = cls._searchMatches.find(m => m.type === 'class' && m.field === 'type');
+    const classMatch = cls._searchMatches.find(m => m && m.type === 'class' && m.field === 'type');
     return classMatch?.value || cls.type;
   };
   const getMatchedProperties = (cls: LexiconClass): string[] => {
-    if (!searchTerm || !cls._searchMatches) return [];
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return [];
 
     return cls._searchMatches
-      .filter(m => m.type === 'property')
+      .filter(m => m && m.type === 'property')
       .map(m => m.value.replace(/<\/?mark>/g, '')) // Remove highlight tags to get property name
       .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
   };
@@ -168,24 +168,24 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const getHighlightedDescription = (cls: LexiconClass, propName: string): string => {
-    if (!searchTerm || !cls._searchMatches) return '';
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const descMatch = cls._searchMatches.find(
-      m => m.type === 'property' && m.field === 'description' && m.value === propName
+      m => m && m.type === 'property' && m.field === 'description' && m.value === propName
     );
     return descMatch?.highlightedDescription || '';
   };
 
   const getHighlightedEnumValues = (cls: LexiconClass, propName: string): Map<string, string> => {
     const enumHighlights = new Map<string, string>();
-    if (!searchTerm || !cls._searchMatches) return enumHighlights;
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return enumHighlights;
 
     const enumMatches = cls._searchMatches.filter(
-      m => m.type === 'property' && m.field === 'enum' && m.value === propName
+      m => m && m.type === 'property' && m.field === 'enum' && m.value === propName
     );
 
     enumMatches.forEach(match => {
-      if (match.highlightedEnum) {
+      if (match && match.highlightedEnum) {
         // Extract the original enum value from the highlighted text
         const originalValue = match.highlightedEnum.replace(/<\/?mark>/g, '');
         enumHighlights.set(originalValue, match.highlightedEnum);
@@ -196,28 +196,28 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const getHighlightedType = (cls: LexiconClass, propName: string): string => {
-    if (!searchTerm || !cls._searchMatches) return '';
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const typeMatch = cls._searchMatches.find(
-      m => m.type === 'property' && m.field === 'type' && m.value === propName
+      m => m && m.type === 'property' && m.field === 'type' && m.value === propName
     );
     return typeMatch?.highlightedType || '';
   };
 
   const getHighlightedPattern = (cls: LexiconClass, propName: string): string => {
-    if (!searchTerm || !cls._searchMatches) return '';
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const patternMatch = cls._searchMatches.find(
-      m => m.type === 'property' && m.field === 'pattern' && m.value === propName
+      m => m && m.type === 'property' && m.field === 'pattern' && m.value === propName
     );
     return patternMatch?.highlightedPattern || '';
   };
 
   const getHighlightedFormat = (cls: LexiconClass, propName: string): string => {
-    if (!searchTerm || !cls._searchMatches) return '';
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const formatMatch = cls._searchMatches.find(
-      m => m.type === 'property' && m.field === 'format' && m.value === propName
+      m => m && m.type === 'property' && m.field === 'format' && m.value === propName
     );
     return formatMatch?.highlightedFormat || '';
   };
@@ -312,10 +312,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const getMatchedRelationships = (cls: LexiconClass): string[] => {
-    if (!searchTerm || !cls._searchMatches) return [];
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return [];
 
     return cls._searchMatches
-      .filter(m => m.type === 'relationship')
+      .filter(m => m && m.type === 'relationship')
       .map(m => m.value)
       .filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
   };
@@ -340,10 +340,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const getHighlightedRelationshipName = (cls: LexiconClass, relName: string): string => {
-    if (!searchTerm || !cls._searchMatches) return '';
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const relMatch = cls._searchMatches.find(
-      m => m.type === 'relationship' && m.field === 'name' && m.value === relName
+      m => m && m.type === 'relationship' && m.field === 'name' && m.value === relName
     );
     return relMatch?.highlightedRelationshipName || '';
   };
@@ -353,14 +353,14 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     relName: string
   ): Map<string, string> => {
     const targetHighlights = new Map<string, string>();
-    if (!searchTerm || !cls._searchMatches) return targetHighlights;
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return targetHighlights;
 
     const targetMatches = cls._searchMatches.filter(
-      m => m.type === 'relationship' && m.field === 'target' && m.value === relName
+      m => m && m.type === 'relationship' && m.field === 'target' && m.value === relName
     );
 
     targetMatches.forEach(match => {
-      if (match.highlightedRelationshipTarget) {
+      if (match && match.highlightedRelationshipTarget) {
         // Extract the original target value from the highlighted text
         const originalTarget = match.highlightedRelationshipTarget.replace(/<\/?mark>/g, '');
         targetHighlights.set(originalTarget, match.highlightedRelationshipTarget);
@@ -371,10 +371,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   };
 
   const getHighlightedRelationshipDescription = (cls: LexiconClass, relName: string): string => {
-    if (!searchTerm || !cls._searchMatches) return '';
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return '';
 
     const relDescMatch = cls._searchMatches.find(
-      m => m.type === 'relationship' && m.field === 'description' && m.value === relName
+      m => m && m.type === 'relationship' && m.field === 'description' && m.value === relName
     );
     return relDescMatch?.highlightedRelationshipDescription || '';
   };
@@ -726,11 +726,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 <div className="method-list-item-label">
                                   <div className="method-list-item-label-name">
                                     <span className="property-name">
-                                      {searchTerm && cls._searchMatches
+                                      {searchTerm && cls._searchMatches && Array.isArray(cls._searchMatches)
                                         ? renderHighlightedText(
                                             cls._searchMatches.find(
                                               m =>
-                                                m.type === 'property' &&
+                                                m && m.type === 'property' &&
                                                 m.value.replace(/<\/?mark>/g, '') === propName
                                             )?.value || propName
                                           )
@@ -868,7 +868,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                     ? nestedPropData.oneOf
                                                         .map(
                                                           (option: LexiconProperty, _index: number) =>
-                                                            `${option.type}${option.oneOf!.length - 1 > _index ? ' | ' : ''}`
+                                                            `${option.type}${nestedPropData.oneOf && nestedPropData.oneOf.length - 1 > _index ? ' | ' : ''}`
                                                         )
                                                         .join('')
                                                     : nestedPropData.type}
