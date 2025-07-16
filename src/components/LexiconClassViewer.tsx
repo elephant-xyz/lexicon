@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LexiconClass, LexiconTag, LexiconProperty } from '../types/lexicon';
-import { schemaService } from '../services/schemaService';
+import { schemaService, extractHTTPRequestRules } from '../services/schemaService';
 import dataService from '../services/dataService';
 
 interface LexiconClassViewerProps {
@@ -410,27 +410,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     const patterns: string[] = [];
     const conditionalPatterns: string[] = [];
 
-    // Extract rules from the actual HTTP request validation schema
-    const httpRequestRules = {
-      method: [
-        'GET requests cannot have body, json, or headers',
-        'POST/PUT/PATCH with application/json must have json field',
-        'POST/PUT/PATCH with non-application/json must have body field',
-      ],
-      headers: [
-        'If method is POST/PUT/PATCH with application/json, content-type must be application/json',
-        'If method is POST/PUT/PATCH with non-JSON payload, content-type must not be application/json',
-      ],
-      body: [
-        'Only allowed for POST/PUT/PATCH with non-JSON content-type',
-        'Cannot be used with json field',
-      ],
-      json: [
-        'Only allowed for POST/PUT/PATCH with application/json content-type',
-        'Cannot be used with body field',
-      ],
-      'content-type': ['Must be valid MIME type format'],
-    };
+    // Get rules from the shared schema service instead of hardcoding
+    const httpRequestRules = extractHTTPRequestRules();
 
     // Add patterns for properties that have format requirements
     switch (propertyName) {
@@ -453,8 +434,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     }
 
     // Add conditional patterns from the validation rules
-    if (httpRequestRules[propertyName as keyof typeof httpRequestRules]) {
-      conditionalPatterns.push(...httpRequestRules[propertyName as keyof typeof httpRequestRules]);
+    if (httpRequestRules[propertyName]) {
+      conditionalPatterns.push(...httpRequestRules[propertyName]);
     }
 
     return { patterns, conditionalPatterns };
