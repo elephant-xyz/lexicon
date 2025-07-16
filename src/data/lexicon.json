@@ -2611,7 +2611,7 @@
       "properties": {
         "base_path": {
           "type": "string",
-          "comment": "Refers to a root directory or a primary path under which all the files related to the bundle are stored and organized."
+          "comment": "Refers to a seed directory or a primary path under which all the files related to the bundle are stored and organized."
         },
         "bundle_type": {
           "type": "string",
@@ -12880,7 +12880,7 @@
             "property_has_tax",
             "property_has_utilities",
             "property_has_environmental_risk",
-            "property_root",
+            "property_seed",
             "property_flood_storm_information"
           ],
           "comment": "A reference to the associated schema for relashionship"
@@ -14637,9 +14637,9 @@
       }
     },
     {
-      "type": "property_root",
-      "container_name": "property_root",
-      "description": "A minimum set of house property root data containing essential identifying information for property records.",
+      "type": "property_seed",
+      "container_name": "property_seed",
+      "description": "A minimum set of house property seed data containing essential identifying information for property records.",
       "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
@@ -20618,7 +20618,7 @@
       "name": "blockchain",
       "classes": [
         "property",
-        "property_root",
+        "property_seed",
         "unnormalized_address",
         "address",
         "company",
@@ -20653,17 +20653,17 @@
   ],
   "data_groups": [
     {
-      "label": "Root",
+      "label": "Seed",
       "relationships": [
         {
           "type": "relationship",
-          "from": "property_root",
+          "from": "property_seed",
           "to": "unnormalized_address",
-          "relationship_type": "property_root"
+          "relationship_type": "property_seed"
         }
       ],
       "required": [
-        "property_root"
+        "property_seed"
       ]
     },
     {
