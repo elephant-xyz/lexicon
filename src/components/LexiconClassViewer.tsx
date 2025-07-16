@@ -178,7 +178,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 
   const getHighlightedEnumValues = (cls: LexiconClass, propName: string): Map<string, string> => {
     const enumHighlights = new Map<string, string>();
-    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return enumHighlights;
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches))
+      return enumHighlights;
 
     const enumMatches = cls._searchMatches.filter(
       m => m && m.type === 'property' && m.field === 'enum' && m.value === propName
@@ -353,7 +354,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     relName: string
   ): Map<string, string> => {
     const targetHighlights = new Map<string, string>();
-    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches)) return targetHighlights;
+    if (!searchTerm || !cls._searchMatches || !Array.isArray(cls._searchMatches))
+      return targetHighlights;
 
     const targetMatches = cls._searchMatches.filter(
       m => m && m.type === 'relationship' && m.field === 'target' && m.value === relName
@@ -726,11 +728,14 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 <div className="method-list-item-label">
                                   <div className="method-list-item-label-name">
                                     <span className="property-name">
-                                      {searchTerm && cls._searchMatches && Array.isArray(cls._searchMatches)
+                                      {searchTerm &&
+                                      cls._searchMatches &&
+                                      Array.isArray(cls._searchMatches)
                                         ? renderHighlightedText(
                                             cls._searchMatches.find(
                                               m =>
-                                                m && m.type === 'property' &&
+                                                m &&
+                                                m.type === 'property' &&
                                                 m.value.replace(/<\/?mark>/g, '') === propName
                                             )?.value || propName
                                           )
@@ -867,7 +872,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                   nestedPropData.oneOf.length > 0
                                                     ? nestedPropData.oneOf
                                                         .map(
-                                                          (option: LexiconProperty, _index: number) =>
+                                                          (
+                                                            option: LexiconProperty,
+                                                            _index: number
+                                                          ) =>
                                                             `${option.type}${nestedPropData.oneOf && nestedPropData.oneOf.length - 1 > _index ? ' | ' : ''}`
                                                         )
                                                         .join('')
