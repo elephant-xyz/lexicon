@@ -18,12 +18,13 @@ interface JSONSchemaGeneratorOptions {
 
 interface JSONSchema {
   $schema: string;
-  type: 'object';
+  type: 'object' | string;
   title: string;
   description: string;
   properties: Record<string, unknown>;
   required: string[];
   additionalProperties: boolean;
+  allOf?: unknown[];
 }
 
 interface RelationshipSchema extends JSONSchema {
@@ -85,6 +86,57 @@ function mapLexiconTypeToJSONSchema(
   // If property has minimum constraint, it cannot be null
   const effectiveRequired = isRequired || property.minimum !== undefined;
 
+  // Handle oneOf first (before checking type)
+  if (property.oneOf) {
+    // Check if this is a simple type union (only contains basic types without additional properties)
+    const isSimpleTypeUnion = property.oneOf.every(
+      subSchema =>
+        subSchema.type &&
+        typeof subSchema.type === 'string' &&
+        !subSchema.properties &&
+        !subSchema.enum &&
+        !subSchema.pattern &&
+        !subSchema.format &&
+        !subSchema.minLength &&
+        !subSchema.minimum &&
+        !subSchema.items &&
+        !subSchema.additionalProperties
+    );
+
+    if (isSimpleTypeUnion) {
+      // Use simple array syntax for basic type unions
+      const types = property.oneOf.map(subSchema => subSchema.type as string);
+
+      if (!effectiveRequired) {
+        types.push('null');
+      }
+
+      schema.type = types.length === 1 ? types[0] : types;
+
+      // Add description if available
+      if (property.comment) {
+        schema.description = property.comment;
+      }
+
+      return schema;
+    } else {
+      // Use oneOf for complex schemas
+      schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
+
+      // If not required, add null as an option
+      if (!effectiveRequired) {
+        schema.oneOf.push({ type: 'null' });
+      }
+
+      // Add description if available
+      if (property.comment) {
+        schema.description = property.comment;
+      }
+
+      return schema;
+    }
+  }
+
   switch (property.type) {
     case 'string':
       schema.type = effectiveRequired ? 'string' : ['string', 'null'];
@@ -131,8 +183,96 @@ function mapLexiconTypeToJSONSchema(
       schema.type = isRequired ? 'string' : ['string', 'null'];
       schema.format = 'date-time';
       break;
+    case 'object':
+      // Handle object types with nested properties
+      if (effectiveRequired) {
+        schema.type = 'object';
+      } else {
+        schema.type = ['object', 'null'];
+      }
+
+      // Add nested properties if they exist
+      if (property.properties) {
+        schema.properties = {};
+        const requiredProps: string[] = [];
+
+        for (const [propName, propDef] of Object.entries(property.properties)) {
+          // For source_http_request, treat all nested properties as required
+          const isNestedRequired = true; // Force all nested properties to be required
+          (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
+            propDef,
+            isNestedRequired
+          );
+          if (propDef.required) {
+            requiredProps.push(propName);
+          }
+        }
+
+        if (requiredProps.length > 0) {
+          schema.required = requiredProps;
+        }
+
+        // Handle additionalProperties
+        if (property.additionalProperties !== undefined) {
+          if (typeof property.additionalProperties === 'boolean') {
+            schema.additionalProperties = property.additionalProperties;
+          } else {
+            schema.additionalProperties = mapLexiconTypeToJSONSchema(
+              property.additionalProperties,
+              false
+            );
+          }
+        } else {
+          schema.additionalProperties = false;
+        }
+      }
+
+      // Add pattern properties if they exist
+      if (property.patternProperties) {
+        schema.patternProperties = {};
+
+        for (const [pattern, propDef] of Object.entries(property.patternProperties)) {
+          (schema.patternProperties as Record<string, unknown>)[pattern] =
+            mapLexiconTypeToJSONSchema(propDef, true);
+        }
+
+        if (!schema.properties && property.additionalProperties === undefined) {
+          schema.additionalProperties = false;
+        }
+      }
+
+      // Handle allOf
+      if (property.allOf) {
+        schema.allOf = property.allOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
+      }
+
+      break;
+    case 'array':
+      schema.type = effectiveRequired ? 'array' : ['array', 'null'];
+
+      // Add items schema if it exists
+      if (property.items) {
+        schema.items = mapLexiconTypeToJSONSchema(property.items, true);
+      }
+
+      // Add minimum items constraint if it exists
+      if (property.minItems !== undefined) {
+        schema.minItems = property.minItems;
+      }
+
+      break;
     default:
       schema.type = isRequired ? 'string' : ['string', 'null'];
+  }
+
+  // Handle const keyword
+  if (property.const !== undefined) {
+    schema.const = property.const;
+  }
+
+  // Handle not keyword
+  if (property.not) {
+    schema.not = mapLexiconTypeToJSONSchema(property.not, true);
   }
 
   if (property.comment) {
@@ -142,12 +282,122 @@ function mapLexiconTypeToJSONSchema(
   return schema;
 }
 
+function generateHTTPRequestValidationRules(): Record<string, unknown> {
+  return {
+    allOf: [
+      {
+        if: {
+          properties: {
+            method: {
+              enum: ['GET'],
+            },
+          },
+        },
+        then: {
+          not: {
+            anyOf: [
+              {
+                required: ['body'],
+              },
+              {
+                required: ['json'],
+              },
+              {
+                required: ['headers'],
+              },
+            ],
+          },
+        },
+      },
+      {
+        if: {
+          properties: {
+            method: {
+              enum: ['POST', 'PUT', 'PATCH'],
+            },
+            headers: {
+              properties: {
+                'content-type': {
+                  const: 'application/json',
+                },
+              },
+            },
+          },
+        },
+        then: {
+          required: ['json'],
+          not: {
+            required: ['body'],
+          },
+        },
+      },
+      {
+        if: {
+          properties: {
+            method: {
+              enum: ['POST', 'PUT', 'PATCH'],
+            },
+            headers: {
+              properties: {
+                'content-type': {
+                  not: {
+                    const: 'application/json',
+                  },
+                },
+              },
+            },
+          },
+        },
+        then: {
+          required: ['body'],
+          not: {
+            required: ['json'],
+          },
+        },
+      },
+      {
+        if: {
+          required: ['json'],
+        },
+        then: {
+          properties: {
+            headers: {
+              required: ['content-type'],
+              properties: {
+                'content-type': {
+                  const: 'application/json',
+                },
+              },
+            },
+          },
+        },
+      },
+      {
+        if: {
+          required: ['body'],
+        },
+        then: {
+          properties: {
+            headers: {
+              required: ['content-type'],
+              properties: {
+                'content-type': {
+                  not: {
+                    const: 'application/json',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
+  };
+}
+
 function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   const properties: Record<string, unknown> = {};
   const allRequiredFields: string[] = [];
-
-  // Use the required field from the lexicon class if it exists
-  const lexiconRequiredFields = lexiconClass.required || [];
 
   // Filter out deprecated properties
   const deprecatedPropsSet = new Set(lexiconClass.deprecated_properties);
@@ -182,16 +432,16 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
 
   // Add regular properties
   for (const [propName, propDef] of activeProperties) {
-    // Fields in lexicon's required array cannot be null
-    // Fields NOT in lexicon's required array can be null
-    const isRequired = lexiconRequiredFields.includes(propName);
-    properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
-
     // ALL active properties go into the JSON Schema required array
     allRequiredFields.push(propName);
+
+    // Since all properties are required in the final schema, treat them as required for type generation
+    const isRequired = true;
+    properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 
-  return {
+  // Create base schema
+  const baseSchema = {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
     title: lexiconClass.type,
@@ -200,6 +450,33 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
     required: allRequiredFields, // All properties are required in JSON Schema
     additionalProperties: false,
   };
+
+  // Add HTTP request validation rules if source_http_request is present
+  if (properties.source_http_request) {
+    const validationRules = generateHTTPRequestValidationRules();
+    return {
+      ...baseSchema,
+      allOf: [
+        {
+          // HTTP request specific validation
+          if: {
+            properties: {
+              source_http_request: {
+                type: 'object',
+              },
+            },
+          },
+          then: {
+            properties: {
+              source_http_request: validationRules,
+            },
+          },
+        },
+      ],
+    };
+  }
+
+  return baseSchema;
 }
 
 function generateJSONSchemaForRelationship(

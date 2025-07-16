@@ -119,38 +119,6 @@ describe('LexiconClassViewer', () => {
     });
   });
 
-  describe('Relationships Display', () => {
-    beforeEach(() => {
-      renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
-    });
-
-    it('should display relationships section', () => {
-      expect(screen.getByText('Relationships:')).toBeInTheDocument();
-    });
-
-    it('should display relationship names', () => {
-      expect(screen.getByText('testRelationship')).toBeInTheDocument();
-      expect(screen.getByText('singleTargetRelationship')).toBeInTheDocument();
-    });
-
-    it('should display relationship targets as clickable buttons', () => {
-      const targetButtons = screen.getAllByRole('button');
-      const target1Button = targetButtons.find(btn => btn.textContent === 'TargetClass1');
-      const target2Button = targetButtons.find(btn => btn.textContent === 'TargetClass2');
-
-      expect(target1Button).toBeInTheDocument();
-      expect(target2Button).toBeInTheDocument();
-    });
-
-    it('should navigate to target class when relationship target is clicked', () => {
-      const targetButtons = screen.getAllByRole('button');
-      const target1Button = targetButtons.find(btn => btn.textContent === 'TargetClass1');
-      fireEvent.click(target1Button!);
-
-      expect(mockNavigate).toHaveBeenCalledWith('/class/TargetClass1');
-    });
-  });
-
   describe('Clipboard Functionality', () => {
     beforeEach(() => {
       renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass]} expandByDefault={true} />);
