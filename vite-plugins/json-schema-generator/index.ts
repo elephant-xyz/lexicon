@@ -204,7 +204,7 @@ function mapLexiconTypeToJSONSchema(
             isNestedRequired
           );
           if (propDef.required) {
-            requiredProps.push(propName);
+            console.warn(`'required: true' found in property definition of ${propName}, but this is non-standard. Use class-level 'required' array instead.`);
           }
         }
 
