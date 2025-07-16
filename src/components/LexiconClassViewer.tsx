@@ -228,47 +228,47 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     parentPath: string = ''
   ): React.JSX.Element => {
     const indent = level * 20;
-    
+
     return (
       <div className="nested-properties" style={{ marginLeft: `${indent}px` }}>
         {Object.entries(properties).map(([propName, propData]) => {
           const fullPath = parentPath ? `${parentPath}.${propName}` : propName;
-          
+
           return (
             <div key={fullPath} className="nested-property-item">
               <div className="property-info">
                 <span className="property-name">{propName}</span>
                 <span className="property-type">{propData.type}</span>
-                {propData.comment && (
-                  <span className="property-comment">{propData.comment}</span>
-                )}
+                {propData.comment && <span className="property-comment">{propData.comment}</span>}
               </div>
-              
+
               {propData.enum && (
                 <div className="property-enum">
                   <span className="enum-label">Values:</span>
                   <div className="enum-values">
                     {propData.enum.map((value: string, idx: number) => (
-                      <span key={idx} className="enum-value-display">{value}</span>
+                      <span key={idx} className="enum-value-display">
+                        {value}
+                      </span>
                     ))}
                   </div>
                 </div>
               )}
-              
+
               {propData.pattern && (
                 <div className="property-pattern">
                   <span className="pattern-label">Pattern:</span>
                   <code className="pattern-value">{propData.pattern}</code>
                 </div>
               )}
-              
+
               {propData.properties && (
                 <div className="nested-object-properties">
                   <span className="nested-label">Properties:</span>
                   {renderNestedProperties(propData.properties, level + 1, fullPath)}
                 </div>
               )}
-              
+
               {propData.patternProperties && (
                 <div className="nested-pattern-properties">
                   <span className="nested-label">Pattern Properties:</span>
@@ -277,19 +277,25 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     return (
                       <div key={pattern} className="pattern-property-item">
                         <div className="pattern-property-info">
-                          <span className="pattern-key">Pattern: <code>{pattern}</code></span>
+                          <span className="pattern-key">
+                            Pattern: <code>{pattern}</code>
+                          </span>
                           <span className="pattern-property-type">{typedPatternProp.type}</span>
                           {typedPatternProp.comment && (
-                            <span className="pattern-property-comment">{typedPatternProp.comment}</span>
+                            <span className="pattern-property-comment">
+                              {typedPatternProp.comment}
+                            </span>
                           )}
                         </div>
-                        
+
                         {typedPatternProp.items && (
                           <div className="array-items-info">
                             <span className="array-items-label">Array Items:</span>
                             <span className="array-items-type">{typedPatternProp.items.type}</span>
                             {typedPatternProp.minItems && (
-                              <span className="array-min-items">Min Items: {typedPatternProp.minItems}</span>
+                              <span className="array-min-items">
+                                Min Items: {typedPatternProp.minItems}
+                              </span>
                             )}
                           </div>
                         )}
@@ -734,7 +740,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                   ? renderHighlightedText(getHighlightedDescription(cls, propName))
                                   : propData.comment || ''}
                               </div>
-                              
+
                               {/* Render nested properties for object types */}
                               {propData.type === 'object' && propData.properties && (
                                 <div className="nested-properties-section">
@@ -742,35 +748,49 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                   {renderNestedProperties(propData.properties, 0, propName)}
                                 </div>
                               )}
-                              
+
                               {/* Render pattern properties for object types */}
                               {propData.type === 'object' && propData.patternProperties && (
                                 <div className="pattern-properties-section">
                                   <h5>Pattern Properties:</h5>
-                                  {Object.entries(propData.patternProperties).map(([pattern, patternProp]) => {
-                                    const typedPatternProp = patternProp as LexiconProperty;
-                                    return (
-                                      <div key={pattern} className="pattern-property-item">
-                                        <div className="pattern-property-info">
-                                          <span className="pattern-key">Pattern: <code>{pattern}</code></span>
-                                          <span className="pattern-property-type">{typedPatternProp.type}</span>
-                                          {typedPatternProp.comment && (
-                                            <span className="pattern-property-comment">{typedPatternProp.comment}</span>
-                                          )}
-                                        </div>
-                                        
-                                        {typedPatternProp.items && (
-                                          <div className="array-items-info">
-                                            <span className="array-items-label">Array Items:</span>
-                                            <span className="array-items-type">{typedPatternProp.items.type}</span>
-                                            {typedPatternProp.minItems && (
-                                              <span className="array-min-items">Min Items: {typedPatternProp.minItems}</span>
+                                  {Object.entries(propData.patternProperties).map(
+                                    ([pattern, patternProp]) => {
+                                      const typedPatternProp = patternProp as LexiconProperty;
+                                      return (
+                                        <div key={pattern} className="pattern-property-item">
+                                          <div className="pattern-property-info">
+                                            <span className="pattern-key">
+                                              Pattern: <code>{pattern}</code>
+                                            </span>
+                                            <span className="pattern-property-type">
+                                              {typedPatternProp.type}
+                                            </span>
+                                            {typedPatternProp.comment && (
+                                              <span className="pattern-property-comment">
+                                                {typedPatternProp.comment}
+                                              </span>
                                             )}
                                           </div>
-                                        )}
-                                      </div>
-                                    );
-                                  })}
+
+                                          {typedPatternProp.items && (
+                                            <div className="array-items-info">
+                                              <span className="array-items-label">
+                                                Array Items:
+                                              </span>
+                                              <span className="array-items-type">
+                                                {typedPatternProp.items.type}
+                                              </span>
+                                              {typedPatternProp.minItems && (
+                                                <span className="array-min-items">
+                                                  Min Items: {typedPatternProp.minItems}
+                                                </span>
+                                              )}
+                                            </div>
+                                          )}
+                                        </div>
+                                      );
+                                    }
+                                  )}
                                 </div>
                               )}
                             </div>

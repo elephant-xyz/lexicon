@@ -1,4 +1,3 @@
-
 import { Plugin } from 'vite';
 import * as fs from 'fs/promises';
 import * as path from 'path';
@@ -140,72 +139,79 @@ function mapLexiconTypeToJSONSchema(
       } else {
         schema.type = ['object', 'null'];
       }
-      
+
       // Add nested properties if they exist
       if (property.properties) {
         schema.properties = {};
         const requiredProps: string[] = [];
-        
+
         for (const [propName, propDef] of Object.entries(property.properties)) {
-          (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(propDef, propDef.required || false);
+          (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
+            propDef,
+            propDef.required || false
+          );
           if (propDef.required) {
             requiredProps.push(propName);
           }
         }
-        
+
         if (requiredProps.length > 0) {
           schema.required = requiredProps;
         }
-        
+
         // Handle additionalProperties
         if (property.additionalProperties !== undefined) {
           if (typeof property.additionalProperties === 'boolean') {
             schema.additionalProperties = property.additionalProperties;
           } else {
-            schema.additionalProperties = mapLexiconTypeToJSONSchema(property.additionalProperties, false);
+            schema.additionalProperties = mapLexiconTypeToJSONSchema(
+              property.additionalProperties,
+              false
+            );
           }
         } else {
           schema.additionalProperties = false;
         }
       }
-      
+
       // Add pattern properties if they exist
       if (property.patternProperties) {
         schema.patternProperties = {};
-        
+
         for (const [pattern, propDef] of Object.entries(property.patternProperties)) {
-          (schema.patternProperties as Record<string, unknown>)[pattern] = mapLexiconTypeToJSONSchema(propDef, true);
+          (schema.patternProperties as Record<string, unknown>)[pattern] =
+            mapLexiconTypeToJSONSchema(propDef, true);
         }
-        
+
         if (!schema.properties && property.additionalProperties === undefined) {
           schema.additionalProperties = false;
         }
       }
-      
+
       // Handle oneOf
       if (property.oneOf) {
         schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
       }
-      
+
       // Handle allOf
       if (property.allOf) {
         schema.allOf = property.allOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
       }
-      
+
       break;
     case 'array':
       schema.type = effectiveRequired ? 'array' : ['array', 'null'];
-      
+
       // Add items schema if it exists
       if (property.items) {
         schema.items = mapLexiconTypeToJSONSchema(property.items, true);
       }
-      
+
       // Add minimum items constraint if it exists
       if (property.minItems !== undefined) {
         schema.minItems = property.minItems;
       }
-      
+
       break;
     default:
       schema.type = isRequired ? 'string' : ['string', 'null'];
@@ -235,113 +241,113 @@ function generateHTTPRequestValidationRules(): Record<string, unknown> {
         if: {
           properties: {
             method: {
-              enum: ["GET"]
-            }
-          }
+              enum: ['GET'],
+            },
+          },
         },
         then: {
           not: {
             anyOf: [
               {
-                required: ["body"]
+                required: ['body'],
               },
               {
-                required: ["json"]
+                required: ['json'],
               },
               {
                 properties: {
                   headers: {
-                    required: ["content-type"]
-                  }
-                }
-              }
-            ]
-          }
-        }
+                    required: ['content-type'],
+                  },
+                },
+              },
+            ],
+          },
+        },
       },
       {
         if: {
           properties: {
             method: {
-              enum: ["POST", "PUT", "PATCH"]
+              enum: ['POST', 'PUT', 'PATCH'],
             },
             headers: {
               properties: {
-                "content-type": {
-                  const: "application/json"
-                }
-              }
-            }
-          }
+                'content-type': {
+                  const: 'application/json',
+                },
+              },
+            },
+          },
         },
         then: {
-          required: ["json"],
+          required: ['json'],
           not: {
-            required: ["body"]
-          }
-        }
+            required: ['body'],
+          },
+        },
       },
       {
         if: {
           properties: {
             method: {
-              enum: ["POST", "PUT", "PATCH"]
+              enum: ['POST', 'PUT', 'PATCH'],
             },
             headers: {
               properties: {
-                "content-type": {
+                'content-type': {
                   not: {
-                    const: "application/json"
-                  }
-                }
-              }
-            }
-          }
+                    const: 'application/json',
+                  },
+                },
+              },
+            },
+          },
         },
         then: {
-          required: ["body"],
+          required: ['body'],
           not: {
-            required: ["json"]
-          }
-        }
+            required: ['json'],
+          },
+        },
       },
       {
         if: {
-          required: ["json"]
+          required: ['json'],
         },
         then: {
           properties: {
             headers: {
-              required: ["content-type"],
+              required: ['content-type'],
               properties: {
-                "content-type": {
-                  const: "application/json"
-                }
-              }
-            }
-          }
-        }
+                'content-type': {
+                  const: 'application/json',
+                },
+              },
+            },
+          },
+        },
       },
       {
         if: {
-          required: ["body"]
+          required: ['body'],
         },
         then: {
           properties: {
             headers: {
-              required: ["content-type"],
+              required: ['content-type'],
               properties: {
-                "content-type": {
+                'content-type': {
                   not: {
-                    const: "application/json"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    ]
+                    const: 'application/json',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    ],
   };
 }
 
@@ -423,17 +429,17 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
           if: {
             properties: {
               source_http_request: {
-                type: 'object'
-              }
-            }
+                type: 'object',
+              },
+            },
           },
           then: {
             properties: {
-              source_http_request: validationRules
-            }
-          }
-        }
-      ]
+              source_http_request: validationRules,
+            },
+          },
+        },
+      ],
     };
   }
 
