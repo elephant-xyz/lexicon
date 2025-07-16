@@ -23,7 +23,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -156,7 +156,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -292,7 +292,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -417,7 +417,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -651,52 +651,51 @@
               "type": "string",
               "required": true,
               "enum": [
-                  "GET",
-                  "POST",
-                  "PUT",
-                  "PATCH"
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH"
               ]
             },
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-
             },
             "headers": {
               "type": "object",
               "additionalProperties": {
-                  "Content-Type": {
-                    "type": "string",
-                     "enum":  [
-                        "application/json",
-                        "application/x-www-form-urlencoded",
-                        "multipart/form-data",
-                        "text/plain",
-                        "text/html",
-                        "application/xml",
-                        "text/xml"
-                      ],
-                    "comment": "Content-Type header for the request, indicating the media type of the resource."
-                  }
+                "Content-Type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "application/x-www-form-urlencoded",
+                    "multipart/form-data",
+                    "text/plain",
+                    "text/html",
+                    "application/xml",
+                    "text/xml"
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
+              }
             },
             "multiValueQueryString": {
-                "type": "object",
-                    "additionalProperties": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "minItems": 1,
-                        "comment": "Query string parameters for the request, where each key can have multiple values."
-                    }
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
                 },
+                "minItems": 1,
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
             "body": {
-                "type": "string",
-                "comment": "The body of the request, which may contain JSON or other data formats."
-                },
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
             "json": {
               "oneOf": [
                 {
@@ -709,7 +708,6 @@
                 }
               ]
             }
-
           },
           "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
         },
@@ -1200,7 +1198,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -1348,7 +1346,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -3578,7 +3576,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -6740,7 +6738,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -7992,7 +7990,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -8759,7 +8757,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -8939,7 +8937,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -11899,7 +11897,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -13472,7 +13470,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -14401,7 +14399,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -15550,7 +15548,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -15835,7 +15833,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -16074,7 +16072,6 @@
         "livable_floor_area": {
           "type": "string",
           "comment": "The total square footage of attached, livable area excluding balconies, porches, garages, car ports, elevators, and utility rooms."
-
         },
         "lien_type": {
           "type": "string",
@@ -16738,7 +16735,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -17344,7 +17341,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -17479,7 +17476,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -17645,7 +17642,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -19038,7 +19035,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -19949,7 +19946,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -20038,7 +20035,15 @@
         "building_material_type_other_description",
         "roof_design_type_other_description",
         "roof_material_type_other_description",
-        "building_area_total"
+        "building_area_total",
+        "building_material_type",
+        "gross_living_area_square_feet_number",
+        "structure_add_on",
+        "add_on_type_other_description",
+        "door_design_type",
+        "door_material_type",
+        "exterior_door_core_type"
+
       ],
       "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
       "properties": {
@@ -20058,7 +20063,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -20173,42 +20178,226 @@
           "type": "string",
           "comment": "A free-form field to capture additional detail when Other is selected for the building material type."
         },
+        "exterior_wall_material_primary": {
+          "type": "string",
+          "enum": [
+            "Brick",
+            "Natural Stone",
+            "Manufactured Stone",
+            "Stucco",
+            "Vinyl Siding",
+            "Wood Siding",
+            "Fiber Cement Siding",
+            "Metal Siding",
+            "Concrete Block",
+            "EIFS",
+            "Log",
+            "Adobe",
+            "Precast Concrete",
+            "Curtain Wall",
+            "Other"
+          ],
+          "comment": "Primary material used for exterior wall cladding and structure."
+        },
+        "exterior_wall_material_secondary": {
+          "type": "string",
+          "enum": [
+            "Brick Accent",
+            "Stone Accent",
+            "Wood Trim",
+            "Metal Trim",
+            "Stucco Accent",
+            "Vinyl Accent",
+            "Decorative Block",
+            "None",
+            "Other"
+          ],
+          "comment": "Secondary material used for exterior wall accents or trim."
+        },
         "exterior_wall_condition": {
           "type": "string",
           "enum": [
             "New",
+            "Excellent",
             "Good",
-            "Worn",
+            "Fair",
+            "Poor",
             "Damaged"
           ],
-          "comment": "Observed condition of the primary wall materials on the building exterior."
+          "comment": "Observed condition of the exterior wall materials."
         },
-        "roof_condition": {
+        "exterior_wall_insulation_type": {
+          "type": "string",
+          "enum": [
+            "Fiberglass Batt",
+            "Blown Cellulose",
+            "Spray Foam",
+            "Rigid Foam Board",
+            "Reflective Barrier",
+            "Rock Wool",
+            "Natural Fiber",
+            "None",
+            "Unknown",
+            "Other"
+          ],
+          "comment": "Type of insulation used in exterior wall cavities."
+        },
+        "flooring_material_primary": {
+          "type": "string",
+          "enum": [
+            "Solid Hardwood",
+            "Engineered Hardwood",
+            "Laminate",
+            "Luxury Vinyl Plank",
+            "Sheet Vinyl",
+            "Ceramic Tile",
+            "Porcelain Tile",
+            "Natural Stone Tile",
+            "Carpet",
+            "Area Rugs",
+            "Polished Concrete",
+            "Bamboo",
+            "Cork",
+            "Linoleum",
+            "Terrazzo",
+            "Epoxy Coating",
+            "Other"
+          ],
+          "comment": "Primary flooring material covering floor surface."
+        },
+        "flooring_material_secondary": {
+          "type": "string",
+          "enum": [
+            "Solid Hardwood",
+            "Engineered Hardwood",
+            "Laminate",
+            "Luxury Vinyl Plank",
+            "Ceramic Tile",
+            "Carpet",
+            "Area Rugs",
+            "Transition Strips",
+            "None",
+            "Other"
+          ],
+          "comment": "Secondary flooring material if multiple types are used in different areas."
+        },
+        "subfloor_material": {
+          "type": "string",
+          "enum": [
+            "Plywood",
+            "OSB",
+            "Concrete Slab",
+            "Engineered Wood",
+            "Particle Board",
+            "Unknown",
+            "Other"
+          ],
+          "comment": "Material used for subfloor structure beneath finish flooring."
+        },
+        "flooring_condition": {
           "type": "string",
           "enum": [
             "New",
+            "Excellent",
             "Good",
-            "Worn",
-            "Damaged",
-            "Leaking"
+            "Fair",
+            "Poor",
+            "Damaged"
           ],
-          "comment": "Visible condition of the roof structure and surface."
+          "comment": "Overall condition of flooring materials and installation."
         },
-        "foundation_condition": {
+        "interior_wall_structure_material": {
           "type": "string",
           "enum": [
-            "Stable",
-            "Cracked",
-            "Settling",
-            "Unknown"
+            "Wood Frame",
+            "Steel Frame",
+            "Concrete Block",
+            "Brick",
+            "Load Bearing",
+            "Non-Load Bearing",
+            "Other"
           ],
-          "comment": "Visible condition of the building's foundation if exposed."
+          "comment": "Structural material used for interior wall framing."
         },
-        "structural_damage_indicators": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "interior_wall_surface_material_primary": {
+          "type": "string",
+          "enum": [
+            "Drywall",
+            "Plaster",
+            "Wood Paneling",
+            "Exposed Brick",
+            "Exposed Block",
+            "Wainscoting",
+            "Shiplap",
+            "Board and Batten",
+            "Tile",
+            "Stone Veneer",
+            "Metal Panels",
+            "Glass Panels",
+            "Concrete",
+            "Other"
+          ],
+          "comment": "Primary surface material covering interior walls throughout most of the structure."
+        },
+        "interior_wall_surface_material_secondary": {
+          "type": "string",
+          "enum": [
+            "Wainscoting",
+            "Chair Rail",
+            "Crown Molding",
+            "Baseboards",
+            "Wood Trim",
+            "Stone Accent",
+            "Tile Accent",
+            "Metal Accent",
+            "Glass Insert",
+            "Decorative Panels",
+            "Feature Wall Material",
+            "None",
+            "Other"
+          ],
+          "comment": "Secondary material used for interior wall accents, trim, or feature walls."
+        },
+        "interior_wall_finish_primary": {
+          "type": "string",
+          "enum": [
+            "Paint",
+            "Primer and Paint",
+            "Textured Paint",
+            "Natural Finish",
+            "Stain",
+            "Clear Coat",
+            "Exposed Natural",
+            "Other"
+          ],
+          "comment": "Primary finish treatment applied over interior wall surfaces."
+        },
+        "interior_wall_finish_secondary": {
+          "type": "string",
+          "enum": [
+            "Wallpaper",
+            "Wall Decals",
+            "Decorative Plaster",
+            "Faux Finish",
+            "Fabric Wall Covering",
+            "Murals",
+            "Decorative Paint Technique",
+            "None",
+            "Other"
+          ],
+          "comment": "Secondary finish treatment for accent areas or decorative elements."
+        },
+        "interior_wall_condition": {
+          "type": "string",
+          "enum": [
+            "New",
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor",
+            "Damaged"
+          ],
+          "comment": "Overall condition of interior wall surfaces and finishes."
         },
         "construction_material_type": {
           "type": "string",
@@ -20354,21 +20543,114 @@
           "type": "string",
           "comment": "A free-form field to capture additional detail when Other is selected for the flooring type."
         },
+        "roof_covering_material": {
+          "type": "string",
+          "enum": [
+            "3-Tab Asphalt Shingle",
+            "Architectural Asphalt Shingle",
+            "Metal Standing Seam",
+            "Metal Corrugated",
+            "Clay Tile",
+            "Concrete Tile",
+            "Natural Slate",
+            "Synthetic Slate",
+            "Wood Shake",
+            "Wood Shingle",
+            "TPO Membrane",
+            "EPDM Membrane",
+            "Modified Bitumen",
+            "Built-Up Roof",
+            "Green Roof System",
+            "Solar Integrated Tiles",
+            "Other"
+          ],
+          "comment": "Material used for the primary roof covering."
+        },
+        "roof_underlayment_type": {
+          "type": "string",
+          "enum": [
+            "Felt Paper",
+            "Synthetic Underlayment",
+            "Rubberized Asphalt",
+            "None",
+            "Unknown",
+            "Other"
+          ],
+          "comment": "Type of underlayment beneath roof covering."
+        },
+        "roof_structure_material": {
+          "type": "string",
+          "enum": [
+            "Wood Truss",
+            "Wood Rafter",
+            "Steel Truss",
+            "Concrete Beam",
+            "Engineered Lumber",
+            "Other"
+          ],
+          "comment": "Material used for roof structural support."
+        },
         "roof_design_type": {
           "type": "string",
           "enum": [
-            "Mansard",
-            "Bonnet",
-            "Flat",
-            "Saltbox",
-            "Barrel",
-            "Gambrel",
             "Gable",
-            "Clerestory",
             "Hip",
+            "Flat",
+            "Mansard",
+            "Gambrel",
+            "Shed",
+            "Saltbox",
+            "Butterfly",
+            "Bonnet",
+            "Clerestory",
+            "Dome",
+            "Barrel",
+            "Combination",
             "Other"
           ],
-          "comment": "Refers to the roof design."
+          "comment": "Architectural design of the roof structure."
+        },
+        "roof_condition": {
+          "type": "string",
+          "enum": [
+            "New",
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor",
+            "Damaged",
+            "Leaking"
+          ],
+          "comment": "Visible condition of the roof covering and structure."
+        },
+        "roof_age_years": {
+          "type": "integer",
+          "comment": "Estimated age of the roof covering in years."
+        },
+        "gutters_material": {
+          "type": "string",
+          "enum": [
+            "Aluminum",
+            "Vinyl",
+            "Steel",
+            "Copper",
+            "Galvanized Steel",
+            "None",
+            "Other"
+          ],
+          "comment": "Material used for gutter system."
+        },
+        "gutters_condition": {
+          "type": "string",
+          "enum": [
+            "New",
+            "Good",
+            "Fair",
+            "Poor",
+            "Missing",
+            "Damaged"
+          ],
+          "comment": "Condition of gutters and downspout system."
         },
         "roof_design_type_other_description": {
           "type": "string",
@@ -20453,6 +20735,286 @@
           ],
           "comment": "Refers to the window design."
         },
+        "foundation_type": {
+          "type": "string",
+          "enum": [
+            "Slab on Grade",
+            "Crawl Space",
+            "Full Basement",
+            "Partial Basement",
+            "Pier and Beam",
+            "Basement with Walkout",
+            "Stem Wall",
+            "Other"
+          ],
+          "comment": "Type of foundation system supporting the structure."
+        },
+        "foundation_material": {
+          "type": "string",
+          "enum": [
+            "Poured Concrete",
+            "Concrete Block",
+            "Stone",
+            "Brick",
+            "Treated Wood Posts",
+            "Steel Piers",
+            "Precast Concrete",
+            "Insulated Concrete Forms",
+            "Other"
+          ],
+          "comment": "Primary material used in foundation construction."
+        },
+        "foundation_waterproofing": {
+          "type": "string",
+          "enum": [
+            "Membrane",
+            "Coating",
+            "Drainage System",
+            "None",
+            "Unknown",
+            "Other"
+          ],
+          "comment": "Type of waterproofing system used on foundation."
+        },
+        "foundation_condition": {
+          "type": "string",
+          "enum": [
+            "Excellent",
+            "Good",
+            "Fair",
+            "Minor Cracks",
+            "Major Cracks",
+            "Settling",
+            "Water Damage",
+            "Unknown"
+          ],
+          "comment": "Visible condition of the foundation system."
+        },
+        "ceiling_structure_material": {
+          "type": "string",
+          "enum": [
+            "Wood Joists",
+            "Steel Joists",
+            "Concrete",
+            "Exposed Beams",
+            "Truss System",
+            "Other"
+          ],
+          "comment": "Structural material supporting the ceiling."
+        },
+        "ceiling_surface_material": {
+          "type": "string",
+          "enum": [
+            "Drywall",
+            "Plaster",
+            "Wood Planks",
+            "Acoustic Tile",
+            "Metal Panels",
+            "Suspended Grid",
+            "Coffered",
+            "Tray",
+            "Exposed Structure",
+            "Other"
+          ],
+          "comment": "Material used for ceiling surface finish."
+        },
+        "ceiling_insulation_type": {
+          "type": "string",
+          "enum": [
+            "Fiberglass Batt",
+            "Blown Insulation",
+            "Spray Foam",
+            "Rigid Board",
+            "None",
+            "Unknown",
+            "Other"
+          ],
+          "comment": "Type of insulation above ceiling."
+        },
+        "ceiling_height_average": {
+          "type": "decimal",
+          "comment": "Average ceiling height in feet."
+        },
+        "ceiling_condition": {
+          "type": "string",
+          "enum": [
+            "New",
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor",
+            "Damaged"
+          ],
+          "comment": "Overall condition of ceiling materials and structure."
+        },
+        "exterior_door_material": {
+          "type": "string",
+          "enum": [
+            "Solid Wood",
+            "Wood Composite",
+            "Steel",
+            "Fiberglass",
+            "Aluminum",
+            "Glass",
+            "Vinyl",
+            "Wrought Iron",
+            "Security Door",
+            "Other"
+          ],
+          "comment": "Material used for exterior door construction."
+        },
+        "exterior_door_core_type": {
+          "type": "string",
+          "enum": [
+            "Solid Core",
+            "Insulated Core",
+            "Honeycomb Core",
+            "Glass Panel",
+            "Other"
+          ],
+          "comment": "Core construction type of exterior doors."
+        },
+        "interior_door_material": {
+          "type": "string",
+          "enum": [
+            "Solid Wood",
+            "Hollow Core",
+            "Solid Core",
+            "Glass Panel",
+            "Metal",
+            "Composite",
+            "Molded",
+            "Bifold",
+            "Pocket Door",
+            "Barn Door",
+            "Other"
+          ],
+          "comment": "Material and construction of interior doors."
+        },
+        "window_frame_material": {
+          "type": "string",
+          "enum": [
+            "Vinyl",
+            "Wood",
+            "Aluminum",
+            "Fiberglass",
+            "Steel",
+            "Composite",
+            "Aluminum Clad Wood",
+            "Vinyl Clad Wood",
+            "Other"
+          ],
+          "comment": "Material used for window frame construction."
+        },
+        "window_glazing_type": {
+          "type": "string",
+          "enum": [
+            "Single Pane",
+            "Double Pane",
+            "Triple Pane",
+            "Low-E Coated",
+            "Tempered",
+            "Laminated",
+            "Impact Resistant",
+            "Argon Filled",
+            "Tinted",
+            "Smart Glass",
+            "Other"
+          ],
+          "comment": "Type and features of window glazing system."
+        },
+        "window_operation_type": {
+          "type": "string",
+          "enum": [
+            "Double Hung",
+            "Single Hung",
+            "Casement",
+            "Sliding",
+            "Awning",
+            "Picture",
+            "Bay",
+            "Bow",
+            "Garden",
+            "Skylights",
+            "Jalousie",
+            "Fixed",
+            "Other"
+          ],
+          "comment": "Operational mechanism and style of windows."
+        },
+        "window_screen_material": {
+          "type": "string",
+          "enum": [
+            "Aluminum",
+            "Fiberglass",
+            "Pet Screen",
+            "Solar Screen",
+            "None",
+            "Other"
+          ],
+          "comment": "Material used for window screens."
+        },
+        "window_treatment_type": {
+          "type": "string",
+          "enum": [
+            "Horizontal Blinds",
+            "Vertical Blinds",
+            "Roller Shades",
+            "Cellular Shades",
+            "Roman Shades",
+            "Plantation Shutters",
+            "Curtains",
+            "Drapes",
+            "Valances",
+            "Window Film",
+            "None",
+            "Other"
+          ],
+          "comment": "Type of window treatments installed."
+        },
+        "primary_framing_material": {
+          "type": "string",
+          "enum": [
+            "Wood Frame",
+            "Steel Frame",
+            "Concrete Block",
+            "Poured Concrete",
+            "Masonry",
+            "Engineered Lumber",
+            "Post and Beam",
+            "Log Construction",
+            "Other"
+          ],
+          "comment": "Primary material used for structural framing system."
+        },
+        "secondary_framing_material": {
+          "type": "string",
+          "enum": [
+            "Steel Beams",
+            "Engineered Lumber",
+            "Concrete Lintels",
+            "Wood Beams",
+            "None",
+            "Other"
+          ],
+          "comment": "Secondary structural materials for support beams and lintels."
+        },
+        "structural_damage_indicators": {
+          "type": "string",
+          "enum": [
+            "Foundation Cracks",
+            "Wall Cracks",
+            "Ceiling Cracks",
+            "Sagging Floors",
+            "Sagging Roof",
+            "Door/Window Misalignment",
+            "Water Damage",
+            "Termite Damage",
+            "Settlement Issues",
+            "None Observed"
+          ],
+          "comment": "Observable indicators of structural damage or issues."
+        },
         "window_design_type_other_description": {
           "type": "string",
           "comment": "A free-form field to capture additional detail when Other is selected for the window design type."
@@ -20490,35 +21052,6 @@
         "window_material_type_other_description": {
           "type": "string",
           "comment": "A free-form field to capture additional detail when Other is selected for the window type."
-        },
-        "window_treatment_type": {
-          "type": "string",
-          "enum": [
-            "Blinds",
-            "Drapes",
-            "VerticalBlinds",
-            "HorizontalBlinds",
-            "Shades",
-            "PlantationShutters",
-            "CafeShutters",
-            "RollerShades",
-            "RomanShades",
-            "CellularHoneycombShades",
-            "SolarShades",
-            "PleatedShades",
-            "Curtains",
-            "BlackoutCurtains",
-            "ThermalCurtains",
-            "Valances",
-            "Cornices",
-            "WindowFilm",
-            "StainedGlass",
-            "BambooShades",
-            "WoodShades",
-            "WovenShades",
-            "Other"
-          ],
-          "comment": "Refers to the type of window treatment that covers the windows."
         },
         "window_treatment_type_other_description": {
           "type": "string",
@@ -20558,29 +21091,28 @@
         "gross_living_area_square_feet_number": {
           "type": "decimal",
           "comment": "The total area of all habitable rooms above grade measured contiguously."
+        },
+        "structure_add_on": {
+          "type": "string",
+          "enum": [
+            "Dock",
+            "Seawall",
+            "Deck",
+            "Firepit",
+            "Pergola",
+            "Gazebo",
+            "OutdoorKitchen",
+            "DetachedStructure",
+            "BuiltInBBQ",
+            "Other"
+          ],
+          "comment": "Represents permanent or semi-permanent exterior structures that are not enclosed rooms but enhance outdoor functionality or aesthetics."
+        },
+        "add_on_type_other_description": {
+          "type": "string",
+          "comment": "A free-form field to describe the structure add-on if 'Other' is selected."
         }
-      },
-      "structure_add_on": {
-        "type": "string",
-        "enum": [
-          "Dock",
-          "Seawall",
-          "Deck",
-          "Firepit",
-          "Pergola",
-          "Gazebo",
-          "OutdoorKitchen",
-          "DetachedStructure",
-          "BuiltInBBQ",
-          "Other"
-        ],
-        "comment": "Represents permanent or semi-permanent exterior structures that are not enclosed rooms but enhance outdoor functionality or aesthetics."
-      },
-      "add_on_type_other_description": {
-        "type": "string",
-        "comment": "A free-form field to describe the structure add-on if 'Other' is selected."
-      },
-      "relationships": {}
+      }
     },
     {
       "type": "subscription_filter",
@@ -20964,7 +21496,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -21137,7 +21669,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -21231,7 +21763,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -22004,7 +22536,7 @@
             "url": {
               "type": "string",
               "required": true,
- "comment": "The URL endpoint for the request.",
+              "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -22380,7 +22912,20 @@
           "from": "property",
           "to": "flood_storm_information",
           "relationship_type": "property_has_flood_storm_information"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "structure",
+          "relationship_type": "property_has_structure"
+        },
+         {
+          "type": "relationship",
+          "from": "property",
+          "to": "utility",
+          "relationship_type": "property_has_utility"
         }
+
       ],
       "required": [
         "property_has_layout",
@@ -22656,7 +23201,7 @@
           "to": "tax_exemption",
           "relationship_type": "tax_has_exemptions"
         },
-          {
+        {
           "type": "relationship",
           "from": "tax",
           "to": "tax_authority",
