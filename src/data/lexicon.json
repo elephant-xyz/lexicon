@@ -22,7 +22,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -154,7 +155,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -289,7 +291,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -413,7 +416,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -655,7 +659,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
 
             },
@@ -1194,7 +1199,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -1341,7 +1347,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -3570,7 +3577,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -6731,7 +6739,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -7982,7 +7991,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -8748,7 +8758,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -8927,7 +8938,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -11886,7 +11898,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -13458,7 +13471,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -14387,7 +14401,7 @@
             "url": {
               "type": "string",
               "required": true,
-              "comment": "The URL endpoint for the request.",
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -15535,7 +15549,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -15819,7 +15834,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -16721,7 +16737,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -17326,7 +17343,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -17460,7 +17478,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -17625,7 +17644,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -19017,7 +19037,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -19927,7 +19948,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -20035,7 +20057,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -20940,7 +20963,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -21112,7 +21136,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -21205,7 +21230,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
@@ -21977,7 +22003,8 @@
             },
             "url": {
               "type": "string",
-              "comment": "The URL endpoint for the request.",
+              "required": true,
+ "comment": "The URL endpoint for the request.",
               "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
             },
             "headers": {
