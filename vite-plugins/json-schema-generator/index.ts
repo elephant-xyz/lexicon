@@ -301,11 +301,7 @@ function generateHTTPRequestValidationRules(): Record<string, unknown> {
                 required: ['json'],
               },
               {
-                properties: {
-                  headers: {
-                    required: ['content-type'],
-                  },
-                },
+                required: ['headers'],
               },
             ],
           },
