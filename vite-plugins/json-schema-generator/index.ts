@@ -197,9 +197,11 @@ function mapLexiconTypeToJSONSchema(
         const requiredProps: string[] = [];
 
         for (const [propName, propDef] of Object.entries(property.properties)) {
+          // For source_http_request, treat all nested properties as required
+          const isNestedRequired = true; // Force all nested properties to be required
           (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
             propDef,
-            propDef.required || false
+            isNestedRequired
           );
           if (propDef.required) {
             requiredProps.push(propName);
