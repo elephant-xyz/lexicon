@@ -203,6 +203,8 @@ function mapLexiconTypeToJSONSchema(
             propDef,
             isNestedRequired
           );
+          // Add to required array since all nested properties should be required
+          requiredProps.push(propName);
           if (propDef.required) {
             console.warn(
               `'required: true' found in property definition of ${propName}, but this is non-standard. Use class-level 'required' array instead.`
