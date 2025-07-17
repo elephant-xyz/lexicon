@@ -22953,7 +22953,14 @@
           "from": "property",
           "to": "utility",
           "relationship_type": "property_has_utility"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "person",
+          "relationship_type": "sales_history_has_person"
         }
+
       ],
       "required": [
         "property_has_layout",
