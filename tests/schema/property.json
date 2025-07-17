@@ -1,0 +1,322 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "source_http_request": {
+              "type": "object"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "source_http_request": {
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "method": {
+                        "enum": [
+                          "GET"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "body"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "json"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "headers"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "const": "application/json"
+                          }
+                        }
+                      },
+                      "method": {
+                        "enum": [
+                          "POST",
+                          "PUT",
+                          "PATCH"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "required": [
+                        "body"
+                      ]
+                    },
+                    "required": [
+                      "json"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "not": {
+                              "const": "application/json"
+                            }
+                          }
+                        }
+                      },
+                      "method": {
+                        "enum": [
+                          "POST",
+                          "PUT",
+                          "PATCH"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "required": [
+                        "json"
+                      ]
+                    },
+                    "required": [
+                      "body"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "json"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "const": "application/json"
+                          }
+                        },
+                        "required": [
+                          "content-type"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "body"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "not": {
+                              "const": "application/json"
+                            }
+                          }
+                        },
+                        "required": [
+                          "content-type"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "description": "JSON Schema for property class in Elephant Lexicon",
+    "properties": {
+      "livable_floor_area": {
+        "description": "The total square footage of attached, livable area excluding balconies, porches, garages, car ports, elevators, and utility rooms.",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "number_of_units_type": {
+        "description": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs.",
+        "enum": [
+          "One",
+          "Two",
+          "OneToFour",
+          "Three",
+          "Four",
+          "TwoToFour",
+          null],
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "parcel_identifier": {
+        "description": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "property_legal_description_text": {
+        "description": "A detailed legal description of the property, often used in legal documents and contracts. This typically outlines the exact boundaries, dimensions, and location of the property as recognized by local or state governments.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "property_structure_built_year": {
+        "description": "The year in which the dwelling on the property was completed.",
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "property_type": {
+        "description": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
+        "enum": [
+          "Cooperative",
+          "Condominium",
+          "Modular",
+          "ManufacturedHousingMultiWide",
+          "Pud",
+          "Timeshare",
+          "2Units",
+          "DetachedCondominium",
+          "Duplex",
+          "SingleFamily",
+          "TwoToFourFamily",
+          "MultipleFamily",
+          "3Units",
+          "ManufacturedHousing",
+          "ManufacturedHousingSingleWide",
+          "4Units",
+          "Townhouse",
+          "NonWarrantableCondo",
+          "Other",
+          null],
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "request_identifier": {
+        "description": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "source_http_request": {
+        "additionalProperties": false,
+        "description": "HTTP request configuration for retrieving this data.",
+        "properties": {
+          "body": {
+            "description": "The body of the request, which may contain JSON or other data formats.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "headers": {
+            "additionalProperties": false,
+            "properties": {
+              "content-type": {
+                "description": "Content-Type header for the request, indicating the media type of the resource.",
+                "enum": [
+                  "application/json",
+                  "multipart/form-data",
+                  "text/xml",
+                  null],
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "json": {
+            "type": [
+              "object",
+              "array",
+              "null"
+            ]
+          },
+          "method": {
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              null],
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "multiValueQueryString": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "url": {
+            "description": "The URL endpoint for the request.",
+            "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "method",
+          "url"
+        ],
+        "type": "object"
+      }
+    },
+    "required": [
+      "source_http_request",
+      "request_identifier",
+      "livable_floor_area",
+      "number_of_units_type",
+      "parcel_identifier",
+      "property_legal_description_text",
+      "property_structure_built_year",
+      "property_type"
+    ],
+    "title": "property",
+    "type": "object"
+  }
