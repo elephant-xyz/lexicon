@@ -15821,6 +15821,7 @@
       "properties": {
         "source_http_request": {
           "type": "object",
+          "minProperties": 1,
           "properties": {
             "method": {
               "type": "string",

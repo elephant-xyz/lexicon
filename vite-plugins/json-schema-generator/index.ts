@@ -81,7 +81,8 @@ function isEffectivelyRequired(property: LexiconProperty) {
   return (
     property.minimum !== undefined ||
     property.minLength !== undefined ||
-    property.minItems !== undefined
+    property.minItems !== undefined ||
+    property.minProperties !== undefined
   );
 }
 
@@ -113,6 +114,8 @@ function mapLexiconTypeToJSONSchema(
         !subSchema.format &&
         !subSchema.minLength &&
         !subSchema.minimum &&
+        !subSchema.minItems &&
+        !subSchema.minProperties &&
         !subSchema.items &&
         !subSchema.additionalProperties
     );
@@ -139,7 +142,7 @@ function mapLexiconTypeToJSONSchema(
 
       // If not required, add null as an option
       if (!effectiveRequired) {
-        schema.oneOf.push({ type: 'null' });
+        (schema.oneOf as LexiconProperty[]).push({ type: 'null' });
       }
 
       // Add description if available
