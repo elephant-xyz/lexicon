@@ -19298,7 +19298,6 @@
           "type": "string",
           "enum": [
             "ElectricFurnace",
-            "Electric",
             "GasFurnace",
             "Ductless",
             "Radiant",
