@@ -432,15 +432,11 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
 
   // Add regular properties
   for (const [propName, propDef] of activeProperties) {
-    // Check if this property is in the class's required array
-    const isRequired = lexiconClass.required?.includes(propName) || false;
 
-    // Only add to required array if it's actually required
-    if (isRequired) {
-      allRequiredFields.push(propName);
-    }
+     // Since all properties are required in the final schema, treat them as required for type generation
+     const isRequired = true;
+     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
 
-    properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 
   // Create base schema
