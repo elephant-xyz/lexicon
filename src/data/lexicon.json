@@ -69,7 +69,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -202,7 +203,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -338,7 +340,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -463,7 +466,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -709,7 +713,8 @@
               ]
             }
           },
-          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved."
+          "comment": "CRLF-formatted and JSON-stringified HTTPS request from which this data can be retrieved.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -1245,7 +1250,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -1392,7 +1398,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -3622,7 +3629,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -6784,7 +6792,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -8036,7 +8045,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -8803,7 +8813,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -8983,7 +8994,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -11943,7 +11955,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -13516,7 +13529,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -14445,7 +14459,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -15596,7 +15611,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -16784,7 +16800,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -17390,7 +17407,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -17525,7 +17543,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -17691,7 +17710,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -19084,7 +19104,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -19995,7 +20016,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -20046,7 +20068,6 @@
         "door_design_type",
         "door_material_type",
         "exterior_door_core_type"
-
       ],
       "description": "Represents the physical building structure with detailed architectural and construction information including materials, conditions, styles, and structural elements. Captures the physical characteristics and condition of buildings on properties.",
       "properties": {
@@ -20112,7 +20133,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -21545,7 +21567,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -21718,7 +21741,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -21812,7 +21836,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -22585,7 +22610,8 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data."
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
         },
         "request_identifier": {
           "type": "string",
@@ -22922,13 +22948,12 @@
           "to": "structure",
           "relationship_type": "property_has_structure"
         },
-         {
+        {
           "type": "relationship",
           "from": "property",
           "to": "utility",
           "relationship_type": "property_has_utility"
         }
-
       ],
       "required": [
         "property_has_layout",
