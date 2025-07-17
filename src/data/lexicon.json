@@ -1185,6 +1185,7 @@
       "properties": {
         "full_address": {
           "type": "string",
+          "minLength":1,
           "comment": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'."
         },
         "source_http_request": {
@@ -15620,6 +15621,7 @@
         },
         "parcel_id": {
           "type": "string",
+          "minLength": 1,
           "comment": "A unique identifier for the property parcel as assigned by the local assessor or jurisdiction."
         }
       },
