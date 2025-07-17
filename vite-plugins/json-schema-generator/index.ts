@@ -85,6 +85,10 @@ function isEffectivelyRequired(property: LexiconProperty) {
   );
 }
 
+function isNestedRequired(property: LexiconProperty) {
+  return property.required === true;
+}
+
 function mapLexiconTypeToJSONSchema(
   property: LexiconProperty,
   parentRequiredLogic: boolean | undefined
@@ -208,10 +212,10 @@ function mapLexiconTypeToJSONSchema(
 
         for (const [propName, propDef] of Object.entries(property.properties)) {
           // Check if this nested property has required: true in its definition
-          const nestedIsRequired = isEffectivelyRequired(propDef);
+          const nestedIsRequired = isNestedRequired(propDef);
           (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
             propDef,
-            nestedIsRequired
+            isEffectivelyRequired(propDef)
           );
           // Add to required array only if the property has required: true
           if (nestedIsRequired) {
@@ -446,10 +450,10 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
 
   // Add regular properties
   for (const [propName, propDef] of activeProperties) {
+    // All top-level properties are required in the schema
+    allRequiredFields.push(propName);
+    // Properties are nullable unless they have minLength, minItems, or minimum
     const isRequired = isEffectivelyRequired(propDef);
-    if (isRequired) {
-      allRequiredFields.push(propName);
-    }
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 
