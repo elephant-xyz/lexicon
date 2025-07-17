@@ -1,0 +1,271 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "additionalProperties": false,
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "source_http_request": {
+              "type": "object"
+            }
+          }
+        },
+        "then": {
+          "properties": {
+            "source_http_request": {
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "method": {
+                        "enum": [
+                          "GET"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "anyOf": [
+                        {
+                          "required": [
+                            "body"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "json"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "headers"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "const": "application/json"
+                          }
+                        }
+                      },
+                      "method": {
+                        "enum": [
+                          "POST",
+                          "PUT",
+                          "PATCH"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "required": [
+                        "body"
+                      ]
+                    },
+                    "required": [
+                      "json"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "not": {
+                              "const": "application/json"
+                            }
+                          }
+                        }
+                      },
+                      "method": {
+                        "enum": [
+                          "POST",
+                          "PUT",
+                          "PATCH"
+                        ]
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "required": [
+                        "json"
+                      ]
+                    },
+                    "required": [
+                      "body"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "json"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "const": "application/json"
+                          }
+                        },
+                        "required": [
+                          "content-type"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "required": [
+                      "body"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "headers": {
+                        "properties": {
+                          "content-type": {
+                            "not": {
+                              "const": "application/json"
+                            }
+                          }
+                        },
+                        "required": [
+                          "content-type"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "description": "JSON Schema for unnormalized_address class in Elephant Lexicon",
+    "properties": {
+      "county_jurisdiction": {
+        "description": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
+        "pattern": "^(?!.*\\b[Cc]ounty\\b)[A-Za-z\\s]+$",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "full_address": {
+        "description": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'.",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "request_identifier": {
+        "description": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "source_http_request": {
+        "additionalProperties": false,
+        "description": "HTTP request configuration for retrieving this data.",
+        "properties": {
+          "body": {
+            "description": "The body of the request, which may contain JSON or other data formats.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "headers": {
+            "additionalProperties": false,
+            "properties": {
+              "content-type": {
+                "description": "Content-Type header for the request, indicating the media type of the resource.",
+                "enum": [
+                  "application/json",
+                  "multipart/form-data",
+                  "text/xml",
+                  null],
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "json": {
+            "description": "the JSON data that is returned from the request.",
+            "type": [
+              "object",
+              "array",
+              "null"
+            ]
+          },
+          "method": {
+            "enum": [
+              "GET",
+              "POST",
+              "PUT",
+              "PATCH",
+              null],
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "multiValueQueryString": {
+            "description": "Query string parameters for the request, where each key can have multiple values.",
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "url": {
+            "description": "The URL endpoint for the request.",
+            "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "method",
+          "url"
+        ],
+        "type": [
+          "object",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "full_address",
+      "source_http_request",
+      "request_identifier",
+      "county_jurisdiction"
+    ],
+    "title": "unnormalized_address",
+    "type": "object"
+  }
