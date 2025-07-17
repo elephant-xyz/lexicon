@@ -77,14 +77,29 @@ interface DataGroupSchema extends JSONSchema {
   };
 }
 
+function isEffectivelyRequired(property: LexiconProperty) {
+  return (
+    property.minimum !== undefined ||
+    property.minLength !== undefined ||
+    property.minItems !== undefined ||
+    property.minProperties !== undefined
+  );
+}
+
+function isNestedRequired(property: LexiconProperty) {
+  return property.required === true;
+}
+
 function mapLexiconTypeToJSONSchema(
   property: LexiconProperty,
-  isRequired: boolean
+  parentRequiredLogic: boolean | undefined
 ): Record<string, unknown> {
   const schema: Record<string, unknown> = {};
 
-  // If property has minimum constraint, it cannot be null
-  const effectiveRequired = isRequired || property.minimum !== undefined;
+  // Determine if this property is required by constraints
+  const isRequired = isEffectivelyRequired(property);
+  // Use parentRequiredLogic for nested properties if provided
+  const effectiveRequired = parentRequiredLogic !== undefined ? parentRequiredLogic : isRequired;
 
   // Handle oneOf first (before checking type)
   if (property.oneOf) {
@@ -99,6 +114,8 @@ function mapLexiconTypeToJSONSchema(
         !subSchema.format &&
         !subSchema.minLength &&
         !subSchema.minimum &&
+        !subSchema.minItems &&
+        !subSchema.minProperties &&
         !subSchema.items &&
         !subSchema.additionalProperties
     );
@@ -125,7 +142,7 @@ function mapLexiconTypeToJSONSchema(
 
       // If not required, add null as an option
       if (!effectiveRequired) {
-        schema.oneOf.push({ type: 'null' });
+        (schema.oneOf as LexiconProperty[]).push({ type: 'null' });
       }
 
       // Add description if available
@@ -173,14 +190,14 @@ function mapLexiconTypeToJSONSchema(
       }
       break;
     case 'boolean':
-      schema.type = isRequired ? 'boolean' : ['boolean', 'null'];
+      schema.type = effectiveRequired ? 'boolean' : ['boolean', 'null'];
       break;
     case 'date':
-      schema.type = isRequired ? 'string' : ['string', 'null'];
+      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
       schema.format = 'date';
       break;
     case 'datetime':
-      schema.type = isRequired ? 'string' : ['string', 'null'];
+      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
       schema.format = 'date-time';
       break;
     case 'object':
@@ -197,13 +214,14 @@ function mapLexiconTypeToJSONSchema(
         const requiredProps: string[] = [];
 
         for (const [propName, propDef] of Object.entries(property.properties)) {
-          // For source_http_request, treat all nested properties as required
-          const isNestedRequired = true; // Force all nested properties to be required
+          // Check if this nested property has required: true in its definition
+          const nestedIsRequired = isNestedRequired(propDef);
           (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
             propDef,
-            isNestedRequired
+            isEffectivelyRequired(propDef)
           );
-          if (propDef.required) {
+          // Add to required array only if the property has required: true
+          if (nestedIsRequired) {
             requiredProps.push(propName);
           }
         }
@@ -262,7 +280,7 @@ function mapLexiconTypeToJSONSchema(
 
       break;
     default:
-      schema.type = isRequired ? 'string' : ['string', 'null'];
+      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
   }
 
   // Handle const keyword
@@ -425,18 +443,20 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
 
     // Add class-level fields to properties
     if (typeof fieldDef === 'object' && fieldDef !== null && 'type' in fieldDef) {
-      properties[fieldName] = mapLexiconTypeToJSONSchema(fieldDef as LexiconProperty, false);
-      allRequiredFields.push(fieldName);
+      const isRequired = isEffectivelyRequired(fieldDef as LexiconProperty);
+      properties[fieldName] = mapLexiconTypeToJSONSchema(fieldDef as LexiconProperty, isRequired);
+      if (isRequired) {
+        allRequiredFields.push(fieldName);
+      }
     }
   }
 
   // Add regular properties
   for (const [propName, propDef] of activeProperties) {
-    // ALL active properties go into the JSON Schema required array
+    // All top-level properties are required in the schema
     allRequiredFields.push(propName);
-
-    // Since all properties are required in the final schema, treat them as required for type generation
-    const isRequired = true;
+    // Properties are nullable unless they have minLength, minItems, or minimum
+    const isRequired = isEffectivelyRequired(propDef);
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 

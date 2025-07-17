@@ -12,6 +12,7 @@ export interface LexiconProperty {
   additionalProperties?: LexiconProperty | boolean;
   items?: LexiconProperty;
   minItems?: number;
+  minProperties?: number;
   required?: boolean;
   oneOf?: LexiconProperty[];
   allOf?: LexiconProperty[];
