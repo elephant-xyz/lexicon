@@ -19305,7 +19305,7 @@
             "HeatPump",
             "Central",
             "Baseboard",
-            "Other",
+            "Other"
           ],
           "comment": "Refers to the type of heating system used in the structure."
         },
