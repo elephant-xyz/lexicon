@@ -197,14 +197,16 @@ function mapLexiconTypeToJSONSchema(
         const requiredProps: string[] = [];
 
         for (const [propName, propDef] of Object.entries(property.properties)) {
-          // For source_http_request, treat all nested properties as required
-          const isNestedRequired = true; // Force all nested properties to be required
+          // Check if this nested property has required: true in its definition
+          const isNestedRequired = propDef.required === true;
           (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
             propDef,
             isNestedRequired
           );
-          // Add to required array since all nested properties should be required
-          requiredProps.push(propName);
+          // Add to required array only if the property has required: true
+          if (isNestedRequired) {
+            requiredProps.push(propName);
+          }
           if (propDef.required) {
             console.warn(
               `'required: true' found in property definition of ${propName}, but this is non-standard. Use class-level 'required' array instead.`
