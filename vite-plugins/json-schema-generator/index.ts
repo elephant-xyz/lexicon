@@ -204,7 +204,9 @@ function mapLexiconTypeToJSONSchema(
             isNestedRequired
           );
           if (propDef.required) {
-            console.warn(`'required: true' found in property definition of ${propName}, but this is non-standard. Use class-level 'required' array instead.`);
+            console.warn(
+              `'required: true' found in property definition of ${propName}, but this is non-standard. Use class-level 'required' array instead.`
+            );
           }
         }
 
@@ -432,11 +434,11 @@ function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
 
   // Add regular properties
   for (const [propName, propDef] of activeProperties) {
+    // Since all properties are required in the final schema, treat them as required for type generation
+    allRequiredFields.push(propName);
 
-     // Since all properties are required in the final schema, treat them as required for type generation
-     const isRequired = true;
-     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
-
+    const isRequired = true;
+    properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 
   // Create base schema
