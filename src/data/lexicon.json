@@ -19306,7 +19306,6 @@
             "Central",
             "Baseboard",
             "Other",
-            "Gas"
           ],
           "comment": "Refers to the type of heating system used in the structure."
         },
