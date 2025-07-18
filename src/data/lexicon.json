@@ -12500,6 +12500,7 @@
             },
             "multiValueQueryString": {
               "type": "object",
+              "pattern": "^[^=]+=[^&]*(&[^=]+=[^&]*)*$",
               "additionalProperties": {
                 "type": "array",
                 "items": {
