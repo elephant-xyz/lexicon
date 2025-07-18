@@ -1285,7 +1285,6 @@
           "enum": [
             "FannieMae",
             "FreddieMac",
-            "Other",
             "Unknown"
           ],
           "comment": "Specifies the investor holding the first mortgage that is being refinanced."
@@ -1342,9 +1341,7 @@
       "deprecated_properties": [],
       "properties": {
         "full_address": {
-          "type": 
-            "string",
-        
+          "type": "string",
           "minLength": 1,
           "comment": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'."
         },
@@ -2815,8 +2812,7 @@
             "RetirementFund",
             "BorrowerPrimaryHome",
             "SeverancePackage",
-            "CertificateOfDepositTimeDeposit",
-            "Other"
+            "CertificateOfDepositTimeDeposit"
           ]
         },
         "asset_type_other_description": {
@@ -6548,8 +6544,7 @@
           "type": "string",
           "enum": [
             "Outgoing",
-            "Incoming",
-            "Other"
+            "Incoming"
           ],
           "comment": "Phone call direction indicates whether a phone call was initiated by the system or received by the system."
         },
@@ -6593,8 +6588,7 @@
             "DisplayNetwork",
             "SmartShoppingCampaign",
             "Youtube",
-            "GoogleVideoPartner",
-            "Other"
+            "GoogleVideoPartner"
           ],
           "comment": "Specifies the platform or network where a click originated. It specifies the advertising channel responsible for driving traffic to a particular destination."
         },
@@ -6607,8 +6601,7 @@
           "enum": [
             "Exact",
             "Phrase",
-            "Broad",
-            "Other"
+            "Broad"
           ],
           "comment": "Specifies the level of match between a user's search query and a keyword for an ad to be triggered. This attribute indicates the potential reach and relevance of an ad based on user search intent."
         },
@@ -6645,7 +6638,6 @@
           "type": "string",
           "enum": [
             "Mail",
-            "Other",
             "InPersonVisit",
             "MessagingApp",
             "SMS",
@@ -6670,7 +6662,6 @@
           "type": "string",
           "enum": [
             "ListingInquiry",
-            "Other",
             "PropertyShowing",
             "MortgageInquiry",
             "OnlineListingView",
@@ -6695,7 +6686,6 @@
           "type": "string",
           "enum": [
             "Moved",
-            "Other",
             "LeftMessage",
             "Unreachable",
             "Refused",
@@ -6717,8 +6707,7 @@
             "SiteVisit",
             "ScheduleACallClick",
             "CallAgentClick",
-            "GetPreApprovedClick",
-            "Other"
+            "GetPreApprovedClick"
           ],
           "comment": "Indicates the specific action taken by the customer during the contact, such as scheduling a call or requesting a pre-approval."
         },
@@ -6747,8 +6736,7 @@
             "Click",
             "Spamreport",
             "Unsubscribe",
-            "Blocked",
-            "Other"
+            "Blocked"
           ],
           "comment": "The current state or user-defined status of the contact. Used for prioritization, filtering, and visibility."
         },
@@ -7117,8 +7105,7 @@
             "Gated",
             "Historic",
             "Planned",
-            "Sustainable",
-            "Other"
+            "Sustainable"
           ],
           "comment": "Refers to the type of community associated with a development."
         },
@@ -7170,8 +7157,7 @@
             "Mobile",
             "Tablet",
             "Computer",
-            "TVScreen",
-            "Other"
+            "TVScreen"
           ],
           "comment": "A device type is a classification of a device based on its characteristics, capabilities, and intended use."
         },
@@ -7682,8 +7668,7 @@
             "Click",
             "Spamreport",
             "Unsubscribe",
-            "Blocked",
-            "Other"
+            "Blocked"
           ],
           "description": "The type of email event."
         },
@@ -8248,7 +8233,6 @@
             "JobRelatedExpenses",
             "PayrollInsuranceDeduction",
             "SeparateMaintenanceExpense",
-            "Other",
             "PayrollRetirementDeduction",
             "LocalTax",
             "Entertainment",
@@ -8276,7 +8260,6 @@
             "HomeownersInsurance",
             "LeaseholdPayments",
             "MaintenanceAndMiscellaneous",
-            "Other",
             "RealEstateTax",
             "SupplementalPropertyInsurance"
           ]
@@ -8290,7 +8273,6 @@
             "Telephone",
             "Utilities",
             "Heating",
-            "Other",
             "Rent"
           ]
         },
@@ -8302,7 +8284,6 @@
             "FirstMortgagePITI",
             "FirstMortgagePrincipalAndInterest",
             "MIPremium",
-            "Other",
             "OtherMortgagePrincipalAndInterest",
             "OtherMortgageLoanPrincipalInterestTaxesAndInsurance"
           ]
@@ -9254,8 +9235,7 @@
             "TennisCourts",
             "Management",
             "Pickleball",
-            "CableTV",
-            "Other"
+            "CableTV"
           ],
           "comment": "Refers to the type of Homeowners association (HOA) amenity."
         },
@@ -9286,8 +9266,7 @@
             "TennisCourts",
             "Management",
             "Pickleball",
-            "CableTV",
-            "Other"
+            "CableTV"
           ],
           "comment": "Refers to the type of Homeowners association (HOA) inclusion."
         },
@@ -9399,8 +9378,7 @@
             "Mandatory",
             "Voluntary",
             "Condominium",
-            "Hybrid",
-            "Other"
+            "Hybrid"
           ],
           "comment": "Refers to the type of Homeowners association (HOA).",
           "minLength": 1
@@ -9428,8 +9406,7 @@
             "Quarterly",
             "Annually",
             "Bi-Annually",
-            "One-Time",
-            "Other"
+            "One-Time"
           ],
           "comment": "How often the HOA fee is charged.",
           "minLength": 1
@@ -9802,8 +9779,7 @@
             "SocialSecurity",
             "AccessoryUnitIncome",
             "CapitalGains",
-            "BoarderIncome",
-            "Other"
+            "BoarderIncome"
           ],
           "comment": "Income type refers to the specific category or source of income earned by an individual or entity, such as earned, investment or rental income."
         },
@@ -10872,7 +10848,6 @@
             "Mortgage",
             "NoteLoan",
             "NoteLoanWithComaker",
-            "Other",
             "PartiallySecured",
             "PersonalLoan",
             "RealEstateJuniorLiens",
@@ -11050,7 +11025,6 @@
             "Installment",
             "Taxes",
             "LeasePayment",
-            "Other",
             "UnsecuredHomeImprovementLoanRevolving",
             "TaxLien",
             "Revolving",
@@ -11286,8 +11260,7 @@
             "ConventionalLoan",
             "VALoan",
             "FHALoan",
-            "Cash",
-            "Other"
+            "Cash"
           ],
           "comment": "Refers to a condition or type of financing that a seller is willing to accept from a buyer when selling a property."
         },
@@ -11416,8 +11389,7 @@
           "enum": [
             "BuyerAgent",
             "TransBrk",
-            "NonRep",
-            "Other"
+            "NonRep"
           ],
           "comment": "Refers to a type of commmission that will be paid as part of a real estate transaction."
         },
@@ -11584,8 +11556,7 @@
             "Rented",
             "Withdrawn",
             "Sold",
-            "Active",
-            "Other"
+            "Active"
           ],
           "comment": "The status of the listing"
         },
@@ -12753,7 +12724,6 @@
           ],
           "enum": [
             "OneOne",
-            "None",
             "TwoOne",
             "ThreeTwoOne",
             "OneZero"
@@ -14564,8 +14534,7 @@
           "enum": [
             "GreaterThanOneQuarterAcre",
             "PavedRoad",
-            "LessThanOrEqualToOneQuarterAcre",
-            "Other"
+            "LessThanOrEqualToOneQuarterAcre"
           ],
           "comment": "Refers to characteristics associated with a lot and structure.",
           "minLength": 1
@@ -14651,9 +14620,7 @@
             "OceanView",
             "MountainView",
             "CitySkylineView",
-            "ParkView",
-            "None",
-            "Other"
+            "ParkView"
           ],
           "comment": "Descriptive tag of the view from the lot.",
           "minLength": 1
@@ -15595,8 +15562,7 @@
           "comment": "When true, indicates that the person has died."
         },
         "first_name": {
-          "type": 
-            "string",
+          "type": "string",
           "minLength": 1,
           "pattern": "^[A-Z][a-z]*([ \\-',.][A-Za-z][a-z]*)*$",
           "comment": "A person's first name is the name that they are given at birth or during infancy, and it is typically used to identify them in a personal or informal context."
@@ -15645,8 +15611,7 @@
           "minLength": 1
         },
         "last_name": {
-          "type": 
-            "string",
+          "type": "string",
           "minLength": 1,
           "pattern": "^[A-Z][a-z]*([ \\-',.][A-Za-z][a-z]*)*$",
           "comment": "A person's last name, also known as surname or family name, is typically the name that is shared by all members of their immediate family."
@@ -16782,8 +16747,7 @@
           "minLength": 1
         },
         "parcel_id": {
-          "type": 
-            "string",
+          "type": "string",
           "minLength": 1,
           "comment": "A unique identifier for the property parcel as assigned by the local assessor or jurisdiction."
         }
@@ -17494,9 +17458,7 @@
           "comment": "When true, indicates that the owned property is the subject property."
         },
         "parcel_identifier": {
-          "type": 
-            "string",
-        
+          "type": "string",
           "minLength": 1,
           "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
         },
@@ -17801,8 +17763,7 @@
             "ManufacturedHousingSingleWide",
             "4Units",
             "Townhouse",
-            "NonWarrantableCondo",
-            "Other"
+            "NonWarrantableCondo"
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "minLength": 1
@@ -18013,8 +17974,7 @@
             "CondoHotel",
             "NewlyUpdatedRenovated",
             "EffectiveYearBuilt",
-            "PreConstruction",
-            "Other"
+            "PreConstruction"
           ],
           "comment": "The condition of the property.",
           "minLength": 1
@@ -18776,8 +18736,7 @@
             "Mountain",
             "Park",
             "Waterfront",
-            "Street",
-            "None"
+            "Street"
           ],
           "comment": "The dominant view visible from this room.",
           "minLength": 1
@@ -18858,7 +18817,6 @@
             "Fiberglass",
             "Painted",
             "Natural Stone",
-            "Other",
             "Unknown"
           ],
           "comment": "The visible material or finish used for the pool’s interior surface.",
@@ -19170,8 +19128,7 @@
             "SmartHomeUpgrade",
             "WaterHeaterReplacement",
             "FireplaceInstallation",
-            "StorageSolutionInstallation",
-            "Other"
+            "StorageSolutionInstallation"
           ],
           "comment": "Specific type of improvement or renovation performed."
         },
@@ -19335,8 +19292,7 @@
             "Recreation",
             "Pet Services",
             "Wellness",
-            "Tourist Attraction",
-            "Other"
+            "Tourist Attraction"
           ],
           "comment": "Category or type of nearby location.",
           "minLength": 1
@@ -19859,7 +19815,6 @@
             "Notary",
             "NotePayTo",
             "NotePayToRecipient",
-            "Other",
             "Owner",
             "Payee",
             "Plaintiff",
@@ -20909,8 +20864,7 @@
             "WholeHouseFan",
             "CeilingFan",
             "GeothermalCooling",
-            "Zoned",
-            "Other"
+            "Zoned"
           ],
           "comment": "Refers to the type of cooling system used in the structure."
         },
@@ -20930,7 +20884,6 @@
             "HeatPump",
             "Central",
             "Baseboard",
-            "Other",
             "Gas"
           ],
           "comment": "Refers to the type of heating system used in the structure."
@@ -20950,7 +20903,6 @@
             "System",
             "Gunite",
             "Solar",
-            "Other",
             "Equipment",
             "Form",
             "Fenced",
@@ -20961,7 +20913,6 @@
             "Association",
             "SaltWater",
             "AboveGround",
-            "None",
             "Pool",
             "Concrete",
             "PoolEquipment",
@@ -21028,8 +20979,7 @@
             "Fireplace",
             "Fence",
             "VaultedCeilings",
-            "Cooktop",
-            "Other"
+            "Cooktop"
           ],
           "comment": "Refers to the type of amenity associated with a section."
         },
@@ -21100,8 +21050,7 @@
             "Attic",
             "LivingRoom",
             "DualStaircase",
-            "SeparateFormalDiningRoom",
-            "Other"
+            "SeparateFormalDiningRoom"
           ],
           "comment": "Refers to the type of section associated with a property."
         },
@@ -21864,7 +21813,6 @@
             "Metal",
             "Glass",
             "Laminate",
-            "Other",
             "Stucco"
           ],
           "comment": "Refers to the type of building material associated with a structure.",
@@ -21897,8 +21845,7 @@
             "Log",
             "Adobe",
             "Precast Concrete",
-            "Curtain Wall",
-            "Other"
+            "Curtain Wall"
           ],
           "comment": "Primary material used for exterior wall cladding and structure.",
           "minLength": 1
@@ -21915,9 +21862,7 @@
             "Metal Trim",
             "Stucco Accent",
             "Vinyl Accent",
-            "Decorative Block",
-            "None",
-            "Other"
+            "Decorative Block"
           ],
           "comment": "Secondary material used for exterior wall accents or trim.",
           "minLength": 1
@@ -21951,9 +21896,7 @@
             "Reflective Barrier",
             "Rock Wool",
             "Natural Fiber",
-            "None",
-            "Unknown",
-            "Other"
+            "Unknown"
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "minLength": 1
@@ -21979,8 +21922,7 @@
             "Cork",
             "Linoleum",
             "Terrazzo",
-            "Epoxy Coating",
-            "Other"
+            "Epoxy Coating"
           ],
           "comment": "Primary flooring material covering floor surface.",
           "minLength": 1
@@ -21998,9 +21940,7 @@
             "Ceramic Tile",
             "Carpet",
             "Area Rugs",
-            "Transition Strips",
-            "None",
-            "Other"
+            "Transition Strips"
           ],
           "comment": "Secondary flooring material if multiple types are used in different areas.",
           "minLength": 1
@@ -22016,8 +21956,7 @@
             "Concrete Slab",
             "Engineered Wood",
             "Particle Board",
-            "Unknown",
-            "Other"
+            "Unknown"
           ],
           "comment": "Material used for subfloor structure beneath finish flooring.",
           "minLength": 1
@@ -22049,8 +21988,7 @@
             "Concrete Block",
             "Brick",
             "Load Bearing",
-            "Non-Load Bearing",
-            "Other"
+            "Non-Load Bearing"
           ],
           "comment": "Structural material used for interior wall framing.",
           "minLength": 1
@@ -22073,8 +22011,7 @@
             "Stone Veneer",
             "Metal Panels",
             "Glass Panels",
-            "Concrete",
-            "Other"
+            "Concrete"
           ],
           "comment": "Primary surface material covering interior walls throughout most of the structure.",
           "minLength": 1
@@ -22095,9 +22032,7 @@
             "Metal Accent",
             "Glass Insert",
             "Decorative Panels",
-            "Feature Wall Material",
-            "None",
-            "Other"
+            "Feature Wall Material"
           ],
           "comment": "Secondary material used for interior wall accents, trim, or feature walls.",
           "minLength": 1
@@ -22114,8 +22049,7 @@
             "Natural Finish",
             "Stain",
             "Clear Coat",
-            "Exposed Natural",
-            "Other"
+            "Exposed Natural"
           ],
           "comment": "Primary finish treatment applied over interior wall surfaces.",
           "minLength": 1
@@ -22132,9 +22066,7 @@
             "Faux Finish",
             "Fabric Wall Covering",
             "Murals",
-            "Decorative Paint Technique",
-            "None",
-            "Other"
+            "Decorative Paint Technique"
           ],
           "comment": "Secondary finish treatment for accent areas or decorative elements.",
           "minLength": 1
@@ -22304,8 +22236,7 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate",
-            "Other"
+            "Laminate"
           ],
           "comment": "Refers to the type of material used for a floor.",
           "minLength": 1
@@ -22368,8 +22299,7 @@
             "Modified Bitumen",
             "Built-Up Roof",
             "Green Roof System",
-            "Solar Integrated Tiles",
-            "Other"
+            "Solar Integrated Tiles"
           ],
           "comment": "Material used for the primary roof covering.",
           "minLength": 1
@@ -22383,9 +22313,7 @@
             "Felt Paper",
             "Synthetic Underlayment",
             "Rubberized Asphalt",
-            "None",
-            "Unknown",
-            "Other"
+            "Unknown"
           ],
           "comment": "Type of underlayment beneath roof covering.",
           "minLength": 1
@@ -22400,8 +22328,7 @@
             "Wood Rafter",
             "Steel Truss",
             "Concrete Beam",
-            "Engineered Lumber",
-            "Other"
+            "Engineered Lumber"
           ],
           "comment": "Material used for roof structural support.",
           "minLength": 1
@@ -22424,8 +22351,7 @@
             "Clerestory",
             "Dome",
             "Barrel",
-            "Combination",
-            "Other"
+            "Combination"
           ],
           "comment": "Architectural design of the roof structure.",
           "minLength": 1
@@ -22465,9 +22391,7 @@
             "Vinyl",
             "Steel",
             "Copper",
-            "Galvanized Steel",
-            "None",
-            "Other"
+            "Galvanized Steel"
           ],
           "comment": "Material used for gutter system.",
           "minLength": 1
@@ -22524,8 +22448,7 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate",
-            "Other"
+            "Laminate"
           ],
           "comment": "Refers to the material a roof is made of.",
           "minLength": 1
@@ -22589,8 +22512,7 @@
             "Bow",
             "Greenhouse",
             "Picture",
-            "Casement",
-            "Other"
+            "Casement"
           ],
           "comment": "Refers to the window design.",
           "minLength": 1
@@ -22607,8 +22529,7 @@
             "Partial Basement",
             "Pier and Beam",
             "Basement with Walkout",
-            "Stem Wall",
-            "Other"
+            "Stem Wall"
           ],
           "comment": "Type of foundation system supporting the structure.",
           "minLength": 1
@@ -22626,8 +22547,7 @@
             "Treated Wood Posts",
             "Steel Piers",
             "Precast Concrete",
-            "Insulated Concrete Forms",
-            "Other"
+            "Insulated Concrete Forms"
           ],
           "comment": "Primary material used in foundation construction.",
           "minLength": 1
@@ -22641,9 +22561,7 @@
             "Membrane",
             "Coating",
             "Drainage System",
-            "None",
-            "Unknown",
-            "Other"
+            "Unknown"
           ],
           "comment": "Type of waterproofing system used on foundation.",
           "minLength": 1
@@ -22676,8 +22594,7 @@
             "Steel Joists",
             "Concrete",
             "Exposed Beams",
-            "Truss System",
-            "Other"
+            "Truss System"
           ],
           "comment": "Structural material supporting the ceiling.",
           "minLength": 1
@@ -22696,8 +22613,7 @@
             "Suspended Grid",
             "Coffered",
             "Tray",
-            "Exposed Structure",
-            "Other"
+            "Exposed Structure"
           ],
           "comment": "Material used for ceiling surface finish.",
           "minLength": 1
@@ -22712,9 +22628,7 @@
             "Blown Insulation",
             "Spray Foam",
             "Rigid Board",
-            "None",
-            "Unknown",
-            "Other"
+            "Unknown"
           ],
           "comment": "Type of insulation above ceiling.",
           "minLength": 1
@@ -22753,8 +22667,7 @@
             "Glass",
             "Vinyl",
             "Wrought Iron",
-            "Security Door",
-            "Other"
+            "Security Door"
           ],
           "comment": "Material used for exterior door construction.",
           "minLength": 1
@@ -22768,8 +22681,7 @@
             "Solid Core",
             "Insulated Core",
             "Honeycomb Core",
-            "Glass Panel",
-            "Other"
+            "Glass Panel"
           ],
           "comment": "Core construction type of exterior doors.",
           "minLength": 1
@@ -22789,8 +22701,7 @@
             "Molded",
             "Bifold",
             "Pocket Door",
-            "Barn Door",
-            "Other"
+            "Barn Door"
           ],
           "comment": "Material and construction of interior doors.",
           "minLength": 1
@@ -22808,8 +22719,7 @@
             "Steel",
             "Composite",
             "Aluminum Clad Wood",
-            "Vinyl Clad Wood",
-            "Other"
+            "Vinyl Clad Wood"
           ],
           "comment": "Material used for window frame construction.",
           "minLength": 1
@@ -22829,8 +22739,7 @@
             "Impact Resistant",
             "Argon Filled",
             "Tinted",
-            "Smart Glass",
-            "Other"
+            "Smart Glass"
           ],
           "comment": "Type and features of window glazing system.",
           "minLength": 1
@@ -22852,8 +22761,7 @@
             "Garden",
             "Skylights",
             "Jalousie",
-            "Fixed",
-            "Other"
+            "Fixed"
           ],
           "comment": "Operational mechanism and style of windows.",
           "minLength": 1
@@ -22867,9 +22775,7 @@
             "Aluminum",
             "Fiberglass",
             "Pet Screen",
-            "Solar Screen",
-            "None",
-            "Other"
+            "Solar Screen"
           ],
           "comment": "Material used for window screens.",
           "minLength": 1
@@ -22889,9 +22795,7 @@
             "Curtains",
             "Drapes",
             "Valances",
-            "Window Film",
-            "None",
-            "Other"
+            "Window Film"
           ],
           "comment": "Type of window treatments installed.",
           "minLength": 1
@@ -22909,8 +22813,7 @@
             "Masonry",
             "Engineered Lumber",
             "Post and Beam",
-            "Log Construction",
-            "Other"
+            "Log Construction"
           ],
           "comment": "Primary material used for structural framing system.",
           "minLength": 1
@@ -22924,9 +22827,7 @@
             "Steel Beams",
             "Engineered Lumber",
             "Concrete Lintels",
-            "Wood Beams",
-            "None",
-            "Other"
+            "Wood Beams"
           ],
           "comment": "Secondary structural materials for support beams and lintels.",
           "minLength": 1
@@ -22987,8 +22888,7 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate",
-            "Other"
+            "Laminate"
           ],
           "comment": "Refers to the type of material a window is made from.",
           "minLength": 1
@@ -23070,8 +22970,7 @@
             "Gazebo",
             "OutdoorKitchen",
             "DetachedStructure",
-            "BuiltInBBQ",
-            "Other"
+            "BuiltInBBQ"
           ],
           "comment": "Represents permanent or semi-permanent exterior structures that are not enclosed rooms but enhance outdoor functionality or aesthetics.",
           "minLength": 1
@@ -24687,8 +24586,7 @@
             "SewerAvailable",
             "NaturalGasAvailable",
             "CableAvailable",
-            "UndergroundUtilities",
-            "Other"
+            "UndergroundUtilities"
           ],
           "comment": "Refers to the type of public utility available to a structure.",
           "minLength": 1
@@ -24710,8 +24608,7 @@
             "Sanitary",
             "Public",
             "Combined",
-            "Septic",
-            "Other"
+            "Septic"
           ],
           "comment": "Refers to the type of sewer used in the structure.",
           "minLength": 1
@@ -24732,8 +24629,7 @@
           "enum": [
             "Well",
             "Aquifer",
-            "Public",
-            "Other"
+            "Public"
           ],
           "comment": "Refers to the type of water source used in the structure.",
           "minLength": 1
@@ -24756,8 +24652,7 @@
             "PEX",
             "PVC",
             "GalvanizedSteel",
-            "CastIron",
-            "Other"
+            "CastIron"
           ],
           "comment": "Refers to the type of plumbing system used in the structure.",
           "minLength": 1
@@ -24786,8 +24681,7 @@
           "enum": [
             "Copper",
             "Aluminum",
-            "KnobAndTube",
-            "Other"
+            "KnobAndTube"
           ],
           "comment": "Specifies the type of electrical wiring used in the structure.",
           "minLength": 1
@@ -24820,8 +24714,7 @@
           "enum": [
             "Photovoltaic",
             "SolarThermal",
-            "Hybrid",
-            "Other"
+            "Hybrid"
           ],
           "comment": "Specifies the type of solar panel system.",
           "minLength": 1
