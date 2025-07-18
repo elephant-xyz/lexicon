@@ -35,6 +35,22 @@ const BLOCKCHAIN_CLASSES = [
 describe('Blockchain Schema Validation Constraints', () => {
   const schemasDir = path.join(process.cwd(), 'public', 'json-schemas');
 
+  // Check if schemas directory exists and has files
+  it('should have schemas directory with generated files', () => {
+    if (!fs.existsSync(schemasDir)) {
+      throw new Error(`Schemas directory does not exist at ${schemasDir}. Build process may have failed.`);
+    }
+    
+    const files = fs.readdirSync(schemasDir);
+    const schemaFiles = files.filter(file => file.endsWith('.json') && !file.includes('example') && !file.includes('manifest'));
+    
+    if (schemaFiles.length === 0) {
+      throw new Error(`No schema files found in ${schemasDir}. Available files: ${files.join(', ')}`);
+    }
+    
+    console.log(`Found ${schemaFiles.length} schema files: ${schemaFiles.join(', ')}`);
+  });
+
   // Helper function to check if a property has the required constraints
   const checkPropertyConstraints = (property: any, propertyName: string): string[] => {
     const issues: string[] = [];
@@ -91,14 +107,21 @@ describe('Blockchain Schema Validation Constraints', () => {
     return issues;
   };
 
-  // Helper function to check if a schema file exists and has proper constraints
+    // Helper function to check if a schema file exists and has proper constraints
   const validateBlockchainSchema = (className: string): string[] => {
     const schemaPath = path.join(schemasDir, `${className}.json`);
     const issues: string[] = [];
-
+    
     // Check if schema file exists
     if (!fs.existsSync(schemaPath)) {
-      issues.push(`Schema file for "${className}" does not exist`);
+      issues.push(`Schema file for "${className}" does not exist at ${schemaPath}`);
+      // Check if the schemas directory exists
+      if (!fs.existsSync(schemasDir)) {
+        issues.push(`Schemas directory does not exist at ${schemasDir}`);
+      } else {
+        const files = fs.readdirSync(schemasDir);
+        issues.push(`Available files in schemas directory: ${files.join(', ')}`);
+      }
       return issues;
     }
 
