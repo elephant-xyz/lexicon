@@ -24842,7 +24842,6 @@
         "nearby_location",
         "lot",
         "appliance",
-        "appliances",
         "flood_storm_information",
         "property_ranking_overall",
         "environment_characteristics",
@@ -25021,8 +25020,8 @@
         {
           "type": "relationship",
           "from": "property",
-          "to": "appliances",
-          "relationship_type": "property_appliance"
+          "to": "appliance",
+          "relationship_type": "property_has_appliance"
         },
         {
           "type": "relationship",
