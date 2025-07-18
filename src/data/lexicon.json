@@ -22976,7 +22976,8 @@
         "property_has_tax",
         "property_has_sales_history",
         "property_has_file",
-        "sales_history_has_person"
+        "sales_history_has_person",
+        "sales_history_has_company"
       ],
       "example": {
         "label": "County",
