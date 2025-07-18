@@ -22959,6 +22959,12 @@
           "from": "sales_history",
           "to": "person",
           "relationship_type": "sales_history_has_person"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "company",
+          "relationship_type": "sales_history_has_company"
         }
 
       ],
