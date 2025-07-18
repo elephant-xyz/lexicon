@@ -193,14 +193,15 @@ class DataService {
       }
 
       // Property type match
-      const typeMatch = this.fuzzyMatch(searchTerm, propData.type);
+      const typeString = Array.isArray(propData.type) ? propData.type.join(' | ') : propData.type;
+      const typeMatch = this.fuzzyMatch(searchTerm, typeString);
       if (typeMatch.matches) {
         matches.push({
           type: 'property',
           field: 'type',
           value: propName, // Property name for identification
           score: typeMatch.score,
-          highlightedType: typeMatch.highlight || propData.type,
+          highlightedType: typeMatch.highlight || typeString,
         });
       }
 
