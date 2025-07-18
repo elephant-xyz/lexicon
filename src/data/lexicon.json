@@ -1427,6 +1427,20 @@
           "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
           "minLength": 1
         }
+      },
+      "example": {
+        "full_address": "2558 GARDENS PKWY",
+        "source_http_request": {
+          "method": "GET",
+          "url": "https://pbcpao.gov/Property/Details",
+          "multiValueQueryString": {
+            "parcelId": [
+              "52434205310037080"
+            ]
+          }
+        },
+        "request_identifier": "52434205310037080",
+        "county_jurisdiction": "Palm Beach"
       }
     },
     {
@@ -16753,9 +16767,17 @@
         }
       },
       "example": {
-        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
-        "request_identifier": "52434205310037080",
-        "parcel_id": "52434205310037080"
+        "parcel_id": "52434205310037080",
+        "source_http_request": {
+          "method": "GET",
+          "url": "https://pbcpao.gov/Property/Details",
+          "multiValueQueryString": {
+            "parcelId": [
+              "52434205310037080"
+            ]
+          }
+        },
+        "request_identifier": "52434205310037080"
       }
     },
     {
@@ -24865,7 +24887,15 @@
       ],
       "required": [
         "property_seed"
-      ]
+      ],
+      "example": {
+        "label": "Seed",
+        "relationships": {
+          "property_seed": {
+            "/": "bafkreifvrvlob5uulheto2xk7i2nlzwmcktz4azqabwxjin374hx4xlcqy"
+          }
+        }
+      }
     },
     {
       "label": "County",
@@ -24969,24 +24999,39 @@
       "example": {
         "label": "County",
         "relationships": {
-          "person_has_property": "bafkreifazwgu5sxvuglhd64bqzbyyszuyhlnwlchvtibiigr2l5k5spt4q",
-          "property_has_address": "bafkreieoku66zp5arhxvrt4cw6w6uqpprudqmnxvs32m65nff4qpqducte",
+          "person_has_property": [
+            {
+              "/": "bafkreifazwgu5sxvuglhd64bqzbyyszuyhlnwlchvtibiigr2l5k5spt4q"
+            }
+          ],
+          "company_has_property": null,
+          "property_has_address": {
+            "/": "bafkreieoku66zp5arhxvrt4cw6w6uqpprudqmnxvs32m65nff4qpqducte"
+          },
+          "property_has_lot": {
+            "/": "bafkreib5ktarm7dgwjvjzll537brhjz4544hjxmitfbxyxwhdzw23yjhha"
+          },
           "property_has_tax": [
-            "bafkreiglxoulqxsd4ls34aqstmna5iiq7izcjaqlp7kgtwawcagezaoqha"
+            {
+              "/": "bafkreiglxoulqxsd4ls34aqstmna5iiq7izcjaqlp7kgtwawcagezaoqha"
+            }
           ],
-          "property_has_lot": "bafkreib5ktarm7dgwjvjzll537brhjz4544hjxmitfbxyxwhdzw23yjhha",
           "property_has_sales_history": [
-            "bafkreihot7lcbmaalflxewczwnzbozk2zxmo6zhlkua24btqn7a4jsexem"
-          ],
-          "property_has_file": [
-            "bafkreifxlurkountcrlfkmdnsboims7xd45czkdsar2tqzilih4sbmlae4"
+            {
+              "/": "bafkreihot7lcbmaalflxewczwnzbozk2zxmo6zhlkua24btqn7a4jsexem"
+            }
           ],
           "property_has_layout": [
-            "bafkreiczhraw42g55smnjjsqezypffdhi7ur2v4z6n44by2cznkg5llx4a"
+            {
+              "/": "bafkreiczhraw42g55smnjjsqezypffdhi7ur2v4z6n44by2cznkg5llx4a"
+            }
           ],
-          "property_has_environmental_risk": [
-            "bafkreiho4odjtw6cp6q3herzfs435u3j2jixns24k5p5jsdl7d6wynewyi"
-          ]
+          "property_has_flood_storm_information": null,
+          "property_has_file": null,
+          "property_has_structure": null,
+          "property_has_utility": null,
+          "sales_history_has_person": null,
+          "sales_history_has_company": null
         }
       }
     },
