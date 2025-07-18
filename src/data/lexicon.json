@@ -24942,6 +24942,12 @@
           "from": "sales_history",
           "to": "person",
           "relationship_type": "sales_history_has_person"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "company",
+          "relationship_type": "sales_history_has_company"
         }
       ],
       "required": [
@@ -24958,7 +24964,8 @@
         "property_has_tax",
         "property_has_sales_history",
         "property_has_file",
-        "sales_history_has_person"
+        "sales_history_has_person",
+        "sales_history_has_company"
       ],
       "example": {
         "label": "County",
