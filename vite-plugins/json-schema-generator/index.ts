@@ -172,7 +172,7 @@ function mapLexiconTypeToJSONSchema(
         // Handle object types with nested properties
         schema.type = 'object';
 
-        // Add nested properties if they exist
+        // Add properties if they exist
         if (property.properties) {
           schema.properties = {};
           const requiredProps: string[] = [];
@@ -204,7 +204,8 @@ function mapLexiconTypeToJSONSchema(
                 false
               );
             }
-          } else {
+          } else if (!property.properties && !property.patternProperties) {
+            // Only set additionalProperties to false if there are no properties or patternProperties
             schema.additionalProperties = false;
           }
         }
@@ -218,7 +219,8 @@ function mapLexiconTypeToJSONSchema(
               mapLexiconTypeToJSONSchema(propDef, true);
           }
 
-          if (!schema.properties && property.additionalProperties === undefined) {
+          // Only set additionalProperties to false if it hasn't been set already
+          if (!schema.properties && property.additionalProperties === undefined && schema.additionalProperties === undefined) {
             schema.additionalProperties = false;
           }
         }
