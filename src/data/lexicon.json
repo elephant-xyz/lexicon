@@ -18979,7 +18979,7 @@
           ]
         },
         "size_square_feet": {
-          "type": "decimal",
+          "type": ["decimal","null"],
           "comment": "Room area in square feet."
         },
         "special_features": {
@@ -19022,7 +19022,7 @@
           ]
         },
         "has_windows": {
-          "type": "boolean",
+          "type": ["boolean","null"],
           "comment": "Whether the room has windows or not (relevant for egress and lighting)."
         },
         "window_design_type": {
@@ -24276,7 +24276,7 @@
           "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
         "monthly_tax_amount": {
-          "type": "decimal",
+          "type": ["decimal","null"],
           "format": "currency",
           "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
