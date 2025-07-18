@@ -2072,6 +2072,10 @@
             "SW",
             null
           ],
+          "type": [
+            "string",
+            "null"
+          ],
           "comment": "Street post directional text refers to the directional indicator or suffix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area."
         },
         "street_pre_directional_text": {
@@ -2085,6 +2089,10 @@
             "SE",
             "SW",
             null
+          ],
+          "type": [
+            "string",
+            "null"
           ],
           "comment": "Street pre directional text refers to the directional indicator or prefix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area."
         },
@@ -2316,8 +2324,11 @@
             "Blf",
             "Grv",
             "Crk",
-            "Crk",
             null
+          ],
+          "type": [
+            "string",
+            "null"
           ]
         },
         "unincorporated_area_name": {
@@ -15343,6 +15354,10 @@
             "Divorced",
             null
           ],
+          "type": [
+            "string",
+            "null"
+          ],
           "comment": "Marital_status_type represents an individual's current legal or social relationship status, such as married, single, divorced, or widowed."
         },
         "middle_initial": {
@@ -15397,6 +15412,10 @@
             "Dame",
             null
           ],
+          "type": [
+            "string",
+            "null"
+          ],
           "comment": "Common honorifics or titles preceding names. Adjust this list based on cultural or domain-specific requirements."
         },
         "ssn": {
@@ -15432,6 +15451,10 @@
             "Ret.",
             null
           ],
+          "type": [
+            "string",
+            "null"
+          ],
           "comment": "Suffixes typically denote generational titles, academic degrees, or professional certifications."
         },
         "us_citizenship_status": {
@@ -15445,10 +15468,14 @@
             "ForeignNational",
             null
           ],
+          "type": [
+            "string",
+            "null"
+          ],
           "comment": "Citizenship status refers to an individual's legal status as a citizen or non-citizen of a country. In the United States, citizenship status is determined by birthright, naturalization, or other legal means."
         },
         "veteran_status": {
-          "type": "boolean",
+          "type": ["boolean", "null"],
           "comment": "Veteran status refers to an individual's status as a former member of the armed forces. In the United States, a person is considered a veteran if they have served in the active military, naval, or air service and were discharged or released from that service under conditions other than dishonorable."
         }
       },
