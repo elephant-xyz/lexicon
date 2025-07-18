@@ -1,5 +1,5 @@
 export interface LexiconProperty {
-  type: string;
+  type: string | string[];
   enum?: string[];
   comment?: string;
   pattern?: string;

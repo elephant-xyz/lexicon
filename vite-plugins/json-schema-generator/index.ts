@@ -124,10 +124,6 @@ function mapLexiconTypeToJSONSchema(
       // Use simple array syntax for basic type unions
       const types = property.oneOf.map(subSchema => subSchema.type as string);
 
-      if (!effectiveRequired) {
-        types.push('null');
-      }
-
       schema.type = types.length === 1 ? types[0] : types;
 
       // Add description if available
@@ -140,11 +136,6 @@ function mapLexiconTypeToJSONSchema(
       // Use oneOf for complex schemas
       schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
 
-      // If not required, add null as an option
-      if (!effectiveRequired) {
-        (schema.oneOf as LexiconProperty[]).push({ type: 'null' });
-      }
-
       // Add description if available
       if (property.comment) {
         schema.description = property.comment;
@@ -154,11 +145,18 @@ function mapLexiconTypeToJSONSchema(
     }
   }
 
+  // Handle type arrays (e.g., ["string", "null"])
+  if (Array.isArray(property.type)) {
+    schema.type = property.type;
+    return schema;
+  }
+
+  // Handle single types
   switch (property.type) {
     case 'string':
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
+      schema.type = 'string';
       if (property.enum) {
-        schema.enum = effectiveRequired ? property.enum : [...property.enum, null];
+        schema.enum = property.enum;
       }
       if (property.pattern) {
         schema.pattern = property.pattern;
@@ -177,36 +175,32 @@ function mapLexiconTypeToJSONSchema(
 
       break;
     case 'integer':
-      schema.type = effectiveRequired ? 'integer' : ['integer', 'null'];
+      schema.type = 'integer';
       if (property.minimum !== undefined) {
         schema.minimum = property.minimum;
       }
       break;
     case 'decimal':
     case 'number':
-      schema.type = effectiveRequired ? 'number' : ['number', 'null'];
+      schema.type = 'number';
       if (property.minimum !== undefined) {
         schema.minimum = property.minimum;
       }
       break;
     case 'boolean':
-      schema.type = effectiveRequired ? 'boolean' : ['boolean', 'null'];
+      schema.type = 'boolean';
       break;
     case 'date':
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
+      schema.type = 'string';
       schema.format = 'date';
       break;
     case 'datetime':
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
+      schema.type = 'string';
       schema.format = 'date-time';
       break;
     case 'object':
       // Handle object types with nested properties
-      if (effectiveRequired) {
-        schema.type = 'object';
-      } else {
-        schema.type = ['object', 'null'];
-      }
+      schema.type = 'object';
 
       // Add nested properties if they exist
       if (property.properties) {
@@ -266,7 +260,7 @@ function mapLexiconTypeToJSONSchema(
 
       break;
     case 'array':
-      schema.type = effectiveRequired ? 'array' : ['array', 'null'];
+      schema.type = 'array';
 
       // Add items schema if it exists
       if (property.items) {
@@ -280,7 +274,7 @@ function mapLexiconTypeToJSONSchema(
 
       break;
     default:
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
+      schema.type = 'string';
   }
 
   // Handle const keyword
