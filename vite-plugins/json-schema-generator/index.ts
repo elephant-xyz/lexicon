@@ -225,7 +225,9 @@ function mapLexiconTypeToJSONSchema(
 
         // Handle allOf
         if (property.allOf) {
-          schema.allOf = property.allOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
+          schema.allOf = property.allOf.map(subSchema =>
+            mapLexiconTypeToJSONSchema(subSchema, true)
+          );
         }
 
         break;
