@@ -88,17 +88,12 @@
           "minLength": 1
         },
         "school_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Elementary",
             "Middle",
             "High"
           ],
-          "comment": "The type of school.",
-          "minLength": 1
+          "comment": "The type of school."
         },
         "school_ranking": {
           "type": [
@@ -115,10 +110,6 @@
           "comment": "Numerical rating score out of 10."
         },
         "grade_rating": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "A+",
             "A",
@@ -134,8 +125,7 @@
             "D-",
             "F"
           ],
-          "comment": "Letter grade rating for the school.",
-          "minLength": 1
+          "comment": "Letter grade rating for the school."
         },
         "distance_miles": {
           "type": "number",
@@ -237,10 +227,6 @@
           "minLength": 1
         },
         "commute_quality": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Excellent",
             "Great",
@@ -248,8 +234,7 @@
             "Fair",
             "Poor"
           ],
-          "comment": "Overall commute quality assessment.",
-          "minLength": 1
+          "comment": "Overall commute quality assessment."
         },
         "walkability_score": {
           "type": "number",
@@ -266,10 +251,6 @@
           "minLength": 1
         },
         "highway_access": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Excellent",
             "Great",
@@ -277,8 +258,7 @@
             "Fair",
             "Poor"
           ],
-          "comment": "Quality of highway access.",
-          "minLength": 1
+          "comment": "Quality of highway access."
         },
         "major_highways": {
           "type": "array",
@@ -402,10 +382,6 @@
           "minLength": 1
         },
         "crime_rate": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "VeryLow",
             "Low",
@@ -413,8 +389,7 @@
             "High",
             "VeryHigh"
           ],
-          "comment": "Overall crime rate assessment for the area.",
-          "minLength": 1
+          "comment": "Overall crime rate assessment for the area."
         },
         "crime_rate_comparison": {
           "type": [
@@ -425,18 +400,13 @@
           "minLength": 1
         },
         "emergency_services_response": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "FastResponse",
             "GoodResponse",
             "AverageResponse",
             "SlowResponse"
           ],
-          "comment": "Emergency services response time quality.",
-          "minLength": 1
+          "comment": "Emergency services response time quality."
         },
         "emergency_response_time": {
           "type": [
@@ -447,10 +417,6 @@
           "minLength": 1
         },
         "overall_safety_grade": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "A+",
             "A",
@@ -466,8 +432,7 @@
             "D-",
             "F"
           ],
-          "comment": "Overall safety grade for the area.",
-          "minLength": 1
+          "comment": "Overall safety grade for the area."
         }
       }
     },
@@ -559,10 +524,6 @@
           "minLength": 1
         },
         "wildfire_risk_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "VeryLow",
             "Low",
@@ -571,14 +532,9 @@
             "VeryHigh",
             "Extreme"
           ],
-          "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history.",
-          "minLength": 1
+          "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history."
         },
         "air_quality_index": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Good",
             "Moderate",
@@ -587,26 +543,20 @@
             "VeryUnhealthy",
             "Hazardous"
           ],
-          "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area.",
-          "minLength": 1
+          "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area."
         },
         "air_quality_compliance": {
           "type": "boolean",
           "comment": "Whether area is in attainment for all EPA ambient air quality standards."
         },
         "noise_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Quiet",
             "Moderate",
             "Busy",
             "Loud"
           ],
-          "comment": "Ambient noise level in the area affecting quality of life and property desirability.",
-          "minLength": 1
+          "comment": "Ambient noise level in the area affecting quality of life and property desirability."
         },
         "noise_sources": {
           "type": "array",
@@ -630,18 +580,13 @@
           "minItems": 1
         },
         "light_pollution_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Dark",
             "Rural",
             "Suburban",
             "Urban"
           ],
-          "comment": "Light pollution level affecting night sky visibility and natural darkness.",
-          "minLength": 1
+          "comment": "Light pollution level affecting night sky visibility and natural darkness."
         },
         "earthquake_zone": {
           "type": [
@@ -652,18 +597,13 @@
           "minLength": 1
         },
         "soil_stability": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Stable",
             "Moderate",
             "Unstable",
             "HighRisk"
           ],
-          "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk.",
-          "minLength": 1
+          "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk."
         },
         "environmental_hazards": {
           "type": "array",
@@ -678,10 +618,6 @@
           "minItems": 1
         },
         "flood_risk_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Minimal",
             "Low",
@@ -689,8 +625,7 @@
             "High",
             "Extreme"
           ],
-          "comment": "Flood risk assessment based on FEMA flood zone data.",
-          "minLength": 1
+          "comment": "Flood risk assessment based on FEMA flood zone data."
         },
         "flood_zone_designation": {
           "type": [
@@ -705,10 +640,6 @@
           "comment": "Whether flood insurance is required for the property."
         },
         "wind_storm_risk": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Minimal",
             "Low",
@@ -716,26 +647,20 @@
             "High",
             "Extreme"
           ],
-          "comment": "Wind storm and hurricane risk assessment.",
-          "minLength": 1
+          "comment": "Wind storm and hurricane risk assessment."
         },
         "hurricane_engineering_compliance": {
           "type": "boolean",
           "comment": "Whether building is engineered for hurricane winds per current code."
         },
         "radon_risk_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Low",
             "Moderate",
             "High",
             "Concern"
           ],
-          "comment": "Radon gas exposure risk assessment.",
-          "minLength": 1
+          "comment": "Radon gas exposure risk assessment."
         },
         "radon_building_type_assessment": {
           "type": [
@@ -746,10 +671,6 @@
           "minLength": 1
         },
         "environmental_surroundings": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "CoastalBeach",
             "Mountains",
@@ -760,8 +681,7 @@
             "Rural",
             "Industrial"
           ],
-          "comment": "Primary environmental setting surrounding the property.",
-          "minLength": 1
+          "comment": "Primary environmental setting surrounding the property."
         },
         "beach_proximity": {
           "type": "object",
@@ -891,10 +811,6 @@
           "comment": "Climate assessment score."
         },
         "safety_grade": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "A+",
             "A",
@@ -910,8 +826,7 @@
             "D-",
             "F"
           ],
-          "comment": "Safety grade assessment.",
-          "minLength": 1
+          "comment": "Safety grade assessment."
         },
         "wellness_score": {
           "type": "number",
@@ -979,7 +894,6 @@
           "comment": "The status of the validation provider."
         },
         "email_frequency": {
-          "type": "string",
           "enum": [
             "Instant",
             "Daily",
@@ -1063,7 +977,6 @@
       "deprecated_properties": [],
       "properties": {
         "email_frequency": {
-          "type": "string",
           "enum": [
             "Instant",
             "Daily",
@@ -1094,7 +1007,6 @@
       "deprecated_properties": [],
       "properties": {
         "email_frequency": {
-          "type": "string",
           "enum": [
             "Instant",
             "Daily",
@@ -1107,7 +1019,6 @@
           "comment": "The credit score of the customer."
         },
         "usage_type": {
-          "type": "string",
           "enum": [
             "PrimaryResidence",
             "SecondHome",
@@ -1253,7 +1164,6 @@
           }
         },
         "refinance_program_type": {
-          "type": "string",
           "enum": [
             "InterestRateReduction",
             "StreamlinedWithoutAppraisal",
@@ -1265,7 +1175,6 @@
           "comment": "A free-form text field to capture additional detail when 'other' is selected for the refinance program type."
         },
         "refinance_type": {
-          "type": "string",
           "enum": [
             "LimitedCashOut",
             "CashOut",
@@ -1281,7 +1190,6 @@
           }
         },
         "current_first_mortgage_holder_type": {
-          "type": "string",
           "enum": [
             "FannieMae",
             "FreddieMac",
@@ -1622,10 +1530,6 @@
           "minLength": 1
         },
         "address_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Prior",
             "Primary",
@@ -1636,8 +1540,7 @@
             "Location",
             "LegalEntityFormation"
           ],
-          "comment": "Address type is a classification or categorization of an address based on its purpose or characteristics.",
-          "minLength": 1
+          "comment": "Address type is a classification or categorization of an address based on its purpose or characteristics."
         },
         "address_type_other_description": {
           "type": [
@@ -1648,10 +1551,6 @@
           "minLength": 1
         },
         "address_unit_designator_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Penthouse",
             "Trailer",
@@ -1678,8 +1577,7 @@
             "Building",
             "Lower"
           ],
-          "comment": "Address unit designator type describes the category that a specific unit belongs to.",
-          "minLength": 1
+          "comment": "Address unit designator type describes the category that a specific unit belongs to."
         },
         "attention_to_name": {
           "type": [
@@ -1824,18 +1722,13 @@
           "minLength": 1
         },
         "delivery_point_bar_code_check": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "S",
             "Y",
             "N",
             "D"
           ],
-          "comment": "A Delivery Point Barcode (DPBC) check is a verification process used to ensure the accuracy and validity of a Delivery Point Barcode, which is a barcode used by the United States Postal Service (USPS) to automate the sorting and delivery of mail.",
-          "minLength": 1
+          "comment": "A Delivery Point Barcode (DPBC) check is a verification process used to ensure the accuracy and validity of a Delivery Point Barcode, which is a barcode used by the United States Postal Service (USPS) to automate the sorting and delivery of mail."
         },
         "fips_country_code": {
           "type": [
@@ -1870,15 +1763,10 @@
           "minLength": 1
         },
         "fips_county_subdivision_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "MinorCivilDivision",
             "CensusCountyDivision"
-          ],
-          "minLength": 1
+          ]
         },
         "fips_place_code": {
           "type": [
@@ -2014,10 +1902,6 @@
           "minLength": 1
         },
         "plus_four_postal_code_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "P",
             "S",
@@ -2032,8 +1916,7 @@
             "FirmOrCompanyAddress",
             "G"
           ],
-          "comment": "The plus_four_postal_code_type field, assigned by USPS (United States Postal Service), is used to categorize and define the type of address by indicating whether it includes an extended four-digit code, facilitating mail sorting and delivery in the United States.",
-          "minLength": 1
+          "comment": "The plus_four_postal_code_type field, assigned by USPS (United States Postal Service), is used to categorize and define the type of address by indicating whether it includes an extended four-digit code, facilitating mail sorting and delivery in the United States."
         },
         "post_office_box_identifier": {
           "type": [
@@ -2061,14 +1944,9 @@
           "minLength": 1
         },
         "recording_jurisdiction_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "County"
-          ],
-          "minLength": 1
+          ]
         },
         "recording_jurisdiction_type_other_description": {
           "type": [
@@ -2137,10 +2015,6 @@
           "comment": "A street name that doesn't contain directional abbreviations"
         },
         "street_post_directional_text": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "N",
             "S",
@@ -2151,14 +2025,9 @@
             "SE",
             "SW"
           ],
-          "comment": "Street post directional text refers to the directional indicator or suffix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area.",
-          "minLength": 1
+          "comment": "Street post directional text refers to the directional indicator or suffix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area."
         },
         "street_pre_directional_text": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "N",
             "S",
@@ -2169,8 +2038,7 @@
             "SE",
             "SW"
           ],
-          "comment": "Street pre directional text refers to the directional indicator or prefix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area.",
-          "minLength": 1
+          "comment": "Street pre directional text refers to the directional indicator or prefix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area."
         },
         "street_primary_number": {
           "type": [
@@ -2197,10 +2065,6 @@
           "minLength": 1
         },
         "street_suffix_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Rds",
             "Blvd",
@@ -2405,8 +2269,7 @@
             "Grv",
             "Crk",
             "Crk"
-          ],
-          "minLength": 1
+          ]
         },
         "unincorporated_area_name": {
           "type": [
@@ -2552,7 +2415,6 @@
           "comment": "A profile name is a unique label used to group API scenarios."
         },
         "scenario_type": {
-          "type": "string",
           "enum": [
             "Mocked",
             "Real"
@@ -2675,7 +2537,6 @@
           "comment": "Taxes are fees levied by federal, state, and local governments on income, goods and services, and property, among other things. There are several types of taxes in the United States, such as property tax, income tax, sales tax, payroll tax, excise tax and estate tax."
         },
         "invocation_type": {
-          "type": "string",
           "enum": [
             "Analytics",
             "SinglePartner",
@@ -2699,7 +2560,6 @@
       "deprecated_properties": [],
       "properties": {
         "appliance_type": {
-          "type": "string",
           "enum": [
             "SelfCleaningOven",
             "WaterSoftenerOwned",
@@ -2745,7 +2605,6 @@
           "comment": "The name of the persons or entity(ies) in whose name the account is held."
         },
         "asset_account_type": {
-          "type": "string",
           "enum": [
             "RelatedPartyManagedAccount",
             "BorrowerManagedAccount"
@@ -2777,7 +2636,6 @@
           "comment": "The date on which the asset statement was issued."
         },
         "asset_type": {
-          "type": "string",
           "enum": [
             "GiftOfPropertyEquity",
             "CheckingAccount",
@@ -2865,7 +2723,6 @@
           "comment": "owner of record description refers to the individual or entity that is listed as the owner of a mortgage loan in the official records of the lender or servicer. \n\nThis information is used to identify the rightful owner of the mortgage loan and to ensure that payments and other transactions related to the loan are properly credited and tracked. \nThe owner of record is typically the lender that originated the loan, but it can also be an investor that has purchased the loan or rdf:type servicer that is managing the loan on behalf of the owner. \nThe description of the owner of record is important for maintaining accurate records and for ensuring that all parties involved in the mortgage loan process have rdf:type clear understanding of who is responsible for the loan."
         },
         "reo_intended_disposition_type": {
-          "type": "string",
           "enum": [
             "Retained",
             "Sold",
@@ -2956,7 +2813,6 @@
           "comment": "Authorization_timestamp refers to the date and time that the person granted the authorization."
         },
         "authorization_type": {
-          "type": "string",
           "enum": [
             "SoftCreditPull",
             "HardCreditPull"
@@ -3042,7 +2898,6 @@
           "comment": "The A minus caution fee level description is used by the lender to provide additional information about the risk associated with a particular loan, and to help the lender make informed decisions about loan approvals and risk management."
         },
         "asset_representation_and_warranty_relief_eligibility_type": {
-          "type": "string",
           "enum": [
             "NotEligible",
             "Unavailable",
@@ -3063,7 +2918,6 @@
           "comment": "Indicates that some or all of the loan information is not required to be formally documented in the loan submission package, e.g., no requirement to provide a wage statement, tax returns, etc."
         },
         "aus_eligibility_type": {
-          "type": "string",
           "enum": [
             "Ineligible",
             "Eligible"
@@ -3087,7 +2941,6 @@
           "comment": "A free-form text description of the automated underwriting process used on the loan."
         },
         "aus_purchase_eligibility_type": {
-          "type": "string",
           "enum": [
             "Eligible"
           ],
@@ -3098,7 +2951,6 @@
           "comment": "The loan approval recommendation determined by the automated underwriting system."
         },
         "aus_recommendation_type": {
-          "type": "string",
           "enum": [
             "Caution",
             "OutOfScope",
@@ -3124,7 +2976,6 @@
           "comment": "AUS (Automated Underwriting System) transaction identifier is a unique identifier assigned to each transaction that is processed through an Automated Underwriting System (AUS)."
         },
         "aus_type": {
-          "type": "string",
           "enum": [
             "Assetwise",
             "LoanProductAdvisor",
@@ -3152,7 +3003,6 @@
           "comment": "Refers to the specific representations and warranties related to the collateral that are eligible for relief based on the loan characteristics and lender underwriting guidelines."
         },
         "collateral_representation_and_warranty_relief_eligibility_type": {
-          "type": "string",
           "enum": [
             "NotEligible",
             "Unavailable",
@@ -3169,7 +3019,6 @@
           "comment": "The FHA total mortgage scorecard indicator is rdf:type numeric score that ranges from 0 to 100, with higher scores indicating lower risk to the FHA."
         },
         "income_representation_and_warranty_relief_eligibility_type": {
-          "type": "string",
           "enum": [
             "NotEligible",
             "Unavailable",
@@ -3220,7 +3069,6 @@
         },
         "template_engine": {
           "required": true,
-          "type": "string",
           "comment": "The template engine used to render the template.",
           "enum": [
             "Jinja2",
@@ -3242,7 +3090,6 @@
           "comment": "An campaign identifier is a unique identifier for the campaign."
         },
         "campaign_type": {
-          "type": "string",
           "enum": [
             "Buyer",
             "Seller",
@@ -3408,7 +3255,6 @@
           "comment": "An automobile identifier is a unique identifier for the automobile (e.g., Vehicle Identification Number/VIN)."
         },
         "automobile_type": {
-          "type": "string",
           "enum": [
             "Electric",
             "SportsCar",
@@ -3488,7 +3334,6 @@
           "comment": "Refers to a seed directory or a primary path under which all the files related to the bundle are stored and organized."
         },
         "bundle_type": {
-          "type": "string",
           "enum": [
             "Chat",
             "Service",
@@ -3521,7 +3366,6 @@
       ],
       "properties": {
         "author_role": {
-          "type": "string",
           "enum": [
             "System",
             "Assistant",
@@ -3619,7 +3463,6 @@
           "comment": "Cost associated with a closing adjustment item."
         },
         "closing_adjustment_item_type": {
-          "type": "string",
           "enum": [
             "Grant",
             "DebtAndIncome",
@@ -3662,7 +3505,6 @@
           "comment": "Total cost related to a category of closing costs in a closing disclosure."
         },
         "integrated_disclosure_cash_to_close_item_type": {
-          "type": "string",
           "enum": [
             "LenderCredits",
             "TotalMortgageLoans",
@@ -3684,7 +3526,6 @@
           "comment": "The category in which costs related to closing are grouped. This item type appears as a 'total' on a closing costs integrated disclosure."
         },
         "integrated_disclosure_section_type": {
-          "type": "string",
           "enum": [
             "ServicesYouCanShopFor",
             "DueFromSellerAtClosing",
@@ -3886,7 +3727,6 @@
           "comment": "A boolean field that indicates whether the email address is subscribed to receive communications."
         },
         "environment_type": {
-          "type": "string",
           "enum": [
             "Development",
             "Production",
@@ -3920,7 +3760,6 @@
           "comment": "A secret refers to confidential information for authentication. This value is encrypted when stored."
         },
         "status": {
-          "type": "string",
           "enum": [
             "CREATED",
             "CREATING",
@@ -4281,7 +4120,6 @@
           "comment": "A domain name is a unique and human-readable address that identifies a website on the internet. It serves as a memorable and recognizable name for accessing websites rather than using numerical IP addresses."
         },
         "environment_type": {
-          "type": "string",
           "enum": [
             "Development",
             "Production",
@@ -4338,7 +4176,6 @@
           "type": "string"
         },
         "company_relation_state_type": {
-          "type": "string",
           "enum": [
             "Lead",
             "New",
@@ -4347,7 +4184,6 @@
           "comment": "Company relation state indicates the current state of the target company in its relationship with Staircase. Some examples of relation states include new, lead and archived."
         },
         "company_relation_status_type": {
-          "type": "string",
           "enum": [
             "Contract",
             "Sales",
@@ -4356,7 +4192,6 @@
           "comment": "Company relation status type indicates the status type for the company."
         },
         "company_relation_type": {
-          "type": "string",
           "enum": [
             "Partner",
             "Customer"
@@ -4408,7 +4243,6 @@
       "deprecated_properties": [],
       "properties": {
         "consent_action_type": {
-          "type": "string",
           "enum": [
             "Transaction",
             "MailReceipt",
@@ -4427,7 +4261,6 @@
           "comment": "Provides the context or scope of the consent, usually in a human-readable format."
         },
         "consent_status": {
-          "type": "string",
           "enum": [
             "Expired",
             "Revoked",
@@ -4474,7 +4307,6 @@
           "comment": "A console configuration identifier is a unique code or string of characters assigned to a console configuration.  The identifier is used to uniquely identify and access that configuration."
         },
         "console_configuration_type": {
-          "type": "string",
           "enum": [
             "Listview"
           ],
@@ -5335,7 +5167,6 @@
       ],
       "properties": {
         "contact_attempt_status": {
-          "type": "string",
           "enum": [
             "Successful",
             "Attempted"
@@ -5348,7 +5179,6 @@
           "comment": "The date when the correspondence took place."
         },
         "feedback_status": {
-          "type": "string",
           "enum": [
             "NoFeedback",
             "Disliked",
@@ -5530,7 +5360,6 @@
       "deprecated_properties": [],
       "properties": {
         "credit_business_detail_type": {
-          "type": "string",
           "enum": [
             "AdvertisingAgencies",
             "AdvertisingMiscellaneous",
@@ -5696,7 +5525,6 @@
           "comment": "The result from a credit inquiry - did the lender offer credit, refuse credit, etc."
         },
         "credit_business_type": {
-          "type": "string",
           "enum": [
             "Advertising",
             "Automotive",
@@ -6283,7 +6111,6 @@
           "comment": "Credit request data credit repository included equifax indicator is a specific flag or marker that indicates whether TransUnion is one of the credit reporting agencies included in a consumer credit request."
         },
         "credit_request_type": {
-          "type": "string",
           "enum": [
             "Joint",
             "Individual"
@@ -6523,7 +6350,6 @@
           "comment": "Phone call duration is the length of time of a spoken phone conversation, measured in seconds."
         },
         "phone_call_status": {
-          "type": "string",
           "enum": [
             "Queued",
             "Ringing",
@@ -6541,7 +6367,6 @@
           "comment": "Optional additional details about the contact method when 'Other' is selected in `phone_call_status`."
         },
         "phone_call_direction": {
-          "type": "string",
           "enum": [
             "Outgoing",
             "Incoming"
@@ -6581,7 +6406,6 @@
           "comment": "A string-based reference to the geographical location associated with a click. This data point can be used to infer user intent, such as proximity to a business or interest in a specific geographical area."
         },
         "click_source_type": {
-          "type": "string",
           "enum": [
             "GoogleSearch",
             "SearchPartner",
@@ -6597,7 +6421,6 @@
           "comment": "Optional additional details about the contact method when 'Other' is selected in `click_source_type`."
         },
         "keyword_match_type": {
-          "type": "string",
           "enum": [
             "Exact",
             "Phrase",
@@ -6622,7 +6445,6 @@
           "comment": "The specific website or app where the ad was clicked."
         },
         "feedback_status": {
-          "type": "string",
           "enum": [
             "NoFeedback",
             "Disliked",
@@ -6635,7 +6457,6 @@
           "comment": "The exact date and time the contact occurred."
         },
         "contact_method_type": {
-          "type": "string",
           "enum": [
             "Mail",
             "InPersonVisit",
@@ -6659,7 +6480,6 @@
           "comment": "Optional additional details about the contact method when 'Other' is selected in `contact_method_type`."
         },
         "contact_purpose_type": {
-          "type": "string",
           "enum": [
             "ListingInquiry",
             "PropertyShowing",
@@ -6683,7 +6503,6 @@
           "comment": "Optional additional details about the contact purpose when 'Other' is selected in `contact_purpose_type`."
         },
         "contact_result_type": {
-          "type": "string",
           "enum": [
             "Moved",
             "LeftMessage",
@@ -6702,7 +6521,6 @@
           "comment": "Optional additional details about the contact result when 'Other' is selected in `contact_result_type`."
         },
         "contact_action_type": {
-          "type": "string",
           "enum": [
             "SiteVisit",
             "ScheduleACallClick",
@@ -6720,7 +6538,6 @@
           "comment": "Creation date and time of assigned contact status type."
         },
         "contact_status_type": {
-          "type": "string",
           "enum": [
             "Archived",
             "Read",
@@ -6757,7 +6574,6 @@
           "comment": "The contact message or content."
         },
         "contact_initiator_role": {
-          "type": "string",
           "comment": "Indicates the role of the individual who initiated the contact.",
           "enum": [
             "Assistant",
@@ -6919,7 +6735,6 @@
           "comment": "When true, indicates the borrower has agreed to allow servicer to release borrower contact information to a housing counselor."
         },
         "citizenship_residency_type": {
-          "type": "string",
           "enum": [
             "NonPermanentResidentAlien",
             "Unknown",
@@ -6977,7 +6792,6 @@
           "comment": "When true, indicates the Borrower has completed a short sale or pre-foreclosure sale where the Lender accepted less than full value for the outstanding mortgage balance within the past seven years."
         },
         "prior_property_title_type": {
-          "type": "string",
           "enum": [
             "JointWithSpouse",
             "Sole",
@@ -6985,7 +6799,6 @@
           ]
         },
         "prior_property_usage_type": {
-          "type": "string",
           "enum": [
             "SecondHome",
             "PrimaryResidence",
@@ -7041,7 +6854,6 @@
       "deprecated_properties": [],
       "properties": {
         "deployment_status_type": {
-          "type": "string",
           "enum": [
             "Failed",
             "Succeeded"
@@ -7097,7 +6909,6 @@
           "comment": "Builder model refers to a specific design or floor plan offered by a home builder. This model represents a standardized layout and set of features that can be replicated in different homes within a development or community."
         },
         "community_type": {
-          "type": "string",
           "enum": [
             "ActiveAdult55OrOlder",
             "EcoFriendly",
@@ -7152,7 +6963,6 @@
           "comment": "Device category refers to the classification of devices based on the type of device used by a user to access content."
         },
         "device_type": {
-          "type": "string",
           "enum": [
             "Mobile",
             "Tablet",
@@ -7289,17 +7099,12 @@
           "minLength": 1
         },
         "file_format": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "jpeg",
             "png",
             "txt"
           ],
-          "comment": "The format or MIME type of the file.",
-          "minLength": 1
+          "comment": "The format or MIME type of the file."
         },
         "name": {
           "type": [
@@ -7328,10 +7133,6 @@
           "minLength": 1
         },
         "document_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "ConveyanceDeedQuitClaimDeed",
             "ConveyanceDeedBargainAndSaleDeed",
@@ -7364,8 +7165,7 @@
             "BuildersCertificationTermiteTreatment",
             "PropertyImage"
           ],
-          "comment": "Semantic role or classification of the document.",
-          "minLength": 1
+          "comment": "Semantic role or classification of the document."
         }
       }
     },
@@ -7448,7 +7248,6 @@
           "comment": "A URL pointing to an image of the property."
         },
         "delivery_method_type": {
-          "type": "string",
           "enum": [
             "Mail",
             "Fax",
@@ -7517,7 +7316,6 @@
           "comment": "Contains a staircase blob identifier to a tray image, which is a visual address component."
         },
         "document_type": {
-          "type": "string",
           "enum": [
             "ConveyanceDeedQuitClaimDeed",
             "ConveyanceDeedBargainAndSaleDeed",
@@ -7567,7 +7365,6 @@
           "comment": "Blob identifier refers to a unique identifier assigned to a binary large object (BLOB), which is a large binary data structure that can be used to store documents and other types of data. BLOBs are often used in mortgage banking systems to store important loan documents such as loan applications, credit reports, income verification documents, and property appraisals."
         },
         "staircase_document_category_type": {
-          "type": "string",
           "enum": [
             "Partner",
             "Staircase"
@@ -7652,7 +7449,6 @@
       "is_deprecated": false,
       "properties": {
         "email_event_type": {
-          "type": "string",
           "enum": [
             "Archived",
             "Read",
@@ -7710,7 +7506,6 @@
           "comment": "Indicates if the physical place of employment of the borrower is located outside of the United States. If the employer of the borrower is a foreign entity and the place of employment of the borrower is located inside the United States this value would be"
         },
         "employment_classification_type": {
-          "type": "string",
           "enum": [
             "Primary",
             "Secondary"
@@ -7770,14 +7565,12 @@
           "comment": "The date that the borrower started the employment position with the employer."
         },
         "employment_status_type": {
-          "type": "string",
           "enum": [
             "Previous",
             "Current"
           ]
         },
         "employment_subtype": {
-          "type": "string",
           "enum": [
             "Contractor",
             "Seasonal",
@@ -7792,7 +7585,6 @@
           "comment": "The total number of years the borrower has been employed in that reported occupation. One source of this data is the URLA Section IV (Years Employed In This Line Of Work.)"
         },
         "employment_type": {
-          "type": "string",
           "enum": [
             "SelfEmployed",
             "Employed",
@@ -7815,7 +7607,6 @@
           "comment": "When true, indicates that the amount of income is earned through a foreign corporation/government and is paid in foreign currency."
         },
         "ownership_interest_type": {
-          "type": "string",
           "enum": [
             "GreaterThanOrEqualTo25Percent",
             "LessThan25Percent"
@@ -7847,7 +7638,6 @@
           "comment": "When true, indicates that the borrower is employed by a family member, property seller, real estate agent/broker, or other party to the transaction."
         },
         "special_borrower_employer_relationship_type": {
-          "type": "string",
           "enum": [
             "EmployedByRelative"
           ]
@@ -7905,7 +7695,6 @@
           "comment": "An environment name is a human-readable label or identifier given to an environment. It is usually a short and descriptive name that helps users identify and distinguish one computing environment from another."
         },
         "environment_status": {
-          "type": "string",
           "enum": [
             "Deactive",
             "Active",
@@ -7914,7 +7703,6 @@
           "comment": "Environment status refers to the current condition or state of a Staircase environment, which includes all software and cloud computing resources. The status of an environment can indicate various things, such as whether a productis up and running or if it is experiencing issues."
         },
         "environment_type": {
-          "type": "string",
           "enum": [
             "Development",
             "Production",
@@ -7969,7 +7757,6 @@
           "comment": "An error timestamp is a piece of information included in an error message or log entry that indicates the date and time when the error occurred. The timestamp helps to track and diagnose errors by providing a chronological record of when they occurred."
         },
         "error_type": {
-          "type": "string",
           "enum": [
             "ResourceError",
             "RuntimeError",
@@ -7986,7 +7773,6 @@
           "comment": "Error type refers to the category or classification of an error based on its characteristics and source."
         },
         "severity_level": {
-          "type": "string",
           "enum": [
             "Medium",
             "Warning",
@@ -8026,7 +7812,6 @@
           "comment": "The percentage rate used to calculate the per diem amount of an escrow item cost."
         },
         "escrow_item_type": {
-          "type": "string",
           "enum": [
             "HomeownersAssociationSpecialAssessment",
             "EnergyEfficientImprovementFunds",
@@ -8077,7 +7862,6 @@
       "deprecated_properties": [],
       "properties": {
         "projected_payment_escrowed_type": {
-          "type": "string",
           "enum": [
             "SomeEscrowed",
             "Escrowed",
@@ -8086,7 +7870,6 @@
           "comment": "Indicates what portion of the projected payment will be placed in escrow."
         },
         "projected_payment_estimated_taxes_insurance_assessment_component_type": {
-          "type": "string",
           "enum": [
             "HomeownersInsurance",
             "HomeownersAssociationDues",
@@ -8203,7 +7986,6 @@
           "comment": "The number of months the borrower must make payments in order to satisfy the identified expense."
         },
         "frequency_type": {
-          "type": "string",
           "enum": [
             "Quarterly",
             "Semimonthly",
@@ -8217,7 +7999,6 @@
           "comment": "Expense frequency type indicates how frequently the expense is paid."
         },
         "expense_type": {
-          "type": "string",
           "comment": "Represents general expenses.",
           "enum": [
             "GroceryToiletry",
@@ -8251,7 +8032,6 @@
           ]
         },
         "fixed_property_expense_type": {
-          "type": "string",
           "comment": "Represents expenses tied directly to a property and incurred regardless of occupancy.",
           "enum": [
             "FloodInsurance",
@@ -8265,7 +8045,6 @@
           ]
         },
         "occupant_property_expense_type": {
-          "type": "string",
           "comment": "Represents expenses tied to an individual occupying the property, and are incurred only when the property is occupied.",
           "enum": [
             "Cable",
@@ -8277,7 +8056,6 @@
           ]
         },
         "mortgage_property_expense_type": {
-          "type": "string",
           "comment": "Represents expenses related to the financial circumstances of the individual occupying the property, often associated with mortgage conditions.",
           "enum": [
             "EscrowShortage",
@@ -8344,7 +8122,6 @@
       ],
       "properties": {
         "lot_type": {
-          "type": "string",
           "enum": [
             "GreaterThanOneQuarterAcre",
             "PavedRoad",
@@ -8358,7 +8135,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the lot type."
         },
         "outdoor_living_space_type": {
-          "type": "string",
           "enum": [
             "Balcony",
             "Porch",
@@ -8374,7 +8150,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the outdoor living space type."
         },
         "parking_type": {
-          "type": "string",
           "enum": [
             "Covered",
             "Attached",
@@ -8397,7 +8172,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the parking type."
         },
         "pool_type": {
-          "type": "string",
           "enum": [
             "Association",
             "SaltWater",
@@ -8421,7 +8195,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the pool type."
         },
         "spa_type": {
-          "type": "string",
           "enum": [
             "JapaneseSoakingTub",
             "InGround",
@@ -8439,7 +8212,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the spa type."
         },
         "view_type": {
-          "type": "string",
           "enum": [
             "Courtyard",
             "Ocean",
@@ -8568,10 +8340,6 @@
           "minLength": 1
         },
         "wildfire_risk_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Very Low",
             "Low",
@@ -8580,14 +8348,9 @@
             "Very High",
             "Extreme"
           ],
-          "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history.",
-          "minLength": 1
+          "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history."
         },
         "air_quality_index": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Good",
             "Moderate",
@@ -8596,36 +8359,25 @@
             "Very Unhealthy",
             "Hazardous"
           ],
-          "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area.",
-          "minLength": 1
+          "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area."
         },
         "noise_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Quiet",
             "Moderate",
             "Busy",
             "Loud"
           ],
-          "comment": "Ambient noise level in the area affecting quality of life and property desirability.",
-          "minLength": 1
+          "comment": "Ambient noise level in the area affecting quality of life and property desirability."
         },
         "light_pollution_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Dark",
             "Rural",
             "Suburban",
             "Urban"
           ],
-          "comment": "Light pollution level affecting night sky visibility and natural darkness.",
-          "minLength": 1
+          "comment": "Light pollution level affecting night sky visibility and natural darkness."
         },
         "earthquake_zone": {
           "type": [
@@ -8636,18 +8388,13 @@
           "minLength": 1
         },
         "soil_stability": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Stable",
             "Moderate",
             "Unstable",
             "High Risk"
           ],
-          "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk.",
-          "minLength": 1
+          "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk."
         },
         "environmental_hazards": {
           "type": "array",
@@ -8687,7 +8434,6 @@
           "comment": "Taxes are fees levied by federal, state, and local governments on income, goods and services, and property, among other things. There are several types of taxes in the United States, such as property tax, income tax, sales tax, payroll tax, excise tax and estate tax."
         },
         "fee_type": {
-          "type": "string",
           "enum": [
             "MortgageInsuranceInitialPremium",
             "TitleServicesFeeTotal",
@@ -8904,7 +8650,6 @@
       ],
       "properties": {
         "application_taken_method_type": {
-          "type": "string",
           "enum": [
             "Mail",
             "Email",
@@ -8920,7 +8665,6 @@
           "comment": "The date demographic information was collected for a borrower or applicant."
         },
         "demographic_collection_version_type": {
-          "type": "string",
           "enum": [
             "Pre2018Version",
             "2018Version"
@@ -8935,7 +8679,6 @@
           "comment": "When true, indicates the ethnicity was collected based on visual observation or surname."
         },
         "ethnicity_origin_type": {
-          "type": "string",
           "enum": [
             "Cuban",
             "PuertoRican",
@@ -8951,7 +8694,6 @@
           "comment": "When true, indicates the borrower has stated that they do not wish to furnish the HMDA ethnicity information."
         },
         "ethnicity_type": {
-          "type": "string",
           "enum": [
             "InformationNotProvidedByApplicantInMailInternetOrTelephoneApplication",
             "NotHispanicOrLatino",
@@ -8972,7 +8714,6 @@
           "comment": "When true, indicates the borrower has stated that they do not wish to furnish the HMDA gender information."
         },
         "gender_type": {
-          "type": "string",
           "enum": [
             "InformationNotProvidedUnknown",
             "NotApplicable",
@@ -8998,7 +8739,6 @@
           "comment": "When true, indicates the borrower has stated that they do not wish to furnish the HMDA race information."
         },
         "race_type": {
-          "type": "string",
           "enum": [
             "NotApplicable",
             "Asian",
@@ -9222,7 +8962,6 @@
       "deprecated_properties": [],
       "properties": {
         "homeowners_association_amenity_type": {
-          "type": "string",
           "enum": [
             "SpaHotTub",
             "AssociationManagement",
@@ -9253,7 +8992,6 @@
       "deprecated_properties": [],
       "properties": {
         "homeowners_association_inclusion_type": {
-          "type": "string",
           "enum": [
             "SpaHotTub",
             "AssociationManagement",
@@ -9370,18 +9108,13 @@
           "minLength": 1
         },
         "homeowners_association_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Mandatory",
             "Voluntary",
             "Condominium",
             "Hybrid"
           ],
-          "comment": "Refers to the type of Homeowners association (HOA).",
-          "minLength": 1
+          "comment": "Refers to the type of Homeowners association (HOA)."
         },
         "homeowners_association_amount": {
           "type": "decimal",
@@ -9397,10 +9130,6 @@
           "minimum": 1
         },
         "homeowners_association_fee_frequency": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Monthly",
             "Quarterly",
@@ -9408,14 +9137,9 @@
             "Bi-Annually",
             "One-Time"
           ],
-          "comment": "How often the HOA fee is charged.",
-          "minLength": 1
+          "comment": "How often the HOA fee is charged."
         },
         "amenities": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "pool",
             "clubhouse",
@@ -9437,14 +9161,9 @@
             "co_working_space",
             "package_lockers"
           ],
-          "comment": "List of common amenities offered (e.g., pool, clubhouse, gym, golf course).",
-          "minLength": 1
+          "comment": "List of common amenities offered (e.g., pool, clubhouse, gym, golf course)."
         },
         "security_features": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "24_7_guard",
             "gated_entry",
@@ -9458,8 +9177,7 @@
             "alarm_system",
             "smart_locks"
           ],
-          "comment": "Standard security infrastructure or services (e.g., 24/7 guard, gated entry, surveillance cameras).",
-          "minLength": 1
+          "comment": "Standard security infrastructure or services (e.g., 24/7 guard, gated entry, surveillance cameras)."
         }
       },
       "relationships": {
@@ -9565,7 +9283,6 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "leasing_policy": {
-          "type": "string",
           "enum": [
             "NoRental",
             "ShortTermRental",
@@ -9581,7 +9298,6 @@
           "comment": "Summary of leasing rules and duration limits (e.g., minimum stay, frequency, HOA approval)."
         },
         "pet_policy": {
-          "type": "string",
           "enum": [
             "NoPets",
             "PetFriendly",
@@ -9599,7 +9315,6 @@
           "comment": "Information about pet allowances and restrictions (e.g., pet friendly, breed/size restrictions)."
         },
         "vehicle_policy": {
-          "type": "string",
           "enum": [
             "NoRestrictions",
             "NoRVs",
@@ -9616,7 +9331,6 @@
           "comment": "Rules around parking and vehicle types (e.g., no RVs, reserved parking)."
         },
         "general_restrictions": {
-          "type": "string",
           "enum": [
             "NoRestrictions",
             "QuietHours",
@@ -9717,7 +9431,6 @@
           "comment": "An income identifier is a unique identifier for the income record of an individual or organization."
         },
         "income_pay_frequency_type": {
-          "type": "string",
           "enum": [
             "Monthly",
             "Biweekly",
@@ -9727,7 +9440,6 @@
           "comment": "Income pay frequency refers to the frequency at which an individual or entity receives payment for their work or services."
         },
         "income_type": {
-          "type": "string",
           "enum": [
             "Pension",
             "MiscellaneousIncome",
@@ -9897,7 +9609,6 @@
           "comment": "The housing cost over five years amount is the amount resulting from the calculation that adds up all of the costs associated with owning a home over a five-year period. This includes not only the mortgage payment, but also property taxes, insurance premiums, maintenance costs, and any other expenses related to home ownership. To calculate the housing cost over five years, you would first determine the total cost of the mortgage payment over that period of time, including principal and interest. Next, you would add in the cost of property taxes and insurance premiums, which are typically paid on an annual basis but can be divided by five to get an average annual cost. You would also factor in an estimate for maintenance and repair costs, which can vary depending on the age and condition of the home."
         },
         "investor_program_name_type": {
-          "type": "string",
           "enum": [
             "PrimeRatePlus",
             "PaymentPower",
@@ -9911,7 +9622,6 @@
           "comment": "An investor program name type (other) description refers to a description for a non-standard type of loan designed for real estate investors. Since this program type is non-standard, it is typically designated as an 'other' type."
         },
         "loan_identifier_type": {
-          "type": "string",
           "enum": [
             "MersMin",
             "ServicerLoan",
@@ -9976,7 +9686,6 @@
           "comment": "The rate_quote_product_comparison_indicator identifies loans where the mortgage lender has provided a rate quote that allows borrowers to compare different mortgage products based on the interest rates and fees associated with each loan option."
         },
         "rate_quote_type": {
-          "type": "string",
           "enum": [
             "Estimated",
             "Detail"
@@ -10058,7 +9767,6 @@
           "comment": "A version of the icebreaker message where sensitive or identifiable information has been obscured or replaced."
         },
         "lead_interaction_type": {
-          "type": "string",
           "enum": [
             "Unread",
             "Starred",
@@ -10151,7 +9859,6 @@
           "comment": "The invocation message is a human-readable description or message related to the invocation. It can include information about the status, result, or any relevant details of the invocation, and is often used for logging or user notifications"
         },
         "invocation_status": {
-          "type": "string",
           "enum": [
             "Timeout",
             "Failed",
@@ -10249,7 +9956,6 @@
           "comment": "A lead identifier is a unique alphanumeric string used to identify a specific lead."
         },
         "lead_source": {
-          "type": "string",
           "enum": [
             "OpenHouse",
             "EmployeeContact",
@@ -10267,7 +9973,6 @@
           "comment": "Indicates what is the source of this lead."
         },
         "lead_type": {
-          "type": "string",
           "enum": [
             "Buy",
             "Sell"
@@ -10454,7 +10159,6 @@
       "deprecated_properties": [],
       "properties": {
         "relation_role": {
-          "type": "string",
           "enum": [
             "Buyer",
             "Seller",
@@ -10519,7 +10223,6 @@
       "deprecated_properties": [],
       "properties": {
         "liability_current_rating_type": {
-          "type": "string",
           "enum": [
             "AsAgreed",
             "BankruptcyOrWageEarnerPlan",
@@ -10540,7 +10243,6 @@
           "comment": "The liability account's current rating (as of Date Reported) for how timely the borrower has been making payments on this account."
         },
         "credit_business_detail_type": {
-          "type": "string",
           "enum": [
             "AdvertisingAgencies",
             "AdvertisingMiscellaneous",
@@ -10700,7 +10402,6 @@
           "type": "decimal"
         },
         "liability_account_status_type": {
-          "type": "string",
           "enum": [
             "Closed",
             "Frozen",
@@ -10712,7 +10413,6 @@
           "comment": "The status of the liability account (e.g. open, closed)."
         },
         "liability_highest_adverse_rating_type": {
-          "type": "string",
           "enum": [
             "AsAgreed",
             "BankruptcyOrWageEarnerPlan",
@@ -10733,7 +10433,6 @@
           "comment": "The liability accounts highest (or worst) rating type for how timely the borrower has been making payments on this account."
         },
         "liability_terms_source_type": {
-          "type": "string",
           "enum": [
             "Calculated",
             "Provided"
@@ -10741,7 +10440,6 @@
           "comment": "The source of the terms established for repayment of a loan."
         },
         "credit_business_type": {
-          "type": "string",
           "enum": [
             "Advertising",
             "Automotive",
@@ -10772,7 +10470,6 @@
           "comment": "The type of business that has extended a line of credit or loan to a borrower."
         },
         "liability_loan_type": {
-          "type": "string",
           "enum": [
             "Agriculture",
             "Airplane",
@@ -10882,7 +10579,6 @@
           "comment": "The type of loan associated with the liability."
         },
         "integrated_disclosure_section_type": {
-          "type": "string",
           "enum": [
             "ServicesYouCanShopFor",
             "DueFromSellerAtClosing",
@@ -11014,7 +10710,6 @@
           "type": "boolean"
         },
         "liability_type": {
-          "type": "string",
           "enum": [
             "Garnishments",
             "MortgageLoan",
@@ -11126,7 +10821,6 @@
       "deprecated_properties": [],
       "properties": {
         "license_authority_level_type": {
-          "type": "string",
           "enum": [
             "Private",
             "PublicState",
@@ -11190,7 +10884,6 @@
       ],
       "properties": {
         "listing_status_type": {
-          "type": "string",
           "enum": [
             "Contract",
             "Expired",
@@ -11217,7 +10910,6 @@
           "comment": "The date when a specific price was set or adjusted for the listing."
         },
         "price_type": {
-          "type": "string",
           "enum": [
             "AcceptedOffer",
             "ForeclosureSale",
@@ -11255,7 +10947,6 @@
       "deprecated_properties": [],
       "properties": {
         "listing_term_type": {
-          "type": "string",
           "enum": [
             "ConventionalLoan",
             "VALoan",
@@ -11385,7 +11076,6 @@
           "comment": "Percent of commmission that will be paid as part of a real estate transaction."
         },
         "commission_type": {
-          "type": "string",
           "enum": [
             "BuyerAgent",
             "TransBrk",
@@ -11542,7 +11232,6 @@
           "comment": "The original list price of the property."
         },
         "listing_status_type": {
-          "type": "string",
           "enum": [
             "ComingSoon",
             "Contract",
@@ -11565,7 +11254,6 @@
           "comment": "A free-form text field used to collect additional information when Other is selected for the ListingStatusType."
         },
         "listing_price_type": {
-          "type": "string",
           "enum": [
             "AcceptedOffer",
             "ForeclosureSale",
@@ -11589,7 +11277,6 @@
           "comment": "Enumerated values indicating the nature of the price"
         },
         "listing_term_type": {
-          "type": "string",
           "enum": [
             "ConventionalLoan",
             "VALoan",
@@ -11631,7 +11318,6 @@
           "comment": "The dollar value of the forecast sales price of the subject property."
         },
         "property_typical_marketing_days_duration_type": {
-          "type": "string",
           "enum": [
             "Under30Days",
             "30to120days",
@@ -11648,7 +11334,6 @@
           "comment": "Commission Transaction Broker."
         },
         "short_sale_offering_type": {
-          "type": "string",
           "enum": [
             "Preapproved",
             "Requested"
@@ -12535,10 +12220,6 @@
           "comment": "When true, indicates that the loan is subject to active litigation."
         },
         "amortization_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "GraduatedPaymentArm",
             "Step",
@@ -12548,8 +12229,7 @@
             "RateImprovementMortgage",
             "AdjustableRate"
           ],
-          "comment": "Loan amortization type refers to the method used to calculate and pay off a loan over time. The two most common types of loan amortization are fully amortizing and partially amortizing.  In a fully amortizing loan, the borrower makes regular payments (usually monthly) that include both principal and interest. Each payment reduces the principal balance of the loan, and over time the loan is gradually paid off in full. In a partially amortizing loan, the borrower makes regular payments that include both principal and interest, but the payments are not large enough to fully pay off the loan by the end of its term. As a result, at the end of the loan term, the borrower must either make a balloon payment to pay off the remaining balance, refinance the loan, or enter into another agreement with the lender.",
-          "minLength": 1
+          "comment": "Loan amortization type refers to the method used to calculate and pay off a loan over time. The two most common types of loan amortization are fully amortizing and partially amortizing.  In a fully amortizing loan, the borrower makes regular payments (usually monthly) that include both principal and interest. Each payment reduces the principal balance of the loan, and over time the loan is gradually paid off in full. In a partially amortizing loan, the borrower makes regular payments that include both principal and interest, but the payments are not large enough to fully pay off the loan by the end of its term. As a result, at the end of the loan term, the borrower must either make a balloon payment to pay off the remaining balance, refinance the loan, or enter into another agreement with the lender."
         },
         "amortization_type_other_description": {
           "type": [
@@ -12582,10 +12262,6 @@
           "comment": "A benchmark interest rate that serves as the basis for determining the interest rate on an adjustable-rate mortgage."
         },
         "arm_index_value_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SOFR",
             "Libor",
@@ -12595,8 +12271,7 @@
             "Prime",
             "COFI"
           ],
-          "comment": "Refers to the specific type of benchmark or index used to determine the interest rate adjustments for an adjustable-rate mortgage (ARM).",
-          "minLength": 1
+          "comment": "Refers to the specific type of benchmark or index used to determine the interest rate adjustments for an adjustable-rate mortgage (ARM)."
         },
         "arm_lifetime_cap_amount": {
           "type": "decimal",
@@ -12718,18 +12393,13 @@
           "comment": "When true, indicates that there is buydown funding on this loan that reduces the interest rate and/or the payments for a specified period."
         },
         "buydown_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "OneOne",
             "TwoOne",
             "ThreeTwoOne",
             "OneZero"
           ],
-          "comment": "A mortgage buydown is a type of mortgage financing in which the borrower or a third party pays an additional fee, known as points, to the lender in exchange for a lower interest rate on the mortgage loan. The buydown can be a temporary or permanent reduction of the interest rate on the mortgage loan. There are two main types of buydowns: temporary and permanent.",
-          "minLength": 1
+          "comment": "A mortgage buydown is a type of mortgage financing in which the borrower or a third party pays an additional fee, known as points, to the lender in exchange for a lower interest rate on the mortgage loan. The buydown can be a temporary or permanent reduction of the interest rate on the mortgage loan. There are two main types of buydowns: temporary and permanent."
         },
         "capitalized_fees_indicator": {
           "type": "boolean",
@@ -12801,15 +12471,10 @@
           "comment": "When true, indicates that the loan is a construction loan."
         },
         "construction_to_permanent_closing_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "TwoClosing",
             "OneClosing"
-          ],
-          "minLength": 1
+          ]
         },
         "conversion_of_contract_for_deed_indicator": {
           "type": "boolean",
@@ -12820,15 +12485,10 @@
           "comment": "Indicates that the loan has a convertible characteristic."
         },
         "correspondent_acquisition_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Flow",
             "Bulk"
-          ],
-          "minLength": 1
+          ]
         },
         "correspondent_acquisition_type_other_description": {
           "type": [
@@ -12847,16 +12507,11 @@
           "comment": "When true, indicates that the loan has a credit enhancement."
         },
         "creditor_servicing_of_loan_statement_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "CreditorMayAssignSellOrTransferServicingOfLoan",
             "CreditorIntendsToTransferServicingOfLoan",
             "CreditorIntendsToServiceLoan"
-          ],
-          "minLength": 1
+          ]
         },
         "creditor_servicing_of_loan_statement_type_other_description": {
           "type": [
@@ -12980,16 +12635,11 @@
           "comment": "Indicates that an eNote is used as part of this loan."
         },
         "escrow_absence_reason_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "LenderDoesNotOffer",
             "LenderDoesNotRequire",
             "BorrowerDeclined"
-          ],
-          "minLength": 1
+          ]
         },
         "escrow_absence_reason_type_other_description": {
           "type": [
@@ -13000,15 +12650,10 @@
           "minLength": 1
         },
         "escrow_account_lender_requirement_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "EscrowsRequiredByLender",
             "EscrowsWaivedByLender"
-          ],
-          "minLength": 1
+          ]
         },
         "escrow_account_requested_indicator": {
           "type": "boolean",
@@ -13044,10 +12689,6 @@
           "comment": "When true, indicates that the estimated monthly taxes, insurance and assessments payment that a borrower can expect to make on a loan might increase."
         },
         "estimated_monthly_taxes_insurance_assessment_period_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Day",
             "Quarterly",
@@ -13064,8 +12705,7 @@
             "Weekly",
             "Semiannually"
           ],
-          "comment": "Indicates a period of time such as day, month and year.",
-          "minLength": 1
+          "comment": "Indicates a period of time such as day, month and year."
         },
         "heloc_indicator": {
           "type": "boolean",
@@ -13160,15 +12800,10 @@
           "comment": "The maximum dollar amount limit for the mortgage loan."
         },
         "lending_limit_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Calculated",
             "County"
-          ],
-          "minLength": 1
+          ]
         },
         "lending_limit_type_other_description": {
           "type": [
@@ -13183,18 +12818,13 @@
           "comment": "Indicates that the lien holder of the related loan is the same as the lien holder of the subject loan."
         },
         "lien_priority_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "FirstLien",
             "ThirdLien",
             "FourthLien",
             "SecondLien"
           ],
-          "comment": "Defines the priority of claims against the property in the event of default or foreclosure. The priority determines the sequence of debt repayment if the property is sold or foreclosed on",
-          "minLength": 1
+          "comment": "Defines the priority of claims against the property in the event of default or foreclosure. The priority determines the sequence of debt repayment if the property is sold or foreclosed on"
         },
         "lien_priority_type_other_description": {
           "type": [
@@ -13233,10 +12863,6 @@
           "minimum": 1
         },
         "loan_amortization_period_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Day",
             "Month",
@@ -13246,8 +12872,7 @@
             "Week",
             "Quarter"
           ],
-          "comment": "",
-          "minLength": 1
+          "comment": ""
         },
         "loan_amount": {
           "type": "decimal",
@@ -13312,15 +12937,10 @@
           "minLength": 1
         },
         "loan_closing_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Closed",
             "TableFunded"
-          ],
-          "minLength": 1
+          ]
         },
         "loan_commitment_date": {
           "type": [
@@ -13447,18 +13067,13 @@
           "minLength": 1
         },
         "loan_purpose_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Refinance",
             "Purchase",
             "MortgageModification",
             "Unknown"
           ],
-          "comment": "Specifies the primary reason or purpose for which the loan was taken.",
-          "minLength": 1
+          "comment": "Specifies the primary reason or purpose for which the loan was taken."
         },
         "loan_purpose_type_other_description": {
           "type": [
@@ -13490,16 +13105,11 @@
           "minimum": 1
         },
         "loan_repayment_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "ConstantPrincipal",
             "ScheduledAmortization",
             "PrincipalPaymentOption"
-          ],
-          "minLength": 1
+          ]
         },
         "loan_repayment_type_other_description": {
           "type": [
@@ -13514,10 +13124,6 @@
           "comment": "Indicates whether the loan includes a rider, which is an amendment or addition to the standard loan agreement to address specific terms or conditions"
         },
         "loan_rider_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Buydown",
             "StepRate",
@@ -13526,21 +13132,15 @@
             "Balloon",
             "Arm"
           ],
-          "comment": "Specifies the type of rider.",
-          "minLength": 1
+          "comment": "Specifies the type of rider."
         },
         "loan_role_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Historical",
             "RelatedLoan",
             "SubjectLoan"
           ],
-          "comment": "Loan role type helps lenders understand a borrower's ability to repay a loan and determine loan terms and conditions. There are three types of loan roles: subject, related and historical. A subject loan is the loan that is being evaluated or underwritten by the lender. A related loan is a loan that is related to the subject loan in some way, such as a second mortgage or a home equity line of credit (HELOC) that is taken out on the same property. A historical loan is a loan that has already been repaid or closed.",
-          "minLength": 1
+          "comment": "Loan role type helps lenders understand a borrower's ability to repay a loan and determine loan terms and conditions. There are three types of loan roles: subject, related and historical. A subject loan is the loan that is being evaluated or underwritten by the lender. A related loan is a loan that is related to the subject loan in some way, such as a second mortgage or a home equity line of credit (HELOC) that is taken out on the same property. A historical loan is a loan that has already been repaid or closed."
         },
         "loan_sale_funding_date": {
           "type": [
@@ -13552,14 +13152,9 @@
           "minLength": 1
         },
         "loan_secured_by_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SubjectProperty"
-          ],
-          "minLength": 1
+          ]
         },
         "loan_secured_by_type_other_description": {
           "type": [
@@ -13582,10 +13177,6 @@
           "minLength": 1
         },
         "loan_status": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Prospect",
             "NotAccepted",
@@ -13614,8 +13205,7 @@
             "PreApproval",
             "BrokerConditionSubmission"
           ],
-          "comment": "Loan status refers to the current state or condition of a loan. It indicates whether the borrower is up-to-date with their payments, in default, or in some other stage of the loan process.",
-          "minLength": 1
+          "comment": "Loan status refers to the current state or condition of a loan. It indicates whether the borrower is up-to-date with their payments, in default, or in some other stage of the loan process."
         },
         "loan_status_date": {
           "type": [
@@ -13627,16 +13217,11 @@
           "minLength": 1
         },
         "loan_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Underwriting",
             "Application",
             "Prequalification"
-          ],
-          "minLength": 1
+          ]
         },
         "loan_to_value_ltv_ratio_percent": {
           "type": "decimal",
@@ -13651,17 +13236,12 @@
           "comment": "Indicates the proportion of the total payments made over the life of a loan that goes toward paying the loan's interest charges. It is expressed as a percentage and is used to help borrowers understand how much of their loan payments will be allocated to interest expenses over the loan term."
         },
         "loan_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Conventional",
             "Fha",
             "Va"
           ],
-          "comment": "Loan type refers to the specific type of loan that a borrower obtains from a lender, such as a personal loan, auto loan, or student loan. The loan type determines the terms and conditions of the loan, including the interest rate, repayment period, and the amount borrowed.",
-          "minLength": 1
+          "comment": "Loan type refers to the specific type of loan that a borrower obtains from a lender, such as a personal loan, auto loan, or student loan. The loan type determines the terms and conditions of the loan, including the interest rate, repayment period, and the amount borrowed."
         },
         "lost_note_affidavit_indicator": {
           "type": "boolean",
@@ -13728,10 +13308,6 @@
           "comment": "Indicates that a loan modification exists."
         },
         "mortgage_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Conventional",
             "Va",
@@ -13741,8 +13317,7 @@
             "PublicAndIndianHousing",
             "StateAgency"
           ],
-          "comment": "Mortgage type refers to the specific type of mortgage loan that a borrower obtains to finance the purchase or refinance of a property. There are several different types of mortgage loans, each with its own set of features, eligibility requirements, and interest rates.",
-          "minLength": 1
+          "comment": "Mortgage type refers to the specific type of mortgage loan that a borrower obtains to finance the purchase or refinance of a property. There are several different types of mortgage loans, each with its own set of features, eligibility requirements, and interest rates."
         },
         "mortgage_type_other_description": {
           "type": [
@@ -13816,17 +13391,12 @@
           "minLength": 1
         },
         "occupancy": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SecondHome",
             "PrimaryResidence",
             "Investment"
           ],
-          "comment": "Occupancy type refers to the way in which a property is used or occupied by its owner or tenant. Occupancy type is used in determining the terms of a mortgage or loan and the level of risk associated with a property.",
-          "minLength": 1
+          "comment": "Occupancy type refers to the way in which a property is used or occupied by its owner or tenant. Occupancy type is used in determining the terms of a mortgage or loan and the level of risk associated with a property."
         },
         "open_end_credit_indicator": {
           "type": "boolean",
@@ -13925,10 +13495,6 @@
           "minimum": 1
         },
         "prepayment_penalty_calculation_period_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Day",
             "Quarterly",
@@ -13945,8 +13511,7 @@
             "Weekly",
             "Semiannually"
           ],
-          "comment": "A prepayment penalty calculation period type indicates what type of time period must pass before the prepayment penalty can be waived.",
-          "minLength": 1
+          "comment": "A prepayment penalty calculation period type indicates what type of time period must pass before the prepayment penalty can be waived."
         },
         "prepayment_penalty_indicator": {
           "type": "boolean",
@@ -13973,10 +13538,6 @@
           "comment": "Indicates whether the loan is provided by a private (non-institutional) lender."
         },
         "program_period_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "PeriodFixed20Years",
             "PeriodArm7Years",
@@ -13986,8 +13547,7 @@
             "PeriodFixed15Years",
             "PeriodArm10Years"
           ],
-          "comment": "Loan program period type refers to the period of time associated with the loan program.",
-          "minLength": 1
+          "comment": "Loan program period type refers to the period of time associated with the loan program."
         },
         "properties_financed_by_lender_count": {
           "type": [
@@ -14030,16 +13590,11 @@
           "comment": "Monies advanced on the loan (i.e. delinquency expense, tax penalty, repairs, etc.) that are recoverable from a third party."
         },
         "refinance_program_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "InterestRateReduction",
             "StreamlinedWithoutAppraisal",
             "FullDocumentation"
-          ],
-          "minLength": 1
+          ]
         },
         "refinance_program_type_other_description": {
           "type": [
@@ -14050,16 +13605,11 @@
           "minLength": 1
         },
         "refinance_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "LimitedCashOut",
             "CashOut",
             "NoCashOut"
-          ],
-          "minLength": 1
+          ]
         },
         "refund_of_overpaid_interest_calendar_year_amount": {
           "type": "decimal",
@@ -14123,16 +13673,11 @@
           "comment": "When true indicates that relief under Servicemembers Civil Relief Act (SCRA) has been requested."
         },
         "scra_relief_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "OneOrMoreBorrowersPreviouslyReceived",
             "NeverReceived",
             "OneOrMoreBorrowersCurrentlyReceive"
-          ],
-          "minLength": 1
+          ]
         },
         "scra_relief_status_type_other_description": {
           "type": [
@@ -14171,15 +13716,10 @@
           "comment": "When true, indicates that the transfer of servicing is prohibited during life of the loan or for a designated period of time or until a certain event or condition is satisfied."
         },
         "servicing_transfer_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Retained",
             "Released"
-          ],
-          "minLength": 1
+          ]
         },
         "shared_appreciation_cap_amount": {
           "type": "decimal",
@@ -14226,10 +13766,6 @@
           "minimum": 1
         },
         "supplemental_mortgage_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Conventional",
             "Va",
@@ -14239,8 +13775,7 @@
             "PublicAndIndianHousing",
             "StateAgency"
           ],
-          "comment": "Identifies any additional or secondary mortgage types or features that might be associated with the loan, e.g., 'balloon payment'.",
-          "minLength": 1
+          "comment": "Identifies any additional or secondary mortgage types or features that might be associated with the loan, e.g., 'balloon payment'."
         },
         "supplemental_mortgage_type_other_description": {
           "type": [
@@ -14319,10 +13854,6 @@
           "comment": "When true indicates the loan or application is subject to the TILA RESPA Integrated Disclosure (TRID) rule in Regulation Z."
         },
         "upb_change_frequency_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Quarterly",
             "Annually",
@@ -14333,8 +13864,7 @@
             "Weekly",
             "Semiannually"
           ],
-          "comment": "Indicates how frequently the unpaid principal balance (UPB) is recalculated or adjusted. This is particularly relevant for certain adjustable-rate mortgages or loans with variable payments.",
-          "minLength": 1
+          "comment": "Indicates how frequently the unpaid principal balance (UPB) is recalculated or adjusted. This is particularly relevant for certain adjustable-rate mortgages or loans with variable payments."
         },
         "warehouse_lender_indicator": {
           "type": "boolean",
@@ -14527,17 +14057,12 @@
           "minLength": 1
         },
         "lot_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "GreaterThanOneQuarterAcre",
             "PavedRoad",
             "LessThanOrEqualToOneQuarterAcre"
           ],
-          "comment": "Refers to characteristics associated with a lot and structure.",
-          "minLength": 1
+          "comment": "Refers to characteristics associated with a lot and structure."
         },
         "lot_type_other_description": {
           "type": [
@@ -14596,10 +14121,6 @@
           "comment": "Total land size in square feet for a property"
         },
         "landscaping_features": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "MatureTrees",
             "ManicuredGarden",
@@ -14608,28 +14129,18 @@
             "Planters",
             "Lawn"
           ],
-          "comment": "Features associated with the landscaping on the lot.",
-          "minLength": 1
+          "comment": "Features associated with the landscaping on the lot."
         },
         "view": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "OceanView",
             "MountainView",
             "CitySkylineView",
             "ParkView"
           ],
-          "comment": "Descriptive tag of the view from the lot.",
-          "minLength": 1
+          "comment": "Descriptive tag of the view from the lot."
         },
         "fencing_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wood",
             "ChainLink",
@@ -14645,14 +14156,9 @@
             "Board",
             "PostAndRail",
             "Lattice"
-          ],
-          "minLength": 1
+          ]
         },
         "fence_height": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "3ft",
             "4ft",
@@ -14661,14 +14167,9 @@
             "8ft",
             "10ft",
             "12ft"
-          ],
-          "minLength": 1
+          ]
         },
         "fence_length": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "25ft",
             "50ft",
@@ -14679,41 +14180,26 @@
             "300ft",
             "500ft",
             "1000ft"
-          ],
-          "minLength": 1
+          ]
         },
         "driveway_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Concrete",
             "Asphalt",
             "Pavers",
             "Gravel"
           ],
-          "comment": "The material of the driveway on the lot.",
-          "minLength": 1
+          "comment": "The material of the driveway on the lot."
         },
         "driveway_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Good",
             "Cracked",
             "Stained",
             "Worn"
-          ],
-          "minLength": 1
+          ]
         },
         "lot_condition_issues": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "OvergrownWeeds",
             "Clutter",
@@ -14721,8 +14207,7 @@
             "BrokenFence",
             "CrackedDriveway"
           ],
-          "comment": "AI-observed lot-level maintenance or neglect issues.",
-          "minLength": 1
+          "comment": "AI-observed lot-level maintenance or neglect issues."
         }
       },
       "example": {
@@ -14763,10 +14248,6 @@
           "minLength": 1
         },
         "type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "layout_has_appliance",
             "person_has_mortgage",
@@ -14788,8 +14269,7 @@
             "property_seed",
             "property_flood_storm_information"
           ],
-          "comment": "A reference to the associated schema for relashionship",
-          "minLength": 1
+          "comment": "A reference to the associated schema for relashionship"
         }
       },
       "examples": [
@@ -14858,7 +14338,6 @@
       "deprecated_properties": [],
       "properties": {
         "military_branch_type": {
-          "type": "string",
           "enum": [
             "CoastGuard",
             "Navy",
@@ -14877,7 +14356,6 @@
           "comment": "A free-form text field which contains the description of the branch of the military to which the VA borrower belongs when Other is selected as the Military Branch Type."
         },
         "military_service_classification_type": {
-          "type": "string",
           "enum": [
             "NonCommissionedOfficer",
             "CommissionedOfficer",
@@ -14912,7 +14390,6 @@
           "comment": "The date this period of service ended."
         },
         "military_status_type": {
-          "type": "string",
           "enum": [
             "ActiveDuty",
             "NoMilitaryService",
@@ -14996,7 +14473,6 @@
           "comment": "The date related to the Offering Type."
         },
         "offering_type": {
-          "type": "string",
           "enum": [
             "OfferPending",
             "ContractOnMarket",
@@ -15096,7 +14572,6 @@
           "comment": "In cases of joint ownership or partnerships, this denotes the percentage of ownership held by the individual."
         },
         "property_ownership_structure": {
-          "type": "string",
           "enum": [
             "LifeEstate",
             "SoleOwnership",
@@ -15111,7 +14586,6 @@
           "comment": "A free-form text field to capture additional detail when 'other' is selected for the property ownership structure."
         },
         "trust_information": {
-          "type": "string",
           "enum": [
             "TitleWillBeHeldByAnInterVivosLivingTrust",
             "TitleWillBeHeldByALandTrust"
@@ -15219,7 +14693,6 @@
           "comment": "Payment days past due count is the number of days that a payment has not been received on a specific due date."
         },
         "frequency_type": {
-          "type": "string",
           "enum": [
             "Quarterly",
             "Semimonthly",
@@ -15305,7 +14778,6 @@
       "deprecated_properties": [],
       "properties": {
         "integrated_disclosure_section_type": {
-          "type": "string",
           "enum": [
             "ServicesYouCanShopFor",
             "DueFromSellerAtClosing",
@@ -15340,7 +14812,6 @@
           "comment": "The account number associated with the debt that is being paid off as part of the closing transaction."
         },
         "payoff_action_type": {
-          "type": "string",
           "enum": [
             "TitleCompanyOrderPayoff",
             "TitleCompanyOrderSubordinate",
@@ -15359,7 +14830,6 @@
           "comment": "The dollar amount for the debt that is being paid off as part of the closing transaction."
         },
         "payoff_application_sequence_type": {
-          "type": "string",
           "enum": [
             "JustPayoff",
             "NormalPaymentThenPayoff"
@@ -15588,10 +15058,6 @@
           "minLength": 1
         },
         "gender": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "InformationNotProvidedUnknown",
             "NotApplicable",
@@ -15599,8 +15065,7 @@
             "Male",
             "ApplicantSelectedBothMaleAndFemale"
           ],
-          "comment": "Gender refers to the social, cultural, and personal roles, expectations, and identities associated with being male, female, a blend of both, or neither, and is distinct from biological sex.",
-          "minLength": 1
+          "comment": "Gender refers to the social, cultural, and personal roles, expectations, and identities associated with being male, female, a blend of both, or neither, and is distinct from biological sex."
         },
         "has_expense": {
           "type": [
@@ -15617,10 +15082,6 @@
           "comment": "A person's last name, also known as surname or family name, is typically the name that is shared by all members of their immediate family."
         },
         "marital_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Unmarried",
             "Unknown",
@@ -15629,8 +15090,7 @@
             "Married",
             "Divorced"
           ],
-          "comment": "Marital_status_type represents an individual's current legal or social relationship status, such as married, single, divorced, or widowed.",
-          "minLength": 1
+          "comment": "Marital_status_type represents an individual's current legal or social relationship status, such as married, single, divorced, or widowed."
         },
         "middle_initial": {
           "type": [
@@ -15658,10 +15118,6 @@
           "minLength": 1
         },
         "prefix_name": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Mr.",
             "Mrs.",
@@ -15687,8 +15143,7 @@
             "Sir",
             "Dame"
           ],
-          "comment": "Common honorifics or titles preceding names. Adjust this list based on cultural or domain-specific requirements.",
-          "minLength": 1
+          "comment": "Common honorifics or titles preceding names. Adjust this list based on cultural or domain-specific requirements."
         },
         "ssn": {
           "type": [
@@ -15699,10 +15154,6 @@
           "minLength": 1
         },
         "suffix_name": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Jr.",
             "Sr.",
@@ -15726,14 +15177,9 @@
             "Emeritus",
             "Ret."
           ],
-          "comment": "Suffixes typically denote generational titles, academic degrees, or professional certifications.",
-          "minLength": 1
+          "comment": "Suffixes typically denote generational titles, academic degrees, or professional certifications."
         },
         "us_citizenship_status": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "NonPermanentResidentAlien",
             "NonPermResidentAlien",
@@ -15743,8 +15189,7 @@
             "USCitizen",
             "ForeignNational"
           ],
-          "comment": "Citizenship status refers to an individual's legal status as a citizen or non-citizen of a country. In the United States, citizenship status is determined by birthright, naturalization, or other legal means.",
-          "minLength": 1
+          "comment": "Citizenship status refers to an individual's legal status as a citizen or non-citizen of a country. In the United States, citizenship status is determined by birthright, naturalization, or other legal means."
         },
         "veteran_status": {
           "type": "boolean",
@@ -15995,7 +15440,6 @@
       "deprecated_properties": [],
       "properties": {
         "company_contact_role_type": {
-          "type": "string",
           "enum": [
             "ProductManager",
             "CMO",
@@ -16053,7 +15497,6 @@
           "comment": "The percentage rate used to calculate the per diem amount of cost prepaid."
         },
         "prepaid_item_type": {
-          "type": "string",
           "enum": [
             "HomeownersAssociationSpecialAssessment",
             "MortgageInsurancePremium",
@@ -16208,7 +15651,6 @@
           "comment": "A product API identifier is a unique code or string of characters assigned to a specific product API that is used to uniquely identify and access that product API. Product API identifiers are often used in conjunction with other authentication mechanisms, such as API keys or OAuth tokens, to ensure secure and authorized access to the product API."
         },
         "product_api_invocation_type": {
-          "type": "string",
           "enum": [
             "Analytics",
             "SinglePartner",
@@ -16220,7 +15662,6 @@
           "comment": "Product API invocation type refers to the method in which a product API is invoked to perform a specific operation or access a particular functionality."
         },
         "product_api_type": {
-          "type": "string",
           "enum": [
             "Configuration",
             "Function",
@@ -16405,14 +15846,12 @@
           "comment": "A product price amount is the amount of money that a customer is required to pay to purchase a Staircase unit, such as a transaction or subscription."
         },
         "product_price_amount_unit_type": {
-          "type": "string",
           "enum": [
             "Cent"
           ],
           "comment": "Price amount unit type refers to the monetary denomination that is used to express the price of a Staircase unit, such as a transaction or subscription."
         },
         "product_price_calculation_type": {
-          "type": "string",
           "enum": [
             "Maturity",
             "CostOfGoodsSold",
@@ -16426,7 +15865,6 @@
           "comment": "A product price identifier is a unique code or string of characters assigned to a specific product price that is used to uniquely identify and track the use of that product price."
         },
         "product_price_timing_type": {
-          "type": "string",
           "enum": [
             "Monthly",
             "Completion"
@@ -16434,7 +15872,6 @@
           "comment": "Price timing type describes when a customer will be billed and is based on a defined bulling schedule."
         },
         "product_price_unit_type": {
-          "type": "string",
           "enum": [
             "ApiCall",
             "Image",
@@ -16472,7 +15909,6 @@
           "comment": "An attribute representing the specific area, category, or field to which the product belongs. This classification helps in organizing products within a particular context or industry"
         },
         "function": {
-          "type": "string",
           "enum": [
             "Contract",
             "Customer",
@@ -16506,7 +15942,6 @@
           "comment": "The individual who holds the title or legal rights to the property."
         },
         "product_capability": {
-          "type": "string",
           "enum": [
             "Unskilled",
             "Verified",
@@ -16527,7 +15962,6 @@
           "comment": "A product identifier is a unique code or string of characters assigned to a specific product that is used to uniquely identify and access that product. Product identifiers are often used in conjunction with other authentication mechanisms, such as API keys or OAuth tokens, to ensure secure and authorized access to the product."
         },
         "product_type": {
-          "type": "string",
           "enum": [
             "Labor",
             "Application",
@@ -16595,7 +16029,6 @@
           "comment": "A number representing the time on which a period starts (e.g. the 1 in Year 1)."
         },
         "calculation_period_type": {
-          "type": "string",
           "enum": [
             "Day",
             "Quarterly",
@@ -17105,10 +16538,6 @@
           "comment": "Expenses incurred in enhancing or upgrading an existing structure or property."
         },
         "construction_method_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "Modular",
@@ -17116,8 +16545,7 @@
             "MobileHome",
             "OnFrameModular"
           ],
-          "comment": "Describes the construction process for the main dwelling unit of the subject property.",
-          "minLength": 1
+          "comment": "Describes the construction process for the main dwelling unit of the subject property."
         },
         "construction_method_type_other_description": {
           "type": [
@@ -17128,10 +16556,6 @@
           "minLength": 1
         },
         "construction_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Existing",
             "SubjectToAlteration",
@@ -17141,8 +16565,7 @@
             "SubjectToAlterationImprovementRepairAndRehabilitation",
             "UnderConstruction"
           ],
-          "comment": "Specifies the physical status of the structure.",
-          "minLength": 1
+          "comment": "Specifies the physical status of the structure."
         },
         "construction_status_type_other_description": {
           "type": [
@@ -17233,17 +16656,12 @@
           "comment": "When true, indicates that an investment property is currently generating rental income on behalf of the owner."
         },
         "land_trust_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "LandTrust",
             "IllinoisLandTrust",
             "CommunityLandTrust"
           ],
-          "comment": "A value from a MISMO prescribed list that specifies the type of land trust associated with the title.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that specifies the type of land trust associated with the title."
         },
         "land_trust_type_other_description": {
           "type": [
@@ -17262,10 +16680,6 @@
           "minLength": 1
         },
         "land_use_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Commercial",
             "Agricultural",
@@ -17276,8 +16690,7 @@
             "Residential",
             "Income"
           ],
-          "comment": "Identifies the designation of land use by a governmental authority described by Land Used Description.",
-          "minLength": 1
+          "comment": "Identifies the designation of land use by a governmental authority described by Land Used Description."
         },
         "land_use_type_other_description": {
           "type": [
@@ -17314,18 +16727,13 @@
           "pattern": ".*\\d{2,}.*"
         },
         "lien_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Judgement",
             "Tax",
             "Mortgage",
             "Mechanics"
           ],
-          "comment": "A property lien is a legal claim against a property that gives a creditor the right to take possession of the property if the borrower fails to repay a debt. There are several lien types, such as mortgage, tax and judgment.Typically a lien gives its holder the right to seize property or money from the borrower if the borrower does not fulfill the terms of a contract.",
-          "minLength": 1
+          "comment": "A property lien is a legal claim against a property that gives a creditor the right to take possession of the property if the borrower fails to repay a debt. There are several lien types, such as mortgage, tax and judgment.Typically a lien gives its holder the right to seize property or money from the borrower if the borrower does not fulfill the terms of a contract."
         },
         "lot_original_cost_amount": {
           "type": "decimal",
@@ -17344,16 +16752,11 @@
           "comment": "Indicates if the property is a manufactured or mobile home, which is a type of housing unit that is largely assembled in factories and then transported to sites where it's either attached to a permanent foundation or left on its trailer chassis."
         },
         "manufactured_home_width_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SingleWide",
             "MultiWide"
           ],
-          "comment": "Specifies the common size (width) designation of a Manufactured home.",
-          "minLength": 1
+          "comment": "Specifies the common size (width) designation of a Manufactured home."
         },
         "market_value_improvement_amount": {
           "type": "decimal",
@@ -17368,10 +16771,6 @@
           "comment": "When true, indicates that the property is located in a Metropolitan Statistical Area."
         },
         "native_american_lands_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "IndividualTrustLand",
             "HawaiianHomeLands",
@@ -17381,8 +16780,7 @@
             "TribalTrustLandOnAReservation",
             "TribalTrustLand"
           ],
-          "comment": "A value from a MISMO prescribed list that categorizes the legal means by which Native American land may be owned. AUS Enumerated AUS Native American Lands Type.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that categorizes the legal means by which Native American land may be owned. AUS Enumerated AUS Native American Lands Type."
         },
         "native_american_lands_type_other_description": {
           "type": [
@@ -17397,11 +16795,6 @@
           "comment": "non-warrantable project indicator in mortgage banking refers to a designation given to a property that is part of a condominium or planned unit development (PUD) that does not meet the eligibility requirements for conventional financing.\n\nThese requirements are set by the government-sponsored enterprises (GSEs), such as Fannie Mae and Freddie Mac, which purchase the majority of residential mortgage loans in the United States.\n\nProperties in non-warrantable projects may have issues such as high levels of commercial space, inadequate financial reserves, or legal disputes that make them too risky for the GSEs to finance. As rdf:type result, these properties may be more difficult to finance, and buyers and owners may have limited options for securing rdf:type mortgage. The \"non-warrantable project indicator\" is a designation that helps lenders and mortgage underwriters understand the limitations and risks associated with a property."
         },
         "number_of_units_type": {
-          "minLength": 1,
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "One",
             "Two",
@@ -17413,17 +16806,12 @@
           "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs."
         },
         "owned_property_disposition_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Retain",
             "Sold",
             "PendingSale"
           ],
-          "comment": "A value from a MISMO prescribed list that specifies the intended disposition of an owned real property.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that specifies the intended disposition of an owned real property."
         },
         "owned_property_lien_installment_amount": {
           "type": "decimal",
@@ -17491,42 +16879,27 @@
           "comment": "Indicates that property has been sold in the twelve months prior to origination of the delivery loan."
         },
         "project_attachment_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Attached",
             "Detached"
           ],
-          "comment": "Specifies the type of physical attachment, if any, between the dwelling units in the project.",
-          "minLength": 1
+          "comment": "Specifies the type of physical attachment, if any, between the dwelling units in the project."
         },
         "project_design_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "TownhouseRowhouse",
             "MidriseProject",
             "HighriseProject",
             "GardenProject"
           ],
-          "comment": "This field specifies the type of design for the multiple unit buildings in a project. Enumerated Project Appraisal AUS Project Design Type.",
-          "minLength": 1
+          "comment": "This field specifies the type of design for the multiple unit buildings in a project. Enumerated Project Appraisal AUS Project Design Type."
         },
         "project_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "OtherPhase",
             "SubjectPhase"
           ],
-          "comment": "Specifies whether the referenced project is associated with the subject or other property.",
-          "minLength": 1
+          "comment": "Specifies whether the referenced project is associated with the subject or other property."
         },
         "project_usage_type": {
           "type": [
@@ -17565,10 +16938,6 @@
           "minLength": 1
         },
         "property_current_occupancy_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Unknown",
             "TenantOccupied",
@@ -17579,8 +16948,7 @@
             "OwnerOccupied",
             "AdverseOccupied"
           ],
-          "comment": "Specifies the property occupancy status of a subject property.",
-          "minLength": 1
+          "comment": "Specifies the property occupancy status of a subject property."
         },
         "property_current_occupant_name": {
           "type": [
@@ -17591,17 +16959,12 @@
           "minLength": 1
         },
         "property_current_usage_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SecondHome",
             "PrimaryResidence",
             "Investment"
           ],
-          "comment": "A value from a MISMO prescribed list that specifies the current usage of the property by the borrower.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that specifies the current usage of the property by the borrower."
         },
         "property_current_usage_type_other_description": {
           "type": [
@@ -17612,10 +16975,6 @@
           "minLength": 1
         },
         "property_disposition_status_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Sell",
             "Vacate",
@@ -17623,8 +16982,7 @@
             "Undecided",
             "Retain"
           ],
-          "comment": "The intended disposition of the property.",
-          "minLength": 1
+          "comment": "The intended disposition of the property."
         },
         "property_disposition_status_type_other_description": {
           "type": [
@@ -17639,17 +16997,12 @@
           "comment": "An indicator denoting whether the property securing the mortgage has earthquake insurance."
         },
         "property_estate_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Fractional",
             "FeeSimple",
             "Leasehold"
           ],
-          "comment": "A value from a MISMO prescribed list that specifies the ownership interest in the property.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that specifies the ownership interest in the property."
         },
         "property_estate_type_other_description": {
           "type": [
@@ -17741,10 +17094,6 @@
           "comment": "Indicates that the structure or improvement is habitable year round."
         },
         "property_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Cooperative",
             "Condominium",
@@ -17765,21 +17114,15 @@
             "Townhouse",
             "NonWarrantableCondo"
           ],
-          "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
-          "minLength": 1
+          "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties."
         },
         "property_usage_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SecondHome",
             "PrimaryResidence",
             "Investment"
           ],
-          "comment": "A value from a MISMO prescribed list that specifies the intended usage of the property by the borrower.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that specifies the intended usage of the property by the borrower."
         },
         "property_usage_type_other_description": {
           "type": [
@@ -17887,31 +17230,21 @@
           "minimum": 1
         },
         "undefined_property_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Unavailable",
             "NonDescriptive",
             "Unknown"
           ],
-          "comment": "A value from a MISMO prescribed list that represents a type of property that does not meet a uniform set of characteristics for defining the components used to classify a property type.",
-          "minLength": 1
+          "comment": "A value from a MISMO prescribed list that represents a type of property that does not meet a uniform set of characteristics for defining the components used to classify a property type."
         },
         "unique_dwelling_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Houseboat",
             "GeodesicDome",
             "EarthShelterHome",
             "LogHome"
           ],
-          "comment": "A dwelling that does not conform to a conventional building structure type or method.",
-          "minLength": 1
+          "comment": "A dwelling that does not conform to a conventional building structure type or method."
         },
         "unique_dwelling_type_other_description": {
           "type": [
@@ -17962,10 +17295,6 @@
           "minLength": 1
         },
         "property_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Resale",
             "New",
@@ -17976,8 +17305,7 @@
             "EffectiveYearBuilt",
             "PreConstruction"
           ],
-          "comment": "The condition of the property.",
-          "minLength": 1
+          "comment": "The condition of the property."
         },
         "lot_size_square_feet": {
           "type": [
@@ -18212,10 +17540,6 @@
           "minLength": 1
         },
         "space_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Living Room",
             "Family Room",
@@ -18285,8 +17609,7 @@
             "Hot Tub / Spa Area",
             "Shed"
           ],
-          "comment": "The function or designation of the room.",
-          "minLength": 1
+          "comment": "The function or designation of the room."
         },
         "space_type_other_description": {
           "type": [
@@ -18297,10 +17620,6 @@
           "minLength": 1
         },
         "flooring_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -18326,8 +17645,7 @@
             "Glass",
             "Laminate"
           ],
-          "comment": "Refers to the type of material used for a floor.",
-          "minLength": 1
+          "comment": "Refers to the type of material used for a floor."
         },
         "size_square_feet": {
           "type": "decimal",
@@ -18342,10 +17660,6 @@
           "minLength": 1
         },
         "level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Basement",
             "Lower",
@@ -18355,32 +17669,22 @@
             "Loft",
             "Mezzanine"
           ],
-          "comment": "The floor or level the room is on, useful for multi-story properties.",
-          "minLength": 1
+          "comment": "The floor or level the room is on, useful for multi-story properties."
         },
         "floor_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "1st Floor",
             "2nd Floor",
             "3rd Floor",
             "4th Floor"
           ],
-          "comment": "The floor level the room is on, useful for multi-story properties.",
-          "minLength": 1
+          "comment": "The floor level the room is on, useful for multi-story properties."
         },
         "has_windows": {
           "type": "boolean",
           "comment": "Whether the room has windows or not (relevant for egress and lighting)."
         },
         "window_design_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Skylights",
             "Transom",
@@ -18397,14 +17701,9 @@
             "Picture",
             "Casement"
           ],
-          "comment": "Refers to the window design.",
-          "minLength": 1
+          "comment": "Refers to the window design."
         },
         "window_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -18430,8 +17729,7 @@
             "Glass",
             "Laminate"
           ],
-          "comment": "Refers to the type of material a window is made from.",
-          "minLength": 1
+          "comment": "Refers to the type of material a window is made from."
         },
         "window_material_type_other_description": {
           "type": [
@@ -18442,10 +17740,6 @@
           "minLength": 1
         },
         "window_treatment_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Blinds",
             "Drapes",
@@ -18470,8 +17764,7 @@
             "WoodShades",
             "WovenShades"
           ],
-          "comment": "Refers to the type of window treatment that covers the windows.",
-          "minLength": 1
+          "comment": "Refers to the type of window treatment that covers the windows."
         },
         "window_treatment_type_other_description": {
           "type": [
@@ -18486,58 +17779,38 @@
           "comment": "Whether the room is finished (especially important for basements, attics, garages)."
         },
         "furnished": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Furnished",
             "Unfurnished",
             "Partially Furnished"
           ],
-          "comment": "Indicates whether the room is furnished and to what extent.",
-          "minLength": 1
+          "comment": "Indicates whether the room is furnished and to what extent."
         },
         "paint_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Good",
             "Worn",
             "Peeling"
           ],
-          "comment": "Visual state of paint within the room.",
-          "minLength": 1
+          "comment": "Visual state of paint within the room."
         },
         "flooring_wear": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Pristine",
             "Moderate",
             "Worn",
             "Damaged"
           ],
-          "comment": "Observed condition of the flooring.",
-          "minLength": 1
+          "comment": "Observed condition of the flooring."
         },
         "clutter_level": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Staged",
             "Moderate",
             "Heavy"
           ],
-          "comment": "Amount of visible clutter or personal items in the room.",
-          "minLength": 1
+          "comment": "Amount of visible clutter or personal items in the room."
         },
         "visible_damage": {
           "type": [
@@ -18548,10 +17821,6 @@
           "minLength": 1
         },
         "countertop_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Granite",
             "Quartz",
@@ -18561,14 +17830,9 @@
             "Tile",
             "Concrete"
           ],
-          "comment": "Material of visible countertops, if present.",
-          "minLength": 1
+          "comment": "Material of visible countertops, if present."
         },
         "cabinet_style": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Modern",
             "Shaker",
@@ -18576,26 +17840,16 @@
             "Flat Panel",
             "Glass Front"
           ],
-          "comment": "Visual cabinet style present in the room, if any.",
-          "minLength": 1
+          "comment": "Visual cabinet style present in the room, if any."
         },
         "fixture_finish_quality": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Basic",
             "Mid-range",
             "Luxury"
-          ],
-          "minLength": 1
+          ]
         },
         "design_style": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Modern",
             "Traditional",
@@ -18604,8 +17858,7 @@
             "Minimalist",
             "Transitional"
           ],
-          "comment": "Dominant design style observed in the room.",
-          "minLength": 1
+          "comment": "Dominant design style observed in the room."
         },
         "design_style_other_description": {
           "type": [
@@ -18616,23 +17869,14 @@
           "minLength": 1
         },
         "natural_light_quality": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Abundant",
             "Moderate",
             "Limited"
           ],
-          "comment": "Assessment of natural light availability.",
-          "minLength": 1
+          "comment": "Assessment of natural light availability."
         },
         "decor_elements": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Vaulted Ceiling",
             "Coffered Ceiling",
@@ -18645,8 +17889,7 @@
             "Built-In Shelving",
             "Wall Paneling"
           ],
-          "comment": "List of prominent design elements.",
-          "minLength": 1
+          "comment": "List of prominent design elements."
         },
         "decor_elements_other_description": {
           "type": [
@@ -18657,10 +17900,6 @@
           "minLength": 1
         },
         "pool_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "SaltWater",
             "AboveGround",
@@ -18674,8 +17913,7 @@
             "Vinyl",
             "Natural"
           ],
-          "comment": "Specifies the structural or functional type of the pool if applicable to this room.",
-          "minLength": 1
+          "comment": "Specifies the structural or functional type of the pool if applicable to this room."
         },
         "pool_equipment": {
           "type": [
@@ -18686,10 +17924,6 @@
           "minLength": 1
         },
         "spa_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Jacuzzi",
             "InGround",
@@ -18699,14 +17933,9 @@
             "Saltwater",
             "Heated"
           ],
-          "comment": "Specifies the type of spa or hot tub present, if applicable.",
-          "minLength": 1
+          "comment": "Specifies the type of spa or hot tub present, if applicable."
         },
         "safety_features": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Fencing",
             "PoolCover",
@@ -18718,14 +17947,9 @@
             "SurveillanceCamera",
             "Lighting"
           ],
-          "comment": "Visible safety features such as fencing, alarms, slip-resistant surfaces, or pool covers.",
-          "minLength": 1
+          "comment": "Visible safety features such as fencing, alarms, slip-resistant surfaces, or pool covers."
         },
         "view_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Courtyard",
             "Ocean",
@@ -18738,8 +17962,7 @@
             "Waterfront",
             "Street"
           ],
-          "comment": "The dominant view visible from this room.",
-          "minLength": 1
+          "comment": "The dominant view visible from this room."
         },
         "view_type_other_description": {
           "type": [
@@ -18750,10 +17973,6 @@
           "minLength": 1
         },
         "lighting_features": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Recessed",
             "Track",
@@ -18764,14 +17983,9 @@
             "NaturalLight",
             "Skylight"
           ],
-          "comment": "Observed lighting fixtures and types in room.",
-          "minLength": 1
+          "comment": "Observed lighting fixtures and types in room."
         },
         "condition_issues": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "PeelingPaint",
             "VisibleMold",
@@ -18782,18 +17996,13 @@
             "Unclean",
             "PersonalItemsVisible"
           ],
-          "comment": "AI-observed visual condition issues in the room.",
-          "minLength": 1
+          "comment": "AI-observed visual condition issues in the room."
         },
         "is_exterior": {
           "type": "boolean",
           "comment": "Indicates whether the space is exterior or interior."
         },
         "pool_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Good",
@@ -18802,14 +18011,9 @@
             "Damaged",
             "Unknown"
           ],
-          "comment": "Overall visible condition of the pool structure (tiles, lining, coping, etc.).",
-          "minLength": 1
+          "comment": "Overall visible condition of the pool structure (tiles, lining, coping, etc.)."
         },
         "pool_surface_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Concrete",
             "Tile",
@@ -18819,14 +18023,9 @@
             "Natural Stone",
             "Unknown"
           ],
-          "comment": "The visible material or finish used for the pool’s interior surface.",
-          "minLength": 1
+          "comment": "The visible material or finish used for the pool’s interior surface."
         },
         "pool_water_quality": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Clear",
             "Slightly Cloudy",
@@ -18837,8 +18036,7 @@
             "Covered",
             "Unknown"
           ],
-          "comment": "The observed quality or clarity of the pool water in the image.",
-          "minLength": 1
+          "comment": "The observed quality or clarity of the pool water in the image."
         }
       },
       "example": {
@@ -18957,7 +18155,6 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "appliance_type": {
-          "type": "string",
           "enum": [
             "Refrigerator",
             "Freezer",
@@ -18988,7 +18185,6 @@
           "comment": "If appliance_type is 'Other', use this to specify the custom type."
         },
         "finish": {
-          "type": "string",
           "enum": [
             "Stainless Steel",
             "Black",
@@ -19093,7 +18289,6 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "improvement_type": {
-          "type": "string",
           "enum": [
             "KitchenRemodel",
             "BathroomRenovation",
@@ -19133,7 +18328,6 @@
           "comment": "Specific type of improvement or renovation performed."
         },
         "improvement_status": {
-          "type": "string",
           "enum": [
             "Completed",
             "InProgress",
@@ -19154,7 +18348,6 @@
           "comment": "Total cost of the improvement in dollars."
         },
         "contractor_type": {
-          "type": "string",
           "enum": [
             "GeneralContractor",
             "Specialist",
@@ -19275,10 +18468,6 @@
           "comment": "Distance in miles, allowing up to 3 decimal places (e.g., '0.123', '12', '5.7')"
         },
         "location_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Shopping",
             "Dining",
@@ -19294,14 +18483,9 @@
             "Wellness",
             "Tourist Attraction"
           ],
-          "comment": "Category or type of nearby location.",
-          "minLength": 1
+          "comment": "Category or type of nearby location."
         },
         "features": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "grocery_store",
             "mall",
@@ -19369,8 +18553,7 @@
             "open_late",
             "family_friendly"
           ],
-          "comment": "Standardized list of nearby location features or highlights depending on location_type (e.g., yoga_studio, dog_beach, guided_tour).",
-          "minLength": 1
+          "comment": "Standardized list of nearby location features or highlights depending on location_type (e.g., yoga_studio, dog_beach, guided_tour)."
         },
         "is_walkable": {
           "type": "boolean",
@@ -19389,7 +18572,6 @@
           "comment": "An expense represents a cost incurred by an entity in the process of generating revenue."
         },
         "property_unit_occupancy_type": {
-          "type": "string",
           "enum": [
             "OwnerOccupied",
             "Tenant",
@@ -19462,7 +18644,6 @@
           "comment": "Highest price per square foot among comparable properties within defined radius and time period."
         },
         "valuation_method_type": {
-          "type": "string",
           "enum": [
             "FirstAmericanEquity",
             "FirstAmericanProcision",
@@ -19525,7 +18706,6 @@
       "deprecated_properties": [],
       "properties": {
         "authority_level": {
-          "type": "string",
           "enum": [
             "Manage",
             "Edit",
@@ -19684,7 +18864,6 @@
       ],
       "properties": {
         "borrower_intent": {
-          "type": "string",
           "enum": [
             "DeterminePropertyPriceRangeGivenSalary",
             "DetermineSpecificPropertyAffordability",
@@ -19694,7 +18873,6 @@
           "comment": "Borrower intent refers to the motivation a borrower has when asking for information related to loan origination."
         },
         "borrower_question": {
-          "type": "string",
           "enum": [
             "How much do I need to make to afford a given purchase price?",
             "What can I afford?",
@@ -19704,7 +18882,6 @@
           "comment": "Borrower intent type refers to the type of intent a borrower has when asking for information related to loan origination."
         },
         "feedback_value": {
-          "type": "string",
           "enum": [
             "I Want To Think On It",
             "Payment Is Too High",
@@ -19718,7 +18895,6 @@
           "comment": "The main applicant on a loan application is the person who is financially responsible for repaying the loan. This person is also known as the borrower or the applicant."
         },
         "has_stage_value": {
-          "type": "string",
           "enum": [
             "InContact",
             "RateShopping",
@@ -19734,7 +18910,6 @@
           "comment": "A unique identifier assigned to a loan by a specific company or institution. Different companies may use different identifiers for the same loan."
         },
         "role": {
-          "type": "string",
           "enum": [
             "Appraiser",
             "AppraiserSupervisor",
@@ -20015,7 +19190,6 @@
           "type": "string"
         },
         "product_api_invocation_type": {
-          "type": "string",
           "enum": [
             "Analytics",
             "SinglePartner",
@@ -20026,7 +19200,6 @@
           ]
         },
         "product_api_type": {
-          "type": "string",
           "enum": [
             "Configuration",
             "Function",
@@ -20373,7 +19546,6 @@
           "comment": "When true, indicates the residence is located in a community property state."
         },
         "residency_basis_type": {
-          "type": "string",
           "enum": [
             "Unknown",
             "LivingRentFree",
@@ -20405,7 +19577,6 @@
           "comment": "residency start date in mortgage banking refers to the date when a borrower moves into a new home and begins living there as their primary residence. \n\nThis date is used to determine the start of the occupancy period for the property, which is rdf:type factor that lenders consider when underwriting rdf:type mortgage loan. It helps lenders to assess the borrower's ability to repay the loan and to determine the interest rate and terms of the loan."
         },
         "residency_type": {
-          "type": "string",
           "enum": [
             "Prior",
             "Current"
@@ -20451,7 +19622,6 @@
       "deprecated_properties": [],
       "properties": {
         "room_feature_type": {
-          "type": "string",
           "enum": [
             "ClosetCabinetry",
             "SplitBedrooms",
@@ -20489,7 +19659,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the room feature type."
         },
         "room_type": {
-          "type": "string",
           "enum": [
             "BonusRoom",
             "EnsuiteFullBath",
@@ -20702,15 +19871,10 @@
           "comment": "The amount of transaction (typically the sale price) related to the transfer of ownership of real property as recognized in the jurisdiction in which it is located."
         },
         "ownership_transfer_transaction_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "DeedTransferOnly",
             "CashSale"
-          ],
-          "minLength": 1
+          ]
         },
         "ownership_transfer_transaction_type_other_description": {
           "type": [
@@ -20726,10 +19890,6 @@
           "comment": "The total dollar amount paid by the borrower for the property. The purchase price is presented on the offer to purchase."
         },
         "sale_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "ProbateSale",
             "ShortSale",
@@ -20739,8 +19899,7 @@
             "RelocationSale",
             "TrusteeJudicialForeclosureSale",
             "TypicallyMotivated"
-          ],
-          "minLength": 1
+          ]
         },
         "sale_type_other_description": {
           "type": [
@@ -20810,7 +19969,6 @@
           "comment": "The unique number assigned to the voucher"
         },
         "voucher_type": {
-          "type": "string",
           "enum": [
             "Discount",
             "Gift",
@@ -20853,7 +20011,6 @@
       "deprecated_properties": [],
       "properties": {
         "cooling_system_type": {
-          "type": "string",
           "enum": [
             "CeilingFans",
             "Electric",
@@ -20873,7 +20030,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the cooling system type."
         },
         "heating_system_type": {
-          "type": "string",
           "enum": [
             "ElectricFurnace",
             "GasFurnace",
@@ -20891,7 +20047,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the heating system type."
         },
         "pool_type": {
-          "type": "string",
           "enum": [
             "Free",
             "Automatic",
@@ -20927,7 +20082,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the pool type."
         },
         "section_amenity_type": {
-          "type": "string",
           "enum": [
             "Compactor",
             "Electric",
@@ -20986,7 +20140,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the section amenity type."
         },
         "section_type": {
-          "type": "string",
           "enum": [
             "BonusRoom",
             "Attached",
@@ -21057,7 +20210,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the section type."
         },
         "spa_type": {
-          "type": "string",
           "enum": [
             "JapaneseSoakingTub",
             "InGround",
@@ -21075,7 +20227,6 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the spa type."
         },
         "view_type": {
-          "type": "string",
           "enum": [
             "Courtyard",
             "Ocean",
@@ -21259,7 +20410,6 @@
           "type": "date"
         },
         "signature_type": {
-          "type": "string",
           "enum": [
             "FullSignature",
             "Initials"
@@ -21445,7 +20595,6 @@
       "deprecated_properties": [],
       "properties": {
         "spoken_language_type": {
-          "type": "string",
           "enum": [
             "Arabic",
             "Vietnamese",
@@ -21743,10 +20892,6 @@
           "minLength": 1
         },
         "architectural_style_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "MidCenturyModern",
             "Contemporary",
@@ -21758,8 +20903,7 @@
             "Colonial",
             "Farmhouse"
           ],
-          "comment": "Refers to the style, structure, and aesthetics of a building.",
-          "minLength": 1
+          "comment": "Refers to the style, structure, and aesthetics of a building."
         },
         "architectural_style_type_other_description": {
           "type": [
@@ -21770,23 +20914,14 @@
           "minLength": 1
         },
         "attachment_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Attached",
             "SemiDetached",
             "Detached"
           ],
-          "comment": "Indicates the structural relationship of the dwelling to other units. 'Attached' means the unit shares walls on both sides with adjacent dwellings (e.g., rowhouse or townhouse); 'SemiDetached' means it shares a wall with one other unit (e.g., duplex); 'Detached' means the unit stands alone with no shared walls.",
-          "minLength": 1
+          "comment": "Indicates the structural relationship of the dwelling to other units. 'Attached' means the unit shares walls on both sides with adjacent dwellings (e.g., rowhouse or townhouse); 'SemiDetached' means it shares a wall with one other unit (e.g., duplex); 'Detached' means the unit stands alone with no shared walls."
         },
         "building_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -21813,8 +20948,7 @@
             "Laminate",
             "Stucco"
           ],
-          "comment": "Refers to the type of building material associated with a structure.",
-          "minLength": 1
+          "comment": "Refers to the type of building material associated with a structure."
         },
         "building_material_type_other_description": {
           "type": [
@@ -21825,10 +20959,6 @@
           "minLength": 1
         },
         "exterior_wall_material_primary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Brick",
             "Natural Stone",
@@ -21845,14 +20975,9 @@
             "Precast Concrete",
             "Curtain Wall"
           ],
-          "comment": "Primary material used for exterior wall cladding and structure.",
-          "minLength": 1
+          "comment": "Primary material used for exterior wall cladding and structure."
         },
         "exterior_wall_material_secondary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Brick Accent",
             "Stone Accent",
@@ -21862,14 +20987,9 @@
             "Vinyl Accent",
             "Decorative Block"
           ],
-          "comment": "Secondary material used for exterior wall accents or trim.",
-          "minLength": 1
+          "comment": "Secondary material used for exterior wall accents or trim."
         },
         "exterior_wall_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Excellent",
@@ -21878,14 +20998,9 @@
             "Poor",
             "Damaged"
           ],
-          "comment": "Observed condition of the exterior wall materials.",
-          "minLength": 1
+          "comment": "Observed condition of the exterior wall materials."
         },
         "exterior_wall_insulation_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Fiberglass Batt",
             "Blown Cellulose",
@@ -21896,14 +21011,9 @@
             "Natural Fiber",
             "Unknown"
           ],
-          "comment": "Type of insulation used in exterior wall cavities.",
-          "minLength": 1
+          "comment": "Type of insulation used in exterior wall cavities."
         },
         "flooring_material_primary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Solid Hardwood",
             "Engineered Hardwood",
@@ -21922,14 +21032,9 @@
             "Terrazzo",
             "Epoxy Coating"
           ],
-          "comment": "Primary flooring material covering floor surface.",
-          "minLength": 1
+          "comment": "Primary flooring material covering floor surface."
         },
         "flooring_material_secondary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Solid Hardwood",
             "Engineered Hardwood",
@@ -21940,14 +21045,9 @@
             "Area Rugs",
             "Transition Strips"
           ],
-          "comment": "Secondary flooring material if multiple types are used in different areas.",
-          "minLength": 1
+          "comment": "Secondary flooring material if multiple types are used in different areas."
         },
         "subfloor_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Plywood",
             "OSB",
@@ -21956,14 +21056,9 @@
             "Particle Board",
             "Unknown"
           ],
-          "comment": "Material used for subfloor structure beneath finish flooring.",
-          "minLength": 1
+          "comment": "Material used for subfloor structure beneath finish flooring."
         },
         "flooring_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Excellent",
@@ -21972,14 +21067,9 @@
             "Poor",
             "Damaged"
           ],
-          "comment": "Overall condition of flooring materials and installation.",
-          "minLength": 1
+          "comment": "Overall condition of flooring materials and installation."
         },
         "interior_wall_structure_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wood Frame",
             "Steel Frame",
@@ -21988,14 +21078,9 @@
             "Load Bearing",
             "Non-Load Bearing"
           ],
-          "comment": "Structural material used for interior wall framing.",
-          "minLength": 1
+          "comment": "Structural material used for interior wall framing."
         },
         "interior_wall_surface_material_primary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Drywall",
             "Plaster",
@@ -22011,14 +21096,9 @@
             "Glass Panels",
             "Concrete"
           ],
-          "comment": "Primary surface material covering interior walls throughout most of the structure.",
-          "minLength": 1
+          "comment": "Primary surface material covering interior walls throughout most of the structure."
         },
         "interior_wall_surface_material_secondary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wainscoting",
             "Chair Rail",
@@ -22032,14 +21112,9 @@
             "Decorative Panels",
             "Feature Wall Material"
           ],
-          "comment": "Secondary material used for interior wall accents, trim, or feature walls.",
-          "minLength": 1
+          "comment": "Secondary material used for interior wall accents, trim, or feature walls."
         },
         "interior_wall_finish_primary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Paint",
             "Primer and Paint",
@@ -22049,14 +21124,9 @@
             "Clear Coat",
             "Exposed Natural"
           ],
-          "comment": "Primary finish treatment applied over interior wall surfaces.",
-          "minLength": 1
+          "comment": "Primary finish treatment applied over interior wall surfaces."
         },
         "interior_wall_finish_secondary": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wallpaper",
             "Wall Decals",
@@ -22066,14 +21136,9 @@
             "Murals",
             "Decorative Paint Technique"
           ],
-          "comment": "Secondary finish treatment for accent areas or decorative elements.",
-          "minLength": 1
+          "comment": "Secondary finish treatment for accent areas or decorative elements."
         },
         "interior_wall_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Excellent",
@@ -22082,14 +21147,9 @@
             "Poor",
             "Damaged"
           ],
-          "comment": "Overall condition of interior wall surfaces and finishes.",
-          "minLength": 1
+          "comment": "Overall condition of interior wall surfaces and finishes."
         },
         "construction_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Block",
             "Brick",
@@ -22099,8 +21159,7 @@
             "EngineeredWood",
             "Stone"
           ],
-          "comment": "Refers to the type of construction material associated with a structure.",
-          "minLength": 1
+          "comment": "Refers to the type of construction material associated with a structure."
         },
         "construction_material_type_other_description": {
           "type": [
@@ -22111,10 +21170,6 @@
           "minLength": 1
         },
         "door_design_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Panel",
             "Sliding",
@@ -22127,8 +21182,7 @@
             "Atrium",
             "Carriage"
           ],
-          "comment": "Refers to the door design type.",
-          "minLength": 1
+          "comment": "Refers to the door design type."
         },
         "door_design_type_other_description": {
           "type": [
@@ -22139,10 +21193,6 @@
           "minLength": 1
         },
         "door_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -22168,8 +21218,7 @@
             "Glass",
             "Laminate"
           ],
-          "comment": "Refers to the door material type.",
-          "minLength": 1
+          "comment": "Refers to the door material type."
         },
         "door_material_type_other_description": {
           "type": [
@@ -22180,10 +21229,6 @@
           "minLength": 1
         },
         "door_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Panel",
             "Sliding",
@@ -22195,8 +21240,7 @@
             "Atrium",
             "Carriage"
           ],
-          "comment": "Refers to the type of door.",
-          "minLength": 1
+          "comment": "Refers to the type of door."
         },
         "door_type_other_description": {
           "type": [
@@ -22207,10 +21251,6 @@
           "minLength": 1
         },
         "flooring_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -22236,8 +21276,7 @@
             "Glass",
             "Laminate"
           ],
-          "comment": "Refers to the type of material used for a floor.",
-          "minLength": 1
+          "comment": "Refers to the type of material used for a floor."
         },
         "flooring_material_type_other_description": {
           "type": [
@@ -22248,10 +21287,6 @@
           "minLength": 1
         },
         "flooring_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Tile",
             "CeramicTile",
@@ -22265,8 +21300,7 @@
             "Marble",
             "Vinyl"
           ],
-          "comment": "Refers to the type of flooring used in a structure's interior.",
-          "minLength": 1
+          "comment": "Refers to the type of flooring used in a structure's interior."
         },
         "flooring_type_other_description": {
           "type": [
@@ -22277,10 +21311,6 @@
           "minLength": 1
         },
         "roof_covering_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "3-Tab Asphalt Shingle",
             "Architectural Asphalt Shingle",
@@ -22299,28 +21329,18 @@
             "Green Roof System",
             "Solar Integrated Tiles"
           ],
-          "comment": "Material used for the primary roof covering.",
-          "minLength": 1
+          "comment": "Material used for the primary roof covering."
         },
         "roof_underlayment_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Felt Paper",
             "Synthetic Underlayment",
             "Rubberized Asphalt",
             "Unknown"
           ],
-          "comment": "Type of underlayment beneath roof covering.",
-          "minLength": 1
+          "comment": "Type of underlayment beneath roof covering."
         },
         "roof_structure_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wood Truss",
             "Wood Rafter",
@@ -22328,14 +21348,9 @@
             "Concrete Beam",
             "Engineered Lumber"
           ],
-          "comment": "Material used for roof structural support.",
-          "minLength": 1
+          "comment": "Material used for roof structural support."
         },
         "roof_design_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Gable",
             "Hip",
@@ -22351,14 +21366,9 @@
             "Barrel",
             "Combination"
           ],
-          "comment": "Architectural design of the roof structure.",
-          "minLength": 1
+          "comment": "Architectural design of the roof structure."
         },
         "roof_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Excellent",
@@ -22368,8 +21378,7 @@
             "Damaged",
             "Leaking"
           ],
-          "comment": "Visible condition of the roof covering and structure.",
-          "minLength": 1
+          "comment": "Visible condition of the roof covering and structure."
         },
         "roof_age_years": {
           "type": [
@@ -22380,10 +21389,6 @@
           "minimum": 1
         },
         "gutters_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Aluminum",
             "Vinyl",
@@ -22391,14 +21396,9 @@
             "Copper",
             "Galvanized Steel"
           ],
-          "comment": "Material used for gutter system.",
-          "minLength": 1
+          "comment": "Material used for gutter system."
         },
         "gutters_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Good",
@@ -22407,8 +21407,7 @@
             "Missing",
             "Damaged"
           ],
-          "comment": "Condition of gutters and downspout system.",
-          "minLength": 1
+          "comment": "Condition of gutters and downspout system."
         },
         "roof_design_type_other_description": {
           "type": [
@@ -22419,10 +21418,6 @@
           "minLength": 1
         },
         "roof_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -22448,8 +21443,7 @@
             "Glass",
             "Laminate"
           ],
-          "comment": "Refers to the material a roof is made of.",
-          "minLength": 1
+          "comment": "Refers to the material a roof is made of."
         },
         "roof_material_type_other_description": {
           "type": [
@@ -22460,10 +21454,6 @@
           "minLength": 1
         },
         "roof_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Tile",
             "Mansard",
@@ -22480,8 +21470,7 @@
             "Clerestory",
             "Hip"
           ],
-          "comment": "Refers to the type of roof associated with a structure.",
-          "minLength": 1
+          "comment": "Refers to the type of roof associated with a structure."
         },
         "roof_type_other_description": {
           "type": [
@@ -22492,10 +21481,6 @@
           "minLength": 1
         },
         "window_design_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Skylights",
             "Transom",
@@ -22512,14 +21497,9 @@
             "Picture",
             "Casement"
           ],
-          "comment": "Refers to the window design.",
-          "minLength": 1
+          "comment": "Refers to the window design."
         },
         "foundation_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Slab on Grade",
             "Crawl Space",
@@ -22529,14 +21509,9 @@
             "Basement with Walkout",
             "Stem Wall"
           ],
-          "comment": "Type of foundation system supporting the structure.",
-          "minLength": 1
+          "comment": "Type of foundation system supporting the structure."
         },
         "foundation_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Poured Concrete",
             "Concrete Block",
@@ -22547,28 +21522,18 @@
             "Precast Concrete",
             "Insulated Concrete Forms"
           ],
-          "comment": "Primary material used in foundation construction.",
-          "minLength": 1
+          "comment": "Primary material used in foundation construction."
         },
         "foundation_waterproofing": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Membrane",
             "Coating",
             "Drainage System",
             "Unknown"
           ],
-          "comment": "Type of waterproofing system used on foundation.",
-          "minLength": 1
+          "comment": "Type of waterproofing system used on foundation."
         },
         "foundation_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Excellent",
             "Good",
@@ -22579,14 +21544,9 @@
             "Water Damage",
             "Unknown"
           ],
-          "comment": "Visible condition of the foundation system.",
-          "minLength": 1
+          "comment": "Visible condition of the foundation system."
         },
         "ceiling_structure_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wood Joists",
             "Steel Joists",
@@ -22594,14 +21554,9 @@
             "Exposed Beams",
             "Truss System"
           ],
-          "comment": "Structural material supporting the ceiling.",
-          "minLength": 1
+          "comment": "Structural material supporting the ceiling."
         },
         "ceiling_surface_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Drywall",
             "Plaster",
@@ -22613,14 +21568,9 @@
             "Tray",
             "Exposed Structure"
           ],
-          "comment": "Material used for ceiling surface finish.",
-          "minLength": 1
+          "comment": "Material used for ceiling surface finish."
         },
         "ceiling_insulation_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Fiberglass Batt",
             "Blown Insulation",
@@ -22628,18 +21578,13 @@
             "Rigid Board",
             "Unknown"
           ],
-          "comment": "Type of insulation above ceiling.",
-          "minLength": 1
+          "comment": "Type of insulation above ceiling."
         },
         "ceiling_height_average": {
           "type": "decimal",
           "comment": "Average ceiling height in feet."
         },
         "ceiling_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Excellent",
@@ -22648,14 +21593,9 @@
             "Poor",
             "Damaged"
           ],
-          "comment": "Overall condition of ceiling materials and structure.",
-          "minLength": 1
+          "comment": "Overall condition of ceiling materials and structure."
         },
         "exterior_door_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Solid Wood",
             "Wood Composite",
@@ -22667,28 +21607,18 @@
             "Wrought Iron",
             "Security Door"
           ],
-          "comment": "Material used for exterior door construction.",
-          "minLength": 1
+          "comment": "Material used for exterior door construction."
         },
         "exterior_door_core_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Solid Core",
             "Insulated Core",
             "Honeycomb Core",
             "Glass Panel"
           ],
-          "comment": "Core construction type of exterior doors.",
-          "minLength": 1
+          "comment": "Core construction type of exterior doors."
         },
         "interior_door_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Solid Wood",
             "Hollow Core",
@@ -22701,14 +21631,9 @@
             "Pocket Door",
             "Barn Door"
           ],
-          "comment": "Material and construction of interior doors.",
-          "minLength": 1
+          "comment": "Material and construction of interior doors."
         },
         "window_frame_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Vinyl",
             "Wood",
@@ -22719,14 +21644,9 @@
             "Aluminum Clad Wood",
             "Vinyl Clad Wood"
           ],
-          "comment": "Material used for window frame construction.",
-          "minLength": 1
+          "comment": "Material used for window frame construction."
         },
         "window_glazing_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Single Pane",
             "Double Pane",
@@ -22739,14 +21659,9 @@
             "Tinted",
             "Smart Glass"
           ],
-          "comment": "Type and features of window glazing system.",
-          "minLength": 1
+          "comment": "Type and features of window glazing system."
         },
         "window_operation_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Double Hung",
             "Single Hung",
@@ -22761,28 +21676,18 @@
             "Jalousie",
             "Fixed"
           ],
-          "comment": "Operational mechanism and style of windows.",
-          "minLength": 1
+          "comment": "Operational mechanism and style of windows."
         },
         "window_screen_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Aluminum",
             "Fiberglass",
             "Pet Screen",
             "Solar Screen"
           ],
-          "comment": "Material used for window screens.",
-          "minLength": 1
+          "comment": "Material used for window screens."
         },
         "window_treatment_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Horizontal Blinds",
             "Vertical Blinds",
@@ -22795,14 +21700,9 @@
             "Valances",
             "Window Film"
           ],
-          "comment": "Type of window treatments installed.",
-          "minLength": 1
+          "comment": "Type of window treatments installed."
         },
         "primary_framing_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Wood Frame",
             "Steel Frame",
@@ -22813,28 +21713,18 @@
             "Post and Beam",
             "Log Construction"
           ],
-          "comment": "Primary material used for structural framing system.",
-          "minLength": 1
+          "comment": "Primary material used for structural framing system."
         },
         "secondary_framing_material": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Steel Beams",
             "Engineered Lumber",
             "Concrete Lintels",
             "Wood Beams"
           ],
-          "comment": "Secondary structural materials for support beams and lintels.",
-          "minLength": 1
+          "comment": "Secondary structural materials for support beams and lintels."
         },
         "structural_damage_indicators": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Foundation Cracks",
             "Wall Cracks",
@@ -22847,8 +21737,7 @@
             "Settlement Issues",
             "None Observed"
           ],
-          "comment": "Observable indicators of structural damage or issues.",
-          "minLength": 1
+          "comment": "Observable indicators of structural damage or issues."
         },
         "window_design_type_other_description": {
           "type": [
@@ -22859,10 +21748,6 @@
           "minLength": 1
         },
         "window_material_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Manufactured",
             "EngineeredWood",
@@ -22888,8 +21773,7 @@
             "Glass",
             "Laminate"
           ],
-          "comment": "Refers to the type of material a window is made from.",
-          "minLength": 1
+          "comment": "Refers to the type of material a window is made from."
         },
         "window_material_type_other_description": {
           "type": [
@@ -22908,10 +21792,6 @@
           "minLength": 1
         },
         "window_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Blinds",
             "Skylights",
@@ -22931,8 +21811,7 @@
             "Picture",
             "Casement"
           ],
-          "comment": "Refers to the type of window associated with a structure.",
-          "minLength": 1
+          "comment": "Refers to the type of window associated with a structure."
         },
         "window_type_other_description": {
           "type": [
@@ -22955,10 +21834,6 @@
           "comment": "The total area of all habitable rooms above grade measured contiguously."
         },
         "structure_add_on": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Dock",
             "Seawall",
@@ -22970,8 +21845,7 @@
             "DetachedStructure",
             "BuiltInBBQ"
           ],
-          "comment": "Represents permanent or semi-permanent exterior structures that are not enclosed rooms but enhance outdoor functionality or aesthetics.",
-          "minLength": 1
+          "comment": "Represents permanent or semi-permanent exterior structures that are not enclosed rooms but enhance outdoor functionality or aesthetics."
         },
         "add_on_type_other_description": {
           "type": [
@@ -22994,7 +21868,6 @@
           "comment": "The value against which subscription data will be compared, based on the specified operator."
         },
         "filter_value_type": {
-          "type": "string",
           "enum": [
             "Long",
             "Integer",
@@ -23010,7 +21883,6 @@
           "comment": "Indicates the data type of the filter value, ensuring the right kind of comparison is applied."
         },
         "operator": {
-          "type": "string",
           "enum": [
             "LessThanOrEqual",
             "LessThan",
@@ -23050,7 +21922,6 @@
           "comment": "Timestamp at which the subscription starts its billing cycle."
         },
         "currency": {
-          "type": "string",
           "enum": [
             "GBP",
             "USD",
@@ -23067,7 +21938,6 @@
           "comment": "Start date of the current period for which the subscription has been invoiced."
         },
         "delivery_day": {
-          "type": "string",
           "enum": [
             "Thursday",
             "Friday",
@@ -23096,7 +21966,6 @@
           "comment": "The origination date is the date on which a loan or financial instrument, such as a mortgage loan, is first created or issued. For mortgage loans, the origination date is typically the date on which the borrower signs the loan documents and the lender disburses the funds to complete the purchase or refinance of the property. The origination date is important because it is used to calculate the loan's term, which is the length of time over which the borrower will make payments on the loan."
         },
         "subscription_status": {
-          "type": "string",
           "enum": [
             "Incomplete",
             "Trialing",
@@ -23109,7 +21978,6 @@
           "comment": "Current status of the subscription."
         },
         "subscription_unit_type": {
-          "type": "string",
           "enum": [
             "ApiCall",
             "Image",
@@ -23229,7 +22097,6 @@
           "comment": "Due date is the date on which a ticket is due to be resolved."
         },
         "points": {
-          "type": "string",
           "enum": [
             "Defect",
             "FeatureRequest",
@@ -23242,7 +22109,6 @@
           "comment": "A remote task identifier is a unique code or string of characters assigned by a remote task management system (Asana) to a specific task that is used to uniquely identify and access that task."
         },
         "task_status": {
-          "type": "string",
           "enum": [
             "Next",
             "Done",
@@ -23254,7 +22120,6 @@
           "comment": "A task status is a way to track the progress and current state of a task or issue in a task management system."
         },
         "task_type": {
-          "type": "string",
           "enum": [
             "Ticket",
             "Milestone",
@@ -23629,10 +22494,6 @@
           "minLength": 1
         },
         "property_exemption_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Portability",
             "Homestead",
@@ -23641,8 +22502,7 @@
             "Senior",
             "Affordable Housing"
           ],
-          "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types.",
-          "minLength": 1
+          "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types."
         },
         "property_exemption_value": {
           "type": "decimal",
@@ -23747,10 +22607,6 @@
           "comment": "A unique identifier assigned to the tax authority itself, used to distinguish this authority from other tax collecting entities in the system."
         },
         "authority_category": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "County",
             "Municipal",
@@ -23771,8 +22627,7 @@
             "State",
             "Federal"
           ],
-          "comment": "The category or type of tax authority that determines its jurisdiction and tax collection scope.",
-          "minLength": 1
+          "comment": "The category or type of tax authority that determines its jurisdiction and tax collection scope."
         }
       }
     },
@@ -23783,7 +22638,6 @@
       "deprecated_properties": [],
       "properties": {
         "amortization_type": {
-          "type": "string",
           "enum": [
             "GraduatedPaymentArm",
             "Step",
@@ -23808,7 +22662,6 @@
           "comment": "A benchmark interest rate that serves as the basis for determining the interest rate on an adjustable-rate mortgage."
         },
         "arm_index_value_type": {
-          "type": "string",
           "enum": [
             "SOFR",
             "Libor",
@@ -23877,7 +22730,6 @@
           "comment": "The number periods (as defined by the loan_amortization_period_type) over which the scheduled loan payments of principal and/or interest are calculated to retire the obligation."
         },
         "loan_amortization_period_type": {
-          "type": "string",
           "enum": [
             "Day",
             "Month",
@@ -23943,7 +22795,6 @@
           "comment": "A mortgage monthly payment is the amount of money that a borrower pays each month to repay the mortgage loan, which includes both the principal and interest on the loan. In addition to the principal and interest, the mortgage monthly payment may also include other expenses such as property taxes, homeowners insurance, and mortgage insurance, depending on the loan type and requirements. These additional expenses are often collected and held in an escrow account by the lender, who then pays them on behalf of the borrower."
         },
         "mortgage_type": {
-          "type": "string",
           "enum": [
             "Conventional",
             "Va",
@@ -24059,7 +22910,6 @@
           "comment": "."
         },
         "points": {
-          "type": "string",
           "enum": [
             "Defect",
             "FeatureRequest",
@@ -24076,7 +22926,6 @@
           "comment": "."
         },
         "request_type": {
-          "type": "string",
           "enum": [
             "Defect",
             "FeatureRequest",
@@ -24085,7 +22934,6 @@
           "comment": "A ticket request type is a categorization of tickets based on the customer's perspective of their nature or purpose."
         },
         "status": {
-          "type": "string",
           "enum": [
             "CREATED",
             "CREATING",
@@ -24109,7 +22957,6 @@
           "comment": "A ticket identifier is a unique code or string of characters assigned internally to a specific ticket that is used to uniquely identify and access that ticket."
         },
         "ticket_status": {
-          "type": "string",
           "enum": [
             "Next",
             "Done",
@@ -24125,7 +22972,6 @@
           "comment": "Ticket text provides information about the ticket and its requirements. The description serves as a reference to the support team who is responsible for resolving the ticket."
         },
         "ticket_type": {
-          "type": "string",
           "enum": [
             "Ticket",
             "Milestone",
@@ -24237,7 +23083,6 @@
           "type": "string"
         },
         "points": {
-          "type": "string",
           "enum": [
             "Defect",
             "FeatureRequest",
@@ -24251,7 +23096,6 @@
           "type": "string"
         },
         "request_type": {
-          "type": "string",
           "enum": [
             "Defect",
             "FeatureRequest",
@@ -24259,7 +23103,6 @@
           ]
         },
         "status": {
-          "type": "string",
           "enum": [
             "CREATED",
             "CREATING",
@@ -24279,7 +23122,6 @@
           "type": "string"
         },
         "ticket_status": {
-          "type": "string",
           "enum": [
             "Next",
             "Done",
@@ -24293,7 +23135,6 @@
           "type": "string"
         },
         "ticket_type": {
-          "type": "string",
           "enum": [
             "Ticket",
             "Milestone",
@@ -24518,10 +23359,6 @@
           "minLength": 1
         },
         "cooling_system_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "CeilingFans",
             "Electric",
@@ -24534,8 +23371,7 @@
             "GeothermalCooling",
             "Zoned"
           ],
-          "comment": "Refers to the type of cooling system used in the structure.",
-          "minLength": 1
+          "comment": "Refers to the type of cooling system used in the structure."
         },
         "cooling_system_type_other_description": {
           "type": [
@@ -24546,10 +23382,6 @@
           "minLength": 1
         },
         "heating_system_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "ElectricFurnace",
             "Electric",
@@ -24562,8 +23394,7 @@
             "Baseboard",
             "Gas"
           ],
-          "comment": "Refers to the type of heating system used in the structure.",
-          "minLength": 1
+          "comment": "Refers to the type of heating system used in the structure."
         },
         "heating_system_type_other_description": {
           "type": [
@@ -24574,10 +23405,6 @@
           "minLength": 1
         },
         "public_utility_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "WaterAvailable",
             "ElectricityAvailable",
@@ -24586,8 +23413,7 @@
             "CableAvailable",
             "UndergroundUtilities"
           ],
-          "comment": "Refers to the type of public utility available to a structure.",
-          "minLength": 1
+          "comment": "Refers to the type of public utility available to a structure."
         },
         "public_utility_type_other_description": {
           "type": [
@@ -24598,18 +23424,13 @@
           "minLength": 1
         },
         "sewer_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Sanitary",
             "Public",
             "Combined",
             "Septic"
           ],
-          "comment": "Refers to the type of sewer used in the structure.",
-          "minLength": 1
+          "comment": "Refers to the type of sewer used in the structure."
         },
         "sewer_type_other_description": {
           "type": [
@@ -24620,17 +23441,12 @@
           "minLength": 1
         },
         "water_source_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Well",
             "Aquifer",
             "Public"
           ],
-          "comment": "Refers to the type of water source used in the structure.",
-          "minLength": 1
+          "comment": "Refers to the type of water source used in the structure."
         },
         "water_source_type_other_description": {
           "type": [
@@ -24641,10 +23457,6 @@
           "minLength": 1
         },
         "plumbing_system_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Copper",
             "PEX",
@@ -24652,8 +23464,7 @@
             "GalvanizedSteel",
             "CastIron"
           ],
-          "comment": "Refers to the type of plumbing system used in the structure.",
-          "minLength": 1
+          "comment": "Refers to the type of plumbing system used in the structure."
         },
         "plumbing_system_type_other_description": {
           "type": [
@@ -24672,17 +23483,12 @@
           "minLength": 1
         },
         "electrical_wiring_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Copper",
             "Aluminum",
             "KnobAndTube"
           ],
-          "comment": "Specifies the type of electrical wiring used in the structure.",
-          "minLength": 1
+          "comment": "Specifies the type of electrical wiring used in the structure."
         },
         "hvac_condensing_unit_present": {
           "type": [
@@ -24705,17 +23511,12 @@
           "comment": "Indicates whether solar panels are installed on the structure."
         },
         "solar_panel_type": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "Photovoltaic",
             "SolarThermal",
             "Hybrid"
           ],
-          "comment": "Specifies the type of solar panel system.",
-          "minLength": 1
+          "comment": "Specifies the type of solar panel system."
         },
         "solar_panel_type_other_description": {
           "type": [
@@ -24756,10 +23557,6 @@
           "minLength": 1
         },
         "hvac_unit_condition": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "New",
             "Good",
@@ -24767,18 +23564,13 @@
             "Leaking",
             "Damaged"
           ],
-          "comment": "Visible exterior condition of the HVAC condensing unit, if present.",
-          "minLength": 1
+          "comment": "Visible exterior condition of the HVAC condensing unit, if present."
         },
         "solar_inverter_visible": {
           "type": "boolean",
           "comment": "Whether a solar inverter box is visible on exterior or utility closet."
         },
         "hvac_unit_issues": {
-          "type": [
-            "string",
-            "null"
-          ],
           "enum": [
             "RustyUnit",
             "LeakingPipes",
@@ -24786,8 +23578,7 @@
             "ObstructedVent",
             "WornFanHousing"
           ],
-          "comment": "Visual indicators of HVAC or external unit deterioration.",
-          "minLength": 1
+          "comment": "Visual indicators of HVAC or external unit deterioration."
         }
       }
     },
