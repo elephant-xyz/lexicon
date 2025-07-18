@@ -92,14 +92,9 @@ function isNestedRequired(property: LexiconProperty) {
 
 function mapLexiconTypeToJSONSchema(
   property: LexiconProperty,
-  parentRequiredLogic: boolean | undefined
+  _parentRequiredLogic: boolean | undefined
 ): Record<string, unknown> {
   const schema: Record<string, unknown> = {};
-
-  // Determine if this property is required by constraints
-  const isRequired = isEffectivelyRequired(property);
-  // Use parentRequiredLogic for nested properties if provided
-  const effectiveRequired = parentRequiredLogic !== undefined ? parentRequiredLogic : isRequired;
 
   // Handle oneOf first (before checking type)
   if (property.oneOf) {
