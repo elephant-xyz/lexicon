@@ -17,7 +17,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -34,7 +35,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -91,7 +93,8 @@
           "enum": [
             "Elementary",
             "Middle",
-            "High"
+            "High",
+            null
           ],
           "comment": "The type of school."
         },
@@ -123,7 +126,8 @@
             "D+",
             "D",
             "D-",
-            "F"
+            "F",
+            null
           ],
           "comment": "Letter grade rating for the school."
         },
@@ -164,7 +168,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -181,7 +186,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -232,7 +238,8 @@
             "Great",
             "Good",
             "Fair",
-            "Poor"
+            "Poor",
+            null
           ],
           "comment": "Overall commute quality assessment."
         },
@@ -256,7 +263,8 @@
             "Great",
             "Good",
             "Fair",
-            "Poor"
+            "Poor",
+            null
           ],
           "comment": "Quality of highway access."
         },
@@ -281,7 +289,8 @@
                   "Immediate",
                   "Close",
                   "Moderate",
-                  "Distant"
+                  "Distant",
+                  null
                 ],
                 "minLength": 1
               },
@@ -319,7 +328,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -336,7 +346,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -387,7 +398,8 @@
             "Low",
             "Moderate",
             "High",
-            "VeryHigh"
+            "VeryHigh",
+            null
           ],
           "comment": "Overall crime rate assessment for the area."
         },
@@ -404,7 +416,8 @@
             "FastResponse",
             "GoodResponse",
             "AverageResponse",
-            "SlowResponse"
+            "SlowResponse",
+            null
           ],
           "comment": "Emergency services response time quality."
         },
@@ -430,7 +443,8 @@
             "D+",
             "D",
             "D-",
-            "F"
+            "F",
+            null
           ],
           "comment": "Overall safety grade for the area."
         }
@@ -453,7 +467,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -470,7 +485,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -530,7 +546,8 @@
             "Moderate",
             "High",
             "VeryHigh",
-            "Extreme"
+            "Extreme",
+            null
           ],
           "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history."
         },
@@ -541,7 +558,8 @@
             "UnhealthyForSensitiveGroups",
             "Unhealthy",
             "VeryUnhealthy",
-            "Hazardous"
+            "Hazardous",
+            null
           ],
           "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area."
         },
@@ -554,7 +572,8 @@
             "Quiet",
             "Moderate",
             "Busy",
-            "Loud"
+            "Loud",
+            null
           ],
           "comment": "Ambient noise level in the area affecting quality of life and property desirability."
         },
@@ -572,7 +591,8 @@
               "Industrial",
               "Traffic",
               "Suburban",
-              "None"
+              "None",
+              null
             ],
             "minLength": 1
           },
@@ -584,7 +604,8 @@
             "Dark",
             "Rural",
             "Suburban",
-            "Urban"
+            "Urban",
+            null
           ],
           "comment": "Light pollution level affecting night sky visibility and natural darkness."
         },
@@ -601,7 +622,8 @@
             "Stable",
             "Moderate",
             "Unstable",
-            "HighRisk"
+            "HighRisk",
+            null
           ],
           "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk."
         },
@@ -623,7 +645,8 @@
             "Low",
             "Moderate",
             "High",
-            "Extreme"
+            "Extreme",
+            null
           ],
           "comment": "Flood risk assessment based on FEMA flood zone data."
         },
@@ -645,7 +668,8 @@
             "Low",
             "Moderate",
             "High",
-            "Extreme"
+            "Extreme",
+            null
           ],
           "comment": "Wind storm and hurricane risk assessment."
         },
@@ -658,7 +682,8 @@
             "Low",
             "Moderate",
             "High",
-            "Concern"
+            "Concern",
+            null
           ],
           "comment": "Radon gas exposure risk assessment."
         },
@@ -679,7 +704,8 @@
             "Urban",
             "Suburban",
             "Rural",
-            "Industrial"
+            "Industrial",
+            null
           ],
           "comment": "Primary environmental setting surrounding the property."
         },
@@ -725,7 +751,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -746,7 +773,8 @@
                     "text/plain",
                     "text/html",
                     "application/xml",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -824,7 +852,8 @@
             "D+",
             "D",
             "D-",
-            "F"
+            "F",
+            null
           ],
           "comment": "Safety grade assessment."
         },
@@ -897,7 +926,8 @@
           "enum": [
             "Instant",
             "Daily",
-            "Weekly"
+            "Weekly",
+            null
           ],
           "comment": "The frequency of tracking the buy search the customer desired."
         },
@@ -980,7 +1010,8 @@
           "enum": [
             "Instant",
             "Daily",
-            "Weekly"
+            "Weekly",
+            null
           ],
           "comment": "The frequency of tracking the sell search the customer desired ."
         }
@@ -1010,7 +1041,8 @@
           "enum": [
             "Instant",
             "Daily",
-            "Weekly"
+            "Weekly",
+            null
           ],
           "comment": "The frequency of tracking the sell search the customer desired ."
         },
@@ -1022,7 +1054,8 @@
           "enum": [
             "PrimaryResidence",
             "SecondHome",
-            "Investment"
+            "Investment",
+            null
           ],
           "comment": "Property usage type the customer is willing to buy"
         },
@@ -1167,7 +1200,8 @@
           "enum": [
             "InterestRateReduction",
             "StreamlinedWithoutAppraisal",
-            "FullDocumentation"
+            "FullDocumentation",
+            null
           ]
         },
         "refinance_program_type_other_description": {
@@ -1178,7 +1212,8 @@
           "enum": [
             "LimitedCashOut",
             "CashOut",
-            "NoCashOut"
+            "NoCashOut",
+            null
           ]
         },
         "total_prior_lien_payoff_amount": {
@@ -1193,7 +1228,8 @@
           "enum": [
             "FannieMae",
             "FreddieMac",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Specifies the investor holding the first mortgage that is being refinanced."
         },
@@ -1263,7 +1299,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -1280,7 +1317,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -1419,7 +1457,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -1436,7 +1475,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -1538,7 +1578,8 @@
             "Mailing",
             "Current",
             "Location",
-            "LegalEntityFormation"
+            "LegalEntityFormation",
+            null
           ],
           "comment": "Address type is a classification or categorization of an address based on its purpose or characteristics."
         },
@@ -1575,7 +1616,8 @@
             "Upper",
             "Lot",
             "Building",
-            "Lower"
+            "Lower",
+            null
           ],
           "comment": "Address unit designator type describes the category that a specific unit belongs to."
         },
@@ -1726,7 +1768,8 @@
             "S",
             "Y",
             "N",
-            "D"
+            "D",
+            null
           ],
           "comment": "A Delivery Point Barcode (DPBC) check is a verification process used to ensure the accuracy and validity of a Delivery Point Barcode, which is a barcode used by the United States Postal Service (USPS) to automate the sorting and delivery of mail."
         },
@@ -1765,7 +1808,8 @@
         "fips_county_subdivision_type": {
           "enum": [
             "MinorCivilDivision",
-            "CensusCountyDivision"
+            "CensusCountyDivision",
+            null
           ]
         },
         "fips_place_code": {
@@ -1914,7 +1958,8 @@
             "H",
             "F",
             "FirmOrCompanyAddress",
-            "G"
+            "G",
+            null
           ],
           "comment": "The plus_four_postal_code_type field, assigned by USPS (United States Postal Service), is used to categorize and define the type of address by indicating whether it includes an extended four-digit code, facilitating mail sorting and delivery in the United States."
         },
@@ -1945,7 +1990,8 @@
         },
         "recording_jurisdiction_type": {
           "enum": [
-            "County"
+            "County",
+            null
           ]
         },
         "recording_jurisdiction_type_other_description": {
@@ -2023,7 +2069,8 @@
             "NE",
             "NW",
             "SE",
-            "SW"
+            "SW",
+            null
           ],
           "comment": "Street post directional text refers to the directional indicator or suffix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area."
         },
@@ -2036,7 +2083,8 @@
             "NE",
             "NW",
             "SE",
-            "SW"
+            "SW",
+            null
           ],
           "comment": "Street pre directional text refers to the directional indicator or prefix added to a street name to provide additional information about the direction or orientation of the street segment. It helps to clarify the position of a particular street in relation to other streets or landmarks in a given area."
         },
@@ -2268,7 +2316,8 @@
             "Blf",
             "Grv",
             "Crk",
-            "Crk"
+            "Crk",
+            null
           ]
         },
         "unincorporated_area_name": {
@@ -2417,7 +2466,8 @@
         "scenario_type": {
           "enum": [
             "Mocked",
-            "Real"
+            "Real",
+            null
           ],
           "comment": "A scenario type is the type or category to which an API scenario belongs."
         }
@@ -2543,7 +2593,8 @@
             "Operation",
             "AggregatedPartner",
             "Notification",
-            "Proxy"
+            "Proxy",
+            null
           ]
         },
         "name": {
@@ -2579,7 +2630,8 @@
             "Microwave",
             "IceMaker",
             "BuiltInMicrowave",
-            "Cooktop"
+            "Cooktop",
+            null
           ],
           "comment": "Refers to the type of appliance."
         },
@@ -2607,7 +2659,8 @@
         "asset_account_type": {
           "enum": [
             "RelatedPartyManagedAccount",
-            "BorrowerManagedAccount"
+            "BorrowerManagedAccount",
+            null
           ]
         },
         "asset_account_type_other_description": {
@@ -2670,7 +2723,8 @@
             "RetirementFund",
             "BorrowerPrimaryHome",
             "SeverancePackage",
-            "CertificateOfDepositTimeDeposit"
+            "CertificateOfDepositTimeDeposit",
+            null
           ]
         },
         "asset_type_other_description": {
@@ -2726,7 +2780,8 @@
           "enum": [
             "Retained",
             "Sold",
-            "PendingSale"
+            "PendingSale",
+            null
           ]
         },
         "stock_bond_mutual_fund_share_count": {
@@ -2815,7 +2870,8 @@
         "authorization_type": {
           "enum": [
             "SoftCreditPull",
-            "HardCreditPull"
+            "HardCreditPull",
+            null
           ],
           "comment": "Authorization_type_enumerations refers to the type of authorization that the user granted, such as a soft credit pull or hard credit pull."
         }
@@ -2901,7 +2957,8 @@
           "enum": [
             "NotEligible",
             "Unavailable",
-            "Eligible"
+            "Eligible",
+            null
           ],
           "comment": "Asset representation and warranty relief eligibility type is the eligibility of a mortgage loan for relief from certain representations and warranties made by the borrower and the lender."
         },
@@ -2920,7 +2977,8 @@
         "aus_eligibility_type": {
           "enum": [
             "Ineligible",
-            "Eligible"
+            "Eligible",
+            null
           ],
           "comment": "Evaluation by an Automated Underwriting System (AUS) as either eligible for a loan or ineligible."
         },
@@ -2942,7 +3000,8 @@
         },
         "aus_purchase_eligibility_type": {
           "enum": [
-            "Eligible"
+            "Eligible",
+            null
           ],
           "comment": "Refers to a loan's eligibility for purchase."
         },
@@ -2955,7 +3014,8 @@
             "Caution",
             "OutOfScope",
             "Approve",
-            "Refer"
+            "Refer",
+            null
           ],
           "comment": "Refers to the outcome of a loan application's evaluation by an Automated Underwriting System (AUS)."
         },
@@ -2990,7 +3050,8 @@
             "GuaranteedUnderwritingSystem",
             "DesktopUnderwriter",
             "DesktopOriginator",
-            "DecisionEngine"
+            "DecisionEngine",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that represents the automated underwriting system used to evaluate a loan."
         },
@@ -3006,7 +3067,8 @@
           "enum": [
             "NotEligible",
             "Unavailable",
-            "Eligible"
+            "Eligible",
+            null
           ],
           "comment": "Refers to the eligibility of a lender to receive relief from the representations and warranties made abou tthe collateral (property) used to secure a mortgage loan."
         },
@@ -3022,7 +3084,8 @@
           "enum": [
             "NotEligible",
             "Unavailable",
-            "Eligible"
+            "Eligible",
+            null
           ],
           "comment": "Refers to the eligibility of a lender to receive relief from the representations and warranties made about borrower income."
         },
@@ -3073,7 +3136,8 @@
           "enum": [
             "Jinja2",
             "Jinja",
-            "Nunjucks"
+            "Nunjucks",
+            null
           ]
         }
       },
@@ -3094,7 +3158,8 @@
             "Buyer",
             "Seller",
             "Reel",
-            "Story"
+            "Story",
+            null
           ],
           "comment": "A classification that designates the primary focus of a marketing or advertising effort within the real estate sector."
         },
@@ -3269,7 +3334,8 @@
             "Cuv/crossover",
             "StationWagon",
             "Minivan",
-            "Hatchback"
+            "Hatchback",
+            null
           ],
           "comment": "An automobile type is the type or category to which an automobile belongs. (e.g., sedan, SUV, pickup)."
         }
@@ -3338,7 +3404,8 @@
             "Chat",
             "Service",
             "FrontEnd",
-            "Data"
+            "Data",
+            null
           ],
           "comment": "Indicates the type of files the bundle contains and the general purpose of the bundle."
         }
@@ -3369,7 +3436,8 @@
           "enum": [
             "System",
             "Assistant",
-            "User"
+            "User",
+            null
           ],
           "comment": "The role of the author of this message."
         },
@@ -3496,7 +3564,8 @@
             "LoanCosts",
             "OtherCosts",
             "PrincipalReduction",
-            "BalanceOfMortgageLoans"
+            "BalanceOfMortgageLoans",
+            null
           ],
           "comment": "Refers to a specific type of closing cost item that either adds a cost to, or subtracts a cost from, closing costs."
         },
@@ -3521,7 +3590,8 @@
             "SellerCredits",
             "ClosingCostsFinanced",
             "FundsForBorrower",
-            "ClosingCostsPaidBeforeClosing"
+            "ClosingCostsPaidBeforeClosing",
+            null
           ],
           "comment": "The category in which costs related to closing are grouped. This item type appears as a 'total' on a closing costs integrated disclosure."
         },
@@ -3543,7 +3613,8 @@
             "ServicesBorrowerDidShopFor",
             "TotalClosingCosts",
             "OriginationCharges",
-            "DueToSellerAtClosing"
+            "DueToSellerAtClosing",
+            null
           ],
           "comment": "Refers to a specific category of closing costs such as prepaids and services you can shop for. This section type appears on a closing costs integrated disclosure."
         }
@@ -3731,7 +3802,8 @@
             "Development",
             "Production",
             "Staging",
-            "Testing"
+            "Testing",
+            null
           ],
           "comment": "Environment type refers to the specific purpose of the computing environment. It's categorized into various types such as 'Development', 'Testing', 'Staging', and 'Production'. Each type corresponds to a different stage in the software development lifecycle and is configured to facilitate specific tasks associated with its stage."
         },
@@ -3766,7 +3838,8 @@
             "Archived",
             "Deprecated",
             "Inactive",
-            "Active"
+            "Active",
+            null
           ],
           "comment": "Status of the communication channel indicating its current state, such as active, inactive, or deprecated."
         },
@@ -3866,7 +3939,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -3883,7 +3957,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -4124,7 +4199,8 @@
             "Development",
             "Production",
             "Staging",
-            "Testing"
+            "Testing",
+            null
           ],
           "comment": "Environment type refers to the specific purpose of the computing environment. It's categorized into various types such as 'Development', 'Testing', 'Staging', and 'Production'. Each type corresponds to a different stage in the software development lifecycle and is configured to facilitate specific tasks associated with its stage."
         },
@@ -4179,7 +4255,8 @@
           "enum": [
             "Lead",
             "New",
-            "Archived"
+            "Archived",
+            null
           ],
           "comment": "Company relation state indicates the current state of the target company in its relationship with Staircase. Some examples of relation states include new, lead and archived."
         },
@@ -4187,14 +4264,16 @@
           "enum": [
             "Contract",
             "Sales",
-            "Sow"
+            "Sow",
+            null
           ],
           "comment": "Company relation status type indicates the status type for the company."
         },
         "company_relation_type": {
           "enum": [
             "Partner",
-            "Customer"
+            "Customer",
+            null
           ],
           "comment": "Company relation type indicates whether the company is a Staircase customer or a Staircase partner."
         }
@@ -4248,7 +4327,8 @@
             "MailReceipt",
             "DataCollection",
             "Communication",
-            "DataSharing"
+            "DataSharing",
+            null
           ],
           "comment": "Enumerates the type of action(s) permitted by the consent."
         },
@@ -4266,7 +4346,8 @@
             "Revoked",
             "Pending",
             "Suspended",
-            "Active"
+            "Active",
+            null
           ],
           "comment": "Signifies the current status of the consent, such as active, revoked, or expired."
         },
@@ -4308,7 +4389,8 @@
         },
         "console_configuration_type": {
           "enum": [
-            "Listview"
+            "Listview",
+            null
           ],
           "comment": "Console configuration type describes the type of configuration that has been applied to the console. Configuration refers to the process of customizing a console to meet specific customer needs and requirements. This process involves changing settings and parameters in configuration files to customize the console's behavior, and does not involve any changes to the console's underlying software."
         },
@@ -5169,7 +5251,8 @@
         "contact_attempt_status": {
           "enum": [
             "Successful",
-            "Attempted"
+            "Attempted",
+            null
           ],
           "comment": "Contact Attempt status provided by the Loan Officer. It can be 'Succesful', 'Attempted'."
         },
@@ -5182,7 +5265,8 @@
           "enum": [
             "NoFeedback",
             "Disliked",
-            "Liked"
+            "Liked",
+            null
           ],
           "comment": "Feedback status provided by the Loan Officer. It can be 'Liked', 'Disliked', or 'NoFeedback' when no feedback is provided."
         },
@@ -5511,7 +5595,8 @@
             "WholesaleGroceries",
             "WholesaleHomeFurnishings",
             "WholesaleMachineryAndEquipment",
-            "WholesaleMiscellaneous"
+            "WholesaleMiscellaneous",
+            null
           ],
           "comment": "Details about the type of business that has extended a line of credit or loan to a borrower."
         },
@@ -5550,7 +5635,8 @@
             "RealEstateAndPublicAccommodation",
             "SportingGoods",
             "UtilitiesAndFuel",
-            "Wholesale"
+            "Wholesale",
+            null
           ],
           "comment": "The type of business that has extended a line of credit or loan to a borrower."
         },
@@ -6113,7 +6199,8 @@
         "credit_request_type": {
           "enum": [
             "Joint",
-            "Individual"
+            "Individual",
+            null
           ]
         },
         "credit_score": {
@@ -6358,7 +6445,8 @@
             "Failed",
             "Busy",
             "NoAnswer",
-            "Canceled"
+            "Canceled",
+            null
           ],
           "comment": "Phone call status provides information about the call's progress, from initiation to completion or failure."
         },
@@ -6369,7 +6457,8 @@
         "phone_call_direction": {
           "enum": [
             "Outgoing",
-            "Incoming"
+            "Incoming",
+            null
           ],
           "comment": "Phone call direction indicates whether a phone call was initiated by the system or received by the system."
         },
@@ -6412,7 +6501,8 @@
             "DisplayNetwork",
             "SmartShoppingCampaign",
             "Youtube",
-            "GoogleVideoPartner"
+            "GoogleVideoPartner",
+            null
           ],
           "comment": "Specifies the platform or network where a click originated. It specifies the advertising channel responsible for driving traffic to a particular destination."
         },
@@ -6424,7 +6514,8 @@
           "enum": [
             "Exact",
             "Phrase",
-            "Broad"
+            "Broad",
+            null
           ],
           "comment": "Specifies the level of match between a user's search query and a keyword for an ad to be triggered. This attribute indicates the potential reach and relevance of an ad based on user search intent."
         },
@@ -6448,7 +6539,8 @@
           "enum": [
             "NoFeedback",
             "Disliked",
-            "Liked"
+            "Liked",
+            null
           ],
           "comment": "Indicates the feedback provided by the contactee. Can be 'Liked', 'Disliked', or 'NoFeedback' if no feedback was given."
         },
@@ -6471,7 +6563,8 @@
             "LiveChat",
             "Staircase.co",
             "GoogleAd",
-            "VirtualPhoneNumber"
+            "VirtualPhoneNumber",
+            null
           ],
           "comment": "The method used by Staircase or a customer to initiate contact."
         },
@@ -6494,7 +6587,8 @@
             "VirtualTourRequest",
             "ListingShare",
             "PropertyRating",
-            "ListingComment"
+            "ListingComment",
+            null
           ],
           "comment": "Represents the various purposes for which a customer interacts with a real estate agent. Each value specifies a distinct type of interaction that a customer might have, ranging from initial inquiries to more engaged actions like scheduling visits or making offers."
         },
@@ -6512,7 +6606,8 @@
             "WrongNumberAddress",
             "RequestedCallback",
             "NotHome",
-            "MailedPostcard"
+            "MailedPostcard",
+            null
           ],
           "comment": "The outcome of the contact with the individual."
         },
@@ -6525,7 +6620,8 @@
             "SiteVisit",
             "ScheduleACallClick",
             "CallAgentClick",
-            "GetPreApprovedClick"
+            "GetPreApprovedClick",
+            null
           ],
           "comment": "Indicates the specific action taken by the customer during the contact, such as scheduling a call or requesting a pre-approval."
         },
@@ -6553,7 +6649,8 @@
             "Click",
             "Spamreport",
             "Unsubscribe",
-            "Blocked"
+            "Blocked",
+            null
           ],
           "comment": "The current state or user-defined status of the contact. Used for prioritization, filtering, and visibility."
         },
@@ -6579,7 +6676,8 @@
             "Assistant",
             "System",
             "Customer",
-            "Agent"
+            "Agent",
+            null
           ]
         }
       },
@@ -6740,7 +6838,8 @@
             "Unknown",
             "NonResidentAlien",
             "PermanentResidentAlien",
-            "UsCitizen"
+            "UsCitizen",
+            null
           ]
         },
         "co_maker_endorser_of_note_indicator": {
@@ -6795,14 +6894,16 @@
           "enum": [
             "JointWithSpouse",
             "Sole",
-            "JointWithOtherThanSpouse"
+            "JointWithOtherThanSpouse",
+            null
           ]
         },
         "prior_property_usage_type": {
           "enum": [
             "SecondHome",
             "PrimaryResidence",
-            "Investment"
+            "Investment",
+            null
           ]
         },
         "property_proposed_clean_energy_lien_indicator": {
@@ -6856,7 +6957,8 @@
         "deployment_status_type": {
           "enum": [
             "Failed",
-            "Succeeded"
+            "Succeeded",
+            null
           ],
           "comment": "Indicates the result of the deployment."
         },
@@ -6916,7 +7018,8 @@
             "Gated",
             "Historic",
             "Planned",
-            "Sustainable"
+            "Sustainable",
+            null
           ],
           "comment": "Refers to the type of community associated with a development."
         },
@@ -6967,7 +7070,8 @@
             "Mobile",
             "Tablet",
             "Computer",
-            "TVScreen"
+            "TVScreen",
+            null
           ],
           "comment": "A device type is a classification of a device based on its characteristics, capabilities, and intended use."
         },
@@ -7036,7 +7140,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -7053,7 +7158,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -7102,7 +7208,8 @@
           "enum": [
             "jpeg",
             "png",
-            "txt"
+            "txt",
+            null
           ],
           "comment": "The format or MIME type of the file."
         },
@@ -7163,7 +7270,8 @@
             "BuildersCertificationBuildersCertificate",
             "BuildersCertificationPropertyInspection",
             "BuildersCertificationTermiteTreatment",
-            "PropertyImage"
+            "PropertyImage",
+            null
           ],
           "comment": "Semantic role or classification of the document."
         }
@@ -7252,7 +7360,8 @@
             "Mail",
             "Fax",
             "Email",
-            "PersonalDelivery"
+            "PersonalDelivery",
+            null
           ],
           "comment": "The method with which a document is delivered to a recipient."
         },
@@ -7346,7 +7455,8 @@
             "BuildersCertificationBuildersCertificate",
             "BuildersCertificationPropertyInspection",
             "BuildersCertificationTermiteTreatment",
-            "PropertyImage"
+            "PropertyImage",
+            null
           ],
           "comment": "Document type refers to the classification or categorization of a document based on its purpose, content, or format."
         },
@@ -7367,7 +7477,8 @@
         "staircase_document_category_type": {
           "enum": [
             "Partner",
-            "Staircase"
+            "Staircase",
+            null
           ],
           "comment": "A Staircase document category type indicates if the source of the document category is Staircase or a Staircase partner."
         },
@@ -7464,7 +7575,8 @@
             "Click",
             "Spamreport",
             "Unsubscribe",
-            "Blocked"
+            "Blocked",
+            null
           ],
           "description": "The type of email event."
         },
@@ -7508,7 +7620,8 @@
         "employment_classification_type": {
           "enum": [
             "Primary",
-            "Secondary"
+            "Secondary",
+            null
           ]
         },
         "employment_end_date": {
@@ -7567,7 +7680,8 @@
         "employment_status_type": {
           "enum": [
             "Previous",
-            "Current"
+            "Current",
+            null
           ]
         },
         "employment_subtype": {
@@ -7577,7 +7691,8 @@
             "PartTime",
             "Temp",
             "Intern",
-            "FullTime"
+            "FullTime",
+            null
           ]
         },
         "employment_time_in_line_of_work_years_count": {
@@ -7591,7 +7706,8 @@
             "Employee",
             "Unemployed",
             "Retired",
-            "Contractor"
+            "Contractor",
+            null
           ]
         },
         "employment_type_of_business_description": {
@@ -7609,7 +7725,8 @@
         "ownership_interest_type": {
           "enum": [
             "GreaterThanOrEqualTo25Percent",
-            "LessThan25Percent"
+            "LessThan25Percent",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the percentage of the total business of the borrower's self-owned business"
         },
@@ -7639,7 +7756,8 @@
         },
         "special_borrower_employer_relationship_type": {
           "enum": [
-            "EmployedByRelative"
+            "EmployedByRelative",
+            null
           ]
         },
         "special_borrower_employer_relationship_type_other_description": {
@@ -7698,7 +7816,8 @@
           "enum": [
             "Deactive",
             "Active",
-            "Deleted"
+            "Deleted",
+            null
           ],
           "comment": "Environment status refers to the current condition or state of a Staircase environment, which includes all software and cloud computing resources. The status of an environment can indicate various things, such as whether a productis up and running or if it is experiencing issues."
         },
@@ -7707,7 +7826,8 @@
             "Development",
             "Production",
             "Staging",
-            "Testing"
+            "Testing",
+            null
           ],
           "comment": "Environment type refers to the specific purpose of the computing environment. It's categorized into various types such as 'Development', 'Testing', 'Staging', and 'Production'. Each type corresponds to a different stage in the software development lifecycle and is configured to facilitate specific tasks associated with its stage."
         },
@@ -7768,7 +7888,8 @@
             "NetworkError",
             "ConfigurationError",
             "ValidationError",
-            "SyntaxError"
+            "SyntaxError",
+            null
           ],
           "comment": "Error type refers to the category or classification of an error based on its characteristics and source."
         },
@@ -7778,7 +7899,8 @@
             "Warning",
             "High",
             "Critical",
-            "Low"
+            "Low",
+            null
           ],
           "comment": "Severity level is a classification assigned to an error or issue based on its impact and the urgency of the response needed to resolve it. The severity level is often used to prioritize the handling of errors and determine the appropriate response."
         }
@@ -7844,7 +7966,8 @@
             "VolcanoInsurance",
             "AssessmentTax",
             "HazardInsurance",
-            "CondominiumAssociationDues"
+            "CondominiumAssociationDues",
+            null
           ],
           "comment": "The type of item that is part of an escrow payment."
         },
@@ -7865,7 +7988,8 @@
           "enum": [
             "SomeEscrowed",
             "Escrowed",
-            "NotEscrowed"
+            "NotEscrowed",
+            null
           ],
           "comment": "Indicates what portion of the projected payment will be placed in escrow."
         },
@@ -7880,7 +8004,8 @@
             "CooperativeAssociationDues",
             "CondominiumAssociationSpecialAssessment",
             "CooperativeAssociationSpecialAssessment",
-            "CondominiumAssociationDues"
+            "CondominiumAssociationDues",
+            null
           ],
           "comment": "Indicates the type of taxes, insurance or assessment that is part of the payment estimate."
         },
@@ -7994,7 +8119,8 @@
             "Biweekly",
             "AtMaturity",
             "Semiannual",
-            "Weekly"
+            "Weekly",
+            null
           ],
           "comment": "Expense frequency type indicates how frequently the expense is paid."
         },
@@ -8028,7 +8154,8 @@
             "StateIncomeTax",
             "Educator",
             "EducatorPerIRS",
-            "Reservist"
+            "Reservist",
+            null
           ]
         },
         "fixed_property_expense_type": {
@@ -8041,7 +8168,8 @@
             "LeaseholdPayments",
             "MaintenanceAndMiscellaneous",
             "RealEstateTax",
-            "SupplementalPropertyInsurance"
+            "SupplementalPropertyInsurance",
+            null
           ]
         },
         "occupant_property_expense_type": {
@@ -8052,7 +8180,8 @@
             "Telephone",
             "Utilities",
             "Heating",
-            "Rent"
+            "Rent",
+            null
           ]
         },
         "mortgage_property_expense_type": {
@@ -8063,7 +8192,8 @@
             "FirstMortgagePrincipalAndInterest",
             "MIPremium",
             "OtherMortgagePrincipalAndInterest",
-            "OtherMortgageLoanPrincipalInterestTaxesAndInsurance"
+            "OtherMortgageLoanPrincipalInterestTaxesAndInsurance",
+            null
           ]
         },
         "expense_type_other_description": {
@@ -8126,7 +8256,8 @@
             "GreaterThanOneQuarterAcre",
             "PavedRoad",
             "LessThanOrEqualToOneQuarterAcre",
-            "Other"
+            "Other",
+            null
           ],
           "comment": "Describes key physical attributes of the lot, including size and access. This classification helps differentiate between lots that are larger than a quarter acre, smaller or equal to a quarter acre, have direct access to a paved road, or possess other distinguishing features."
         },
@@ -8141,7 +8272,8 @@
             "CoveredPatio",
             "CoveredPorch",
             "Open",
-            "Patio"
+            "Patio",
+            null
           ],
           "comment": "Refers to the type of outdoor living space associated with a structure."
         },
@@ -8163,7 +8295,8 @@
             "ThreeCarGarage",
             "CircularDriveway",
             "Driveway",
-            "Open"
+            "Open",
+            null
           ],
           "comment": "Refers to characteristics associated with parking in or near the structure."
         },
@@ -8186,7 +8319,8 @@
             "Heated",
             "BuiltIn",
             "RoomForPool",
-            "Other"
+            "Other",
+            null
           ],
           "comment": "Refers to the type of pool associated with a structure."
         },
@@ -8203,7 +8337,8 @@
             "Saltwater",
             "Jacuzzi",
             "WoodFiredHotTub",
-            "Heated"
+            "Heated",
+            null
           ],
           "comment": "Refers to the type of spa."
         },
@@ -8218,7 +8353,8 @@
             "City",
             "Garden",
             "Bay",
-            "Marina"
+            "Marina",
+            null
           ],
           "comment": "Refers to characteristics associated with a view from the structure."
         },
@@ -8237,7 +8373,8 @@
             "Deck",
             "Shed",
             "Firepit",
-            "Other"
+            "Other",
+            null
           ]
         },
         "comment": "Represents permanent or semi-permanent add-on structures on the exterior of the property."
@@ -8269,7 +8406,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -8286,7 +8424,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -8346,7 +8485,8 @@
             "Moderate",
             "High",
             "Very High",
-            "Extreme"
+            "Extreme",
+            null
           ],
           "comment": "Standardized wildfire risk assessment based on vegetation, weather patterns, topography, and fire history."
         },
@@ -8357,7 +8497,8 @@
             "Unhealthy for Sensitive Groups",
             "Unhealthy",
             "Very Unhealthy",
-            "Hazardous"
+            "Hazardous",
+            null
           ],
           "comment": "EPA Air Quality Index category indicating typical air pollution levels for the area."
         },
@@ -8366,7 +8507,8 @@
             "Quiet",
             "Moderate",
             "Busy",
-            "Loud"
+            "Loud",
+            null
           ],
           "comment": "Ambient noise level in the area affecting quality of life and property desirability."
         },
@@ -8375,7 +8517,8 @@
             "Dark",
             "Rural",
             "Suburban",
-            "Urban"
+            "Urban",
+            null
           ],
           "comment": "Light pollution level affecting night sky visibility and natural darkness."
         },
@@ -8392,7 +8535,8 @@
             "Stable",
             "Moderate",
             "Unstable",
-            "High Risk"
+            "High Risk",
+            null
           ],
           "comment": "Soil stability assessment considering factors like erosion, subsidence, and landslide risk."
         },
@@ -8619,7 +8763,8 @@
             "VerificationOfIncomeFee",
             "PowerOfAttorneyRecordingFee",
             "AsbestosInspectionFee",
-            "CondominiumAssociationDues"
+            "CondominiumAssociationDues",
+            null
           ],
           "comment": "The type of fee."
         },
@@ -8656,7 +8801,8 @@
             "Telephone",
             "Fax",
             "Internet",
-            "FaceToFace"
+            "FaceToFace",
+            null
           ]
         },
         "demographic_collection_date": {
@@ -8667,7 +8813,8 @@
         "demographic_collection_version_type": {
           "enum": [
             "Pre2018Version",
-            "2018Version"
+            "2018Version",
+            null
           ]
         },
         "demographic_collection_version_type_other_description": {
@@ -8682,7 +8829,8 @@
           "enum": [
             "Cuban",
             "PuertoRican",
-            "Mexican"
+            "Mexican",
+            null
           ]
         },
         "ethnicity_origin_type_other_description": {
@@ -8698,7 +8846,8 @@
             "InformationNotProvidedByApplicantInMailInternetOrTelephoneApplication",
             "NotHispanicOrLatino",
             "NotApplicable",
-            "HispanicOrLatino"
+            "HispanicOrLatino",
+            null
           ]
         },
         "ethnicity_type_other_description": {
@@ -8719,7 +8868,8 @@
             "NotApplicable",
             "Female",
             "Male",
-            "ApplicantSelectedBothMaleAndFemale"
+            "ApplicantSelectedBothMaleAndFemale",
+            null
           ]
         },
         "gender_type_other_description": {
@@ -8746,7 +8896,8 @@
             "AmericanIndianOrAlaskaNative",
             "InformationNotProvidedByApplicantInMailInternetOrTelephoneApplication",
             "NativeHawaiianOrOtherPacificIslander",
-            "BlackOrAfricanAmerican"
+            "BlackOrAfricanAmerican",
+            null
           ]
         },
         "race_type_additional_description": {
@@ -8974,7 +9125,8 @@
             "TennisCourts",
             "Management",
             "Pickleball",
-            "CableTV"
+            "CableTV",
+            null
           ],
           "comment": "Refers to the type of Homeowners association (HOA) amenity."
         },
@@ -9004,7 +9156,8 @@
             "TennisCourts",
             "Management",
             "Pickleball",
-            "CableTV"
+            "CableTV",
+            null
           ],
           "comment": "Refers to the type of Homeowners association (HOA) inclusion."
         },
@@ -9037,7 +9190,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -9054,7 +9208,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -9112,7 +9267,8 @@
             "Mandatory",
             "Voluntary",
             "Condominium",
-            "Hybrid"
+            "Hybrid",
+            null
           ],
           "comment": "Refers to the type of Homeowners association (HOA)."
         },
@@ -9135,7 +9291,8 @@
             "Quarterly",
             "Annually",
             "Bi-Annually",
-            "One-Time"
+            "One-Time",
+            null
           ],
           "comment": "How often the HOA fee is charged."
         },
@@ -9159,7 +9316,8 @@
             "rooftop_deck",
             "community_kitchen",
             "co_working_space",
-            "package_lockers"
+            "package_lockers",
+            null
           ],
           "comment": "List of common amenities offered (e.g., pool, clubhouse, gym, golf course)."
         },
@@ -9175,7 +9333,8 @@
             "secure_parking",
             "fenced_perimeter",
             "alarm_system",
-            "smart_locks"
+            "smart_locks",
+            null
           ],
           "comment": "Standard security infrastructure or services (e.g., 24/7 guard, gated entry, surveillance cameras)."
         }
@@ -9223,7 +9382,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -9240,7 +9400,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -9293,7 +9454,8 @@
             "HOAApprovalRequired",
             "OwnerOccupiedOnly",
             "UnlimitedRental",
-            "SeasonalRentalOnly"
+            "SeasonalRentalOnly",
+            null
           ],
           "comment": "Summary of leasing rules and duration limits (e.g., minimum stay, frequency, HOA approval)."
         },
@@ -9310,7 +9472,8 @@
             "MaxTwoPets",
             "PetDeposit",
             "PetFee",
-            "ServiceAnimalsOnly"
+            "ServiceAnimalsOnly",
+            null
           ],
           "comment": "Information about pet allowances and restrictions (e.g., pet friendly, breed/size restrictions)."
         },
@@ -9326,7 +9489,8 @@
             "MaxTwoVehicles",
             "CoveredParkingRequired",
             "NoStreetParking",
-            "PermitRequired"
+            "PermitRequired",
+            null
           ],
           "comment": "Rules around parking and vehicle types (e.g., no RVs, reserved parking)."
         },
@@ -9343,7 +9507,8 @@
             "NoGym",
             "AgeLimited55Plus",
             "NoShortTermGuests",
-            "HOAApprovalRequired"
+            "HOAApprovalRequired",
+            null
           ],
           "comment": "Other HOA or property-wide lifestyle rules (e.g., quiet hours, storage bans, dress code)."
         }
@@ -9435,7 +9600,8 @@
             "Monthly",
             "Biweekly",
             "Yearly",
-            "Weekly"
+            "Weekly",
+            null
           ],
           "comment": "Income pay frequency refers to the frequency at which an individual or entity receives payment for their work or services."
         },
@@ -9491,7 +9657,8 @@
             "SocialSecurity",
             "AccessoryUnitIncome",
             "CapitalGains",
-            "BoarderIncome"
+            "BoarderIncome",
+            null
           ],
           "comment": "Income type refers to the specific category or source of income earned by an individual or entity, such as earned, investment or rental income."
         },
@@ -9613,7 +9780,8 @@
             "PrimeRatePlus",
             "PaymentPower",
             "SettleAmerica",
-            "Calpers"
+            "Calpers",
+            null
           ],
           "comment": "An investor program name type refers to a type of loan that is designed for real estate investors. These programs are often offered by lenders and are designed to meet the specific needs of investors who are looking to purchase, renovate, or refinance investment properties."
         },
@@ -9641,7 +9809,8 @@
             "PriceResponse",
             "MiRateQuote",
             "InvestorWorkoutCase",
-            "NewServicerLoan"
+            "NewServicerLoan",
+            null
           ],
           "comment": "A loan identifier type is a unique identification code assigned to a mortgage loan by a lender or a loan servicer. The loan identifier is used to track the loan throughout its life cycle, from origination to servicing, and can be used to help identify the loan in various systems and databases. Some loan identifier types being used in the mortgage industry include a lender/servicer-assigned identifier, a universal loan identifier (ULI), Fannie Mae loan number and Freddie Mac loan number."
         },
@@ -9688,7 +9857,8 @@
         "rate_quote_type": {
           "enum": [
             "Estimated",
-            "Detail"
+            "Detail",
+            null
           ],
           "comment": "A rate quote type is a type of estimate provided by a lender that outlines the potential interest rate and other costs associated with a mortgage loan. It is often given to borrowers who are in the process of shopping for a mortgage and are looking for information on the rates and fees that may apply to a loan."
         },
@@ -9772,7 +9942,8 @@
             "Starred",
             "Read",
             "Snoozed",
-            "Archived"
+            "Archived",
+            null
           ]
         },
         "snoozed_until": {
@@ -9864,7 +10035,8 @@
             "Failed",
             "ActionRequired",
             "Succeeded",
-            "Canceled"
+            "Canceled",
+            null
           ],
           "comment": "An invocation status is the result or outcome of a function or service invocation, indicating whether the invocation was successful or not. When a function or service is invoked, it performs some action or computation, and the invocation status reflects whether that action was completed successfully or encountered an error."
         },
@@ -9968,14 +10140,16 @@
             "Referral",
             "Zillow",
             "SMS",
-            "PhoneCall"
+            "PhoneCall",
+            null
           ],
           "comment": "Indicates what is the source of this lead."
         },
         "lead_type": {
           "enum": [
             "Buy",
-            "Sell"
+            "Sell",
+            null
           ],
           "comment": "Indicates if the lead represents an individual who wants to buy a property (Buy) or an individual who wants to sell a property (Sell)."
         }
@@ -10175,7 +10349,8 @@
             "Financial Advisor",
             "Real Estate Agent",
             "Tenant",
-            "Property Manager"
+            "Property Manager",
+            null
           ],
           "comment": "Relation role defines the type of association between a person and the lead. Some examples of relation roles are seller, buyer, co-seller, co-buyer."
         },
@@ -10238,7 +10413,8 @@
             "NoDataAvailable",
             "Repossession",
             "TooNew",
-            "WageEarnerPlan"
+            "WageEarnerPlan",
+            null
           ],
           "comment": "The liability account's current rating (as of Date Reported) for how timely the borrower has been making payments on this account."
         },
@@ -10394,7 +10570,8 @@
             "WholesaleGroceries",
             "WholesaleHomeFurnishings",
             "WholesaleMachineryAndEquipment",
-            "WholesaleMiscellaneous"
+            "WholesaleMiscellaneous",
+            null
           ],
           "comment": "Details about the type of business that has extended a line of credit or loan to a borrower."
         },
@@ -10408,7 +10585,8 @@
             "Open",
             "Paid",
             "Refinanced",
-            "Transferred"
+            "Transferred",
+            null
           ],
           "comment": "The status of the liability account (e.g. open, closed)."
         },
@@ -10428,14 +10606,16 @@
             "NoDataAvailable",
             "Repossession",
             "TooNew",
-            "WageEarnerPlan"
+            "WageEarnerPlan",
+            null
           ],
           "comment": "The liability accounts highest (or worst) rating type for how timely the borrower has been making payments on this account."
         },
         "liability_terms_source_type": {
           "enum": [
             "Calculated",
-            "Provided"
+            "Provided",
+            null
           ],
           "comment": "The source of the terms established for repayment of a loan."
         },
@@ -10465,7 +10645,8 @@
             "RealEstateAndPublicAccommodation",
             "SportingGoods",
             "UtilitiesAndFuel",
-            "Wholesale"
+            "Wholesale",
+            null
           ],
           "comment": "The type of business that has extended a line of credit or loan to a borrower."
         },
@@ -10574,7 +10755,8 @@
             "Unsecured",
             "UtilityCompany",
             "VeteransAdministrationLoan",
-            "VeteransAdministrationRealEstateMortgage"
+            "VeteransAdministrationRealEstateMortgage",
+            null
           ],
           "comment": "The type of loan associated with the liability."
         },
@@ -10596,7 +10778,8 @@
             "ServicesBorrowerDidShopFor",
             "TotalClosingCosts",
             "OriginationCharges",
-            "DueToSellerAtClosing"
+            "DueToSellerAtClosing",
+            null
           ],
           "comment": "Refers to a specific category of closing costs such as prepaids and services you can shop for. This section type appears on a closing costs integrated disclosure."
         },
@@ -10731,7 +10914,8 @@
             "SecondPositionMortgageLien",
             "UnsecuredHomeImprovementLoanInstallment",
             "ThirdPositionMortgageLien",
-            "HomeownersAssociationLien"
+            "HomeownersAssociationLien",
+            null
           ]
         },
         "liability_type_other_description": {
@@ -10825,7 +11009,8 @@
             "Private",
             "PublicState",
             "PublicLocal",
-            "PublicFederal"
+            "PublicFederal",
+            null
           ],
           "comment": "An automobile type is the type or category to which an automobile belongs. (e.g., sedan, SUV, pickup)."
         },
@@ -10892,7 +11077,8 @@
             "Rented",
             "Withdrawn",
             "Sold",
-            "Active"
+            "Active",
+            null
           ],
           "comment": "The status of the listing"
         },
@@ -10928,7 +11114,8 @@
             "InitialListing",
             "AuctionStart",
             "Appraised",
-            "AverageListing"
+            "AverageListing",
+            null
           ],
           "comment": "Enumerated values indicating the nature of the price"
         },
@@ -10951,7 +11138,8 @@
             "ConventionalLoan",
             "VALoan",
             "FHALoan",
-            "Cash"
+            "Cash",
+            null
           ],
           "comment": "Refers to a condition or type of financing that a seller is willing to accept from a buyer when selling a property."
         },
@@ -11079,7 +11267,8 @@
           "enum": [
             "BuyerAgent",
             "TransBrk",
-            "NonRep"
+            "NonRep",
+            null
           ],
           "comment": "Refers to a type of commmission that will be paid as part of a real estate transaction."
         },
@@ -11245,7 +11434,8 @@
             "Rented",
             "Withdrawn",
             "Sold",
-            "Active"
+            "Active",
+            null
           ],
           "comment": "The status of the listing"
         },
@@ -11272,7 +11462,8 @@
             "InitialListing",
             "AuctionStart",
             "Appraised",
-            "AverageListing"
+            "AverageListing",
+            null
           ],
           "comment": "Enumerated values indicating the nature of the price"
         },
@@ -11281,7 +11472,8 @@
             "ConventionalLoan",
             "VALoan",
             "FHALoan",
-            "Cash"
+            "Cash",
+            null
           ],
           "comment": "Refers to a condition or type of financing that a seller is willing to accept from a buyer when selling a property."
         },
@@ -11321,7 +11513,8 @@
           "enum": [
             "Under30Days",
             "30to120days",
-            "Over120Days"
+            "Over120Days",
+            null
           ],
           "comment": "Enumerations representing the typical duration of days a property of this type remains on the market"
         },
@@ -11336,7 +11529,8 @@
         "short_sale_offering_type": {
           "enum": [
             "Preapproved",
-            "Requested"
+            "Requested",
+            null
           ],
           "comment": "The type of short sale offering"
         },
@@ -12145,7 +12339,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -12162,7 +12357,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -12227,7 +12423,8 @@
             "Gem",
             "Gpm",
             "RateImprovementMortgage",
-            "AdjustableRate"
+            "AdjustableRate",
+            null
           ],
           "comment": "Loan amortization type refers to the method used to calculate and pay off a loan over time. The two most common types of loan amortization are fully amortizing and partially amortizing.  In a fully amortizing loan, the borrower makes regular payments (usually monthly) that include both principal and interest. Each payment reduces the principal balance of the loan, and over time the loan is gradually paid off in full. In a partially amortizing loan, the borrower makes regular payments that include both principal and interest, but the payments are not large enough to fully pay off the loan by the end of its term. As a result, at the end of the loan term, the borrower must either make a balloon payment to pay off the remaining balance, refinance the loan, or enter into another agreement with the lender."
         },
@@ -12269,7 +12466,8 @@
             "MTA",
             "FarmCredit",
             "Prime",
-            "COFI"
+            "COFI",
+            null
           ],
           "comment": "Refers to the specific type of benchmark or index used to determine the interest rate adjustments for an adjustable-rate mortgage (ARM)."
         },
@@ -12397,7 +12595,8 @@
             "OneOne",
             "TwoOne",
             "ThreeTwoOne",
-            "OneZero"
+            "OneZero",
+            null
           ],
           "comment": "A mortgage buydown is a type of mortgage financing in which the borrower or a third party pays an additional fee, known as points, to the lender in exchange for a lower interest rate on the mortgage loan. The buydown can be a temporary or permanent reduction of the interest rate on the mortgage loan. There are two main types of buydowns: temporary and permanent."
         },
@@ -12473,7 +12672,8 @@
         "construction_to_permanent_closing_type": {
           "enum": [
             "TwoClosing",
-            "OneClosing"
+            "OneClosing",
+            null
           ]
         },
         "conversion_of_contract_for_deed_indicator": {
@@ -12487,7 +12687,8 @@
         "correspondent_acquisition_type": {
           "enum": [
             "Flow",
-            "Bulk"
+            "Bulk",
+            null
           ]
         },
         "correspondent_acquisition_type_other_description": {
@@ -12510,7 +12711,8 @@
           "enum": [
             "CreditorMayAssignSellOrTransferServicingOfLoan",
             "CreditorIntendsToTransferServicingOfLoan",
-            "CreditorIntendsToServiceLoan"
+            "CreditorIntendsToServiceLoan",
+            null
           ]
         },
         "creditor_servicing_of_loan_statement_type_other_description": {
@@ -12638,7 +12840,8 @@
           "enum": [
             "LenderDoesNotOffer",
             "LenderDoesNotRequire",
-            "BorrowerDeclined"
+            "BorrowerDeclined",
+            null
           ]
         },
         "escrow_absence_reason_type_other_description": {
@@ -12652,7 +12855,8 @@
         "escrow_account_lender_requirement_type": {
           "enum": [
             "EscrowsRequiredByLender",
-            "EscrowsWaivedByLender"
+            "EscrowsWaivedByLender",
+            null
           ]
         },
         "escrow_account_requested_indicator": {
@@ -12703,7 +12907,8 @@
             "Biweekly",
             "Week",
             "Weekly",
-            "Semiannually"
+            "Semiannually",
+            null
           ],
           "comment": "Indicates a period of time such as day, month and year."
         },
@@ -12802,7 +13007,8 @@
         "lending_limit_type": {
           "enum": [
             "Calculated",
-            "County"
+            "County",
+            null
           ]
         },
         "lending_limit_type_other_description": {
@@ -12822,7 +13028,8 @@
             "FirstLien",
             "ThirdLien",
             "FourthLien",
-            "SecondLien"
+            "SecondLien",
+            null
           ],
           "comment": "Defines the priority of claims against the property in the event of default or foreclosure. The priority determines the sequence of debt repayment if the property is sold or foreclosed on"
         },
@@ -12870,7 +13077,8 @@
             "Year",
             "Biweekly",
             "Week",
-            "Quarter"
+            "Quarter",
+            null
           ],
           "comment": ""
         },
@@ -12939,7 +13147,8 @@
         "loan_closing_status_type": {
           "enum": [
             "Closed",
-            "TableFunded"
+            "TableFunded",
+            null
           ]
         },
         "loan_commitment_date": {
@@ -13071,7 +13280,8 @@
             "Refinance",
             "Purchase",
             "MortgageModification",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Specifies the primary reason or purpose for which the loan was taken."
         },
@@ -13108,7 +13318,8 @@
           "enum": [
             "ConstantPrincipal",
             "ScheduledAmortization",
-            "PrincipalPaymentOption"
+            "PrincipalPaymentOption",
+            null
           ]
         },
         "loan_repayment_type_other_description": {
@@ -13130,7 +13341,8 @@
             "Prepayment",
             "Occupancy",
             "Balloon",
-            "Arm"
+            "Arm",
+            null
           ],
           "comment": "Specifies the type of rider."
         },
@@ -13138,7 +13350,8 @@
           "enum": [
             "Historical",
             "RelatedLoan",
-            "SubjectLoan"
+            "SubjectLoan",
+            null
           ],
           "comment": "Loan role type helps lenders understand a borrower's ability to repay a loan and determine loan terms and conditions. There are three types of loan roles: subject, related and historical. A subject loan is the loan that is being evaluated or underwritten by the lender. A related loan is a loan that is related to the subject loan in some way, such as a second mortgage or a home equity line of credit (HELOC) that is taken out on the same property. A historical loan is a loan that has already been repaid or closed."
         },
@@ -13153,7 +13366,8 @@
         },
         "loan_secured_by_type": {
           "enum": [
-            "SubjectProperty"
+            "SubjectProperty",
+            null
           ]
         },
         "loan_secured_by_type_other_description": {
@@ -13203,7 +13417,8 @@
             "ClearToClose",
             "PostClosing",
             "PreApproval",
-            "BrokerConditionSubmission"
+            "BrokerConditionSubmission",
+            null
           ],
           "comment": "Loan status refers to the current state or condition of a loan. It indicates whether the borrower is up-to-date with their payments, in default, or in some other stage of the loan process."
         },
@@ -13220,7 +13435,8 @@
           "enum": [
             "Underwriting",
             "Application",
-            "Prequalification"
+            "Prequalification",
+            null
           ]
         },
         "loan_to_value_ltv_ratio_percent": {
@@ -13239,7 +13455,8 @@
           "enum": [
             "Conventional",
             "Fha",
-            "Va"
+            "Va",
+            null
           ],
           "comment": "Loan type refers to the specific type of loan that a borrower obtains from a lender, such as a personal loan, auto loan, or student loan. The loan type determines the terms and conditions of the loan, including the interest rate, repayment period, and the amount borrowed."
         },
@@ -13315,7 +13532,8 @@
             "LocalAgency",
             "Fha",
             "PublicAndIndianHousing",
-            "StateAgency"
+            "StateAgency",
+            null
           ],
           "comment": "Mortgage type refers to the specific type of mortgage loan that a borrower obtains to finance the purchase or refinance of a property. There are several different types of mortgage loans, each with its own set of features, eligibility requirements, and interest rates."
         },
@@ -13394,7 +13612,8 @@
           "enum": [
             "SecondHome",
             "PrimaryResidence",
-            "Investment"
+            "Investment",
+            null
           ],
           "comment": "Occupancy type refers to the way in which a property is used or occupied by its owner or tenant. Occupancy type is used in determining the terms of a mortgage or loan and the level of risk associated with a property."
         },
@@ -13509,7 +13728,8 @@
             "Biweekly",
             "Week",
             "Weekly",
-            "Semiannually"
+            "Semiannually",
+            null
           ],
           "comment": "A prepayment penalty calculation period type indicates what type of time period must pass before the prepayment penalty can be waived."
         },
@@ -13545,7 +13765,8 @@
             "PeriodArm5Years",
             "PeriodFixed10Years",
             "PeriodFixed15Years",
-            "PeriodArm10Years"
+            "PeriodArm10Years",
+            null
           ],
           "comment": "Loan program period type refers to the period of time associated with the loan program."
         },
@@ -13593,7 +13814,8 @@
           "enum": [
             "InterestRateReduction",
             "StreamlinedWithoutAppraisal",
-            "FullDocumentation"
+            "FullDocumentation",
+            null
           ]
         },
         "refinance_program_type_other_description": {
@@ -13608,7 +13830,8 @@
           "enum": [
             "LimitedCashOut",
             "CashOut",
-            "NoCashOut"
+            "NoCashOut",
+            null
           ]
         },
         "refund_of_overpaid_interest_calendar_year_amount": {
@@ -13676,7 +13899,8 @@
           "enum": [
             "OneOrMoreBorrowersPreviouslyReceived",
             "NeverReceived",
-            "OneOrMoreBorrowersCurrentlyReceive"
+            "OneOrMoreBorrowersCurrentlyReceive",
+            null
           ]
         },
         "scra_relief_status_type_other_description": {
@@ -13718,7 +13942,8 @@
         "servicing_transfer_status_type": {
           "enum": [
             "Retained",
-            "Released"
+            "Released",
+            null
           ]
         },
         "shared_appreciation_cap_amount": {
@@ -13773,7 +13998,8 @@
             "LocalAgency",
             "Fha",
             "PublicAndIndianHousing",
-            "StateAgency"
+            "StateAgency",
+            null
           ],
           "comment": "Identifies any additional or secondary mortgage types or features that might be associated with the loan, e.g., 'balloon payment'."
         },
@@ -13862,7 +14088,8 @@
             "Monthly",
             "Biweekly",
             "Weekly",
-            "Semiannually"
+            "Semiannually",
+            null
           ],
           "comment": "Indicates how frequently the unpaid principal balance (UPB) is recalculated or adjusted. This is particularly relevant for certain adjustable-rate mortgages or loans with variable payments."
         },
@@ -13994,7 +14221,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -14011,7 +14239,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -14060,7 +14289,8 @@
           "enum": [
             "GreaterThanOneQuarterAcre",
             "PavedRoad",
-            "LessThanOrEqualToOneQuarterAcre"
+            "LessThanOrEqualToOneQuarterAcre",
+            null
           ],
           "comment": "Refers to characteristics associated with a lot and structure."
         },
@@ -14127,7 +14357,8 @@
             "OvergrownVegetation",
             "FlowerBeds",
             "Planters",
-            "Lawn"
+            "Lawn",
+            null
           ],
           "comment": "Features associated with the landscaping on the lot."
         },
@@ -14136,7 +14367,8 @@
             "OceanView",
             "MountainView",
             "CitySkylineView",
-            "ParkView"
+            "ParkView",
+            null
           ],
           "comment": "Descriptive tag of the view from the lot."
         },
@@ -14155,7 +14387,8 @@
             "Stockade",
             "Board",
             "PostAndRail",
-            "Lattice"
+            "Lattice",
+            null
           ]
         },
         "fence_height": {
@@ -14166,7 +14399,8 @@
             "6ft",
             "8ft",
             "10ft",
-            "12ft"
+            "12ft",
+            null
           ]
         },
         "fence_length": {
@@ -14179,7 +14413,8 @@
             "200ft",
             "300ft",
             "500ft",
-            "1000ft"
+            "1000ft",
+            null
           ]
         },
         "driveway_material": {
@@ -14187,7 +14422,8 @@
             "Concrete",
             "Asphalt",
             "Pavers",
-            "Gravel"
+            "Gravel",
+            null
           ],
           "comment": "The material of the driveway on the lot."
         },
@@ -14196,7 +14432,8 @@
             "Good",
             "Cracked",
             "Stained",
-            "Worn"
+            "Worn",
+            null
           ]
         },
         "lot_condition_issues": {
@@ -14205,7 +14442,8 @@
             "Clutter",
             "TrashPiles",
             "BrokenFence",
-            "CrackedDriveway"
+            "CrackedDriveway",
+            null
           ],
           "comment": "AI-observed lot-level maintenance or neglect issues."
         }
@@ -14267,7 +14505,8 @@
             "property_has_utilities",
             "property_has_environmental_risk",
             "property_seed",
-            "property_flood_storm_information"
+            "property_flood_storm_information",
+            null
           ],
           "comment": "A reference to the associated schema for relashionship"
         }
@@ -14348,7 +14587,8 @@
             "MarinesReserves",
             "NavyReserves",
             "Marines",
-            "Army"
+            "Army",
+            null
           ]
         },
         "military_branch_type_other_description": {
@@ -14359,7 +14599,8 @@
           "enum": [
             "NonCommissionedOfficer",
             "CommissionedOfficer",
-            "Enlisted"
+            "Enlisted",
+            null
           ]
         },
         "military_service_classification_type_other_description": {
@@ -14395,7 +14636,8 @@
             "NoMilitaryService",
             "Separated",
             "Veteran",
-            "ReserveNationalGuardNeverActivated"
+            "ReserveNationalGuardNeverActivated",
+            null
           ]
         },
         "military_status_type_other_description": {
@@ -14483,7 +14725,8 @@
             "Sold",
             "OriginalOffering",
             "Cancelled",
-            "TemporaryHold"
+            "TemporaryHold",
+            null
           ],
           "comment": "Describes the current or historical status of a property listing in the real estate market. It can denote the property's availability, pricing adjustments, or any contractual conditions associated with it."
         },
@@ -14577,7 +14820,8 @@
             "SoleOwnership",
             "TenancyByTheEntirety",
             "TenancyInCommon",
-            "JointTenancyWithRightOfSurvivorship"
+            "JointTenancyWithRightOfSurvivorship",
+            null
           ],
           "comment": "Describes the manner in which the property is held, as given on the title to the property."
         },
@@ -14588,7 +14832,8 @@
         "trust_information": {
           "enum": [
             "TitleWillBeHeldByAnInterVivosLivingTrust",
-            "TitleWillBeHeldByALandTrust"
+            "TitleWillBeHeldByALandTrust",
+            null
           ],
           "comment": "Describes the nature of the trust that holds the title."
         }
@@ -14701,7 +14946,8 @@
             "Biweekly",
             "AtMaturity",
             "Semiannual",
-            "Weekly"
+            "Weekly",
+            null
           ],
           "comment": "Payment frequency type indicates how frequently the payment is made."
         },
@@ -14795,7 +15041,8 @@
             "ServicesBorrowerDidShopFor",
             "TotalClosingCosts",
             "OriginationCharges",
-            "DueToSellerAtClosing"
+            "DueToSellerAtClosing",
+            null
           ],
           "comment": "Refers to a specific category of closing costs such as prepaids and services you can shop for. This section type appears on a closing costs integrated disclosure."
         },
@@ -14818,7 +15065,8 @@
             "LenderOrderBothPayoffSubordinate",
             "LenderOrderSubordinate",
             "LenderOrderPayoff",
-            "TitleCompanyOrderBothPayoffSubordinate"
+            "TitleCompanyOrderBothPayoffSubordinate",
+            null
           ]
         },
         "payoff_action_type_other_description": {
@@ -14832,7 +15080,8 @@
         "payoff_application_sequence_type": {
           "enum": [
             "JustPayoff",
-            "NormalPaymentThenPayoff"
+            "NormalPaymentThenPayoff",
+            null
           ]
         },
         "payoff_ordered_datetime": {
@@ -14939,7 +15188,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -14956,7 +15206,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -15063,7 +15314,8 @@
             "NotApplicable",
             "Female",
             "Male",
-            "ApplicantSelectedBothMaleAndFemale"
+            "ApplicantSelectedBothMaleAndFemale",
+            null
           ],
           "comment": "Gender refers to the social, cultural, and personal roles, expectations, and identities associated with being male, female, a blend of both, or neither, and is distinct from biological sex."
         },
@@ -15088,7 +15340,8 @@
             "NotProvided",
             "Separated",
             "Married",
-            "Divorced"
+            "Divorced",
+            null
           ],
           "comment": "Marital_status_type represents an individual's current legal or social relationship status, such as married, single, divorced, or widowed."
         },
@@ -15141,7 +15394,8 @@
             "Imam",
             "Sheikh",
             "Sir",
-            "Dame"
+            "Dame",
+            null
           ],
           "comment": "Common honorifics or titles preceding names. Adjust this list based on cultural or domain-specific requirements."
         },
@@ -15175,7 +15429,8 @@
             "PMP",
             "Esq.",
             "Emeritus",
-            "Ret."
+            "Ret.",
+            null
           ],
           "comment": "Suffixes typically denote generational titles, academic degrees, or professional certifications."
         },
@@ -15187,7 +15442,8 @@
             "PermanentResidentAlien",
             "USCitizenAbroad",
             "USCitizen",
-            "ForeignNational"
+            "ForeignNational",
+            null
           ],
           "comment": "Citizenship status refers to an individual's legal status as a citizen or non-citizen of a country. In the United States, citizenship status is determined by birthright, naturalization, or other legal means."
         },
@@ -15452,7 +15708,8 @@
             "Lawyer",
             "COO",
             "BillingContact",
-            "CEO"
+            "CEO",
+            null
           ],
           "comment": "A company contact role type refers to the specific role or position that an individual holds within a company or organization."
         },
@@ -15518,7 +15775,8 @@
             "WindAndStormInsurancePremium",
             "CooperativeAssociationDues",
             "HomeownersInsurancePremium",
-            "CondominiumAssociationDues"
+            "CondominiumAssociationDues",
+            null
           ],
           "comment": "The type of item that the borrower prepaid."
         },
@@ -15657,7 +15915,8 @@
             "Operation",
             "AggregatedPartner",
             "Notification",
-            "Proxy"
+            "Proxy",
+            null
           ],
           "comment": "Product API invocation type refers to the method in which a product API is invoked to perform a specific operation or access a particular functionality."
         },
@@ -15665,7 +15924,8 @@
           "enum": [
             "Configuration",
             "Function",
-            "Platform"
+            "Platform",
+            null
           ],
           "comment": "A product API type is a classification or categorization of a product Application Programming Interface (API) based on its characteristics, purpose, or functionality."
         }
@@ -15847,7 +16107,8 @@
         },
         "product_price_amount_unit_type": {
           "enum": [
-            "Cent"
+            "Cent",
+            null
           ],
           "comment": "Price amount unit type refers to the monetary denomination that is used to express the price of a Staircase unit, such as a transaction or subscription."
         },
@@ -15856,7 +16117,8 @@
             "Maturity",
             "CostOfGoodsSold",
             "AverageSupplier",
-            "EquivalentLaborCost"
+            "EquivalentLaborCost",
+            null
           ],
           "comment": "A product price calculation type refers to the method or approach used to determine the price of a Staircase unit, such as a transaction or subscription."
         },
@@ -15867,7 +16129,8 @@
         "product_price_timing_type": {
           "enum": [
             "Monthly",
-            "Completion"
+            "Completion",
+            null
           ],
           "comment": "Price timing type describes when a customer will be billed and is based on a defined bulling schedule."
         },
@@ -15887,7 +16150,8 @@
             "Product",
             "Hour",
             "Seat",
-            "Environment"
+            "Environment",
+            null
           ],
           "comment": "Product price unit type refers to the unit of the platform where the price evaluation can be determined as relevant. Some examples of product price unit types include environment, product, transaction and subscription."
         }
@@ -15925,7 +16189,8 @@
             "Verification",
             "Resource",
             "Automation",
-            "Distribution"
+            "Distribution",
+            null
           ],
           "comment": "An attribute defining the specific function or purpose of the product. This might describe what the product is designed to achieve or its role within a system."
         },
@@ -15953,7 +16218,8 @@
             "AGI",
             "DevOps",
             "Storage",
-            "Authentication"
+            "Authentication",
+            null
           ],
           "comment": "A description of the capabilities or features of a product. This can include specific functions, abilities, or competencies that the product possesses."
         },
@@ -15966,7 +16232,8 @@
             "Labor",
             "Application",
             "API",
-            "Data"
+            "Data",
+            null
           ],
           "comment": "A classification that describes the general category or type of the product. This can help in sorting or filtering products into meaningful groups."
         }
@@ -16043,7 +16310,8 @@
             "Biweekly",
             "Week",
             "Weekly",
-            "Semiannually"
+            "Semiannually",
+            null
           ],
           "comment": "Indicates a period of time such as day, month and year."
         },
@@ -16117,7 +16385,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -16134,7 +16403,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -16408,7 +16678,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -16425,7 +16696,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -16543,7 +16815,8 @@
             "Modular",
             "SiteBuilt",
             "MobileHome",
-            "OnFrameModular"
+            "OnFrameModular",
+            null
           ],
           "comment": "Describes the construction process for the main dwelling unit of the subject property."
         },
@@ -16563,7 +16836,8 @@
             "Proposed",
             "Planned",
             "SubjectToAlterationImprovementRepairAndRehabilitation",
-            "UnderConstruction"
+            "UnderConstruction",
+            null
           ],
           "comment": "Specifies the physical status of the structure."
         },
@@ -16659,7 +16933,8 @@
           "enum": [
             "LandTrust",
             "IllinoisLandTrust",
-            "CommunityLandTrust"
+            "CommunityLandTrust",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the type of land trust associated with the title."
         },
@@ -16688,7 +16963,8 @@
             "Vacant",
             "Recreational",
             "Residential",
-            "Income"
+            "Income",
+            null
           ],
           "comment": "Identifies the designation of land use by a governmental authority described by Land Used Description."
         },
@@ -16731,7 +17007,8 @@
             "Judgement",
             "Tax",
             "Mortgage",
-            "Mechanics"
+            "Mechanics",
+            null
           ],
           "comment": "A property lien is a legal claim against a property that gives a creditor the right to take possession of the property if the borrower fails to repay a debt. There are several lien types, such as mortgage, tax and judgment.Typically a lien gives its holder the right to seize property or money from the borrower if the borrower does not fulfill the terms of a contract."
         },
@@ -16754,7 +17031,8 @@
         "manufactured_home_width_type": {
           "enum": [
             "SingleWide",
-            "MultiWide"
+            "MultiWide",
+            null
           ],
           "comment": "Specifies the common size (width) designation of a Manufactured home."
         },
@@ -16778,7 +17056,8 @@
             "AlaskaNativeCorporationLand",
             "TribalTrustLandOffReservation",
             "TribalTrustLandOnAReservation",
-            "TribalTrustLand"
+            "TribalTrustLand",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that categorizes the legal means by which Native American land may be owned. AUS Enumerated AUS Native American Lands Type."
         },
@@ -16801,7 +17080,8 @@
             "OneToFour",
             "Three",
             "Four",
-            "TwoToFour"
+            "TwoToFour",
+            null
           ],
           "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs."
         },
@@ -16809,7 +17089,8 @@
           "enum": [
             "Retain",
             "Sold",
-            "PendingSale"
+            "PendingSale",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the intended disposition of an owned real property."
         },
@@ -16881,7 +17162,8 @@
         "project_attachment_type": {
           "enum": [
             "Attached",
-            "Detached"
+            "Detached",
+            null
           ],
           "comment": "Specifies the type of physical attachment, if any, between the dwelling units in the project."
         },
@@ -16890,14 +17172,16 @@
             "TownhouseRowhouse",
             "MidriseProject",
             "HighriseProject",
-            "GardenProject"
+            "GardenProject",
+            null
           ],
           "comment": "This field specifies the type of design for the multiple unit buildings in a project. Enumerated Project Appraisal AUS Project Design Type."
         },
         "project_type": {
           "enum": [
             "OtherPhase",
-            "SubjectPhase"
+            "SubjectPhase",
+            null
           ],
           "comment": "Specifies whether the referenced project is associated with the subject or other property."
         },
@@ -16946,7 +17230,8 @@
             "OccupiedByUnknown",
             "Abandoned",
             "OwnerOccupied",
-            "AdverseOccupied"
+            "AdverseOccupied",
+            null
           ],
           "comment": "Specifies the property occupancy status of a subject property."
         },
@@ -16962,7 +17247,8 @@
           "enum": [
             "SecondHome",
             "PrimaryResidence",
-            "Investment"
+            "Investment",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the current usage of the property by the borrower."
         },
@@ -16980,7 +17266,8 @@
             "Vacate",
             "Unknown",
             "Undecided",
-            "Retain"
+            "Retain",
+            null
           ],
           "comment": "The intended disposition of the property."
         },
@@ -17000,7 +17287,8 @@
           "enum": [
             "Fractional",
             "FeeSimple",
-            "Leasehold"
+            "Leasehold",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the ownership interest in the property."
         },
@@ -17112,7 +17400,8 @@
             "ManufacturedHousingSingleWide",
             "4Units",
             "Townhouse",
-            "NonWarrantableCondo"
+            "NonWarrantableCondo",
+            null
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties."
         },
@@ -17120,7 +17409,8 @@
           "enum": [
             "SecondHome",
             "PrimaryResidence",
-            "Investment"
+            "Investment",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the intended usage of the property by the borrower."
         },
@@ -17233,7 +17523,8 @@
           "enum": [
             "Unavailable",
             "NonDescriptive",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "A value from a MISMO prescribed list that represents a type of property that does not meet a uniform set of characteristics for defining the components used to classify a property type."
         },
@@ -17242,7 +17533,8 @@
             "Houseboat",
             "GeodesicDome",
             "EarthShelterHome",
-            "LogHome"
+            "LogHome",
+            null
           ],
           "comment": "A dwelling that does not conform to a conventional building structure type or method."
         },
@@ -17303,7 +17595,8 @@
             "CondoHotel",
             "NewlyUpdatedRenovated",
             "EffectiveYearBuilt",
-            "PreConstruction"
+            "PreConstruction",
+            null
           ],
           "comment": "The condition of the property."
         },
@@ -17477,7 +17770,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -17494,7 +17788,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -17607,7 +17902,8 @@
             "Indoor Pool",
             "Outdoor Pool",
             "Hot Tub / Spa Area",
-            "Shed"
+            "Shed",
+            null
           ],
           "comment": "The function or designation of the room."
         },
@@ -17643,7 +17939,8 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate"
+            "Laminate",
+            null
           ],
           "comment": "Refers to the type of material used for a floor."
         },
@@ -17667,7 +17964,8 @@
             "Upper",
             "Attic",
             "Loft",
-            "Mezzanine"
+            "Mezzanine",
+            null
           ],
           "comment": "The floor or level the room is on, useful for multi-story properties."
         },
@@ -17676,7 +17974,8 @@
             "1st Floor",
             "2nd Floor",
             "3rd Floor",
-            "4th Floor"
+            "4th Floor",
+            null
           ],
           "comment": "The floor level the room is on, useful for multi-story properties."
         },
@@ -17699,7 +17998,8 @@
             "Bow",
             "Greenhouse",
             "Picture",
-            "Casement"
+            "Casement",
+            null
           ],
           "comment": "Refers to the window design."
         },
@@ -17727,7 +18027,8 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate"
+            "Laminate",
+            null
           ],
           "comment": "Refers to the type of material a window is made from."
         },
@@ -17762,7 +18063,8 @@
             "StainedGlass",
             "BambooShades",
             "WoodShades",
-            "WovenShades"
+            "WovenShades",
+            null
           ],
           "comment": "Refers to the type of window treatment that covers the windows."
         },
@@ -17782,7 +18084,8 @@
           "enum": [
             "Furnished",
             "Unfurnished",
-            "Partially Furnished"
+            "Partially Furnished",
+            null
           ],
           "comment": "Indicates whether the room is furnished and to what extent."
         },
@@ -17791,7 +18094,8 @@
             "New",
             "Good",
             "Worn",
-            "Peeling"
+            "Peeling",
+            null
           ],
           "comment": "Visual state of paint within the room."
         },
@@ -17800,7 +18104,8 @@
             "Pristine",
             "Moderate",
             "Worn",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Observed condition of the flooring."
         },
@@ -17808,7 +18113,8 @@
           "enum": [
             "Staged",
             "Moderate",
-            "Heavy"
+            "Heavy",
+            null
           ],
           "comment": "Amount of visible clutter or personal items in the room."
         },
@@ -17828,7 +18134,8 @@
             "Laminate",
             "Wood",
             "Tile",
-            "Concrete"
+            "Concrete",
+            null
           ],
           "comment": "Material of visible countertops, if present."
         },
@@ -17838,7 +18145,8 @@
             "Shaker",
             "Traditional",
             "Flat Panel",
-            "Glass Front"
+            "Glass Front",
+            null
           ],
           "comment": "Visual cabinet style present in the room, if any."
         },
@@ -17846,7 +18154,8 @@
           "enum": [
             "Basic",
             "Mid-range",
-            "Luxury"
+            "Luxury",
+            null
           ]
         },
         "design_style": {
@@ -17856,7 +18165,8 @@
             "Rustic",
             "Eclectic",
             "Minimalist",
-            "Transitional"
+            "Transitional",
+            null
           ],
           "comment": "Dominant design style observed in the room."
         },
@@ -17872,7 +18182,8 @@
           "enum": [
             "Abundant",
             "Moderate",
-            "Limited"
+            "Limited",
+            null
           ],
           "comment": "Assessment of natural light availability."
         },
@@ -17887,7 +18198,8 @@
             "Crown Molding",
             "Wainscoting",
             "Built-In Shelving",
-            "Wall Paneling"
+            "Wall Paneling",
+            null
           ],
           "comment": "List of prominent design elements."
         },
@@ -17911,7 +18223,8 @@
             "Infinity",
             "Fiberglass",
             "Vinyl",
-            "Natural"
+            "Natural",
+            null
           ],
           "comment": "Specifies the structural or functional type of the pool if applicable to this room."
         },
@@ -17931,7 +18244,8 @@
             "WoodFiredHotTub",
             "JapaneseSoakingTub",
             "Saltwater",
-            "Heated"
+            "Heated",
+            null
           ],
           "comment": "Specifies the type of spa or hot tub present, if applicable."
         },
@@ -17945,7 +18259,8 @@
             "Lifebuoy",
             "WarningSignage",
             "SurveillanceCamera",
-            "Lighting"
+            "Lighting",
+            null
           ],
           "comment": "Visible safety features such as fencing, alarms, slip-resistant surfaces, or pool covers."
         },
@@ -17960,7 +18275,8 @@
             "Mountain",
             "Park",
             "Waterfront",
-            "Street"
+            "Street",
+            null
           ],
           "comment": "The dominant view visible from this room."
         },
@@ -17981,7 +18297,8 @@
             "FlushMount",
             "WallSconces",
             "NaturalLight",
-            "Skylight"
+            "Skylight",
+            null
           ],
           "comment": "Observed lighting fixtures and types in room."
         },
@@ -17994,7 +18311,8 @@
             "Clutter",
             "Unfinished",
             "Unclean",
-            "PersonalItemsVisible"
+            "PersonalItemsVisible",
+            null
           ],
           "comment": "AI-observed visual condition issues in the room."
         },
@@ -18009,7 +18327,8 @@
             "Worn",
             "Needs Repair",
             "Damaged",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Overall visible condition of the pool structure (tiles, lining, coping, etc.)."
         },
@@ -18021,7 +18340,8 @@
             "Fiberglass",
             "Painted",
             "Natural Stone",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "The visible material or finish used for the pool’s interior surface."
         },
@@ -18034,7 +18354,8 @@
             "Debris Present",
             "Drained",
             "Covered",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "The observed quality or clarity of the pool water in the image."
         }
@@ -18095,7 +18416,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -18112,7 +18434,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -18176,7 +18499,8 @@
             "Ice Maker",
             "Garbage Disposal",
             "Smart Display",
-            "Toaster Oven"
+            "Toaster Oven",
+            null
           ],
           "comment": "The appliance type observed in the space."
         },
@@ -18195,7 +18519,8 @@
             "Custom Panel",
             "Chrome",
             "Copper",
-            "Brushed Nickel"
+            "Brushed Nickel",
+            null
           ],
           "comment": "The visible finish of the appliance."
         },
@@ -18229,7 +18554,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -18246,7 +18572,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -18323,7 +18650,8 @@
             "SmartHomeUpgrade",
             "WaterHeaterReplacement",
             "FireplaceInstallation",
-            "StorageSolutionInstallation"
+            "StorageSolutionInstallation",
+            null
           ],
           "comment": "Specific type of improvement or renovation performed."
         },
@@ -18334,7 +18662,8 @@
             "Planned",
             "Permitted",
             "OnHold",
-            "Cancelled"
+            "Cancelled",
+            null
           ],
           "comment": "Current status of the improvement project."
         },
@@ -18355,7 +18684,8 @@
             "PropertyManager",
             "Builder",
             "HandymanService",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of contractor or method used for the work."
         },
@@ -18392,7 +18722,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -18409,7 +18740,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -18481,7 +18813,8 @@
             "Recreation",
             "Pet Services",
             "Wellness",
-            "Tourist Attraction"
+            "Tourist Attraction",
+            null
           ],
           "comment": "Category or type of nearby location."
         },
@@ -18551,7 +18884,8 @@
             "wheelchair_accessible",
             "public_restrooms",
             "open_late",
-            "family_friendly"
+            "family_friendly",
+            null
           ],
           "comment": "Standardized list of nearby location features or highlights depending on location_type (e.g., yoga_studio, dog_beach, guided_tour)."
         },
@@ -18576,7 +18910,8 @@
             "OwnerOccupied",
             "Tenant",
             "Vacant",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Specifies the current occupancy status of the specified unit within a property or an individual unit or a group of units within project."
         }
@@ -18648,7 +18983,8 @@
             "FirstAmericanEquity",
             "FirstAmericanProcision",
             "StaircaseValuationModel",
-            "IMAPP"
+            "IMAPP",
+            null
           ],
           "comment": "The methodology or approach used to estimate the property's value, as represented by a specific enumeration type."
         }
@@ -18709,7 +19045,8 @@
           "enum": [
             "Manage",
             "Edit",
-            "ViewOnly"
+            "ViewOnly",
+            null
           ],
           "comment": "Authority level refers to the level of access or permission that a person has to view report information or content."
         }
@@ -18868,7 +19205,8 @@
             "DeterminePropertyPriceRangeGivenSalary",
             "DetermineSpecificPropertyAffordability",
             "FindCheapestInterestRate",
-            "DetermineMaximumLoanAmount"
+            "DetermineMaximumLoanAmount",
+            null
           ],
           "comment": "Borrower intent refers to the motivation a borrower has when asking for information related to loan origination."
         },
@@ -18877,7 +19215,8 @@
             "How much do I need to make to afford a given purchase price?",
             "What can I afford?",
             "What is my interest rate?",
-            "What is the payment for a given purchase price?"
+            "What is the payment for a given purchase price?",
+            null
           ],
           "comment": "Borrower intent type refers to the type of intent a borrower has when asking for information related to loan origination."
         },
@@ -18886,7 +19225,8 @@
             "I Want To Think On It",
             "Payment Is Too High",
             "Rate Is Too High",
-            "Taxes Surprised Me"
+            "Taxes Surprised Me",
+            null
           ],
           "comment": "Feedback value refers to feedback received from the customer."
         },
@@ -18901,7 +19241,8 @@
             "Learning",
             "Browsing",
             "ReadyToBuy",
-            "AlreadyPreapproved"
+            "AlreadyPreapproved",
+            null
           ],
           "comment": "The stage value refers to an applicant's stage in the home buying process. For example, a borrower might be 'just looking' or 'ready to buy.'"
         },
@@ -19041,7 +19382,8 @@
             "Unspecified",
             "WarehouseLender",
             "Witness",
-            "CoBorrower"
+            "CoBorrower",
+            null
           ],
           "comment": "A role refers to a defined set of responsibilities, permissions, and privileges that are assigned to an individual or a group of individuals within an organization or system."
         }
@@ -19196,14 +19538,16 @@
             "Operation",
             "AggregatedPartner",
             "Notification",
-            "Proxy"
+            "Proxy",
+            null
           ]
         },
         "product_api_type": {
           "enum": [
             "Configuration",
             "Function",
-            "Platform"
+            "Platform",
+            null
           ]
         }
       },
@@ -19550,7 +19894,8 @@
             "Unknown",
             "LivingRentFree",
             "Rent",
-            "Own"
+            "Own",
+            null
           ]
         },
         "residency_duration_months_count": {
@@ -19579,7 +19924,8 @@
         "residency_type": {
           "enum": [
             "Prior",
-            "Current"
+            "Current",
+            null
           ]
         }
       },
@@ -19650,7 +19996,8 @@
             "Fireplace",
             "DualStaircase",
             "Wainscotting",
-            "SeparateFormalDiningRoom"
+            "SeparateFormalDiningRoom",
+            null
           ],
           "comment": "Refers to the type of feature found in a room."
         },
@@ -19684,7 +20031,8 @@
             "Unknown",
             "UtilityRoom",
             "ExerciseRoom",
-            "LivingRoom"
+            "LivingRoom",
+            null
           ],
           "comment": "Indicates the purpose the room serves. For example, a bedroom room type is used for sleeping."
         },
@@ -19775,7 +20123,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -19792,7 +20141,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -19873,7 +20223,8 @@
         "ownership_transfer_transaction_type": {
           "enum": [
             "DeedTransferOnly",
-            "CashSale"
+            "CashSale",
+            null
           ]
         },
         "ownership_transfer_transaction_type_other_description": {
@@ -19898,7 +20249,8 @@
             "TrusteeNonJudicialForeclosureSale",
             "RelocationSale",
             "TrusteeJudicialForeclosureSale",
-            "TypicallyMotivated"
+            "TypicallyMotivated",
+            null
           ]
         },
         "sale_type_other_description": {
@@ -19974,7 +20326,8 @@
             "Gift",
             "Promotional",
             "Referral",
-            "Reward"
+            "Reward",
+            null
           ],
           "comment": "The type of the voucher"
         },
@@ -20021,7 +20374,8 @@
             "WholeHouseFan",
             "CeilingFan",
             "GeothermalCooling",
-            "Zoned"
+            "Zoned",
+            null
           ],
           "comment": "Refers to the type of cooling system used in the structure."
         },
@@ -20038,7 +20392,8 @@
             "Solar",
             "HeatPump",
             "Central",
-            "Baseboard"
+            "Baseboard",
+            null
           ],
           "comment": "Refers to the type of heating system used in the structure."
         },
@@ -20073,7 +20428,8 @@
             "CommunitySpa",
             "CleaningSystem",
             "Heated",
-            "BuiltIn"
+            "BuiltIn",
+            null
           ],
           "comment": "Refers to the type of pool associated with a structure."
         },
@@ -20131,7 +20487,8 @@
             "Fireplace",
             "Fence",
             "VaultedCeilings",
-            "Cooktop"
+            "Cooktop",
+            null
           ],
           "comment": "Refers to the type of amenity associated with a section."
         },
@@ -20201,7 +20558,8 @@
             "Attic",
             "LivingRoom",
             "DualStaircase",
-            "SeparateFormalDiningRoom"
+            "SeparateFormalDiningRoom",
+            null
           ],
           "comment": "Refers to the type of section associated with a property."
         },
@@ -20218,7 +20576,8 @@
             "Saltwater",
             "Jacuzzi",
             "WoodFiredHotTub",
-            "Heated"
+            "Heated",
+            null
           ],
           "comment": "Refers to the type of spa."
         },
@@ -20233,7 +20592,8 @@
             "City",
             "Garden",
             "Bay",
-            "Marina"
+            "Marina",
+            null
           ],
           "comment": "Refers to characteristics associated with a view from the structure."
         },
@@ -20412,7 +20772,8 @@
         "signature_type": {
           "enum": [
             "FullSignature",
-            "Initials"
+            "Initials",
+            null
           ]
         },
         "signed_indicator": {
@@ -20619,7 +20980,8 @@
             "Spanish",
             "German",
             "Cambodian",
-            "Farsi"
+            "Farsi",
+            null
           ],
           "comment": "Name of a language spoken by a person."
         }
@@ -20706,7 +21068,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -20723,7 +21086,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -20829,7 +21193,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -20846,7 +21211,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -20901,7 +21267,8 @@
             "Tudor",
             "Minimalist",
             "Colonial",
-            "Farmhouse"
+            "Farmhouse",
+            null
           ],
           "comment": "Refers to the style, structure, and aesthetics of a building."
         },
@@ -20917,7 +21284,8 @@
           "enum": [
             "Attached",
             "SemiDetached",
-            "Detached"
+            "Detached",
+            null
           ],
           "comment": "Indicates the structural relationship of the dwelling to other units. 'Attached' means the unit shares walls on both sides with adjacent dwellings (e.g., rowhouse or townhouse); 'SemiDetached' means it shares a wall with one other unit (e.g., duplex); 'Detached' means the unit stands alone with no shared walls."
         },
@@ -20946,7 +21314,8 @@
             "Metal",
             "Glass",
             "Laminate",
-            "Stucco"
+            "Stucco",
+            null
           ],
           "comment": "Refers to the type of building material associated with a structure."
         },
@@ -20973,7 +21342,8 @@
             "Log",
             "Adobe",
             "Precast Concrete",
-            "Curtain Wall"
+            "Curtain Wall",
+            null
           ],
           "comment": "Primary material used for exterior wall cladding and structure."
         },
@@ -20985,7 +21355,8 @@
             "Metal Trim",
             "Stucco Accent",
             "Vinyl Accent",
-            "Decorative Block"
+            "Decorative Block",
+            null
           ],
           "comment": "Secondary material used for exterior wall accents or trim."
         },
@@ -20996,7 +21367,8 @@
             "Good",
             "Fair",
             "Poor",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Observed condition of the exterior wall materials."
         },
@@ -21009,7 +21381,8 @@
             "Reflective Barrier",
             "Rock Wool",
             "Natural Fiber",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of insulation used in exterior wall cavities."
         },
@@ -21030,7 +21403,8 @@
             "Cork",
             "Linoleum",
             "Terrazzo",
-            "Epoxy Coating"
+            "Epoxy Coating",
+            null
           ],
           "comment": "Primary flooring material covering floor surface."
         },
@@ -21043,7 +21417,8 @@
             "Ceramic Tile",
             "Carpet",
             "Area Rugs",
-            "Transition Strips"
+            "Transition Strips",
+            null
           ],
           "comment": "Secondary flooring material if multiple types are used in different areas."
         },
@@ -21054,7 +21429,8 @@
             "Concrete Slab",
             "Engineered Wood",
             "Particle Board",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Material used for subfloor structure beneath finish flooring."
         },
@@ -21065,7 +21441,8 @@
             "Good",
             "Fair",
             "Poor",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Overall condition of flooring materials and installation."
         },
@@ -21076,7 +21453,8 @@
             "Concrete Block",
             "Brick",
             "Load Bearing",
-            "Non-Load Bearing"
+            "Non-Load Bearing",
+            null
           ],
           "comment": "Structural material used for interior wall framing."
         },
@@ -21094,7 +21472,8 @@
             "Stone Veneer",
             "Metal Panels",
             "Glass Panels",
-            "Concrete"
+            "Concrete",
+            null
           ],
           "comment": "Primary surface material covering interior walls throughout most of the structure."
         },
@@ -21110,7 +21489,8 @@
             "Metal Accent",
             "Glass Insert",
             "Decorative Panels",
-            "Feature Wall Material"
+            "Feature Wall Material",
+            null
           ],
           "comment": "Secondary material used for interior wall accents, trim, or feature walls."
         },
@@ -21122,7 +21502,8 @@
             "Natural Finish",
             "Stain",
             "Clear Coat",
-            "Exposed Natural"
+            "Exposed Natural",
+            null
           ],
           "comment": "Primary finish treatment applied over interior wall surfaces."
         },
@@ -21134,7 +21515,8 @@
             "Faux Finish",
             "Fabric Wall Covering",
             "Murals",
-            "Decorative Paint Technique"
+            "Decorative Paint Technique",
+            null
           ],
           "comment": "Secondary finish treatment for accent areas or decorative elements."
         },
@@ -21145,7 +21527,8 @@
             "Good",
             "Fair",
             "Poor",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Overall condition of interior wall surfaces and finishes."
         },
@@ -21157,7 +21540,8 @@
             "PouredConcrete",
             "Glass",
             "EngineeredWood",
-            "Stone"
+            "Stone",
+            null
           ],
           "comment": "Refers to the type of construction material associated with a structure."
         },
@@ -21180,7 +21564,8 @@
             "Pocket",
             "French",
             "Atrium",
-            "Carriage"
+            "Carriage",
+            null
           ],
           "comment": "Refers to the door design type."
         },
@@ -21216,7 +21601,8 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate"
+            "Laminate",
+            null
           ],
           "comment": "Refers to the door material type."
         },
@@ -21238,7 +21624,8 @@
             "Pocket",
             "French",
             "Atrium",
-            "Carriage"
+            "Carriage",
+            null
           ],
           "comment": "Refers to the type of door."
         },
@@ -21274,7 +21661,8 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate"
+            "Laminate",
+            null
           ],
           "comment": "Refers to the type of material used for a floor."
         },
@@ -21298,7 +21686,8 @@
             "Carpet",
             "Laminate",
             "Marble",
-            "Vinyl"
+            "Vinyl",
+            null
           ],
           "comment": "Refers to the type of flooring used in a structure's interior."
         },
@@ -21327,7 +21716,8 @@
             "Modified Bitumen",
             "Built-Up Roof",
             "Green Roof System",
-            "Solar Integrated Tiles"
+            "Solar Integrated Tiles",
+            null
           ],
           "comment": "Material used for the primary roof covering."
         },
@@ -21336,7 +21726,8 @@
             "Felt Paper",
             "Synthetic Underlayment",
             "Rubberized Asphalt",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of underlayment beneath roof covering."
         },
@@ -21346,7 +21737,8 @@
             "Wood Rafter",
             "Steel Truss",
             "Concrete Beam",
-            "Engineered Lumber"
+            "Engineered Lumber",
+            null
           ],
           "comment": "Material used for roof structural support."
         },
@@ -21364,7 +21756,8 @@
             "Clerestory",
             "Dome",
             "Barrel",
-            "Combination"
+            "Combination",
+            null
           ],
           "comment": "Architectural design of the roof structure."
         },
@@ -21376,7 +21769,8 @@
             "Fair",
             "Poor",
             "Damaged",
-            "Leaking"
+            "Leaking",
+            null
           ],
           "comment": "Visible condition of the roof covering and structure."
         },
@@ -21394,7 +21788,8 @@
             "Vinyl",
             "Steel",
             "Copper",
-            "Galvanized Steel"
+            "Galvanized Steel",
+            null
           ],
           "comment": "Material used for gutter system."
         },
@@ -21405,7 +21800,8 @@
             "Fair",
             "Poor",
             "Missing",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Condition of gutters and downspout system."
         },
@@ -21441,7 +21837,8 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate"
+            "Laminate",
+            null
           ],
           "comment": "Refers to the material a roof is made of."
         },
@@ -21468,7 +21865,8 @@
             "Shingle",
             "Gable",
             "Clerestory",
-            "Hip"
+            "Hip",
+            null
           ],
           "comment": "Refers to the type of roof associated with a structure."
         },
@@ -21495,7 +21893,8 @@
             "Bow",
             "Greenhouse",
             "Picture",
-            "Casement"
+            "Casement",
+            null
           ],
           "comment": "Refers to the window design."
         },
@@ -21507,7 +21906,8 @@
             "Partial Basement",
             "Pier and Beam",
             "Basement with Walkout",
-            "Stem Wall"
+            "Stem Wall",
+            null
           ],
           "comment": "Type of foundation system supporting the structure."
         },
@@ -21520,7 +21920,8 @@
             "Treated Wood Posts",
             "Steel Piers",
             "Precast Concrete",
-            "Insulated Concrete Forms"
+            "Insulated Concrete Forms",
+            null
           ],
           "comment": "Primary material used in foundation construction."
         },
@@ -21529,7 +21930,8 @@
             "Membrane",
             "Coating",
             "Drainage System",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of waterproofing system used on foundation."
         },
@@ -21542,7 +21944,8 @@
             "Major Cracks",
             "Settling",
             "Water Damage",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Visible condition of the foundation system."
         },
@@ -21552,7 +21955,8 @@
             "Steel Joists",
             "Concrete",
             "Exposed Beams",
-            "Truss System"
+            "Truss System",
+            null
           ],
           "comment": "Structural material supporting the ceiling."
         },
@@ -21566,7 +21970,8 @@
             "Suspended Grid",
             "Coffered",
             "Tray",
-            "Exposed Structure"
+            "Exposed Structure",
+            null
           ],
           "comment": "Material used for ceiling surface finish."
         },
@@ -21576,7 +21981,8 @@
             "Blown Insulation",
             "Spray Foam",
             "Rigid Board",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of insulation above ceiling."
         },
@@ -21591,7 +21997,8 @@
             "Good",
             "Fair",
             "Poor",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Overall condition of ceiling materials and structure."
         },
@@ -21605,7 +22012,8 @@
             "Glass",
             "Vinyl",
             "Wrought Iron",
-            "Security Door"
+            "Security Door",
+            null
           ],
           "comment": "Material used for exterior door construction."
         },
@@ -21614,7 +22022,8 @@
             "Solid Core",
             "Insulated Core",
             "Honeycomb Core",
-            "Glass Panel"
+            "Glass Panel",
+            null
           ],
           "comment": "Core construction type of exterior doors."
         },
@@ -21629,7 +22038,8 @@
             "Molded",
             "Bifold",
             "Pocket Door",
-            "Barn Door"
+            "Barn Door",
+            null
           ],
           "comment": "Material and construction of interior doors."
         },
@@ -21642,7 +22052,8 @@
             "Steel",
             "Composite",
             "Aluminum Clad Wood",
-            "Vinyl Clad Wood"
+            "Vinyl Clad Wood",
+            null
           ],
           "comment": "Material used for window frame construction."
         },
@@ -21657,7 +22068,8 @@
             "Impact Resistant",
             "Argon Filled",
             "Tinted",
-            "Smart Glass"
+            "Smart Glass",
+            null
           ],
           "comment": "Type and features of window glazing system."
         },
@@ -21674,7 +22086,8 @@
             "Garden",
             "Skylights",
             "Jalousie",
-            "Fixed"
+            "Fixed",
+            null
           ],
           "comment": "Operational mechanism and style of windows."
         },
@@ -21683,7 +22096,8 @@
             "Aluminum",
             "Fiberglass",
             "Pet Screen",
-            "Solar Screen"
+            "Solar Screen",
+            null
           ],
           "comment": "Material used for window screens."
         },
@@ -21698,7 +22112,8 @@
             "Curtains",
             "Drapes",
             "Valances",
-            "Window Film"
+            "Window Film",
+            null
           ],
           "comment": "Type of window treatments installed."
         },
@@ -21711,7 +22126,8 @@
             "Masonry",
             "Engineered Lumber",
             "Post and Beam",
-            "Log Construction"
+            "Log Construction",
+            null
           ],
           "comment": "Primary material used for structural framing system."
         },
@@ -21720,7 +22136,8 @@
             "Steel Beams",
             "Engineered Lumber",
             "Concrete Lintels",
-            "Wood Beams"
+            "Wood Beams",
+            null
           ],
           "comment": "Secondary structural materials for support beams and lintels."
         },
@@ -21735,7 +22152,8 @@
             "Water Damage",
             "Termite Damage",
             "Settlement Issues",
-            "None Observed"
+            "None Observed",
+            null
           ],
           "comment": "Observable indicators of structural damage or issues."
         },
@@ -21771,7 +22189,8 @@
             "PouredConcrete",
             "Metal",
             "Glass",
-            "Laminate"
+            "Laminate",
+            null
           ],
           "comment": "Refers to the type of material a window is made from."
         },
@@ -21809,7 +22228,8 @@
             "Bow",
             "Greenhouse",
             "Picture",
-            "Casement"
+            "Casement",
+            null
           ],
           "comment": "Refers to the type of window associated with a structure."
         },
@@ -21843,7 +22263,8 @@
             "Gazebo",
             "OutdoorKitchen",
             "DetachedStructure",
-            "BuiltInBBQ"
+            "BuiltInBBQ",
+            null
           ],
           "comment": "Represents permanent or semi-permanent exterior structures that are not enclosed rooms but enhance outdoor functionality or aesthetics."
         },
@@ -21878,7 +22299,8 @@
             "Double",
             "Time",
             "String",
-            "Decimal"
+            "Decimal",
+            null
           ],
           "comment": "Indicates the data type of the filter value, ensuring the right kind of comparison is applied."
         },
@@ -21889,7 +22311,8 @@
             "GreaterThanOrEqual",
             "GreaterThan",
             "Equal",
-            "NotEqual"
+            "NotEqual",
+            null
           ],
           "comment": "Specifies the type of comparison to be performed on the filter value against the actual subscription data."
         }
@@ -21925,7 +22348,8 @@
           "enum": [
             "GBP",
             "USD",
-            "EUR"
+            "EUR",
+            null
           ],
           "comment": "Currency used for the subscription."
         },
@@ -21945,7 +22369,8 @@
             "Saturday",
             "Wednesday",
             "Monday",
-            "Sunday"
+            "Sunday",
+            null
           ],
           "comment": "The day of the week on which the subscription deliverables (e.g., leads) are sent to the subscriber."
         },
@@ -21973,7 +22398,8 @@
             "Unpaid",
             "Canceled",
             "Active",
-            "IncompleteExpired"
+            "IncompleteExpired",
+            null
           ],
           "comment": "Current status of the subscription."
         },
@@ -21993,7 +22419,8 @@
             "Product",
             "Hour",
             "Seat",
-            "Environment"
+            "Environment",
+            null
           ],
           "comment": "Type or category of units in the subscription."
         },
@@ -22100,7 +22527,8 @@
           "enum": [
             "Defect",
             "FeatureRequest",
-            "Question"
+            "Question",
+            null
           ],
           "comment": "Points are a unit of measurement used to estimate the time required to complete a ticket. They are used to measure the complexity and size of the work involved in delivering a feature or functionality."
         },
@@ -22115,7 +22543,8 @@
             "New",
             "InProgress",
             "Backlog",
-            "Completed"
+            "Completed",
+            null
           ],
           "comment": "A task status is a way to track the progress and current state of a task or issue in a task management system."
         },
@@ -22124,7 +22553,8 @@
             "Ticket",
             "Milestone",
             "Task",
-            "Acceptance"
+            "Acceptance",
+            null
           ],
           "comment": "A task type is a categorization of tasks based on their nature or purpose. Task types are used to help support teams prioritize and manage their work more efficiently."
         },
@@ -22224,7 +22654,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -22241,7 +22672,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -22431,7 +22863,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -22448,7 +22881,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -22500,7 +22934,8 @@
             "Add. Homestead",
             "Wid/Vet/Dis",
             "Senior",
-            "Affordable Housing"
+            "Affordable Housing",
+            null
           ],
           "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types."
         },
@@ -22528,7 +22963,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -22545,7 +22981,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -22625,7 +23062,8 @@
             "Utility District",
             "Improvement District",
             "State",
-            "Federal"
+            "Federal",
+            null
           ],
           "comment": "The category or type of tax authority that determines its jurisdiction and tax collection scope."
         }
@@ -22645,7 +23083,8 @@
             "Gem",
             "Gpm",
             "RateImprovementMortgage",
-            "AdjustableRate"
+            "AdjustableRate",
+            null
           ],
           "comment": "Loan amortization type refers to the method used to calculate and pay off a loan over time. The two most common types of loan amortization are fully amortizing and partially amortizing.  In a fully amortizing loan, the borrower makes regular payments (usually monthly) that include both principal and interest. Each payment reduces the principal balance of the loan, and over time the loan is gradually paid off in full. In a partially amortizing loan, the borrower makes regular payments that include both principal and interest, but the payments are not large enough to fully pay off the loan by the end of its term. As a result, at the end of the loan term, the borrower must either make a balloon payment to pay off the remaining balance, refinance the loan, or enter into another agreement with the lender."
         },
@@ -22669,7 +23108,8 @@
             "MTA",
             "FarmCredit",
             "Prime",
-            "COFI"
+            "COFI",
+            null
           ],
           "comment": "Refers to the specific type of benchmark or index used to determine the interest rate adjustments for an adjustable-rate mortgage (ARM)."
         },
@@ -22737,7 +23177,8 @@
             "Year",
             "Biweekly",
             "Week",
-            "Quarter"
+            "Quarter",
+            null
           ],
           "comment": ""
         },
@@ -22802,7 +23243,8 @@
             "LocalAgency",
             "Fha",
             "PublicAndIndianHousing",
-            "StateAgency"
+            "StateAgency",
+            null
           ],
           "comment": "Mortgage type refers to the specific type of mortgage loan that a borrower obtains to finance the purchase or refinance of a property. There are several different types of mortgage loans, each with its own set of features, eligibility requirements, and interest rates."
         },
@@ -22913,7 +23355,8 @@
           "enum": [
             "Defect",
             "FeatureRequest",
-            "Question"
+            "Question",
+            null
           ],
           "comment": "Points are a unit of measurement used to estimate the time required to complete a ticket. They are used to measure the complexity and size of the work involved in delivering a feature or functionality."
         },
@@ -22929,7 +23372,8 @@
           "enum": [
             "Defect",
             "FeatureRequest",
-            "Question"
+            "Question",
+            null
           ],
           "comment": "A ticket request type is a categorization of tickets based on the customer's perspective of their nature or purpose."
         },
@@ -22940,7 +23384,8 @@
             "Archived",
             "Deprecated",
             "Inactive",
-            "Active"
+            "Active",
+            null
           ],
           "comment": "Status of the communication channel indicating its current state, such as active, inactive, or deprecated."
         },
@@ -22963,7 +23408,8 @@
             "New",
             "InProgress",
             "Backlog",
-            "Completed"
+            "Completed",
+            null
           ],
           "comment": "A ticket status is a way to track the progress and current state of a ticket or issue in a ticket management system."
         },
@@ -22976,7 +23422,8 @@
             "Ticket",
             "Milestone",
             "Task",
-            "Acceptance"
+            "Acceptance",
+            null
           ],
           "comment": "A ticket type is a categorization of tickets based on their nature or purpose. Ticket types are used to help support teams prioritize and manage their work more efficiently."
         },
@@ -23086,7 +23533,8 @@
           "enum": [
             "Defect",
             "FeatureRequest",
-            "Question"
+            "Question",
+            null
           ]
         },
         "remote_ticket_identifier": {
@@ -23099,7 +23547,8 @@
           "enum": [
             "Defect",
             "FeatureRequest",
-            "Question"
+            "Question",
+            null
           ]
         },
         "status": {
@@ -23109,7 +23558,8 @@
             "Archived",
             "Deprecated",
             "Inactive",
-            "Active"
+            "Active",
+            null
           ]
         },
         "system_changes": {
@@ -23128,7 +23578,8 @@
             "New",
             "InProgress",
             "Backlog",
-            "Completed"
+            "Completed",
+            null
           ]
         },
         "ticket_text": {
@@ -23139,7 +23590,8 @@
             "Ticket",
             "Milestone",
             "Task",
-            "Acceptance"
+            "Acceptance",
+            null
           ]
         },
         "title": {
@@ -23296,7 +23748,8 @@
                 "GET",
                 "POST",
                 "PUT",
-                "PATCH"
+                "PATCH",
+                null
               ]
             },
             "url": {
@@ -23313,7 +23766,8 @@
                   "enum": [
                     "application/json",
                     "multipart/form-data",
-                    "text/xml"
+                    "text/xml",
+                    null
                   ],
                   "comment": "Content-Type header for the request, indicating the media type of the resource."
                 }
@@ -23369,7 +23823,8 @@
             "WholeHouseFan",
             "CeilingFan",
             "GeothermalCooling",
-            "Zoned"
+            "Zoned",
+            null
           ],
           "comment": "Refers to the type of cooling system used in the structure."
         },
@@ -23392,7 +23847,8 @@
             "HeatPump",
             "Central",
             "Baseboard",
-            "Gas"
+            "Gas",
+            null
           ],
           "comment": "Refers to the type of heating system used in the structure."
         },
@@ -23411,7 +23867,8 @@
             "SewerAvailable",
             "NaturalGasAvailable",
             "CableAvailable",
-            "UndergroundUtilities"
+            "UndergroundUtilities",
+            null
           ],
           "comment": "Refers to the type of public utility available to a structure."
         },
@@ -23428,7 +23885,8 @@
             "Sanitary",
             "Public",
             "Combined",
-            "Septic"
+            "Septic",
+            null
           ],
           "comment": "Refers to the type of sewer used in the structure."
         },
@@ -23444,7 +23902,8 @@
           "enum": [
             "Well",
             "Aquifer",
-            "Public"
+            "Public",
+            null
           ],
           "comment": "Refers to the type of water source used in the structure."
         },
@@ -23462,7 +23921,8 @@
             "PEX",
             "PVC",
             "GalvanizedSteel",
-            "CastIron"
+            "CastIron",
+            null
           ],
           "comment": "Refers to the type of plumbing system used in the structure."
         },
@@ -23486,7 +23946,8 @@
           "enum": [
             "Copper",
             "Aluminum",
-            "KnobAndTube"
+            "KnobAndTube",
+            null
           ],
           "comment": "Specifies the type of electrical wiring used in the structure."
         },
@@ -23514,7 +23975,8 @@
           "enum": [
             "Photovoltaic",
             "SolarThermal",
-            "Hybrid"
+            "Hybrid",
+            null
           ],
           "comment": "Specifies the type of solar panel system."
         },
@@ -23541,7 +24003,8 @@
               "SmartIrrigation",
               "VoiceControlIntegration",
               "EnergyMonitoring",
-              "Other"
+              "Other",
+              null
             ],
             "minLength": 1
           },
@@ -23562,7 +24025,8 @@
             "Good",
             "Rusty",
             "Leaking",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Visible exterior condition of the HVAC condensing unit, if present."
         },
@@ -23576,7 +24040,8 @@
             "LeakingPipes",
             "MissingGrilles",
             "ObstructedVent",
-            "WornFanHousing"
+            "WornFanHousing",
+            null
           ],
           "comment": "Visual indicators of HVAC or external unit deterioration."
         }

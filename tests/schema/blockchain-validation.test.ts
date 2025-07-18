@@ -20,9 +20,9 @@ describe('Blockchain Schema Validation', () => {
         throw new Error('No blockchain tag found in lexicon data');
       }
 
-      const ajv = new Ajv({ 
+      const ajv = new Ajv({
         allErrors: true,
-        validateSchema: false
+        validateSchema: false,
       });
       let totalSchemas = 0;
       let validSchemas = 0;
@@ -57,10 +57,10 @@ describe('Blockchain Schema Validation', () => {
         // Check each property for proper constraints
         for (const [propName, propSchema] of Object.entries(jsonSchema.properties)) {
           const prop = propSchema as any;
-          
+
           // Each property should have a type
           expect(prop).toHaveProperty('type');
-          
+
           // If it has an enum, it should be an array and not have minLength
           if (prop.enum) {
             expect(Array.isArray(prop.enum)).toBe(true);
@@ -100,7 +100,7 @@ describe('Blockchain Schema Validation', () => {
         }
 
         const jsonSchema = generateJSONSchemaForClass(lexiconClass);
-        
+
         expect(jsonSchema.$schema).toBe('https://json-schema.org/draft-07/schema#');
         expect(jsonSchema.type).toBe('object');
         expect(jsonSchema.additionalProperties).toBe(false);
@@ -121,9 +121,9 @@ describe('Blockchain Schema Validation', () => {
         throw new Error('No blockchain tag found in lexicon data');
       }
 
-      const ajv = new Ajv({ 
+      const ajv = new Ajv({
         allErrors: true,
-        validateSchema: false
+        validateSchema: false,
       });
 
       for (const className of blockchainTag.classes) {
@@ -154,10 +154,10 @@ describe('Blockchain Schema Validation', () => {
         // Check that each property has required fields
         for (const [propName, propSchema] of Object.entries(jsonSchema.properties)) {
           const prop = propSchema as any;
-          
+
           // Each property should have a type
           expect(prop).toHaveProperty('type');
-          
+
           // If it has an enum, it should be an array
           if (prop.enum) {
             expect(Array.isArray(prop.enum)).toBe(true);
@@ -191,11 +191,11 @@ describe('Blockchain Schema Validation', () => {
         }
 
         const jsonSchema = generateJSONSchemaForClass(lexiconClass);
-        
+
         expect(jsonSchema.$schema).toBe('https://json-schema.org/draft-07/schema#');
         expect(jsonSchema.type).toBe('object');
         expect(jsonSchema.additionalProperties).toBe(false);
       }
     });
   });
-}); 
+});

@@ -397,7 +397,7 @@ function generateHTTPRequestValidationRules(): Record<string, unknown> {
   };
 }
 
-function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
+export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSchema {
   const properties: Record<string, unknown> = {};
   const allRequiredFields: string[] = [];
 
