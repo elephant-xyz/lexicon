@@ -1429,19 +1429,19 @@
         }
       },
       "example": {
-          "full_address": "2558 GARDENS PKWY",
-          "source_http_request": {
-            "method": "GET",
-            "url": "https://pbcpao.gov/Property/Details",
-            "multiValueQueryString": {
-              "parcelId": [
-                "52434205310037080"
-              ]
-            }
-          },
-          "request_identifier": "52434205310037080",
-          "county_jurisdiction": "Palm Beach"
-        }
+        "full_address": "2558 GARDENS PKWY",
+        "source_http_request": {
+          "method": "GET",
+          "url": "https://pbcpao.gov/Property/Details",
+          "multiValueQueryString": {
+            "parcelId": [
+              "52434205310037080"
+            ]
+          }
+        },
+        "request_identifier": "52434205310037080",
+        "county_jurisdiction": "Palm Beach"
+      }
     },
     {
       "type": "address",
@@ -24890,11 +24890,11 @@
       ],
       "example": {
         "label": "Seed",
-          "relationships": {
-            "property_seed": {
-              "/": "./relationship_property_to_address.json"
-            }
+        "relationships": {
+          "property_seed": {
+            "/": "./bafkreic4hmjaoych2mpuzownr6tzsdz4nf3tv2t2vvxvw6z4e4otx5imom"
           }
+        }
       }
     },
     {
@@ -24999,178 +24999,39 @@
       "example": {
         "label": "County",
         "relationships": {
-          "label": "County",
-          "relationships": {
-            "person_has_property": [
-              {
-                "/": "./relationship_person_2_1_property.json"
-              },
-              {
-                "/": "./relationship_person_2_property.json"
-              },
-              {
-                "/": "./relationship_person_1_2_property.json"
-              },
-              {
-                "/": "./relationship_person_8_1_property.json"
-              },
-              {
-                "/": "./relationship_person_6_1_property.json"
-              },
-              {
-                "/": "./relationship_person_3_1_property.json"
-              },
-              {
-                "/": "./relationship_person_1_1_property.json"
-              },
-              {
-                "/": "./relationship_person_5_1_property.json"
-              },
-              {
-                "/": "./relationship_person_9_1_property.json"
-              },
-              {
-                "/": "./relationship_person_7_1_property.json"
-              },
-              {
-                "/": "./relationship_person_1_property.json"
-              }
-            ],
-            "company_has_property": [
-              {
-                "/": "./relationship_company_4_1_property.json"
-              },
-              {
-                "/": "./relationship_company_1_property.json"
-              }
-            ],
-            "property_has_address": {
-              "/": "./relationship_property_address.json"
-            },
-            "property_has_lot": {
-              "/": "./relationship_property_lot.json"
-            },
-            "property_has_tax": [
-              {
-                "/": "./relationship_property_tax_2022.json"
-              },
-              {
-                "/": "./relationship_property_tax_2023.json"
-              },
-              {
-                "/": "./relationship_property_tax_2024.json"
-              },
-              {
-                "/": "./relationship_property_tax_2020.json"
-              },
-              {
-                "/": "./relationship_property_tax_2021.json"
-              }
-            ],
-            "property_has_sales_history": [
-              {
-                "/": "./relationship_property_sales_3.json"
-              },
-              {
-                "/": "./relationship_property_sales_12.json"
-              },
-              {
-                "/": "./relationship_property_sales_2.json"
-              },
-              {
-                "/": "./relationship_property_sales_5.json"
-              },
-              {
-                "/": "./relationship_property_sales_9.json"
-              },
-              {
-                "/": "./relationship_property_sales_8.json"
-              },
-              {
-                "/": "./relationship_property_sales_4.json"
-              },
-              {
-                "/": "./relationship_property_sales_7.json"
-              },
-              {
-                "/": "./relationship_property_sales_6.json"
-              },
-              {
-                "/": "./relationship_property_sales_10.json"
-              },
-              {
-                "/": "./relationship_property_sales_1.json"
-              },
-              {
-                "/": "./relationship_property_sales_11.json"
-              }
-            ],
-            "property_has_layout": [
-              {
-                "/": "./relationship_property_layout_1.json"
-              },
-              {
-                "/": "./relationship_property_layout_4.json"
-              },
-              {
-                "/": "./relationship_property_layout_2.json"
-              },
-              {
-                "/": "./relationship_property_layout_3.json"
-              }
-            ],
-            "property_has_flood_storm_information": null,
-            "property_has_file": null,
-            "property_has_structure": {
-              "/": "./relationship_property_structure.json"
-            },
-            "property_has_utility": {
-              "/": "./relationship_property_utility.json"
-            },
-            "sales_history_has_person": [
-              {
-                "/": "./relationship_sales_person_2_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_8_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_1_2.json"
-              },
-              {
-                "/": "./relationship_sales_person_6_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_3_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_2.json"
-              },
-              {
-                "/": "./relationship_sales_person_1_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_5_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_9_1.json"
-              },
-              {
-                "/": "./relationship_sales_person_7_1.json"
-              }
-            ],
-            "sales_history_has_company": [
-              {
-                "/": "./relationship_sales_company_1.json"
-              },
-              {
-                "/": "./relationship_sales_company_4_1.json"
-              }
-            ]
-          }
+          "person_has_property": [
+            {
+              "/": "./bafkreifazwgu5sxvuglhd64bqzbyyszuyhlnwlchvtibiigr2l5k5spt4q"
+            }
+          ],
+          "company_has_property": null,
+          "property_has_address": {
+            "/": "./bafkreieoku66zp5arhxvrt4cw6w6uqpprudqmnxvs32m65nff4qpqducte"
+          },
+          "property_has_lot": {
+            "/": "./bafkreib5ktarm7dgwjvjzll537brhjz4544hjxmitfbxyxwhdzw23yjhha"
+          },
+          "property_has_tax": [
+            {
+              "/": "./bafkreiglxoulqxsd4ls34aqstmna5iiq7izcjaqlp7kgtwawcagezaoqha"
+            }
+          ],
+          "property_has_sales_history": [
+            {
+              "/": "./bafkreihot7lcbmaalflxewczwnzbozk2zxmo6zhlkua24btqn7a4jsexem"
+            }
+          ],
+          "property_has_layout": [
+            {
+              "/": "./bafkreiczhraw42g55smnjjsqezypffdhi7ur2v4z6n44by2cznkg5llx4a"
+            }
+          ],
+          "property_has_flood_storm_information": null,
+          "property_has_file": null,
+          "property_has_structure": null,
+          "property_has_utility": null,
+          "sales_history_has_person": null,
+          "sales_history_has_company": null
         }
       }
     },
