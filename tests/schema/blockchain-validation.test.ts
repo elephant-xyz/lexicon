@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 
-// Blockchain classes that actually exist in the lexicon data
+// Blockchain classes that have generated schemas
 const BLOCKCHAIN_CLASSES = [
   'property',
   'property_seed',
