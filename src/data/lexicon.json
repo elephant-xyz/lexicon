@@ -17397,6 +17397,7 @@
           "comment": "non-warrantable project indicator in mortgage banking refers to a designation given to a property that is part of a condominium or planned unit development (PUD) that does not meet the eligibility requirements for conventional financing.\n\nThese requirements are set by the government-sponsored enterprises (GSEs), such as Fannie Mae and Freddie Mac, which purchase the majority of residential mortgage loans in the United States.\n\nProperties in non-warrantable projects may have issues such as high levels of commercial space, inadequate financial reserves, or legal disputes that make them too risky for the GSEs to finance. As rdf:type result, these properties may be more difficult to finance, and buyers and owners may have limited options for securing rdf:type mortgage. The \"non-warrantable project indicator\" is a designation that helps lenders and mortgage underwriters understand the limitations and risks associated with a property."
         },
         "number_of_units_type": {
+          "minLength": 1,
           "type": [
             "string",
             "null"
@@ -17409,8 +17410,7 @@
             "Four",
             "TwoToFour"
           ],
-          "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs.",
-          "minLength": 1
+          "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs."
         },
         "owned_property_disposition_status_type": {
           "type": [
