@@ -92,14 +92,9 @@ function isNestedRequired(property: LexiconProperty) {
 
 function mapLexiconTypeToJSONSchema(
   property: LexiconProperty,
-  parentRequiredLogic: boolean | undefined
+  _parentRequiredLogic: boolean | undefined
 ): Record<string, unknown> {
   const schema: Record<string, unknown> = {};
-
-  // Determine if this property is required by constraints
-  const isRequired = isEffectivelyRequired(property);
-  // Use parentRequiredLogic for nested properties if provided
-  const effectiveRequired = parentRequiredLogic !== undefined ? parentRequiredLogic : isRequired;
 
   // Handle oneOf first (before checking type)
   if (property.oneOf) {
@@ -124,10 +119,6 @@ function mapLexiconTypeToJSONSchema(
       // Use simple array syntax for basic type unions
       const types = property.oneOf.map(subSchema => subSchema.type as string);
 
-      if (!effectiveRequired) {
-        types.push('null');
-      }
-
       schema.type = types.length === 1 ? types[0] : types;
 
       // Add description if available
@@ -140,11 +131,6 @@ function mapLexiconTypeToJSONSchema(
       // Use oneOf for complex schemas
       schema.oneOf = property.oneOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
 
-      // If not required, add null as an option
-      if (!effectiveRequired) {
-        (schema.oneOf as LexiconProperty[]).push({ type: 'null' });
-      }
-
       // Add description if available
       if (property.comment) {
         schema.description = property.comment;
@@ -154,133 +140,131 @@ function mapLexiconTypeToJSONSchema(
     }
   }
 
-  switch (property.type) {
-    case 'string':
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
-      if (property.enum) {
-        schema.enum = effectiveRequired ? property.enum : [...property.enum, null];
-      }
-      if (property.pattern) {
-        schema.pattern = property.pattern;
-      }
-      if (property.minLength !== undefined) {
-        schema.minLength = property.minLength;
-      }
-
-      if (property.minimum !== undefined) {
-        schema.minimum = property.minimum;
-      }
-
-      if (property.format) {
-        schema.format = property.format;
-      }
-
-      break;
-    case 'integer':
-      schema.type = effectiveRequired ? 'integer' : ['integer', 'null'];
-      if (property.minimum !== undefined) {
-        schema.minimum = property.minimum;
-      }
-      break;
-    case 'decimal':
-    case 'number':
-      schema.type = effectiveRequired ? 'number' : ['number', 'null'];
-      if (property.minimum !== undefined) {
-        schema.minimum = property.minimum;
-      }
-      break;
-    case 'boolean':
-      schema.type = effectiveRequired ? 'boolean' : ['boolean', 'null'];
-      break;
-    case 'date':
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
-      schema.format = 'date';
-      break;
-    case 'datetime':
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
-      schema.format = 'date-time';
-      break;
-    case 'object':
-      // Handle object types with nested properties
-      if (effectiveRequired) {
+  // Handle type arrays (e.g., ["string", "null"])
+  if (Array.isArray(property.type)) {
+    schema.type = property.type;
+    // Continue processing other constraints even for array types
+  } else {
+    // Handle single types
+    switch (property.type) {
+      case 'string':
+        schema.type = 'string';
+        break;
+      case 'integer':
+        schema.type = 'integer';
+        break;
+      case 'decimal':
+      case 'number':
+        schema.type = 'number';
+        break;
+      case 'boolean':
+        schema.type = 'boolean';
+        break;
+      case 'date':
+        schema.type = 'string';
+        schema.format = 'date';
+        break;
+      case 'datetime':
+        schema.type = 'string';
+        schema.format = 'date-time';
+        break;
+      case 'object':
+        // Handle object types with nested properties
         schema.type = 'object';
-      } else {
-        schema.type = ['object', 'null'];
-      }
 
-      // Add nested properties if they exist
-      if (property.properties) {
-        schema.properties = {};
-        const requiredProps: string[] = [];
+        // Add nested properties if they exist
+        if (property.properties) {
+          schema.properties = {};
+          const requiredProps: string[] = [];
 
-        for (const [propName, propDef] of Object.entries(property.properties)) {
-          // Check if this nested property has required: true in its definition
-          const nestedIsRequired = isNestedRequired(propDef);
-          (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
-            propDef,
-            isEffectivelyRequired(propDef)
-          );
-          // Add to required array only if the property has required: true
-          if (nestedIsRequired) {
-            requiredProps.push(propName);
-          }
-        }
-
-        if (requiredProps.length > 0) {
-          schema.required = requiredProps;
-        }
-
-        // Handle additionalProperties
-        if (property.additionalProperties !== undefined) {
-          if (typeof property.additionalProperties === 'boolean') {
-            schema.additionalProperties = property.additionalProperties;
-          } else {
-            schema.additionalProperties = mapLexiconTypeToJSONSchema(
-              property.additionalProperties,
-              false
+          for (const [propName, propDef] of Object.entries(property.properties)) {
+            // Check if this nested property has required: true in its definition
+            const nestedIsRequired = isNestedRequired(propDef);
+            (schema.properties as Record<string, unknown>)[propName] = mapLexiconTypeToJSONSchema(
+              propDef,
+              isEffectivelyRequired(propDef)
             );
+            // Add to required array only if the property has required: true
+            if (nestedIsRequired) {
+              requiredProps.push(propName);
+            }
           }
-        } else {
-          schema.additionalProperties = false;
+
+          if (requiredProps.length > 0) {
+            schema.required = requiredProps;
+          }
+
+          // Handle additionalProperties
+          if (property.additionalProperties !== undefined) {
+            if (typeof property.additionalProperties === 'boolean') {
+              schema.additionalProperties = property.additionalProperties;
+            } else {
+              schema.additionalProperties = mapLexiconTypeToJSONSchema(
+                property.additionalProperties,
+                false
+              );
+            }
+          } else {
+            schema.additionalProperties = false;
+          }
         }
-      }
 
-      // Add pattern properties if they exist
-      if (property.patternProperties) {
-        schema.patternProperties = {};
+        // Add pattern properties if they exist
+        if (property.patternProperties) {
+          schema.patternProperties = {};
 
-        for (const [pattern, propDef] of Object.entries(property.patternProperties)) {
-          (schema.patternProperties as Record<string, unknown>)[pattern] =
-            mapLexiconTypeToJSONSchema(propDef, true);
+          for (const [pattern, propDef] of Object.entries(property.patternProperties)) {
+            (schema.patternProperties as Record<string, unknown>)[pattern] =
+              mapLexiconTypeToJSONSchema(propDef, true);
+          }
+
+          if (!schema.properties && property.additionalProperties === undefined) {
+            schema.additionalProperties = false;
+          }
         }
 
-        if (!schema.properties && property.additionalProperties === undefined) {
-          schema.additionalProperties = false;
+        // Handle allOf
+        if (property.allOf) {
+          schema.allOf = property.allOf.map(subSchema =>
+            mapLexiconTypeToJSONSchema(subSchema, true)
+          );
         }
-      }
 
-      // Handle allOf
-      if (property.allOf) {
-        schema.allOf = property.allOf.map(subSchema => mapLexiconTypeToJSONSchema(subSchema, true));
-      }
+        break;
+      case 'array':
+        schema.type = 'array';
 
-      break;
-    case 'array':
-      schema.type = effectiveRequired ? 'array' : ['array', 'null'];
+        // Add items schema if it exists
+        if (property.items) {
+          schema.items = mapLexiconTypeToJSONSchema(property.items, true);
+        }
 
-      // Add items schema if it exists
-      if (property.items) {
-        schema.items = mapLexiconTypeToJSONSchema(property.items, true);
-      }
+        // Add minimum items constraint if it exists
+        if (property.minItems !== undefined) {
+          schema.minItems = property.minItems;
+        }
 
-      // Add minimum items constraint if it exists
-      if (property.minItems !== undefined) {
-        schema.minItems = property.minItems;
-      }
+        break;
+      default:
+        schema.type = 'string';
+    }
+  }
 
-      break;
-    default:
-      schema.type = effectiveRequired ? 'string' : ['string', 'null'];
+  // Process constraints for all types (both single and array types)
+  if (property.enum) {
+    schema.enum = property.enum;
+  }
+  if (property.pattern) {
+    schema.pattern = property.pattern;
+  }
+  if (property.minLength !== undefined) {
+    schema.minLength = property.minLength;
+  }
+  if (property.minimum !== undefined) {
+    schema.minimum = property.minimum;
+  }
+  if (property.format) {
+    schema.format = property.format;
   }
 
   // Handle const keyword

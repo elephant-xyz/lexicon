@@ -222,6 +222,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     return formatMatch?.highlightedFormat || '';
   };
 
+  const formatPropertyType = (type: string | string[]): string => {
+    if (Array.isArray(type)) {
+      return type.join(' | ');
+    }
+    return type;
+  };
+
   const _renderNestedProperties = (
     properties: Record<string, LexiconProperty>,
     level: number = 0,
@@ -238,7 +245,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
             <div key={fullPath} className="nested-property-item">
               <div className="property-info">
                 <span className="property-name">{propName}</span>
-                <span className="property-type">{propData.type}</span>
+                <span className="property-type">{formatPropertyType(propData.type)}</span>
                 {propData.comment && <span className="property-comment">{propData.comment}</span>}
               </div>
 
@@ -280,7 +287,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                           <span className="pattern-key">
                             Pattern: <code>{pattern}</code>
                           </span>
-                          <span className="pattern-property-type">{typedPatternProp.type}</span>
+                          <span className="pattern-property-type">
+                            {formatPropertyType(typedPatternProp.type)}
+                          </span>
                           {typedPatternProp.comment && (
                             <span className="pattern-property-comment">
                               {typedPatternProp.comment}
@@ -291,7 +300,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                         {typedPatternProp.items && (
                           <div className="array-items-info">
                             <span className="array-items-label">Array Items:</span>
-                            <span className="array-items-type">{typedPatternProp.items.type}</span>
+                            <span className="array-items-type">
+                              {formatPropertyType(typedPatternProp.items.type)}
+                            </span>
                             {typedPatternProp.minItems && (
                               <span className="array-min-items">
                                 Min Items: {typedPatternProp.minItems}
@@ -754,7 +765,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                     <span className="property-type-value">
                                       {searchTerm && getHighlightedType(cls, propName)
                                         ? renderHighlightedText(getHighlightedType(cls, propName))
-                                        : propData.type}
+                                        : formatPropertyType(propData.type)}
                                     </span>
                                   </div>
                                   {propData.enum && (
@@ -878,7 +889,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                             `${option.type}${nestedPropData.oneOf && nestedPropData.oneOf.length - 1 > _index ? ' | ' : ''}`
                                                         )
                                                         .join('')
-                                                    : nestedPropData.type}
+                                                    : formatPropertyType(nestedPropData.type)}
                                                 </span>
                                               </div>
 
