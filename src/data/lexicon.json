@@ -25001,36 +25001,57 @@
         "relationships": {
           "person_has_property": [
             {
-              "/": "bafkreifazwgu5sxvuglhd64bqzbyyszuyhlnwlchvtibiigr2l5k5spt4q"
+              "/": "bafkreicdtvdzss47eel6okgvzv6c6co3tkv7d4fwx4wp7n4bs6gslb2gba"
+            },
+            {
+              "/": "bafkreidzro523dk7zkfqzienwn4eio4iq35pmhzxifly6wbpyfek5rgpte"
             }
           ],
           "company_has_property": null,
           "property_has_address": {
-            "/": "bafkreieoku66zp5arhxvrt4cw6w6uqpprudqmnxvs32m65nff4qpqducte"
+            "/": "bafkreid7bf5pb7bll4olvumytym7tbzjwzkaxrnxiozdkb3nuo4dnbc4je"
           },
           "property_has_lot": {
-            "/": "bafkreib5ktarm7dgwjvjzll537brhjz4544hjxmitfbxyxwhdzw23yjhha"
+            "/": "bafkreidylw5jrlio4asadqqenoy3wk6azxjvwp437e7565to7h4f5ddphy"
           },
           "property_has_tax": [
             {
-              "/": "bafkreiglxoulqxsd4ls34aqstmna5iiq7izcjaqlp7kgtwawcagezaoqha"
+              "/": "bafkreigmmghpncijpfr5monng5qxdwgpvvyzajhat7fucjheua3c5h3lmq"
             }
           ],
           "property_has_sales_history": [
             {
-              "/": "bafkreihot7lcbmaalflxewczwnzbozk2zxmo6zhlkua24btqn7a4jsexem"
+              "/": "bafkreidjo3g4n5snuaxqclgrwuh6btip2o34747p4shox4kgvsuqrrjptq"
+            },
+            {
+              "/": "bafkreihuj7btmxz3zfzx47osvujeydqbtswbuzbuh5vc62pkhlrzgx7pe4"
+            },
+            {
+              "/": "bafkreidix6gbqysohcsls3d3m32j6zqksx2zrukh4pq5v74hfoc7omwbfm"
             }
           ],
           "property_has_layout": [
             {
-              "/": "bafkreiczhraw42g55smnjjsqezypffdhi7ur2v4z6n44by2cznkg5llx4a"
+              "/": "bafkreidnoz6j275bb6x4drfdwzsqur4sdsalgenkdgghurvqewejoejxr4"
+            },
+            {
+              "/": "bafkreieyyikuau6s7cmrb6rwh3yvews6ry7zqqphccla3j7igusrgryevu"
             }
           ],
           "property_has_flood_storm_information": null,
           "property_has_file": null,
-          "property_has_structure": null,
+          "property_has_structure": {
+            "/": "bafkreiakd73fjbsd7qftzctpps5in5d3pncynou7cx5kwjlpe22gu6sds4"
+          },
           "property_has_utility": null,
-          "sales_history_has_person": null,
+          "sales_history_has_person": [
+            {
+              "/": "bafkreicuvu4vnccqxsxvimquk4ikih2etnabgu3qvixvyotqjufyglnekq"
+            },
+            {
+              "/": "bafkreih5t5aksctw6cfl5h2dj5do5l5yk2bzoez62zqk4epml2qsafgsja"
+            }
+          ],
           "sales_history_has_company": null
         }
       }
