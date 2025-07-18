@@ -287,7 +287,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                           <span className="pattern-key">
                             Pattern: <code>{pattern}</code>
                           </span>
-                          <span className="pattern-property-type">{formatPropertyType(typedPatternProp.type)}</span>
+                          <span className="pattern-property-type">
+                            {formatPropertyType(typedPatternProp.type)}
+                          </span>
                           {typedPatternProp.comment && (
                             <span className="pattern-property-comment">
                               {typedPatternProp.comment}
@@ -298,7 +300,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                         {typedPatternProp.items && (
                           <div className="array-items-info">
                             <span className="array-items-label">Array Items:</span>
-                            <span className="array-items-type">{formatPropertyType(typedPatternProp.items.type)}</span>
+                            <span className="array-items-type">
+                              {formatPropertyType(typedPatternProp.items.type)}
+                            </span>
                             {typedPatternProp.minItems && (
                               <span className="array-min-items">
                                 Min Items: {typedPatternProp.minItems}
