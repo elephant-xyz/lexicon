@@ -20,11 +20,11 @@ describe('Blockchain Schema Validation', () => {
         throw new Error('No blockchain tag found in lexicon data');
       }
 
-      const ajv = new Ajv({
+      const _ajv = new Ajv({
         allErrors: true,
         validateSchema: false,
       });
-      let totalSchemas = 0;
+      let _totalSchemas = 0;
       let validSchemas = 0;
 
       for (const className of blockchainTag.classes) {
@@ -33,7 +33,7 @@ describe('Blockchain Schema Validation', () => {
           continue;
         }
 
-        totalSchemas++;
+        _totalSchemas++;
 
         // Generate schema using the actual Vite plugin code
         const jsonSchema = generateJSONSchemaForClass(lexiconClass);
@@ -55,7 +55,7 @@ describe('Blockchain Schema Validation', () => {
         expect(jsonSchema.properties).not.toBeNull();
 
         // Check each property for proper constraints
-        for (const [propName, propSchema] of Object.entries(jsonSchema.properties)) {
+        for (const [_propName, propSchema] of Object.entries(jsonSchema.properties)) {
           const prop = propSchema as any;
 
           // Each property should have a type
@@ -121,7 +121,7 @@ describe('Blockchain Schema Validation', () => {
         throw new Error('No blockchain tag found in lexicon data');
       }
 
-      const ajv = new Ajv({
+      const _ajv = new Ajv({
         allErrors: true,
         validateSchema: false,
       });
@@ -152,7 +152,7 @@ describe('Blockchain Schema Validation', () => {
         expect(jsonSchema.properties).not.toBeNull();
 
         // Check that each property has required fields
-        for (const [propName, propSchema] of Object.entries(jsonSchema.properties)) {
+        for (const [_propName, propSchema] of Object.entries(jsonSchema.properties)) {
           const prop = propSchema as any;
 
           // Each property should have a type
