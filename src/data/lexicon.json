@@ -20876,15 +20876,13 @@
           "type": "string",
           "enum": [
             "ElectricFurnace",
-            "Electric",
             "GasFurnace",
             "Ductless",
             "Radiant",
             "Solar",
             "HeatPump",
             "Central",
-            "Baseboard",
-            "Gas"
+            "Baseboard"
           ],
           "comment": "Refers to the type of heating system used in the structure."
         },
