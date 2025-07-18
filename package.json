@@ -28,7 +28,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "ci:lint": "npm run lint && npm run format:check",
-    "ci:fix": "npm run lint:fix && npm run format"
+    "ci:fix": "npm run lint:fix && npm run format",
+    "generate-schemas": "node scripts/generate-blockchain-schemas.js"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
