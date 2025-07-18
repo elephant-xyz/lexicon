@@ -1427,7 +1427,21 @@
           "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
           "minLength": 1
         }
-      }
+      },
+      "example": {
+          "full_address": "2558 GARDENS PKWY",
+          "source_http_request": {
+            "method": "GET",
+            "url": "https://pbcpao.gov/Property/Details",
+            "multiValueQueryString": {
+              "parcelId": [
+                "52434205310037080"
+              ]
+            }
+          },
+          "request_identifier": "52434205310037080",
+          "county_jurisdiction": "Palm Beach"
+        }
     },
     {
       "type": "address",
@@ -16753,9 +16767,17 @@
         }
       },
       "example": {
-        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
-        "request_identifier": "52434205310037080",
-        "parcel_id": "52434205310037080"
+        "parcel_id": "52434205310037080",
+        "source_http_request": {
+          "method": "GET",
+          "url": "https://pbcpao.gov/Property/Details",
+          "multiValueQueryString": {
+            "parcelId": [
+              "52434205310037080"
+            ]
+          }
+        },
+        "request_identifier": "52434205310037080"
       }
     },
     {
@@ -24865,7 +24887,13 @@
       ],
       "required": [
         "property_seed"
-      ]
+      ],
+      "example": {
+        "label": "Seed",
+        "relationships": {
+          "property_seed": "bafkreihed5rkhc3y4zg62kqryif3ggeafpm3uyq2losokzcljldjhklpea"
+        }
+      }
     },
     {
       "label": "County",
