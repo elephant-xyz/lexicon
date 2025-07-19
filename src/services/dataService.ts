@@ -221,18 +221,20 @@ class DataService {
 
       // Enum values match
       if (propData.enum) {
-        propData.enum.forEach(enumValue => {
-          const enumMatch = this.fuzzyMatch(searchTerm, enumValue);
-          if (enumMatch.matches) {
-            matches.push({
-              type: 'property',
-              field: 'enum',
-              value: propName, // Property name for identification
-              score: enumMatch.score,
-              highlightedEnum: enumMatch.highlight || enumValue,
-            });
-          }
-        });
+        propData.enum
+          .filter(enumValue => enumValue !== null)
+          .forEach(enumValue => {
+            const enumMatch = this.fuzzyMatch(searchTerm, enumValue);
+            if (enumMatch.matches) {
+              matches.push({
+                type: 'property',
+                field: 'enum',
+                value: propName, // Property name for identification
+                score: enumMatch.score,
+                highlightedEnum: enumMatch.highlight || enumValue,
+              });
+            }
+          });
       }
 
       // Pattern match
