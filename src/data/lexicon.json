@@ -25625,7 +25625,7 @@
           "minLength": 1
         },
         "smart_home_features": {
-          "type": "array",
+          "type": ["array","null"],
           "items": {
             "type": [
               "string",
