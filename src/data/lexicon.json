@@ -19001,7 +19001,7 @@
           ]
         },
         "size_square_feet": {
-          "type": ["decimal","null"],
+          "type": ["number","null"],
           "comment": "Room area in square feet."
         },
         "special_features": {
@@ -23431,7 +23431,7 @@
           ]
         },
         "ceiling_height_average": {
-          "type": ["decimal","null"],
+          "type": ["number","null"],
           "comment": "Average ceiling height in feet."
         },
         "ceiling_condition": {
@@ -24283,12 +24283,12 @@
           "comment": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
         },
         "property_building_amount": {
-          "type": ["decimal","null"],
+          "type": ["number","null"],
           "format": "currency",
           "comment": "The building or improvement value of the property used as the basis for property tax calculations for a given tax year."
         },
         "property_land_amount": {
-          "type": ["decimal","null"],
+          "type": ["number","null"],
           "format": "currency",
           "comment": "The land value of the property used as the basis for property tax calculations for a given tax year."
         },
@@ -24298,7 +24298,7 @@
           "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
         "monthly_tax_amount": {
-          "type": ["decimal","null"],
+          "type": ["number","null"],
           "format": "currency",
           "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
