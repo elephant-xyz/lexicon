@@ -25639,7 +25639,6 @@
               "SmartIrrigation",
               "VoiceControlIntegration",
               "EnergyMonitoring",
-              "Other",
               null
             ],
             "minLength": 1
