@@ -8709,7 +8709,6 @@
             "GreaterThanOneQuarterAcre",
             "PavedRoad",
             "LessThanOrEqualToOneQuarterAcre",
-            "Other",
             null
           ],
           "comment": "Describes key physical attributes of the lot, including size and access. This classification helps differentiate between lots that are larger than a quarter acre, smaller or equal to a quarter acre, have direct access to a paved road, or possess other distinguishing features.",
@@ -8784,7 +8783,6 @@
             "Heated",
             "BuiltIn",
             "RoomForPool",
-            "Other",
             null
           ],
           "comment": "Refers to the type of pool associated with a structure.",
@@ -21477,7 +21475,7 @@
         },
         "purchase_price_amount": {
           "type": "decimal",
-          "format": "currancy",
+          "format": "currency",
           "comment": "The total dollar amount paid by the borrower for the property. The purchase price is presented on the offer to purchase."
         },
         "sale_type": {
