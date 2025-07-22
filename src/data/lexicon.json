@@ -25981,6 +25981,12 @@
           "from": "property",
           "to": "appliance",
           "relationship_type": "property_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "appliance",
+          "relationship_type": "property_has_appliance"
         }
 
       ],
