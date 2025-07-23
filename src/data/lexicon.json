@@ -2758,48 +2758,6 @@
       "relationships": {}
     },
     {
-      "type": "appliance",
-      "container_name": "appliances",
-      "is_deprecated": false,
-      "deprecated_properties": [],
-      "properties": {
-        "appliance_type": {
-          "enum": [
-            "SelfCleaningOven",
-            "WaterSoftenerOwned",
-            "ElectricRange",
-            "CooktopWithRangeHood",
-            "Refrigerator",
-            "Dryer",
-            "GasRange",
-            "Washer",
-            "GasWaterHeater",
-            "Dishwasher",
-            "ElectricWaterHeater",
-            "Washer/Dryer",
-            "GarbageDisposal",
-            "BuiltInOven",
-            "WaterPurifier",
-            "Microwave",
-            "IceMaker",
-            "BuiltInMicrowave",
-            "Cooktop",
-            null
-          ],
-          "comment": "Refers to the type of appliance.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "appliance_type_other_description": {
-          "type": "string",
-          "comment": "A free-form field to capture additional detail when Other is selected for the appliance type."
-        }
-      },
-      "relationships": {}
-    },
-    {
       "type": "asset",
       "container_name": "assets",
       "is_deprecated": false,
@@ -19553,7 +19511,9 @@
       "deprecated_properties": [
         "appliance_type_other_description",
         "finish_other_description",
-        "location_hint"
+        "location_hint",
+        "is_built_in"
+  
       ],
       "properties": {
         "source_http_request": {
