@@ -19511,7 +19511,9 @@
       "deprecated_properties": [
         "appliance_type_other_description",
         "finish_other_description",
-        "location_hint"
+        "location_hint",
+        "is_built_in"
+  
       ],
       "properties": {
         "source_http_request": {
