@@ -7446,7 +7446,7 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "object",
+          "type": ["object", "null"],
           "properties": {
             "method": {
               "type": "string",
@@ -25952,6 +25952,25 @@
         "property_has_utility",
         "property_has_structure",
         "property_has_lot"
+      ]
+    },
+    {
+      "label": "Image",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property_seed",
+          "to": "file",
+          "relationship_type": "property_seed_has_file"
+        }
+
+      ],
+      "required": [
+        "property_seed_has_file"
+      ],
+      "one_to_many_relationships": [
+        "property_seed_has_file"
+
       ]
     },
     {
