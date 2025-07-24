@@ -15134,6 +15134,7 @@
         "view": {
           "enum": [
             "OceanView",
+            "Waterfront",
             "MountainView",
             "CitySkylineView",
             "ParkView",
@@ -19142,6 +19143,7 @@
         "flooring_wear": {
           "enum": [
             "Pristine",
+            "Good",
             "Moderate",
             "Worn",
             "Damaged",
