@@ -25924,22 +25924,12 @@
           "to": "appliance",
           "relationship_type": "property_has_appliance"
         },
-        {
-          "type": "relationship",
-          "from": "layout",
-          "to": "file",
-          "relationship_type": "layout_has_file"
-        },
-        {
-          "type": "relationship",
-          "from": "layout",
-          "to": "appliance",
-          "relationship_type": "layout_has_appliance"
-        },
+
+       
         {
           "type": "relationship",
           "from": "property",
-          "to": "appliance",
+          "to": "file",
           "relationship_type": "property_has_file"
         },
         {
@@ -25955,9 +25945,7 @@
       ],
       "one_to_many_relationships": [
         "property_has_layout",
-        "property_appliance",
-        "layout_has_file",
-        "layout_has_appliance",
+        "property_has_appliancence",
         "property_has_file",
         "property_has_utility",
         "property_has_structure",
