@@ -7446,7 +7446,7 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": "object",
+          "type": ["object", "null"],
           "properties": {
             "method": {
               "type": "string",
@@ -25892,6 +25892,25 @@
           "sales_history_has_company": null
         }
       }
+    },
+    {
+      "label": "Photo",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property_seed",
+          "to": "file",
+          "relationship_type": "property_seed_has_file"
+        }
+
+      ],
+      "required": [
+        "property_seed_has_file"
+      ],
+      "one_to_many_relationships": [
+        "property_seed_has_file"
+
+      ]
     },
     {
       "label": "Photo Metadata",
