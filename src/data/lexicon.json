@@ -25945,7 +25945,7 @@
       ],
       "one_to_many_relationships": [
         "property_has_layout",
-        "property_has_appliancence",
+        "property_has_appliance",
         "property_has_file",
         "property_has_utility",
         "property_has_structure",
