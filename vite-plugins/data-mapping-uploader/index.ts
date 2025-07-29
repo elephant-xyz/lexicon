@@ -89,6 +89,7 @@ export function dataMappingUploaderPlugin(options: DataMappingUploaderOptions): 
 
             manifest[manifestKey] = {
               ipfsCid: ipfsCid,
+              type: 'class',
             };
           } catch (_error) {
             console.error(`❌ Failed to process data mapping for ${className}:`, _error);
