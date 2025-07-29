@@ -2139,6 +2139,16 @@ mark {
   border: 1px solid #dfdede;
 }
 
+.no-ipfs-message {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: var(--spacing-2);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
 .example-item {
   background-color: #d9d8d8;
 }
