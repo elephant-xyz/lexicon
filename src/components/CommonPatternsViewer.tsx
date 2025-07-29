@@ -18,9 +18,9 @@ const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: 
           mapping.lexiconProperty === lexiconProperty) {
         // If enumValue is provided, match it; otherwise return the first match
         if (enumValue && mapping.enumValue === enumValue) {
-          return mapping.iconName;
+          return mapping.iconName || null;
         } else if (!enumValue) {
-          return mapping.iconName;
+          return mapping.iconName || null;
         }
       }
     }

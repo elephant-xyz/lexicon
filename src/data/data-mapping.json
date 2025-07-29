@@ -794,126 +794,126 @@
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "3-Tab Asphalt Shingle",
       "enumDescription": "3-Tab Asphalt Shingles"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Architectural Asphalt Shingle",
       "enumDescription": "Architectural Asphalt Shingles"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Metal Standing Seam",
       "enumDescription": "Metal Standing Seam Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Metal Corrugated",
       "enumDescription": "Metal Corrugated Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Clay Tile",
       "enumDescription": "Clay Tile Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Concrete Tile",
       "enumDescription": "Concrete Tile Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Natural Slate",
       "enumDescription": "Natural Slate Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Synthetic Slate",
       "enumDescription": "Synthetic Slate roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Wood Shake",
       "enumDescription": "Wood Shake Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Wood Shingle",
       "enumDescription": "Wood Shingles"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "TPO Membrane",
       "enumDescription": "TPO Membrane Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "EPDM Membrane",
       "enumDescription": "EPDM Membrane Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Modified Bitumen",
       "enumDescription": "Modified Bitumen Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Built-Up Roof",
       "enumDescription": "Built-Up Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Green Roof System",
       "enumDescription": "Green Roof System"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Solar Integrated Tiles",
       "enumDescription": "Solar Integrated Tile Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Tile",
       "enumDescription": "Tile Roof"
     },
     {
       "lexiconClass": "structure",
       "lexiconProperty": "roof_covering_material",
-      "iconName": "roofing",
+      "iconName": "roof",
       "enumValue": "Shingle",
       "enumDescription": "Shingles"
     },
@@ -969,6 +969,13 @@
     {
       "lexiconClass": "layout",
       "lexiconProperty": "space_type",
+      "iconName": "closet",
+      "enumValue": "Walk-in Closet",
+      "enumDescription": "Walk-in Closet"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
       "iconName": "balcony",
       "enumValue": "Balcony",
       "enumDescription": "Balcony"
@@ -993,6 +1000,13 @@
       "iconName": "patio",
       "enumValue": "Porch",
       "enumDescription": "Porch"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "patio",
+      "enumValue": "Patio",
+      "enumDescription": "Patio"
     },
     {
       "lexiconClass": "layout",
@@ -1049,6 +1063,13 @@
       "iconName": "",
       "enumValue": "1st Floor",
       "enumDescription": "1st Floor"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "floor_level",
+      "iconName": "",
+      "enumValue": "2nd Floor",
+      "enumDescription": "2nd Floor"
     },
     {
       "lexiconClass": "layout",
@@ -1182,6 +1203,13 @@
       "iconName": "clutter",
       "enumValue": "Staged",
       "enumDescription": "Staged"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "condition_issues",
+      "iconName": "warning",
+      "enumValue": "PersonalItemsVisible",
+      "enumDescription": "Personal Items Visible"
     },
     {
       "lexiconClass": "layout",
@@ -1812,5 +1840,55 @@
       "iconName": "deck",
       "enumValue": "Deck",
       "enumDescription": "Deck"
+    },
+
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "fridge",
+      "enumValue": "Refrigerator",
+      "enumDescription": "Refrigerator"
+    },
+  
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "microwave",
+      "enumValue": "Microwave",
+      "enumDescription": "Microwave"
+    },
+ 
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "oven",
+      "enumValue": "Oven",
+      "enumDescription": "Oven"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "toaster-oven",
+      "enumValue": "Toaster Oven",
+      "enumDescription": "Toaster Oven"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "laundry",
+      "enumValue": "Washing Machine",
+      "enumDescription": "Washing Machine"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "finish",
+      "enumValue": "White",
+      "enumDescription": "White"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "finish",
+      "enumValue": "Stainless Steel",
+      "enumDescription": "Stainless Steel"
     }
   ]

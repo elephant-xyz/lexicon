@@ -11,7 +11,6 @@ interface DataGroupViewerProps {
 
 // Function to get icon name from data mapping
 const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: string): string | null => {
-  console.log('🔍 DataGroupViewer getIconName called with:', { lexiconClass, lexiconProperty, enumValue });
   try {
     // Handle the data mapping array format
     const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
@@ -23,10 +22,10 @@ const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: 
         // If enumValue is provided, match it; otherwise return the first match
         if (enumValue && mapping.enumValue === enumValue) {
           console.log('✅ DataGroupViewer returning icon for enum match:', mapping.iconName);
-          return mapping.iconName;
+          return mapping.iconName || null;
         } else if (!enumValue) {
           console.log('✅ DataGroupViewer returning icon for property match:', mapping.iconName);
-          return mapping.iconName;
+          return mapping.iconName || null;
         }
       }
     }
