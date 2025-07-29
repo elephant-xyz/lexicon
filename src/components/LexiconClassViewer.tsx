@@ -329,11 +329,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                 <div className="property-enum">
                   <span className="enum-label">Values:</span>
                   <div className="enum-values">
-                    {propData.enum.map((value: string, idx: number) => (
-                      <span key={idx} className="enum-value-display">
-                        {value}
-                      </span>
-                    ))}
+                    {propData.enum
+                      .filter((value: any) => value !== null)
+                      .map((value: string, idx: number) => (
+                        <span key={idx} className="enum-value-display">
+                          {value}
+                        </span>
+                      ))}
                   </div>
                 </div>
               )}
@@ -894,6 +896,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                       <span className="enum-label">Possible Values:</span>
                                       <div className="enum-values">
                                         {[...propData.enum]
+                                          .filter(value => value !== null)
                                           .sort((a, b) => a.localeCompare(b))
                                           .map((value, idx) => {
                                             const enumHighlights = getHighlightedEnumValues(
@@ -1061,18 +1064,20 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                     Possible Values:
                                                   </span>
                                                   <div className="enum-values">
-                                                    {nestedPropData.enum.map((value, idx) => (
-                                                      <button
-                                                        key={idx}
-                                                        className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
-                                                        onClick={() => copyToClipboard(value)}
-                                                        title="Click to copy to clipboard"
-                                                      >
-                                                        {copiedValue === value
-                                                          ? '✓ Copied!'
-                                                          : value}
-                                                      </button>
-                                                    ))}
+                                                    {nestedPropData.enum
+                                                      .filter((value: any) => value !== null)
+                                                      .map((value, idx) => (
+                                                        <button
+                                                          key={idx}
+                                                          className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                                          onClick={() => copyToClipboard(value)}
+                                                          title="Click to copy to clipboard"
+                                                        >
+                                                          {copiedValue === value
+                                                            ? '✓ Copied!'
+                                                            : value}
+                                                        </button>
+                                                      ))}
                                                   </div>
                                                 </div>
                                               )}
