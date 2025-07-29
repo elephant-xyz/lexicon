@@ -990,12 +990,12 @@ textarea {
 }
 
 .json-code {
-  background-color: #EAFDF3;
+  background-color: #eafdf3;
   border: 1px solid #e9ecef;
   border-radius: var(--radius-md);
   padding: var(--spacing-3);
   font-family: var(--font-family-mono);
-  font-size: .6rem;
+  font-size: 0.6rem;
   color: #495057;
   overflow-x: auto;
   white-space: pre;
@@ -1005,8 +1005,7 @@ textarea {
 }
 
 .json-code:hover {
-  
-  border-color: #2BE786;
+  border-color: #2be786;
 }
 
 .json-code code {
@@ -1061,7 +1060,7 @@ textarea {
   letter-spacing: var(--letter-spacing-standard) !important;
   text-decoration: none !important;
   display: inline-block !important;
-  
+
   /* Remove all complex animations and effects */
   position: static !important;
   overflow: visible !important;
@@ -1135,6 +1134,35 @@ textarea {
 .cid-copy-button {
   font-size: var(--text-xs) !important;
   padding: var(--spacing-1) var(--spacing-2) !important;
+}
+
+/* Enum metadata styles for description and icon */
+.enum-metadata {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: var(--spacing-2);
+  padding: var(--spacing-2);
+  background-color: var(--background-accent);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.enum-icon {
+  flex-shrink: 0;
+}
+
+.enum-icon img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+.enum-description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.4;
 }
 
 @keyframes pulse-success {
@@ -1867,7 +1895,8 @@ mark {
 
 /* JSON Schema Section */
 .json-schema-section,
-.html-template-section {
+.html-template-section,
+.html-icon-mapping-section {
   margin-bottom: var(--spacing-6);
   padding: var(--spacing-4);
   background-color: rgba(43, 231, 134, 0.05);
@@ -2076,6 +2105,7 @@ mark {
 /* --- SCHEMA & EXAMPLE SECTIONS: NEW DESIGN --- */
 .json-schema-section,
 .html-template-section,
+.html-icon-mapping-section,
 .json-example-section,
 .json-examples-section,
 .example-item {
@@ -2102,6 +2132,10 @@ mark {
 }
 
 .json-example-section {
+  border: 1px solid #dfdede;
+}
+
+.html-icon-mapping-section {
   border: 1px solid #dfdede;
 }
 
@@ -2660,9 +2694,8 @@ mark {
   font-weight: var(--font-weight-regular);
   color: var(--primary-espresso);
   letter-spacing: var(--letter-spacing-standard);
-  
+
   border-radius: 4px;
-  
 }
 
 /* Method list item label icon */

@@ -10,14 +10,17 @@ interface DataGroupViewerProps {
 }
 
 // Function to get icon name from data mapping
-const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: string): string | null => {
+const getIconName = (
+  lexiconClass: string,
+  lexiconProperty: string,
+  enumValue?: string
+): string | null => {
   try {
     // Handle the data mapping array format
     const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
-    
+
     for (const mapping of mappingArray) {
-      if (mapping.lexiconClass === lexiconClass && 
-          mapping.lexiconProperty === lexiconProperty) {
+      if (mapping.lexiconClass === lexiconClass && mapping.lexiconProperty === lexiconProperty) {
         console.log('🎯 DataGroupViewer found matching class/property:', mapping);
         // If enumValue is provided, match it; otherwise return the first match
         if (enumValue && mapping.enumValue === enumValue) {
@@ -37,15 +40,21 @@ const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: 
 };
 
 // Function to get enum description from data mapping
-const getEnumDescription = (lexiconClass: string, lexiconProperty: string, enumValue: string): string | null => {
+const _getEnumDescription = (
+  lexiconClass: string,
+  lexiconProperty: string,
+  enumValue: string
+): string | null => {
   try {
     // Handle the data mapping array format
     const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
-    
+
     for (const mapping of mappingArray) {
-      if (mapping.lexiconClass === lexiconClass && 
-          mapping.lexiconProperty === lexiconProperty && 
-          mapping.enumValue === enumValue) {
+      if (
+        mapping.lexiconClass === lexiconClass &&
+        mapping.lexiconProperty === lexiconProperty &&
+        mapping.enumValue === enumValue
+      ) {
         return mapping.enumDescription || null;
       }
     }
@@ -56,15 +65,18 @@ const getEnumDescription = (lexiconClass: string, lexiconProperty: string, enumV
 };
 
 // Icon component to render SVG from public/icons folder
-const IconComponent: React.FC<{ iconName: string | null; className?: string }> = ({ iconName, className = '' }) => {
+const IconComponent: React.FC<{ iconName: string | null; className?: string }> = ({
+  iconName,
+  className = '',
+}) => {
   if (!iconName) return null;
-  
+
   return (
     <div className={`method-list-item-label-icon ${className}`.trim()}>
-      <img 
-        src={`/icons/${iconName}.svg`} 
+      <img
+        src={`/icons/${iconName}.svg`}
         alt={`${iconName} icon`}
-        onError={(e) => {
+        onError={e => {
           // Hide the icon if the SVG doesn't exist
           (e.target as HTMLElement).style.display = 'none';
         }}
@@ -158,9 +170,7 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
       {dataGroups.map((group, index) => (
         <div key={index} className="method-list-item data-group" data-type={group.label}>
           <div className="method-list-item-label">
-            <IconComponent 
-              iconName={getIconName(group.label, '', '')} 
-            />
+            <IconComponent iconName={getIconName(group.label, '', '')} />
             <div className="method-list-item-header">
               <div className="method-list-item-label-name">
                 {renderHighlightedText(getHighlightedGroupName(group))}
@@ -288,8 +298,12 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                     return (
                       <div key={relKey} className="method-list-item method-list-item-isChild">
                         <div className="method-list-item-label">
-                          <IconComponent 
-                            iconName={getIconName(group.label, rel.relationship_type || `has_${rel.to}`, '')} 
+                          <IconComponent
+                            iconName={getIconName(
+                              group.label,
+                              rel.relationship_type || `has_${rel.to}`,
+                              ''
+                            )}
                           />
                           <div className="method-list-item-label-name">
                             {rel.relationship_type || `has_${rel.to}`}

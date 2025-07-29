@@ -11,18 +11,24 @@ interface LexiconClassViewerProps {
 }
 
 // Function to get icon name from data mapping
-const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: string): string | null => {
+const getIconName = (
+  lexiconClass: string,
+  lexiconProperty: string,
+  enumValue?: string
+): string | null => {
   try {
     // Handle the data mapping array format
     const mappingArray = Array.isArray(dataMapping) ? dataMapping : [];
-    
+
     for (const mapping of mappingArray) {
-      if (mapping && 
-          typeof mapping === 'object' && 
-          'lexiconClass' in mapping &&
-          'lexiconProperty' in mapping &&
-          mapping.lexiconClass === lexiconClass && 
-          mapping.lexiconProperty === lexiconProperty) {
+      if (
+        mapping &&
+        typeof mapping === 'object' &&
+        'lexiconClass' in mapping &&
+        'lexiconProperty' in mapping &&
+        mapping.lexiconClass === lexiconClass &&
+        mapping.lexiconProperty === lexiconProperty
+      ) {
         console.log('🎯 Found matching class/property:', mapping);
         // If enumValue is provided, match it exactly
         if (enumValue && 'enumValue' in mapping && mapping.enumValue === enumValue) {
@@ -43,21 +49,27 @@ const getIconName = (lexiconClass: string, lexiconProperty: string, enumValue?: 
 };
 
 // Function to get enum description from data mapping
-const getEnumDescription = (lexiconClass: string, lexiconProperty: string, enumValue: string): string | null => {
+const getEnumDescription = (
+  lexiconClass: string,
+  lexiconProperty: string,
+  enumValue: string
+): string | null => {
   try {
     // Handle the data mapping array format
     const mappingArray = Array.isArray(dataMapping) ? dataMapping : [];
-    
+
     for (const mapping of mappingArray) {
-      if (mapping && 
-          typeof mapping === 'object' && 
-          'lexiconClass' in mapping &&
-          'lexiconProperty' in mapping &&
-          'enumValue' in mapping &&
-          'enumDescription' in mapping &&
-          mapping.lexiconClass === lexiconClass && 
-          mapping.lexiconProperty === lexiconProperty && 
-          mapping.enumValue === enumValue) {
+      if (
+        mapping &&
+        typeof mapping === 'object' &&
+        'lexiconClass' in mapping &&
+        'lexiconProperty' in mapping &&
+        'enumValue' in mapping &&
+        'enumDescription' in mapping &&
+        mapping.lexiconClass === lexiconClass &&
+        mapping.lexiconProperty === lexiconProperty &&
+        mapping.enumValue === enumValue
+      ) {
         return mapping.enumDescription || null;
       }
     }
@@ -68,15 +80,18 @@ const getEnumDescription = (lexiconClass: string, lexiconProperty: string, enumV
 };
 
 // Icon component to render SVG from public/icons folder
-const IconComponent: React.FC<{ iconName: string | null; className?: string }> = ({ iconName, className = '' }) => {
+const IconComponent: React.FC<{ iconName: string | null; className?: string }> = ({
+  iconName,
+  className = '',
+}) => {
   if (!iconName) return null;
-  
+
   return (
     <div className={`method-list-item-label-icon ${className}`.trim()}>
-      <img 
-        src={`/icons/${iconName}.svg`} 
+      <img
+        src={`/icons/${iconName}.svg`}
         alt={`${iconName} icon`}
-        onError={(e) => {
+        onError={e => {
           // Hide the icon if the SVG doesn't exist
           (e.target as HTMLElement).style.display = 'none';
         }}
@@ -330,7 +345,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                   <span className="enum-label">Values:</span>
                   <div className="enum-values">
                     {propData.enum
-                      .filter((value: any) => value !== null)
+                      .filter((value: string | null) => value !== null)
                       .map((value: string, idx: number) => (
                         <span key={idx} className="enum-value-display">
                           {value}
@@ -588,9 +603,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       {classes.map((cls, index) => (
         <div key={index} className="method-list-item" data-type={cls.type}>
           <div className="method-list-item-label">
-            <IconComponent 
-              iconName={getIconName(cls.type, '', '')} 
-            />
+            <IconComponent iconName={getIconName(cls.type, '', '')} />
             <div className="method-list-item-header">
               <div className="method-list-item-label-name">
                 {renderHighlightedText(getHighlightedClassName(cls))}
@@ -659,7 +672,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     <div className="json-schema-link">
                       <span className="json-schema-label">HTML template:</span>
                       <a
-                        href={schemaService.getIPFSUrl(schemaManifest[cls.type].ipfsCid)}
+                        href="https://github.com/elephant-xyz/fact-sheet-template"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="ipfs-download-link"
@@ -667,18 +680,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                       >
                         view on GitHub
                       </a>
-                      <button
-                        className={`cid-copy-button ${copiedValue === `github-${cls.type}` ? 'cid-copy-button-copied' : ''}`}
-                        onClick={() => copyToClipboard(`github-${cls.type}`)}
-                        title="Click to copy GitHub mapping to clipboard"
-                      >
-                        {copiedValue === `github-${cls.type}`
-                          ? '✓ Copied!'
-                          : `GitHub: templates/${cls.type}.html`}
-                      </button>
                     </div>
                   </div>
-                  
+
                   {/* Original JSON schema section */}
                   <div className="json-schema-section">
                     <div className="json-schema-link">
@@ -703,8 +707,40 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                       </button>
                     </div>
                   </div>
+
+                  {/* HTML Icon Mapping section for blockchain classes */}
+                  {schemaManifest[`${cls.type}_icon_mapping`] && (
+                    <div className="html-icon-mapping-section">
+                      <div className="json-schema-link">
+                        <span className="json-schema-label">HTML Icon Mapping:</span>
+                        <a
+                          href={schemaService.getIPFSUrl(
+                            schemaManifest[`${cls.type}_icon_mapping`].ipfsCid
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ipfs-download-link"
+                          title="Download icon mapping from IPFS"
+                        >
+                          📥 Download from IPFS
+                        </a>
+                        <button
+                          className={`cid-copy-button ${copiedValue === schemaManifest[`${cls.type}_icon_mapping`].ipfsCid ? 'cid-copy-button-copied' : ''}`}
+                          onClick={() =>
+                            copyToClipboard(schemaManifest[`${cls.type}_icon_mapping`].ipfsCid)
+                          }
+                          title="Click to copy CID to clipboard"
+                        >
+                          {copiedValue === schemaManifest[`${cls.type}_icon_mapping`].ipfsCid
+                            ? '✓ Copied!'
+                            : `CID: ${schemaManifest[`${cls.type}_icon_mapping`].ipfsCid}`}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
+
               {/* Single Example Display */}
               {cls.example &&
                 isBlockchainClass.has(cls.type) &&
@@ -881,13 +917,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                     <>
                                       <div className="method-list-item-label-icon-section">
                                         <span className="icon-name-label">Icon Name:</span>
-                                        <span className="icon-name-value">{getIconName(cls.type, propName)}</span>
+                                        <span className="icon-name-value">
+                                          {getIconName(cls.type, propName)}
+                                        </span>
                                       </div>
                                       <div className="method-list-item-label-icon-display">
                                         <span className="icon-display-label">Icon:</span>
-                                        <IconComponent 
-                                          iconName={getIconName(cls.type, propName)} 
-                                        />
+                                        <IconComponent iconName={getIconName(cls.type, propName)} />
                                       </div>
                                     </>
                                   )}
@@ -904,26 +940,24 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                               propName
                                             );
                                             const highlightedValue = enumHighlights.get(value);
-                                            const enumDesc = getEnumDescription(cls.type, propName, value);
-                                            const iconName = getIconName(cls.type, propName, value);
-                                            
-                                            // Debug logging
-                                            console.log(`🔍 Mapping data for ${cls.type}.${propName}.${value}:`, {
-                                              enumDesc,
-                                              iconName,
-                                              cls_type: cls.type,
+                                            const enumDesc = getEnumDescription(
+                                              cls.type,
                                               propName,
                                               value
-                                            });
-                                            
-                                            // Create the full JSON object string
-                                            const jsonObject = `{
-  "lexiconClass": "${cls.type}",
-  "lexiconProperty": "${propName}",${iconName ? `
-  "iconName": "${iconName}",` : ''}
-  "enumValue": "${value}"${enumDesc ? `,
-  "enumDescription": "${enumDesc}"` : ''}
-}`;
+                                            );
+                                            const iconName = getIconName(cls.type, propName, value);
+
+                                            // Debug logging
+                                            console.log(
+                                              `🔍 Mapping data for ${cls.type}.${propName}.${value}:`,
+                                              {
+                                                enumDesc,
+                                                iconName,
+                                                cls_type: cls.type,
+                                                propName,
+                                                value,
+                                              }
+                                            );
 
                                             return (
                                               <div key={idx} className="enum-item-container">
@@ -944,25 +978,22 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                     value
                                                   )}
                                                 </button>
-                                                <div className="enum-json-snippet">
-                                                  <pre 
-                                                    className={`json-code ${copiedValue === jsonObject ? 'json-code-copied' : ''}`}
-                                                    onClick={() => {
-                                                      console.log('🖱️ JSON code snippet clicked!', jsonObject);
-                                                      copyToClipboard(jsonObject);
-                                                    }}
-                                                    title="Click to copy JSON object to clipboard"
-                                                  >
-                                                    <code>
-{jsonObject}
-                                                    </code>
-                                                    {copiedValue === jsonObject && (
-                                                      <div className="json-code-overlay">
-                                                        <span>Copied!</span>
-                                                      </div>
+                                                {/* Show enum description and icon instead of JSON */}
+                                                {(enumDesc || iconName) && (
+                                                  <div className="enum-metadata">
+                                                    {iconName && (
+                                                      <IconComponent
+                                                        iconName={iconName}
+                                                        className="enum-icon"
+                                                      />
                                                     )}
-                                                  </pre>
-                                                </div>
+                                                    {enumDesc && (
+                                                      <span className="enum-description">
+                                                        {enumDesc}
+                                                      </span>
+                                                    )}
+                                                  </div>
+                                                )}
                                               </div>
                                             );
                                           })}
@@ -1065,7 +1096,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                   </span>
                                                   <div className="enum-values">
                                                     {nestedPropData.enum
-                                                      .filter((value: any) => value !== null)
+                                                      .filter(
+                                                        (value: string | null) => value !== null
+                                                      )
                                                       .map((value, idx) => (
                                                         <button
                                                           key={idx}
