@@ -18385,13 +18385,11 @@
             "ManufacturedHousingSingleWide",
             "4Units",
             "Townhouse",
-            "NonWarrantableCondo",
-            null
+            "NonWarrantableCondo"
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
-            "string",
-            "null"
+            "string"
           ]
         },
         "property_usage_type": {
