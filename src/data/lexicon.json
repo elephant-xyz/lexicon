@@ -2007,11 +2007,11 @@
           "comment": "Last_updated_datetime describes when an address was last updated in a system."
         },
         "latitude": {
-          "type": "decimal",
+          "type":  ["number", "null"],
           "comment": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole."
         },
         "longitude": {
-          "type": "decimal",
+          "type":  ["number", "null"],
           "comment": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°."
         },
         "mail_stop_code": {
@@ -18385,13 +18385,11 @@
             "ManufacturedHousingSingleWide",
             "4Units",
             "Townhouse",
-            "NonWarrantableCondo",
-            null
+            "NonWarrantableCondo"
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
-            "string",
-            "null"
+            "string"
           ]
         },
         "property_usage_type": {
