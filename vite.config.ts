@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import * as dotenv from 'dotenv';
 import { jsonSchemaGeneratorPlugin } from './vite-plugins/json-schema-generator';
-import { dataMappingUploaderPlugin } from './vite-plugins/data-mapping-uploader';
 
 // Load environment variables
 dotenv.config();
@@ -15,10 +14,6 @@ export default defineConfig({
     react(),
     jsonSchemaGeneratorPlugin({
       lexiconPath: resolve(__dirname, './src/data/lexicon.json'),
-      outputDir: resolve(__dirname, './public/json-schemas'),
-    }),
-    dataMappingUploaderPlugin({
-      dataMappingPath: resolve(__dirname, './src/data/data-mapping.json'),
       outputDir: resolve(__dirname, './public/json-schemas'),
     }),
   ],

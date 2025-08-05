@@ -25297,11 +25297,7 @@
         "heating_system_type_other_description",
         "public_utility_type_other_description",
         "sewer_type_other_description",
-        "water_source_type_other_description",
-        "plumbing_system_type_other_description",
-        "electrical_wiring_type_other_description",
-        "solar_panel_type_other_description",
-        "smart_home_features_other_description"
+        "water_source_type_other_description"
       ],
       "properties": {
         "source_http_request": {
@@ -25546,8 +25542,12 @@
           ]
         },
         "hvac_condensing_unit_present": {
-          "type": "boolean",
-          "comment": "Indicates if an HVAC condensing unit is present, as visible externally."
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Indicates if an HVAC condensing unit is present, as visible externally.",
+          "minLength": 1
         },
         "electrical_wiring_type_other_description": {
           "type": [
@@ -25583,8 +25583,13 @@
           "minLength": 1
         },
         "smart_home_features": {
-          "type": ["string","null"],
-          "enum": [
+          "type": ["array","null"],
+          "items": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
               "SmartThermostat",
               "SmartLighting",
               "SmartLocks",
@@ -25594,7 +25599,10 @@
               "EnergyMonitoring",
               null
             ],
-          "comment": "List of smart home features installed in the property."
+            "minLength": 1
+          },
+          "comment": "List of smart home features installed in the property.",
+          "minItems": 1
         },
         "smart_home_features_other_description": {
           "type": [

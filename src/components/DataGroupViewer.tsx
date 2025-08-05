@@ -2,88 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataGroup } from '../types/lexicon';
 import { schemaService } from '../services/schemaService';
-import dataMapping from '../data/data-mapping.json';
 
 interface DataGroupViewerProps {
   dataGroups: DataGroup[];
   searchTerm?: string;
 }
-
-// Function to get icon name from data mapping
-const getIconName = (
-  lexiconClass: string,
-  lexiconProperty: string,
-  enumValue?: string
-): string | null => {
-  try {
-    // Handle the data mapping array format
-    const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
-
-    for (const mapping of mappingArray) {
-      if (mapping.lexiconClass === lexiconClass && mapping.lexiconProperty === lexiconProperty) {
-        console.log('🎯 DataGroupViewer found matching class/property:', mapping);
-        // If enumValue is provided, match it; otherwise return the first match
-        if (enumValue && mapping.enumValue === enumValue) {
-          console.log('✅ DataGroupViewer returning icon for enum match:', mapping.iconName);
-          return mapping.iconName || null;
-        } else if (!enumValue) {
-          console.log('✅ DataGroupViewer returning icon for property match:', mapping.iconName);
-          return mapping.iconName || null;
-        }
-      }
-    }
-    console.log('❌ DataGroupViewer no icon mapping found');
-  } catch (error) {
-    console.warn('Error parsing data mapping:', error);
-  }
-  return null;
-};
-
-// Function to get enum description from data mapping
-const _getEnumDescription = (
-  lexiconClass: string,
-  lexiconProperty: string,
-  enumValue: string
-): string | null => {
-  try {
-    // Handle the data mapping array format
-    const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
-
-    for (const mapping of mappingArray) {
-      if (
-        mapping.lexiconClass === lexiconClass &&
-        mapping.lexiconProperty === lexiconProperty &&
-        mapping.enumValue === enumValue
-      ) {
-        return mapping.enumDescription || null;
-      }
-    }
-  } catch (error) {
-    console.warn('Error parsing data mapping for enum description:', error);
-  }
-  return null;
-};
-
-// Icon component to render SVG from public/icons folder
-const IconComponent: React.FC<{ iconName: string | null; className?: string }> = ({
-  iconName,
-  className = '',
-}) => {
-  if (!iconName) return null;
-
-  return (
-    <div className={`method-list-item-label-icon ${className}`.trim()}>
-      <img
-        src={`/icons/${iconName}.svg`}
-        alt={`${iconName} icon`}
-        onError={e => {
-          // Hide the icon if the SVG doesn't exist
-          (e.target as HTMLElement).style.display = 'none';
-        }}
-      />
-    </div>
-  );
-};
 
 export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, searchTerm }) => {
   const navigate = useNavigate();
@@ -170,7 +93,6 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
       {dataGroups.map((group, index) => (
         <div key={index} className="method-list-item data-group" data-type={group.label}>
           <div className="method-list-item-label">
-            <IconComponent iconName={getIconName(group.label, '', '')} />
             <div className="method-list-item-header">
               <div className="method-list-item-label-name">
                 {renderHighlightedText(getHighlightedGroupName(group))}
@@ -298,13 +220,6 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                     return (
                       <div key={relKey} className="method-list-item method-list-item-isChild">
                         <div className="method-list-item-label">
-                          <IconComponent
-                            iconName={getIconName(
-                              group.label,
-                              rel.relationship_type || `has_${rel.to}`,
-                              ''
-                            )}
-                          />
                           <div className="method-list-item-label-name">
                             {rel.relationship_type || `has_${rel.to}`}
                             {isOneToManyRelationship(rel.relationship_type, group) && (

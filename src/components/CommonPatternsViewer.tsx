@@ -1,83 +1,10 @@
 import React, { useState } from 'react';
 import { CommonPattern } from '../types/lexicon';
-import dataMapping from '../data/data-mapping.json';
 
 interface CommonPatternsViewerProps {
   patterns: CommonPattern[];
   searchTerm?: string;
 }
-
-// Function to get icon name from data mapping
-const getIconName = (
-  lexiconClass: string,
-  lexiconProperty: string,
-  enumValue?: string
-): string | null => {
-  try {
-    // Handle the data mapping array format
-    const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
-
-    for (const mapping of mappingArray) {
-      if (mapping.lexiconClass === lexiconClass && mapping.lexiconProperty === lexiconProperty) {
-        // If enumValue is provided, match it; otherwise return the first match
-        if (enumValue && mapping.enumValue === enumValue) {
-          return mapping.iconName || null;
-        } else if (!enumValue) {
-          return mapping.iconName || null;
-        }
-      }
-    }
-  } catch (error) {
-    console.warn('Error parsing data mapping:', error);
-  }
-  return null;
-};
-
-// Function to get enum description from data mapping
-const _getEnumDescription = (
-  lexiconClass: string,
-  lexiconProperty: string,
-  enumValue: string
-): string | null => {
-  try {
-    // Handle the data mapping array format
-    const mappingArray = Array.isArray(dataMapping) ? dataMapping : [dataMapping];
-
-    for (const mapping of mappingArray) {
-      if (
-        mapping.lexiconClass === lexiconClass &&
-        mapping.lexiconProperty === lexiconProperty &&
-        mapping.enumValue === enumValue
-      ) {
-        return mapping.enumDescription || null;
-      }
-    }
-  } catch (error) {
-    console.warn('Error parsing data mapping for enum description:', error);
-  }
-  return null;
-};
-
-// Icon component to render SVG from public/icons folder
-const IconComponent: React.FC<{ iconName: string | null; className?: string }> = ({
-  iconName,
-  className = '',
-}) => {
-  if (!iconName) return null;
-
-  return (
-    <div className={`method-list-item-label-icon ${className}`.trim()}>
-      <img
-        src={`/icons/${iconName}.svg`}
-        alt={`${iconName} icon`}
-        onError={e => {
-          // Hide the icon if the SVG doesn't exist
-          (e.target as HTMLElement).style.display = 'none';
-        }}
-      />
-    </div>
-  );
-};
 
 const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, searchTerm }) => {
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
@@ -167,7 +94,6 @@ const CommonPatternsViewer: React.FC<CommonPatternsViewerProps> = ({ patterns, s
           data-pattern-type={pattern.properties.format || pattern.format}
         >
           <div className="method-list-item-label">
-            <IconComponent iconName={getIconName(pattern.type, '', '')} />
             <div className="method-list-item-header">
               <div className="method-list-item-label-name">
                 {renderHighlightedText(pattern.type)}
