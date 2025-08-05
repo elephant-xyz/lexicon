@@ -15269,7 +15269,7 @@
       "properties": {
         "from": {
           "type": [
-            "string",
+            "object",
             "null"
           ],
           "comment": "The CID of the from class",
@@ -15277,7 +15277,7 @@
         },
         "to": {
           "type": [
-            "string",
+            "object",
             "null"
           ],
           "comment": "The CID of to class in relationship",
