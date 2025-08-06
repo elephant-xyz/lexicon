@@ -2481,6 +2481,14 @@
           "minLength": 1,
           "comment": "A unit identifier is a reference to the specific unit, suite, apartment, or other secondary identifier associated with an address. It is used to differentiate individual units within a larger building or complex."
         },
+        "route_number": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "comment": "A route number is a unique identifier assigned to a specific transportation route, such as a road, highway, or public transit line. It is used to distinguish one route from another and is often displayed on signs or maps.",
+            "minLength": 1
+        },
         "township": {
           "type": [
             "string",
@@ -18913,6 +18921,11 @@
             "string",
             "null"
           ]
+        },
+        "space_index": {
+            "type": "integer",
+            "comment": "An index number representing the order of each space type in the property layout.",
+            "minimum": 1
         },
         "space_type_other_description": {
           "type": [
