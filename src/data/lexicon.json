@@ -25751,17 +25751,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_seed_has_fact_sheet",
           "from": "property_seed",
           "to": "fact_sheet",
-          "comment": "Links a property_seed to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_seed_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "unnormalized_address_has_fact_sheet",
           "from": "unnormalized_address",
           "to": "fact_sheet",
-          "comment": "Links a unnormalized_address to its associated fact sheet document stored on IPFS."
+          "relationship_type": "unnormalized_address_has_fact_sheet"
         }
       ],
       "required": [
@@ -25859,87 +25857,75 @@
         },
         {
           "type": "relationship",
-          "name": "person_has_fact_sheet",
           "from": "person",
           "to": "fact_sheet",
-          "comment": "Links a person to its associated fact sheet document stored on IPFS."
+          "relationship_type": "person_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "company_has_fact_sheet",
           "from": "company",
           "to": "fact_sheet",
-          "comment": "Links a company to its associated fact sheet document stored on IPFS."
+          "relationship_type": "company_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "address_has_fact_sheet",
           "from": "address",
           "to": "fact_sheet",
-          "comment": "Links a address to its associated fact sheet document stored on IPFS."
+          "relationship_type": "address_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "tax_has_fact_sheet",
           "from": "tax",
           "to": "fact_sheet",
-          "comment": "Links a tax to its associated fact sheet document stored on IPFS."
+          "relationship_type": "tax_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "lot_has_fact_sheet",
           "from": "lot",
           "to": "fact_sheet",
-          "comment": "Links a lot to its associated fact sheet document stored on IPFS."
+          "relationship_type": "lot_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "sales_history_has_fact_sheet",
           "from": "sales_history",
           "to": "fact_sheet",
-          "comment": "Links a sales_history to its associated fact sheet document stored on IPFS."
+          "relationship_type": "sales_history_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "file_has_fact_sheet",
           "from": "file",
           "to": "fact_sheet",
-          "comment": "Links a file to its associated fact sheet document stored on IPFS."
+          "relationship_type": "file_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "layout_has_fact_sheet",
           "from": "layout",
           "to": "fact_sheet",
-          "comment": "Links a layout to its associated fact sheet document stored on IPFS."
+          "relationship_type": "layout_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "flood_storm_information_has_fact_sheet",
           "from": "flood_storm_information",
           "to": "fact_sheet",
-          "comment": "Links a flood_storm_information to its associated fact sheet document stored on IPFS."
+          "relationship_type": "flood_storm_information_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "structure_has_fact_sheet",
           "from": "structure",
           "to": "fact_sheet",
-          "comment": "Links a structure to its associated fact sheet document stored on IPFS."
+          "relationship_type": "structure_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "utility_has_fact_sheet",
           "from": "utility",
           "to": "fact_sheet",
-          "comment": "Links a utility to its associated fact sheet document stored on IPFS."
+          "relationship_type": "utility_has_fact_sheet"
         }
       ],
       "required": [
@@ -26030,17 +26016,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_seed_has_fact_sheet",
           "from": "property_seed",
           "to": "fact_sheet",
-          "comment": "Links a property_seed to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_seed_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "file_has_fact_sheet",
           "from": "file",
           "to": "fact_sheet",
-          "comment": "Links a file to its associated fact sheet document stored on IPFS."
+          "relationship_type": "file_has_fact_sheet"
         }
       ],
       "required": [
@@ -26097,52 +26081,45 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "lot_has_fact_sheet",
           "from": "lot",
           "to": "fact_sheet",
-          "comment": "Links a lot to its associated fact sheet document stored on IPFS."
+          "relationship_type": "lot_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "layout_has_fact_sheet",
           "from": "layout",
           "to": "fact_sheet",
-          "comment": "Links a layout to its associated fact sheet document stored on IPFS."
+          "relationship_type": "layout_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "structure_has_fact_sheet",
           "from": "structure",
           "to": "fact_sheet",
-          "comment": "Links a structure to its associated fact sheet document stored on IPFS."
+          "relationship_type": "structure_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "utility_has_fact_sheet",
           "from": "utility",
           "to": "fact_sheet",
-          "comment": "Links a utility to its associated fact sheet document stored on IPFS."
+          "relationship_type": "utility_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "appliance_has_fact_sheet",
           "from": "appliance",
           "to": "fact_sheet",
-          "comment": "Links a appliance to its associated fact sheet document stored on IPFS."
+          "relationship_type": "appliance_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "file_has_fact_sheet",
           "from": "file",
           "to": "fact_sheet",
-          "comment": "Links a file to its associated fact sheet document stored on IPFS."
+          "relationship_type": "file_has_fact_sheet"
         }
       ],
       "required": [
@@ -26174,24 +26151,21 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "homeowners_association_has_fact_sheet",
           "from": "homeowners_association",
           "to": "fact_sheet",
-          "comment": "Links a homeowners_association to its associated fact sheet document stored on IPFS."
+          "relationship_type": "homeowners_association_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "hoa_policy_has_fact_sheet",
           "from": "hoa_policy",
           "to": "fact_sheet",
-          "comment": "Links a hoa_policy to its associated fact sheet document stored on IPFS."
+          "relationship_type": "hoa_policy_has_fact_sheet"
         }
       ],
       "required": [
@@ -26216,24 +26190,21 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "loan_has_fact_sheet",
           "from": "loan",
           "to": "fact_sheet",
-          "comment": "Links a loan to its associated fact sheet document stored on IPFS."
+          "relationship_type": "loan_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "person_has_fact_sheet",
           "from": "person",
           "to": "fact_sheet",
-          "comment": "Links a person to its associated fact sheet document stored on IPFS."
+          "relationship_type": "person_has_fact_sheet"
         }
       ],
       "required": [
@@ -26255,17 +26226,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "property_ranking_overall_has_fact_sheet",
           "from": "property_ranking_overall",
           "to": "fact_sheet",
-          "comment": "Links a property_ranking_overall to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_ranking_overall_has_fact_sheet"
         }
       ],
       "required": [
@@ -26289,24 +26258,21 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "file_has_fact_sheet",
           "from": "file",
           "to": "fact_sheet",
-          "comment": "Links a file to its associated fact sheet document stored on IPFS."
+          "relationship_type": "file_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "property_improvement_has_fact_sheet",
           "from": "property_improvement",
           "to": "fact_sheet",
-          "comment": "Links a property_improvement to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_improvement_has_fact_sheet"
         }
       ],
       "required": [
@@ -26329,17 +26295,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "environment_characteristics_has_fact_sheet",
           "from": "environment_characteristics",
           "to": "fact_sheet",
-          "comment": "Links a environment_characteristics to its associated fact sheet document stored on IPFS."
+          "relationship_type": "environment_characteristics_has_fact_sheet"
         }
       ],
       "required": [
@@ -26358,17 +26322,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "safety_security_has_fact_sheet",
           "from": "safety_security",
           "to": "fact_sheet",
-          "comment": "Links a safety_security to its associated fact sheet document stored on IPFS."
+          "relationship_type": "safety_security_has_fact_sheet"
         }
       ],
       "required": [
@@ -26387,17 +26349,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "transportation_access_has_fact_sheet",
           "from": "transportation_access",
           "to": "fact_sheet",
-          "comment": "Links a transportation_access to its associated fact sheet document stored on IPFS."
+          "relationship_type": "transportation_access_has_fact_sheet"
         }
       ],
       "required": [
@@ -26416,17 +26376,15 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "school_has_fact_sheet",
           "from": "school",
           "to": "fact_sheet",
-          "comment": "Links a school to its associated fact sheet document stored on IPFS."
+          "relationship_type": "school_has_fact_sheet"
         }
       ],
       "required": [
@@ -26477,38 +26435,33 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "tax_has_fact_sheet",
           "from": "tax",
           "to": "fact_sheet",
-          "comment": "Links a tax to its associated fact sheet document stored on IPFS."
+          "relationship_type": "tax_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "file_has_fact_sheet",
           "from": "file",
           "to": "fact_sheet",
-          "comment": "Links a file to its associated fact sheet document stored on IPFS."
+          "relationship_type": "file_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "tax_authority_has_fact_sheet",
           "from": "tax_authority",
           "to": "fact_sheet",
-          "comment": "Links a tax_authority to its associated fact sheet document stored on IPFS."
+          "relationship_type": "tax_authority_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "tax_exemption_has_fact_sheet",
           "from": "tax_exemption",
           "to": "fact_sheet",
-          "comment": "Links a tax_exemption to its associated fact sheet document stored on IPFS."
+          "relationship_type": "tax_exemption_has_fact_sheet"
         }
       ],
       "required": [
@@ -26545,24 +26498,21 @@
         },
         {
           "type": "relationship",
-          "name": "property_has_fact_sheet",
           "from": "property",
           "to": "fact_sheet",
-          "comment": "Links a property to its associated fact sheet document stored on IPFS."
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "sales_history_has_fact_sheet",
           "from": "sales_history",
           "to": "fact_sheet",
-          "comment": "Links a sales_history to its associated fact sheet document stored on IPFS."
+          "relationship_type": "sales_history_has_fact_sheet"
         },
         {
           "type": "relationship",
-          "name": "file_has_fact_sheet",
           "from": "file",
           "to": "fact_sheet",
-          "comment": "Links a file to its associated fact sheet document stored on IPFS."
+          "relationship_type": "file_has_fact_sheet"
         }
       ],
       "required": [
