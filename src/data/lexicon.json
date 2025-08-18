@@ -77,8 +77,7 @@
           "type": "string",
           "format": "ipfs_uri",
           "required": true,
-          "comment": "The IPFS URI pointing to the fact sheet document.",
-          "minLength": "1"
+          "comment": "The IPFS URI pointing to the fact sheet document."
         }
       }
     },
