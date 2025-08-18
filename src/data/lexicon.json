@@ -1,6 +1,20 @@
 {
   "classes": [
     {
+      "type": "fact_sheet",
+      "container_name": "fact_sheets",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Represents a fact sheet document stored on IPFS that contains detailed information about a related entity.",
+      "properties": {
+        "ipfs_url": {
+          "type": "string",
+          "format": "ipfs_uri",
+          "comment": "The IPFS URI pointing to the fact sheet document."
+        }
+      }
+    },
+    {
       "type": "school",
       "container_name": "schools",
       "is_deprecated": false,
@@ -2482,12 +2496,12 @@
           "comment": "A unit identifier is a reference to the specific unit, suite, apartment, or other secondary identifier associated with an address. It is used to differentiate individual units within a larger building or complex."
         },
         "route_number": {
-            "type": [
-                "string",
-                "null"
-            ],
-            "comment": "A route number is a unique identifier assigned to a specific transportation route, such as a road, highway, or public transit line. It is used to distinguish one route from another and is often displayed on signs or maps.",
-            "minLength": 1
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "A route number is a unique identifier assigned to a specific transportation route, such as a road, highway, or public transit line. It is used to distinguish one route from another and is often displayed on signs or maps.",
+          "minLength": 1
         },
         "township": {
           "type": [
@@ -18398,7 +18412,6 @@
             "Retirement",
             "MiscellaneousResidential",
             "ResidentialCommonElementsAreas"
-
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
@@ -18928,9 +18941,9 @@
           ]
         },
         "space_index": {
-            "type": "integer",
-            "comment": "An index number representing the order of each space type in the property layout.",
-            "minimum": 1
+          "type": "integer",
+          "comment": "An index number representing the order of each space type in the property layout.",
+          "minimum": 1
         },
         "space_type_other_description": {
           "type": [
@@ -19531,7 +19544,6 @@
         "finish_other_description",
         "location_hint",
         "is_built_in"
-  
       ],
       "properties": {
         "source_http_request": {
@@ -25736,6 +25748,18 @@
           "from": "property_seed",
           "to": "unnormalized_address",
           "relationship_type": "property_seed"
+        },
+        {
+          "type": "relationship",
+          "from": "property_seed",
+          "to": "fact_sheet",
+          "relationship_type": "property_seed_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "unnormalized_address",
+          "to": "fact_sheet",
+          "relationship_type": "unnormalized_address_has_fact_sheet"
         }
       ],
       "required": [
@@ -25830,6 +25854,78 @@
           "from": "sales_history",
           "to": "company",
           "relationship_type": "sales_history_has_company"
+        },
+        {
+          "type": "relationship",
+          "from": "person",
+          "to": "fact_sheet",
+          "relationship_type": "person_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "company",
+          "to": "fact_sheet",
+          "relationship_type": "company_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "address",
+          "to": "fact_sheet",
+          "relationship_type": "address_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax",
+          "to": "fact_sheet",
+          "relationship_type": "tax_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "lot",
+          "to": "fact_sheet",
+          "relationship_type": "lot_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "fact_sheet",
+          "relationship_type": "sales_history_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "file",
+          "to": "fact_sheet",
+          "relationship_type": "file_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "layout",
+          "to": "fact_sheet",
+          "relationship_type": "layout_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "flood_storm_information",
+          "to": "fact_sheet",
+          "relationship_type": "flood_storm_information_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "structure",
+          "to": "fact_sheet",
+          "relationship_type": "structure_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "utility",
+          "to": "fact_sheet",
+          "relationship_type": "utility_has_fact_sheet"
         }
       ],
       "required": [
@@ -25917,15 +26013,25 @@
           "from": "property_seed",
           "to": "file",
           "relationship_type": "property_seed_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "property_seed",
+          "to": "fact_sheet",
+          "relationship_type": "property_seed_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "file",
+          "to": "fact_sheet",
+          "relationship_type": "file_has_fact_sheet"
         }
-
       ],
       "required": [
         "property_seed_has_file"
       ],
       "one_to_many_relationships": [
         "property_seed_has_file"
-
       ]
     },
     {
@@ -25961,8 +26067,6 @@
           "to": "appliance",
           "relationship_type": "property_has_appliance"
         },
-
-       
         {
           "type": "relationship",
           "from": "property",
@@ -25974,8 +26078,49 @@
           "from": "property",
           "to": "appliance",
           "relationship_type": "property_has_appliance"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "lot",
+          "to": "fact_sheet",
+          "relationship_type": "lot_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "layout",
+          "to": "fact_sheet",
+          "relationship_type": "layout_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "structure",
+          "to": "fact_sheet",
+          "relationship_type": "structure_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "utility",
+          "to": "fact_sheet",
+          "relationship_type": "utility_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "appliance",
+          "to": "fact_sheet",
+          "relationship_type": "appliance_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "file",
+          "to": "fact_sheet",
+          "relationship_type": "file_has_fact_sheet"
         }
-
       ],
       "required": [
         "property_has_layout"
@@ -26003,6 +26148,24 @@
           "from": "property",
           "to": "hoa_policy",
           "relationship_type": "property_has_hoa_policy"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "homeowners_association",
+          "to": "fact_sheet",
+          "relationship_type": "homeowners_association_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "hoa_policy",
+          "to": "fact_sheet",
+          "relationship_type": "hoa_policy_has_fact_sheet"
         }
       ],
       "required": [
@@ -26024,6 +26187,24 @@
           "from": "person",
           "to": "loan",
           "relationship_type": "person_has_loan"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "loan",
+          "to": "fact_sheet",
+          "relationship_type": "loan_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "person",
+          "to": "fact_sheet",
+          "relationship_type": "person_has_fact_sheet"
         }
       ],
       "required": [
@@ -26042,6 +26223,18 @@
           "from": "property",
           "to": "property_ranking_overall",
           "relationship_type": "property_has_ranking"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_ranking_overall",
+          "to": "fact_sheet",
+          "relationship_type": "property_ranking_overall_has_fact_sheet"
         }
       ],
       "required": [
@@ -26062,6 +26255,24 @@
           "from": "property",
           "to": "property_improvement",
           "relationship_type": "property_has_property_improvement"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "file",
+          "to": "fact_sheet",
+          "relationship_type": "file_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "fact_sheet",
+          "relationship_type": "property_improvement_has_fact_sheet"
         }
       ],
       "required": [
@@ -26081,6 +26292,18 @@
           "from": "property",
           "to": "environment_characteristics",
           "relationship_type": "property_has_environment_characteristics"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "environment_characteristics",
+          "to": "fact_sheet",
+          "relationship_type": "environment_characteristics_has_fact_sheet"
         }
       ],
       "required": [
@@ -26096,6 +26319,18 @@
           "from": "property",
           "to": "safety_security",
           "relationship_type": "property_has_safety_security"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "safety_security",
+          "to": "fact_sheet",
+          "relationship_type": "safety_security_has_fact_sheet"
         }
       ],
       "required": [
@@ -26111,6 +26346,18 @@
           "from": "property",
           "to": "transportation_access",
           "relationship_type": "property_has_transportation_access"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "transportation_access",
+          "to": "fact_sheet",
+          "relationship_type": "transportation_access_has_fact_sheet"
         }
       ],
       "required": [
@@ -26126,6 +26373,18 @@
           "from": "property",
           "to": "school",
           "relationship_type": "property_has_school"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "school",
+          "to": "fact_sheet",
+          "relationship_type": "school_has_fact_sheet"
         }
       ],
       "required": [
@@ -26173,6 +26432,36 @@
           "from": "tax",
           "to": "tax_authority",
           "relationship_type": "tax_has_authority"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax",
+          "to": "fact_sheet",
+          "relationship_type": "tax_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "file",
+          "to": "fact_sheet",
+          "relationship_type": "file_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax_authority",
+          "to": "fact_sheet",
+          "relationship_type": "tax_authority_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax_exemption",
+          "to": "fact_sheet",
+          "relationship_type": "tax_exemption_has_fact_sheet"
         }
       ],
       "required": [
@@ -26206,6 +26495,24 @@
           "from": "sales_history",
           "to": "file",
           "relationship_type": "property_has_sales_history"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "fact_sheet",
+          "relationship_type": "property_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "fact_sheet",
+          "relationship_type": "sales_history_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "file",
+          "to": "fact_sheet",
+          "relationship_type": "file_has_fact_sheet"
         }
       ],
       "required": [
