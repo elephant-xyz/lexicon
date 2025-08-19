@@ -12,6 +12,12 @@
           "format": "ipfs_uri",
           "required": true,
           "comment": "The IPFS URI pointing to the fact sheet document."
+        },
+        "generation_tool_commit_hash": {
+          "type": "string",
+          "required": true,
+          "comment": "The commit hash of the tool used to generate fact sheet document.",
+          "minLength": 1
         }
       }
     },
