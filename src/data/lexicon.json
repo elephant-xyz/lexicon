@@ -13,11 +13,10 @@
           "required": true,
           "comment": "The IPFS URI pointing to the fact sheet document."
         },
-        "generation_tool_commit_hash": {
+        "full_generation_command": {
           "type": "string",
           "required": true,
-          "comment": "The commit hash of the tool used to generate fact sheet document.",
-          "minLength": 1
+          "comment": "The full CLI command used to generate fact sheet document, including the exact commit hash of the tool used for generation."
         }
       }
     },
