@@ -2027,11 +2027,17 @@
           "comment": "Last_updated_datetime describes when an address was last updated in a system."
         },
         "latitude": {
-          "type":  ["number", "null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "comment": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole."
         },
         "longitude": {
-          "type":  ["number", "null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "comment": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°."
         },
         "mail_stop_code": {
@@ -7474,7 +7480,10 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "properties": {
             "method": {
               "type": "string",
@@ -18993,7 +19002,10 @@
           ]
         },
         "size_square_feet": {
-          "type": ["number","null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "comment": "Room area in square feet."
         },
         "special_features": {
@@ -19036,7 +19048,10 @@
           ]
         },
         "has_windows": {
-          "type": ["boolean","null"],
+          "type": [
+            "boolean",
+            "null"
+          ],
           "comment": "Whether the room has windows or not (relevant for egress and lighting)."
         },
         "window_design_type": {
@@ -23425,7 +23440,10 @@
           ]
         },
         "ceiling_height_average": {
-          "type": ["number","null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "comment": "Average ceiling height in feet."
         },
         "ceiling_condition": {
@@ -24277,12 +24295,18 @@
           "comment": "The reduction amount applied to the assessed value, often based on exemptions like homestead, to determine the taxable value."
         },
         "property_building_amount": {
-          "type": ["number","null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "currency",
           "comment": "The building or improvement value of the property used as the basis for property tax calculations for a given tax year."
         },
         "property_land_amount": {
-          "type": ["number","null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "currency",
           "comment": "The land value of the property used as the basis for property tax calculations for a given tax year."
         },
@@ -24292,7 +24316,10 @@
           "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
         "monthly_tax_amount": {
-          "type": ["number","null"],
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "currency",
           "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
@@ -25619,7 +25646,10 @@
           "minLength": 1
         },
         "smart_home_features": {
-          "type": ["array","null"],
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
             "type": [
               "string",
@@ -25779,7 +25809,11 @@
             "/": "bafkreifvrvlob5uulheto2xk7i2nlzwmcktz4azqabwxjin374hx4xlcqy"
           }
         }
-      }
+      },
+      "one_to_many_relationships": [
+        "property_seed_has_fact_sheet",
+        "unnormalized_address_has_fact_sheet"
+      ]
     },
     {
       "label": "County",
@@ -25950,7 +25984,19 @@
         "property_has_sales_history",
         "property_has_file",
         "sales_history_has_person",
-        "sales_history_has_company"
+        "sales_history_has_company",
+        "person_has_fact_sheet",
+        "property_has_fact_sheet",
+        "company_has_fact_sheet",
+        "address_has_fact_sheet",
+        "tax_has_fact_sheet",
+        "lot_has_fact_sheet",
+        "sales_history_has_fact_sheet",
+        "file_has_fact_sheet",
+        "layout_has_fact_sheet",
+        "flood_storm_information_has_fact_sheet",
+        "structure_has_fact_sheet",
+        "utility_has_fact_sheet"
       ],
       "example": {
         "label": "County",
@@ -26038,7 +26084,9 @@
         "property_seed_has_file"
       ],
       "one_to_many_relationships": [
-        "property_seed_has_file"
+        "property_seed_has_file",
+        "property_seed_has_fact_sheet",
+        "file_has_fact_sheet"
       ]
     },
     {
@@ -26138,7 +26186,14 @@
         "property_has_file",
         "property_has_utility",
         "property_has_structure",
-        "property_has_lot"
+        "property_has_lot",
+        "property_has_fact_sheet",
+        "lot_has_fact_sheet",
+        "layout_has_fact_sheet",
+        "structure_has_fact_sheet",
+        "utility_has_fact_sheet",
+        "appliance_has_fact_sheet",
+        "file_has_fact_sheet"
       ]
     },
     {
@@ -26178,6 +26233,11 @@
       "required": [
         "property_has_homeowners_association",
         "property_has_hoa_policy"
+      ],
+      "one_to_many_relationships": [
+        "property_has_fact_sheet",
+        "homeowners_association_has_fact_sheet",
+        "hoa_policy_has_fact_sheet"
       ]
     },
     {
@@ -26219,7 +26279,10 @@
         "person_has_loan"
       ],
       "one_to_many_relationships": [
-        "person_has_loan"
+        "person_has_loan",
+        "property_has_fact_sheet",
+        "loan_has_fact_sheet",
+        "person_has_fact_sheet"
       ]
     },
     {
@@ -26246,6 +26309,10 @@
       ],
       "required": [
         "property_has_ranking"
+      ],
+      "one_to_many_relationships": [
+        "property_has_fact_sheet",
+        "property_ranking_overall_has_fact_sheet"
       ]
     },
     {
@@ -26288,7 +26355,10 @@
       ],
       "one_to_many_relationships": [
         "property_has_permit",
-        "property_has_property_improvement"
+        "property_has_property_improvement",
+        "property_has_fact_sheet",
+        "file_has_fact_sheet",
+        "property_improvement_has_fact_sheet"
       ]
     },
     {
@@ -26316,7 +26386,10 @@
       "required": [
         "property_has_environment_characteristics"
       ],
-      "one_to_many_relationships": []
+      "one_to_many_relationships": [
+        "property_has_fact_sheet",
+        "environment_characteristics_has_fact_sheet"
+      ]
     },
     {
       "label": "Safety and Security",
@@ -26343,7 +26416,10 @@
       "required": [
         "property_has_safety_security"
       ],
-      "one_to_many_relationships": []
+      "one_to_many_relationships": [
+        "property_has_fact_sheet",
+        "safety_security_has_fact_sheet"
+      ]
     },
     {
       "label": "Transportation and Access",
@@ -26370,7 +26446,10 @@
       "required": [
         "property_has_transportation_access"
       ],
-      "one_to_many_relationships": []
+      "one_to_many_relationships": [
+        "property_has_fact_sheet",
+        "transportation_access_has_fact_sheet"
+      ]
     },
     {
       "label": "School",
@@ -26398,7 +26477,9 @@
         "property_has_school"
       ],
       "one_to_many_relationships": [
-        "property_has_school"
+        "property_has_school",
+        "property_has_fact_sheet",
+        "school_has_fact_sheet"
       ]
     },
     {
@@ -26479,7 +26560,12 @@
       "one_to_many_relationships": [
         "property_has_tax",
         "property_has_file",
-        "tax_has_file"
+        "tax_has_file",
+        "property_has_fact_sheet",
+        "tax_has_fact_sheet",
+        "file_has_fact_sheet",
+        "tax_authority_has_fact_sheet",
+        "tax_exemption_has_fact_sheet"
       ]
     },
     {
@@ -26530,7 +26616,10 @@
       "one_to_many_relationships": [
         "property_has_tax",
         "property_has_file",
-        "tax_has_file"
+        "tax_has_file",
+        "property_has_fact_sheet",
+        "sales_history_has_fact_sheet",
+        "file_has_fact_sheet"
       ]
     }
   ],
