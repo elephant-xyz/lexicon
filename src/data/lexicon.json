@@ -7,77 +7,16 @@
       "deprecated_properties": [],
       "description": "Represents a fact sheet document stored on IPFS that contains detailed information about a related entity.",
       "properties": {
-        "source_http_request": {
-          "type": "object",
-          "properties": {
-            "method": {
-              "type": "string",
-              "required": true,
-              "enum": [
-                "GET",
-                "POST",
-                "PUT",
-                "PATCH",
-                null
-              ]
-            },
-            "url": {
-              "type": "string",
-              "required": true,
-              "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
-            },
-            "headers": {
-              "type": "object",
-              "properties": {
-                "content-type": {
-                  "type": "string",
-                  "enum": [
-                    "application/json",
-                    "multipart/form-data",
-                    "text/xml",
-                    null
-                  ],
-                  "comment": "Content-Type header for the request, indicating the media type of the resource."
-                }
-              },
-              "additionalProperties": false
-            },
-            "multiValueQueryString": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "comment": "Query string parameters for the request, where each key can have multiple values."
-              }
-            },
-            "body": {
-              "type": "string",
-              "comment": "The body of the request, which may contain JSON or other data formats."
-            },
-            "json": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "comment": "JSON object data"
-                },
-                {
-                  "type": "array",
-                  "comment": "JSON array data"
-                }
-              ]
-            }
-          },
-          "comment": "HTTP request configuration for retrieving this data.",
-          "minProperties": 1
-        },
         "ipfs_url": {
           "type": "string",
           "format": "ipfs_uri",
           "required": true,
           "comment": "The IPFS URI pointing to the fact sheet document."
+        },
+        "full_generation_command": {
+          "type": "string",
+          "required": true,
+          "comment": "The full CLI command used to generate fact sheet document, including the exact commit hash of the tool used for generation."
         }
       }
     },
