@@ -7373,20 +7373,9 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the community type."
         },
         "subdivision": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
           "comment": "Subdivision is the term used to describe a defined area within a city or community that has been divided into individual plots or lots, usually intended for residential or commercial development. It is often formally designated by the township or municipality."
         },
-        "zoning": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used."
-        },
-
         "development_name": {
           "type": "string",
           "comment": "A development name, often a marketing-friendly term given by a developer, refers to a specific, delineated area within a larger community or city that has been divided into individual plots or lots for residential or commercial use. It is the name used to promote the subdivision, typically assigned by the developer rather than the township or municipality."
@@ -17451,6 +17440,7 @@
         "state_code",
         "state_name",
         "street_name",
+        "subdivision",
         "builder_model",
         "lot_size_number",
         "gross_living_area_square_feet_number",
@@ -21364,7 +21354,8 @@
         "for_sale_by_owner_indicator",
         "ownership_transfer_comment_description",
         "ownership_transfer_transaction_amount",
-        "ownership_transfer_transaction_type"
+        "ownership_transfer_transaction_type",
+        "sale_type"
       ],
       "properties": {
         "source_http_request": {
@@ -25901,12 +25892,6 @@
         },
         {
           "type": "relationship",
-          "from": "person",
-          "to": "address",
-          "relationship_type": "person_has_mailing_address"
-        },
-        {
-          "type": "relationship",
           "from": "sales_history",
           "to": "company",
           "relationship_type": "sales_history_has_company"
@@ -26001,7 +25986,6 @@
         "sales_history_has_person",
         "sales_history_has_company",
         "person_has_fact_sheet",
-        "person_has_mailing_address",
         "property_has_fact_sheet",
         "company_has_fact_sheet",
         "address_has_fact_sheet",
