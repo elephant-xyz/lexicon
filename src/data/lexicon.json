@@ -21365,7 +21365,7 @@
         "for_sale_by_owner_indicator",
         "ownership_transfer_comment_description",
         "ownership_transfer_transaction_amount",
-        "ownership_transfer_transaction_type",
+        "ownership_transfer_transaction_type"
       ],
       "properties": {
         "source_http_request": {
