@@ -7379,7 +7379,7 @@
           ],
           "comment": "Subdivision is the term used to describe a defined area within a city or community that has been divided into individual plots or lots, usually intended for residential or commercial development. It is often formally designated by the township or municipality."
         },
-        "Zoning": {
+        "zoning": {
           "type": [
             "string",
             "null"
