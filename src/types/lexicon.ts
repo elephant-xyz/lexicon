@@ -14,6 +14,7 @@ export interface LexiconProperty {
   minItems?: number;
   minProperties?: number;
   required?: boolean;
+  optional?: boolean; // New field to mark properties as optional
   oneOf?: LexiconProperty[];
   allOf?: LexiconProperty[];
   const?: string;
