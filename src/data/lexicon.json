@@ -17981,7 +17981,7 @@
           "minLength": 1,
           "pattern": ".*\\d{2,}.*"
         },
-        "area_under_area": {
+        "area_under_air": {
           "type":  "string",
           "optional": true,
           "comment": "Also called “Living Area Under Air” or “Heated Living Area,” this refers to the total finished square footage of a building that is served by a permanent heating and/or cooling system (HVAC).",
