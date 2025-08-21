@@ -22805,6 +22805,24 @@
             "string"
        
         },
+        "exterior_wall_insulation_type": {
+          "enum": [
+            "Fiberglass Batt",
+            "Blown Cellulose",
+            "Spray Foam",
+            "Rigid Foam Board",
+            "Reflective Barrier",
+            "Rock Wool",
+            "Natural Fiber",
+            "Unknown",
+            null
+          ],
+          "comment": "Type of insulation used in exterior wall cavities.",
+          "type": [
+            "string",
+            null
+          ]
+        },
         "exterior_wall_insulation_type_primary": {
           "enum": [
             "Fiberglass Batt",
