@@ -22767,11 +22767,14 @@
             "Log",
             "Adobe",
             "Precast Concrete",
-            "Curtain Wall"
+            "Curtain Wall",
+            null
           ],
           "comment": "Primary material used for exterior wall cladding and structure.",
-          "type": 
-            "string"
+          "type": [
+            "string",
+            "null"
+            ]
 
         },
         "exterior_wall_material_secondary": {
