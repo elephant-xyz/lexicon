@@ -22820,7 +22820,7 @@
           "comment": "Type of insulation used in exterior wall cavities.",
           "type": [
             "string",
-            null
+            "null"
           ]
         },
         "exterior_wall_insulation_type_primary": {
