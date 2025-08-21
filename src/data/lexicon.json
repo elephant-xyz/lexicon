@@ -21503,12 +21503,7 @@
             "TrusteeNonJudicialForeclosureSale",
             "RelocationSale",
             "TrusteeJudicialForeclosureSale",
-            "TypicallyMotivated",
-            null
-          ],
-          "type": [
-            "string",
-            "null"
+            "TypicallyMotivated"
           ],
           "optional": true
         },
