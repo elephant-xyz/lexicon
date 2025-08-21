@@ -7373,17 +7373,13 @@
           "comment": "A free-form field to capture additional detail when Other is selected for the community type."
         },
         "subdivision": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
+          "optional": true,
           "comment": "Subdivision is the term used to describe a defined area within a city or community that has been divided into individual plots or lots, usually intended for residential or commercial development. It is often formally designated by the township or municipality."
         },
         "zoning": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
+          "optional": true,
           "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used."
         },
 
@@ -21513,13 +21509,15 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
         },
         "sale_type_other_description": {
           "type": [
             "string",
             "null"
           ],
+          
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for Sale Type.",
           "minLength": 1
         }

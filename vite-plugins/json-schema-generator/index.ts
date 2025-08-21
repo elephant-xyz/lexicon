@@ -429,7 +429,8 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     if (typeof fieldDef === 'object' && fieldDef !== null && 'type' in fieldDef) {
       const isRequired = isEffectivelyRequired(fieldDef as LexiconProperty);
       properties[fieldName] = mapLexiconTypeToJSONSchema(fieldDef as LexiconProperty, isRequired);
-      if (isRequired) {
+      // All fields are required by default, only exclude if explicitly marked as optional
+      if (!(fieldDef as LexiconProperty).optional) {
         allRequiredFields.push(fieldName);
       }
     }
@@ -437,8 +438,10 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
 
   // Add regular properties
   for (const [propName, propDef] of activeProperties) {
-    // All top-level properties are required in the schema
-    allRequiredFields.push(propName);
+    // Only add to required if not marked as optional
+    if (!propDef.optional) {
+      allRequiredFields.push(propName);
+    }
     // Properties are nullable unless they have minLength, minItems, or minimum
     const isRequired = isEffectivelyRequired(propDef);
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
@@ -550,6 +553,7 @@ function generateJSONSchemaForDataGroup(
   // Create properties object with relationship_type as keys
   Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
     const isOneToMany = isOneToManyRelationship(relationshipType, oneToManyRelationships);
+    // Relationship is required ONLY if explicitly listed in the data group's required array
     const isRequired = dataGroupRequired.includes(relationshipType);
 
     relationshipProperties[relationshipType] = isOneToMany
