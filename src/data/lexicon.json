@@ -17981,6 +17981,19 @@
           "minLength": 1,
           "pattern": ".*\\d{2,}.*"
         },
+        "area_under_area": {
+          "type":  "string",
+          "optional": true,
+          "comment": "Also called “Living Area Under Air” or “Heated Living Area,” this refers to the total finished square footage of a building that is served by a permanent heating and/or cooling system (HVAC).",
+          "pattern": ".*\\d{2,}.*"
+        },
+        "total_area": {
+          "type": "string",
+          "optional": true,
+          "comment": "The total square footage of the property, including all areas, such as the living area, garage, and basement.",
+          "pattern": ".*\\d{2,}.*"
+        },
+
         "lien_type": {
           "enum": [
             "Judgement",
@@ -21540,6 +21553,111 @@
       }
     },
     {
+      "type": "deed",
+      "container_name": "deeds",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Represents a legal deed document that transfers ownership of real property from one party to another. Contains information about the deed type, recording details, and associated parties.",
+      "properties": {
+        "source_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
+        },
+        "deed_type": {
+            "type": "string",
+            "comment": "The type of deed document used to transfer property ownership.",
+            "enum": [
+              "Warranty Deed",
+              "Special Warranty Deed",
+              "Quitclaim Deed",
+              "Grant Deed",
+              "Bargain and Sale Deed",
+              "Lady Bird Deed",
+              "Transfer on Death Deed",
+              "Sheriff's Deed",
+              "Tax Deed",
+              "Trustee's Deed",
+              "Personal Representative Deed",
+              "Correction Deed",
+              "Deed in Lieu of Foreclosure",
+              "Life Estate Deed",
+              "Joint Tenancy Deed",
+              "Tenancy in Common Deed",
+              "Community Property Deed",
+              "Gift Deed",
+              "Interspousal Transfer Deed",
+              "Wild Deed"
+              
+            ],
+            "optional": true
+          }
+
+
+        }
+    },
+    {
       "type": "saved_search",
       "container_name": "saved_searches",
       "is_deprecated": false,
@@ -22649,14 +22767,12 @@
             "Log",
             "Adobe",
             "Precast Concrete",
-            "Curtain Wall",
-            null
+            "Curtain Wall"
           ],
           "comment": "Primary material used for exterior wall cladding and structure.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": 
+            "string"
+
         },
         "exterior_wall_material_secondary": {
           "enum": [
@@ -22675,23 +22791,21 @@
             "null"
           ]
         },
-        "exterior_wall_condition": {
+        "exterior_wall_condition_primary": {
           "enum": [
             "New",
             "Excellent",
             "Good",
             "Fair",
             "Poor",
-            "Damaged",
-            null
+            "Damaged"
           ],
           "comment": "Observed condition of the exterior wall materials.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": 
+            "string"
+       
         },
-        "exterior_wall_insulation_type": {
+        "exterior_wall_insulation_type_primary": {
           "enum": [
             "Fiberglass Batt",
             "Blown Cellulose",
@@ -22700,14 +22814,42 @@
             "Reflective Barrier",
             "Rock Wool",
             "Natural Fiber",
-            "Unknown",
-            null
+            "Unknown"
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": 
+            "string"
+
+        },
+        "exterior_wall_condition_secondary": {
+          "enum": [
+            "New",
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor",
+            "Damaged"
+          ],
+          "comment": "Observed condition of the exterior wall materials.",
+          "type": 
+            "string"
+       
+        },
+        "exterior_wall_insulation_type_secondary": {
+          "enum": [
+            "Fiberglass Batt",
+            "Blown Cellulose",
+            "Spray Foam",
+            "Rigid Foam Board",
+            "Reflective Barrier",
+            "Rock Wool",
+            "Natural Fiber",
+            "Unknown"
+          ],
+          "comment": "Type of insulation used in exterior wall cavities.",
+          "type": 
+            "string"
+       
         },
         "flooring_material_primary": {
           "enum": [
@@ -22800,6 +22942,33 @@
             "string",
             "null"
           ]
+        },
+        "interior_wall_structure_material_primary": {
+          "enum": [
+            "Wood Frame",
+            "Steel Frame",
+            "Concrete Block",
+            "Brick",
+            "Load Bearing",
+            "Non-Load Bearing"
+          ],
+          "comment": "Structural material used for interior wall framing.",
+          "type": 
+            "string"
+          
+        },
+        "interior_wall_structure_material_secondary": {
+          "enum": [
+            "Wood Frame",
+            "Steel Frame",
+            "Concrete Block",
+            "Brick",
+            "Load Bearing",
+            "Non-Load Bearing"
+          ],
+          "comment": "Structural material used for interior wall framing.",
+          "type": 
+            "string"
         },
         "interior_wall_surface_material_primary": {
           "enum": [
@@ -23767,6 +23936,36 @@
           "type": "decimal",
           "comment": "The total area of all habitable rooms above grade measured contiguously."
         },
+        "finished_base_area": {
+          "comment": "Finished ground-level base area (first-floor footprint) in square feet.",
+          "type": "integer",
+          "optional": true
+       },
+      "unfinished_base_area": {
+        "comment": "Unfinished ground-level base area in square feet.",
+        "type": "integer",
+        "optional": true
+       },
+        "finished_basement_area": {
+          "comment": "Finished basement area in square feet.",
+          "type": "integer",
+           "optional": true
+        },
+        "unfinished_basement_area": {
+          "comment": "Unfinished basement area in square feet.",
+          "type": "integer",
+          "optional": true
+        },
+        "finished_upper_story_area": {
+          "comment": "Finished upper story area (above the ground floor) in square feet.",
+          "type": "integer",
+          "optional": true
+        },
+      "unfinished_upper_story_area": {
+        "comment": "Unfinished upper story or attic/loft space in square feet.",
+        "type": "integer",
+        "optional": true
+      },
         "structure_add_on": {
           "enum": [
             "Dock",
@@ -25774,7 +25973,8 @@
         "transportation_access",
         "tax_exemption",
         "tax_authority",
-        "fact_sheet"
+        "fact_sheet",
+        "deed"
       ]
     }
   ],
@@ -25991,6 +26191,7 @@
         "property_has_tax",
         "property_has_sales_history",
         "property_has_file",
+        "sales_history_has_deed",
         "sales_history_has_person",
         "sales_history_has_company",
         "person_has_fact_sheet",
@@ -26067,6 +26268,7 @@
         }
       }
     },
+  
     {
       "label": "Photo",
       "relationships": [

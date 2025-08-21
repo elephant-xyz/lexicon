@@ -721,15 +721,17 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       // Collect unique relationships
       const uniqueRelationships = new Map<string, DataGroupRelationship>();
       for (const dataGroup of lexiconData.data_groups) {
-        for (const relationship of dataGroup.relationships) {
-          // Only process relationships where both classes are in blockchain tag
-          if (
-            blockchainTag.classes.includes(relationship.from) &&
-            blockchainTag.classes.includes(relationship.to)
-          ) {
-            const relKey = `${relationship.from}_to_${relationship.to}`;
-            if (!uniqueRelationships.has(relKey)) {
-              uniqueRelationships.set(relKey, relationship);
+        if (dataGroup.relationships && Array.isArray(dataGroup.relationships)) {
+          for (const relationship of dataGroup.relationships) {
+            // Only process relationships where both classes are in blockchain tag
+            if (
+              blockchainTag.classes.includes(relationship.from) &&
+              blockchainTag.classes.includes(relationship.to)
+            ) {
+              const relKey = `${relationship.from}_to_${relationship.to}`;
+              if (!uniqueRelationships.has(relKey)) {
+                uniqueRelationships.set(relKey, relationship);
+              }
             }
           }
         }
@@ -828,13 +830,15 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         const groupRelationshipCidsMap: Record<string, { cid: string; relationshipType: string }> =
           {};
 
-        for (const relationship of dataGroup.relationships) {
-          const relKey = `${relationship.from}_to_${relationship.to}`;
-          if (relationshipCids[relKey]) {
-            groupRelationshipCidsMap[relKey] = {
-              cid: relationshipCids[relKey],
-              relationshipType: relationship.relationship_type || `has_${relationship.to}`,
-            };
+        if (dataGroup.relationships && Array.isArray(dataGroup.relationships)) {
+          for (const relationship of dataGroup.relationships) {
+            const relKey = `${relationship.from}_to_${relationship.to}`;
+            if (relationshipCids[relKey]) {
+              groupRelationshipCidsMap[relKey] = {
+                cid: relationshipCids[relKey],
+                relationshipType: relationship.relationship_type || `has_${relationship.to}`,
+              };
+            }
           }
         }
 
