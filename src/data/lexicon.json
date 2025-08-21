@@ -18557,6 +18557,16 @@
           "comment": "The total number of rooms in the property.",
           "minimum": 1
         },
+        "subdivision": {
+          "type": "string",
+          "optional": true,
+          "comment": "Subdivision is the term used to describe a defined area within a city or community that has been divided into individual plots or lots, usually intended for residential or commercial development. It is often formally designated by the township or municipality."
+        },
+        "zoning": {
+          "type": "string",
+          "optional": true,
+          "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used."
+        },
         "undefined_property_type": {
           "enum": [
             "Unavailable",
