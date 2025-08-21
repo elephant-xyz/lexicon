@@ -22801,9 +22801,28 @@
             "Damaged"
           ],
           "comment": "Observed condition of the exterior wall materials.",
+          "optional": true,
           "type": 
             "string"
        
+        },
+        "exterior_wall_condition": {
+          "enum": [
+            "New",
+            "Excellent",
+            "Good",
+            "Fair",
+            "Poor",
+            "Damaged",
+            null
+          ],
+          "comment": "Observed condition of the exterior wall materials.",
+
+          "type": [
+            "string",
+            "null"
+            ]
+
         },
         "exterior_wall_insulation_type": {
           "enum": [
@@ -22835,6 +22854,7 @@
             "Unknown"
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
+          "optional": true,
           "type": 
             "string"
 
@@ -22849,6 +22869,7 @@
             "Damaged"
           ],
           "comment": "Observed condition of the exterior wall materials.",
+          "optional": true,
           "type": 
             "string"
        
@@ -22865,6 +22886,7 @@
             "Unknown"
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
+          "optional": true,
           "type": 
             "string"
        
@@ -22971,6 +22993,7 @@
             "Non-Load Bearing"
           ],
           "comment": "Structural material used for interior wall framing.",
+          "optional": true,
           "type": 
             "string"
           
@@ -22985,6 +23008,7 @@
             "Non-Load Bearing"
           ],
           "comment": "Structural material used for interior wall framing.",
+          "optional": true,
           "type": 
             "string"
         },
