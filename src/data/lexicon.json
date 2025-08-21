@@ -17479,7 +17479,6 @@
         "rental_estimated_net_monthly_rent_amount",
         "rural_underserved_county_indicator",
         "stories_count",
-        "subdivision",
         "total_room_count",
         "undefined_property_type",
         "accessory_unit_count",
@@ -18539,15 +18538,6 @@
           ],
           "comment": "Specifies the number of habitable levels above grade in a structure such as in a 2 story house, a cape cod with 1.5 stories or a 2 story condominium unit in a multi-level building.",
           "minimum": 1
-        },
-        "subdivision": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "minimum": 1,
-          "comment": "Subdivision refers to the name for a specific, delineated area within a larger community or city that has been divided into individual plots or lots, typically for the purpose of residential or commercial development.",
-          "minLength": 1
         },
         "total_room_count": {
           "type": [
