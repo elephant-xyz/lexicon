@@ -19892,7 +19892,34 @@
         "permit_required": {
           "type": "boolean",
           "comment": "Whether the improvement required building permits."
-        }
+        },
+        "permit_number": {
+          "type": "string",
+          "comment": "Unique identifier for the permit (IVR number, application number, or equivalent)."
+      },
+        "applied_date": {
+          "type": "string",
+          "format": "date",
+          "comment": "Date when the permit application was submitted."
+        },
+        "issue_date": {
+          "type": "string",
+          "format": "date",
+          "comment": "Date when the permit was issued."
+        },
+        "expiration_date": {
+          "type": "string",
+          "format": "date",
+          "comment": "Date when the permit expires."
+        },
+        "project_name": {
+          "type": "string",
+          "comment": "Project name or description associated with the permit."
+        },
+        "description": {
+          "type": "string",
+          "comment": "Detailed description of the work performed under the permit."
+  }
       },
       "example": {
         "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
@@ -19905,6 +19932,174 @@
         "permit_required": true
       }
     },
+    {
+  "type": "contractor_license",
+  "container_name": "contractor_licenses",
+  "is_deprecated": false,
+  "deprecated_properties": [],
+  "properties": {
+    "license_number": {
+      "type": "string",
+      "comment": "Full license string including prefix and number, e.g., CGC1526178."
+    },
+    "prefix": {
+      "type": "string",
+      "enum": [
+        "CGC",
+        "CBC",
+        "CRC",
+        "CCC",
+        "CFC",
+        "CAC",
+        "CMC",
+        "EC",
+        "ECL",
+        "RQ",
+        "QB",
+        "QC",
+        null
+      ],
+      "comment": "Prefix portion of the Florida DBPR license number."
+    },
+    "number": {
+      "type": "string",
+      "pattern": "^[0-9]{6,8}$",
+      "comment": "Numeric portion of the license number."
+    },
+    "license_type": {
+      "type": "string",
+      "enum": [
+        "GeneralContractor",
+        "BuildingContractor",
+        "ResidentialContractor",
+        "RoofingContractor",
+        "PlumbingContractor",
+        "AirConditioningContractor",
+        "MechanicalContractor",
+        "ElectricalContractor",
+        "Other",
+        null
+      ],
+      "comment": "Type of contractor license, inferred from the prefix."
+    },
+    "holder_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "comment": "Individual or business name holding the license."
+    },
+    "company_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "comment": "Company name associated with the license, if applicable."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Current",
+        "Inactive",
+        "Suspended",
+        "Expired",
+        "Disciplinary",
+        "Unknown",
+        null
+      ],
+      "comment": "Current DBPR status of the license."
+    },
+    "issue_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "comment": "Date the license was originally issued."
+    },
+    "expiration_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "comment": "Date the license is set to expire."
+    },
+    "last_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time",
+      "comment": "Timestamp when this license was last verified against DBPR records."
+    },
+    "dbpr_lookup_url": {
+      "type": "string",
+      "format": "uri",
+      "comment": "Direct lookup URL in the Florida DBPR system."
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "comment": "Any additional notes about this license."
+    }
+  }
+},
+
+    {
+  "type": "inspection",
+  "container_name": "inspections",
+  "is_deprecated": false,
+  "deprecated_properties": [],
+  "properties": {
+    "inspection_type": {
+      "type": "string",
+      "comment": "Type of inspection performed, e.g., '305 Final Electric (R)'."
+    },
+    "inspection_status": {
+      "type": "string",
+      "enum": [
+        "Passed",
+        "Failed",
+        "Cancelled",
+        "Scheduled",
+        "Partial",
+        "NotRequired",
+        "Other",
+        null
+      ],
+      "comment": "Result or status of the inspection."
+    },
+    "requested_date": {
+      "type": "string",
+      "format": "date",
+      "comment": "Date when the inspection was requested."
+    },
+    "scheduled_date": {
+      "type": "string",
+      "format": "date",
+      "comment": "Date when the inspection was scheduled."
+    },
+    "completed_date": {
+      "type": "string",
+      "format": "date",
+      "comment": "Date when the inspection was completed."
+    },
+    "completed_time": {
+      "type": "string",
+      "comment": "Time of day when the inspection was completed, e.g., '8:16 AM'."
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "comment": "Optional notes or comments regarding the inspection."
+    }
+  }
+},
     {
       "type": "nearby_location",
       "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
@@ -26019,7 +26214,9 @@
         "tax_exemption",
         "tax_authority",
         "fact_sheet",
-        "deed"
+        "deed",
+        "contractor_license",
+        "inspection"
       ]
     }
   ],
@@ -26581,11 +26778,31 @@
           "relationship_type": "property_has_permit"
         },
         {
+
           "type": "relationship",
           "from": "property",
           "to": "property_improvement",
           "relationship_type": "property_has_property_improvement"
         },
+         {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "person",
+          "relationship_type": "property_improvement_has_inspector"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "person",
+          "relationship_type": "property_improvement_has_contractors"
+        },
+         {
+          "type": "relationship",
+          "from": "person",
+          "to": "contractor_license",
+          "relationship_type": "person_has_contractor_license"
+        },
+
         {
           "type": "relationship",
           "from": "property",
@@ -26603,6 +26820,12 @@
           "from": "property_improvement",
           "to": "fact_sheet",
           "relationship_type": "property_improvement_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "inspection",
+          "relationship_type": "property_improvement_has_inspection"
         }
       ],
       "required": [
