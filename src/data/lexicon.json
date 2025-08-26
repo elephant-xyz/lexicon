@@ -1481,31 +1481,13 @@
           "minLength": 1
         },
         "county_jurisdiction": {
-          "type": "string",
-          "enum": [
-            "Brevard",
-            "Broward",
-            "Lee",
-            "Charlotte",
-            "Duval",
-            "Hillsborough",
-            "Lake",
-            "Leon",
-            "Manatee",
-            "Martin",
-            "Pinellas",
-            "Polk",
-            "Santa Rosa",
-            "Miami Dade",
-            "Palm Beach",
-            "Baker",
-            "Pasco",
-            "Sarasota",
-            "Volusia",
-            "Escambia",
-            "Fort Bend"
+          "type": [
+            "string",
+            "null"
           ],
-          "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value."
+          "pattern": "^(?!.*\\b[Cc]ounty\\b)[A-Za-z\\s]+$",
+          "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
+          "minLength": 1
         }
       },
       "example": {
@@ -1899,31 +1881,13 @@
           "minLength": 1
         },
         "county_name": {
-          "type": "string",
-          "enum": [
-            "Brevard",
-            "Broward",
-            "Lee",
-            "Charlotte",
-            "Duval",
-            "Hillsborough",
-            "Lake",
-            "Leon",
-            "Manatee",
-            "Martin",
-            "Pinellas",
-            "Polk",
-            "Santa Rosa",
-            "Miami Dade",
-            "Palm Beach",
-            "Baker",
-            "Pasco",
-            "Sarasota",
-            "Volusia",
-            "Escambia",
-            "Fort Bend"
+          "type": [
+            "string",
+            "null"
           ],
-          "comment": "County name refers to the name of the county in which the address is located."
+          "pattern": "^(?!.*\\b[Cc]ounty\\b).*$",
+          "comment": "County name refers to the name of the county in which the address is located.",
+          "minLength": 1
         },
         "created_datetime": {
           "type": "dateTime",
