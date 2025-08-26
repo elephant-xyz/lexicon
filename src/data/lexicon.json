@@ -45,7 +45,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -204,7 +204,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -372,7 +372,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -523,7 +523,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -843,7 +843,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -1423,7 +1423,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -1481,13 +1481,31 @@
           "minLength": 1
         },
         "county_jurisdiction": {
-          "type": [
-            "string",
-            "null"
+          "type": "string",
+          "enum": [
+            "Brevard",
+            "Broward",
+            "Lee",
+            "Charlotte",
+            "Duval",
+            "Hillsborough",
+            "Lake",
+            "Leon",
+            "Manatee",
+            "Martin",
+            "Pinellas",
+            "Polk",
+            "Santa Rosa",
+            "Miami Dade",
+            "Palm Beach",
+            "Baker",
+            "Pasco",
+            "Sarasota",
+            "Volusia",
+            "Escambia",
+            "Fort Bend"
           ],
-          "pattern": "^(?!.*\\b[Cc]ounty\\b)[A-Za-z\\s]+$",
-          "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
-          "minLength": 1
+          "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value."
         }
       },
       "example": {
@@ -1595,7 +1613,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -1881,13 +1899,31 @@
           "minLength": 1
         },
         "county_name": {
-          "type": [
-            "string",
-            "null"
+          "type": "string",
+          "enum": [
+            "Brevard",
+            "Broward",
+            "Lee",
+            "Charlotte",
+            "Duval",
+            "Hillsborough",
+            "Lake",
+            "Leon",
+            "Manatee",
+            "Martin",
+            "Pinellas",
+            "Polk",
+            "Santa Rosa",
+            "Miami Dade",
+            "Palm Beach",
+            "Baker",
+            "Pasco",
+            "Sarasota",
+            "Volusia",
+            "Escambia",
+            "Fort Bend"
           ],
-          "pattern": "^(?!.*\\b[Cc]ounty\\b).*$",
-          "comment": "County name refers to the name of the county in which the address is located.",
-          "minLength": 1
+          "comment": "County name refers to the name of the county in which the address is located."
         },
         "created_datetime": {
           "type": "dateTime",
@@ -4180,7 +4216,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -7507,7 +7543,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -8891,7 +8927,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -9731,7 +9767,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -9939,7 +9975,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -13028,7 +13064,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -15034,7 +15070,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -16082,7 +16118,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -17350,7 +17386,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -17649,7 +17685,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -18841,7 +18877,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -19604,7 +19640,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -19750,7 +19786,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -20125,7 +20161,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -21589,7 +21625,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -21720,7 +21756,7 @@
             "string",
             "null"
           ],
-          
+
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for Sale Type.",
           "minLength": 1
         }
@@ -21844,7 +21880,7 @@
               "Gift Deed",
               "Interspousal Transfer Deed",
               "Wild Deed"
-              
+
             ],
             "optional": true
           }
@@ -22684,7 +22720,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -22809,7 +22845,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -24661,7 +24697,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -24879,7 +24915,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -24983,7 +25019,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -25828,7 +25864,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
