@@ -1483,7 +1483,6 @@
         "county_jurisdiction": {
           "type": [
             "string",
-            "null"
           ],
           "enum": [
             "Brevard",
@@ -1506,7 +1505,6 @@
             "Sarasota",
             "Volusia",
             "Escambia",
-            null
           ],
           "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
           "minLength": 1
@@ -1905,7 +1903,6 @@
         "county_name": {
           "type": [
             "string",
-            "null"
           ],
           "enum": [
             "Brevard",
@@ -1928,7 +1925,6 @@
             "Sarasota",
             "Volusia",
             "Escambia",
-            null
           ],
           "comment": "County name refers to the name of the county in which the address is located.",
           "minLength": 1
