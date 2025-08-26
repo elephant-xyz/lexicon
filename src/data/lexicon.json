@@ -1481,9 +1481,7 @@
           "minLength": 1
         },
         "county_jurisdiction": {
-          "type": [
-            "string",
-          ],
+          "type": "string",
           "enum": [
             "Brevard",
             "Broward",
@@ -1901,9 +1899,7 @@
           "minLength": 1
         },
         "county_name": {
-          "type": [
-            "string",
-          ],
+          "type": "string",
           "enum": [
             "Brevard",
             "Broward",
