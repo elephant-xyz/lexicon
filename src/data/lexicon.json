@@ -45,7 +45,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -204,7 +204,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -372,7 +372,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -523,7 +523,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -843,7 +843,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -1423,7 +1423,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -1595,7 +1595,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -4180,7 +4180,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -7507,7 +7507,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -8891,7 +8891,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -9731,7 +9731,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -9939,7 +9939,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -13028,7 +13028,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -15034,7 +15034,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -16082,7 +16082,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -17350,7 +17350,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -17649,7 +17649,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -18841,7 +18841,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -19604,7 +19604,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -19750,7 +19750,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -19930,7 +19930,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -21394,7 +21394,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -22489,7 +22489,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -22614,7 +22614,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -24460,7 +24460,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -24678,7 +24678,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -24782,7 +24782,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
@@ -25627,7 +25627,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "formate": "url"
+              "format": "url"
             },
             "headers": {
               "type": "object",
