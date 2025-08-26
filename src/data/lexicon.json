@@ -22805,8 +22805,7 @@
           ],
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
-          "type":
-            "string"
+          "type": "string"
 
         },
         "exterior_wall_condition": {
@@ -22858,8 +22857,7 @@
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "optional": true,
-          "type":
-            "string"
+          "type": "string"
 
         },
         "exterior_wall_condition_secondary": {
@@ -22873,8 +22871,7 @@
           ],
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
-          "type":
-            "string"
+          "type": "string"
 
         },
         "exterior_wall_insulation_type_secondary": {
@@ -22890,8 +22887,7 @@
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "optional": true,
-          "type":
-            "string"
+          "type": "string"
 
         },
         "flooring_material_primary": {
@@ -22997,8 +22993,7 @@
           ],
           "comment": "Structural material used for interior wall framing.",
           "optional": true,
-          "type":
-            "string"
+          "type": "string"
 
         },
         "interior_wall_structure_material_secondary": {
@@ -23012,8 +23007,7 @@
           ],
           "comment": "Structural material used for interior wall framing.",
           "optional": true,
-          "type":
-            "string"
+          "type": "string"
         },
         "interior_wall_surface_material_primary": {
           "enum": [
