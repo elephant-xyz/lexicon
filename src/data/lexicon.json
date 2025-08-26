@@ -45,7 +45,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -204,7 +204,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -372,7 +372,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -523,7 +523,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -843,7 +843,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -1423,7 +1423,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -1612,7 +1612,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -4214,7 +4214,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -7541,7 +7541,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -8925,7 +8925,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -9765,7 +9765,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -9973,7 +9973,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -13062,7 +13062,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -15068,7 +15068,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -16116,7 +16116,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -17384,7 +17384,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -17683,7 +17683,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -18875,7 +18875,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -19638,7 +19638,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -19784,7 +19784,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -19964,7 +19964,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -21428,7 +21428,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -21559,7 +21559,7 @@
             "string",
             "null"
           ],
-          
+
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for Sale Type.",
           "minLength": 1
         }
@@ -21683,7 +21683,7 @@
               "Gift Deed",
               "Interspousal Transfer Deed",
               "Wild Deed"
-              
+
             ],
             "optional": true
           }
@@ -22523,7 +22523,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -22648,7 +22648,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -22839,9 +22839,8 @@
           ],
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
-          "type": 
-            "string"
-       
+          "type": "string"
+
         },
         "exterior_wall_condition": {
           "enum": [
@@ -22892,8 +22891,7 @@
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "optional": true,
-          "type": 
-            "string"
+          "type": "string"
 
         },
         "exterior_wall_condition_secondary": {
@@ -22907,9 +22905,8 @@
           ],
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
-          "type": 
-            "string"
-       
+          "type": "string"
+
         },
         "exterior_wall_insulation_type_secondary": {
           "enum": [
@@ -22924,9 +22921,8 @@
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "optional": true,
-          "type": 
-            "string"
-       
+          "type": "string"
+
         },
         "flooring_material_primary": {
           "enum": [
@@ -23031,9 +23027,8 @@
           ],
           "comment": "Structural material used for interior wall framing.",
           "optional": true,
-          "type": 
-            "string"
-          
+          "type": "string"
+
         },
         "interior_wall_structure_material_secondary": {
           "enum": [
@@ -23046,8 +23041,7 @@
           ],
           "comment": "Structural material used for interior wall framing.",
           "optional": true,
-          "type": 
-            "string"
+          "type": "string"
         },
         "interior_wall_surface_material_primary": {
           "enum": [
@@ -24494,7 +24488,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -24712,7 +24706,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -24816,7 +24810,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
@@ -25661,7 +25655,7 @@
               "type": "string",
               "required": true,
               "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._-]+)*$"
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
             },
             "headers": {
               "type": "object",
