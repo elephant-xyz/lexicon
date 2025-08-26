@@ -1502,10 +1502,9 @@
             "Pasco",
             "Sarasota",
             "Volusia",
-            "Escambia",
+            "Escambia"
           ],
           "comment": "The name of the county or local jurisdiction that has authority over the property for tax assessment and administrative purposes. Should not include the word 'County' in the value.",
-          "minLength": 1
         }
       },
       "example": {
@@ -1920,10 +1919,9 @@
             "Pasco",
             "Sarasota",
             "Volusia",
-            "Escambia",
+            "Escambia"
           ],
           "comment": "County name refers to the name of the county in which the address is located.",
-          "minLength": 1
         },
         "created_datetime": {
           "type": "dateTime",
