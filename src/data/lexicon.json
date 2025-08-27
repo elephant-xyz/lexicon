@@ -26299,13 +26299,6 @@
           "relationship_type": "utility_has_fact_sheet"
         }
       ],
-      "required": [
-        "property_has_layout",
-        "property_has_sales_history",
-        "property_has_tax",
-        "property_has_address",
-        "property_has_lot"
-      ],
       "one_to_many_relationships": [
         "person_has_property",
         "company_has_property",
