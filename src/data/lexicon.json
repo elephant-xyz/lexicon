@@ -24754,6 +24754,7 @@
             "null"
           ],
           "pattern": "^[0-9]{4}$",
+          "optional": true,
           "comment": "The first year the parcel (land) was placed on the county’s property tax assessment roll."
         },
         "first_year_building_on_tax_roll": {
@@ -24762,6 +24763,7 @@
             "null"
           ],
           "pattern": "^[0-9]{4}$",
+          "optional": true,
           "comment": "The first year a building (improvement) on the parcel was added to the tax assessment roll."
         }
       },
