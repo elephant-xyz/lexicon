@@ -24686,7 +24686,6 @@
           "optional": true,
           "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
-
         "authority_account_identifier": {
           "type": [
             "string",
@@ -24749,14 +24748,14 @@
           "comment": "Service provider name is the name of a company or individual who offers professional tax-related services to individuals, businesses, and other organizations.",
           "minLength": 1
         },
-         "first_year_on_tax_roll": {
+        "first_year_on_tax_roll": {
           "type": [
             "integer",
             "null"
           ],
           "pattern": "^[0-9]{4}$",
           "comment": "The first year the parcel (land) was placed on the county’s property tax assessment roll."
-         },
+        },
         "first_year_building_on_tax_roll": {
           "type": [
             "integer",
@@ -24764,7 +24763,8 @@
           ],
           "pattern": "^[0-9]{4}$",
           "comment": "The first year a building (improvement) on the parcel was added to the tax assessment roll."
-         },
+        }
+      },
       "relationships": {
         "has_payment": {
           "targets": [
