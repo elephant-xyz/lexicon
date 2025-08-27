@@ -26297,6 +26297,24 @@
           "from": "utility",
           "to": "fact_sheet",
           "relationship_type": "utility_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "sales_history",
+          "to": "deed",
+          "relationship_type": "sales_history_has_deed"
+        },
+        {
+          "type": "relationship",
+          "from": "deed",
+          "to": "file",
+          "relationship_type": "deed_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "deed",
+          "to": "fact_sheet",
+          "relationship_type": "deed_has_fact_sheet"
         }
       ],
       "one_to_many_relationships": [
@@ -26321,7 +26339,10 @@
         "layout_has_fact_sheet",
         "flood_storm_information_has_fact_sheet",
         "structure_has_fact_sheet",
-        "utility_has_fact_sheet"
+        "utility_has_fact_sheet",
+        "sales_history_has_deed",
+        "deed_has_file",
+        "deed_has_fact_sheet"
       ],
       "example": {
         "label": "County",
