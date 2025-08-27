@@ -1577,12 +1577,10 @@
         "created_datetime",
         "last_updated_datetime",
         "mail_stop_code",
-        "municipality_name",
         "plus_four_postal_code_type",
         "created_datetime",
         "last_updated_datetime",
         "mail_stop_code",
-        "municipality_name",
         "post_office_box_identifier",
         "post_office_box_identifier",
         "unincorporated_area_name",
@@ -2121,8 +2119,8 @@
             "string",
             "null"
           ],
-          "comment": "The name of the municipality in which property is located.",
-          "minLength": 1
+          "comment": "he incorporated city, town, or village in which the property is located, responsible for providing local government services and regulations.",
+          "optional": true
         },
         "plus_four_postal_code": {
           "type": [
@@ -2582,6 +2580,14 @@
           ],
           "comment": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision",
           "minLength": 1
+        },
+        "lot": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "A specific parcel or unit of land within a subdivision or plat, identified by a unique lot number or code assigned during the subdivision platting process.",
+          "optional": true
         }
       },
       "example": {
@@ -17446,6 +17452,11 @@
           "type": "string",
           "minLength": 1,
           "comment": "A unique identifier for the property parcel as assigned by the local assessor or jurisdiction."
+        },
+        "prior_parcel_id": {
+          "type": "string",
+          "optional": true,
+          "comment": "The parcel identification number (parcel ID or folio) that was previously assigned to the property before it was changed due to a split, combination, renumbering, or administrative update by the property appraiser."
         }
       },
       "example": {
@@ -17931,6 +17942,11 @@
         "housing_older_persons_act_indicator": {
           "type": "boolean",
           "comment": "A property that is subject to the Housing for Older Persons Act (HOPA) refers to housing communities or developments that are specifically designed and operated to accommodate older adults, typically age 55 or older."
+        },
+        "historic_designation": {
+          "type": "boolean",
+          "comment": "True if the property has been granted official historic designation by a local, state, or national authority; false otherwise.",
+          "optional": true
         },
         "investment_rental_income_present_indicator": {
           "type": "boolean",
@@ -18455,6 +18471,15 @@
           "comment": "The year in which the dwelling on the property was completed.",
           "minimum": 1
         },
+        "property_effective_built_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}$",
+          "comment": "The year assigned by the property appraiser that reflects the building’s overall condition, age, and the impact of major renovations or additions, rather than the actual calendar year of original construction.",
+          "optional": true
+        },
         "property_structure_built_year_estimated_indicator": {
           "type": "boolean",
           "comment": "Indicates that the structure year built referenced is an estimate."
@@ -18604,12 +18629,18 @@
           "minimum": 1
         },
         "subdivision": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "optional": true,
           "comment": "Subdivision is the term used to describe a defined area within a city or community that has been divided into individual plots or lots, usually intended for residential or commercial development. It is often formally designated by the township or municipality."
         },
         "zoning": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "optional": true,
           "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used."
         },
@@ -24646,6 +24677,15 @@
           "format": "currency",
           "comment": "The calculated property tax amount due for the specific month (if applicable)."
         },
+        "yearly_tax_amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "currency",
+          "optional": true,
+          "comment": "The calculated property tax amount due for the specific month (if applicable)."
+        },
         "authority_account_identifier": {
           "type": [
             "string",
@@ -24707,6 +24747,22 @@
           ],
           "comment": "Service provider name is the name of a company or individual who offers professional tax-related services to individuals, businesses, and other organizations.",
           "minLength": 1
+        },
+        "first_year_on_tax_roll": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}$",
+          "comment": "The first year the parcel (land) was placed on the county’s property tax assessment roll."
+        },
+        "first_year_building_on_tax_roll": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}$",
+          "comment": "The first year a building (improvement) on the parcel was added to the tax assessment roll."
         }
       },
       "relationships": {
