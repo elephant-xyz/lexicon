@@ -18018,13 +18018,19 @@
           "pattern": ".*\\d{2,}.*"
         },
         "area_under_air": {
-          "type":  "string",
+           "type": [
+            "string",
+            "null"
+          ],
           "optional": true,
           "comment": "Also called “Living Area Under Air” or “Heated Living Area,” this refers to the total finished square footage of a building that is served by a permanent heating and/or cooling system (HVAC).",
           "pattern": ".*\\d{2,}.*"
         },
         "total_area": {
-          "type": "string",
+           "type": [
+            "string",
+            "null"
+          ],
           "optional": true,
           "comment": "The total square footage of the property, including all areas, such as the living area, garage, and basement.",
           "pattern": ".*\\d{2,}.*"
@@ -18480,7 +18486,8 @@
             "VacantLand",
             "Retirement",
             "MiscellaneousResidential",
-            "ResidentialCommonElementsAreas"
+            "ResidentialCommonElementsAreas",
+            "MobileHome"
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
@@ -22837,12 +22844,15 @@
             "Good",
             "Fair",
             "Poor",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
-          "type": "string"
-
+          "type": [
+          "string",
+          "null"
+        ]
         },
         "exterior_wall_condition": {
           "enum": [
@@ -22855,7 +22865,6 @@
             null
           ],
           "comment": "Observed condition of the exterior wall materials.",
-
           "type": [
             "string",
             "null"
@@ -22889,11 +22898,15 @@
             "Reflective Barrier",
             "Rock Wool",
             "Natural Fiber",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "optional": true,
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+            ]
 
         },
         "exterior_wall_condition_secondary": {
@@ -22903,11 +22916,15 @@
             "Good",
             "Fair",
             "Poor",
-            "Damaged"
+            "Damaged",
+            null
           ],
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+            ]
 
         },
         "exterior_wall_insulation_type_secondary": {
@@ -22919,11 +22936,15 @@
             "Reflective Barrier",
             "Rock Wool",
             "Natural Fiber",
-            "Unknown"
+            "Unknown",
+            null
           ],
           "comment": "Type of insulation used in exterior wall cavities.",
           "optional": true,
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+            ]
 
         },
         "flooring_material_primary": {
@@ -23025,11 +23046,15 @@
             "Concrete Block",
             "Brick",
             "Load Bearing",
-            "Non-Load Bearing"
+            "Non-Load Bearing",
+            null
           ],
           "comment": "Structural material used for interior wall framing.",
           "optional": true,
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+            ]
 
         },
         "interior_wall_structure_material_secondary": {
@@ -23039,11 +23064,15 @@
             "Concrete Block",
             "Brick",
             "Load Bearing",
-            "Non-Load Bearing"
+            "Non-Load Bearing",
+            null
           ],
           "comment": "Structural material used for interior wall framing.",
           "optional": true,
-          "type": "string"
+          "type": [
+            "string",
+            "null"
+            ]
         },
         "interior_wall_surface_material_primary": {
           "enum": [
@@ -24013,32 +24042,50 @@
         },
         "finished_base_area": {
           "comment": "Finished ground-level base area (first-floor footprint) in square feet.",
-          "type": "integer",
+           "type": [
+            "integer",
+            "null"
+          ],
           "optional": true
        },
       "unfinished_base_area": {
         "comment": "Unfinished ground-level base area in square feet.",
-        "type": "integer",
+         "type": [
+            "integer",
+            "null"
+          ],
         "optional": true
        },
         "finished_basement_area": {
           "comment": "Finished basement area in square feet.",
-          "type": "integer",
+           "type": [
+            "integer",
+            "null"
+          ],
            "optional": true
         },
         "unfinished_basement_area": {
           "comment": "Unfinished basement area in square feet.",
-          "type": "integer",
+           "type": [
+            "integer",
+            "null"
+          ],
           "optional": true
         },
         "finished_upper_story_area": {
           "comment": "Finished upper story area (above the ground floor) in square feet.",
-          "type": "integer",
+           "type": [
+            "integer",
+            "null"
+          ],
           "optional": true
         },
       "unfinished_upper_story_area": {
         "comment": "Unfinished upper story or attic/loft space in square feet.",
-        "type": "integer",
+         "type": [
+            "integer",
+            "null"
+          ],
         "optional": true
       },
         "structure_add_on": {
