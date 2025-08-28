@@ -15201,14 +15201,6 @@
           "minimum": 1,
           "comment": "Total land size in square feet for a property"
         },
-        "lot_size_acre": {
-          "type": [
-            "number",
-            "null"
-          ],
-          "optional": true,
-          "comment": "The size of the lot in acre."
-        },
         "landscaping_features": {
           "enum": [
             "MatureTrees",
@@ -18156,14 +18148,6 @@
           "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs.",
           "type": [
             "string",
-            "null"
-          ]
-        },
-        "number_of_units": {
-          "comment": "The number of units for a property refers to how many separate, self-contained dwelling or rental spaces exist within that property.",
-          "optional": true,
-          "type": [
-            "integer",
             "null"
           ]
         },
@@ -23540,14 +23524,6 @@
             "null"
           ]
         },
-        "number_of_stories": {
-          "comment": "Indicates the total number of above-ground stories (floors) in the structure.",
-          "optional": true,
-          "type": [
-            "integer",
-            "null"
-          ]
-        },
         "roof_design_type_other_description": {
           "type": [
             "string",
@@ -24778,6 +24754,7 @@
             "null"
           ],
           "pattern": "^[0-9]{4}$",
+          "optional": true,
           "comment": "The first year the parcel (land) was placed on the county’s property tax assessment roll."
         },
         "first_year_building_on_tax_roll": {
@@ -24786,6 +24763,7 @@
             "null"
           ],
           "pattern": "^[0-9]{4}$",
+          "optional": true,
           "comment": "The first year a building (improvement) on the parcel was added to the tax assessment roll."
         }
       },
