@@ -15177,6 +15177,14 @@
           "comment": "The size of the lot in square feet.",
           "minimum": 1
         },
+        "lot_size_acre": {
+          "type": [
+            "decimal",
+            "null"
+          ],
+          "comment": "The size of the lot in acre.",
+          "optional": true
+        },
         "lot_length_feet": {
           "type": [
             "integer",
@@ -18134,6 +18142,14 @@
         "non_warrantable_project_indicator": {
           "type": "boolean",
           "comment": "non-warrantable project indicator in mortgage banking refers to a designation given to a property that is part of a condominium or planned unit development (PUD) that does not meet the eligibility requirements for conventional financing.\n\nThese requirements are set by the government-sponsored enterprises (GSEs), such as Fannie Mae and Freddie Mac, which purchase the majority of residential mortgage loans in the United States.\n\nProperties in non-warrantable projects may have issues such as high levels of commercial space, inadequate financial reserves, or legal disputes that make them too risky for the GSEs to finance. As rdf:type result, these properties may be more difficult to finance, and buyers and owners may have limited options for securing rdf:type mortgage. The \"non-warrantable project indicator\" is a designation that helps lenders and mortgage underwriters understand the limitations and risks associated with a property."
+        },
+        "number_of_units": {
+        "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "The number of units for a property refers to how many separate, self-contained dwelling or rental spaces exist within that property.",
+          "optional": true
         },
         "number_of_units_type": {
           "enum": [
@@ -23524,6 +23540,14 @@
             "null"
           ]
         },
+        "number-of-stories": {
+          "type": [
+            "integer",
+            "null"
+          ],
+        "comment": "Indicates the total number of above-ground stories (floors) in the structure.",
+        "optional": true
+},
         "roof_design_type_other_description": {
           "type": [
             "string",
