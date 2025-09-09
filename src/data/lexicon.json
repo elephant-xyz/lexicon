@@ -7424,7 +7424,6 @@
           "optional": true,
           "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used."
         },
-
         "development_name": {
           "type": "string",
           "comment": "A development name, often a marketing-friendly term given by a developer, refers to a specific, delineated area within a larger community or city that has been divided into individual plots or lots for residential or commercial use. It is the name used to promote the subdivision, typically assigned by the developer rather than the township or municipality."
@@ -18042,7 +18041,7 @@
           "pattern": ".*\\d{2,}.*"
         },
         "area_under_air": {
-           "type": [
+          "type": [
             "string",
             "null"
           ],
@@ -18051,7 +18050,7 @@
           "pattern": ".*\\d{2,}.*"
         },
         "total_area": {
-           "type": [
+          "type": [
             "string",
             "null"
           ],
@@ -18059,7 +18058,6 @@
           "comment": "The total square footage of the property, including all areas, such as the living area, garage, and basement.",
           "pattern": ".*\\d{2,}.*"
         },
-
         "lien_type": {
           "enum": [
             "Judgement",
@@ -21615,7 +21613,6 @@
             "string",
             "null"
           ],
-
           "comment": "A free-form text field that specifies the enumeration when the value of Other is used for Sale Type.",
           "minLength": 1
         }
@@ -21716,36 +21713,33 @@
           "minProperties": 1
         },
         "deed_type": {
-            "type": "string",
-            "comment": "The type of deed document used to transfer property ownership.",
-            "enum": [
-              "Warranty Deed",
-              "Special Warranty Deed",
-              "Quitclaim Deed",
-              "Grant Deed",
-              "Bargain and Sale Deed",
-              "Lady Bird Deed",
-              "Transfer on Death Deed",
-              "Sheriff's Deed",
-              "Tax Deed",
-              "Trustee's Deed",
-              "Personal Representative Deed",
-              "Correction Deed",
-              "Deed in Lieu of Foreclosure",
-              "Life Estate Deed",
-              "Joint Tenancy Deed",
-              "Tenancy in Common Deed",
-              "Community Property Deed",
-              "Gift Deed",
-              "Interspousal Transfer Deed",
-              "Wild Deed"
-
-            ],
-            "optional": true
-          }
-
-
+          "type": "string",
+          "comment": "The type of deed document used to transfer property ownership.",
+          "enum": [
+            "Warranty Deed",
+            "Special Warranty Deed",
+            "Quitclaim Deed",
+            "Grant Deed",
+            "Bargain and Sale Deed",
+            "Lady Bird Deed",
+            "Transfer on Death Deed",
+            "Sheriff's Deed",
+            "Tax Deed",
+            "Trustee's Deed",
+            "Personal Representative Deed",
+            "Correction Deed",
+            "Deed in Lieu of Foreclosure",
+            "Life Estate Deed",
+            "Joint Tenancy Deed",
+            "Tenancy in Common Deed",
+            "Community Property Deed",
+            "Gift Deed",
+            "Interspousal Transfer Deed",
+            "Wild Deed"
+          ],
+          "optional": true
         }
+      }
     },
     {
       "type": "saved_search",
@@ -22864,8 +22858,7 @@
           "type": [
             "string",
             "null"
-            ]
-
+          ]
         },
         "exterior_wall_material_secondary": {
           "enum": [
@@ -22897,9 +22890,9 @@
           "comment": "Observed condition of the exterior wall materials.",
           "optional": true,
           "type": [
-          "string",
-          "null"
-        ]
+            "string",
+            "null"
+          ]
         },
         "exterior_wall_condition": {
           "enum": [
@@ -22915,8 +22908,7 @@
           "type": [
             "string",
             "null"
-            ]
-
+          ]
         },
         "exterior_wall_insulation_type": {
           "enum": [
@@ -22953,8 +22945,7 @@
           "type": [
             "string",
             "null"
-            ]
-
+          ]
         },
         "exterior_wall_condition_secondary": {
           "enum": [
@@ -22971,8 +22962,7 @@
           "type": [
             "string",
             "null"
-            ]
-
+          ]
         },
         "exterior_wall_insulation_type_secondary": {
           "enum": [
@@ -22991,8 +22981,7 @@
           "type": [
             "string",
             "null"
-            ]
-
+          ]
         },
         "flooring_material_primary": {
           "enum": [
@@ -23101,8 +23090,7 @@
           "type": [
             "string",
             "null"
-            ]
-
+          ]
         },
         "interior_wall_structure_material_secondary": {
           "enum": [
@@ -23119,7 +23107,7 @@
           "type": [
             "string",
             "null"
-            ]
+          ]
         },
         "interior_wall_surface_material_primary": {
           "enum": [
@@ -23509,6 +23497,15 @@
           "comment": "Estimated age of the roof covering in years.",
           "minimum": 1
         },
+        "roof_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Date when the roof was built (format: YYYY, YYYY-MM, or YYYY-MM-DD)",
+          "pattern": "^\\d{4}(?:-(0[1-9]|1[0-2])(?:-(0[1-9]|[12]\\d|3[01]))?)?$\n",
+          "optional": true
+        },
         "gutters_material": {
           "enum": [
             "Aluminum",
@@ -23542,7 +23539,7 @@
         },
         "number_of_stories": {
           "comment": "Indicates the total number of above-ground stories (floors) in the structure.",
-          "optional": true, 
+          "optional": true,
           "type": [
             "integer",
             "null"
@@ -24097,31 +24094,31 @@
         },
         "finished_base_area": {
           "comment": "Finished ground-level base area (first-floor footprint) in square feet.",
-           "type": [
+          "type": [
             "integer",
             "null"
           ],
           "optional": true
-       },
-      "unfinished_base_area": {
-        "comment": "Unfinished ground-level base area in square feet.",
-         "type": [
+        },
+        "unfinished_base_area": {
+          "comment": "Unfinished ground-level base area in square feet.",
+          "type": [
             "integer",
             "null"
           ],
-        "optional": true
-       },
+          "optional": true
+        },
         "finished_basement_area": {
           "comment": "Finished basement area in square feet.",
-           "type": [
+          "type": [
             "integer",
             "null"
           ],
-           "optional": true
+          "optional": true
         },
         "unfinished_basement_area": {
           "comment": "Unfinished basement area in square feet.",
-           "type": [
+          "type": [
             "integer",
             "null"
           ],
@@ -24129,20 +24126,20 @@
         },
         "finished_upper_story_area": {
           "comment": "Finished upper story area (above the ground floor) in square feet.",
-           "type": [
+          "type": [
             "integer",
             "null"
           ],
           "optional": true
         },
-      "unfinished_upper_story_area": {
-        "comment": "Unfinished upper story or attic/loft space in square feet.",
-         "type": [
+        "unfinished_upper_story_area": {
+          "comment": "Unfinished upper story or attic/loft space in square feet.",
+          "type": [
             "integer",
             "null"
           ],
-        "optional": true
-      },
+          "optional": true
+        },
         "structure_add_on": {
           "enum": [
             "Dock",
@@ -26486,7 +26483,6 @@
         }
       }
     },
-  
     {
       "label": "Photo",
       "relationships": [
