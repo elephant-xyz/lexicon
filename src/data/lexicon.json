@@ -1922,7 +1922,8 @@
             "Volusia",
             "Escambia",
             "Fort Bend",
-            "Collin"
+            "Collin",
+            "Alachua"
           ],
           "comment": "County name refers to the name of the county in which the address is located."
         },
@@ -27104,4 +27105,3 @@
     }
   ]
 }
-
