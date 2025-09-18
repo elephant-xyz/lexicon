@@ -23551,7 +23551,7 @@
           "comment": "Indicates the total number of above-ground stories (floors) in the structure.",
           "optional": true,
           "type": [
-            "integer",
+            "number",
             "null"
           ]
         },
