@@ -18518,7 +18518,6 @@
             "DetachedCondominium",
             "Duplex",
             "SingleFamily",
-            "TwoToFourFamily",
             "MultipleFamily",
             "3Units",
             "ManufacturedHousing",
@@ -18530,7 +18529,10 @@
             "Retirement",
             "MiscellaneousResidential",
             "ResidentialCommonElementsAreas",
-            "MobileHome"
+            "MobileHome",
+            "Apartment",
+            "MultiFamilyMoreThan10",
+            "MultiFamilyLessThan10"
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
