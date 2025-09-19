@@ -26198,18 +26198,6 @@
           "from": "property_seed",
           "to": "unnormalized_address",
           "relationship_type": "property_seed"
-        },
-        {
-          "type": "relationship",
-          "from": "property_seed",
-          "to": "fact_sheet",
-          "relationship_type": "property_seed_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "unnormalized_address",
-          "to": "fact_sheet",
-          "relationship_type": "unnormalized_address_has_fact_sheet"
         }
       ],
       "required": [
@@ -26432,6 +26420,9 @@
         "sales_history_has_deed",
         "deed_has_file",
         "deed_has_fact_sheet"
+      ],
+      "required": [
+        "property_address"
       ],
       "example": {
         "label": "County",
