@@ -1472,6 +1472,73 @@
           "comment": "HTTP request configuration for retrieving this data.",
           "minProperties": 1
         },
+        "entry_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "comment": "Query string parameters for the request, where each key can have multiple values.",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "comment": "the JSON data that is returned from the request.",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
+        },
         "request_identifier": {
           "type": [
             "string",
@@ -17386,6 +17453,72 @@
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
+        },
+        "entry_http_request": {
           "type": "object",
           "properties": {
             "method": {
