@@ -26915,18 +26915,40 @@
           "from": "property_improvement",
           "to": "fact_sheet",
           "relationship_type": "property_improvement_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "unnormalized_address",
+          "relationship_type": "property_improvement_has_unormalized_address"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "company",
+          "relationship_type": "property_improvement_has_company"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "person",
+          "relationship_type": "property_improvement_has_owner"
         }
+
       ],
       "required": [
         "property_has_permit",
-        "property_has_property_improvement"
+        "property_has_property_improvement",
+        "permit_has_unormalized_address"
       ],
       "one_to_many_relationships": [
         "property_has_permit",
         "property_has_property_improvement",
         "property_has_fact_sheet",
         "file_has_fact_sheet",
-        "property_improvement_has_fact_sheet"
+        "property_improvement_has_fact_sheet",
+        "property_improvement_has_company",
+        "property_improvement_has_owner"
       ]
     },
     {
