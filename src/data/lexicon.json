@@ -26928,7 +26928,6 @@
           "to": "company",
           "relationship_type": "property_improvement_has_company"
         },
-        ,
         {
           "type": "relationship",
           "from": "property_improvement",
