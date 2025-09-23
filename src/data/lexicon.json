@@ -1536,8 +1536,7 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data.",
-          "minProperties": 1
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": [
@@ -17581,8 +17580,7 @@
               ]
             }
           },
-          "comment": "HTTP request configuration for retrieving this data.",
-          "minProperties": 1
+          "comment": "HTTP request configuration for retrieving this data."
         },
         "request_identifier": {
           "type": [
