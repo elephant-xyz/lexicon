@@ -26918,9 +26918,9 @@
         },
         {
           "type": "relationship",
-          "from": "permit",
+          "from": "property_improvement",
           "to": "unnormalized_address",
-          "relationship_type": "permit_has_unormalized_address"
+          "relationship_type": "property_improvement_has_unormalized_address"
         },
         {
           "type": "relationship",
