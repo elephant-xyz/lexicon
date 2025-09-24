@@ -20256,12 +20256,11 @@
         "type": ["boolean","null"],
         "optional": true
       },
-      "private_provider_inspections": {
-        "description": "Private provider used for inspections.",
-        "type": ["boolean","null"],
-        "optional": true
-      }
-      },
+        "private_provider_inspections": {
+          "description": "Private provider used for inspections.",
+          "type": ["boolean","null"],
+          "optional": true
+        },
       "example": {
         "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
         "request_identifier": "52434205310037080",
@@ -27270,12 +27269,6 @@
         },
         {
           "type": "relationship",
-          "from": "structure",
-          "to": "fact_sheet",
-          "relationship_type": "structure_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
           "from": "communication",
           "to": "fact_sheet",
           "relationship_type": "communication_has_fact_sheet"
@@ -27303,8 +27296,6 @@
          "structure_has_fact_sheet",
          "layout_has_fact_sheet",
          "communication_has_fact_sheet"
-
-
       ]
     },
     {
@@ -27585,7 +27576,6 @@
       "properties": {
         "type": "string",
         "format": "date",
-        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
         "description": "Date in isoformat. F.e : 2025-07-06"
       }
     },
