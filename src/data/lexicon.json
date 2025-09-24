@@ -4096,11 +4096,32 @@
     },
     {
       "type": "communication",
-      "container_name": "communications",
+      "container_name": "communication",
       "is_deprecated": false,
       "deprecated_properties": [
         "has_address",
-        "contact_person"
+        "contact_person",
+        "api_key",
+        "api_name",
+        "auth_url",
+        "domain_name",
+        "email_subscribed",
+        "environment_type",
+        "home_phone_number",
+        "virtual_phone_number",
+        "last_updated",
+        "password",
+        "secret",
+        "status",
+        "username",
+        "website",
+        "work_phone_number",
+        "work_phone_number"
+
+    
+
+
+
       ],
       "properties": {
         "api_key": {
@@ -4124,7 +4145,7 @@
           "comment": "A domain name is a unique and human-readable address that identifies a website on the internet. It serves as a memorable and recognizable name for accessing websites rather than using numerical IP addresses."
         },
         "email_address": {
-          "type": "string",
+          "type": ["string",null],
           "comment": "An email address is a unique identifier used to send and receive electronic messages over the internet. It typically consists of two parts: a username and a domain name, separated by the '@' symbol."
         },
         "email_excluded": {
@@ -4150,11 +4171,11 @@
           ]
         },
         "home_phone_number": {
-          "type": "string",
+          "type": ["string",null],
           "comment": "A home phone number is a telephone number that is associated with a residential address, typically used for personal or family communication purposes. It is a phone number that is linked to a landline or a Voice over Internet Protocol (VoIP) service that is connected to a physical address."
         },
         "virtual_phone_number": {
-          "type": "string",
+          "type": ["string",null],
           "comment": "A virtual phone number is a telephone number that doesn't require a physical phone line. It's essentially a digital number that can be used to make and receive calls through the internet."
         },
         "last_updated": {
@@ -4166,7 +4187,7 @@
           "comment": "A password for a computer system is a confidential piece of information that is used to authenticate and verify the identity of a user."
         },
         "phone_number": {
-          "type": "string",
+          "type": ["string",null],
           "comment": "A phone number is a unique sequence of digits assigned to a specific telephone line or mobile device that allows it to be reached by a caller. It is typically comprised of a country code, area code, and a specific number assigned to the device."
         },
         "secret": {
@@ -19764,7 +19785,37 @@
             "string",
             "null"
           ]
-        }
+        },
+        "kitchen_renovation_date": {
+        "description": "Date this kitchen was last remodeled (BLD/RES/COM).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "bathroom_renovation_date": {
+        "description": "Date this bathroom was last remodeled (BLD/RES/COM/PLU/ELE).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "flooring_installation_date": {
+        "description": "Date flooring in this space was installed (BLD/RES/COM).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "pool_installation_date": {
+        "description": "Date pool was installed (POL).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "spa_installation_date": {
+        "description": "Date spa/hot tub was installed (POL/BLD).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      }
       },
       "example": {
         "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
@@ -20031,43 +20082,77 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data."
         },
         "improvement_type": {
-          "enum": [
-            "KitchenRemodel",
-            "BathroomRenovation",
-            "FlooringUpgrade",
-            "PaintingInterior",
-            "PaintingExterior",
-            "RoofReplacement",
-            "WindowReplacement",
-            "HVACUpgrade",
-            "PlumbingUpgrade",
-            "ElectricalUpgrade",
-            "SidingReplacement",
-            "DeckAddition",
-            "PatioAddition",
+        "enum": [
+            "BuildingConstruction",
+            "ResidentialConstruction",
+            "CommercialConstruction",
+            "Demolition",
             "PoolInstallation",
-            "LandscapingImprovement",
-            "DrivewaySealcoating",
-            "FencingInstallation",
-            "InsulationUpgrade",
-            "SolarPanelInstallation",
-            "ApplianceUpgrade",
-            "CountertopReplacement",
-            "CabinetRefacing",
-            "TileInstallation",
-            "CarpetReplacement",
-            "BasementFinishing",
-            "AtticConversion",
-            "GarageConversion",
-            "RoomAddition",
-            "AccessibilityUpgrade",
-            "SecuritySystemInstallation",
-            "SmartHomeUpgrade",
-            "WaterHeaterReplacement",
-            "FireplaceInstallation",
-            "StorageSolutionInstallation",
+            "ElectricalLowVoltage",
+            "Roofing",
+            "Fencing",
+            "SignInstallation",
+            "FireProtectionSystem",
+            "SolarInstallation",
+            "MechanicalHVAC",
+            "TemporaryStructure",
+            "StructureMove",
+            "ExteriorOpenings",
+            "MobileHomeRV",
+            "OccupancyUsePermit",
+            "Plumbing",
+            "DockAndShore",
+            "ConsumptionOnPremises",
+            "HomeOccupation",
+
+            "CodeViolation",
+            "Complaint",
+            "ContractorLicense",
+            "Sponsorship",
+            "StateLicenseRegistration",
+
+            "AdministrativeApproval",
+            "AdministrativeAppeal",
+            "BlueSheetHearing",
+            "PlannedDevelopment",
+            "DevelopmentOfRegionalImpact",
+            "Rezoning",
+            "SpecialExceptionZoning",
+            "Variance",
+            "ZoningExtension",
+            "ZoningVerificationLetter",
+            "RequestForRelief",
+            "WaiverRequest",
+            "InformalMeeting",
+            "EnvironmentalMonitoring",
+            "Vacation",
+            "VegetationRemoval",
+
+            "ComprehensivePlanAmendment",
+            "MinimumUseDetermination",
+            "TransferDevelopmentRightsDetermination",
+            "MapBoundaryDetermination",
+            "TransferDevelopmentRightsCertificate",
+            "UniformCommunityDevelopment",
+            "SpecialCertificateOfAppropriateness",
+            "CertificateToDig",
+            "HistoricDesignation",
+            "PlanningAdministrativeAppeal",
+
+            "WellPermit",
+            "TestBoring",
+            "ExistingWellInspection",
+            "NaturalResourcesComplaint",
+            "NaturalResourcesViolation",
+            "LetterWaterSewer",
+            "UtilitiesConnection",
+
+            "DrivewayPermit",
+            "RightOfWayPermit",
             null
-          ],
+            ]
+          },
+
           "comment": "Specific type of improvement or renovation performed.",
           "type": [
             "string",
@@ -20119,8 +20204,63 @@
         "permit_required": {
           "type": "boolean",
           "comment": "Whether the improvement required building permits."
-        }
+        },
+        "permit_number": {
+          "description": "Jurisdiction record/permit number (e.g., MEC2025-05360).",
+          "type": ["string","null"],
+          "optional": true
+        },
+ 
+        "application_received_date": {
+          "description": "Date the application was received.",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+      "permit_issue_date": {
+        "description": "Date the permit was issued.",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
       },
+      "final_inspection_date": {
+        "description": "Date of final inspection approval.",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "permit_close_date": {
+        "description": "Date the permit record was closed/complete.",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "improvement_action": {
+        "description": "Nature of the work.",
+        "enum": ["New","Replacement","Repair","Alteration","Addition","Remove","Other", null],
+        "type": ["string","null"],
+        "optional": true
+      },
+      "is_owner_builder": {
+        "description": "Whether improvement is done by owner versus hiring a contractor",
+        "type": ["boolean","null"],
+        "optional": true
+      },
+      "is_disaster_recovery": {
+        "description": "Whether the work is associated with disaster recovery.",
+        "type": ["boolean","null"],
+        "optional": true
+      },
+      "private_provider_plan_review": {
+        "description": "Private provider used for plan review.",
+        "type": ["boolean","null"],
+        "optional": true
+      },
+        "private_provider_inspections": {
+          "description": "Private provider used for inspections.",
+          "type": ["boolean","null"],
+          "optional": true
+        },
       "example": {
         "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
         "request_identifier": "52434205310037080",
@@ -23646,7 +23786,7 @@
             "null"
           ],
           "comment": "Date when the roof was built (format: YYYY, YYYY-MM, or YYYY-MM-DD)",
-          "pattern": "^\\d{4}(?:-(0[1-9]|1[0-2])(?:-(0[1-9]|[12]\\d|3[01]))?)?$",
+          "format": "date",
           "optional": true
         },
         "gutters_material": {
@@ -24310,6 +24450,30 @@
           "comment": "A free-form field to describe the structure add-on if 'Other' is selected.",
           "minLength": 1
         }
+      },
+      "window_installation_date": {
+        "description": "Date windows were installed/replaced (from OPN permits).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "exterior_door_installation_date": {
+        "description": "Date exterior doors were installed/replaced (from OPN permits).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "siding_installation_date": {
+        "description": "Date exterior wall cladding/siding was installed or last replaced (often from BLD/RES/COM).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },
+      "foundation_repair_date": {
+        "description": "Date of last foundation repair/underpinning (BLD/RES/COM/DEM scopes).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
       }
     },
     {
@@ -26256,7 +26420,126 @@
             "string",
             "null"
           ]
+        },
+        "hvac_installation_date": {
+          "description": "Date HVAC equipment was installed/replaced (MEC).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "electrical_panel_installation_date": {
+          "description": "Date main service panel was installed/upgraded (ELE).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "electrical_rewire_date": {
+          "description": "Date of significant rewire (ELE).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "plumbing_system_installation_date": {
+          "description": "Date supply/drain system was installed/replaced (PLU).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "water_heater_installation_date": {
+          "description": "Date water heater was installed/replaced (PLU/BLD).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "solar_installation_date": {
+          "description": "Date solar system was installed (SOL).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "solar_inverter_installation_date": {
+          "description": "Date solar inverter was installed/replaced (SOL).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "well_installation_date": {
+          "description": "Date well was installed (WEL/NRP).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "sewer_connection_date": {
+          "description": "Date property connected to public sewer (LCU/LWS/PLU).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "water_connection_date": {
+          "description": "Date property connected to public water (LCU/LWS/PLU).",
+          "type": ["string","null"],
+          "format": "date",
+          "optional": true
+        },
+        "hvac_system_configuration": {
+          "description": "HVAC configuration type.",
+          "enum": ["SplitSystem","PackagedUnit","MiniSplit","HeatPumpSplit","VRF","Other", null],
+          "type": ["string","null"],
+          "optional": true
+        },
+        "hvac_equipment_component": {
+          "description": "HVAC component this record describes.",
+          "enum": ["Condenser","AirHandler","CondenserAndAirHandler","PackageUnit","HeatPump","Other", null],
+          "type": ["string","null"],
+          "optional": true
+        },
+        "hvac_capacity_kw": {
+          "description": "Nameplate electrical capacity (kW) of the HVAC equipment.",
+          "type": ["number","null"],
+          "optional": true
+        },
+        "hvac_capacity_tons": {
+          "description": "Cooling capacity in tons.",
+          "type": ["number","null"],
+          "optional": true
+        },
+        "hvac_seer_rating": {
+          "description": "Seasonal Energy Efficiency Ratio (SEER).",
+          "type": ["number","null"],
+          "optional": true
+        },
+        "hvac_equipment_manufacturer": {
+          "description": "Manufacturer of HVAC equipment.",
+          "type": ["string","null"],
+          "optional": true
+        },
+        "hvac_equipment_model": {
+          "description": "Model number of HVAC equipment.",
+          "type": ["string","null"],
+          "optional": true
+        },
+        "water_heater_manufacturer": {
+          "description": "Manufacturer of water heater.",
+          "type": ["string","null"],
+          "optional": true
+        },
+        "water_heater_model": {
+          "description": "Model number of water heater.",
+          "type": ["string","null"],
+          "optional": true
+        },
+        "solar_inverter_manufacturer": {
+          "description": "Manufacturer of solar inverter.",
+          "type": ["string","null"],
+          "optional": true
+        },
+        "solar_inverter_model": {
+          "description": "Model number of solar inverter.",
+          "type": ["string","null"],
+          "optional": true
         }
+
+
       }
     },
     {
@@ -26296,7 +26579,7 @@
         "tax",
         "loan",
         "school",
-        "property_improvements",
+        "property_improvement",
         "sales_history",
         "person",
         "layout",
@@ -26307,6 +26590,7 @@
         "residency_policy",
         "file",
         "relationship",
+        "communication",
         "nearby_location",
         "lot",
         "appliance",
@@ -26925,30 +27209,93 @@
         {
           "type": "relationship",
           "from": "property_improvement",
-          "to": "company",
-          "relationship_type": "property_improvement_has_company"
+          "to": "person",
+          "relationship_type": "property_improvement_has_contractor"
         },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "company",
+          "relationship_type": "property_improvement_has_contractor_company"
+        },
+        
         {
           "type": "relationship",
           "from": "property_improvement",
           "to": "person",
           "relationship_type": "property_improvement_has_owner"
+        },
+        {
+          "type": "relationship",
+          "from": "person",
+          "to": "communication",
+          "relationship_type": "person_has_communication"
+        },
+        {
+          "type": "relationship",
+          "from": "person",
+          "to": "communication",
+          "relationship_type": "contractor_has_communication"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "structure",
+          "relationship_type": "property_improvement_has_structure"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "utility",
+          "relationship_type": "property_improvement_has_utility"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "layout",
+          "relationship_type": "property_improvement_has_layout"
+        },
+        {
+          "type": "relationship",
+          "from": "utility",
+          "to": "fact_sheet",
+          "relationship_type": "utility_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "structure",
+          "to": "fact_sheet",
+          "relationship_type": "structure_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "communication",
+          "to": "fact_sheet",
+          "relationship_type": "communication_has_fact_sheet"
         }
+
+
 
       ],
       "required": [
         "property_has_permit",
         "property_has_property_improvement",
-        "permit_has_unormalized_address"
+        "property_improvement_has_unormalized_address"
       ],
       "one_to_many_relationships": [
         "property_has_permit",
         "property_has_property_improvement",
         "property_has_fact_sheet",
+        "property_has_permit",
         "file_has_fact_sheet",
         "property_improvement_has_fact_sheet",
         "property_improvement_has_company",
-        "property_improvement_has_owner"
+        "property_improvement_has_owner",
+        "property_improvement_has_layout",
+         "utility_has_fact_sheet",
+         "structure_has_fact_sheet",
+         "layout_has_fact_sheet",
+         "communication_has_fact_sheet"
       ]
     },
     {
@@ -27229,7 +27576,6 @@
       "properties": {
         "type": "string",
         "format": "date",
-        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
         "description": "Date in isoformat. F.e : 2025-07-06"
       }
     },
