@@ -1405,6 +1405,20 @@
           "minLength": 1,
           "comment": "The street address of the property including street number, street name, city, and state and postal code. Format: '123 Main, Springfield, IL' or '456 Oak Ave, Chicago, IL 1003'."
         },
+        "latitude": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "comment": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole."
+        },
+        "longitude": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "comment": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°."
+        },
         "source_http_request": {
           "type": "object",
           "properties": {
