@@ -1410,6 +1410,7 @@
             "number",
             "null"
           ],
+          "optional": true,
           "comment": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole."
         },
         "longitude": {
@@ -1417,6 +1418,7 @@
             "number",
             "null"
           ],
+          "optional": true,
           "comment": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°."
         },
         "source_http_request": {
