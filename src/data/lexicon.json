@@ -23892,7 +23892,7 @@
             "null"
           ],
           "comment": "Date when the roof was built (format: YYYY, YYYY-MM, or YYYY-MM-DD)",
-          "format": "date",
+          "pattern": "^\\d{4}(?:-(0[1-9]|1[0-2])(?:-(0[1-9]|[12]\\d|3[01]))?)?$",
           "optional": true
         },
         "gutters_material": {
