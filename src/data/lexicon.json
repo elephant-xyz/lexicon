@@ -27397,9 +27397,7 @@
 
       ],
       "required": [
-        "property_has_permit",
-        "property_has_property_improvement",
-        "property_improvement_has_unormalized_address"
+        "property_has_property_improvement"
       ],
       "one_to_many_relationships": [
         "property_has_permit",
