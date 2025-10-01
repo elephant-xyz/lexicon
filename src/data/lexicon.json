@@ -20300,13 +20300,9 @@
           ]
         },
         "completion_date": {
-          "type": "string",
+          "type": ["string","null"],
           "format": "date",
           "comment": "Date when the improvement work was completed."
-        },
-        "improvement_cost": {
-          "type": "number",
-          "comment": "Total cost of the improvement in dollars."
         },
         "contractor_type": {
           "enum": [
