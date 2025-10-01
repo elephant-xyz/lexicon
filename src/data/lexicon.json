@@ -20280,7 +20280,8 @@
           "DrivewayPermit",
           "RightOfWayPermit",
           null
-        ]
+        ],
+        "type": ["string","null"]
       },      
         "improvement_status": {
           "enum": [
