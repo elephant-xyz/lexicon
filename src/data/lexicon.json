@@ -20213,82 +20213,75 @@
         },
         "improvement_type": {
         "enum": [
-            "BuildingConstruction",
-            "ResidentialConstruction",
-            "CommercialConstruction",
-            "Demolition",
-            "PoolInstallation",
-            "ElectricalLowVoltage",
-            "Roofing",
-            "Fencing",
-            "SignInstallation",
-            "FireProtectionSystem",
-            "SolarInstallation",
-            "MechanicalHVAC",
-            "TemporaryStructure",
-            "StructureMove",
-            "ExteriorOpenings",
-            "MobileHomeRV",
-            "OccupancyUsePermit",
-            "Plumbing",
-            "DockAndShore",
-            "ConsumptionOnPremises",
-            "HomeOccupation",
+          "GeneralBuilding",
+          "ResidentialConstruction",
+          "CommercialConstruction",
+          "BuildingAddition",
+          "StructureMove",
+          "Demolition",
+          "PoolSpaInstallation",
+          "Electrical",
+          "MechanicalHVAC",
+          "GasInstallation",
+          "Roofing",
+          "Fencing",
+          "DockAndShore",
+          "FireProtectionSystem",
+          "Plumbing",
+          "ExteriorOpeningsAndFinishes",
+          "MobileHomeRV",
+          "LandscapeIrrigation",
+          "ScreenEnclosure",
+          "ShutterAwning",
+          "SiteDevelopment",
 
-            "CodeViolation",
-            "Complaint",
-            "ContractorLicense",
-            "Sponsorship",
-            "StateLicenseRegistration",
+          "CodeViolation",
+          "Complaint",
+          "ContractorLicense",
+          "Sponsorship",
+          "StateLicenseRegistration",
 
-            "AdministrativeApproval",
-            "AdministrativeAppeal",
-            "BlueSheetHearing",
-            "PlannedDevelopment",
-            "DevelopmentOfRegionalImpact",
-            "Rezoning",
-            "SpecialExceptionZoning",
-            "Variance",
-            "ZoningExtension",
-            "ZoningVerificationLetter",
-            "RequestForRelief",
-            "WaiverRequest",
-            "InformalMeeting",
-            "EnvironmentalMonitoring",
-            "Vacation",
-            "VegetationRemoval",
+          "AdministrativeApproval",
+          "AdministrativeAppeal",
+          "BlueSheetHearing",
+          "PlannedDevelopment",
+          "DevelopmentOfRegionalImpact",
+          "Rezoning",
+          "SpecialExceptionZoning",
+          "Variance",
+          "ZoningExtension",
+          "ZoningVerificationLetter",
+          "RequestForRelief",
+          "WaiverRequest",
+          "InformalMeeting",
+          "EnvironmentalMonitoring",
+          "Vacation",
+          "VegetationRemoval",
 
-            "ComprehensivePlanAmendment",
-            "MinimumUseDetermination",
-            "TransferDevelopmentRightsDetermination",
-            "MapBoundaryDetermination",
-            "TransferDevelopmentRightsCertificate",
-            "UniformCommunityDevelopment",
-            "SpecialCertificateOfAppropriateness",
-            "CertificateToDig",
-            "HistoricDesignation",
-            "PlanningAdministrativeAppeal",
+          "ComprehensivePlanAmendment",
+          "MinimumUseDetermination",
+          "TransferDevelopmentRightsDetermination",
+          "MapBoundaryDetermination",
+          "TransferDevelopmentRightsCertificate",
+          "UniformCommunityDevelopment",
+          "SpecialCertificateOfAppropriateness",
+          "CertificateToDig",
+          "HistoricDesignation",
+          "PlanningAdministrativeAppeal",
 
-            "WellPermit",
-            "TestBoring",
-            "ExistingWellInspection",
-            "NaturalResourcesComplaint",
-            "NaturalResourcesViolation",
-            "LetterWaterSewer",
-            "UtilitiesConnection",
+          "WellPermit",
+          "TestBoring",
+          "ExistingWellInspection",
+          "NaturalResourcesComplaint",
+          "NaturalResourcesViolation",
+          "LetterWaterSewer",
+          "UtilitiesConnection",
 
-            "DrivewayPermit",
-            "RightOfWayPermit",
-            null
-            ]
-          },
-
-          "comment": "Specific type of improvement or renovation performed.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
+          "DrivewayPermit",
+          "RightOfWayPermit",
+          null
+        ]
+      },      
         "improvement_status": {
           "enum": [
             "Completed",
@@ -20336,7 +20329,7 @@
           "comment": "Whether the improvement required building permits."
         },
         "permit_number": {
-          "description": "Jurisdiction record/permit number (e.g., MEC2025-05360).",
+          "comment": "Jurisdiction record/permit number (e.g., MEC2025-05360).",
           "type": ["string","null"],
           "optional": true
         },
@@ -20346,62 +20339,57 @@
           "type": ["string","null"],
           "format": "date",
           "optional": true
-        },
+      },
+      
       "permit_issue_date": {
-        "description": "Date the permit was issued.",
+        "comment": "Date the permit was issued.",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
+      
       "final_inspection_date": {
-        "description": "Date of final inspection approval.",
+        "comment": "Date of final inspection approval.",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
+      
       "permit_close_date": {
-        "description": "Date the permit record was closed/complete.",
+        "comment": "Date the permit record was closed/complete.",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
       "improvement_action": {
-        "description": "Nature of the work.",
+        "comment": "Nature of the work.",
         "enum": ["New","Replacement","Repair","Alteration","Addition","Remove","Other", null],
         "type": ["string","null"],
         "optional": true
       },
       "is_owner_builder": {
-        "description": "Whether improvement is done by owner versus hiring a contractor",
+        "comment": "Whether improvement is done by owner versus hiring a contractor",
         "type": ["boolean","null"],
         "optional": true
       },
       "is_disaster_recovery": {
-        "description": "Whether the work is associated with disaster recovery.",
+        "comment": "Whether the work is associated with disaster recovery.",
         "type": ["boolean","null"],
         "optional": true
       },
       "private_provider_plan_review": {
-        "description": "Private provider used for plan review.",
+        "comment": "Private provider used for plan review.",
         "type": ["boolean","null"],
         "optional": true
       },
         "private_provider_inspections": {
-          "description": "Private provider used for inspections.",
+          "comment": "Private provider used for inspections.",
           "type": ["boolean","null"],
           "optional": true
-        },
-      "example": {
-        "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
-        "request_identifier": "52434205310037080",
-        "improvement_type": "ElectricalUpgrade",
-        "improvement_status": "Completed",
-        "completion_date": "2025-04-17",
-        "improvement_cost": null,
-        "contractor_type": "Unknown",
-        "permit_required": true
+        }
       }
     },
+        
     {
       "type": "nearby_location",
       "description": "The NearbyLocation class provides comprehensive documentation of points of interest, amenities, and attractions within proximity to a property, essential for evaluating neighborhood desirability and lifestyle convenience. It captures location details including names, precise distances in miles with decimal precision, and categorical classifications spanning shopping, dining, entertainment, nature, fitness, beaches, historical sites, parks, museums, recreation, pet services, wellness facilities, and tourist attractions. The class includes extensive feature specifications ranging from retail options (grocery stores, malls, boutiques) and dining establishments (cafes, fine dining, food trucks) to recreational facilities (hiking trails, gyms, golf courses) and specialized amenities (pet services, spa treatments, cultural exhibits). It also evaluates practical accessibility through walkability assessments, helping property buyers understand transportation needs and pedestrian-friendly neighborhood characteristics. This data is crucial for lifestyle matching, property marketing, neighborhood analysis, and helping potential residents assess proximity to essential services, entertainment options, and recreational opportunities that align with their preferences and daily needs.",
@@ -20599,7 +20587,8 @@
           "comment": "Whether the location is considered walkable from the property."
         }
       }
-    },
+    },  
+
     {
       "type": "property_unit",
       "container_name": "property_units",
