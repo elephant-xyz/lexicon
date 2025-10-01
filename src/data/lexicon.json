@@ -27289,105 +27289,8 @@
         {
           "type": "relationship",
           "from": "property",
-          "to": "file",
-          "relationship_type": "property_has_permit"
-        },
-        {
-          "type": "relationship",
-          "from": "property",
           "to": "property_improvement",
           "relationship_type": "property_has_property_improvement"
-        },
-        {
-          "type": "relationship",
-          "from": "property",
-          "to": "fact_sheet",
-          "relationship_type": "property_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "file",
-          "to": "fact_sheet",
-          "relationship_type": "file_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "fact_sheet",
-          "relationship_type": "property_improvement_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "unnormalized_address",
-          "relationship_type": "property_improvement_has_unormalized_address"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "person",
-          "relationship_type": "property_improvement_has_contractor"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "company",
-          "relationship_type": "property_improvement_has_contractor_company"
-        },
-        
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "person",
-          "relationship_type": "property_improvement_has_owner"
-        },
-        {
-          "type": "relationship",
-          "from": "person",
-          "to": "communication",
-          "relationship_type": "person_has_communication"
-        },
-        {
-          "type": "relationship",
-          "from": "person",
-          "to": "communication",
-          "relationship_type": "contractor_has_communication"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "structure",
-          "relationship_type": "property_improvement_has_structure"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "utility",
-          "relationship_type": "property_improvement_has_utility"
-        },
-        {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "layout",
-          "relationship_type": "property_improvement_has_layout"
-        },
-        {
-          "type": "relationship",
-          "from": "utility",
-          "to": "fact_sheet",
-          "relationship_type": "utility_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "structure",
-          "to": "fact_sheet",
-          "relationship_type": "structure_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "communication",
-          "to": "fact_sheet",
-          "relationship_type": "communication_has_fact_sheet"
         }
 
 
@@ -27397,19 +27300,8 @@
         "property_has_property_improvement"
       ],
       "one_to_many_relationships": [
-        "property_has_permit",
-        "property_has_property_improvement",
-        "property_has_fact_sheet",
-        "property_has_permit",
-        "file_has_fact_sheet",
-        "property_improvement_has_fact_sheet",
-        "property_improvement_has_company",
-        "property_improvement_has_owner",
-        "property_improvement_has_layout",
-         "utility_has_fact_sheet",
-         "structure_has_fact_sheet",
-         "layout_has_fact_sheet",
-         "communication_has_fact_sheet"
+        "property_has_property_improvement"
+
       ]
     },
     {
