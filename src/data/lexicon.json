@@ -27300,7 +27300,7 @@
         "property_has_property_improvement"
       ],
       "one_to_many_relationships": [
-        "property_has_property_improvement",
+        "property_has_property_improvement"
 
       ]
     },
