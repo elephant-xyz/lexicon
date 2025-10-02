@@ -27291,7 +27291,20 @@
           "from": "property",
           "to": "property_improvement",
           "relationship_type": "property_has_property_improvement"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "company",
+          "relationship_type": "property_has_contractor"
+        },
+        {
+          "type": "relationship",
+          "from": "company",
+          "to": "communication",
+          "relationship_type": "comany_has_communication"
         }
+
 
 
 
@@ -27300,7 +27313,8 @@
         "property_has_property_improvement"
       ],
       "one_to_many_relationships": [
-        "property_has_property_improvement"
+        "property_has_property_improvement",
+        "property_has_contractor"
 
       ]
     },
