@@ -4227,7 +4227,8 @@
         "website",
         "work_phone_number",
         "work_phone_number",
-        "communication_identifier"
+        "communication_identifier",
+        "email_excluded"
 
     
 
