@@ -4285,13 +4285,10 @@
         },
         "home_phone_number": {
           "type": ["string","null"],
-          "format": "phone_number",
           "comment": "A home phone number is a telephone number that is associated with a residential address, typically used for personal or family communication purposes. It is a phone number that is linked to a landline or a Voice over Internet Protocol (VoIP) service that is connected to a physical address."
         },
         "virtual_phone_number": {
           "type": ["string","null"],
-          "format": "phone_number",
-          "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
           "comment": "A virtual phone number is a telephone number that doesn't require a physical phone line. It's essentially a digital number that can be used to make and receive calls through the internet."
         },
         "last_updated": {
