@@ -4302,7 +4302,6 @@
         "phone_number": {
           "type": ["string","null"],
           "format": "phone_number",
-          "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
           "comment": "A phone number is a unique sequence of digits assigned to a specific telephone line or mobile device that allows it to be reached by a caller. It is typically comprised of a country code, area code, and a specific number assigned to the device."
           
         },
