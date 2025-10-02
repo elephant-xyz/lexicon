@@ -27298,7 +27298,7 @@
           "type": "relationship",
           "from": "property_improvement",
           "to": "company",
-          "relationship_type": "property_has_contractor"
+          "relationship_type": "property_improvement_has_contractor"
         },
         {
           "type": "relationship",
