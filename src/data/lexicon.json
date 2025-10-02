@@ -4258,6 +4258,7 @@
         },
         "email_address": {
           "type": ["string","null"],
+          "format": "email",
           "comment": "An email address is a unique identifier used to send and receive electronic messages over the internet. It typically consists of two parts: a username and a domain name, separated by the '@' symbol."
         },
         "email_excluded": {
@@ -4284,10 +4285,13 @@
         },
         "home_phone_number": {
           "type": ["string","null"],
+          "format": "phone_number",
           "comment": "A home phone number is a telephone number that is associated with a residential address, typically used for personal or family communication purposes. It is a phone number that is linked to a landline or a Voice over Internet Protocol (VoIP) service that is connected to a physical address."
         },
         "virtual_phone_number": {
-          "type": ["string",null],
+          "type": ["string","null"],
+          "format": "phone_number",
+          "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
           "comment": "A virtual phone number is a telephone number that doesn't require a physical phone line. It's essentially a digital number that can be used to make and receive calls through the internet."
         },
         "last_updated": {
@@ -4300,7 +4304,10 @@
         },
         "phone_number": {
           "type": ["string","null"],
+          "format": "phone_number",
+          "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
           "comment": "A phone number is a unique sequence of digits assigned to a specific telephone line or mobile device that allows it to be reached by a caller. It is typically comprised of a country code, area code, and a specific number assigned to the device."
+          
         },
         "secret": {
           "type": "string",
@@ -20480,7 +20487,6 @@
         },
         "distance_miles": {
           "type": "decimal",
-          "format": "miles-distance",
           "comment": "Distance in miles, allowing up to 3 decimal places (e.g., '0.123', '12', '5.7')"
         },
         "location_type": {
@@ -27626,6 +27632,24 @@
         "format": "rate_percent",
         "pattern": "^\\d+\\.\\d{3}$",
         "description": "Interest rate format with exactly 3 decimal places (e.g., 5.250)"
+      }
+    },
+    {
+      "type": "email",
+      "properties": {
+        "type": "string",
+        "format": "email",
+        "pattern": "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
+        "description": "Standard email address format"
+      }
+    },
+    {
+      "type": "phone_number",
+      "properties": {
+        "type": "string",
+        "format": "phone_number",
+        "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
+        "description": "US phone number format: 123-456-7890"
       }
     }
   ]
