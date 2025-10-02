@@ -27306,19 +27306,29 @@
           "type": "relationship",
           "from": "company",
           "to": "communication",
-          "relationship_type": "comany_has_communication"
+          "relationship_type": "company_has_communication"
+        },
+        {
+          "type": "relationship",
+          "from": "company",
+          "to": "person",
+          "relationship_type": "contractor_has_person"
         }
+
+
 
 
 
 
       ],
       "required": [
-        "property_has_property_improvement"
+    
       ],
       "one_to_many_relationships": [
         "property_has_property_improvement",
-        "property_has_contractor"
+        "property_improvement_has_contractor",
+        "company_has_communication",
+        "contractor_has_person"
 
       ]
     },
