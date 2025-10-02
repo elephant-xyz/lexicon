@@ -4226,7 +4226,8 @@
         "username",
         "website",
         "work_phone_number",
-        "work_phone_number"
+        "work_phone_number",
+        "communication_identifier"
 
     
 
@@ -4255,7 +4256,7 @@
           "comment": "A domain name is a unique and human-readable address that identifies a website on the internet. It serves as a memorable and recognizable name for accessing websites rather than using numerical IP addresses."
         },
         "email_address": {
-          "type": ["string",null],
+          "type": ["string","null"],
           "comment": "An email address is a unique identifier used to send and receive electronic messages over the internet. It typically consists of two parts: a username and a domain name, separated by the '@' symbol."
         },
         "email_excluded": {
@@ -4281,7 +4282,7 @@
           ]
         },
         "home_phone_number": {
-          "type": ["string",null],
+          "type": ["string","null"],
           "comment": "A home phone number is a telephone number that is associated with a residential address, typically used for personal or family communication purposes. It is a phone number that is linked to a landline or a Voice over Internet Protocol (VoIP) service that is connected to a physical address."
         },
         "virtual_phone_number": {
@@ -4297,7 +4298,7 @@
           "comment": "A password for a computer system is a confidential piece of information that is used to authenticate and verify the identity of a user."
         },
         "phone_number": {
-          "type": ["string",null],
+          "type": ["string","null"],
           "comment": "A phone number is a unique sequence of digits assigned to a specific telephone line or mobile device that allows it to be reached by a caller. It is typically comprised of a country code, area code, and a specific number assigned to the device."
         },
         "secret": {
