@@ -19294,6 +19294,14 @@
           "comment": "Heated living area in square feet (habitable space excluding garages, porches, and unfinished areas).",
           "optional": true
         },
+        "heated_area_sq_ft": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "Heated area (served by permanent heating) in square feet. Typically overlaps living area under air.",
+          "optional": true
+        },
         "area_under_air_sq_ft": {
           "type": [
             "integer",
