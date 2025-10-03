@@ -19262,6 +19262,46 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
           "minLength": 1
         },
+        "building_number": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "The building number identifying which building the room or space is located in (useful for multi-building properties or complexes).",
+          "optional": true
+        },
+        "total_area_sq_ft": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "Total enclosed building area in square feet, including all finished and unfinished spaces.",
+          "optional": true
+        },
+        "adjustable_area_sq_ft": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "Adjustable area in square feet used for planning or reconfiguration (e.g., flex or convertible spaces).",
+          "optional": true
+        },
+        "living_area_sq_ft": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "Heated living area in square feet (habitable space excluding garages, porches, and unfinished areas).",
+          "optional": true
+        },
+        "area_under_air_sq_ft": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "Air-conditioned area under air (A/C) in square feet.",
+          "optional": true
+        },
         "space_type": {
           "enum": [
             "Living Room",
@@ -19351,6 +19391,13 @@
             "Lower Screened Porch",
             "Screened Porch",
             "Stoop",
+            "First Floor",
+            "Second Floor",
+            "Third Floor",
+            "Fourth Floor",
+            "Basement",
+            "Sub-Basement",
+            "Entire Building",
             null
           ],
           "comment": "The function or designation of the room.",
@@ -24596,7 +24643,13 @@
         "type": ["string","null"],
         "format": "date",
         "optional": true
+      },
+      "number_of_buildings": {
+        "comment": "The total number of separate buildings or structures present on the property, including the main building and any detached structures such as garages, sheds, or guest houses.",
+        "type": ["integer","null"],
+        "optional": true
       }
+
     },
     {
       "type": "subscription_filter",
@@ -26323,6 +26376,28 @@
           ],
           "comment": "A free-form field to capture additional detail when Other is selected for the heating system type.",
           "minLength": 1
+        },
+        "heating_fuel_type": {
+          "enum": [
+            "Electric",
+            "NaturalGas",
+            "Propane",
+            "Oil",
+            "Kerosene",
+            "WoodPellet",
+            "Wood",
+            "Geothermal",
+            "Solar",
+            "DistrictSteam",
+            "Other",
+            null
+          ],
+          "comment": "Primary energy source used by the heating system.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "optional": true
         },
         "public_utility_type": {
           "enum": [
