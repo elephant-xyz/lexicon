@@ -19286,7 +19286,7 @@
           "comment": "Adjustable area in square feet used for planning or reconfiguration (e.g., flex or convertible spaces).",
           "optional": true
         },
-        "living_area_sq_ft": {
+        "livable_area_sq_ft": {
           "type": [
             "integer",
             "null"
@@ -19397,7 +19397,7 @@
             "Fourth Floor",
             "Basement",
             "Sub-Basement",
-            "Entire Building",
+            "Living Area",
             null
           ],
           "comment": "The function or designation of the room.",
