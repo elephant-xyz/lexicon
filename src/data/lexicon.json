@@ -19305,7 +19305,8 @@
         "story_type": {
           "comment": "Structural story classification if applicable",
           "enum": ["Full", "Half Story", "Three-Quarter Story", null],
-          "type": ["string","null"]
+          "type": ["string","null"],
+          "optional":true
         },
         "space_type": {
           "enum": [
