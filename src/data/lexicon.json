@@ -18430,7 +18430,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
         },
         "number_of_units": {
           "comment": "The number of units for a property refers to how many separate, self-contained dwelling or rental spaces exist within that property.",
