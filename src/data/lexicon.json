@@ -18430,8 +18430,7 @@
           "type": [
             "string",
             "null"
-          ],
-          "optional": true
+          ]
         },
         "number_of_units": {
           "comment": "The number of units for a property refers to how many separate, self-contained dwelling or rental spaces exist within that property.",
@@ -22209,7 +22208,8 @@
             "Right of Way Deed",
             "Vacation of Plat Deed",
             "Assignment of Contract",
-            "Release of Contract"
+            "Release of Contract",
+            "Miscellaneous"
           ],
           "optional": true
         }
