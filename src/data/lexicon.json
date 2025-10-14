@@ -2771,6 +2771,22 @@
           ],
           "comment": "A specific parcel or unit of land within a subdivision or plat, identified by a unique lot number or code assigned during the subdivision platting process.",
           "optional": true
+        },
+        "normalized_address": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "A standardized and cleaned version of the address that follows consistent formatting rules, making it suitable for data processing and matching.",
+          "minLength": 1
+        },
+        "unnormalized_address": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "The original, unprocessed address as it appears in source data, preserving the raw format and any inconsistencies.",
+          "minLength": 1
         }
       },
       "example": {
@@ -2813,6 +2829,127 @@
         "street_name",
         "street_number",
         "street_suffix_type"
+      ]
+    },
+    {
+      "type": "parcel",
+      "container_name": "parcels",
+      "is_deprecated": false,
+      "deprecated_properties": [],
+      "description": "Represents a parcel of land with unique identifiers and formatted representations for property management and legal documentation purposes.",
+      "properties": {
+        "source_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
+        },
+        "request_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+          "minLength": 1
+        },
+        "parcel_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
+        },
+        "formatted_parcel_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "A human-readable, formatted version of the parcel identifier that may include separators, prefixes, or other formatting for display purposes.",
+          "minLength": 1
+        }
+      },
+      "example": {
+        "parcel_identifier": "52-43-42-05-31-003-7080",
+        "formatted_parcel_identifier": "52-43-42-05-31-003-7080",
+        "source_http_request": {
+          "method": "GET",
+          "url": "https://pbcpao.gov/Property/Details",
+          "multiValueQueryString": {
+            "parcelId": [
+              "52434205310037080"
+            ]
+          }
+        },
+        "request_identifier": "52434205310037080"
+      },
+      "relationships": {
+        "has_fact_sheet": {
+          "targets": [
+            "fact_sheet"
+          ],
+          "comment": "Links the parcel to its associated fact sheet document containing detailed information."
+        }
+      },
+      "required": [
+        "parcel_identifier"
       ]
     },
     {
@@ -18486,9 +18623,13 @@
           "comment": "When true, indicates that the owned property is the subject property."
         },
         "parcel_identifier": {
-          "type": "string",
+          "type": [
+            "string",
+            "null"
+          ],
           "minLength": 1,
-          "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
+          "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction.",
+          "optional": true
         },
         "pets_allowed_indicator": {
           "type": "boolean",
@@ -18777,6 +18918,10 @@
           "type": "boolean",
           "comment": "Indicates that the structure or improvement is habitable year round."
         },
+        "vacant_land": {
+          "type": "boolean",
+          "comment": "Indicates whether the land is vacant or not"
+        },
         "property_type": {
           "enum": [
             "Cooperative",
@@ -18803,7 +18948,19 @@
             "MobileHome",
             "Apartment",
             "MultiFamilyMoreThan10",
-            "MultiFamilyLessThan10"
+            "MultiFamilyLessThan10",
+            "Residential",
+            "DrylandCropland",
+            "Commercial",
+            "Agricultural",
+            "Industrial",
+            "Agricultural",
+            "Institutional",
+            "Government",
+            "Commercial",
+            "Hospitality",
+            "Infrastructure"
+
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
@@ -26796,6 +26953,7 @@
         "company",
         "structure",
         "tax",
+        "parcel",
         "loan",
         "school",
         "property_improvement",
@@ -26846,6 +27004,30 @@
           "from": "unnormalized_address",
           "to": "fact_sheet",
           "relationship_type": "unnormalized_address_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_seed",
+          "to": "address",
+          "relationship_type": "property_seed_has_address"
+        },
+        {
+          "type": "relationship",
+          "from": "address",
+          "to": "fact_sheet",
+          "relationship_type": "address_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_seed",
+          "to": "parcel",
+          "relationship_type": "property_seed_has_parcel"
+        },
+        {
+          "type": "relationship",
+          "from": "parcel",
+          "to": "fact_sheet",
+          "relationship_type": "parcel_has_fact_sheet"
         }
       ],
       "required": [
@@ -26861,7 +27043,11 @@
       },
       "one_to_many_relationships": [
         "property_seed_has_fact_sheet",
-        "unnormalized_address_has_fact_sheet"
+        "unnormalized_address_has_fact_sheet",
+        "property_seed_has_address",
+        "address_has_fact_sheet",
+        "property_seed_has_parcel",
+        "parcel_has_fact_sheet"
       ]
     },
     {
@@ -27040,6 +27226,18 @@
           "from": "deed",
           "to": "fact_sheet",
           "relationship_type": "deed_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "parcel",
+          "relationship_type": "property_has_parcel"
+        },
+        {
+          "type": "relationship",
+          "from": "parcel",
+          "to": "fact_sheet",
+          "relationship_type": "parcel_has_fact_sheet"
         }
       ],
       "one_to_many_relationships": [
@@ -27067,7 +27265,9 @@
         "utility_has_fact_sheet",
         "sales_history_has_deed",
         "deed_has_file",
-        "deed_has_fact_sheet"
+        "deed_has_fact_sheet",
+        "property_has_parcel",
+        "parcel_has_fact_sheet"
       ],
       "example": {
         "label": "County",
