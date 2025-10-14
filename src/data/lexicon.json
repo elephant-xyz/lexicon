@@ -17724,7 +17724,7 @@
       "type": "property_seed",
       "container_name": "property_seed",
       "description": "A minimum set of house property seed data containing essential identifying information for property records.",
-      "is_deprecated": false,
+      "is_deprecated": true,
       "deprecated_properties": [],
       "properties": {
         "source_http_request": {
