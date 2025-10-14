@@ -26995,12 +26995,6 @@
         },
         {
           "type": "relationship",
-          "from": "property_seed",
-          "to": "address",
-          "relationship_type": "property_seed_has_address"
-        },
-        {
-          "type": "relationship",
           "from": "address",
           "to": "parcel",
           "relationship_type": "address_has_parcel"
