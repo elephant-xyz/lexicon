@@ -2909,14 +2909,6 @@
           "type": "string",
           "minLength": 1,
           "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
-        },
-        "formatted_parcel_identifier": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "comment": "A human-readable, formatted version of the parcel identifier that may include separators, prefixes, or other formatting for display purposes.",
-          "minLength": 1
         }
       },
       "example": {
@@ -27093,12 +27085,6 @@
         }
       },
       "one_to_many_relationships": [
-        "property_seed_has_fact_sheet",
-        "unnormalized_address_has_fact_sheet",
-        "property_seed_has_address",
-        "address_has_fact_sheet",
-        "property_seed_has_parcel",
-        "parcel_has_fact_sheet"
       ]
     },
     {
