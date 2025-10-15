@@ -18800,7 +18800,7 @@
             "Leasehold",
             null
           ],
-          "optional": true
+          "optional": true,
           "comment": "A value from a MISMO prescribed list that specifies the ownership interest in the property.",
           "type": [
             "string",
