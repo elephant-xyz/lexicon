@@ -2928,7 +2928,9 @@
       "relationships": {
       },
       "required": [
-        "parcel_identifier"
+        "parcel_identifier",
+        "request_identifier",
+        "source_http_request"
       ]
     },
     {
