@@ -1397,7 +1397,7 @@
       "type": "unnormalized_address",
       "container_name": "unnormalized_address",
       "description": "An unnormalized address schema containing raw address data as typically found in source systems before standardization or parsing into individual components.",
-      "is_deprecated": true,
+      "is_deprecated": false,
       "deprecated_properties": [],
       "properties": {
         "full_address": {
