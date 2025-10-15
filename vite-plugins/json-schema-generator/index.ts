@@ -447,6 +447,48 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
   }
 
+  // Special handling for address class - create oneOf with unnormalized_address or structured fields
+  if (lexiconClass.type === 'address' && properties.unnormalized_address) {
+    // Separate unnormalized_address from other properties
+    const { unnormalized_address, ...structuredProperties } = properties;
+
+    // Create required fields for structured properties (excluding unnormalized_address)
+    const structuredRequiredFields = allRequiredFields.filter(
+      field => field !== 'unnormalized_address'
+    );
+
+    // Create required fields for unnormalized_address option
+    const unnormalizedRequiredFields = ['unnormalized_address'];
+
+    // Create the oneOf schema
+    return {
+      $schema: 'https://json-schema.org/draft-07/schema#',
+      type: 'object',
+      title: lexiconClass.type,
+      description: `JSON Schema for ${lexiconClass.type} class in Elephant Lexicon`,
+      oneOf: [
+        {
+          // Option 1: Just unnormalized_address
+          type: 'object',
+          properties: {
+            unnormalized_address,
+          },
+          required: unnormalizedRequiredFields,
+          additionalProperties: false,
+          description: 'Address with unnormalized format only',
+        },
+        {
+          // Option 2: Structured address fields (without unnormalized_address)
+          type: 'object',
+          properties: structuredProperties,
+          required: structuredRequiredFields,
+          additionalProperties: false,
+          description: 'Address with structured fields',
+        },
+      ],
+    };
+  }
+
   // Create base schema
   const baseSchema = {
     $schema: 'https://json-schema.org/draft-07/schema#',
