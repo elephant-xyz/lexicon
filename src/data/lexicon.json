@@ -18549,6 +18549,7 @@
             "TwoToFour",
             null
           ],
+          "optional": true,
           "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs.",
           "type": [
             "string",
@@ -19058,7 +19059,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
         },
         "property_usage_type_other_description": {
           "type": [
