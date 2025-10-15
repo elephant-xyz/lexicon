@@ -18621,13 +18621,9 @@
           "comment": "When true, indicates that the owned property is the subject property."
         },
         "parcel_identifier": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": "string",
           "minLength": 1,
-          "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction.",
-          "optional": true
+          "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
         },
         "pets_allowed_indicator": {
           "type": "boolean",
