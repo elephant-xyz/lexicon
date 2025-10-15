@@ -2772,21 +2772,14 @@
           "comment": "A specific parcel or unit of land within a subdivision or plat, identified by a unique lot number or code assigned during the subdivision platting process.",
           "optional": true
         },
-        "normalized_address": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "comment": "A standardized and cleaned version of the address that follows consistent formatting rules, making it suitable for data processing and matching.",
-          "minLength": 1
-        },
         "unnormalized_address": {
           "type": [
             "string",
             "null"
           ],
           "comment": "The original, unprocessed address as it appears in source data, preserving the raw format and any inconsistencies.",
-          "minLength": 1
+          "minLength": 1,
+          "optional":true
         }
       },
       "example": {
@@ -2941,12 +2934,6 @@
         "request_identifier": "52434205310037080"
       },
       "relationships": {
-        "has_fact_sheet": {
-          "targets": [
-            "fact_sheet"
-          ],
-          "comment": "Links the parcel to its associated fact sheet document containing detailed information."
-        }
       },
       "required": [
         "parcel_identifier"
@@ -18813,6 +18800,7 @@
             "Leasehold",
             null
           ],
+          "optional": true
           "comment": "A value from a MISMO prescribed list that specifies the ownership interest in the property.",
           "type": [
             "string",
@@ -18927,7 +18915,8 @@
             "VacantLand",
             "Improved",
             "UnderConstruction"
-          ]
+          ],
+          "optional": true
         },
         "property_type": {
           "enum": [
@@ -18971,6 +18960,7 @@
             "string",
             "null"
           ],
+          "optional": true,
           "comment": "Describes the physical form or architectural configuration of the dwelling structure. This classification identifies the attachment style and unit type, such as single-family detached homes, townhouses, multi-unit buildings, or manufactured homes, which impacts property valuation, lending guidelines, and zoning considerations.",
           "enum": [
             "SingleFamilyDetached",
@@ -27096,7 +27086,6 @@
         }
       ],
       "required": [
-        "property_seed"
       ],
       "example": {
         "label": "Seed",
