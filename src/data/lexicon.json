@@ -18056,6 +18056,7 @@
         "historic_indicator",
         "property_structure_built_year_estimated_indicator",
         "property_structure_habitable_year_round_indicator",
+        "property_estate_type",
         "property_estate_type_other_description",
         "metropolitan_division_indicator",
         "fha_secondary_residence_indicator",
@@ -18801,9 +18802,8 @@
           "type": "boolean",
           "comment": "An indicator denoting whether the property securing the mortgage has earthquake insurance."
         },
-        "property_estate_type": {
+        "ownership_estate_type": {
           "enum": [
-            "Fractional",
             "Condominium",
             "Cooperative",
             "LifeEstate",
@@ -18917,6 +18917,18 @@
           "type": "boolean",
           "comment": "Indicates that the structure or improvement is habitable year round."
         },
+        "build_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Indicates the current construction and improvement status of the property. VacantLand indicates undeveloped land with no structures, Improved indicates land with completed structures or improvements, and UnderConstruction indicates active construction or development in progress.",
+          "enum": [
+            "VacantLand",
+            "Improved",
+            "UnderConstruction"
+          ]
+        },
         "property_type": {
           "enum": [
             "Cooperative",
@@ -18959,17 +18971,19 @@
             "string",
             "null"
           ],
-          "comment": "",
+          "comment": "Describes the physical form or architectural configuration of the dwelling structure. This classification identifies the attachment style and unit type, such as single-family detached homes, townhouses, multi-unit buildings, or manufactured homes, which impacts property valuation, lending guidelines, and zoning considerations.",
           "enum": [
-            "Duplex",
-            "SingleFamily",
-            "MultipleFamily",
-            "DetachedCondominium",
             "SingleFamilyDetached",
-            "4Units",
-            "Townhouse",
-            "2Units",
-            "3Units"
+            "SingleFamilySemiDetached",
+            "TownhouseRowhouse",
+            "Duplex",
+            "Triplex",
+            "Quadplex",
+            "MultiFamily5Plus",
+            "ApartmentUnit",
+            "Loft",
+            "ManufacturedHomeOnLand",
+            "ManufacturedHomeInPark"
           ]
         },
         "property_usage_type": {
@@ -18978,7 +18992,6 @@
             "Commercial",
             "Industrial",
             "Agricultural",
-            "MixedUse",
             "Recreational",
             "Conservation",
             "SpecialPurpose",
@@ -19054,9 +19067,6 @@
             "Railroad",
             "TransitionalProperty",
             "Unknown",
-            "SecondHome",
-            "PrimaryResidence",
-            "Investment",
             null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the intended usage of the property by the borrower.",
