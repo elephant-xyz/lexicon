@@ -453,7 +453,9 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     const { unnormalized_address, ...structuredProperties } = properties;
 
     // Create required fields for structured properties (excluding unnormalized_address)
-    const structuredRequiredFields = allRequiredFields.filter(field => field !== 'unnormalized_address');
+    const structuredRequiredFields = allRequiredFields.filter(
+      field => field !== 'unnormalized_address'
+    );
 
     // Create required fields for unnormalized_address option
     const unnormalizedRequiredFields = ['unnormalized_address'];
