@@ -2927,7 +2927,7 @@
         }
       },
       "example": {
-        "parcel_identifier": "52-43-42-05-31-003-7080",
+        "parcel_identifier": "52434205310037080",
         "formatted_parcel_identifier": "52-43-42-05-31-003-7080",
         "source_http_request": {
           "method": "GET",
