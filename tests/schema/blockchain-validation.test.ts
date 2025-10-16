@@ -44,49 +44,32 @@ describe('Blockchain Schema Validation', () => {
         // Check that it has the required structure
         expect(jsonSchema).toHaveProperty('$schema');
         expect(jsonSchema).toHaveProperty('type');
+        expect(jsonSchema).toHaveProperty('properties');
+        expect(jsonSchema).toHaveProperty('required');
 
-        // Special handling for address class with oneOf structure
-        if (className === 'address' && jsonSchema.oneOf) {
-          expect(jsonSchema).toHaveProperty('oneOf');
-          expect(Array.isArray(jsonSchema.oneOf)).toBe(true);
+        // Check that required fields are arrays
+        expect(Array.isArray(jsonSchema.required)).toBe(true);
 
-          // Validate each option in oneOf
-          for (const option of jsonSchema.oneOf as any[]) {
-            expect(option).toHaveProperty('properties');
-            expect(option).toHaveProperty('required');
-            expect(Array.isArray(option.required)).toBe(true);
-            expect(typeof option.properties).toBe('object');
-            expect(option.additionalProperties).toBe(false);
+        // Check that properties is an object
+        expect(typeof jsonSchema.properties).toBe('object');
+        expect(jsonSchema.properties).not.toBeNull();
+
+        // Check each property for proper constraints
+        for (const [_propName, propSchema] of Object.entries(jsonSchema.properties)) {
+          const prop = propSchema as any;
+
+          // Each property should have a type
+          expect(prop).toHaveProperty('type');
+
+          // If it has an enum, it should be an array and not have minLength
+          if (prop.enum) {
+            expect(Array.isArray(prop.enum)).toBe(true);
+            expect(prop).not.toHaveProperty('minLength');
           }
-        } else {
-          // Regular schema structure
-          expect(jsonSchema).toHaveProperty('properties');
-          expect(jsonSchema).toHaveProperty('required');
 
-          // Check that required fields are arrays
-          expect(Array.isArray(jsonSchema.required)).toBe(true);
-
-          // Check that properties is an object
-          expect(typeof jsonSchema.properties).toBe('object');
-          expect(jsonSchema.properties).not.toBeNull();
-
-          // Check each property for proper constraints
-          for (const [_propName, propSchema] of Object.entries(jsonSchema.properties)) {
-            const prop = propSchema as any;
-
-            // Each property should have a type
-            expect(prop).toHaveProperty('type');
-
-            // If it has an enum, it should be an array and not have minLength
-            if (prop.enum) {
-              expect(Array.isArray(prop.enum)).toBe(true);
-              expect(prop).not.toHaveProperty('minLength');
-            }
-
-            // If it has items (for arrays), it should be an object
-            if (prop.items) {
-              expect(typeof prop.items).toBe('object');
-            }
+          // If it has items (for arrays), it should be an object
+          if (prop.items) {
+            expect(typeof prop.items).toBe('object');
           }
         }
 
@@ -120,11 +103,7 @@ describe('Blockchain Schema Validation', () => {
 
         expect(jsonSchema.$schema).toBe('https://json-schema.org/draft-07/schema#');
         expect(jsonSchema.type).toBe('object');
-
-        // Address class has oneOf structure, so additionalProperties is in each option
-        if (className !== 'address') {
-          expect(jsonSchema.additionalProperties).toBe(false);
-        }
+        expect(jsonSchema.additionalProperties).toBe(false);
       }
     });
   });
@@ -159,51 +138,34 @@ describe('Blockchain Schema Validation', () => {
         // Check that it's a valid JSON Schema
         expect(jsonSchema).toHaveProperty('$schema');
         expect(jsonSchema).toHaveProperty('type');
+        expect(jsonSchema).toHaveProperty('properties');
+        expect(jsonSchema).toHaveProperty('required');
 
-        // Special handling for address class with oneOf structure
-        if (className === 'address' && jsonSchema.oneOf) {
-          expect(jsonSchema).toHaveProperty('oneOf');
-          expect(Array.isArray(jsonSchema.oneOf)).toBe(true);
+        // Note: We're not validating against JSON Schema spec, just checking structure
+        // The schema validation was removed because Ajv doesn't have the JSON Schema draft-07 loaded
 
-          // Validate each option in oneOf
-          for (const option of jsonSchema.oneOf as any[]) {
-            expect(option).toHaveProperty('properties');
-            expect(option).toHaveProperty('required');
-            expect(Array.isArray(option.required)).toBe(true);
-            expect(typeof option.properties).toBe('object');
-            expect(option.additionalProperties).toBe(false);
+        // Check that required fields are arrays
+        expect(Array.isArray(jsonSchema.required)).toBe(true);
+
+        // Check that properties is an object
+        expect(typeof jsonSchema.properties).toBe('object');
+        expect(jsonSchema.properties).not.toBeNull();
+
+        // Check that each property has required fields
+        for (const [_propName, propSchema] of Object.entries(jsonSchema.properties)) {
+          const prop = propSchema as any;
+
+          // Each property should have a type
+          expect(prop).toHaveProperty('type');
+
+          // If it has an enum, it should be an array
+          if (prop.enum) {
+            expect(Array.isArray(prop.enum)).toBe(true);
           }
-        } else {
-          // Regular schema structure
-          expect(jsonSchema).toHaveProperty('properties');
-          expect(jsonSchema).toHaveProperty('required');
 
-          // Note: We're not validating against JSON Schema spec, just checking structure
-          // The schema validation was removed because Ajv doesn't have the JSON Schema draft-07 loaded
-
-          // Check that required fields are arrays
-          expect(Array.isArray(jsonSchema.required)).toBe(true);
-
-          // Check that properties is an object
-          expect(typeof jsonSchema.properties).toBe('object');
-          expect(jsonSchema.properties).not.toBeNull();
-
-          // Check that each property has required fields
-          for (const [_propName, propSchema] of Object.entries(jsonSchema.properties)) {
-            const prop = propSchema as any;
-
-            // Each property should have a type
-            expect(prop).toHaveProperty('type');
-
-            // If it has an enum, it should be an array
-            if (prop.enum) {
-              expect(Array.isArray(prop.enum)).toBe(true);
-            }
-
-            // If it has items (for arrays), it should be an object
-            if (prop.items) {
-              expect(typeof prop.items).toBe('object');
-            }
+          // If it has items (for arrays), it should be an object
+          if (prop.items) {
+            expect(typeof prop.items).toBe('object');
           }
         }
       }
@@ -232,11 +194,7 @@ describe('Blockchain Schema Validation', () => {
 
         expect(jsonSchema.$schema).toBe('https://json-schema.org/draft-07/schema#');
         expect(jsonSchema.type).toBe('object');
-
-        // Address class has oneOf structure, so additionalProperties is in each option
-        if (className !== 'address') {
-          expect(jsonSchema.additionalProperties).toBe(false);
-        }
+        expect(jsonSchema.additionalProperties).toBe(false);
       }
     });
   });

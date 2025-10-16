@@ -2771,15 +2771,6 @@
           ],
           "comment": "A specific parcel or unit of land within a subdivision or plat, identified by a unique lot number or code assigned during the subdivision platting process.",
           "optional": true
-        },
-        "unnormalized_address": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "comment": "The original, unprocessed address as it appears in source data, preserving the raw format and any inconsistencies.",
-          "minLength": 1,
-          "optional":true
         }
       },
       "example": {
@@ -2822,114 +2813,6 @@
         "street_name",
         "street_number",
         "street_suffix_type"
-      ]
-    },
-    {
-      "type": "parcel",
-      "container_name": "parcels",
-      "is_deprecated": false,
-      "deprecated_properties": [],
-      "description": "Represents a parcel of land with unique identifiers and formatted representations for property management and legal documentation purposes.",
-      "properties": {
-        "source_http_request": {
-          "type": "object",
-          "properties": {
-            "method": {
-              "type": "string",
-              "required": true,
-              "enum": [
-                "GET",
-                "POST",
-                "PUT",
-                "PATCH",
-                null
-              ]
-            },
-            "url": {
-              "type": "string",
-              "required": true,
-              "comment": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
-            },
-            "headers": {
-              "type": "object",
-              "properties": {
-                "content-type": {
-                  "type": "string",
-                  "enum": [
-                    "application/json",
-                    "multipart/form-data",
-                    "text/xml",
-                    null
-                  ],
-                  "comment": "Content-Type header for the request, indicating the media type of the resource."
-                }
-              },
-              "additionalProperties": false
-            },
-            "multiValueQueryString": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "comment": "Query string parameters for the request, where each key can have multiple values."
-              }
-            },
-            "body": {
-              "type": "string",
-              "comment": "The body of the request, which may contain JSON or other data formats."
-            },
-            "json": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "comment": "JSON object data"
-                },
-                {
-                  "type": "array",
-                  "comment": "JSON array data"
-                }
-              ]
-            }
-          },
-          "comment": "HTTP request configuration for retrieving this data.",
-          "minProperties": 1
-        },
-        "request_identifier": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
-          "minLength": 1
-        },
-        "parcel_identifier": {
-          "type": "string",
-          "minLength": 1,
-          "comment": "Each parcel of land has a unique Parcel ID that distinguishes it from all other parcels within the jurisdiction."
-        }
-      },
-      "example": {
-        "parcel_identifier": "52434205310037080",
-        "source_http_request": {
-          "method": "GET",
-          "url": "https://pbcpao.gov/Property/Details",
-          "multiValueQueryString": {
-            "parcelId": [
-              "52434205310037080"
-            ]
-          }
-        },
-        "request_identifier": "52434205310037080"
-      },
-      "relationships": {
-      },
-      "required": [
-        "parcel_identifier",
-        "request_identifier",
-        "source_http_request"
       ]
     },
     {
@@ -17975,6 +17858,7 @@
         "property_vacancy_date",
         "property_disposition_status_type",
         "property_disposition_status_type_other_description",
+        "property_usage_type",
         "property_usage_type_other_description",
         "borrower_continues_to_own_property_indicator",
         "property_estimated_value_amount",
@@ -18542,7 +18426,6 @@
             "TwoToFour",
             null
           ],
-          "optional": true,
           "comment": "number of units type in mortgage banking refers to the classification of a property based on the number of units it contains.\n\nThis classification is important for determining the type of loan that can be used to finance the property, as well as the underwriting requirements and guidelines that must be followed.\n\nTypically, properties are classified into one of three categories: single-family homes, multi-family homes (e.g. duplexes, triplexes, fourplexes), and larger multi-unit properties (e.g. apartment buildings). The number of units type is used to determine the loan-to-value (LTV) ratio, debt-to-income (DTI) ratio, and other loan requirements, as well as the risk associated with the property.\n\nFor example, rdf:type single-family home may have more favorable lending terms than rdf:type multi-unit property, as the latter may be seen as rdf:type higher risk due to the potential for multiple tenants and increased maintenance costs.",
           "type": [
             "string",
@@ -18783,21 +18666,13 @@
           "type": "boolean",
           "comment": "An indicator denoting whether the property securing the mortgage has earthquake insurance."
         },
-        "ownership_estate_type": {
+        "property_estate_type": {
           "enum": [
-            "Condominium",
-            "Cooperative",
-            "LifeEstate",
-            "Timeshare",
-            "OtherEstate",
+            "Fractional",
             "FeeSimple",
             "Leasehold",
-            "RightOfWay",
-            "NonWarrantableCondo",
-            "SubsurfaceRights",
             null
           ],
-          "optional": true,
           "comment": "A value from a MISMO prescribed list that specifies the ownership interest in the property.",
           "type": [
             "string",
@@ -18902,19 +18777,6 @@
           "type": "boolean",
           "comment": "Indicates that the structure or improvement is habitable year round."
         },
-        "build_status": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "comment": "Indicates the current construction and improvement status of the property. VacantLand indicates undeveloped land with no structures, Improved indicates land with completed structures or improvements, and UnderConstruction indicates active construction or development in progress.",
-          "enum": [
-            "VacantLand",
-            "Improved",
-            "UnderConstruction"
-          ],
-          "optional": true
-        },
         "property_type": {
           "enum": [
             "Cooperative",
@@ -18941,119 +18803,25 @@
             "MobileHome",
             "Apartment",
             "MultiFamilyMoreThan10",
-            "MultiFamilyLessThan10",
-            "LandParcel",
-            "Building",
-            "Unit",
-            "ManufacturedHome"
+            "MultiFamilyLessThan10"
           ],
           "comment": "Property type refers to the classification of a real estate property based on its characteristics, usage, and zoning designation. Property types can include residential, commercial, industrial, agricultural, and mixed-use properties.",
           "type": [
             "string"
           ]
         },
-        "structure_form": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "optional": true,
-          "comment": "Describes the physical form or architectural configuration of the dwelling structure. This classification identifies the attachment style and unit type, such as single-family detached homes, townhouses, multi-unit buildings, or manufactured homes, which impacts property valuation, lending guidelines, and zoning considerations.",
-          "enum": [
-            "SingleFamilyDetached",
-            "SingleFamilySemiDetached",
-            "TownhouseRowhouse",
-            "Duplex",
-            "Triplex",
-            "Quadplex",
-            "MultiFamily5Plus",
-            "ApartmentUnit",
-            "Loft",
-            "ManufacturedHomeOnLand",
-            "ManufacturedHomeInPark",
-            "MultiFamilyMoreThan10",
-            "MultiFamilyLessThan10",
-            "MobileHome",
-            "ManufacturedHousingMultiWide",
-            "ManufacturedHousing",
-            "ManufacturedHousingSingleWide",
-            "Modular"
-          ]
-        },
         "property_usage_type": {
           "enum": [
-            "Residential",
-            "Commercial",
-            "Industrial",
-            "Agricultural",
-            "Recreational",
-            "Conservation",
-            "Retirement",
-            "ResidentialCommonElementsAreas",
-            "DrylandCropland",
-            "HayMeadow",
-            "CroplandClass2",
-            "CroplandClass3",
-            "TimberLand",
-            "GrazingLand",
-            "OrchardGroves",
-            "Poultry",
-            "Ornamentals",
-            "Church",
-            "PrivateSchool",
-            "PrivateHospital",
-            "HomesForAged",
-            "NonProfitCharity",
-            "MortuaryCemetery",
-            "ClubsLodges",
-            "SanitariumConvalescentHome",
-            "CulturalOrganization",
-            "Military",
-            "ForestParkRecreation",
-            "PublicSchool",
-            "PublicHospital",
-            "GovernmentProperty",
-            "RetailStore",
-            "DepartmentStore",
-            "Supermarket",
-            "ShoppingCenterRegional",
-            "ShoppingCenterCommunity",
-            "OfficeBuilding",
-            "MedicalOffice",
-            "TransportationTerminal",
-            "Restaurant",
-            "FinancialInstitution",
-            "ServiceStation",
-            "AutoSalesRepair",
-            "MobileHomePark",
-            "WholesaleOutlet",
-            "Theater",
-            "Entertainment",
-            "Hotel",
-            "RaceTrack",
-            "GolfCourse",
-            "LightManufacturing",
-            "HeavyManufacturing",
-            "LumberYard",
-            "PackingPlant",
-            "Cannery",
-            "MineralProcessing",
-            "Warehouse",
-            "OpenStorage",
-            "Utility",
-            "RiversLakes",
-            "SewageDisposal",
-            "Railroad",
-            "TransitionalProperty",
-            "Unknown",
+            "SecondHome",
+            "PrimaryResidence",
+            "Investment",
             null
           ],
           "comment": "A value from a MISMO prescribed list that specifies the intended usage of the property by the borrower.",
           "type": [
             "string",
             "null"
-          ],
-          "optional": true
+          ]
         },
         "property_usage_type_other_description": {
           "type": [
@@ -27028,7 +26796,6 @@
         "company",
         "structure",
         "tax",
-        "parcel",
         "loan",
         "school",
         "property_improvement",
@@ -27070,12 +26837,19 @@
         },
         {
           "type": "relationship",
-          "from": "address",
-          "to": "parcel",
-          "relationship_type": "address_has_parcel"
+          "from": "property_seed",
+          "to": "fact_sheet",
+          "relationship_type": "property_seed_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "unnormalized_address",
+          "to": "fact_sheet",
+          "relationship_type": "unnormalized_address_has_fact_sheet"
         }
       ],
       "required": [
+        "property_seed"
       ],
       "example": {
         "label": "Seed",
@@ -27086,6 +26860,8 @@
         }
       },
       "one_to_many_relationships": [
+        "property_seed_has_fact_sheet",
+        "unnormalized_address_has_fact_sheet"
       ]
     },
     {
@@ -27264,18 +27040,6 @@
           "from": "deed",
           "to": "fact_sheet",
           "relationship_type": "deed_has_fact_sheet"
-        },
-        {
-          "type": "relationship",
-          "from": "property",
-          "to": "parcel",
-          "relationship_type": "property_has_parcel"
-        },
-        {
-          "type": "relationship",
-          "from": "parcel",
-          "to": "fact_sheet",
-          "relationship_type": "parcel_has_fact_sheet"
         }
       ],
       "one_to_many_relationships": [
@@ -27303,9 +27067,7 @@
         "utility_has_fact_sheet",
         "sales_history_has_deed",
         "deed_has_file",
-        "deed_has_fact_sheet",
-        "property_has_parcel",
-        "parcel_has_fact_sheet"
+        "deed_has_fact_sheet"
       ],
       "example": {
         "label": "County",
