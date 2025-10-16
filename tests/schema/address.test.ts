@@ -34,11 +34,9 @@ describe('address.json Schema', () => {
     expect(option1.additionalProperties).toBe(false);
     expect(option1.required).toEqual(['source_http_request', 'request_identifier']);
     // Check that option 1 has exactly these three properties (order doesn't matter)
-    expect(Object.keys(option1.properties).sort()).toEqual([
-      'request_identifier',
-      'source_http_request',
-      'unnormalized_address',
-    ].sort());
+    expect(Object.keys(option1.properties).sort()).toEqual(
+      ['request_identifier', 'source_http_request', 'unnormalized_address'].sort()
+    );
   });
 
   it('should have option 2: structured fields with source_http_request and request_identifier', () => {
@@ -219,7 +217,9 @@ describe('address.json Schema', () => {
 
   it('should have correct content-type header definition in option 2', () => {
     const contentType =
-      addressSchema.oneOf[1].properties.source_http_request.properties.headers.properties['content-type'];
+      addressSchema.oneOf[1].properties.source_http_request.properties.headers.properties[
+        'content-type'
+      ];
     expect(contentType.type).toBe('string');
     expect(contentType.description).toBe(
       'Content-Type header for the request, indicating the media type of the resource.'
@@ -262,7 +262,8 @@ describe('address.json Schema', () => {
   });
 
   it('should have correct street_post_directional_text property definition in option 2', () => {
-    const streetPostDirectionalText = addressSchema.oneOf[1].properties.street_post_directional_text;
+    const streetPostDirectionalText =
+      addressSchema.oneOf[1].properties.street_post_directional_text;
     expect(streetPostDirectionalText.type).toEqual(['string', 'null']);
     expect(streetPostDirectionalText.enum).toEqual([
       'N',
@@ -420,7 +421,8 @@ describe('address.json Schema', () => {
   });
 
   it('should have proper enum values for street_post_directional_text in option 2', () => {
-    const streetPostDirectionalText = addressSchema.oneOf[1].properties.street_post_directional_text;
+    const streetPostDirectionalText =
+      addressSchema.oneOf[1].properties.street_post_directional_text;
     const expectedDirections = ['N', 'S', 'E', 'W', 'NE', 'NW', 'SE', 'SW', null];
     expect(streetPostDirectionalText.enum).toEqual(expectedDirections);
   });

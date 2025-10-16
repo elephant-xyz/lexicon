@@ -450,12 +450,8 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   // Special handling for address class - create oneOf with unnormalized_address or structured fields
   if (lexiconClass.type === 'address' && properties.unnormalized_address) {
     // Separate unnormalized_address from other properties, keeping source_http_request and request_identifier
-    const {
-      unnormalized_address,
-      source_http_request,
-      request_identifier,
-      ...otherProperties
-    } = properties;
+    const { unnormalized_address, source_http_request, request_identifier, ...otherProperties } =
+      properties;
 
     // Create required fields for unnormalized_address option
     // Only include source_http_request, request_identifier, and unnormalized_address
