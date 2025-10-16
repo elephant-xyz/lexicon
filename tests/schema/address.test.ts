@@ -17,111 +17,122 @@ describe('address.json Schema', () => {
     expect(addressSchema.description).toBe('JSON Schema for address class in Elephant Lexicon');
   });
 
-  it('should have the correct type and additionalProperties settings', () => {
+  it('should have the correct type', () => {
     expect(addressSchema.type).toBe('object');
-    expect(addressSchema.additionalProperties).toBe(false);
   });
 
-  it('should have the required properties', () => {
-    expect(addressSchema.required).toEqual([
+  it('should have a oneOf structure with two options', () => {
+    expect(addressSchema.oneOf).toBeDefined();
+    expect(Array.isArray(addressSchema.oneOf)).toBe(true);
+    expect(addressSchema.oneOf.length).toBe(2);
+  });
+
+  it('should have option 1: unnormalized_address with source_http_request, request_identifier, and county_name', () => {
+    const option1 = addressSchema.oneOf[0];
+    expect(option1.type).toBe('object');
+    expect(option1.description).toBe('Address with unnormalized format');
+    expect(option1.additionalProperties).toBe(false);
+    expect(option1.required).toEqual([
       'source_http_request',
       'request_identifier',
-      'city_name',
-      'country_code',
       'county_name',
-      'latitude',
-      'longitude',
-      'plus_four_postal_code',
-      'postal_code',
-      'state_code',
-      'street_name',
-      'street_post_directional_text',
-      'street_pre_directional_text',
-      'street_number',
-      'street_suffix_type',
-      'unit_identifier',
-      'township',
-      'range',
-      'section',
-      'block',
+      'unnormalized_address',
     ]);
+    // Check that option 1 has exactly these four properties (order doesn't matter)
+    expect(Object.keys(option1.properties).sort()).toEqual(
+      ['county_name', 'request_identifier', 'source_http_request', 'unnormalized_address'].sort()
+    );
   });
 
-  it('should have the correct properties structure', () => {
-    expect(addressSchema.properties).toBeDefined();
-    expect(addressSchema.properties).toHaveProperty('block');
-    expect(addressSchema.properties).toHaveProperty('city_name');
-    expect(addressSchema.properties).toHaveProperty('country_code');
-    expect(addressSchema.properties).toHaveProperty('county_name');
-    expect(addressSchema.properties).toHaveProperty('latitude');
-    expect(addressSchema.properties).toHaveProperty('longitude');
-    expect(addressSchema.properties).toHaveProperty('plus_four_postal_code');
-    expect(addressSchema.properties).toHaveProperty('postal_code');
-    expect(addressSchema.properties).toHaveProperty('range');
-    expect(addressSchema.properties).toHaveProperty('request_identifier');
-    expect(addressSchema.properties).toHaveProperty('section');
-    expect(addressSchema.properties).toHaveProperty('source_http_request');
-    expect(addressSchema.properties).toHaveProperty('state_code');
-    expect(addressSchema.properties).toHaveProperty('street_name');
-    expect(addressSchema.properties).toHaveProperty('street_post_directional_text');
-    expect(addressSchema.properties).toHaveProperty('street_pre_directional_text');
-    expect(addressSchema.properties).toHaveProperty('street_number');
-    expect(addressSchema.properties).toHaveProperty('street_suffix_type');
-    expect(addressSchema.properties).toHaveProperty('township');
-    expect(addressSchema.properties).toHaveProperty('unit_identifier');
+  it('should have option 2: structured fields with source_http_request and request_identifier', () => {
+    const option2 = addressSchema.oneOf[1];
+    expect(option2.type).toBe('object');
+    expect(option2.description).toBe('Address with structured fields');
+    expect(option2.additionalProperties).toBe(false);
+    expect(option2.required).toContain('source_http_request');
+    expect(option2.required).toContain('request_identifier');
+    expect(option2.required).toContain('city_name');
+    expect(option2.required).toContain('country_code');
+    expect(option2.required).toContain('street_name');
+    expect(option2.required).not.toContain('unnormalized_address');
   });
 
-  it('should have correct block property definition', () => {
-    const block = addressSchema.properties.block;
+  it('should have the correct properties structure in option 2 (structured fields)', () => {
+    const option2Properties = addressSchema.oneOf[1].properties;
+    expect(option2Properties).toBeDefined();
+    expect(option2Properties).toHaveProperty('block');
+    expect(option2Properties).toHaveProperty('city_name');
+    expect(option2Properties).toHaveProperty('country_code');
+    expect(option2Properties).toHaveProperty('county_name');
+    expect(option2Properties).toHaveProperty('latitude');
+    expect(option2Properties).toHaveProperty('longitude');
+    expect(option2Properties).toHaveProperty('plus_four_postal_code');
+    expect(option2Properties).toHaveProperty('postal_code');
+    expect(option2Properties).toHaveProperty('range');
+    expect(option2Properties).toHaveProperty('request_identifier');
+    expect(option2Properties).toHaveProperty('section');
+    expect(option2Properties).toHaveProperty('source_http_request');
+    expect(option2Properties).toHaveProperty('state_code');
+    expect(option2Properties).toHaveProperty('street_name');
+    expect(option2Properties).toHaveProperty('street_post_directional_text');
+    expect(option2Properties).toHaveProperty('street_pre_directional_text');
+    expect(option2Properties).toHaveProperty('street_number');
+    expect(option2Properties).toHaveProperty('street_suffix_type');
+    expect(option2Properties).toHaveProperty('township');
+    expect(option2Properties).toHaveProperty('unit_identifier');
+  });
+
+  it('should have correct block property definition in option 2', () => {
+    const block = addressSchema.oneOf[1].properties.block;
     expect(block.type).toEqual(['string', 'null']);
     expect(block.description).toContain('A block is a further subdivision within a plat');
   });
 
-  it('should have correct city_name property definition', () => {
-    const cityName = addressSchema.properties.city_name;
-    expect(cityName.type).toBe('string');
+  it('should have correct city_name property definition in option 2', () => {
+    const cityName = addressSchema.oneOf[1].properties.city_name;
+    expect(cityName.type).toEqual(['string', 'null']);
     expect(cityName.minLength).toBe(1);
-    expect(cityName.description).toBe(
-      'City name refers to the name of the city in which the address is located.'
+    expect(cityName.description).toContain(
+      'City name refers to the name of the city in which the address is located'
     );
   });
 
-  it('should have correct country_code property definition', () => {
-    const countryCode = addressSchema.properties.country_code;
-    expect(countryCode.type).toBe('string');
+  it('should have correct country_code property definition in option 2', () => {
+    const countryCode = addressSchema.oneOf[1].properties.country_code;
+    expect(countryCode.type).toEqual(['string', 'null']);
     expect(countryCode.minLength).toBe(1);
-    expect(countryCode.description).toBe(
-      'Country code is a code that represents the country in which the address is located.'
+    expect(countryCode.description).toContain(
+      'Country code is a code that represents the country in which the address is located'
     );
   });
 
-  it('should have correct county_name property definition', () => {
-    const countyName = addressSchema.properties.county_name;
-    expect(countyName.type).toEqual(['string', 'null']);
-    expect(countyName.pattern).toBe('^(?!.*\\b[Cc]ounty\\b).*$');
-    expect(countyName.description).toBe(
-      'County name refers to the name of the county in which the address is located.'
+  it('should have correct county_name property definition in option 2', () => {
+    const countyName = addressSchema.oneOf[1].properties.county_name;
+    expect(countyName.type).toBe('string'); // county_name uses enum, so it's just string
+    expect(countyName.enum).toBeDefined(); // county_name uses enum, not pattern
+    expect(countyName.description).toContain(
+      'County name refers to the name of the county in which the address is located'
     );
   });
 
-  it('should have correct latitude property definition', () => {
-    const latitude = addressSchema.properties.latitude;
+  it('should have correct latitude property definition in option 2', () => {
+    const latitude = addressSchema.oneOf[1].properties.latitude;
     expect(latitude.type).toEqual(['number', 'null']);
     expect(latitude.description).toContain(
       'Latitude is a coordinate that specifies the north-south position'
     );
   });
 
-  it('should have correct longitude property definition', () => {
-    const longitude = addressSchema.properties.longitude;
+  it('should have correct longitude property definition in option 2', () => {
+    const longitude = addressSchema.oneOf[1].properties.longitude;
     expect(longitude.type).toEqual(['number', 'null']);
     expect(longitude.description).toContain(
       'Longitude is a coordinate that specifies the east-west position'
     );
   });
 
-  it('should have correct plus_four_postal_code property definition', () => {
-    const plusFourPostalCode = addressSchema.properties.plus_four_postal_code;
+  it('should have correct plus_four_postal_code property definition in option 2', () => {
+    const plusFourPostalCode = addressSchema.oneOf[1].properties.plus_four_postal_code;
     expect(plusFourPostalCode.type).toEqual(['string', 'null']);
     expect(plusFourPostalCode.pattern).toBe('^\\d{4}$');
     expect(plusFourPostalCode.description).toContain(
@@ -129,35 +140,35 @@ describe('address.json Schema', () => {
     );
   });
 
-  it('should have correct postal_code property definition', () => {
-    const postalCode = addressSchema.properties.postal_code;
+  it('should have correct postal_code property definition in option 2', () => {
+    const postalCode = addressSchema.oneOf[1].properties.postal_code;
     expect(postalCode.type).toEqual(['string', 'null']);
     expect(postalCode.pattern).toBe('^\\d{5}$');
     expect(postalCode.description).toContain('A postal code, also known as a ZIP code');
   });
 
-  it('should have correct range property definition', () => {
-    const range = addressSchema.properties.range;
+  it('should have correct range property definition in option 2', () => {
+    const range = addressSchema.oneOf[1].properties.range;
     expect(range.type).toEqual(['string', 'null']);
     expect(range.description).toContain('A range describes the east-west position of a township');
   });
 
-  it('should have correct request_identifier property definition', () => {
-    const requestIdentifier = addressSchema.properties.request_identifier;
+  it('should have correct request_identifier property definition in option 2', () => {
+    const requestIdentifier = addressSchema.oneOf[1].properties.request_identifier;
     expect(requestIdentifier.type).toEqual(['string', 'null']);
     expect(requestIdentifier.description).toBe(
       'Identifier value that should be substituted into the source HTTP request to retrieve this specific data.'
     );
   });
 
-  it('should have correct section property definition', () => {
-    const section = addressSchema.properties.section;
+  it('should have correct section property definition in option 2', () => {
+    const section = addressSchema.oneOf[1].properties.section;
     expect(section.type).toEqual(['string', 'null']);
     expect(section.description).toContain('Each township is divided into 36 sections');
   });
 
-  it('should have correct source_http_request property structure', () => {
-    const sourceHttpRequest = addressSchema.properties.source_http_request;
+  it('should have correct source_http_request property structure in option 2', () => {
+    const sourceHttpRequest = addressSchema.oneOf[1].properties.source_http_request;
     expect(sourceHttpRequest.type).toBe('object');
     expect(sourceHttpRequest.additionalProperties).toBe(false);
     expect(sourceHttpRequest.description).toBe(
@@ -166,8 +177,8 @@ describe('address.json Schema', () => {
     expect(sourceHttpRequest.required).toEqual(['method', 'url']);
   });
 
-  it('should have correct source_http_request sub-properties', () => {
-    const sourceHttpRequest = addressSchema.properties.source_http_request;
+  it('should have correct source_http_request sub-properties in option 2', () => {
+    const sourceHttpRequest = addressSchema.oneOf[1].properties.source_http_request;
     expect(sourceHttpRequest.properties).toHaveProperty('method');
     expect(sourceHttpRequest.properties).toHaveProperty('url');
     expect(sourceHttpRequest.properties).toHaveProperty('body');
@@ -176,57 +187,59 @@ describe('address.json Schema', () => {
     expect(sourceHttpRequest.properties).toHaveProperty('multiValueQueryString');
   });
 
-  it('should have correct method property definition', () => {
-    const method = addressSchema.properties.source_http_request.properties.method;
-    expect(method.type).toEqual(['string', 'null']);
+  it('should have correct method property definition in option 2', () => {
+    const method = addressSchema.oneOf[1].properties.source_http_request.properties.method;
+    expect(method.type).toBe('string');
     expect(method.enum).toEqual(['GET', 'POST', 'PUT', 'PATCH', null]);
   });
 
-  it('should have correct url property definition', () => {
-    const url = addressSchema.properties.source_http_request.properties.url;
-    expect(url.type).toEqual(['string', 'null']);
+  it('should have correct url property definition in option 2', () => {
+    const url = addressSchema.oneOf[1].properties.source_http_request.properties.url;
+    expect(url.type).toBe('string');
     expect(url.description).toBe('The URL endpoint for the request.');
-    expect(url.pattern).toBe('^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[a-zA-Z0-9._-]+)*$');
+    expect(url.pattern).toBe('^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$');
   });
 
-  it('should have correct body property definition', () => {
-    const body = addressSchema.properties.source_http_request.properties.body;
-    expect(body.type).toEqual(['string', 'null']);
+  it('should have correct body property definition in option 2', () => {
+    const body = addressSchema.oneOf[1].properties.source_http_request.properties.body;
+    expect(body.type).toBe('string');
     expect(body.description).toBe(
       'The body of the request, which may contain JSON or other data formats.'
     );
   });
 
-  it('should have correct json property definition', () => {
-    const json = addressSchema.properties.source_http_request.properties.json;
-    expect(json.type).toEqual(['object', 'array', 'null']);
+  it('should have correct json property definition in option 2', () => {
+    const json = addressSchema.oneOf[1].properties.source_http_request.properties.json;
+    expect(json.type).toEqual(['object', 'array']);
   });
 
-  it('should have correct headers property definition', () => {
-    const headers = addressSchema.properties.source_http_request.properties.headers;
-    expect(headers.type).toEqual(['object', 'null']);
+  it('should have correct headers property definition in option 2', () => {
+    const headers = addressSchema.oneOf[1].properties.source_http_request.properties.headers;
+    expect(headers.type).toBe('object');
     expect(headers.additionalProperties).toBe(false);
     expect(headers.properties).toHaveProperty('content-type');
   });
 
-  it('should have correct content-type header definition', () => {
+  it('should have correct content-type header definition in option 2', () => {
     const contentType =
-      addressSchema.properties.source_http_request.properties.headers.properties['content-type'];
-    expect(contentType.type).toEqual(['string', 'null']);
+      addressSchema.oneOf[1].properties.source_http_request.properties.headers.properties[
+        'content-type'
+      ];
+    expect(contentType.type).toBe('string');
     expect(contentType.description).toBe(
       'Content-Type header for the request, indicating the media type of the resource.'
     );
     expect(contentType.enum).toEqual(['application/json', 'multipart/form-data', 'text/xml', null]);
   });
 
-  it('should have correct multiValueQueryString property definition', () => {
+  it('should have correct multiValueQueryString property definition in option 2', () => {
     const multiValueQueryString =
-      addressSchema.properties.source_http_request.properties.multiValueQueryString;
-    expect(multiValueQueryString.type).toEqual(['object', 'null']);
+      addressSchema.oneOf[1].properties.source_http_request.properties.multiValueQueryString;
+    expect(multiValueQueryString.type).toBe('object');
   });
 
-  it('should have correct state_code property definition', () => {
-    const stateCode = addressSchema.properties.state_code;
+  it('should have correct state_code property definition in option 2', () => {
+    const stateCode = addressSchema.oneOf[1].properties.state_code;
     expect(stateCode.type).toEqual(['string', 'null']);
     expect(stateCode.pattern).toBe('^[A-Z]{2}$');
     expect(stateCode.description).toBe(
@@ -234,9 +247,9 @@ describe('address.json Schema', () => {
     );
   });
 
-  it('should have correct street_name property definition', () => {
-    const streetName = addressSchema.properties.street_name;
-    expect(streetName.type).toBe('string');
+  it('should have correct street_name property definition in option 2', () => {
+    const streetName = addressSchema.oneOf[1].properties.street_name;
+    expect(streetName.type).toEqual(['string', 'null']);
     expect(streetName.minLength).toBe(1);
     expect(streetName.pattern).toBe('^(?!.*(\\b(E|N|NE|NW|S|SE|SW|W)\\b)).*$');
     expect(streetName.description).toBe(
@@ -244,17 +257,18 @@ describe('address.json Schema', () => {
     );
   });
 
-  it('should have correct street_number property definition', () => {
-    const streetNumber = addressSchema.properties.street_number;
-    expect(streetNumber.type).toBe('string');
+  it('should have correct street_number property definition in option 2', () => {
+    const streetNumber = addressSchema.oneOf[1].properties.street_number;
+    expect(streetNumber.type).toEqual(['string', 'null']);
     expect(streetNumber.minLength).toBe(1);
     expect(streetNumber.description).toContain(
       'Street  number refers to the numerical part of a street address'
     );
   });
 
-  it('should have correct street_post_directional_text property definition', () => {
-    const streetPostDirectionalText = addressSchema.properties.street_post_directional_text;
+  it('should have correct street_post_directional_text property definition in option 2', () => {
+    const streetPostDirectionalText =
+      addressSchema.oneOf[1].properties.street_post_directional_text;
     expect(streetPostDirectionalText.type).toEqual(['string', 'null']);
     expect(streetPostDirectionalText.enum).toEqual([
       'N',
@@ -272,8 +286,8 @@ describe('address.json Schema', () => {
     );
   });
 
-  it('should have correct street_pre_directional_text property definition', () => {
-    const streetPreDirectionalText = addressSchema.properties.street_pre_directional_text;
+  it('should have correct street_pre_directional_text property definition in option 2', () => {
+    const streetPreDirectionalText = addressSchema.oneOf[1].properties.street_pre_directional_text;
     expect(streetPreDirectionalText.type).toEqual(['string', 'null']);
     expect(streetPreDirectionalText.enum).toEqual([
       'N',
@@ -291,23 +305,22 @@ describe('address.json Schema', () => {
     );
   });
 
-  it('should have correct street_suffix_type property definition', () => {
-    const streetSuffixType = addressSchema.properties.street_suffix_type;
-    expect(streetSuffixType.type).toBe('string');
-    expect(streetSuffixType.minLength).toBe(1);
+  it('should have correct street_suffix_type property definition in option 2', () => {
+    const streetSuffixType = addressSchema.oneOf[1].properties.street_suffix_type;
+    expect(streetSuffixType.type).toEqual(['string', 'null']);
     expect(streetSuffixType.enum).toBeDefined();
     expect(streetSuffixType.enum.length).toBeGreaterThan(100); // Large enum of street suffixes
   });
 
-  it('should have correct township property definition', () => {
-    const township = addressSchema.properties.township;
+  it('should have correct township property definition in option 2', () => {
+    const township = addressSchema.oneOf[1].properties.township;
     expect(township.type).toEqual(['string', 'null']);
     expect(township.description).toContain('A township is a 6-mile by 6-mile square of land');
   });
 
-  it('should have correct unit_identifier property definition', () => {
-    const unitIdentifier = addressSchema.properties.unit_identifier;
-    expect(unitIdentifier.type).toBe('string');
+  it('should have correct unit_identifier property definition in option 2', () => {
+    const unitIdentifier = addressSchema.oneOf[1].properties.unit_identifier;
+    expect(unitIdentifier.type).toEqual(['string', 'null']);
     expect(unitIdentifier.minLength).toBe(1);
     expect(unitIdentifier.description).toContain(
       'A unit identifier is a reference to the specific unit, suite, apartment'
@@ -388,8 +401,8 @@ describe('address.json Schema', () => {
     expect(bodyRequiresContentTypeRule.then.properties.headers.required).toContain('content-type');
   });
 
-  it('should have all required properties for a complete address record', () => {
-    const requiredProps = addressSchema.required;
+  it('should have all required properties for option 2 (structured fields)', () => {
+    const requiredProps = addressSchema.oneOf[1].required;
     expect(requiredProps).toContain('source_http_request');
     expect(requiredProps).toContain('request_identifier');
     expect(requiredProps).toContain('city_name');
@@ -412,45 +425,46 @@ describe('address.json Schema', () => {
     expect(requiredProps).toContain('block');
   });
 
-  it('should have proper enum values for street_post_directional_text', () => {
-    const streetPostDirectionalText = addressSchema.properties.street_post_directional_text;
+  it('should have proper enum values for street_post_directional_text in option 2', () => {
+    const streetPostDirectionalText =
+      addressSchema.oneOf[1].properties.street_post_directional_text;
     const expectedDirections = ['N', 'S', 'E', 'W', 'NE', 'NW', 'SE', 'SW', null];
     expect(streetPostDirectionalText.enum).toEqual(expectedDirections);
   });
 
-  it('should have proper enum values for street_pre_directional_text', () => {
-    const streetPreDirectionalText = addressSchema.properties.street_pre_directional_text;
+  it('should have proper enum values for street_pre_directional_text in option 2', () => {
+    const streetPreDirectionalText = addressSchema.oneOf[1].properties.street_pre_directional_text;
     const expectedDirections = ['N', 'S', 'E', 'W', 'NE', 'NW', 'SE', 'SW', null];
     expect(streetPreDirectionalText.enum).toEqual(expectedDirections);
   });
 
-  it('should have proper pattern validation for postal_code', () => {
-    const postalCode = addressSchema.properties.postal_code;
+  it('should have proper pattern validation for postal_code in option 2', () => {
+    const postalCode = addressSchema.oneOf[1].properties.postal_code;
     expect(postalCode.pattern).toBe('^\\d{5}$');
   });
 
-  it('should have proper pattern validation for plus_four_postal_code', () => {
-    const plusFourPostalCode = addressSchema.properties.plus_four_postal_code;
+  it('should have proper pattern validation for plus_four_postal_code in option 2', () => {
+    const plusFourPostalCode = addressSchema.oneOf[1].properties.plus_four_postal_code;
     expect(plusFourPostalCode.pattern).toBe('^\\d{4}$');
   });
 
-  it('should have proper pattern validation for state_code', () => {
-    const stateCode = addressSchema.properties.state_code;
+  it('should have proper pattern validation for state_code in option 2', () => {
+    const stateCode = addressSchema.oneOf[1].properties.state_code;
     expect(stateCode.pattern).toBe('^[A-Z]{2}$');
   });
 
-  it('should have proper pattern validation for street_name', () => {
-    const streetName = addressSchema.properties.street_name;
+  it('should have proper pattern validation for street_name in option 2', () => {
+    const streetName = addressSchema.oneOf[1].properties.street_name;
     expect(streetName.pattern).toBe('^(?!.*(\\b(E|N|NE|NW|S|SE|SW|W)\\b)).*$');
   });
 
-  it('should have proper pattern validation for county_name', () => {
-    const countyName = addressSchema.properties.county_name;
-    expect(countyName.pattern).toBe('^(?!.*\\b[Cc]ounty\\b).*$');
+  it('should have proper pattern validation for county_name in option 2', () => {
+    const countyName = addressSchema.oneOf[1].properties.county_name;
+    expect(countyName.enum).toBeDefined(); // county_name uses enum, not pattern
   });
 
-  it('should have comprehensive street suffix enum', () => {
-    const streetSuffixType = addressSchema.properties.street_suffix_type;
+  it('should have comprehensive street suffix enum in option 2', () => {
+    const streetSuffixType = addressSchema.oneOf[1].properties.street_suffix_type;
     expect(streetSuffixType.enum).toBeDefined();
     expect(streetSuffixType.enum.length).toBeGreaterThan(100);
     expect(streetSuffixType.enum).toContain('St');

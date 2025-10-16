@@ -449,44 +449,91 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
 
   // Special handling for address class - create oneOf with unnormalized_address or structured fields
   if (lexiconClass.type === 'address' && properties.unnormalized_address) {
-    // Separate unnormalized_address from other properties
-    const { unnormalized_address, ...structuredProperties } = properties;
+    // Separate unnormalized_address and county_name from other properties, keeping source_http_request and request_identifier
+    const {
+      unnormalized_address,
+      county_name,
+      source_http_request,
+      request_identifier,
+      ...otherProperties
+    } = properties;
 
-    // Create required fields for structured properties (excluding unnormalized_address)
+    // Create required fields for unnormalized_address option
+    // Include source_http_request, request_identifier, county_name, and unnormalized_address - all required
+    const unnormalizedRequiredFields = [
+      'source_http_request',
+      'request_identifier',
+      'county_name',
+      'unnormalized_address',
+    ];
+
+    // Create required fields for structured properties (excluding unnormalized_address, but keeping source_http_request and request_identifier)
     const structuredRequiredFields = allRequiredFields.filter(
       field => field !== 'unnormalized_address'
     );
 
-    // Create required fields for unnormalized_address option
-    const unnormalizedRequiredFields = ['unnormalized_address'];
-
     // Create the oneOf schema
-    return {
+    const schema = {
       $schema: 'https://json-schema.org/draft-07/schema#',
       type: 'object',
       title: lexiconClass.type,
       description: `JSON Schema for ${lexiconClass.type} class in Elephant Lexicon`,
       oneOf: [
         {
-          // Option 1: Just unnormalized_address
+          // Option 1: unnormalized_address with source_http_request, request_identifier, and county_name
           type: 'object',
           properties: {
+            source_http_request,
+            request_identifier,
+            county_name,
             unnormalized_address,
           },
           required: unnormalizedRequiredFields,
           additionalProperties: false,
-          description: 'Address with unnormalized format only',
+          description: 'Address with unnormalized format',
         },
         {
-          // Option 2: Structured address fields (without unnormalized_address)
+          // Option 2: Structured address fields (without unnormalized_address, but with source_http_request and request_identifier)
           type: 'object',
-          properties: structuredProperties,
+          properties: {
+            source_http_request,
+            request_identifier,
+            county_name,
+            ...otherProperties,
+          },
           required: structuredRequiredFields,
           additionalProperties: false,
           description: 'Address with structured fields',
         },
       ],
     };
+
+    // Add HTTP request validation rules if source_http_request is present
+    if (source_http_request) {
+      const validationRules = generateHTTPRequestValidationRules();
+      return {
+        ...schema,
+        allOf: [
+          {
+            // HTTP request specific validation
+            if: {
+              properties: {
+                source_http_request: {
+                  type: 'object',
+                },
+              },
+            },
+            then: {
+              properties: {
+                source_http_request: validationRules,
+              },
+            },
+          },
+        ],
+      };
+    }
+
+    return schema;
   }
 
   // Create base schema
