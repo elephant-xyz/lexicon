@@ -449,21 +449,25 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
 
   // Special handling for address class - create oneOf with unnormalized_address or structured fields
   if (lexiconClass.type === 'address' && properties.unnormalized_address) {
-    // Separate unnormalized_address and county_name from other properties, keeping source_http_request and request_identifier
+    // Separate unnormalized_address from other properties, keeping all common fields in both schemas
     const {
       unnormalized_address,
       county_name,
       source_http_request,
       request_identifier,
+      latitude,
+      longitude,
       ...otherProperties
     } = properties;
 
     // Create required fields for unnormalized_address option
-    // Include source_http_request, request_identifier, county_name, and unnormalized_address - all required
+    // Include source_http_request, request_identifier, county_name, latitude, longitude, and unnormalized_address - all required
     const unnormalizedRequiredFields = [
       'source_http_request',
       'request_identifier',
       'county_name',
+      'latitude',
+      'longitude',
       'unnormalized_address',
     ];
 
@@ -480,12 +484,14 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
       description: `JSON Schema for ${lexiconClass.type} class in Elephant Lexicon`,
       oneOf: [
         {
-          // Option 1: unnormalized_address with source_http_request, request_identifier, and county_name
+          // Option 1: unnormalized_address with source_http_request, request_identifier, county_name, latitude, and longitude
           type: 'object',
           properties: {
             source_http_request,
             request_identifier,
             county_name,
+            latitude,
+            longitude,
             unnormalized_address,
           },
           required: unnormalizedRequiredFields,
@@ -493,12 +499,14 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
           description: 'Address with unnormalized format',
         },
         {
-          // Option 2: Structured address fields (without unnormalized_address, but with source_http_request and request_identifier)
+          // Option 2: Structured address fields (without unnormalized_address, but with source_http_request, request_identifier, latitude, and longitude)
           type: 'object',
           properties: {
             source_http_request,
             request_identifier,
             county_name,
+            latitude,
+            longitude,
             ...otherProperties,
           },
           required: structuredRequiredFields,
