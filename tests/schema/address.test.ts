@@ -27,15 +27,20 @@ describe('address.json Schema', () => {
     expect(addressSchema.oneOf.length).toBe(2);
   });
 
-  it('should have option 1: unnormalized_address with source_http_request and request_identifier', () => {
+  it('should have option 1: unnormalized_address with source_http_request, request_identifier, and county_name', () => {
     const option1 = addressSchema.oneOf[0];
     expect(option1.type).toBe('object');
     expect(option1.description).toBe('Address with unnormalized format');
     expect(option1.additionalProperties).toBe(false);
-    expect(option1.required).toEqual(['source_http_request', 'request_identifier']);
-    // Check that option 1 has exactly these three properties (order doesn't matter)
+    expect(option1.required).toEqual([
+      'source_http_request',
+      'request_identifier',
+      'county_name',
+      'unnormalized_address',
+    ]);
+    // Check that option 1 has exactly these four properties (order doesn't matter)
     expect(Object.keys(option1.properties).sort()).toEqual(
-      ['request_identifier', 'source_http_request', 'unnormalized_address'].sort()
+      ['county_name', 'request_identifier', 'source_http_request', 'unnormalized_address'].sort()
     );
   });
 
