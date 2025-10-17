@@ -19103,6 +19103,19 @@
             "Railroad",
             "TransitionalProperty",
             "ReferenceParcel",
+            "NurseryGreenhouse",
+            "AgriculturalPackingFacility",
+            "LivestockFacility",
+            "Aquaculture",
+            "VineyardWinery",
+            "DataCenter",
+            "TelecommunicationsFacility",
+            "SolarFarm",
+            "WindFarm",
+            "NativePasture",           
+            "ImprovedPasture",         
+            "Rangeland",               
+            "PastureWithTimber",
             "Unknown",
             null
           ],
@@ -19180,6 +19193,7 @@
         "purchase_price_amount": {
           "type": "decimal",
           "comment": "The total dollar amount paid by the borrower for the property. The purchase price is presented on the offer to purchase."
+          
         },
         "rental_estimated_gross_monthly_rent_amount": {
           "type": "decimal",
@@ -22351,7 +22365,8 @@
         "purchase_price_amount": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The total dollar amount paid by the borrower for the property. The purchase price is presented on the offer to purchase."
+          "comment": "The total dollar amount paid by the borrower for the property. The purchase price is presented on the offer to purchase.",
+          "optional": true
         },
         "sale_type": {
           "enum": [
@@ -26819,6 +26834,49 @@
           "comment": "A free-form field to capture detail when Other is selected for the plumbing system type.",
           "minLength": 1
         },
+        "plumbing_fixture_count": {
+    "type": ["integer", "null"],
+    "description": "Total number of plumbing fixtures installed in the property (e.g., toilets, sinks, urinals, floor drains)",
+    "optional": true
+  },
+  
+  "plumbing_fixture_type_primary": {
+    "type": ["string", "null"],
+    "enum": [
+      "Toilet",
+      "Sink",
+      "Urinal",
+      "FloorDrain",
+      "ServiceSink",
+      "UtilitySink",
+      "WaterFountain",
+      "HoseBib",
+      "ShowerHead",
+      "Bathtub",
+      "Dishwasher",
+      "WashingMachine",
+      "Mixed",
+      "Other",
+      null
+    ],
+    "description": "Primary type of plumbing fixture. Use 'Mixed' for properties with multiple fixture types.",
+    "optional": true
+  },
+  
+    "plumbing_fixture_quality": {
+      "type": ["string", "null"],
+      "enum": [
+        "Economy",
+        "Standard",
+        "Fair",
+        "Good",
+        "Excellent",
+        "Luxury",
+        null
+      ],
+      "description": "Overall quality level of plumbing fixtures",
+      "optional": true
+    },
         "electrical_panel_capacity": {
           "type": [
             "string",
