@@ -19045,6 +19045,7 @@
             "SewageDisposal",
             "Railroad",
             "TransitionalProperty",
+            "ReferenceFolio",
             "Unknown",
             null
           ],
@@ -20228,6 +20229,12 @@
         "format": "date",
         "optional": true
       },
+      "installation_date": {
+        "description": "Date this layout/space was installed (BLD/RES/COM).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },      
       "flooring_installation_date": {
         "description": "Date flooring in this space was installed (BLD/RES/COM).",
         "type": ["string","null"],
