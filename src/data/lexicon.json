@@ -15663,7 +15663,63 @@
             "string",
             "null"
           ]
-        }
+        },
+          "site_lighting_type": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "LightStandard10to30ft",
+              "LightStandardUnder10ft", 
+              "LightStandardOver30ft",
+              "FloodLight",
+              "SecurityLight",
+              "PathLight",
+              "None"
+            ],
+            "comment": "Type and height of outdoor lighting fixtures on the lot",
+            "optional": true
+          },
+          
+          "site_lighting_fixture_count": {
+            "type": ["number","null"],
+            "comment": "Total number of light fixtures installed on the property",
+            "optional": true
+          },
+          
+          "site_lighting_installation_date": {
+            "type": ["string","null"],
+            "format": "date",
+            "description": "Installation date of site lighting (YYYY-MM-DD or YYYY)",
+            "optional": true
+          },
+          
+          "paving_type": {
+            "type": ["string","null"], 
+            "enum": [
+              "Asphalt",
+              "Concrete",
+              "Gravel",
+              "Pavers",
+              "Brick",
+              "Composite",
+              "None"
+            ],
+            "description": "Primary paving material used on the lot",
+            "optional": true
+          },        
+          "paving_area_sqft": {
+            "type": ["number","null"],
+            "comment": "Total paved area in square feet",
+            "optional":true
+          },        
+          "paving_installation_date": {
+            "type": ["string","null"], 
+            "format": "date", 
+            "comment": "Installation date of paving (YYYY-MM-DD or YYYY)",
+            "optional": true
+          }
       },
       "example": {
         "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
@@ -18977,7 +19033,8 @@
             "ManufacturedHousingMultiWide",
             "ManufacturedHousing",
             "ManufacturedHousingSingleWide",
-            "Modular"
+            "Modular",
+            null
           ]
         },
         "property_usage_type": {
