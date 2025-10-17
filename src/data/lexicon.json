@@ -19045,6 +19045,7 @@
             "SewageDisposal",
             "Railroad",
             "TransitionalProperty",
+            "ReferenceParcel",
             "Unknown",
             null
           ],
@@ -20217,31 +20218,37 @@
           ]
         },
         "kitchen_renovation_date": {
-        "description": "Date this kitchen was last remodeled (BLD/RES/COM).",
+        "comment": "Date this kitchen was last remodeled (BLD/RES/COM).",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
       "bathroom_renovation_date": {
-        "description": "Date this bathroom was last remodeled (BLD/RES/COM/PLU/ELE).",
+        "comment": "Date this bathroom was last remodeled (BLD/RES/COM/PLU/ELE).",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
+      "installation_date": {
+        "comment": "Date this layout/space was installed (BLD/RES/COM).",
+        "type": ["string","null"],
+        "format": "date",
+        "optional": true
+      },      
       "flooring_installation_date": {
-        "description": "Date flooring in this space was installed (BLD/RES/COM).",
+        "comment": "Date flooring in this space was installed (BLD/RES/COM).",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
       "pool_installation_date": {
-        "description": "Date pool was installed (POL).",
+        "comment": "Date pool was installed (POL).",
         "type": ["string","null"],
         "format": "date",
         "optional": true
       },
       "spa_installation_date": {
-        "description": "Date spa/hot tub was installed (POL/BLD).",
+        "comment": "Date spa/hot tub was installed (POL/BLD).",
         "type": ["string","null"],
         "format": "date",
         "optional": true
