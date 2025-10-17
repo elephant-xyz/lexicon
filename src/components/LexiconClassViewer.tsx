@@ -929,7 +929,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                         <button
                                                           key={idx}
                                                           className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
-                                                          onClick={() => copyToClipboard(value as string)}
+                                                          onClick={() =>
+                                                            copyToClipboard(value as string)
+                                                          }
                                                           title="Click to copy to clipboard"
                                                         >
                                                           {copiedValue === value
