@@ -25433,6 +25433,18 @@
           "format": "currency",
           "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
+        "building_replacement_cost_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The total replacement cost of the building used as the basis for property tax calculations for a given tax year.",
+          "optional": true
+        },
+        "building_depreciated_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The total depreciated value of the building used as the basis for property tax calculations for a given tax year.",
+          "optional": true
+        },
         "monthly_tax_amount": {
           "type": [
             "number",
