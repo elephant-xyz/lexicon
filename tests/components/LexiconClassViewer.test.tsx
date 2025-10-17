@@ -109,13 +109,14 @@ describe('LexiconClassViewer', () => {
       expect(screen.getByText('value3')).toBeInTheDocument();
     });
 
-    it('should not display deprecated properties', () => {
+    it('should display deprecated properties with (deprecated) text', () => {
       renderWithRouter(
         <LexiconClassViewer classes={[mockDeprecatedClass]} expandByDefault={true} />
       );
 
       expect(screen.getByText('activeProp')).toBeInTheDocument();
-      expect(screen.queryByText('deprecatedProp')).not.toBeInTheDocument();
+      expect(screen.getByText('deprecatedProp')).toBeInTheDocument();
+      expect(screen.getByText('(deprecated)')).toBeInTheDocument();
     });
   });
 

@@ -865,6 +865,14 @@ textarea {
   margin-top: var(--spacing-2);
 }
 
+/* Deprecated Text for Properties */
+.deprecated-text {
+  margin-left: 4px;
+  color: #6b7280; /* gray-500 - same as deprecated property text */
+  font-size: var(--text-sm);
+  font-weight: normal;
+}
+
 /* Class Content */
 .method-list-item-content {
   padding: var(--spacing-5);
@@ -922,6 +930,31 @@ textarea {
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
   letter-spacing: var(--letter-spacing-standard);
+}
+
+/* Grey out deprecated classes and properties visually */
+.method-list-item-deprecated .method-list-item-label-name,
+.method-list-item-deprecated .class-description,
+.property-deprecated .method-list-item-label-name,
+.property-deprecated .method-list-item-label-description,
+.property-deprecated .pattern-label,
+.property-deprecated .enum-label,
+.property-deprecated .format-label,
+.property-deprecated .pattern-value,
+.property-deprecated .enum-value,
+.property-deprecated .format-value {
+  color: #6b7280 !important; /* gray-500 */
+}
+
+/* Grey out pattern/enum button backgrounds for deprecated properties */
+.property-deprecated .pattern-value,
+.property-deprecated .enum-value {
+  background-color: #e5e7eb !important; /* gray-200 */
+  border-color: #d1d5db !important; /* gray-300 */
+}
+
+.method-list-item-deprecated {
+  opacity: 0.8;
 }
 
 .method-list-item-label-type {
@@ -1062,6 +1095,24 @@ textarea {
   color: #423e3e !important;
   animation: pulse-success 0.3s ease-in-out !important;
   opacity: 1 !important;
+}
+
+/* Grey out individual deprecated enum values - match Data Type box styling */
+/* This must come AFTER general enum-value rules to override them */
+.enum-value-deprecated {
+  background-color: #686565 !important; /* Same as Data Type box */
+  border-color: #686565 !important; /* Same as Data Type box */
+  color: rgba(255, 255, 255, 0.8) !important; /* Softer white like Data Type label */
+}
+
+.enum-value-deprecated:hover {
+  background-color: #686565 !important; /* Keep grey on hover */
+  opacity: 0.8 !important;
+}
+
+.enum-value-deprecated .deprecated-text {
+  color: rgba(255, 255, 255, 0.8); /* Softer white like Data Type label */
+  font-size: var(--text-xs);
 }
 
 /* Special adjustments for specific button types */

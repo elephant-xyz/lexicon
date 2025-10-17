@@ -323,16 +323,19 @@ describe('DataService', () => {
       }
     });
 
-    it('should exclude deprecated properties from search', () => {
+    it('should include deprecated properties in search (UI greys them)', () => {
       const result = dataService.filterClassesForSearch(mockLexiconClasses, 'deprecatedProp');
 
-      // Should not find the deprecated property
       const foundMatch = result.find(cls =>
         cls._searchMatches?.some(
           match => match.type === 'property' && match.value.includes('deprecatedProp')
         )
       );
-      expect(foundMatch).toBeUndefined();
+      expect(foundMatch).toBeDefined();
+      // Sanity: the matched class marks this property as deprecated
+      if (foundMatch) {
+        expect(foundMatch.deprecated_properties['deprecatedProp']).toBe(true);
+      }
     });
   });
 

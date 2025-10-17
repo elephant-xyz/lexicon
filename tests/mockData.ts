@@ -4,7 +4,7 @@ export const mockLexiconClass: LexiconClass = {
   type: 'TestClass',
   container_name: 'test.container',
   is_deprecated: false,
-  deprecated_properties: [],
+  deprecated_properties: {},
   properties: {
     testProperty: {
       type: 'string',
@@ -36,7 +36,9 @@ export const mockDeprecatedClass: LexiconClass = {
   type: 'DeprecatedClass',
   container_name: 'deprecated.container',
   is_deprecated: true,
-  deprecated_properties: ['deprecatedProp'],
+  deprecated_properties: {
+    deprecatedProp: true,
+  },
   properties: {
     activeProp: {
       type: 'string',
@@ -54,7 +56,7 @@ export const mockSearchResultClass: LexiconClass = {
   type: 'SearchResultClass',
   container_name: 'search.container',
   is_deprecated: false,
-  deprecated_properties: [],
+  deprecated_properties: {},
   properties: {
     matchedProperty: {
       type: 'string',
@@ -98,7 +100,7 @@ export const mockLexiconClasses: LexiconClass[] = [
     type: 'AnotherClass',
     container_name: 'another.container',
     is_deprecated: false,
-    deprecated_properties: [],
+    deprecated_properties: {},
     properties: {
       anotherProperty: {
         type: 'boolean',
@@ -111,7 +113,7 @@ export const mockLexiconClasses: LexiconClass[] = [
     type: 'RealEstateClass',
     container_name: 'realestate.container',
     is_deprecated: false,
-    deprecated_properties: [],
+    deprecated_properties: {},
     properties: {
       price: {
         type: 'number',
