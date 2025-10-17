@@ -45,7 +45,7 @@ export interface LexiconClass {
   type: string;
   container_name: string;
   is_deprecated: boolean;
-  deprecated_properties: string[];
+  deprecated_properties: Record<string, true | string[]>; // true = whole property deprecated, array = specific enum values deprecated
   description?: string;
   source_url?: {
     type: string;

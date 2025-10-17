@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft-07/schema#","additionalProperties":false,"description":"JSON Schema for relationship from tax to file","properties":{"from":{"cid":"","description":"Reference to tax class schema","type":"string"},"to":{"cid":"","description":"Reference to file class schema","type":"string"}},"required":["from","to"],"title":"tax_to_file","type":"object"}

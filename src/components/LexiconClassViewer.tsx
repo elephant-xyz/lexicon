@@ -146,6 +146,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   const shouldShowProperty = (cls: LexiconClass, propName: string): boolean => {
     if (!searchTerm) return true; // Show all properties when not searching
 
+    // Always show deprecated properties even when filtering; UI will grey them
+    if (cls.deprecated_properties?.[propName]) return true;
+
     const matchedProps = getMatchedProperties(cls);
 
     // If we have property matches, only show matched properties
@@ -254,7 +257,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                   <span className="enum-label">Values:</span>
                   <div className="enum-values">
                     {propData.enum
-                      .filter((value: any) => value !== null)
+                      .filter((value: unknown) => value !== null)
                       .map((value: string, idx: number) => (
                         <span key={idx} className="enum-value-display">
                           {value}
@@ -510,7 +513,11 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
   return (
     <div className="lexicon-viewer">
       {classes.map((cls, index) => (
-        <div key={index} className="method-list-item" data-type={cls.type}>
+        <div
+          key={index}
+          className={`method-list-item ${cls.is_deprecated ? 'method-list-item-deprecated' : ''}`}
+          data-type={cls.type}
+        >
           <div className="method-list-item-label">
             <div className="method-list-item-header">
               <div className="method-list-item-label-name">
@@ -712,10 +719,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
               {(() => {
                 const matchedProps = getMatchedProperties(cls);
                 const hasVisibleProperties = Object.entries(cls.properties || {}).some(
-                  ([propName]) => {
-                    const isDeprecated = cls.deprecated_properties?.includes(propName);
-                    return !isDeprecated && shouldShowProperty(cls, propName);
-                  }
+                  ([propName]) => shouldShowProperty(cls, propName)
                 );
 
                 if (!hasVisibleProperties) return null;
@@ -726,8 +730,8 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     <div className="properties-list">
                       {Object.entries(cls.properties || {}).map(
                         ([propName, propData], _propIdx, _arr) => {
-                          const isDeprecated = cls.deprecated_properties?.includes(propName);
-                          if (isDeprecated || !shouldShowProperty(cls, propName)) return null;
+                          const isDeprecated = cls.deprecated_properties?.[propName] === true;
+                          if (!shouldShowProperty(cls, propName)) return null;
                           const isMatchedProperty = matchedProps.includes(propName);
                           const _isSourceHttpRequest =
                             (propName === 'source_http_request' && propData.type === 'object') ||
@@ -735,7 +739,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                           return (
                             <React.Fragment key={propName}>
                               <div
-                                className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''}`}
+                                className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''} ${isDeprecated ? 'property-deprecated' : ''}`}
                               >
                                 <div className="method-list-item-label">
                                   <div className="method-list-item-label-name">
@@ -752,6 +756,9 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                             )?.value || propName
                                           )
                                         : propName}
+                                      {isDeprecated && (
+                                        <span className="deprecated-text">(deprecated)</span>
+                                      )}
                                     </span>
                                     {cls.required?.includes(propName) && (
                                       <span
@@ -783,11 +790,16 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                               propName
                                             );
                                             const highlightedValue = enumHighlights.get(value);
+                                            const deprecatedValue =
+                                              cls.deprecated_properties?.[propName];
+                                            const isDeprecatedEnum =
+                                              Array.isArray(deprecatedValue) &&
+                                              deprecatedValue.includes(value);
 
                                             return (
                                               <button
                                                 key={idx}
-                                                className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                                className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''} ${isDeprecatedEnum ? 'enum-value-deprecated' : ''}`}
                                                 onClick={() => copyToClipboard(value)}
                                                 title="Click to copy to clipboard"
                                               >
@@ -800,7 +812,15 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                     }}
                                                   />
                                                 ) : (
-                                                  value
+                                                  <>
+                                                    {value}
+                                                    {isDeprecatedEnum && (
+                                                      <span className="deprecated-text">
+                                                        {' '}
+                                                        (deprecated)
+                                                      </span>
+                                                    )}
+                                                  </>
                                                 )}
                                               </button>
                                             );
@@ -904,12 +924,12 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                   </span>
                                                   <div className="enum-values">
                                                     {nestedPropData.enum
-                                                      .filter((value: any) => value !== null)
+                                                      .filter((value: unknown) => value !== null)
                                                       .map((value, idx) => (
                                                         <button
                                                           key={idx}
                                                           className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
-                                                          onClick={() => copyToClipboard(value)}
+                                                          onClick={() => copyToClipboard(value as string)}
                                                           title="Click to copy to clipboard"
                                                         >
                                                           {copiedValue === value
