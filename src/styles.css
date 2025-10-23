@@ -1103,6 +1103,8 @@ textarea {
   background-color: #686565 !important; /* Same as Data Type box */
   border-color: #686565 !important; /* Same as Data Type box */
   color: rgba(255, 255, 255, 0.8) !important; /* Softer white like Data Type label */
+  font-size: var(--text-xs) !important; /* Smaller font for deprecated enums */
+  padding: var(--spacing-1) var(--spacing-2) !important; /* Reduced padding for compact display */
 }
 
 .enum-value-deprecated:hover {
