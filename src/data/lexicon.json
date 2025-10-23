@@ -14448,8 +14448,11 @@
       "container_name": "properties",
       "is_deprecated": false,
       "deprecated_properties": {
-        "property_effective_built_year": true,
-        "number_of_units_type": true,
+       "livable_floor_area": true,
+       "area_under_air": true,
+       "total_area": true,
+       "property_effective_built_year": true,
+       "number_of_units_type": true,
         "property_type": [
             "Modular",
             "ManufacturedHousingMultiWide",

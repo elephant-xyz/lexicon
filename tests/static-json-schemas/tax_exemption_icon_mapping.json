@@ -1,1 +1,1894 @@
-[{"enumDescription":"Cieling Fan","enumValue":"CeilingFan","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Cieling Fan","enumValue":"CeilingFan","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Cieling Fans","enumValue":"CeilingFans","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Central Air","enumValue":"CentralAir","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Ductless Cooling","enumValue":"Ductless","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Electric Cooling","enumValue":"Electric","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Geothermal Cooling","enumValue":"GeothermalCooling","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Hybrid Cooling","enumValue":"Hybrid","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Whole House Fan","enumValue":"WholeHouseFan","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Window Air Conditioner","enumValue":"WindowAirConditioner","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Zoned Cooling","enumValue":"Zoned","iconName":"cooling","lexiconClass":"utility","lexiconProperty":"cooling_system_type"},{"enumDescription":"Heated Baseboards","enumValue":"Baseboard","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Central Heating","enumValue":"Central","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Ductless Heating","enumValue":"Ductless","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Electric Heating","enumValue":"Electric","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Electric Furnace","enumValue":"ElectricFurnace","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Gas Heating","enumValue":"Gas","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Gas Furnace","enumValue":"GasFurnace","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Heat Pump","enumValue":"HeatPump","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Radiant Heating","enumValue":"Radiant","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Solar Heating","enumValue":"Solar","iconName":"heating","lexiconClass":"utility","lexiconProperty":"heating_system_type"},{"enumDescription":"Cable","enumValue":"CableAvailable","iconName":"utilities","lexiconClass":"utility","lexiconProperty":"public_utility_type"},{"enumDescription":"Electricity","enumValue":"ElectricityAvailable","iconName":"utilities","lexiconClass":"utility","lexiconProperty":"public_utility_type"},{"enumDescription":"Natural Gas","enumValue":"NaturalGasAvailable","iconName":"utilities","lexiconClass":"utility","lexiconProperty":"public_utility_type"},{"enumDescription":"Sewer","enumValue":"SewerAvailable","iconName":"utilities","lexiconClass":"utility","lexiconProperty":"public_utility_type"},{"enumDescription":"Underground Utilities","enumValue":"UndergroundUtilities","iconName":"utilities","lexiconClass":"utility","lexiconProperty":"public_utility_type"},{"enumDescription":"Water","enumValue":"WaterAvailable","iconName":"utilities","lexiconClass":"utility","lexiconProperty":"public_utility_type"},{"enumDescription":"Combined Sewer","enumValue":"Combined","iconName":"sewer","lexiconClass":"utility","lexiconProperty":"sewer_type"},{"enumDescription":"Public Sewer","enumValue":"Public","iconName":"sewer","lexiconClass":"utility","lexiconProperty":"sewer_type"},{"enumDescription":"Sanitation System","enumValue":"Sanitary","iconName":"sewer","lexiconClass":"utility","lexiconProperty":"sewer_type"},{"enumDescription":"Septic Tank","enumValue":"Septic","iconName":"sewer","lexiconClass":"utility","lexiconProperty":"sewer_type"},{"enumDescription":"Septic Tank","enumValue":"Septic","iconName":"sewer","lexiconClass":"utility","lexiconProperty":"sewer_type"},{"enumDescription":"Aquifer Water","enumValue":"Aquifer","iconName":"water","lexiconClass":"utility","lexiconProperty":"water_source_type"},{"enumDescription":"Public Water","enumValue":"Public","iconName":"water","lexiconClass":"utility","lexiconProperty":"water_source_type"},{"enumDescription":"Well Water","enumValue":"Well","iconName":"water","lexiconClass":"utility","lexiconProperty":"water_source_type"},{"enumDescription":"Cast Iron Pipes","enumValue":"CastIron","iconName":"plumbing","lexiconClass":"utility","lexiconProperty":"plumbing_system_type"},{"enumDescription":"Copper Pipes","enumValue":"Copper","iconName":"plumbing","lexiconClass":"utility","lexiconProperty":"plumbing_system_type"},{"enumDescription":"Galvanized Steel Pipes","enumValue":"GalvanizedSteel","iconName":"plumbing","lexiconClass":"utility","lexiconProperty":"plumbing_system_type"},{"enumDescription":"PVC Pipes","enumValue":"PVC","iconName":"plumbing","lexiconClass":"utility","lexiconProperty":"plumbing_system_type"},{"enumDescription":"PEX Pipes","enumValue":"PEX","iconName":"plumbing","lexiconClass":"utility","lexiconProperty":"plumbing_system_type"},{"iconName":"electric-capacity","lexiconClass":"utility","lexiconProperty":"electric_panel_capacity"},{"enumDescription":"Aluminim Wiring","enumValue":"Aluminum","iconName":"electricity","lexiconClass":"utility","lexiconProperty":"electrical_wiring_type"},{"enumDescription":"Copper Wiring","enumValue":"Copper","iconName":"electricity","lexiconClass":"utility","lexiconProperty":"electrical_wiring_type"},{"enumDescription":"Knob and Tube Wiring","enumValue":"KnobAndTube","iconName":"electricity","lexiconClass":"utility","lexiconProperty":"electrical_wiring_type"},{"iconName":"hvac","lexiconClass":"utility","lexiconProperty":"hvac_condensing_unit_present"},{"iconName":"solar","lexiconClass":"utility","lexiconProperty":"solar_panel_present"},{"enumDescription":"Hybrid Solar Panels","enumValue":"Hybrid","iconName":"solar","lexiconClass":"utility","lexiconProperty":"solar_panel_type"},{"enumDescription":"Photovoltaic Solar Panels","enumValue":"Photovoltaic","iconName":"solar","lexiconClass":"utility","lexiconProperty":"solar_panel_type"},{"enumDescription":"Solar Thermal Panels","enumValue":"SolarThermal","iconName":"solar","lexiconClass":"utility","lexiconProperty":"solar_panel_type"},{"iconName":"smart-home","lexiconClass":"utility","lexiconProperty":"smart_home_features"},{"enumDescription":"Damaged HVAC Unit","enumValue":"Damaged","iconName":"hvac","lexiconClass":"utility","lexiconProperty":"hvac_unit_condition"},{"enumDescription":"HVAC Unit in Good Condition","enumValue":"Good","iconName":"hvac","lexiconClass":"utility","lexiconProperty":"hvac_unit_condition"},{"enumDescription":"Leaking HVAC Unit","enumValue":"Leaking","iconName":"hvac","lexiconClass":"utility","lexiconProperty":"hvac_unit_condition"},{"enumDescription":"New HVAC Unit","enumValue":"New","iconName":"hvac","lexiconClass":"utility","lexiconProperty":"hvac_unit_condition"},{"enumDescription":"Rusty HVAC Unit","enumValue":"Rusty","iconName":"hvac","lexiconClass":"utility","lexiconProperty":"hvac_unit_condition"},{"enumDescription":"HVAC has Leaking Pipes","enumValue":"LeakingPipes","iconName":"warning","lexiconClass":"utility","lexiconProperty":"hvac_unit_issues"},{"enumDescription":"HVAC is Missing Grilles","enumValue":"MissingGrilles","iconName":"warning","lexiconClass":"utility","lexiconProperty":"hvac_unit_issues"},{"enumDescription":"Obstructed HVAC Vent","enumValue":"ObstructedVent","iconName":"warning","lexiconClass":"utility","lexiconProperty":"hvac_unit_issues"},{"enumDescription":"Rusty HVAC Unit","enumValue":"RustyUnit","iconName":"warning","lexiconClass":"utility","lexiconProperty":"hvac_unit_issues"},{"enumDescription":"HVAC has Worn Fan Housing","enumValue":"WornFanHousing","iconName":"warning","lexiconClass":"utility","lexiconProperty":"hvac_unit_issues"},{"enumDescription":"Brick Exterior","enumValue":"Brick","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Natural Stone Exterior","enumValue":"Natural Stone","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Manufactured Stone Exterior","enumValue":"Manufactured Stone","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Stucco Exterior","enumValue":"Stucco","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Vinyl Siding","enumValue":"Vinyl Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Wood Siding","enumValue":"Wood Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Fiber Cement Siding","enumValue":"Fiber Cement Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Metal Siding","enumValue":"Metal Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Concrete Block Exterior","enumValue":"Concrete Block","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"EIFS Exterior","enumValue":"EIFS","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Log Exterior","enumValue":"Log","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Adobe Exterior","enumValue":"Adobe","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Concrete Exterior","enumValue":"Precast Concrete","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Curtain Wall Exterior","enumValue":"Curtain Wall","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_primary"},{"enumDescription":"Brick Accent","enumValue":"Brick","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Natural Stone Accent","enumValue":"Natural Stone","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Manufactured Stone Accent","enumValue":"Manufactured Stone","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Stucco Accent","enumValue":"Stucco","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Vinyl Siding Accent","enumValue":"Vinyl Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Wood Siding Accent","enumValue":"Wood Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Fiber Cement Siding Accent","enumValue":"Fiber Cement Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Metal Siding Accent","enumValue":"Metal Siding","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Concrete Block Accent","enumValue":"Concrete Block","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"EIFS Accent","enumValue":"EIFS","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Log Accent","enumValue":"Log","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Adobe Accent","enumValue":"Adobe","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Concrete Accent","enumValue":"Precast Concrete","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Curtain Wall Accent","enumValue":"Curtain Wall","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_material_secondary"},{"enumDescription":"Hardwood Flooring","enumValue":"Solid Hardwood","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Hardwood Flooring","enumValue":"Engineered Hardwood","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Laminate Flooring","enumValue":"Laminate","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Luxury Vinyl Plank Flooring","enumValue":"Luxury Vinyl Plank","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Vinyl Flooring","enumValue":"Sheet Vinyl","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Ceramic Tile","enumValue":"Ceramic Tile","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Porcelain Tile","enumValue":"Porcelain Tile","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Natural Stone Tile","enumValue":"Natural Stone Tile","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Carpet Flooring","enumValue":"Carpet","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Area Rugs","enumValue":"Area Rugs","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Polished Concrete Flooring","enumValue":"Polished Concrete","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Bamboo Flooring","enumValue":"Bamboo","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Cork Flooring","enumValue":"Cork","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Linoleum Flooring","enumValue":"Linoleum","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Terrazzo Flooring","enumValue":"Terrazzo","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Epoxy Coated Flooring","enumValue":"Epoxy Coating","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Concrete Flooring","enumValue":"Concrete","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Wood Flooring","enumValue":"Wood","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_primary"},{"enumDescription":"Hardwood Flooring","enumValue":"Solid Hardwood","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Hardwood Flooring","enumValue":"Engineered Hardwood","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Laminate Flooring","enumValue":"Laminate","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Luxury Vinyl Plank Flooring","enumValue":"Luxury Vinyl Plank","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Ceramic Tile","enumValue":"Ceramic Tile","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Carpet Flooring","enumValue":"Carpet","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Area Rugs","enumValue":"Area Rugs","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"Transition Strips","enumValue":"Transition Strips","iconName":"flooring","lexiconClass":"structure","lexiconProperty":"flooring_material_secondary"},{"enumDescription":"3-Tab Asphalt Shingles","enumValue":"3-Tab Asphalt Shingle","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Architectural Asphalt Shingles","enumValue":"Architectural Asphalt Shingle","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Metal Standing Seam Roof","enumValue":"Metal Standing Seam","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Metal Corrugated Roof","enumValue":"Metal Corrugated","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Clay Tile Roof","enumValue":"Clay Tile","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Concrete Tile Roof","enumValue":"Concrete Tile","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Natural Slate Roof","enumValue":"Natural Slate","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Synthetic Slate roof","enumValue":"Synthetic Slate","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Wood Shake Roof","enumValue":"Wood Shake","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Wood Shingles","enumValue":"Wood Shingle","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"TPO Membrane Roof","enumValue":"TPO Membrane","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"EPDM Membrane Roof","enumValue":"EPDM Membrane","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Modified Bitumen Roof","enumValue":"Modified Bitumen","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Built-Up Roof","enumValue":"Built-Up Roof","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Green Roof System","enumValue":"Green Roof System","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Solar Integrated Tile Roof","enumValue":"Solar Integrated Tiles","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Tile Roof","enumValue":"Tile","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Shingles","enumValue":"Shingle","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_covering_material"},{"enumDescription":"Wood Truss Roof","enumValue":"Wood Truss","iconName":"roof-structure","lexiconClass":"structure","lexiconProperty":"roof_structure_material"},{"enumDescription":"Wood Rafters","enumValue":"Wood Rafter","iconName":"roof-structure","lexiconClass":"structure","lexiconProperty":"roof_structure_material"},{"enumDescription":"Steel Truss Roof","enumValue":"Steel Truss","iconName":"roof-structure","lexiconClass":"structure","lexiconProperty":"roof_structure_material"},{"enumDescription":"Concrete Beams","enumValue":"Concrete Beam","iconName":"roof-structure","lexiconClass":"structure","lexiconProperty":"roof_structure_material"},{"enumDescription":"Engineered Lumber Roof","enumValue":"Engineered Lumber","iconName":"roof-structure","lexiconClass":"structure","lexiconProperty":"roof_structure_material"},{"enumDescription":"Bedroom","enumValue":"Bedroom","iconName":"bedroom","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Closet","enumValue":"Closet","iconName":"closet","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Walk-in Closet","enumValue":"Walk-in Closet","iconName":"closet","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Balcony","enumValue":"Balcony","iconName":"balcony","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Exterior","enumValue":"Exterior","iconName":"exterior","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Pool","enumValue":"Pool Area","iconName":"pool","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Porch","enumValue":"Porch","iconName":"patio","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Patio","enumValue":"Patio","iconName":"patio","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Attached Garage","enumValue":"Attached Garage","iconName":"garage","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Kitchen","enumValue":"Kitchen","iconName":"fridge","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Living Room","enumValue":"Living Room","iconName":"living","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Full Bathroom","enumValue":"Full Bathroom","iconName":"bathroom","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Laundry Room","enumValue":"Laundry Room","iconName":"laundry","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Dining Room","enumValue":"Dining Room","iconName":"dining-room","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"Primary Bedroom","enumValue":"Primary Bedroom","iconName":"bedroom","lexiconClass":"layout","lexiconProperty":"space_type"},{"enumDescription":"1st Floor","enumValue":"1st Floor","iconName":"","lexiconClass":"layout","lexiconProperty":"floor_level"},{"enumDescription":"2nd Floor","enumValue":"2nd Floor","iconName":"","lexiconClass":"layout","lexiconProperty":"floor_level"},{"enumDescription":"Carpet Flooring","enumValue":"Carpet","iconName":"flooring","lexiconClass":"layout","lexiconProperty":"flooring_material_type"},{"enumDescription":"Concrete Flooring","enumValue":"Concrete","iconName":"flooring","lexiconClass":"layout","lexiconProperty":"flooring_material_type"},{"enumDescription":"Tile Flooring","enumValue":"Tile","iconName":"flooring","lexiconClass":"layout","lexiconProperty":"flooring_material_type"},{"enumDescription":"Vinyl Flooring","enumValue":"Vinyl","iconName":"flooring","lexiconClass":"layout","lexiconProperty":"flooring_material_type"},{"enumDescription":"Wood Flooring","enumValue":"Wood","iconName":"flooring","lexiconClass":"layout","lexiconProperty":"flooring_material_type"},{"enumDescription":"Garden View","enumValue":"Garden","iconName":"view","lexiconClass":"layout","lexiconProperty":"view_type"},{"enumDescription":"Street View","enumValue":"Street","iconName":"view","lexiconClass":"layout","lexiconProperty":"view_type"},{"enumDescription":"City View","enumValue":"City","iconName":"view","lexiconClass":"layout","lexiconProperty":"view_type"},{"enumDescription":"Waterfront View","enumValue":"Waterfront","iconName":"view","lexiconClass":"layout","lexiconProperty":"view_type"},{"enumDescription":"Modern Interior","enumValue":"Modern","iconName":"style","lexiconClass":"layout","lexiconProperty":"design_style"},{"enumDescription":"Traditional Interior","enumValue":"Traditional","iconName":"style","lexiconClass":"layout","lexiconProperty":"design_style"},{"enumDescription":"Double Hung Windows","enumValue":"DoubleHung","iconName":"windows","lexiconClass":"layout","lexiconProperty":"window_design_type"},{"enumDescription":"Sliding Windows","enumValue":"Sliding","iconName":"windows","lexiconClass":"layout","lexiconProperty":"window_design_type"},{"enumDescription":"Vinyl Windows","enumValue":"Vinyl","iconName":"glass-type","lexiconClass":"layout","lexiconProperty":"window_material_type"},{"enumDescription":"Glass Windows","enumValue":"Glass","iconName":"glass-type","lexiconClass":"layout","lexiconProperty":"window_material_type"},{"enumDescription":"Blinds","enumValue":"Blinds","iconName":"window-treatment","lexiconClass":"layout","lexiconProperty":"window_treatment_type"},{"enumDescription":"Curtains","enumValue":"Curtains","iconName":"window-treatment","lexiconClass":"layout","lexiconProperty":"window_treatment_type"},{"enumDescription":"Moderately Cluttered","enumValue":"Moderate","iconName":"clutter","lexiconClass":"layout","lexiconProperty":"clutter_level"},{"enumDescription":"Staged","enumValue":"Staged","iconName":"clutter","lexiconClass":"layout","lexiconProperty":"clutter_level"},{"enumDescription":"Personal Items Visible","enumValue":"PersonalItemsVisible","iconName":"warning","lexiconClass":"layout","lexiconProperty":"condition_issues"},{"enumDescription":"Floors in Good Condition","enumValue":"Good","iconName":"flooring-wear","lexiconClass":"layout","lexiconProperty":"flooring_wear"},{"enumDescription":"Floors in Moderate Condition","enumValue":"Moderate","iconName":"flooring-wear","lexiconClass":"layout","lexiconProperty":"flooring_wear"},{"enumDescription":"Pristine Floors","enumValue":"Pristine","iconName":"flooring-wear","lexiconClass":"layout","lexiconProperty":"flooring_wear"},{"enumDescription":"Furnished","enumValue":"Furnished","iconName":"living","lexiconClass":"layout","lexiconProperty":"furnished"},{"enumDescription":"Partially Furnished","enumValue":"Partially Furnished","iconName":"living","lexiconClass":"layout","lexiconProperty":"furnished"},{"enumDescription":"Ceiling Fan Light","enumValue":"CeilingFan","iconName":"lighting","lexiconClass":"layout","lexiconProperty":"lighting_features"},{"enumDescription":"Flush Mount Lighting","enumValue":"FlushMount","iconName":"lighting","lexiconClass":"layout","lexiconProperty":"lighting_features"},{"enumDescription":"Recessed Lighting","enumValue":"Recessed","iconName":"lighting","lexiconClass":"layout","lexiconProperty":"lighting_features"},{"enumDescription":"Chandelier","enumValue":"Chandelier","iconName":"lighting","lexiconClass":"layout","lexiconProperty":"lighting_features"},{"enumDescription":"Natural Light","enumValue":"NaturalLight","iconName":"lighting","lexiconClass":"layout","lexiconProperty":"lighting_features"},{"enumDescription":"Abundant Natural Light","enumValue":"Abundant","iconName":"natural-light","lexiconClass":"layout","lexiconProperty":"natural_light_quality"},{"enumDescription":"Limited Natural Light","enumValue":"Limited","iconName":"natural-light","lexiconClass":"layout","lexiconProperty":"natural_light_quality"},{"enumDescription":"Moderate Natural Light","enumValue":"Moderate","iconName":"natural-light","lexiconClass":"layout","lexiconProperty":"natural_light_quality"},{"enumDescription":"Paint in Good Condition","enumValue":"Good","iconName":"paint","lexiconClass":"layout","lexiconProperty":"paint_condition"},{"enumDescription":"New Paint","enumValue":"New","iconName":"paint","lexiconClass":"layout","lexiconProperty":"paint_condition"},{"enumDescription":"Shaker Cabinets","enumValue":"Shaker","iconName":"cabinet","lexiconClass":"layout","lexiconProperty":"cabinet_style"},{"enumDescription":"Flat Panel Cabinets","enumValue":"Flat Panel","iconName":"cabinet","lexiconClass":"layout","lexiconProperty":"cabinet_style"},{"enumDescription":"Modern Cabinets","enumValue":"Modern","iconName":"cabinet","lexiconClass":"layout","lexiconProperty":"cabinet_style"},{"enumDescription":"Granite Countertops","enumValue":"Granite","iconName":"countertops","lexiconClass":"layout","lexiconProperty":"countertop_material"},{"enumDescription":"Laminate Countertops","enumValue":"Laminate","iconName":"countertops","lexiconClass":"layout","lexiconProperty":"countertop_material"},{"enumDescription":"Wood Countertops","enumValue":"Wood","iconName":"countertops","lexiconClass":"layout","lexiconProperty":"countertop_material"},{"enumDescription":"Mid-range Fixtures","enumValue":"Mid-range","iconName":"faucet","lexiconClass":"layout","lexiconProperty":"fixture_finish_quality"},{"enumDescription":"Tray Ceiling","enumValue":"Tray Ceiling","iconName":"decor-elements","lexiconClass":"layout","lexiconProperty":"decor_elements"},{"enumDescription":"Exposed Beams","enumValue":"Exposed Beams","iconName":"decor-elements","lexiconClass":"layout","lexiconProperty":"decor_elements"},{"enumDescription":"Vaulted Ceiling","enumValue":"Vaulted Ceiling","iconName":"decor-elements","lexiconClass":"layout","lexiconProperty":"decor_elements"},{"enumDescription":"Pool in Good Condition","enumValue":"Good","iconName":"pool","lexiconClass":"layout","lexiconProperty":"pool_condition"},{"enumDescription":"Tiled Pool","enumValue":"Tile","iconName":"pool","lexiconClass":"layout","lexiconProperty":"pool_surface_type"},{"enumDescription":"Clear Pool Water","enumValue":"Clear","iconName":"pool","lexiconClass":"layout","lexiconProperty":"pool_water_quality"},{"enumDescription":"Fencing","enumValue":"Fencing","iconName":"safety","lexiconClass":"layout","lexiconProperty":"safety_features"},{"enumDescription":"Driveway is in Good Condition","enumValue":"Good","iconName":"driveway","lexiconClass":"lot","lexiconProperty":"driveway_condition"},{"enumDescription":"Paver Driveway","enumValue":"Pavers","iconName":"driveway","lexiconClass":"lot","lexiconProperty":"driveway_material"},{"enumDescription":"Concrete Driveway","enumValue":"Concrete","iconName":"driveway","lexiconClass":"lot","lexiconProperty":"driveway_material"},{"enumDescription":"4ft Fence","enumValue":"4ft","iconName":"fence","lexiconClass":"lot","lexiconProperty":"fence_height"},{"enumDescription":"50ft Fence","enumValue":"50ft","iconName":"fence","lexiconClass":"lot","lexiconProperty":"fence_length"},{"enumDescription":"Wrought Iron Fence","enumValue":"WroughtIron","iconName":"fence","lexiconClass":"lot","lexiconProperty":"fencing_type"},{"enumDescription":"Mature Trees","enumValue":"MatureTrees","iconName":"landscaping","lexiconClass":"lot","lexiconProperty":"landscaping_features"},{"enumDescription":"Lawn","enumValue":"Lawn","iconName":"landscaping","lexiconClass":"lot","lexiconProperty":"landscaping_features"},{"enumDescription":"Paved Road","enumValue":"PavedRoad","iconName":"","lexiconClass":"lot","lexiconProperty":"lot_type"},{"enumDescription":"Greater Than One Quarter Acre","enumValue":"GreaterThanOneQuarterAcre","iconName":"","lexiconClass":"lot","lexiconProperty":"lot_type"},{"enumDescription":"Park View","enumValue":"ParkView","iconName":"view","lexiconClass":"lot","lexiconProperty":"view"},{"enumDescription":"City Skyline View","enumValue":"CitySkylineView","iconName":"view","lexiconClass":"lot","lexiconProperty":"view"},{"enumDescription":"Waterfront View","enumValue":"Waterfront","iconName":"view","lexiconClass":"lot","lexiconProperty":"view"},{"enumDescription":"Contemporary Architecture","enumValue":"Contemporary","iconName":"arcitecture","lexiconClass":"structure","lexiconProperty":"architectural_style_type"},{"enumDescription":"Modern Architecture","enumValue":"Modern","iconName":"arcitecture","lexiconClass":"structure","lexiconProperty":"architectural_style_type"},{"enumDescription":"Attached","enumValue":"Attached","iconName":"","lexiconClass":"structure","lexiconProperty":"attachment_type"},{"enumDescription":"Detached","enumValue":"Detached","iconName":"","lexiconClass":"structure","lexiconProperty":"attachment_type"},{"enumDescription":"Ceiling in Good Condition","enumValue":"Good","iconName":"ceiling","lexiconClass":"structure","lexiconProperty":"ceiling_condition"},{"enumDescription":"Exposed Beams","enumValue":"Exposed Beams","iconName":"Ceiling","lexiconClass":"structure","lexiconProperty":"ceiling_structure_material"},{"enumDescription":"Wood Joist Ceiling","enumValue":"Wood Joists","iconName":"Ceiling","lexiconClass":"structure","lexiconProperty":"ceiling_structure_material"},{"enumDescription":"Drywall Ceiling","enumValue":"Drywall","iconName":"ceiling","lexiconClass":"structure","lexiconProperty":"ceiling_surface_material"},{"enumDescription":"Metal Panel Ceiling","enumValue":"Metal Panels","iconName":"ceiling","lexiconClass":"structure","lexiconProperty":"ceiling_surface_material"},{"enumDescription":"Wood Exterior Door","enumValue":"Wood","iconName":"exterior-door","lexiconClass":"structure","lexiconProperty":"exterior_door_material"},{"enumDescription":"Glass Exterior Door","enumValue":"Glass","iconName":"exterior-door","lexiconClass":"structure","lexiconProperty":"exterior_door_material"},{"enumDescription":"Exterior Walls in Good Condition","enumValue":"Good","iconName":"exterior-material","lexiconClass":"structure","lexiconProperty":"exterior_wall_condition"},{"enumDescription":"Floor in Good Condition","enumValue":"Good","iconName":"wood-floor","lexiconClass":"structure","lexiconProperty":"flooring_condition"},{"enumDescription":"Floor in Moderate Condition","enumValue":"Moderate","iconName":"wood-floor","lexiconClass":"structure","lexiconProperty":"flooring_condition"},{"enumDescription":"Foundation is in Good Condition","enumValue":"Good","iconName":"foundation","lexiconClass":"structure","lexiconProperty":"foundation_condition"},{"enumDescription":"Poured Concrete Foundation","enumValue":"Poured Concrete","iconName":"foundation","lexiconClass":"structure","lexiconProperty":"foundation_material"},{"enumDescription":"Slab on Grade Foundation","enumValue":"Slab on Grade","iconName":"foundation","lexiconClass":"structure","lexiconProperty":"foundation_type"},{"enumDescription":"Gutters in Good Condition","enumValue":"Good","iconName":"rain","lexiconClass":"structure","lexiconProperty":"gutters_condition"},{"enumDescription":"Aluminum Gutters","enumValue":"Aluminum","iconName":"rain","lexiconClass":"structure","lexiconProperty":"gutters_material"},{"enumDescription":"Wood Door","enumValue":"Wood","iconName":"interior-door","lexiconClass":"structure","lexiconProperty":"interior_door_material"},{"enumDescription":"Composite Door","enumValue":"Composite","iconName":"interior-door","lexiconClass":"structure","lexiconProperty":"interior_door_material"},{"enumDescription":"Glass Panel Door","enumValue":"Glass Panel","iconName":"interior-door","lexiconClass":"structure","lexiconProperty":"interior_door_material"},{"enumDescription":"Hollow Core Door","enumValue":"Hollow Core","iconName":"interior-door","lexiconClass":"structure","lexiconProperty":"interior_door_material"},{"enumDescription":"Walls in Good Condition","enumValue":"Good","iconName":"","lexiconClass":"structure","lexiconProperty":"interior_wall_condition"},{"enumDescription":"Painted Walls","enumValue":"Paint","iconName":"paint","lexiconClass":"structure","lexiconProperty":"interior_wall_finish_primary"},{"enumDescription":"Wood Frame Structure","enumValue":"Wood Frame","iconName":"wall-structure","lexiconClass":"structure","lexiconProperty":"interior_wall_structure_material"},{"enumDescription":"Concrete Block Structure","enumValue":"Concrete Block","iconName":"wall-structure","lexiconClass":"structure","lexiconProperty":"interior_wall_structure_material"},{"enumDescription":"Drywall","enumValue":"Drywall","iconName":"texture","lexiconClass":"structure","lexiconProperty":"interior_wall_surface_material_primary"},{"enumDescription":"Painted Walls","enumValue":"Paint","iconName":"texture","lexiconClass":"structure","lexiconProperty":"interior_wall_surface_material_primary"},{"enumDescription":"Wood Frame","enumValue":"Wood Frame","iconName":"foundation","lexiconClass":"structure","lexiconProperty":"primary_framing_material"},{"enumDescription":"Roof is in Good Condition","enumValue":"Good","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_condition"},{"enumDescription":"Gable Style Roof","enumValue":"Gable","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_design_type"},{"enumDescription":"Flat Style Roof","enumValue":"Flat","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_design_type"},{"enumDescription":"Tile Roof","enumValue":"Tile","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_material_type"},{"enumDescription":"Shingles","enumValue":"Shingle","iconName":"roof","lexiconClass":"structure","lexiconProperty":"roof_material_type"},{"enumDescription":"Concrete Slab Subfloor","enumValue":"Concrete Slab","iconName":"subfloor","lexiconClass":"structure","lexiconProperty":"subfloor_material"},{"enumDescription":"Plywood Subfloor","enumValue":"Plywood","iconName":"subfloor","lexiconClass":"structure","lexiconProperty":"subfloor_material"},{"enumDescription":"Vinyl Framed Window","enumValue":"Vinyl","iconName":"window","lexiconClass":"structure","lexiconProperty":"window_frame_material"},{"enumDescription":"Wood Framed Window","enumValue":"Wood","iconName":"window","lexiconClass":"structure","lexiconProperty":"window_frame_material"},{"enumDescription":"Double Pane Windows","enumValue":"Double Pane","iconName":"window","lexiconClass":"structure","lexiconProperty":"window_glazing_type"},{"enumDescription":"Double Hung Windows","enumValue":"Double Hung","iconName":"window-operation","lexiconClass":"structure","lexiconProperty":"window_operation_type"},{"enumDescription":"Sliding Windows","enumValue":"Sliding","iconName":"window-operation","lexiconClass":"structure","lexiconProperty":"window_operation_type"},{"enumDescription":"Fiberglass Window Screen","enumValue":"Fiberglass","iconName":"window","lexiconClass":"structure","lexiconProperty":"window_screen_material"},{"enumDescription":"No Structural Damage Observed","enumValue":"None Observed","iconName":"warning","lexiconClass":"structure","lexiconProperty":"structural_damage_indicators"},{"enumDescription":"Wood Structure","enumValue":"Wood","iconName":"builder","lexiconClass":"structure","lexiconProperty":"building_material_type"},{"enumDescription":"Sliding Door","enumValue":"Sliding","iconName":"interior-door","lexiconClass":"structure","lexiconProperty":"door_design_type"},{"enumDescription":"Glass Door","enumValue":"Glass","iconName":"interior-door","lexiconClass":"structure","lexiconProperty":"door_material_type"},{"enumDescription":"Deck","enumValue":"Deck","iconName":"deck","lexiconClass":"structure","lexiconProperty":"structure_add_on"},{"enumDescription":"Refrigerator","enumValue":"Refrigerator","iconName":"fridge","lexiconClass":"appliance","lexiconProperty":"appliance_type"},{"enumDescription":"Microwave","enumValue":"Microwave","iconName":"microwave","lexiconClass":"appliance","lexiconProperty":"appliance_type"},{"enumDescription":"Oven","enumValue":"Oven","iconName":"oven","lexiconClass":"appliance","lexiconProperty":"appliance_type"},{"enumDescription":"Toaster Oven","enumValue":"Toaster Oven","iconName":"toaster-oven","lexiconClass":"appliance","lexiconProperty":"appliance_type"},{"enumDescription":"Washing Machine","enumValue":"Washing Machine","iconName":"laundry","lexiconClass":"appliance","lexiconProperty":"appliance_type"},{"enumDescription":"White","enumValue":"White","lexiconClass":"appliance","lexiconProperty":"finish"},{"enumDescription":"Stainless Steel","enumValue":"Stainless Steel","lexiconClass":"appliance","lexiconProperty":"finish"}]
+[
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "CeilingFan",
+    "enumDescription": "Cieling Fan"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "CeilingFan",
+    "enumDescription": "Cieling Fan"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "CeilingFans",
+    "enumDescription": "Cieling Fans"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "CentralAir",
+    "enumDescription": "Central Air"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "Ductless",
+    "enumDescription": "Ductless Cooling"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "Electric",
+    "enumDescription": "Electric Cooling"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "GeothermalCooling",
+    "enumDescription": "Geothermal Cooling"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "Hybrid",
+    "enumDescription": "Hybrid Cooling"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "WholeHouseFan",
+    "enumDescription": "Whole House Fan"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "WindowAirConditioner",
+    "enumDescription": "Window Air Conditioner"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "cooling_system_type",
+    "iconName": "cooling",
+    "enumValue": "Zoned",
+    "enumDescription": "Zoned Cooling"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Baseboard",
+    "enumDescription": "Heated Baseboards"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Central",
+    "enumDescription": "Central Heating"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Ductless",
+    "enumDescription": "Ductless Heating"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Electric",
+    "enumDescription": "Electric Heating"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "ElectricFurnace",
+    "enumDescription": "Electric Furnace"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Gas",
+    "enumDescription": "Gas Heating"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "GasFurnace",
+    "enumDescription": "Gas Furnace"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "HeatPump",
+    "enumDescription": "Heat Pump"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Radiant",
+    "enumDescription": "Radiant Heating"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "heating_system_type",
+    "iconName": "heating",
+    "enumValue": "Solar",
+    "enumDescription": "Solar Heating"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "public_utility_type",
+    "iconName": "utilities",
+    "enumValue": "CableAvailable",
+    "enumDescription": "Cable"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "public_utility_type",
+    "iconName": "utilities",
+    "enumValue": "ElectricityAvailable",
+    "enumDescription": "Electricity"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "public_utility_type",
+    "iconName": "utilities",
+    "enumValue": "NaturalGasAvailable",
+    "enumDescription": "Natural Gas"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "public_utility_type",
+    "iconName": "utilities",
+    "enumValue": "SewerAvailable",
+    "enumDescription": "Sewer"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "public_utility_type",
+    "iconName": "utilities",
+    "enumValue": "UndergroundUtilities",
+    "enumDescription": "Underground Utilities"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "public_utility_type",
+    "iconName": "utilities",
+    "enumValue": "WaterAvailable",
+    "enumDescription": "Water"
+  },
+
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "sewer_type",
+    "iconName": "sewer",
+    "enumValue": "Combined",
+    "enumDescription": "Combined Sewer"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "sewer_type",
+    "iconName": "sewer",
+    "enumValue": "Public",
+    "enumDescription": "Public Sewer"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "sewer_type",
+    "iconName": "sewer",
+    "enumValue": "Sanitary",
+    "enumDescription": "Sanitation System"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "sewer_type",
+    "iconName": "sewer",
+    "enumValue": "Septic",
+    "enumDescription": "Septic Tank"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "sewer_type",
+    "iconName": "sewer",
+    "enumValue": "Septic",
+    "enumDescription": "Septic Tank"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "water_source_type",
+    "iconName": "water",
+    "enumValue": "Aquifer",
+    "enumDescription": "Aquifer Water"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "water_source_type",
+    "iconName": "water",
+    "enumValue": "Public",
+    "enumDescription": "Public Water"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "water_source_type",
+    "iconName": "water",
+    "enumValue": "Well",
+    "enumDescription": "Well Water"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "plumbing_system_type",
+    "iconName": "plumbing",
+    "enumValue": "CastIron",
+    "enumDescription": "Cast Iron Pipes"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "plumbing_system_type",
+    "iconName": "plumbing",
+    "enumValue": "Copper",
+    "enumDescription": "Copper Pipes"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "plumbing_system_type",
+    "iconName": "plumbing",
+    "enumValue": "GalvanizedSteel",
+    "enumDescription": "Galvanized Steel Pipes"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "plumbing_system_type",
+    "iconName": "plumbing",
+    "enumValue": "PVC",
+    "enumDescription": "PVC Pipes"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "plumbing_system_type",
+    "iconName": "plumbing",
+    "enumValue": "PEX",
+    "enumDescription": "PEX Pipes"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "electric_panel_capacity",
+    "iconName": "electric-capacity"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "electrical_wiring_type",
+    "iconName": "electricity",
+    "enumValue": "Aluminum",
+    "enumDescription": "Aluminim Wiring"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "electrical_wiring_type",
+    "iconName": "electricity",
+    "enumValue": "Copper",
+    "enumDescription": "Copper Wiring"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "electrical_wiring_type",
+    "iconName": "electricity",
+    "enumValue": "KnobAndTube",
+    "enumDescription": "Knob and Tube Wiring"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_condensing_unit_present",
+    "iconName": "hvac"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "solar_panel_present",
+    "iconName": "solar"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "solar_panel_type",
+    "iconName": "solar",
+    "enumValue": "Hybrid",
+    "enumDescription": "Hybrid Solar Panels"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "solar_panel_type",
+    "iconName": "solar",
+    "enumValue": "Photovoltaic",
+    "enumDescription": "Photovoltaic Solar Panels"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "solar_panel_type",
+    "iconName": "solar",
+    "enumValue": "SolarThermal",
+    "enumDescription": "Solar Thermal Panels"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "smart_home_features",
+    "iconName": "smart-home"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_condition",
+    "iconName": "hvac",
+    "enumValue": "Damaged",
+    "enumDescription": "Damaged HVAC Unit"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_condition",
+    "iconName": "hvac",
+    "enumValue": "Good",
+    "enumDescription": "HVAC Unit in Good Condition"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_condition",
+    "iconName": "hvac",
+    "enumValue": "Leaking",
+    "enumDescription": "Leaking HVAC Unit"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_condition",
+    "iconName": "hvac",
+    "enumValue": "New",
+    "enumDescription": "New HVAC Unit"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_condition",
+    "iconName": "hvac",
+    "enumValue": "Rusty",
+    "enumDescription": "Rusty HVAC Unit"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_issues",
+    "iconName": "warning",
+    "enumValue": "LeakingPipes",
+    "enumDescription": "HVAC has Leaking Pipes"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_issues",
+    "iconName": "warning",
+    "enumValue": "MissingGrilles",
+    "enumDescription": "HVAC is Missing Grilles"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_issues",
+    "iconName": "warning",
+    "enumValue": "ObstructedVent",
+    "enumDescription": "Obstructed HVAC Vent"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_issues",
+    "iconName": "warning",
+    "enumValue": "RustyUnit",
+    "enumDescription": "Rusty HVAC Unit"
+  },
+  {
+    "lexiconClass": "utility",
+    "lexiconProperty": "hvac_unit_issues",
+    "iconName": "warning",
+    "enumValue": "WornFanHousing",
+    "enumDescription": "HVAC has Worn Fan Housing"
+  },
+  
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Brick",
+      "enumDescription": "Brick Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Natural Stone",
+      "enumDescription": "Natural Stone Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Manufactured Stone",
+      "enumDescription": "Manufactured Stone Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Stucco",
+      "enumDescription": "Stucco Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Vinyl Siding",
+      "enumDescription": "Vinyl Siding"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Wood Siding",
+      "enumDescription": "Wood Siding"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Fiber Cement Siding",
+      "enumDescription": "Fiber Cement Siding"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Metal Siding",
+      "enumDescription": "Metal Siding"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Concrete Block",
+      "enumDescription": "Concrete Block Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "EIFS",
+      "enumDescription": "EIFS Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Log",
+      "enumDescription": "Log Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Adobe",
+      "enumDescription": "Adobe Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Precast Concrete",
+      "enumDescription": "Concrete Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_primary",
+      "iconName": "exterior-material",
+      "enumValue": "Curtain Wall",
+      "enumDescription": "Curtain Wall Exterior"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Brick",
+      "enumDescription": "Brick Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Natural Stone",
+      "enumDescription": "Natural Stone Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Manufactured Stone",
+      "enumDescription": "Manufactured Stone Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Stucco",
+      "enumDescription": "Stucco Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Vinyl Siding",
+      "enumDescription": "Vinyl Siding Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Wood Siding",
+      "enumDescription": "Wood Siding Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Fiber Cement Siding",
+      "enumDescription": "Fiber Cement Siding Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Metal Siding",
+      "enumDescription": "Metal Siding Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Concrete Block",
+      "enumDescription": "Concrete Block Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "EIFS",
+      "enumDescription": "EIFS Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Log",
+      "enumDescription": "Log Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Adobe",
+      "enumDescription": "Adobe Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Precast Concrete",
+      "enumDescription": "Concrete Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_material_secondary",
+      "iconName": "exterior-material",
+      "enumValue": "Curtain Wall",
+      "enumDescription": "Curtain Wall Accent"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Solid Hardwood",
+      "enumDescription": "Hardwood Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Engineered Hardwood",
+      "enumDescription": "Hardwood Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Laminate",
+      "enumDescription": "Laminate Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Luxury Vinyl Plank",
+      "enumDescription": "Luxury Vinyl Plank Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Sheet Vinyl",
+      "enumDescription": "Vinyl Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Ceramic Tile",
+      "enumDescription": "Ceramic Tile"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Porcelain Tile",
+      "enumDescription": "Porcelain Tile"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Natural Stone Tile",
+      "enumDescription": "Natural Stone Tile"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Carpet",
+      "enumDescription": "Carpet Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Area Rugs",
+      "enumDescription": "Area Rugs"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Polished Concrete",
+      "enumDescription": "Polished Concrete Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Bamboo",
+      "enumDescription": "Bamboo Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Cork",
+      "enumDescription": "Cork Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Linoleum",
+      "enumDescription": "Linoleum Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Terrazzo",
+      "enumDescription": "Terrazzo Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Epoxy Coating",
+      "enumDescription": "Epoxy Coated Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Concrete",
+      "enumDescription": "Concrete Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_primary",
+      "iconName": "flooring",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Solid Hardwood",
+      "enumDescription": "Hardwood Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Engineered Hardwood",
+      "enumDescription": "Hardwood Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Laminate",
+      "enumDescription": "Laminate Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Luxury Vinyl Plank",
+      "enumDescription": "Luxury Vinyl Plank Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Ceramic Tile",
+      "enumDescription": "Ceramic Tile"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Carpet",
+      "enumDescription": "Carpet Flooring"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Area Rugs",
+      "enumDescription": "Area Rugs"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_material_secondary",
+      "iconName": "flooring",
+      "enumValue": "Transition Strips",
+      "enumDescription": "Transition Strips"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "3-Tab Asphalt Shingle",
+      "enumDescription": "3-Tab Asphalt Shingles"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Architectural Asphalt Shingle",
+      "enumDescription": "Architectural Asphalt Shingles"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Metal Standing Seam",
+      "enumDescription": "Metal Standing Seam Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Metal Corrugated",
+      "enumDescription": "Metal Corrugated Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Clay Tile",
+      "enumDescription": "Clay Tile Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Concrete Tile",
+      "enumDescription": "Concrete Tile Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Natural Slate",
+      "enumDescription": "Natural Slate Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Synthetic Slate",
+      "enumDescription": "Synthetic Slate roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Wood Shake",
+      "enumDescription": "Wood Shake Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Wood Shingle",
+      "enumDescription": "Wood Shingles"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "TPO Membrane",
+      "enumDescription": "TPO Membrane Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "EPDM Membrane",
+      "enumDescription": "EPDM Membrane Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Modified Bitumen",
+      "enumDescription": "Modified Bitumen Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Built-Up Roof",
+      "enumDescription": "Built-Up Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Green Roof System",
+      "enumDescription": "Green Roof System"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Solar Integrated Tiles",
+      "enumDescription": "Solar Integrated Tile Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Tile",
+      "enumDescription": "Tile Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_covering_material",
+      "iconName": "roof",
+      "enumValue": "Shingle",
+      "enumDescription": "Shingles"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_structure_material",
+      "iconName": "roof-structure",
+      "enumValue": "Wood Truss",
+      "enumDescription": "Wood Truss Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_structure_material",
+      "iconName": "roof-structure",
+      "enumValue": "Wood Rafter",
+      "enumDescription": "Wood Rafters"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_structure_material",
+      "iconName": "roof-structure",
+      "enumValue": "Steel Truss",
+      "enumDescription": "Steel Truss Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_structure_material",
+      "iconName": "roof-structure",
+      "enumValue": "Concrete Beam",
+      "enumDescription": "Concrete Beams"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_structure_material",
+      "iconName": "roof-structure",
+      "enumValue": "Engineered Lumber",
+      "enumDescription": "Engineered Lumber Roof"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "bedroom",
+      "enumValue": "Bedroom",
+      "enumDescription": "Bedroom"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "closet",
+      "enumValue": "Closet",
+      "enumDescription": "Closet"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "closet",
+      "enumValue": "Walk-in Closet",
+      "enumDescription": "Walk-in Closet"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "balcony",
+      "enumValue": "Balcony",
+      "enumDescription": "Balcony"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "exterior",
+      "enumValue": "Exterior",
+      "enumDescription": "Exterior"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "pool",
+      "enumValue": "Pool Area",
+      "enumDescription": "Pool"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "patio",
+      "enumValue": "Porch",
+      "enumDescription": "Porch"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "patio",
+      "enumValue": "Patio",
+      "enumDescription": "Patio"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "garage",
+      "enumValue": "Attached Garage",
+      "enumDescription": "Attached Garage"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "fridge",
+      "enumValue": "Kitchen",
+      "enumDescription": "Kitchen"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "living",
+      "enumValue": "Living Room",
+      "enumDescription": "Living Room"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "bathroom",
+      "enumValue": "Full Bathroom",
+      "enumDescription": "Full Bathroom"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "laundry",
+      "enumValue": "Laundry Room",
+      "enumDescription": "Laundry Room"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "dining-room",
+      "enumValue": "Dining Room",
+      "enumDescription": "Dining Room"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "space_type",
+      "iconName": "bedroom",
+      "enumValue": "Primary Bedroom",
+      "enumDescription": "Primary Bedroom"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "floor_level",
+      "iconName": "",
+      "enumValue": "1st Floor",
+      "enumDescription": "1st Floor"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "floor_level",
+      "iconName": "",
+      "enumValue": "2nd Floor",
+      "enumDescription": "2nd Floor"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_material_type",
+      "iconName": "flooring",
+      "enumValue": "Carpet",
+      "enumDescription": "Carpet Flooring"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_material_type",
+      "iconName": "flooring",
+      "enumValue": "Concrete",
+      "enumDescription": "Concrete Flooring"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_material_type",
+      "iconName": "flooring",
+      "enumValue": "Tile",
+      "enumDescription": "Tile Flooring"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_material_type",
+      "iconName": "flooring",
+      "enumValue": "Vinyl",
+      "enumDescription": "Vinyl Flooring"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_material_type",
+      "iconName": "flooring",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Flooring"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "view_type",
+      "iconName": "view",
+      "enumValue": "Garden",
+      "enumDescription": "Garden View"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "view_type",
+      "iconName": "view",
+      "enumValue": "Street",
+      "enumDescription": "Street View"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "view_type",
+      "iconName": "view",
+      "enumValue": "City",
+      "enumDescription": "City View"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "view_type",
+      "iconName": "view",
+      "enumValue": "Waterfront",
+      "enumDescription": "Waterfront View"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "design_style",
+      "iconName": "style",
+      "enumValue": "Modern",
+      "enumDescription": "Modern Interior"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "design_style",
+      "iconName": "style",
+      "enumValue": "Traditional",
+      "enumDescription": "Traditional Interior"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "window_design_type",
+      "iconName": "windows",
+      "enumValue": "DoubleHung",
+      "enumDescription": "Double Hung Windows"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "window_design_type",
+      "iconName": "windows",
+      "enumValue": "Sliding",
+      "enumDescription": "Sliding Windows"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "window_material_type",
+      "iconName": "glass-type",
+      "enumValue": "Vinyl",
+      "enumDescription": "Vinyl Windows"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "window_material_type",
+      "iconName": "glass-type",
+      "enumValue": "Glass",
+      "enumDescription": "Glass Windows"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "window_treatment_type",
+      "iconName": "window-treatment",
+      "enumValue": "Blinds",
+      "enumDescription": "Blinds"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "window_treatment_type",
+      "iconName": "window-treatment",
+      "enumValue": "Curtains",
+      "enumDescription": "Curtains"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "clutter_level",
+      "iconName": "clutter",
+      "enumValue": "Moderate",
+      "enumDescription": "Moderately Cluttered"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "clutter_level",
+      "iconName": "clutter",
+      "enumValue": "Staged",
+      "enumDescription": "Staged"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "condition_issues",
+      "iconName": "warning",
+      "enumValue": "PersonalItemsVisible",
+      "enumDescription": "Personal Items Visible"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_wear",
+      "iconName": "flooring-wear",
+      "enumValue": "Good",
+      "enumDescription": "Floors in Good Condition"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_wear",
+      "iconName": "flooring-wear",
+      "enumValue": "Moderate",
+      "enumDescription": "Floors in Moderate Condition"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "flooring_wear",
+      "iconName": "flooring-wear",
+      "enumValue": "Pristine",
+      "enumDescription": "Pristine Floors"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "furnished",
+      "iconName": "living",
+      "enumValue": "Furnished",
+      "enumDescription": "Furnished"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "furnished",
+      "iconName": "living",
+      "enumValue": "Partially Furnished",
+      "enumDescription": "Partially Furnished"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "lighting_features",
+      "iconName": "lighting",
+      "enumValue": "CeilingFan",
+      "enumDescription": "Ceiling Fan Light"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "lighting_features",
+      "iconName": "lighting",
+      "enumValue": "FlushMount",
+      "enumDescription": "Flush Mount Lighting"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "lighting_features",
+      "iconName": "lighting",
+      "enumValue": "Recessed",
+      "enumDescription": "Recessed Lighting"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "lighting_features",
+      "iconName": "lighting",
+      "enumValue": "Chandelier",
+      "enumDescription": "Chandelier"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "lighting_features",
+      "iconName": "lighting",
+      "enumValue": "NaturalLight",
+      "enumDescription": "Natural Light"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "natural_light_quality",
+      "iconName": "natural-light",
+      "enumValue": "Abundant",
+      "enumDescription": "Abundant Natural Light"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "natural_light_quality",
+      "iconName": "natural-light",
+      "enumValue": "Limited",
+      "enumDescription": "Limited Natural Light"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "natural_light_quality",
+      "iconName": "natural-light",
+      "enumValue": "Moderate",
+      "enumDescription": "Moderate Natural Light"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "paint_condition",
+      "iconName": "paint",
+      "enumValue": "Good",
+      "enumDescription": "Paint in Good Condition"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "paint_condition",
+      "iconName": "paint",
+      "enumValue": "New",
+      "enumDescription": "New Paint"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "cabinet_style",
+      "iconName": "cabinet",
+      "enumValue": "Shaker",
+      "enumDescription": "Shaker Cabinets"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "cabinet_style",
+      "iconName": "cabinet",
+      "enumValue": "Flat Panel",
+      "enumDescription": "Flat Panel Cabinets"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "cabinet_style",
+      "iconName": "cabinet",
+      "enumValue": "Modern",
+      "enumDescription": "Modern Cabinets"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "countertop_material",
+      "iconName": "countertops",
+      "enumValue": "Granite",
+      "enumDescription": "Granite Countertops"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "countertop_material",
+      "iconName": "countertops",
+      "enumValue": "Laminate",
+      "enumDescription": "Laminate Countertops"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "countertop_material",
+      "iconName": "countertops",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Countertops"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "fixture_finish_quality",
+      "iconName": "faucet",
+      "enumValue": "Mid-range",
+      "enumDescription": "Mid-range Fixtures"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "decor_elements",
+      "iconName": "decor-elements",
+      "enumValue": "Tray Ceiling",
+      "enumDescription": "Tray Ceiling"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "decor_elements",
+      "iconName": "decor-elements",
+      "enumValue": "Exposed Beams",
+      "enumDescription": "Exposed Beams"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "decor_elements",
+      "iconName": "decor-elements",
+      "enumValue": "Vaulted Ceiling",
+      "enumDescription": "Vaulted Ceiling"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "pool_condition",
+      "iconName": "pool",
+      "enumValue": "Good",
+      "enumDescription": "Pool in Good Condition"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "pool_surface_type",
+      "iconName": "pool",
+      "enumValue": "Tile",
+      "enumDescription": "Tiled Pool"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "pool_water_quality",
+      "iconName": "pool",
+      "enumValue": "Clear",
+      "enumDescription": "Clear Pool Water"
+    },
+    {
+      "lexiconClass": "layout",
+      "lexiconProperty": "safety_features",
+      "iconName": "safety",
+      "enumValue": "Fencing",
+      "enumDescription": "Fencing"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "driveway_condition",
+      "iconName": "driveway",
+      "enumValue": "Good",
+      "enumDescription": "Driveway is in Good Condition"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "driveway_material",
+      "iconName": "driveway",
+      "enumValue": "Pavers",
+      "enumDescription": "Paver Driveway"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "driveway_material",
+      "iconName": "driveway",
+      "enumValue": "Concrete",
+      "enumDescription": "Concrete Driveway"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "fence_height",
+      "iconName": "fence",
+      "enumValue": "4ft",
+      "enumDescription": "4ft Fence"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "fence_length",
+      "iconName": "fence",
+      "enumValue": "50ft",
+      "enumDescription": "50ft Fence"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "fencing_type",
+      "iconName": "fence",
+      "enumValue": "WroughtIron",
+      "enumDescription": "Wrought Iron Fence"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "landscaping_features",
+      "iconName": "landscaping",
+      "enumValue": "MatureTrees",
+      "enumDescription": "Mature Trees"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "landscaping_features",
+      "iconName": "landscaping",
+      "enumValue": "Lawn",
+      "enumDescription": "Lawn"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "lot_type",
+      "iconName": "",
+      "enumValue": "PavedRoad",
+      "enumDescription": "Paved Road"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "lot_type",
+      "iconName": "",
+      "enumValue": "GreaterThanOneQuarterAcre",
+      "enumDescription": "Greater Than One Quarter Acre"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "view",
+      "iconName": "view",
+      "enumValue": "ParkView",
+      "enumDescription": "Park View"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "view",
+      "iconName": "view",
+      "enumValue": "CitySkylineView",
+      "enumDescription": "City Skyline View"
+    },
+    {
+      "lexiconClass": "lot",
+      "lexiconProperty": "view",
+      "iconName": "view",
+      "enumValue": "Waterfront",
+      "enumDescription": "Waterfront View"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "architectural_style_type",
+      "iconName": "arcitecture",
+      "enumValue": "Contemporary",
+      "enumDescription": "Contemporary Architecture"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "architectural_style_type",
+      "iconName": "arcitecture",
+      "enumValue": "Modern",
+      "enumDescription": "Modern Architecture"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "attachment_type",
+      "iconName": "",
+      "enumValue": "Attached",
+      "enumDescription": "Attached"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "attachment_type",
+      "iconName": "",
+      "enumValue": "Detached",
+      "enumDescription": "Detached"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "ceiling_condition",
+      "iconName": "ceiling",
+      "enumValue": "Good",
+      "enumDescription": "Ceiling in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "ceiling_structure_material",
+      "iconName": "Ceiling",
+      "enumValue": "Exposed Beams",
+      "enumDescription": "Exposed Beams"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "ceiling_structure_material",
+      "iconName": "Ceiling",
+      "enumValue": "Wood Joists",
+      "enumDescription": "Wood Joist Ceiling"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "ceiling_surface_material",
+      "iconName": "ceiling",
+      "enumValue": "Drywall",
+      "enumDescription": "Drywall Ceiling"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "ceiling_surface_material",
+      "iconName": "ceiling",
+      "enumValue": "Metal Panels",
+      "enumDescription": "Metal Panel Ceiling"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_door_material",
+      "iconName": "exterior-door",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Exterior Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_door_material",
+      "iconName": "exterior-door",
+      "enumValue": "Glass",
+      "enumDescription": "Glass Exterior Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "exterior_wall_condition",
+      "iconName": "exterior-material",
+      "enumValue": "Good",
+      "enumDescription": "Exterior Walls in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_condition",
+      "iconName": "wood-floor",
+      "enumValue": "Good",
+      "enumDescription": "Floor in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "flooring_condition",
+      "iconName": "wood-floor",
+      "enumValue": "Moderate",
+      "enumDescription": "Floor in Moderate Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "foundation_condition",
+      "iconName": "foundation",
+      "enumValue": "Good",
+      "enumDescription": "Foundation is in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "foundation_material",
+      "iconName": "foundation",
+      "enumValue": "Poured Concrete",
+      "enumDescription": "Poured Concrete Foundation"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "foundation_type",
+      "iconName": "foundation",
+      "enumValue": "Slab on Grade",
+      "enumDescription": "Slab on Grade Foundation"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "gutters_condition",
+      "iconName": "rain",
+      "enumValue": "Good",
+      "enumDescription": "Gutters in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "gutters_material",
+      "iconName": "rain",
+      "enumValue": "Aluminum",
+      "enumDescription": "Aluminum Gutters"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_door_material",
+      "iconName": "interior-door",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_door_material",
+      "iconName": "interior-door",
+      "enumValue": "Composite",
+      "enumDescription": "Composite Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_door_material",
+      "iconName": "interior-door",
+      "enumValue": "Glass Panel",
+      "enumDescription": "Glass Panel Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_door_material",
+      "iconName": "interior-door",
+      "enumValue": "Hollow Core",
+      "enumDescription": "Hollow Core Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_wall_condition",
+      "iconName": "",
+      "enumValue": "Good",
+      "enumDescription": "Walls in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_wall_finish_primary",
+      "iconName": "paint",
+      "enumValue": "Paint",
+      "enumDescription": "Painted Walls"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_wall_structure_material",
+      "iconName": "wall-structure",
+      "enumValue": "Wood Frame",
+      "enumDescription": "Wood Frame Structure"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_wall_structure_material",
+      "iconName": "wall-structure",
+      "enumValue": "Concrete Block",
+      "enumDescription": "Concrete Block Structure"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_wall_surface_material_primary",
+      "iconName": "texture",
+      "enumValue": "Drywall",
+      "enumDescription": "Drywall"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "interior_wall_surface_material_primary",
+      "iconName": "texture",
+      "enumValue": "Paint",
+      "enumDescription": "Painted Walls"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "primary_framing_material",
+      "iconName": "foundation",
+      "enumValue": "Wood Frame",
+      "enumDescription": "Wood Frame"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_condition",
+      "iconName": "roof",
+      "enumValue": "Good",
+      "enumDescription": "Roof is in Good Condition"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_design_type",
+      "iconName": "roof",
+      "enumValue": "Gable",
+      "enumDescription": "Gable Style Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_design_type",
+      "iconName": "roof",
+      "enumValue": "Flat",
+      "enumDescription": "Flat Style Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_material_type",
+      "iconName": "roof",
+      "enumValue": "Tile",
+      "enumDescription": "Tile Roof"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "roof_material_type",
+      "iconName": "roof",
+      "enumValue": "Shingle",
+      "enumDescription": "Shingles"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "subfloor_material",
+      "iconName": "subfloor",
+      "enumValue": "Concrete Slab",
+      "enumDescription": "Concrete Slab Subfloor"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "subfloor_material",
+      "iconName": "subfloor",
+      "enumValue": "Plywood",
+      "enumDescription": "Plywood Subfloor"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "window_frame_material",
+      "iconName": "window",
+      "enumValue": "Vinyl",
+      "enumDescription": "Vinyl Framed Window"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "window_frame_material",
+      "iconName": "window",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Framed Window"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "window_glazing_type",
+      "iconName": "window",
+      "enumValue": "Double Pane",
+      "enumDescription": "Double Pane Windows"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "window_operation_type",
+      "iconName": "window-operation",
+      "enumValue": "Double Hung",
+      "enumDescription": "Double Hung Windows"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "window_operation_type",
+      "iconName": "window-operation",
+      "enumValue": "Sliding",
+      "enumDescription": "Sliding Windows"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "window_screen_material",
+      "iconName": "window",
+      "enumValue": "Fiberglass",
+      "enumDescription": "Fiberglass Window Screen"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "structural_damage_indicators",
+      "iconName": "warning",
+      "enumValue": "None Observed",
+      "enumDescription": "No Structural Damage Observed"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "building_material_type",
+      "iconName": "builder",
+      "enumValue": "Wood",
+      "enumDescription": "Wood Structure"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "door_design_type",
+      "iconName": "interior-door",
+      "enumValue": "Sliding",
+      "enumDescription": "Sliding Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "door_material_type",
+      "iconName": "interior-door",
+      "enumValue": "Glass",
+      "enumDescription": "Glass Door"
+    },
+    {
+      "lexiconClass": "structure",
+      "lexiconProperty": "structure_add_on",
+      "iconName": "deck",
+      "enumValue": "Deck",
+      "enumDescription": "Deck"
+    },
+
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "fridge",
+      "enumValue": "Refrigerator",
+      "enumDescription": "Refrigerator"
+    },
+  
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "microwave",
+      "enumValue": "Microwave",
+      "enumDescription": "Microwave"
+    },
+ 
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "oven",
+      "enumValue": "Oven",
+      "enumDescription": "Oven"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "toaster-oven",
+      "enumValue": "Toaster Oven",
+      "enumDescription": "Toaster Oven"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "appliance_type",
+      "iconName": "laundry",
+      "enumValue": "Washing Machine",
+      "enumDescription": "Washing Machine"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "finish",
+      "enumValue": "White",
+      "enumDescription": "White"
+    },
+    {
+      "lexiconClass": "appliance",
+      "lexiconProperty": "finish",
+      "enumValue": "Stainless Steel",
+      "enumDescription": "Stainless Steel"
+    }
+  ]
