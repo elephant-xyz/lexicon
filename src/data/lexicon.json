@@ -22629,12 +22629,6 @@
           "relationship_type": "property_improvement_has_utility"
         },
         {
-          "type": "relationship",
-          "from": "property_improvement",
-          "to": "utility",
-          "relationship_type": "property_improvement_has_utility"
-        },
-        {
         "type": "relationship",
         "from": "property_improvement",
         "to": "inspection",
