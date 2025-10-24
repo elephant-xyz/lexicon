@@ -14440,6 +14440,14 @@
           }
         },
         "request_identifier": "52434205310037080"
+      },
+      "relationships": {
+        "has_property": {
+          "targets": [
+            "property"
+          ],
+          "comment": "This relationship is deprecated and will be removed in future versions"
+        }
       }
     },
     {
@@ -21942,6 +21950,9 @@
   "data_groups": [
     {
       "label": "Seed",
+      "deprecated_relationships": [
+        "property_seed"
+      ],
       "relationships": [
         {
           "type": "relationship",

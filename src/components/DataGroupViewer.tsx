@@ -11,6 +11,7 @@ interface DataGroupViewerProps {
 export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, searchTerm }) => {
   const navigate = useNavigate();
   const [expandedGroups, setExpandedGroups] = useState<Set<number>>(new Set());
+  const [expandedDeprecatedRelationships, setExpandedDeprecatedRelationships] = useState<Set<string>>(new Set());
   const [schemaManifest, setSchemaManifest] = useState<
     Record<string, { ipfsCid: string; type: string }>
   >({});
@@ -48,6 +49,16 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
       newExpanded.add(index);
     }
     setExpandedGroups(newExpanded);
+  };
+
+  const toggleDeprecatedRelationshipsExpanded = (groupLabel: string) => {
+    const newExpanded = new Set(expandedDeprecatedRelationships);
+    if (newExpanded.has(groupLabel)) {
+      newExpanded.delete(groupLabel);
+    } else {
+      newExpanded.add(groupLabel);
+    }
+    setExpandedDeprecatedRelationships(newExpanded);
   };
 
   const handleClassClick = (className: string) => {
@@ -213,75 +224,114 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
               <div className="relationships-section">
                 <h4>Relationships:</h4>
                 <div className="relationships-list">
-                  {group.relationships.map((rel, _relIndex) => {
-                    const relKey = `${rel.from}_to_${rel.to}`;
-                    const relSchemaInfo = schemaManifest[relKey];
+                  {(() => {
+                    // Separate deprecated and non-deprecated relationships
+                    const nonDeprecatedRels = group.relationships.filter(
+                      rel => !group.deprecated_relationships?.includes(rel.relationship_type)
+                    );
+                    const deprecatedRels = group.relationships.filter(
+                      rel => group.deprecated_relationships?.includes(rel.relationship_type)
+                    );
+
+                    const renderRelationship = (rel: any, isDeprecated: boolean = false) => {
+                      const relKey = `${rel.from}_to_${rel.to}`;
+                      const relSchemaInfo = schemaManifest[relKey];
+
+                      return (
+                        <div key={relKey} className={`method-list-item method-list-item-isChild ${isDeprecated ? 'relationship-deprecated' : ''}`}>
+                          <div className="method-list-item-label">
+                            <div className="method-list-item-label-name">
+                              {rel.relationship_type || `has_${rel.to}`}
+                              {isOneToManyRelationship(rel.relationship_type, group) && (
+                                <span
+                                  className="array-indicator"
+                                  title="One-to-many relationship (array)"
+                                >
+                                  [Array]
+                                </span>
+                              )}
+                              {group.required?.includes(rel.relationship_type) && (
+                                <span
+                                  className="required-badge"
+                                  title="This relationship is required"
+                                >
+                                  Required
+                                </span>
+                              )}
+                            </div>
+                            <div className="method-list-item-label-description">
+                              <div className="relationship-targets-container">
+                                <span className="relationship-targets-label">Links to</span>
+                                <span className="relationship-from">
+                                  From
+                                  <button
+                                    className="relationship-target-link"
+                                    onClick={() => handleClassClick(rel.from)}
+                                    title={`Navigate to ${rel.from} class`}
+                                  >
+                                    {rel.from}
+                                  </button>
+                                </span>
+                                <span className="relationship-arrow">→</span>
+                                <span className="relationship-to">
+                                  To
+                                  <button
+                                    className="relationship-target-link"
+                                    onClick={() => handleClassClick(rel.to)}
+                                    title={`Navigate to ${rel.to} class`}
+                                  >
+                                    {rel.to}
+                                  </button>
+                                </span>
+                              </div>
+                              {relSchemaInfo && relSchemaInfo.type === 'relationship' && (
+                                <div className="relationship-schema-link">
+                                  <a
+                                    href={schemaService.getIPFSUrl(relSchemaInfo.ipfsCid)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="ipfs-download-link"
+                                    title={`Download ${relKey} schema from IPFS`}
+                                  >
+                                    📥 Schema
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    };
 
                     return (
-                      <div key={relKey} className="method-list-item method-list-item-isChild">
-                        <div className="method-list-item-label">
-                          <div className="method-list-item-label-name">
-                            {rel.relationship_type || `has_${rel.to}`}
-                            {isOneToManyRelationship(rel.relationship_type, group) && (
-                              <span
-                                className="array-indicator"
-                                title="One-to-many relationship (array)"
+                      <>
+                        {/* Non-deprecated relationships */}
+                        {nonDeprecatedRels.map(rel => renderRelationship(rel, false))}
+                        
+                        {/* Deprecated relationships section */}
+                        {deprecatedRels.length > 0 && (
+                          <div className="deprecated-relationships-section">
+                            <div className="deprecated-relationships-header">
+                              <h4 className="deprecated-relationships-label">Deprecated Relationships:</h4>
+                              <button
+                                className="deprecated-relationships-toggle"
+                                onClick={() => toggleDeprecatedRelationshipsExpanded(group.label)}
+                                aria-label={expandedDeprecatedRelationships.has(group.label) ? 'Collapse deprecated relationships' : 'Expand deprecated relationships'}
                               >
-                                [Array]
-                              </span>
-                            )}
-                            {group.required?.includes(rel.relationship_type) && (
-                              <span
-                                className="required-badge"
-                                title="This relationship is required"
-                              >
-                                Required
-                              </span>
-                            )}
-                          </div>
-                          <div className="method-list-item-label-description">
-                            <div className="relationship-targets-container">
-                              <span className="relationship-targets-label">Links to</span>
-                              <span className="relationship-from">
-                                From
-                                <button
-                                  className="relationship-target-link"
-                                  onClick={() => handleClassClick(rel.from)}
-                                  title={`Navigate to ${rel.from} class`}
-                                >
-                                  {rel.from}
-                                </button>
-                              </span>
-                              <span className="relationship-arrow">→</span>
-                              <span className="relationship-to">
-                                To
-                                <button
-                                  className="relationship-target-link"
-                                  onClick={() => handleClassClick(rel.to)}
-                                  title={`Navigate to ${rel.to} class`}
-                                >
-                                  {rel.to}
-                                </button>
-                              </span>
+                                <span className="deprecated-relationships-arrow">{expandedDeprecatedRelationships.has(group.label) ? '−' : '+'}</span>
+                              </button>
                             </div>
-                            {relSchemaInfo && relSchemaInfo.type === 'relationship' && (
-                              <div className="relationship-schema-link">
-                                <a
-                                  href={schemaService.getIPFSUrl(relSchemaInfo.ipfsCid)}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="ipfs-download-link"
-                                  title={`Download ${relKey} schema from IPFS`}
-                                >
-                                  📥 Schema
-                                </a>
+                            
+                            {expandedDeprecatedRelationships.has(group.label) && (
+                              <div className="deprecated-relationships-content">
+                                {deprecatedRels.map(rel => renderRelationship(rel, true))}
                               </div>
                             )}
                           </div>
-                        </div>
-                      </div>
+                        )}
+                      </>
                     );
-                  })}
+                  })()}
                 </div>
               </div>
 

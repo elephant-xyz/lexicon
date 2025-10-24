@@ -16,6 +16,10 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 }) => {
   const [expandedClasses, setExpandedClasses] = useState<Set<number>>(new Set());
   const [_expandedExamples, setExpandedExamples] = useState<Set<number>>(new Set());
+  const [expandedDeprecatedValues, setExpandedDeprecatedValues] = useState<Set<string>>(new Set());
+  const [expandedDeprecatedClasses, setExpandedDeprecatedClasses] = useState<boolean>(false);
+  const [expandedDeprecatedProperties, setExpandedDeprecatedProperties] = useState<Set<string>>(new Set());
+  const [expandedDeprecatedRelationships, setExpandedDeprecatedRelationships] = useState<Set<string>>(new Set());
   const [copiedValue, setCopiedValue] = useState<string | null>(null);
   const [schemaManifest, setSchemaManifest] = useState<Record<string, { ipfsCid: string }>>({});
   const [isBlockchainClass, setIsBlockchainClass] = useState<Set<string>>(new Set());
@@ -74,6 +78,40 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
       newExpanded.add(index);
     }
     setExpandedExamples(newExpanded);
+  };
+
+  const toggleDeprecatedValuesExpanded = (propertyKey: string) => {
+    const newExpanded = new Set(expandedDeprecatedValues);
+    if (newExpanded.has(propertyKey)) {
+      newExpanded.delete(propertyKey);
+    } else {
+      newExpanded.add(propertyKey);
+    }
+    setExpandedDeprecatedValues(newExpanded);
+  };
+
+  const toggleDeprecatedClassesExpanded = () => {
+    setExpandedDeprecatedClasses(!expandedDeprecatedClasses);
+  };
+
+  const toggleDeprecatedPropertiesExpanded = (classKey: string) => {
+    const newExpanded = new Set(expandedDeprecatedProperties);
+    if (newExpanded.has(classKey)) {
+      newExpanded.delete(classKey);
+    } else {
+      newExpanded.add(classKey);
+    }
+    setExpandedDeprecatedProperties(newExpanded);
+  };
+
+  const toggleDeprecatedRelationshipsExpanded = (classKey: string) => {
+    const newExpanded = new Set(expandedDeprecatedRelationships);
+    if (newExpanded.has(classKey)) {
+      newExpanded.delete(classKey);
+    } else {
+      newExpanded.add(classKey);
+    }
+    setExpandedDeprecatedRelationships(newExpanded);
   };
 
   const copyToClipboard = async (value: string) => {
@@ -510,55 +548,57 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
     }
   };
 
-  return (
-    <div className="lexicon-viewer">
-      {classes.map((cls, index) => (
-        <div
-          key={index}
-          className={`method-list-item ${cls.is_deprecated ? 'method-list-item-deprecated' : ''}`}
-          data-type={cls.type}
-        >
-          <div className="method-list-item-label">
-            <div className="method-list-item-header">
-              <div className="method-list-item-label-name">
-                {renderHighlightedText(getHighlightedClassName(cls))}
-              </div>
-              <button
-                className="expand-button"
-                onClick={() => toggleExpanded(index)}
-                aria-label={expandedClasses.has(index) ? 'Collapse' : 'Expand'}
-              >
-                {expandedClasses.has(index) ? '−' : '+'}
-              </button>
-            </div>
-            {searchTerm && (cls._hasPropertyMatches || cls._hasRelationshipMatches) && (
-              <div className="search-match-indicator">
-                {cls._hasPropertyMatches && cls._hasRelationshipMatches && (
-                  <>
-                    Found in {getMatchedProperties(cls).length} propert
-                    {getMatchedProperties(cls).length === 1 ? 'y' : 'ies'} and{' '}
-                    {getMatchedRelationships(cls).length} relationship
-                    {getMatchedRelationships(cls).length === 1 ? '' : 's'}
-                  </>
-                )}
-                {cls._hasPropertyMatches && !cls._hasRelationshipMatches && (
-                  <>
-                    Found in {getMatchedProperties(cls).length} propert
-                    {getMatchedProperties(cls).length === 1 ? 'y' : 'ies'}
-                  </>
-                )}
-                {!cls._hasPropertyMatches && cls._hasRelationshipMatches && (
-                  <>
-                    Found in {getMatchedRelationships(cls).length} relationship
-                    {getMatchedRelationships(cls).length === 1 ? '' : 's'}
-                  </>
-                )}
-              </div>
-            )}
-            {cls.is_deprecated && <div className="deprecated-badge">DEPRECATED</div>}
+  // Separate deprecated and non-deprecated classes
+  const nonDeprecatedClasses = classes.filter((cls, index) => !cls.is_deprecated);
+  const deprecatedClasses = classes.filter((cls, index) => cls.is_deprecated);
+
+  const renderClass = (cls: LexiconClass, index: number) => (
+    <div
+      key={index}
+      className={`method-list-item ${cls.is_deprecated ? 'method-list-item-deprecated' : ''}`}
+      data-type={cls.type}
+    >
+      <div className="method-list-item-label">
+        <div className="method-list-item-header">
+          <div className="method-list-item-label-name">
+            {renderHighlightedText(getHighlightedClassName(cls))}
           </div>
-          {expandedClasses.has(index) && (
-            <div className="method-list-item-content">
+          <button
+            className="expand-button"
+            onClick={() => toggleExpanded(index)}
+            aria-label={expandedClasses.has(index) ? 'Collapse' : 'Expand'}
+          >
+            {expandedClasses.has(index) ? '−' : '+'}
+          </button>
+        </div>
+        {searchTerm && (cls._hasPropertyMatches || cls._hasRelationshipMatches) && (
+          <div className="search-match-indicator">
+            {cls._hasPropertyMatches && cls._hasRelationshipMatches && (
+              <>
+                Found in {getMatchedProperties(cls).length} propert
+                {getMatchedProperties(cls).length === 1 ? 'y' : 'ies'} and{' '}
+                {getMatchedRelationships(cls).length} relationship
+                {getMatchedRelationships(cls).length === 1 ? '' : 's'}
+              </>
+            )}
+            {cls._hasPropertyMatches && !cls._hasRelationshipMatches && (
+              <>
+                Found in {getMatchedProperties(cls).length} propert
+                {getMatchedProperties(cls).length === 1 ? 'y' : 'ies'}
+              </>
+            )}
+            {!cls._hasPropertyMatches && cls._hasRelationshipMatches && (
+              <>
+                Found in {getMatchedRelationships(cls).length} relationship
+                {getMatchedRelationships(cls).length === 1 ? '' : 's'}
+              </>
+            )}
+          </div>
+        )}
+        {cls.is_deprecated && <div className="deprecated-badge">DEPRECATED</div>}
+      </div>
+      {expandedClasses.has(index) && (
+        <div className="method-list-item-content">
               {cls.description && (
                 <div className="class-description-section">
                   <div className="class-description">{cls.description}</div>
@@ -724,20 +764,21 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
 
                 if (!hasVisibleProperties) return null;
 
-                return (
-                  <div className="properties-section">
-                    <h4>Properties:</h4>
-                    <div className="properties-list">
-                      {Object.entries(cls.properties || {}).map(
-                        ([propName, propData], _propIdx, _arr) => {
-                          const isDeprecated = cls.deprecated_properties?.[propName] === true;
-                          if (!shouldShowProperty(cls, propName)) return null;
-                          const isMatchedProperty = matchedProps.includes(propName);
-                          const _isSourceHttpRequest =
-                            (propName === 'source_http_request' && propData.type === 'object') ||
-                            propData.type === 'source_http_request';
-                          return (
-                            <React.Fragment key={propName}>
+                // Separate deprecated and non-deprecated properties
+                const nonDeprecatedProps = Object.entries(cls.properties || {}).filter(
+                  ([propName]) => shouldShowProperty(cls, propName) && cls.deprecated_properties?.[propName] !== true
+                );
+                const deprecatedProps = Object.entries(cls.properties || {}).filter(
+                  ([propName]) => shouldShowProperty(cls, propName) && cls.deprecated_properties?.[propName] === true
+                );
+
+                const renderProperty = (propName: string, propData: LexiconProperty, isDeprecated: boolean = false) => {
+                  const isMatchedProperty = matchedProps.includes(propName);
+                  const _isSourceHttpRequest =
+                    (propName === 'source_http_request' && propData.type === 'object') ||
+                    propData.type === 'source_http_request';
+                  return (
+                    <React.Fragment key={propName}>
                               <div
                                 className={`method-list-item method-list-item-isChild ${isMatchedProperty ? 'property-matched' : ''} ${isDeprecated ? 'property-deprecated' : ''}`}
                               >
@@ -756,9 +797,6 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                             )?.value || propName
                                           )
                                         : propName}
-                                      {isDeprecated && (
-                                        <span className="deprecated-text">(deprecated)</span>
-                                      )}
                                     </span>
                                     {cls.required?.includes(propName) && (
                                       <span
@@ -796,10 +834,13 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                               Array.isArray(deprecatedValue) &&
                                               deprecatedValue.includes(value);
 
+                                            // Skip deprecated values here - they'll be shown in the deprecated section
+                                            if (isDeprecatedEnum) return null;
+
                                             return (
                                               <button
                                                 key={idx}
-                                                className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''} ${isDeprecatedEnum ? 'enum-value-deprecated' : ''}`}
+                                                className={`enum-value ${copiedValue === value ? 'enum-value-copied' : ''}`}
                                                 onClick={() => copyToClipboard(value)}
                                                 title="Click to copy to clipboard"
                                               >
@@ -812,15 +853,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                                     }}
                                                   />
                                                 ) : (
-                                                  <>
-                                                    {value}
-                                                    {isDeprecatedEnum && (
-                                                      <span className="deprecated-text">
-                                                        {' '}
-                                                        (deprecated)
-                                                      </span>
-                                                    )}
-                                                  </>
+                                                  value
                                                 )}
                                               </button>
                                             );
@@ -828,6 +861,67 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                       </div>
                                     </div>
                                   )}
+                                  
+                                  {/* Deprecated Values Section */}
+                                  {(() => {
+                                    const deprecatedValue = cls.deprecated_properties?.[propName];
+                                    const deprecatedEnums = Array.isArray(deprecatedValue) 
+                                      ? [...(propData.enum || [])]
+                                          .filter(value => value !== null && deprecatedValue.includes(value))
+                                          .sort((a, b) => a.localeCompare(b))
+                                      : [];
+                                    
+                                    if (deprecatedEnums.length === 0) return null;
+                                    
+                                    const propertyKey = `${cls.type}-${propName}`;
+                                    const isExpanded = expandedDeprecatedValues.has(propertyKey);
+                                    
+                                    return (
+                                      <div className="deprecated-values-section">
+                                        <button
+                                          className="deprecated-values-toggle"
+                                          onClick={() => toggleDeprecatedValuesExpanded(propertyKey)}
+                                          aria-label={isExpanded ? 'Collapse deprecated values' : 'Expand deprecated values'}
+                                        >
+                                          <span className="deprecated-values-label">Deprecated Values:</span>
+                                          <span className="deprecated-values-arrow">{isExpanded ? '−' : '+'}</span>
+                                        </button>
+                                        
+                                        {isExpanded && (
+                                          <div className="deprecated-values-content">
+                                            <div className="enum-values">
+                                              {deprecatedEnums.map((value, idx) => {
+                                                const enumHighlights = getHighlightedEnumValues(cls, propName);
+                                                const highlightedValue = enumHighlights.get(value);
+                                                
+                                                return (
+                                                  <button
+                                                    key={idx}
+                                                    className={`enum-value enum-value-deprecated ${copiedValue === value ? 'enum-value-copied' : ''}`}
+                                                    onClick={() => copyToClipboard(value)}
+                                                    title="Click to copy to clipboard"
+                                                  >
+                                                    {copiedValue === value ? (
+                                                      '✓ Copied!'
+                                                    ) : searchTerm && highlightedValue ? (
+                                                      <span
+                                                        dangerouslySetInnerHTML={{
+                                                          __html: highlightedValue,
+                                                        }}
+                                                      />
+                                                    ) : (
+                                                      value
+                                                    )}
+                                                  </button>
+                                                );
+                                              })}
+                                            </div>
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  })()}
+                                  
                                   {propData.pattern && (
                                     <div className="method-list-item-label-pattern">
                                       <span className="pattern-label">Pattern:</span>
@@ -1081,17 +1175,158 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                                 </div>
                               </div>
                             </React.Fragment>
-                          );
-                        }
+                  );
+                };
+
+                return (
+                  <div className="properties-section">
+                    <h4>Properties:</h4>
+                    <div className="properties-list">
+                      {/* Non-deprecated properties */}
+                      {nonDeprecatedProps.map(([propName, propData]) => 
+                        renderProperty(propName, propData, false)
+                      )}
+                      
+                      {/* Deprecated properties section */}
+                      {deprecatedProps.length > 0 && (
+                        <div className="deprecated-properties-section">
+                          <div className="deprecated-properties-header">
+                            <h4 className="deprecated-properties-label">Deprecated Properties:</h4>
+                            <button
+                              className="deprecated-properties-toggle"
+                              onClick={() => toggleDeprecatedPropertiesExpanded(cls.type)}
+                              aria-label={expandedDeprecatedProperties.has(cls.type) ? 'Collapse deprecated properties' : 'Expand deprecated properties'}
+                            >
+                              <span className="deprecated-properties-arrow">{expandedDeprecatedProperties.has(cls.type) ? '−' : '+'}</span>
+                            </button>
+                          </div>
+                          
+                          {expandedDeprecatedProperties.has(cls.type) && (
+                            <div className="deprecated-properties-content">
+                              {deprecatedProps.map(([propName, propData]) => 
+                                renderProperty(propName, propData, true)
+                              )}
+                            </div>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
                 );
               })()}
+              
+              {/* Relationships Section */}
+              {(() => {
+                if (!cls.relationships || Object.keys(cls.relationships).length === 0) return null;
+
+                // Separate deprecated and non-deprecated relationships
+                const nonDeprecatedRels = Object.entries(cls.relationships).filter(
+                  ([relName]) => !cls.deprecated_relationships?.[relName]
+                );
+                const deprecatedRels = Object.entries(cls.relationships).filter(
+                  ([relName]) => cls.deprecated_relationships?.[relName] === true
+                );
+
+                const renderRelationship = (relName: string, relData: any, isDeprecated: boolean = false) => {
+                  return (
+                    <div key={relName} className={`method-list-item method-list-item-isChild ${isDeprecated ? 'relationship-deprecated' : ''}`}>
+                      <div className="method-list-item-label">
+                        <div className="method-list-item-label-name">
+                          <span className="relationship-name">
+                            {relName}
+                          </span>
+                        </div>
+                        <div className="method-list-item-label-description">
+                          {relData.comment || ''}
+                        </div>
+                        {relData.targets && (
+                          <div className="relationship-targets">
+                            <span className="targets-label">Targets:</span>
+                            <div className="targets-list">
+                              {relData.targets.map((target: string, idx: number) => (
+                                <button
+                                  key={idx}
+                                  className={`relationship-target-link ${copiedValue === target ? 'relationship-target-link-copied' : ''}`}
+                                  onClick={() => copyToClipboard(target)}
+                                  title="Click to copy to clipboard"
+                                >
+                                  {copiedValue === target ? '✓ Copied!' : target}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                };
+
+                return (
+                  <div className="relationships-section">
+                    <h4>Relationships:</h4>
+                    <div className="relationships-list">
+                      {/* Non-deprecated relationships */}
+                      {nonDeprecatedRels.map(([relName, relData]) => 
+                        renderRelationship(relName, relData, false)
+                      )}
+                      
+                      {/* Deprecated relationships section */}
+                      {deprecatedRels.length > 0 && (
+                        <div className="deprecated-relationships-section">
+                          <div className="deprecated-relationships-header">
+                            <h4 className="deprecated-relationships-label">Deprecated Relationships:</h4>
+                            <button
+                              className="deprecated-relationships-toggle"
+                              onClick={() => toggleDeprecatedRelationshipsExpanded(cls.type)}
+                              aria-label={expandedDeprecatedRelationships.has(cls.type) ? 'Collapse deprecated relationships' : 'Expand deprecated relationships'}
+                            >
+                              <span className="deprecated-relationships-arrow">{expandedDeprecatedRelationships.has(cls.type) ? '−' : '+'}</span>
+                            </button>
+                          </div>
+                          
+                          {expandedDeprecatedRelationships.has(cls.type) && (
+                            <div className="deprecated-relationships-content">
+                              {deprecatedRels.map(([relName, relData]) => 
+                                renderRelationship(relName, relData, true)
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+              
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="lexicon-viewer">
+      {/* Non-deprecated classes */}
+      {nonDeprecatedClasses.map((cls, index) => renderClass(cls, index))}
+      
+      {/* Deprecated classes section */}
+      {deprecatedClasses.length > 0 && (
+        <div className="deprecated-classes-section">
+          <button
+            className="deprecated-classes-toggle"
+            onClick={toggleDeprecatedClassesExpanded}
+            aria-label={expandedDeprecatedClasses ? 'Collapse deprecated classes' : 'Expand deprecated classes'}
+          >
+            <span className="deprecated-classes-label">Deprecated Classes:</span>
+            <span className="deprecated-classes-arrow">{expandedDeprecatedClasses ? '−' : '+'}</span>
+          </button>
+          
+          {expandedDeprecatedClasses && (
+            <div className="deprecated-classes-content">
+              {deprecatedClasses.map((cls, index) => renderClass(cls, index))}
             </div>
           )}
         </div>
-      ))}
+      )}
     </div>
   );
 };
