@@ -450,13 +450,6 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   // Special handling for address class - create oneOf with unnormalized_address or structured fields
   if (lexiconClass.type === 'address' && properties.unnormalized_address) {
     // Define street-related fields that are mutually exclusive with unnormalized_address
-    const streetFields = [
-      'street_name',
-      'street_number',
-      'street_pre_directional_text',
-      'street_post_directional_text',
-      'street_suffix_type',
-    ];
 
     // Separate unnormalized_address and street fields from other properties
     const {
