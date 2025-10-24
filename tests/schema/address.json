@@ -163,167 +163,6 @@
       "additionalProperties": false,
       "description": "Address with unnormalized format",
       "properties": {
-        "county_name": {
-          "description": "County name refers to the name of the county in which the address is located.",
-          "enum": [
-            "Miami Dade",
-            "Broward",
-            "Palm Beach",
-            "Lee",
-            "Hillsborough",
-            "Orange",
-            "Pinellas",
-            "Polk",
-            "Duval",
-            "Brevard",
-            "Pasco",
-            "Volusia",
-            "Sarasota",
-            "Collier",
-            "Marion",
-            "Manatee",
-            "Charlotte",
-            "Lake",
-            "Osceola",
-            "Saint Lucie",
-            "Seminole",
-            "Escambia",
-            "Saint Johns",
-            "Citrus",
-            "Bay",
-            "Santa Rosa",
-            "Hernando",
-            "Okaloosa",
-            "Highlands",
-            "Leon",
-            "Alachua",
-            "Clay",
-            "Sumter",
-            "Putnam",
-            "Martin",
-            "Indian River",
-            "Walton",
-            "Monroe",
-            "Flagler",
-            "Nassau",
-            "Levy",
-            "Washington",
-            "Jackson",
-            "Suwannee",
-            "Columbia",
-            "Hendry",
-            "Okeechobee",
-            "Gadsden",
-            "Wakulla",
-            "DeSoto",
-            "Gulf",
-            "Taylor",
-            "Franklin",
-            "Dixie",
-            "Madison",
-            "Bradford",
-            "Hardee",
-            "Gilchrist",
-            "Holmes",
-            "Calhoun",
-            "Hamilton",
-            "Baker",
-            "Jefferson",
-            "Glades",
-            "Lafayette",
-            "Union",
-            "Liberty",
-            "Fort Bend",
-            "Collin",
-            "Allegheny",
-            "Hunt"
-          ],
-          "type": "string"
-        },
-        "request_identifier": {
-          "description": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
-          "minLength": 1,
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "source_http_request": {
-          "additionalProperties": false,
-          "description": "HTTP request configuration for retrieving this data.",
-          "properties": {
-            "body": {
-              "description": "The body of the request, which may contain JSON or other data formats.",
-              "type": "string"
-            },
-            "headers": {
-              "additionalProperties": false,
-              "properties": {
-                "content-type": {
-                  "description": "Content-Type header for the request, indicating the media type of the resource.",
-                  "enum": [
-                    "application/json",
-                    "multipart/form-data",
-                    "text/xml",
-                    null
-                  ],
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "json": {
-              "type": [
-                "object",
-                "array"
-              ]
-            },
-            "method": {
-              "enum": [
-                "GET",
-                "POST",
-                "PUT",
-                "PATCH",
-                null
-              ],
-              "type": "string"
-            },
-            "multiValueQueryString": {
-              "type": "object"
-            },
-            "url": {
-              "description": "The URL endpoint for the request.",
-              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$",
-              "type": "string"
-            }
-          },
-          "required": [
-            "method",
-            "url"
-          ],
-          "type": "object"
-        },
-        "unnormalized_address": {
-          "description": "The original, unprocessed address as it appears in source data, preserving the raw format and any inconsistencies.",
-          "minLength": 1,
-          "type": [
-            "string",
-            "null"
-          ]
-        }
-      },
-      "required": [
-        "source_http_request",
-        "request_identifier",
-        "county_name",
-        "unnormalized_address"
-      ],
-      "type": "object"
-    },
-    {
-      "additionalProperties": false,
-      "description": "Address with structured fields",
-      "properties": {
         "block": {
           "description": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision",
           "minLength": 1,
@@ -371,10 +210,10 @@
             "Charlotte",
             "Lake",
             "Osceola",
-            "Saint Lucie",
+            "St. Lucie",
             "Seminole",
             "Escambia",
-            "Saint Johns",
+            "St. Johns",
             "Citrus",
             "Bay",
             "Santa Rosa",
@@ -521,8 +360,8 @@
                     "application/json",
                     "multipart/form-data",
                     "text/xml",
-                    null
-                  ],
+                    "application/x-www-form-urlencoded",
+                    null],
                   "type": "string"
                 }
               },
@@ -540,8 +379,289 @@
                 "POST",
                 "PUT",
                 "PATCH",
-                null
-              ],
+                null],
+              "type": "string"
+            },
+            "multiValueQueryString": {
+              "type": "object"
+            },
+            "url": {
+              "description": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "url"
+          ],
+          "type": "object"
+        },
+        "state_code": {
+          "description": "State code is a code that represents the state in which the address is located.",
+          "minLength": 1,
+          "pattern": "^[A-Z]{2}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "township": {
+          "description": "A township is a 6-mile by 6-mile square of land, covering 36 square miles. Townships are numbered north or south from a designated baseline. In this case, Township 45 refers to the 45th tier of townships from the baseline.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit_identifier": {
+          "description": "A unit identifier is a reference to the specific unit, suite, apartment, or other secondary identifier associated with an address. It is used to differentiate individual units within a larger building or complex.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unnormalized_address": {
+          "description": "The original, unprocessed address as it appears in source data, preserving the raw format and any inconsistencies.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "source_http_request",
+        "request_identifier",
+        "county_name",
+        "latitude",
+        "longitude",
+        "unnormalized_address"
+      ],
+      "type": "object"
+    },
+    {
+      "additionalProperties": false,
+      "description": "Address with structured fields",
+      "properties": {
+        "block": {
+          "description": "A block is a further subdivision within a plat (a recorded land division), often used in urban or planned developments. Block 0000G refers to a specific block within that recorded subdivision",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "city_name": {
+          "description": "City name refers to the name of the city in which the address is located. Must be in all capital letters.",
+          "minLength": 1,
+          "pattern": "^[A-Z\\s\\-']+$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "country_code": {
+          "description": "Country code is a code that represents the country in which the address is located.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "county_name": {
+          "description": "County name refers to the name of the county in which the address is located.",
+          "enum": [
+            "Miami Dade",
+            "Broward",
+            "Palm Beach",
+            "Lee",
+            "Hillsborough",
+            "Orange",
+            "Pinellas",
+            "Polk",
+            "Duval",
+            "Brevard",
+            "Pasco",
+            "Volusia",
+            "Sarasota",
+            "Collier",
+            "Marion",
+            "Manatee",
+            "Charlotte",
+            "Lake",
+            "Osceola",
+            "St. Lucie",
+            "Seminole",
+            "Escambia",
+            "St. Johns",
+            "Citrus",
+            "Bay",
+            "Santa Rosa",
+            "Hernando",
+            "Okaloosa",
+            "Highlands",
+            "Leon",
+            "Alachua",
+            "Clay",
+            "Sumter",
+            "Putnam",
+            "Martin",
+            "Indian River",
+            "Walton",
+            "Monroe",
+            "Flagler",
+            "Nassau",
+            "Levy",
+            "Washington",
+            "Jackson",
+            "Suwannee",
+            "Columbia",
+            "Hendry",
+            "Okeechobee",
+            "Gadsden",
+            "Wakulla",
+            "DeSoto",
+            "Gulf",
+            "Taylor",
+            "Franklin",
+            "Dixie",
+            "Madison",
+            "Bradford",
+            "Hardee",
+            "Gilchrist",
+            "Holmes",
+            "Calhoun",
+            "Hamilton",
+            "Baker",
+            "Jefferson",
+            "Glades",
+            "Lafayette",
+            "Union",
+            "Liberty",
+            "Fort Bend",
+            "Collin",
+            "Allegheny",
+            "Hunt"
+          ],
+          "type": "string"
+        },
+        "latitude": {
+          "description": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole.",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "longitude": {
+          "description": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°.",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "lot": {
+          "description": "A specific parcel or unit of land within a subdivision or plat, identified by a unique lot number or code assigned during the subdivision platting process.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "municipality_name": {
+          "description": "he incorporated city, town, or village in which the property is located, responsible for providing local government services and regulations.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "plus_four_postal_code": {
+          "description": "A postal code plus four, also known as a ZIP code plus four (in the United States) is a numerical extension to a postal code.",
+          "minLength": 1,
+          "pattern": "^\\d{4}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "postal_code": {
+          "description": "A postal code, also known as a ZIP code (in the United States) or postcode (in many other countries), is a numerical code used by postal services to identify specific geographic areas for efficient mail sorting and delivery.",
+          "minLength": 1,
+          "pattern": "^\\d{5}$",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "range": {
+          "description": " A range describes the east-west position of a township relative to a principal meridian. Range 24E means the township is located 24 tiers east of the principal meridian",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "request_identifier": {
+          "description": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "route_number": {
+          "description": "A route number is a unique identifier assigned to a specific transportation route, such as a road, highway, or public transit line. It is used to distinguish one route from another and is often displayed on signs or maps.",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "section": {
+          "description": "Each township is divided into 36 sections, with each section being 1 square mile (640 acres). Section 03 refers to the third section within its township",
+          "minLength": 1,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_http_request": {
+          "additionalProperties": false,
+          "description": "HTTP request configuration for retrieving this data.",
+          "properties": {
+            "body": {
+              "description": "The body of the request, which may contain JSON or other data formats.",
+              "type": "string"
+            },
+            "headers": {
+              "additionalProperties": false,
+              "properties": {
+                "content-type": {
+                  "description": "Content-Type header for the request, indicating the media type of the resource.",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    "application/x-www-form-urlencoded",
+                    null],
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "json": {
+              "type": [
+                "object",
+                "array"
+              ]
+            },
+            "method": {
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null],
               "type": "string"
             },
             "multiValueQueryString": {
@@ -596,8 +716,7 @@
             "NW",
             "SE",
             "SW",
-            null
-          ],
+            null],
           "type": [
             "string",
             "null"
@@ -614,8 +733,7 @@
             "NW",
             "SE",
             "SW",
-            null
-          ],
+            null],
           "type": [
             "string",
             "null"
@@ -825,8 +943,7 @@
             "Blf",
             "Grv",
             "Crk",
-            null
-          ],
+            null],
           "type": [
             "string",
             "null"
