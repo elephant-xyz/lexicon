@@ -45,7 +45,8 @@ export interface LexiconClass {
   type: string;
   container_name: string;
   is_deprecated: boolean;
-  deprecated_properties: string[];
+  deprecated_properties: Record<string, true | string[]>; // true = whole property deprecated, array = specific enum values deprecated
+  deprecated_relationships?: Record<string, true>; // true = whole relationship deprecated
   description?: string;
   source_url?: {
     type: string;
@@ -77,6 +78,7 @@ export interface DataGroupRelationship {
 export interface DataGroup {
   label: string;
   relationships: DataGroupRelationship[];
+  deprecated_relationships?: string[];
   required?: string[];
   one_to_many_relationships?: string[];
   example?: Record<string, unknown>;

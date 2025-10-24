@@ -176,11 +176,8 @@ class DataService {
       }
     }
 
-    // Check properties
+    // Check properties (include deprecated so they can appear in search results, but UI greys them)
     Object.entries(cls.properties).forEach(([propName, propData]) => {
-      // Skip deprecated properties
-      if (cls.deprecated_properties?.includes(propName)) return;
-
       // Property name match
       const propNameMatch = this.fuzzyMatch(searchTerm, propName);
       if (propNameMatch.matches) {

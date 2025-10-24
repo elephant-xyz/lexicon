@@ -865,6 +865,14 @@ textarea {
   margin-top: var(--spacing-2);
 }
 
+/* Deprecated Text for Properties */
+.deprecated-text {
+  margin-left: 4px;
+  color: #6b7280; /* gray-500 - same as deprecated property text */
+  font-size: var(--text-sm);
+  font-weight: normal;
+}
+
 /* Class Content */
 .method-list-item-content {
   padding: var(--spacing-5);
@@ -922,6 +930,31 @@ textarea {
   color: var(--text-primary);
   margin-bottom: var(--spacing-2);
   letter-spacing: var(--letter-spacing-standard);
+}
+
+/* Grey out deprecated classes and properties visually */
+.method-list-item-deprecated .method-list-item-label-name,
+.method-list-item-deprecated .class-description,
+.property-deprecated .method-list-item-label-name,
+.property-deprecated .method-list-item-label-description,
+.property-deprecated .pattern-label,
+.property-deprecated .enum-label,
+.property-deprecated .format-label,
+.property-deprecated .pattern-value,
+.property-deprecated .enum-value,
+.property-deprecated .format-value {
+  color: #6b7280 !important; /* gray-500 */
+}
+
+/* Grey out pattern/enum button backgrounds for deprecated properties */
+.property-deprecated .pattern-value,
+.property-deprecated .enum-value {
+  background-color: #e5e7eb !important; /* gray-200 */
+  border-color: #d1d5db !important; /* gray-300 */
+}
+
+.method-list-item-deprecated {
+  opacity: 0.8;
 }
 
 .method-list-item-label-type {
@@ -1062,6 +1095,26 @@ textarea {
   color: #423e3e !important;
   animation: pulse-success 0.3s ease-in-out !important;
   opacity: 1 !important;
+}
+
+/* Grey out individual deprecated enum values - match Data Type box styling */
+/* This must come AFTER general enum-value rules to override them */
+.enum-value-deprecated {
+  background-color: #686565 !important; /* Same as Data Type box */
+  border-color: #686565 !important; /* Same as Data Type box */
+  color: rgba(255, 255, 255, 0.8) !important; /* Softer white like Data Type label */
+  font-size: var(--text-xs) !important; /* Smaller font for deprecated enums */
+  padding: var(--spacing-1) var(--spacing-2) !important; /* Reduced padding for compact display */
+}
+
+.enum-value-deprecated:hover {
+  background-color: #686565 !important; /* Keep grey on hover */
+  opacity: 0.8 !important;
+}
+
+.enum-value-deprecated .deprecated-text {
+  color: rgba(255, 255, 255, 0.8); /* Softer white like Data Type label */
+  font-size: var(--text-xs);
 }
 
 /* Special adjustments for specific button types */
@@ -2175,6 +2228,405 @@ mark {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-1);
+}
+
+/* Deprecated Values Section */
+.deprecated-values-section {
+  margin-top: var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  padding: 4px;
+  background: rgba(107, 114, 128, 0.05);
+  border-radius: var(--radius-sm);
+  margin-left: calc(-1 * var(--spacing-4));
+  margin-right: calc(-1 * var(--spacing-4));
+  width: calc(100% + 2 * var(--spacing-4));
+}
+
+.deprecated-values-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2) var(--spacing-3);
+  width: 100%;
+  text-align: left;
+  transition: all var(--transition-fast);
+  margin-top: var(--spacing-2);
+}
+
+.deprecated-values-toggle:hover {
+  background-color: transparent;
+}
+
+.deprecated-values-toggle:hover .deprecated-values-arrow {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+  color: white;
+}
+
+.deprecated-values-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.deprecated-values-arrow {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  margin-left: var(--spacing-1);
+  background: var(--background-accent);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deprecated-values-content {
+  margin-top: var(--spacing-2);
+  padding-left: 0;
+}
+
+.deprecated-values-content .enum-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+/* Deprecated Classes Section */
+.deprecated-classes-section {
+  margin-top: var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  padding: 4px;
+  background: rgba(107, 114, 128, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.deprecated-classes-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) 0;
+  width: 100%;
+  text-align: left;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid var(--border-light);
+  margin-bottom: var(--spacing-4);
+  position: relative;
+}
+
+.deprecated-classes-toggle:hover {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+}
+
+.deprecated-classes-toggle:hover .deprecated-classes-arrow {
+  color: white;
+}
+
+.deprecated-classes-label {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.deprecated-classes-arrow {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-left: var(--spacing-1);
+  transition: transform var(--transition-fast);
+}
+
+.deprecated-classes-content {
+  margin-top: var(--spacing-2);
+}
+
+/* Deprecated Properties Section */
+.deprecated-properties-section {
+  margin-top: var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  padding: 4px;
+  background: rgba(107, 114, 128, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.deprecated-properties-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.deprecated-properties-label {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--primary-toxic-green);
+  display: inline-block;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.deprecated-properties-toggle {
+  background: var(--background-accent);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all var(--transition-fast);
+  margin-top: 24px;
+}
+
+.deprecated-properties-toggle:hover {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+}
+
+.deprecated-properties-toggle:hover .deprecated-properties-arrow {
+  color: white;
+}
+
+.deprecated-properties-arrow {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--text-secondary);
+  transition: transform var(--transition-fast);
+}
+
+.deprecated-properties-content {
+  margin-top: var(--spacing-2);
+  padding-left: 0;
+}
+
+/* Deprecated Relationships Section */
+.deprecated-relationships-section {
+  margin-top: var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  padding: 4px;
+  background: rgba(107, 114, 128, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.deprecated-relationships-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.deprecated-relationships-label {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--primary-toxic-green);
+  display: inline-block;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.deprecated-relationships-toggle {
+  background: var(--background-accent);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all var(--transition-fast);
+  margin-top: 24px;
+}
+
+.deprecated-relationships-toggle:hover {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+}
+
+.deprecated-relationships-toggle:hover .deprecated-relationships-arrow {
+  color: white;
+}
+
+.deprecated-relationships-arrow {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--text-secondary);
+  transition: transform var(--transition-fast);
+}
+
+.deprecated-relationships-content {
+  margin-top: var(--spacing-2);
+  padding-left: 0;
+}
+
+/* Relationship styling */
+.relationship-deprecated {
+  opacity: 0.6;
+}
+
+.relationship-name {
+  font-weight: var(--font-weight-medium);
+}
+
+.relationship-targets {
+  margin-top: var(--spacing-2);
+}
+
+.targets-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  margin-right: var(--spacing-2);
+}
+
+.targets-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  margin-top: var(--spacing-1);
+}
+
+.relationship-target-link {
+  background: var(--background-accent);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--primary-toxic-green);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-1) var(--spacing-2);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.relationship-target-link:hover {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+  color: white;
+}
+
+.relationship-target-link-copied {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+  color: white;
+}
+
+/* Data Group Deprecated Relationships Section */
+.deprecated-relationships-section {
+  margin-top: var(--spacing-4);
+  border-top: 1px solid var(--border-light);
+  padding: 4px;
+  background: rgba(107, 114, 128, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.deprecated-relationships-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-4);
+}
+
+.deprecated-relationships-label {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 0;
+  border-bottom: 2px solid var(--primary-toxic-green);
+  display: inline-block;
+  letter-spacing: var(--letter-spacing-standard);
+}
+
+.deprecated-relationships-toggle {
+  background: var(--background-accent);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: all var(--transition-fast);
+  margin-top: 24px;
+}
+
+.deprecated-relationships-toggle:hover {
+  background-color: var(--primary-toxic-green);
+  border-color: var(--primary-toxic-green);
+}
+
+.deprecated-relationships-toggle:hover .deprecated-relationships-arrow {
+  color: white;
+}
+
+.deprecated-relationships-arrow {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--text-secondary);
+  transition: transform var(--transition-fast);
+}
+
+.deprecated-relationships-content {
+  margin-top: var(--spacing-2);
+  padding-left: 0;
+}
+
+/* Deprecated relationship styling for data groups - match deprecated properties */
+.relationship-deprecated {
+  opacity: 0.6 !important;
+  background-color: rgba(107, 114, 128, 0.05) !important;
+  border-left: 3px solid var(--border-light) !important;
+  padding-left: var(--spacing-2) !important;
+  margin-bottom: var(--spacing-2) !important;
+}
+
+.relationship-deprecated .method-list-item-label-name {
+  color: var(--text-secondary) !important;
+  font-weight: var(--font-weight-medium) !important;
+}
+
+.relationship-deprecated .relationship-targets-label,
+.relationship-deprecated .relationship-from,
+.relationship-deprecated .relationship-to,
+.relationship-deprecated .relationship-arrow {
+  color: var(--text-secondary) !important;
+  opacity: 0.8 !important;
+}
+
+.relationship-deprecated .relationship-target-link {
+  background-color: rgba(107, 114, 128, 0.1) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-secondary) !important;
+  opacity: 0.8 !important;
+}
+
+.relationship-deprecated .relationship-target-link:hover {
+  background-color: rgba(107, 114, 128, 0.2) !important;
+  color: var(--text-secondary) !important;
+}
+
+.deprecated-text {
+  color: var(--text-secondary) !important;
+  font-style: italic;
+  margin-left: var(--spacing-1);
+  font-weight: var(--font-weight-medium);
 }
 
 .enum-value-display {

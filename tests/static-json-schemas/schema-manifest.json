@@ -1,0 +1,402 @@
+{
+  "property": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "property_seed": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "unnormalized_address": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "address": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "company": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "structure": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "tax": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "parcel": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "loan": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "school": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "property_improvement": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "sales_history": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "person": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "layout": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "utility": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "environmental_risk": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "homeowners_association": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "file": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "relationship": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "communication": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "nearby_location": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "lot": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "appliance": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "flood_storm_information": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "property_ranking_overall": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "environment_characteristics": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "safety_security": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "transportation_access": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "tax_exemption": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "tax_authority": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "fact_sheet": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "deed": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "property_seed_to_unnormalized_address": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "address_to_parcel": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "person_to_property": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "relationship_person_has_property_example": {
+    "ipfsCid": "local_person_to_property_person_has_property_example",
+    "type": "class"
+  },
+  "company_to_property": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_address": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "relationship_property_has_address_example": {
+    "ipfsCid": "local_property_to_address_property_has_address_example",
+    "type": "class"
+  },
+  "property_to_tax": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "relationship_property_has_tax_example": {
+    "ipfsCid": "local_property_to_tax_property_has_tax_example",
+    "type": "class"
+  },
+  "property_to_lot": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "relationship_property_has_lot_example": {
+    "ipfsCid": "local_property_to_lot_property_has_lot_example",
+    "type": "class"
+  },
+  "property_to_sales_history": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "relationship_property_has_sales_history_example": {
+    "ipfsCid": "local_sales_history_to_file_property_has_sales_history_example",
+    "type": "class"
+  },
+  "property_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_layout": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_flood_storm_information": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_structure": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_utility": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sales_history_to_person": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "person_to_address": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sales_history_to_company": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "person_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "company_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "address_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "tax_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "lot_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sales_history_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "file_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "layout_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "flood_storm_information_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "structure_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "utility_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sales_history_to_deed": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "deed_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "deed_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_parcel": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "parcel_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_seed_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_seed_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_appliance": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "appliance_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_homeowners_association": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "homeowners_association_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_loan": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "person_to_loan": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "loan_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_property_ranking_overall": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_ranking_overall_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_property_improvement": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_company": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "company_to_communication": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "company_to_person": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_environment_characteristics": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "environment_characteristics_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_safety_security": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "safety_security_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_transportation_access": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "transportation_access_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_school": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "school_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_to_tax_authority": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "tax_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "tax_to_tax_exemption": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "tax_to_tax_authority": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "tax_authority_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "tax_exemption_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sales_history_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  }
+}

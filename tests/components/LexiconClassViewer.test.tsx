@@ -42,13 +42,15 @@ describe('LexiconClassViewer', () => {
       renderWithRouter(<LexiconClassViewer classes={[mockLexiconClass, mockDeprecatedClass]} />);
 
       expect(screen.getByText('TestClass')).toBeInTheDocument();
-      expect(screen.getByText('DeprecatedClass')).toBeInTheDocument();
+      // DeprecatedClass is now in a collapsible section, so we check for the section header
+      expect(screen.getByText('Deprecated Classes:')).toBeInTheDocument();
     });
 
-    it('should show deprecated badge for deprecated classes', () => {
+    it('should show deprecated classes section for deprecated classes', () => {
       renderWithRouter(<LexiconClassViewer classes={[mockDeprecatedClass]} />);
 
-      expect(screen.getByText('DEPRECATED')).toBeInTheDocument();
+      // Deprecated classes are now shown in a collapsible section
+      expect(screen.getByText('Deprecated Classes:')).toBeInTheDocument();
     });
   });
 
@@ -84,6 +86,51 @@ describe('LexiconClassViewer', () => {
       expect(screen.getByText('Properties:')).toBeInTheDocument();
       expect(screen.getByText('testProperty')).toBeInTheDocument();
     });
+
+    it('should expand deprecated classes section when clicked', async () => {
+      renderWithRouter(<LexiconClassViewer classes={[mockDeprecatedClass]} />);
+
+      const deprecatedClassesButton = screen.getByRole('button', {
+        name: /expand deprecated classes/i,
+      });
+      fireEvent.click(deprecatedClassesButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('DeprecatedClass')).toBeInTheDocument();
+      });
+    });
+
+    it('should expand deprecated properties section when clicked', async () => {
+      // Create a class with deprecated properties
+      const classWithDeprecatedProps = {
+        ...mockLexiconClass,
+        type: 'ClassWithDeprecatedProps',
+        deprecated_properties: {
+          deprecatedProp: true,
+        },
+        properties: {
+          ...mockLexiconClass.properties,
+          deprecatedProp: {
+            type: 'string',
+            comment: 'A deprecated property',
+          },
+        },
+      };
+
+      renderWithRouter(
+        <LexiconClassViewer classes={[classWithDeprecatedProps]} expandByDefault={true} />
+      );
+
+      // First expand the class to see the deprecated properties section
+      const deprecatedPropertiesButton = screen.getByRole('button', {
+        name: /expand deprecated properties/i,
+      });
+      fireEvent.click(deprecatedPropertiesButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('deprecatedProp')).toBeInTheDocument();
+      });
+    });
   });
 
   describe('Properties Display', () => {
@@ -109,13 +156,32 @@ describe('LexiconClassViewer', () => {
       expect(screen.getByText('value3')).toBeInTheDocument();
     });
 
-    it('should not display deprecated properties', () => {
+    it('should display deprecated properties in collapsible section', () => {
+      // Create a class with both active and deprecated properties
+      const classWithDeprecatedProps = {
+        ...mockLexiconClass,
+        type: 'ClassWithDeprecatedProps',
+        deprecated_properties: {
+          deprecatedProp: true,
+        },
+        properties: {
+          ...mockLexiconClass.properties,
+          deprecatedProp: {
+            type: 'string',
+            comment: 'A deprecated property',
+          },
+        },
+      };
+
       renderWithRouter(
-        <LexiconClassViewer classes={[mockDeprecatedClass]} expandByDefault={true} />
+        <LexiconClassViewer classes={[classWithDeprecatedProps]} expandByDefault={true} />
       );
 
-      expect(screen.getByText('activeProp')).toBeInTheDocument();
-      expect(screen.queryByText('deprecatedProp')).not.toBeInTheDocument();
+      // Active properties are shown in the main properties section
+      expect(screen.getAllByText('testProperty')).toHaveLength(2); // One from each class
+
+      // Deprecated properties are now in a collapsible section
+      expect(screen.getByText('Deprecated Properties:')).toBeInTheDocument();
     });
   });
 

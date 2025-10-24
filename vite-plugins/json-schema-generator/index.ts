@@ -401,11 +401,8 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   const properties: Record<string, unknown> = {};
   const allRequiredFields: string[] = [];
 
-  // Filter out deprecated properties
-  const deprecatedPropsSet = new Set(lexiconClass.deprecated_properties);
-  const activeProperties = Object.entries(lexiconClass.properties).filter(
-    ([key]) => !deprecatedPropsSet.has(key)
-  );
+  // Include all properties (including those marked in deprecated_properties)
+  const activeProperties = Object.entries(lexiconClass.properties);
 
   // Add class-level fields (like source_url) to properties
   for (const [fieldName, fieldDef] of Object.entries(lexiconClass)) {
@@ -744,7 +741,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       const classUploadPromises = blockchainTag.classes
         .map(className => {
           const lexiconClass = lexiconData.classes.find(c => c.type === className);
-          if (!lexiconClass || lexiconClass.is_deprecated) {
+          if (!lexiconClass) {
             return null;
           }
 
