@@ -22525,6 +22525,12 @@
         },
         {
           "type": "relationship",
+          "from": "parcel",
+          "to": "property_improvement",
+          "relationship_type": "parcel_has_property_improvement"
+        },
+        {
+          "type": "relationship",
           "from": "property_improvement",
           "to": "company",
           "relationship_type": "property_improvement_has_contractor"
@@ -22540,6 +22546,24 @@
           "from": "company",
           "to": "person",
           "relationship_type": "contractor_has_person"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "layout",
+          "relationship_type": "property_improvement_has_layout"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "structure",
+          "relationship_type": "property_improvement_has_structure"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "utility",
+          "relationship_type": "property_improvement_has_utility"
         }
       ],
       "required": [],
