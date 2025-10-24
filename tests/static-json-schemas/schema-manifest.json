@@ -199,6 +199,18 @@
     "ipfsCid": "",
     "type": "relationship"
   },
+  "layout_to_layout": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "layout_to_utility": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "layout_to_structure": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
   "sales_history_to_person": {
     "ipfsCid": "",
     "type": "relationship"
@@ -327,6 +339,10 @@
     "ipfsCid": "",
     "type": "relationship"
   },
+  "parcel_to_property_improvement": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
   "property_improvement_to_company": {
     "ipfsCid": "",
     "type": "relationship"
@@ -336,6 +352,18 @@
     "type": "relationship"
   },
   "company_to_person": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_layout": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_structure": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_utility": {
     "ipfsCid": "",
     "type": "relationship"
   },
