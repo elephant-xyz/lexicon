@@ -14973,15 +14973,14 @@
           "optional": true
         },
         "built_year": {
-            "type": [
-              "integer",
-              "null"
-            ],
-            "pattern": "^[0-9]{4}$",
-            "comment": "The year in which the layout completed.",
-            "minimum": 1,
-            "optional": true
-          }
+          "type": [
+            "integer",
+            "null"
+          ],
+          "pattern": "^[0-9]{4}$",
+          "comment": "The year in which the layout built.",
+          "minimum": 1,
+          "optional": true
         },
         "adjustable_area_sq_ft": {
           "type": [
