@@ -14272,7 +14272,8 @@
       "description": "A minimum set of house property seed data containing essential identifying information for property records.",
       "is_deprecated": false,
       "deprecated_properties": {
-        "property_effective_built_year": true
+        "property_effective_built_year": true,
+        "property_structure_built_year": true
       },
       "properties": {
         "source_http_request": {
@@ -14664,7 +14665,8 @@
           ],
           "pattern": "^[0-9]{4}$",
           "comment": "The year in which the dwelling on the property was completed.",
-          "minimum": 1
+          "minimum": 1,
+          "optional": true
         },
         "property_effective_built_year": {
           "type": [
@@ -14970,6 +14972,17 @@
           "comment": "Total enclosed building area in square feet, including all finished and unfinished spaces.",
           "optional": true
         },
+        "built_year": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "pattern": "^[0-9]{4}$",
+            "comment": "The year in which the layout completed.",
+            "minimum": 1,
+            "optional": true
+          }
+        },
         "adjustable_area_sq_ft": {
           "type": [
             "integer",
@@ -15018,6 +15031,7 @@
         },
         "space_type": {
           "enum": [
+            "Building",
             "Living Room",
             "Family Room",
             "Great Room",
@@ -21982,7 +21996,9 @@
       "label": "County",
       "deprecated_relationships": [
         "person_has_property",
-        "company_has_property"
+        "company_has_property",
+        "property_has_utility",
+        "property_has_structure"
       ],
       "relationships": [
         {
@@ -22050,6 +22066,24 @@
           "from": "property",
           "to": "utility",
           "relationship_type": "property_has_utility"
+        },
+        {
+          "type": "relationship",
+          "from": "layout",
+          "to": "layout",
+          "relationship_type": "layout_has_layout"
+        },
+        {
+          "type": "relationship",
+          "from": "layout",
+          "to": "utility",
+          "relationship_type": "layout_has_utility"
+        },
+        {
+          "type": "relationship",
+          "from": "layout",
+          "to": "structure",
+          "relationship_type": "layout_has_structure"
         },
         {
           "type": "relationship",
