@@ -14,7 +14,9 @@ describe('inspection.json Schema', () => {
 
   it('should have the correct title and description', () => {
     expect(inspectionSchema.title).toBe('inspection');
-    expect(inspectionSchema.description).toBe('JSON Schema for inspection class in Elephant Lexicon');
+    expect(inspectionSchema.description).toBe(
+      'JSON Schema for inspection class in Elephant Lexicon'
+    );
   });
 
   it('should have the correct type and additionalProperties settings', () => {
@@ -126,4 +128,3 @@ describe('inspection.json Schema', () => {
     expect(completedTime).not.toHaveProperty('pattern');
   });
 });
-
