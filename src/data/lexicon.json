@@ -17824,6 +17824,14 @@
             "Miscellaneous"
           ],
           "optional": true
+        },
+        "request_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+          "minLength": 1
         }
       }
     },
