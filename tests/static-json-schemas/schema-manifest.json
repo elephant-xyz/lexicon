@@ -127,6 +127,10 @@
     "ipfsCid": "",
     "type": "class"
   },
+  "inspection": {
+    "ipfsCid": "",
+    "type": "class"
+  },
   "property_seed_to_unnormalized_address": {
     "ipfsCid": "",
     "type": "relationship"
@@ -364,6 +368,26 @@
     "type": "relationship"
   },
   "property_improvement_to_utility": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_inspection": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "inspection_to_company": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "inspection_to_person": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "inspection_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_file": {
     "ipfsCid": "",
     "type": "relationship"
   },
