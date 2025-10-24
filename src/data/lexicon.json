@@ -21917,6 +21917,64 @@
         }
       },
       "relationships": {}
+    },
+    {
+      "type": "inspection",
+      "container_name": "inspections",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "Represents a building or property inspection record, including scheduled dates, completion status, and associated permit information.",
+      "properties": {
+        "inspection_number": {
+          "type": "string",
+          "optional": true,
+          "comment": "Unique identifier for the inspection."
+        },
+        "inspection_status": {
+          "type": "string",
+          "enum": [
+            "Passed",
+            "Failed",
+            "Pending",
+            "Scheduled",
+            "Cancelled",
+            "In Progress",
+            null
+          ],
+          "comment": "Current status of the inspection indicating whether it has been completed and the outcome.",
+          "optional": true
+
+        },
+        "scheduled_date": {
+          "type": "string",
+          "format": "date",
+          "comment": "The date when the inspection is scheduled to occur.",
+          "optional": true
+        },
+        "requested_date": {
+          "type": "string",
+          "format": "date",
+          "optional": true,
+          "comment": "The date when the inspection was requested."
+        },
+        "completed_date": {
+          "type": "string",
+          "format": "date",
+          "optional": true,
+          "comment": "The date when the inspection was completed."
+        },
+        "completed_time": {
+          "type": "string",
+          "format": "time",
+          "optional": true,
+          "comment": "The time when the inspection was completed in ISO 8601 time format (HH:MM:SS or HH:MM:SS.sss)."
+        },
+        "permit_number": {
+          "type": "string",
+          "comment": "The permit number associated with this inspection, identifying the construction or renovation permit being inspected.",
+          "optional": true
+        }
+      }
     }
   ],
   "tags": [
@@ -21956,7 +22014,8 @@
         "tax_exemption",
         "tax_authority",
         "fact_sheet",
-        "deed"
+        "deed",
+        "inspection"
       ]
     }
   ],
@@ -22604,14 +22663,50 @@
           "from": "property_improvement",
           "to": "utility",
           "relationship_type": "property_improvement_has_utility"
+        },
+        {
+        "type": "relationship",
+        "from": "property_improvement",
+        "to": "inspection",
+        "relationship_type": "property_improvement_has_inspection"
+        },
+        {
+          "type": "relationship",
+          "from": "inspection",
+          "to": "company",
+          "relationship_type": "inspection_has_company"
+        },
+        {
+          "type": "relationship",
+          "from": "inspection",
+          "to": "person",
+          "relationship_type": "inspection_has_person"
+        },
+        {
+          "type": "relationship",
+          "from": "inspection",
+          "to": "file",
+          "relationship_type": "inspection_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "file",
+          "relationship_type": "property_improvement_has_file"
         }
+        
       ],
       "required": [],
       "one_to_many_relationships": [
         "property_has_property_improvement",
         "property_improvement_has_contractor",
         "company_has_communication",
-        "contractor_has_person"
+        "contractor_has_person",
+        "property_improvement_has_inspection",
+        "inspection_has_company",
+        "inspection_has_person",
+        "inspection_has_file",
+        "property_improvement_has_file"
       ]
     },
     {
@@ -22938,6 +23033,15 @@
         "format": "phone_number",
         "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
         "description": "US phone number format: 123-456-7890"
+      }
+    },
+    {
+      "type": "time",
+      "format": "time",
+      "properties": {
+        "type": "string",
+        "format": "time",
+        "description": "ISO 8601 time format (HH:MM:SS or HH:MM:SS.sss). Examples: 14:30:00, 09:15:30, 23:59:59.999"
       }
     }
   ]
