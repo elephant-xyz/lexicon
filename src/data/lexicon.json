@@ -23004,6 +23004,15 @@
         "pattern": "^\\d{3}-\\d{3}-\\d{4}$",
         "description": "US phone number format: 123-456-7890"
       }
+    },
+    {
+      "type": "time",
+      "format": "time",
+      "properties": {
+        "type": "string",
+        "format": "time",
+        "description": "ISO 8601 time format (HH:MM:SS or HH:MM:SS.sss). Examples: 14:30:00, 09:15:30, 23:59:59.999"
+      }
     }
   ]
 }
