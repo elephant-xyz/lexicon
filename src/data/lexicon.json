@@ -7054,7 +7054,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
         },
         "name": {
           "type": [
@@ -7062,7 +7063,8 @@
             "null"
           ],
           "comment": "A human-friendly name for the media asset.",
-          "minLength": 1
+          "minLength": 1,
+          "optional": true
         },
         "original_url": {
           "type": [
@@ -7071,7 +7073,8 @@
           ],
           "format": "uri",
           "comment": "HTTP/HTTPS source URL of the media asset.",
-          "minLength": 1
+          "minLength": 1,
+          "optional": true
         },
         "ipfs_url": {
           "type": [
@@ -7080,7 +7083,8 @@
           ],
           "format": "ipfs_uri",
           "comment": "IPFS URL if the asset is stored on IPFS.",
-          "minLength": 1
+          "minLength": 1,
+          "optional": true
         },
         "document_type": {
           "enum": [
@@ -7120,7 +7124,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
         }
       }
     },
