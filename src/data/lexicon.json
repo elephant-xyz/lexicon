@@ -22265,6 +22265,9 @@
         }
       ],
       "one_to_many_relationships": [
+        "layout_has_layout",
+        "layout_has_utility",
+        "layout_has_structure",
         "person_has_property",
         "company_has_property",
         "property_has_layout",
