@@ -2325,7 +2325,6 @@ mark {
   position: relative;
 }
 
-
 .deprecated-classes-toggle:hover {
   background-color: var(--primary-toxic-green);
   border-color: var(--primary-toxic-green);

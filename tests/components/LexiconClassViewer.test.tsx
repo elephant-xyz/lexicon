@@ -90,7 +90,9 @@ describe('LexiconClassViewer', () => {
     it('should expand deprecated classes section when clicked', async () => {
       renderWithRouter(<LexiconClassViewer classes={[mockDeprecatedClass]} />);
 
-      const deprecatedClassesButton = screen.getByRole('button', { name: /expand deprecated classes/i });
+      const deprecatedClassesButton = screen.getByRole('button', {
+        name: /expand deprecated classes/i,
+      });
       fireEvent.click(deprecatedClassesButton);
 
       await waitFor(() => {
@@ -115,10 +117,14 @@ describe('LexiconClassViewer', () => {
         },
       };
 
-      renderWithRouter(<LexiconClassViewer classes={[classWithDeprecatedProps]} expandByDefault={true} />);
+      renderWithRouter(
+        <LexiconClassViewer classes={[classWithDeprecatedProps]} expandByDefault={true} />
+      );
 
       // First expand the class to see the deprecated properties section
-      const deprecatedPropertiesButton = screen.getByRole('button', { name: /expand deprecated properties/i });
+      const deprecatedPropertiesButton = screen.getByRole('button', {
+        name: /expand deprecated properties/i,
+      });
       fireEvent.click(deprecatedPropertiesButton);
 
       await waitFor(() => {
@@ -173,7 +179,7 @@ describe('LexiconClassViewer', () => {
 
       // Active properties are shown in the main properties section
       expect(screen.getAllByText('testProperty')).toHaveLength(2); // One from each class
-      
+
       // Deprecated properties are now in a collapsible section
       expect(screen.getByText('Deprecated Properties:')).toBeInTheDocument();
     });

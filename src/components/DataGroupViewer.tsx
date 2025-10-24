@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DataGroup } from '../types/lexicon';
+import { DataGroup, DataGroupRelationship } from '../types/lexicon';
 import { schemaService } from '../services/schemaService';
 
 interface DataGroupViewerProps {
@@ -11,7 +11,9 @@ interface DataGroupViewerProps {
 export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, searchTerm }) => {
   const navigate = useNavigate();
   const [expandedGroups, setExpandedGroups] = useState<Set<number>>(new Set());
-  const [expandedDeprecatedRelationships, setExpandedDeprecatedRelationships] = useState<Set<string>>(new Set());
+  const [expandedDeprecatedRelationships, setExpandedDeprecatedRelationships] = useState<
+    Set<string>
+  >(new Set());
   const [schemaManifest, setSchemaManifest] = useState<
     Record<string, { ipfsCid: string; type: string }>
   >({});
@@ -229,16 +231,22 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                     const nonDeprecatedRels = group.relationships.filter(
                       rel => !group.deprecated_relationships?.includes(rel.relationship_type)
                     );
-                    const deprecatedRels = group.relationships.filter(
-                      rel => group.deprecated_relationships?.includes(rel.relationship_type)
+                    const deprecatedRels = group.relationships.filter(rel =>
+                      group.deprecated_relationships?.includes(rel.relationship_type)
                     );
 
-                    const renderRelationship = (rel: any, isDeprecated: boolean = false) => {
+                    const renderRelationship = (
+                      rel: DataGroupRelationship,
+                      isDeprecated: boolean = false
+                    ) => {
                       const relKey = `${rel.from}_to_${rel.to}`;
                       const relSchemaInfo = schemaManifest[relKey];
 
                       return (
-                        <div key={relKey} className={`method-list-item method-list-item-isChild ${isDeprecated ? 'relationship-deprecated' : ''}`}>
+                        <div
+                          key={relKey}
+                          className={`method-list-item method-list-item-isChild ${isDeprecated ? 'relationship-deprecated' : ''}`}
+                        >
                           <div className="method-list-item-label">
                             <div className="method-list-item-label-name">
                               {rel.relationship_type || `has_${rel.to}`}
@@ -307,21 +315,29 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
                       <>
                         {/* Non-deprecated relationships */}
                         {nonDeprecatedRels.map(rel => renderRelationship(rel, false))}
-                        
+
                         {/* Deprecated relationships section */}
                         {deprecatedRels.length > 0 && (
                           <div className="deprecated-relationships-section">
                             <div className="deprecated-relationships-header">
-                              <h4 className="deprecated-relationships-label">Deprecated Relationships:</h4>
+                              <h4 className="deprecated-relationships-label">
+                                Deprecated Relationships:
+                              </h4>
                               <button
                                 className="deprecated-relationships-toggle"
                                 onClick={() => toggleDeprecatedRelationshipsExpanded(group.label)}
-                                aria-label={expandedDeprecatedRelationships.has(group.label) ? 'Collapse deprecated relationships' : 'Expand deprecated relationships'}
+                                aria-label={
+                                  expandedDeprecatedRelationships.has(group.label)
+                                    ? 'Collapse deprecated relationships'
+                                    : 'Expand deprecated relationships'
+                                }
                               >
-                                <span className="deprecated-relationships-arrow">{expandedDeprecatedRelationships.has(group.label) ? '−' : '+'}</span>
+                                <span className="deprecated-relationships-arrow">
+                                  {expandedDeprecatedRelationships.has(group.label) ? '−' : '+'}
+                                </span>
                               </button>
                             </div>
-                            
+
                             {expandedDeprecatedRelationships.has(group.label) && (
                               <div className="deprecated-relationships-content">
                                 {deprecatedRels.map(rel => renderRelationship(rel, true))}
