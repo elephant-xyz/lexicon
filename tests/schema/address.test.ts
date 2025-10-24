@@ -42,10 +42,25 @@ describe('address.json Schema', () => {
     ]);
     // Check that option 1 has all the same properties as option 2 (order doesn't matter)
     const expectedProperties = [
-      'block', 'city_name', 'country_code', 'county_name', 'latitude', 'longitude', 'lot',
-      'municipality_name', 'plus_four_postal_code', 'postal_code', 'range', 'request_identifier',
-      'route_number', 'section', 'source_http_request', 'state_code', 'township', 'unit_identifier',
-      'unnormalized_address'
+      'block',
+      'city_name',
+      'country_code',
+      'county_name',
+      'latitude',
+      'longitude',
+      'lot',
+      'municipality_name',
+      'plus_four_postal_code',
+      'postal_code',
+      'range',
+      'request_identifier',
+      'route_number',
+      'section',
+      'source_http_request',
+      'state_code',
+      'township',
+      'unit_identifier',
+      'unnormalized_address',
     ];
     expect(Object.keys(option1.properties).sort()).toEqual(expectedProperties.sort());
   });
@@ -235,7 +250,13 @@ describe('address.json Schema', () => {
     expect(contentType.description).toBe(
       'Content-Type header for the request, indicating the media type of the resource.'
     );
-    expect(contentType.enum).toEqual(['application/json', 'multipart/form-data', 'text/xml', 'application/x-www-form-urlencoded', null]);
+    expect(contentType.enum).toEqual([
+      'application/json',
+      'multipart/form-data',
+      'text/xml',
+      'application/x-www-form-urlencoded',
+      null,
+    ]);
   });
 
   it('should have correct multiValueQueryString property definition in option 2', () => {
