@@ -22170,6 +22170,12 @@
         },
         {
           "type": "relationship",
+          "from": "company",
+          "to": "address",
+          "relationship_type": "company_has_mailing_address"
+        },
+        {
+          "type": "relationship",
           "from": "sales_history",
           "to": "company",
           "relationship_type": "sales_history_has_company"
@@ -22292,6 +22298,7 @@
         "sales_history_has_company",
         "person_has_fact_sheet",
         "person_has_mailing_address",
+        "company_has_mailing_address",
         "property_has_fact_sheet",
         "company_has_fact_sheet",
         "address_has_fact_sheet",
