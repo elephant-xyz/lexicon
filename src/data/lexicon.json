@@ -15127,6 +15127,7 @@
             "Second Floor",
             "Third Floor",
             "Fourth Floor",
+            "Floor",
             "Basement",
             "Sub-Basement",
             "Living Area",
@@ -15195,7 +15196,17 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
+        },
+        "floor_number": {
+            "type": [
+                "integer",
+                "null"
+            ],
+            "comment": "The floor number the room is located on (1 for first floor, 2 for second floor, etc.).",
+            "minimum": 1,
+            "optional": true
         },
         "has_windows": {
           "type": [
