@@ -1836,7 +1836,8 @@
             "Allegheny",
             "Hunt"
           ],
-          "comment": "County name refers to the name of the county in which the address is located."
+          "comment": "County name refers to the name of the county in which the address is located.",
+          "optional": true
         },
         "latitude": {
           "type": [
@@ -15206,15 +15207,6 @@
             "null"
           ],
           "optional": true
-        },
-        "floor_number": {
-            "type": [
-                "integer",
-                "null"
-            ],
-            "comment": "The floor number the room is located on (1 for first floor, 2 for second floor, etc.).",
-            "minimum": 1,
-            "optional": true
         },
         "has_windows": {
           "type": [
