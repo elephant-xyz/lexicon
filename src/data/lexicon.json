@@ -14584,7 +14584,8 @@
           ],
           "comment": "The total square footage of attached, livable area excluding balconies, porches, garages, car ports, elevators, and utility rooms.",
           "minLength": 1,
-          "pattern": ".*\\d{2,}.*"
+          "pattern": ".*\\d{2,}.*",
+          "optional": true
         },
         "area_under_air": {
           "type": [
