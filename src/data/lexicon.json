@@ -15157,7 +15157,8 @@
         "space_index": {
           "type": "integer",
           "comment": "An index number representing the order of each space type in the property layout.",
-          "minimum": 1
+          "minimum": 1,
+          "optional": true
         },
         "space_type_index": {
           "type": "string",
