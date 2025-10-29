@@ -22077,7 +22077,7 @@
       "label": "County",
       "deprecated_relationships": [
         "person_has_property",
-        "company_has_property",
+        "company_has_property"
       ],
       "relationships": [
         {
