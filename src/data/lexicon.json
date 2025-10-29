@@ -14890,7 +14890,8 @@
           "Second Floor",
           "Third Floor",
           "Fourth Floor"
-        ]
+        ],
+        "space_index": true
       },
       "description": "The Layout class provides comprehensive documentation of individual rooms and spaces within a property, capturing detailed physical characteristics, design elements, and condition assessments. It categorizes spaces from basic residential rooms (living rooms, bedrooms, bathrooms) to specialized areas (wine cellars, safe rooms, pool houses) and exterior spaces (decks, patios, outdoor kitchens). The class documents physical attributes including flooring materials, square footage, floor levels, and window specifications with various design types and treatments. It captures aesthetic elements such as design style, decor features, lighting fixtures, countertop materials, and cabinet styles, while also assessing condition factors like paint quality, flooring wear, clutter levels, and visible damage. For pool and spa areas, it includes specialized properties for equipment, safety features, surface types, and water quality. The class also evaluates environmental factors such as natural light quality, views, and furnishing status, making it essential for property appraisals, virtual tours, maintenance planning, and detailed property marketing descriptions.",
       "properties": {
@@ -15151,6 +15152,10 @@
           "type": "integer",
           "comment": "An index number representing the order of each space type in the property layout.",
           "minimum": 1
+        },
+        "space_type_index": {
+          "type": "string",
+          "comment": "An index number representing the order of each space type and index in the property layout"
         },
         "flooring_material_type": {
           "enum": [
