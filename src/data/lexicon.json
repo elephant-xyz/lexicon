@@ -1836,8 +1836,7 @@
             "Allegheny",
             "Hunt"
           ],
-          "comment": "County name refers to the name of the county in which the address is located.",
-          "optional": true
+          "comment": "County name refers to the name of the county in which the address is located."
         },
         "latitude": {
           "type": [
@@ -22079,8 +22078,6 @@
       "deprecated_relationships": [
         "person_has_property",
         "company_has_property",
-        "property_has_utility",
-        "property_has_structure"
       ],
       "relationships": [
         {
