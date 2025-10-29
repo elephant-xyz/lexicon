@@ -15161,7 +15161,8 @@
         },
         "space_type_index": {
           "type": "string",
-          "comment": "An index number representing the order of each space type and index in the property layout"
+          "comment": "An index number representing the order of each space type and index in the property layout",
+          "pattern": "^\\d+(\\.\\d+)?(\\.\\d+)?$"
         },
         "flooring_material_type": {
           "enum": [
