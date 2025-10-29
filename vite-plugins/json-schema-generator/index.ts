@@ -460,11 +460,10 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     } = properties;
 
     // Create required fields for unnormalized_address option
-    // Only these 6 fields are required for unnormalized variant
+    // Only these 5 fields are required for unnormalized variant
     const unnormalizedRequiredFields = [
       'source_http_request',
       'request_identifier',
-      'county_name',
       'latitude',
       'longitude',
       'unnormalized_address',
