@@ -702,6 +702,11 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
   return {
     name: 'json-schema-generator',
     async buildStart() {
+      // Skip schema generation during test runs
+      if (process.env.VITEST || process.env.NODE_ENV === 'test') {
+        return;
+      }
+
       // 🔨 Generating JSON Schemas for blockchain classes...
 
       // Check if IPFS upload is available
