@@ -12501,62 +12501,74 @@
             "null"
           ]
         },
-          "site_lighting_type": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "LightStandard10to30ft",
-              "LightStandardUnder10ft", 
-              "LightStandardOver30ft",
-              "FloodLight",
-              "SecurityLight",
-              "PathLight",
-              "None"
-            ],
-            "comment": "Type and height of outdoor lighting fixtures on the lot",
-            "optional": true
-          },
-          
-          "site_lighting_fixture_count": {
-            "type": ["number","null"],
-            "comment": "Total number of light fixtures installed on the property",
-            "optional": true
-          },
-          
-          "site_lighting_installation_date": {
-            "type": ["string","null"],
-            "format": "date",
-            "description": "Installation date of site lighting (YYYY-MM-DD or YYYY)",
-            "optional": true
-          },
-          
-          "paving_type": {
-            "type": ["string","null"], 
-            "enum": [
-              "Asphalt",
-              "Concrete",
-              "Gravel",
-              "Pavers",
-              "Brick",
-              "Composite",
-              "None"
-            ],
-            "description": "Primary paving material used on the lot",
-            "optional": true
-          },        
-          "paving_area_sqft": {
-            "type": ["number","null"],
-            "comment": "Total paved area in square feet",
-            "optional":true
-          },        
-          "paving_installation_date": {
-            "type": ["string","null"], 
-            "format": "date", 
-            "comment": "Installation date of paving (YYYY-MM-DD or YYYY)",
-            "optional": true
-          }
+        "site_lighting_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "LightStandard10to30ft",
+            "LightStandardUnder10ft",
+            "LightStandardOver30ft",
+            "FloodLight",
+            "SecurityLight",
+            "PathLight",
+            "None"
+          ],
+          "comment": "Type and height of outdoor lighting fixtures on the lot",
+          "optional": true
+        },
+        "site_lighting_fixture_count": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "comment": "Total number of light fixtures installed on the property",
+          "optional": true
+        },
+        "site_lighting_installation_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "Installation date of site lighting (YYYY-MM-DD or YYYY)",
+          "optional": true
+        },
+        "paving_type": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Asphalt",
+            "Concrete",
+            "Gravel",
+            "Pavers",
+            "Brick",
+            "Composite",
+            "None"
+          ],
+          "description": "Primary paving material used on the lot",
+          "optional": true
+        },
+        "paving_area_sqft": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "comment": "Total paved area in square feet",
+          "optional": true
+        },
+        "paving_installation_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "comment": "Installation date of paving (YYYY-MM-DD or YYYY)",
+          "optional": true
+        }
       },
       "example": {
         "source_http_request": "GET /Property/Details?parcelId={{request_identifier}} HTTP/1.1\r\nHost: pbcpao.gov\r\nUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36\r\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\nAccept-Language: en-US,en;q=0.5\r\nConnection: keep-alive\r\n\r\n",
@@ -14465,38 +14477,37 @@
       "container_name": "properties",
       "is_deprecated": false,
       "deprecated_properties": {
-       "livable_floor_area": true,
-       "area_under_air": true,
-       "total_area": true,
-       "property_effective_built_year": true,
-       "number_of_units_type": true,
+        "livable_floor_area": true,
+        "area_under_air": true,
+        "total_area": true,
+        "property_effective_built_year": true,
+        "number_of_units_type": true,
         "property_type": [
-            "Modular",
-            "ManufacturedHousingMultiWide",
-            "Pud",
-            "Timeshare",
-            "2Units",
-            "DetachedCondominium",
-            "Duplex",
-            "SingleFamily",
-            "MultipleFamily",
-            "3Units",
-            "ManufacturedHousing",
-            "ManufacturedHousingSingleWide",
-            "4Units",
-            "Townhouse",
-            "NonWarrantableCondo",
-            "VacantLand",
-            "Retirement",
-            "MiscellaneousResidential",
-            "ResidentialCommonElementsAreas",
-            "MobileHome",
-            "Apartment",
-            "MultiFamilyMoreThan10",
-            "MultiFamilyLessThan10",
-            "Condominium",
-            "Cooperative"
-
+          "Modular",
+          "ManufacturedHousingMultiWide",
+          "Pud",
+          "Timeshare",
+          "2Units",
+          "DetachedCondominium",
+          "Duplex",
+          "SingleFamily",
+          "MultipleFamily",
+          "3Units",
+          "ManufacturedHousing",
+          "ManufacturedHousingSingleWide",
+          "4Units",
+          "Townhouse",
+          "NonWarrantableCondo",
+          "VacantLand",
+          "Retirement",
+          "MiscellaneousResidential",
+          "ResidentialCommonElementsAreas",
+          "MobileHome",
+          "Apartment",
+          "MultiFamilyMoreThan10",
+          "MultiFamilyLessThan10",
+          "Condominium",
+          "Cooperative"
         ]
       },
       "properties": {
@@ -14840,9 +14851,9 @@
             "TelecommunicationsFacility",
             "SolarFarm",
             "WindFarm",
-            "NativePasture",           
-            "ImprovedPasture",         
-            "Rangeland",               
+            "NativePasture",
+            "ImprovedPasture",
+            "Rangeland",
             "PastureWithTimber",
             "Unknown",
             null
@@ -21564,48 +21575,55 @@
           "minLength": 1
         },
         "plumbing_fixture_count": {
-    "type": ["integer", "null"],
-    "description": "Total number of plumbing fixtures installed in the property (e.g., toilets, sinks, urinals, floor drains)",
-    "optional": true
-  },
-  
-  "plumbing_fixture_type_primary": {
-    "type": ["string", "null"],
-    "enum": [
-      "Toilet",
-      "Sink",
-      "Urinal",
-      "FloorDrain",
-      "ServiceSink",
-      "UtilitySink",
-      "WaterFountain",
-      "HoseBib",
-      "ShowerHead",
-      "Bathtub",
-      "Dishwasher",
-      "WashingMachine",
-      "Mixed",
-      "Other",
-      null
-    ],
-    "description": "Primary type of plumbing fixture. Use 'Mixed' for properties with multiple fixture types.",
-    "optional": true
-  },
-  
-    "plumbing_fixture_quality": {
-      "type": ["string", "null"],
-      "enum": [
-        "Economy",
-        "Standard",
-        "Fair",
-        "Good",
-        "Excellent",
-        "Luxury",
-        null
-      ],
-      "description": "Overall quality level of plumbing fixtures",
-      "optional": true
-    },
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Total number of plumbing fixtures installed in the property (e.g., toilets, sinks, urinals, floor drains)",
+          "optional": true
+        },
+        "plumbing_fixture_type_primary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Toilet",
+            "Sink",
+            "Urinal",
+            "FloorDrain",
+            "ServiceSink",
+            "UtilitySink",
+            "WaterFountain",
+            "HoseBib",
+            "ShowerHead",
+            "Bathtub",
+            "Dishwasher",
+            "WashingMachine",
+            "Mixed",
+            "Other",
+            null
+          ],
+          "description": "Primary type of plumbing fixture. Use 'Mixed' for properties with multiple fixture types.",
+          "optional": true
+        },
+        "plumbing_fixture_quality": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "Economy",
+            "Standard",
+            "Fair",
+            "Good",
+            "Excellent",
+            "Luxury",
+            null
+          ],
+          "description": "Overall quality level of plumbing fixtures",
+          "optional": true
+        },
         "electrical_panel_capacity": {
           "type": [
             "string",
@@ -21981,7 +21999,6 @@
           ],
           "comment": "Current status of the inspection indicating whether it has been completed and the outcome.",
           "optional": true
-
         },
         "scheduled_date": {
           "type": "string",
@@ -22154,7 +22171,8 @@
           "from": "property",
           "to": "structure",
           "relationship_type": "property_has_structure"
-        },{
+        },
+        {
           "type": "relationship",
           "from": "property",
           "to": "property_improvement",
@@ -22309,6 +22327,12 @@
           "from": "parcel",
           "to": "fact_sheet",
           "relationship_type": "parcel_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "fact_sheet",
+          "relationship_type": "property_improvement_has_fact_sheet"
         }
       ],
       "one_to_many_relationships": [
@@ -22714,10 +22738,10 @@
           "relationship_type": "property_improvement_has_utility"
         },
         {
-        "type": "relationship",
-        "from": "property_improvement",
-        "to": "inspection",
-        "relationship_type": "property_improvement_has_inspection"
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "inspection",
+          "relationship_type": "property_improvement_has_inspection"
         },
         {
           "type": "relationship",
@@ -22743,7 +22767,6 @@
           "to": "file",
           "relationship_type": "property_improvement_has_file"
         }
-        
       ],
       "required": [],
       "one_to_many_relationships": [
