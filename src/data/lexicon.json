@@ -22152,6 +22152,11 @@
           "from": "property",
           "to": "structure",
           "relationship_type": "property_has_structure"
+        },{
+          "type": "relationship",
+          "from": "property",
+          "to": "property_improvement",
+          "relationship_type": "property_has_property_improvement"
         },
         {
           "type": "relationship",
@@ -22305,6 +22310,7 @@
         }
       ],
       "one_to_many_relationships": [
+        "property_has_property_improvement",
         "layout_has_layout",
         "layout_has_utility",
         "layout_has_structure",
