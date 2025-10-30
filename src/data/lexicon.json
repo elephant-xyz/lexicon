@@ -1572,6 +1572,7 @@
         "county_jurisdiction": {
           "type": "string",
           "enum": [
+            "Dallas",
             "Miami Dade",
             "Broward",
             "Palm Beach",
@@ -1764,6 +1765,7 @@
         "county_name": {
           "type": "string",
           "enum": [
+            "Dallas",
             "Miami Dade",
             "Broward",
             "Palm Beach",
