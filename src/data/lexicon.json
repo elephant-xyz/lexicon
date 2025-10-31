@@ -7082,7 +7082,15 @@
       "container_name": "files",
       "is_deprecated": false,
       "description": "The file class is a comprehensive data structure that represents all media and documents associated with a specific property, including images, PDFs, and floor plans across multiple file formats (JPEG, PNG, PDF). It supports both traditional HTTP/HTTPS and decentralized IPFS storage options while providing extensive semantic classification for property-related documents such as deeds, assignments, affidavits, building permits, inspection reports, and property images. The class includes human-friendly naming conventions and metadata management capabilities, making it ideal for organizing and retrieving all media assets and legal documents tied to individual properties within real estate platforms and property management systems.",
-      "deprecated_properties": {},
+      "deprecated_properties": {
+        "document_type": [
+          "ConveyanceDeedQuitClaimDeed",
+          "ConveyanceDeedBargainAndSaleDeed",
+          "ConveyanceDeedWarrantyDeed",
+          "ConveyanceDeed",
+          "AssignmentAssignmentOfDeedOfTrust"
+        ]
+      },
       "properties": {
         "source_http_request": {
           "type": [
@@ -7207,6 +7215,7 @@
         },
         "document_type": {
           "enum": [
+            "Title",
             "ConveyanceDeedQuitClaimDeed",
             "ConveyanceDeedBargainAndSaleDeed",
             "ConveyanceDeedWarrantyDeed",
@@ -17975,6 +17984,30 @@
             "Release of Contract",
             "Miscellaneous"
           ],
+          "optional": true
+        },
+        "book": {
+          "type": "string",
+          "comment": "The book number where the deed is recorded in public records.",
+          "minLength": 1,
+          "optional": true
+        },
+        "page": {
+          "type": "string",
+          "comment": "The page number within the book where the deed is recorded.",
+          "minLength": 1,
+          "optional": true
+        },
+        "volume": {
+          "type": "string",
+          "comment": "The volume number associated with the deed recording.",
+          "minLength": 1,
+          "optional": true
+        },
+        "instrument_number": {
+          "type": "string",
+          "comment": "The unique instrument number assigned to the deed document upon recording.",
+          "minLength": 1,
           "optional": true
         },
         "request_identifier": {
