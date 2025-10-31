@@ -22483,7 +22483,8 @@
         "deed_has_file",
         "deed_has_fact_sheet",
         "property_has_parcel",
-        "parcel_has_fact_sheet"
+        "parcel_has_fact_sheet",
+        "property_improvement_has_fact_sheet"
       ],
       "example": {
         "label": "County",
