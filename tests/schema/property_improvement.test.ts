@@ -139,8 +139,7 @@ describe('property_improvement.json Schema', () => {
   });
 
   it('should have correct application_received_date property definition', () => {
-    const applicationReceivedDate =
-      propertyImprovementSchema.properties.application_received_date;
+    const applicationReceivedDate = propertyImprovementSchema.properties.application_received_date;
     expect(applicationReceivedDate.type).toEqual(['string', 'null']);
     expect(applicationReceivedDate.format).toBe('date');
   });
@@ -216,7 +215,9 @@ describe('property_improvement.json Schema', () => {
     const fee = propertyImprovementSchema.properties.fee;
     expect(fee.type).toEqual(['decimal', 'null']);
     expect(fee.format).toBe('currency');
-    expect(fee.description).toBe('Cost associated with acquiring the property improvement/permits.');
+    expect(fee.description).toBe(
+      'Cost associated with acquiring the property improvement/permits.'
+    );
   });
 
   it('should have the allOf validation rules', () => {
@@ -275,4 +276,3 @@ describe('property_improvement.json Schema', () => {
     expect(improvementType.enum).toContain('Roofing');
   });
 });
-
