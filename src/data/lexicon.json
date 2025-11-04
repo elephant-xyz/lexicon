@@ -16301,10 +16301,7 @@
         },
         "fee": {
           "comment": "Cost associated with acquiring the property improvement/permits.",
-          "type": [
-            "decimal",
-            "null"
-          ],
+          "type": "decimal",
           "format": "currency",
           "optional": true
         }
