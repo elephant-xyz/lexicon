@@ -27,7 +27,7 @@ describe('address.json Schema', () => {
     expect(addressSchema.oneOf.length).toBe(2);
   });
 
-  it('should have option 1: unnormalized_address with source_http_request, request_identifier, and county_name', () => {
+  it('should have option 1: unnormalized_address with source_http_request, request_identifier', () => {
     const option1 = addressSchema.oneOf[0];
     expect(option1.type).toBe('object');
     expect(option1.description).toBe('Address with unnormalized format');
@@ -35,7 +35,6 @@ describe('address.json Schema', () => {
     expect(option1.required).toEqual([
       'source_http_request',
       'request_identifier',
-      'county_name',
       'latitude',
       'longitude',
       'unnormalized_address',
@@ -434,7 +433,6 @@ describe('address.json Schema', () => {
     expect(requiredProps).toContain('request_identifier');
     expect(requiredProps).toContain('city_name');
     expect(requiredProps).toContain('country_code');
-    expect(requiredProps).toContain('county_name');
     expect(requiredProps).toContain('latitude');
     expect(requiredProps).toContain('longitude');
     expect(requiredProps).toContain('plus_four_postal_code');
