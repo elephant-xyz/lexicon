@@ -213,7 +213,7 @@ describe('property_improvement.json Schema', () => {
 
   it('should have correct fee property definition with currency format', () => {
     const fee = propertyImprovementSchema.properties.fee;
-    expect(fee.type).toEqual(['decimal', 'null']);
+    expect(fee.type).toBe('number');
     expect(fee.format).toBe('currency');
     expect(fee.description).toBe(
       'Cost associated with acquiring the property improvement/permits.'
