@@ -16298,6 +16298,15 @@
             "null"
           ],
           "optional": true
+        },
+        "fee": {
+          "comment": "Cost associated with acquiring the property improvement/permits.",
+          "type": [
+            "decimal",
+            "null"
+          ],
+          "format": "currency",
+          "optional": true
         }
       }
     },
@@ -22916,7 +22925,14 @@
           "from": "property_improvement",
           "to": "file",
           "relationship_type": "property_improvement_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "property_improvement",
+          "to": "address",
+          "relationship_type": "property_improvement_has_address"
         }
+
       ],
       "required": [],
       "one_to_many_relationships": [
