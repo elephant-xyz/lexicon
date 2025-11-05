@@ -20630,6 +20630,15 @@
           "format": "currency",
           "comment": "The land value of the property used as the basis for property tax calculations for a given tax year."
         },
+        "property_exemption_amount": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "currency",
+          "comment": "The total exemption amount applied to the property for a given tax year, reducing the assessed value for tax calculation purposes.",
+          "optional": true
+        },
         "property_taxable_value_amount": {
           "type": "decimal",
           "format": "currency",
