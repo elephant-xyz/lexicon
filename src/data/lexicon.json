@@ -22645,9 +22645,9 @@
         },
         {
           "type": "relationship",
-          "from": "building",
+          "from": "layout",
           "to": "geometry",
-          "relationship_type": "building_has_geometry"
+          "relationship_type": "layout_has_geometry"
         },
         {
           "type": "relationship",
