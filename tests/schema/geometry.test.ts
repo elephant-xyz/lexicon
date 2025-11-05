@@ -116,10 +116,10 @@ describe('geometry.json Schema', () => {
   it('should validate coordinate ranges are appropriate for geospatial data', () => {
     const latitude = geometrySchema.properties.latitude;
     const longitude = geometrySchema.properties.longitude;
-    
+
     // Latitude should be between -90 and 90
     expect(latitude.minimum).toBe(-90);
-    
+
     // Longitude should be between -180 and 180
     expect(longitude.minimum).toBe(-180);
   });
@@ -128,9 +128,8 @@ describe('geometry.json Schema', () => {
     // Point coordinates
     expect(geometrySchema.properties).toHaveProperty('latitude');
     expect(geometrySchema.properties).toHaveProperty('longitude');
-    
+
     // Polygon coordinates
     expect(geometrySchema.properties).toHaveProperty('polygon');
   });
 });
-
