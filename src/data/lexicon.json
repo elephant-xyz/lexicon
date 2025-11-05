@@ -1824,10 +1824,7 @@
           "optional": true
         },
         "polygon": {
-          "type": [
-            "array",
-            "null"
-          ],
+          "type": "array",
           "minItems": 3,
           "items": {
             "type": "object",

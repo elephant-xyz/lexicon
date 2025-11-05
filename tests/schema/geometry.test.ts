@@ -83,7 +83,7 @@ describe('geometry.json Schema', () => {
 
   it('should have correct polygon property definition as array', () => {
     const polygon = geometrySchema.properties.polygon;
-    expect(polygon.type).toEqual(['array', 'null']);
+    expect(polygon.type).toBe('array');
     expect(polygon.description).toContain('array of coordinate points');
     expect(polygon.description).toContain('closed polygon boundary');
     expect(polygon.description).toContain('at least 3 points');
