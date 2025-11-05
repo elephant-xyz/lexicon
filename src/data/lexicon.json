@@ -1722,10 +1722,148 @@
       }
     },
     {
+      "type": "geometry",
+      "container_name": "geometries",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "Represents geographical coordinate data including single points and polygonal boundaries for properties and parcels.",
+      "properties": {
+        "source_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    "application/x-www-form-urlencoded",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
+        },
+        "request_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+          "minLength": 1
+        },
+        "latitude": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -90,
+          "maximum": 90,
+          "comment": "Latitude coordinate of a single point location, ranging from -90° (South Pole) to +90° (North Pole).",
+          "optional": true
+        },
+        "longitude": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": -180,
+          "maximum": 180,
+          "comment": "Longitude coordinate of a single point location, ranging from -180° to +180°.",
+          "optional": true
+        },
+        "polygon": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 3,
+          "items": {
+            "type": "object",
+            "required": [
+              "latitude",
+              "longitude"
+            ],
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90,
+                "comment": "Latitude coordinate of a polygon vertex point."
+              },
+              "longitude": {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180,
+                "comment": "Longitude coordinate of a polygon vertex point."
+              }
+            },
+            "additionalProperties": false
+          },
+          "comment": "An array of coordinate points defining a closed polygon boundary. Requires at least 3 points to form a valid polygon.",
+          "optional": true
+        }
+      }
+    },
+    {
       "type": "address",
       "container_name": "addresses",
       "is_deprecated": false,
-      "deprecated_properties": {},
+      "deprecated_properties": {
+        "longitude": true,
+        "latitude": true
+      },
       "description": "Represents a physical or mailing address with comprehensive location details including street information, postal codes and geographic identifiers.",
       "properties": {
         "source_http_request": {
@@ -1962,14 +2100,16 @@
             "number",
             "null"
           ],
-          "comment": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole."
+          "comment": "Latitude is a coordinate that specifies the north-south position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -90° at the South Pole to +90° at the North Pole.",
+          "optional": true
         },
         "longitude": {
           "type": [
             "number",
             "null"
           ],
-          "comment": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°."
+          "comment": "Longitude is a coordinate that specifies the east-west position of a point on the Earth's surface. It is an angular measurement, usually expressed in degrees, with values ranging from -180° to +180°.",
+          "optional": true
         },
         "municipality_name": {
           "type": [
@@ -22226,7 +22366,8 @@
         "tax_authority",
         "fact_sheet",
         "deed",
-        "inspection"
+        "inspection",
+        "geometry"
       ]
     }
   ],
@@ -22489,6 +22630,30 @@
           "from": "property_improvement",
           "to": "fact_sheet",
           "relationship_type": "property_improvement_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "parcel",
+          "to": "geometry",
+          "relationship_type": "parcel_has_geometry"
+        },
+        {
+          "type": "relationship",
+          "from": "address",
+          "to": "geometry",
+          "relationship_type": "address_has_geometry"
+        },
+        {
+          "type": "relationship",
+          "from": "layout",
+          "to": "geometry",
+          "relationship_type": "layout_has_geometry"
+        },
+        {
+          "type": "relationship",
+          "from": "geometry",
+          "to": "fact_sheet",
+          "relationship_type": "geometry_has_fact_sheet"
         }
       ],
       "one_to_many_relationships": [
@@ -22524,7 +22689,9 @@
         "deed_has_fact_sheet",
         "property_has_parcel",
         "parcel_has_fact_sheet",
-        "property_improvement_has_fact_sheet"
+        "property_improvement_has_fact_sheet",
+        "geometry_has_factsheet",
+        "building_has_geometry"
       ],
       "example": {
         "label": "County",

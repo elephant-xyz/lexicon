@@ -433,8 +433,7 @@ describe('address.json Schema', () => {
     expect(requiredProps).toContain('request_identifier');
     expect(requiredProps).toContain('city_name');
     expect(requiredProps).toContain('country_code');
-    expect(requiredProps).toContain('latitude');
-    expect(requiredProps).toContain('longitude');
+    // latitude and longitude are now deprecated and optional
     expect(requiredProps).toContain('plus_four_postal_code');
     expect(requiredProps).toContain('postal_code');
     expect(requiredProps).toContain('state_code');
