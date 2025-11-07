@@ -204,6 +204,55 @@
           "null"
         ]
       },
+      "agricultural_valuation_amount": {
+        "description": "The agricultural valuation of the property used as the basis for property tax calculations for a given tax year.",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "homestead_cap_loss_amount": {
+        "description": "The homestead cap loss of the property used as the basis for property tax calculations for a given tax year.",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "building_replacement_cost_amount": {
+        "description": "The total replacement cost of the building used as the basis for property tax calculations for a given tax year.",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "building_depreciated_value_amount": {
+        "description": "The total depreciated value of the building used as the basis for property tax calculations for a given tax year.",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "yearly_tax_amount": {
+        "description": "The calculated property tax amount due for the specific month (if applicable).",
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "first_year_on_tax_roll": {
+        "description": "The first year the parcel (land) was placed on the county's property tax assessment roll.",
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "first_year_building_on_tax_roll": {
+        "description": "The first year a building (improvement) on the parcel was added to the tax assessment roll.",
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
       "property_market_value_amount": {
         "description": "The just or market  value of the property used as the basis for property tax calculations for a given tax year.",
         "type": [

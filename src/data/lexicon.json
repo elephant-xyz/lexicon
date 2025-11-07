@@ -15421,6 +15421,7 @@
             "Basement",
             "Sub-Basement",
             "Living Area",
+            "Barn",
             null
           ],
           "comment": "The function or designation of the room.",
@@ -20640,6 +20641,18 @@
           "type": "decimal",
           "format": "currency",
           "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
+        },
+        "agricultural_valuation_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The agricultural valuation of the property used as the basis for property tax calculations for a given tax year.",
+          "optional": true
+        },
+        "homestead_cap_loss_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The homestead cap loss of the property used as the basis for property tax calculations for a given tax year.",
+          "optional": true
         },
         "building_replacement_cost_amount": {
           "type": "decimal",
