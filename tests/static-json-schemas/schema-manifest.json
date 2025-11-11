@@ -131,6 +131,10 @@
     "ipfsCid": "",
     "type": "class"
   },
+  "geometry": {
+    "ipfsCid": "",
+    "type": "class"
+  },
   "property_seed_to_unnormalized_address": {
     "ipfsCid": "",
     "type": "relationship"
@@ -199,6 +203,10 @@
     "ipfsCid": "",
     "type": "relationship"
   },
+  "property_to_property_improvement": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
   "property_to_utility": {
     "ipfsCid": "",
     "type": "relationship"
@@ -220,6 +228,10 @@
     "type": "relationship"
   },
   "person_to_address": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "company_to_address": {
     "ipfsCid": "",
     "type": "relationship"
   },
@@ -295,6 +307,26 @@
     "ipfsCid": "",
     "type": "relationship"
   },
+  "property_improvement_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "parcel_to_geometry": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "address_to_geometry": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "layout_to_geometry": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "geometry_to_fact_sheet": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
   "property_seed_to_file": {
     "ipfsCid": "",
     "type": "relationship"
@@ -336,10 +368,6 @@
     "type": "relationship"
   },
   "property_ranking_overall_to_fact_sheet": {
-    "ipfsCid": "",
-    "type": "relationship"
-  },
-  "property_to_property_improvement": {
     "ipfsCid": "",
     "type": "relationship"
   },
@@ -388,6 +416,10 @@
     "type": "relationship"
   },
   "property_improvement_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "property_improvement_to_address": {
     "ipfsCid": "",
     "type": "relationship"
   },
