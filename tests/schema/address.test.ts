@@ -35,8 +35,6 @@ describe('address.json Schema', () => {
     expect(option1.required).toEqual([
       'source_http_request',
       'request_identifier',
-      'latitude',
-      'longitude',
       'unnormalized_address',
     ]);
     // Check that option 1 has all the same properties as option 2 (order doesn't matter)
