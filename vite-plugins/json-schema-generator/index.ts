@@ -511,8 +511,19 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     };
 
     // Add deprecated_properties metadata if it exists and is not empty
-    if (lexiconClass.deprecated_properties && Object.keys(lexiconClass.deprecated_properties).length > 0) {
+    if (
+      lexiconClass.deprecated_properties &&
+      Object.keys(lexiconClass.deprecated_properties).length > 0
+    ) {
       schema.deprecated_properties = lexiconClass.deprecated_properties;
+    }
+
+    // Add deprecated_relationships metadata if it exists and is not empty
+    if (
+      lexiconClass.deprecated_relationships &&
+      Object.keys(lexiconClass.deprecated_relationships).length > 0
+    ) {
+      schema.deprecated_relationships = lexiconClass.deprecated_relationships;
     }
 
     // Add HTTP request validation rules if source_http_request is present
@@ -555,8 +566,19 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   };
 
   // Add deprecated_properties metadata if it exists and is not empty
-  if (lexiconClass.deprecated_properties && Object.keys(lexiconClass.deprecated_properties).length > 0) {
+  if (
+    lexiconClass.deprecated_properties &&
+    Object.keys(lexiconClass.deprecated_properties).length > 0
+  ) {
     baseSchema.deprecated_properties = lexiconClass.deprecated_properties;
+  }
+
+  // Add deprecated_relationships metadata if it exists and is not empty
+  if (
+    lexiconClass.deprecated_relationships &&
+    Object.keys(lexiconClass.deprecated_relationships).length > 0
+  ) {
+    baseSchema.deprecated_relationships = lexiconClass.deprecated_relationships;
   }
 
   // Add HTTP request validation rules if source_http_request is present
@@ -684,7 +706,7 @@ function generateJSONSchemaForDataGroup(
     }
   });
 
-  return {
+  const dataGroupSchema: Record<string, unknown> = {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
     title: dataGroup.label,
@@ -706,6 +728,13 @@ function generateJSONSchemaForDataGroup(
     required: ['label', 'relationships'],
     additionalProperties: false,
   };
+
+  // Add deprecated_relationships metadata if it exists and is not empty
+  if (dataGroup.deprecated_relationships && dataGroup.deprecated_relationships.length > 0) {
+    dataGroupSchema.deprecated_relationships = dataGroup.deprecated_relationships;
+  }
+
+  return dataGroupSchema as DataGroupSchema;
 }
 
 export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): Plugin {
