@@ -22710,7 +22710,8 @@
         "parcel_has_fact_sheet",
         "property_improvement_has_fact_sheet",
         "geometry_has_fact_sheet",
-        "layout_has_geometry"
+        "layout_has_geometry",
+        "parcel_has_geometry"
       ],
       "example": {
         "label": "County",
