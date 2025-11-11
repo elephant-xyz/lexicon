@@ -401,6 +401,9 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   const properties: Record<string, unknown> = {};
   const allRequiredFields: string[] = [];
 
+  // Get deprecated properties for marking individual properties
+  const deprecatedProps = lexiconClass.deprecated_properties || {};
+
   // Include all properties (including those marked in deprecated_properties)
   const activeProperties = Object.entries(lexiconClass.properties);
 
@@ -441,7 +444,23 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     }
     // Properties are nullable unless they have minLength, minItems, or minimum
     const isRequired = isEffectivelyRequired(propDef);
-    properties[propName] = mapLexiconTypeToJSONSchema(propDef, isRequired);
+    const propertySchema = mapLexiconTypeToJSONSchema(propDef, isRequired) as Record<
+      string,
+      unknown
+    >;
+
+    // Add standard JSON Schema deprecated keyword if property is deprecated
+    const deprecatedValue = deprecatedProps[propName];
+    if (deprecatedValue === true) {
+      // Entire property is deprecated
+      propertySchema.deprecated = true;
+    } else if (Array.isArray(deprecatedValue)) {
+      // Specific enum values are deprecated - add as custom metadata
+      // Keep the deprecated_enum_values as custom metadata since JSON Schema doesn't have a standard way
+      propertySchema.deprecated_enum_values = deprecatedValue;
+    }
+
+    properties[propName] = propertySchema;
   }
 
   // Special handling for address class - create oneOf with unnormalized_address or structured fields
@@ -510,22 +529,6 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
       ],
     };
 
-    // Add deprecated_properties metadata if it exists and is not empty
-    if (
-      lexiconClass.deprecated_properties &&
-      Object.keys(lexiconClass.deprecated_properties).length > 0
-    ) {
-      schema.deprecated_properties = lexiconClass.deprecated_properties;
-    }
-
-    // Add deprecated_relationships metadata if it exists and is not empty
-    if (
-      lexiconClass.deprecated_relationships &&
-      Object.keys(lexiconClass.deprecated_relationships).length > 0
-    ) {
-      schema.deprecated_relationships = lexiconClass.deprecated_relationships;
-    }
-
     // Add HTTP request validation rules if source_http_request is present
     if (properties.source_http_request) {
       const validationRules = generateHTTPRequestValidationRules();
@@ -564,22 +567,6 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     required: allRequiredFields, // All properties are required in JSON Schema
     additionalProperties: false,
   };
-
-  // Add deprecated_properties metadata if it exists and is not empty
-  if (
-    lexiconClass.deprecated_properties &&
-    Object.keys(lexiconClass.deprecated_properties).length > 0
-  ) {
-    baseSchema.deprecated_properties = lexiconClass.deprecated_properties;
-  }
-
-  // Add deprecated_relationships metadata if it exists and is not empty
-  if (
-    lexiconClass.deprecated_relationships &&
-    Object.keys(lexiconClass.deprecated_relationships).length > 0
-  ) {
-    baseSchema.deprecated_relationships = lexiconClass.deprecated_relationships;
-  }
 
   // Add HTTP request validation rules if source_http_request is present
   if (properties.source_http_request) {
@@ -673,13 +660,18 @@ function generateJSONSchemaForDataGroup(
   // Get the one-to-many relationships from the data group
   const oneToManyRelationships = dataGroup.one_to_many_relationships || [];
 
+  // Get deprecated relationships from the data group
+  const deprecatedRelationships = dataGroup.deprecated_relationships || [];
+
   // Create properties object with relationship_type as keys
   Object.entries(relationshipCidsMap).forEach(([key, { cid, relationshipType }]) => {
     const isOneToMany = isOneToManyRelationship(relationshipType, oneToManyRelationships);
     // Relationship is required ONLY if explicitly listed in the data group's required array
     const isRequired = dataGroupRequired.includes(relationshipType);
+    // Check if this relationship is deprecated
+    const isDeprecated = deprecatedRelationships.includes(relationshipType);
 
-    relationshipProperties[relationshipType] = isOneToMany
+    const baseRelationshipSchema = isOneToMany
       ? {
           type: isRequired ? 'array' : ['array', 'null'],
           items: {
@@ -699,6 +691,13 @@ function generateJSONSchemaForDataGroup(
             ? `Reference to ${key} relationship schema (required)`
             : `Reference to ${key} relationship schema (can be null)`,
         };
+
+    // Add standard JSON Schema deprecated keyword if relationship is deprecated
+    if (isDeprecated) {
+      (baseRelationshipSchema as Record<string, unknown>).deprecated = true;
+    }
+
+    relationshipProperties[relationshipType] = baseRelationshipSchema;
 
     // Add to required list if this relationship is required
     if (isRequired) {
@@ -728,11 +727,6 @@ function generateJSONSchemaForDataGroup(
     required: ['label', 'relationships'],
     additionalProperties: false,
   };
-
-  // Add deprecated_relationships metadata if it exists and is not empty
-  if (dataGroup.deprecated_relationships && dataGroup.deprecated_relationships.length > 0) {
-    dataGroupSchema.deprecated_relationships = dataGroup.deprecated_relationships;
-  }
 
   return dataGroupSchema as DataGroupSchema;
 }
