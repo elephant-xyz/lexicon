@@ -464,8 +464,6 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     const unnormalizedRequiredFields = [
       'source_http_request',
       'request_identifier',
-      'latitude',
-      'longitude',
       'unnormalized_address',
     ];
 
