@@ -475,7 +475,7 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     );
 
     // Create the oneOf schema
-    const schema = {
+    const schema: Record<string, unknown> = {
       $schema: 'https://json-schema.org/draft-07/schema#',
       type: 'object',
       title: lexiconClass.type,
@@ -510,6 +510,11 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
       ],
     };
 
+    // Add deprecated_properties metadata if it exists and is not empty
+    if (lexiconClass.deprecated_properties && Object.keys(lexiconClass.deprecated_properties).length > 0) {
+      schema.deprecated_properties = lexiconClass.deprecated_properties;
+    }
+
     // Add HTTP request validation rules if source_http_request is present
     if (properties.source_http_request) {
       const validationRules = generateHTTPRequestValidationRules();
@@ -539,7 +544,7 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   }
 
   // Create base schema
-  const baseSchema = {
+  const baseSchema: Record<string, unknown> = {
     $schema: 'https://json-schema.org/draft-07/schema#',
     type: 'object',
     title: lexiconClass.type,
@@ -548,6 +553,11 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     required: allRequiredFields, // All properties are required in JSON Schema
     additionalProperties: false,
   };
+
+  // Add deprecated_properties metadata if it exists and is not empty
+  if (lexiconClass.deprecated_properties && Object.keys(lexiconClass.deprecated_properties).length > 0) {
+    baseSchema.deprecated_properties = lexiconClass.deprecated_properties;
+  }
 
   // Add HTTP request validation rules if source_http_request is present
   if (properties.source_http_request) {
