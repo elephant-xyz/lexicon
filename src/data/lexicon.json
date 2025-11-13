@@ -22778,15 +22778,15 @@
       "relationships": [
         {
           "type": "relationship",
-          "from": "property_seed",
+          "from": "property",
           "to": "file",
-          "relationship_type": "property_seed_has_file"
+          "relationship_type": "property_has_file"
         },
         {
           "type": "relationship",
-          "from": "property_seed",
+          "from": "property",
           "to": "fact_sheet",
-          "relationship_type": "property_seed_has_fact_sheet"
+          "relationship_type": "property_has_fact_sheet"
         },
         {
           "type": "relationship",
@@ -22796,11 +22796,11 @@
         }
       ],
       "required": [
-        "property_seed_has_file"
+        "property_has_file"
       ],
       "one_to_many_relationships": [
-        "property_seed_has_file",
-        "property_seed_has_fact_sheet",
+        "property_has_file",
+        "property_has_fact_sheet",
         "file_has_fact_sheet"
       ]
     },
