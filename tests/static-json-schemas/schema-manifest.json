@@ -327,11 +327,7 @@
     "ipfsCid": "",
     "type": "relationship"
   },
-  "property_seed_to_file": {
-    "ipfsCid": "",
-    "type": "relationship"
-  },
-  "property_seed_to_fact_sheet": {
+  "parcel_to_file": {
     "ipfsCid": "",
     "type": "relationship"
   },
