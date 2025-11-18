@@ -20666,6 +20666,14 @@
           "comment": "The total depreciated value of the building used as the basis for property tax calculations for a given tax year.",
           "optional": true
         },
+        "millage_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "comment": "The millage rate (also called mill rate) used to calculate property taxes, expressed as the tax amount per $1,000 of assessed value. For example, a millage rate of 3.0107 means $3.0107 in taxes per $1,000 of assessed property value.",
+          "optional": true
+        },
         "monthly_tax_amount": {
           "type": [
             "number",
