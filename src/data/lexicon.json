@@ -20642,6 +20642,42 @@
           "format": "currency",
           "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
         },
+        "city_taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value of the property as assessed by the city for property tax calculations for a given tax year.",
+          "optional": true
+        },
+        "county_taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value of the property as assessed by the county for property tax calculations for a given tax year.",
+          "optional": true
+        },
+        "college_taxable_value_amount": {
+            "type": "decimal",
+            "format": "currency",
+            "comment": "The taxable value of the property as assessed by the college district for property tax calculations for a given tax year.",
+            "optional": true
+        },
+        "hospital_taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value of the property as assessed by the hospital district for property tax calculations for a given tax year.",
+          "optional": true
+        },
+        "school_taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value of the property as assessed by the school district for property tax calculations for a given tax year.",
+          "optional": true
+        },
+        "special_district_taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value of the property as assessed by any special districts for property tax calculations for a given tax year.",
+          "optional": true
+        },
         "agricultural_valuation_amount": {
           "type": "decimal",
           "format": "currency",
