@@ -16342,7 +16342,8 @@
         },
         "permit_required": {
           "type": "boolean",
-          "comment": "Whether the improvement required building permits."
+          "comment": "Whether the improvement required building permits.",
+          "optional": true
         },
         "permit_number": {
           "comment": "Jurisdiction record/permit number (e.g., MEC2025-05360).",
@@ -20605,12 +20606,16 @@
         "property_assessed_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The assessed or SOH value of the property used as the basis for property tax calculations for a given tax year."
+          "comment": "The assessed or SOH value of the property used as the basis for property tax calculations for a given tax year.",
+          "optional": true
+
         },
         "property_market_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The just or market  value of the property used as the basis for property tax calculations for a given tax year."
+          "comment": "The just or market  value of the property used as the basis for property tax calculations for a given tax year.",
+          "optional": true
+
         },
         "property_building_amount": {
           "type": [
@@ -20626,7 +20631,9 @@
             "null"
           ],
           "format": "currency",
-          "comment": "The land value of the property used as the basis for property tax calculations for a given tax year."
+          "comment": "The land value of the property used as the basis for property tax calculations for a given tax year.",
+          "optional": true
+
         },
         "property_exemption_amount": {
           "type": [
@@ -20640,7 +20647,9 @@
         "property_taxable_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value."
+          "comment": "The final property value on which tax is calculated, derived by subtracting the exemption amount from the assessed value.",
+          "optional": true
+
         },
         "city_taxable_value_amount": {
           "type": "decimal",
@@ -20744,6 +20753,7 @@
           "format": "date",
           "comment": "period start date in mortgage banking expenses refers to the date that marks the beginning of a specific time period for which expenses are being reported. \nThis date is used in conjunction with the period end date to determine the duration of the time period for which expenses are being calculated and reported. The period start date can be used to calculate the total expenses for rdf:type specific time period, such as rdf:type month or rdf:type quarter, and can help mortgage companies to track and analyze their expenses over time. The period start date is an important factor in determining the accuracy and completeness of expense reporting in mortgage banking.",
           "minLength": 1
+          
         },
         "first_year_on_tax_roll": {
           "type": [
@@ -22022,7 +22032,9 @@
         },
         "solar_panel_present": {
           "type": "boolean",
-          "comment": "Indicates whether solar panels are installed on the structure."
+          "comment": "Indicates whether solar panels are installed on the structure.",
+          "optional": true
+
         },
         "solar_panel_type": {
           "enum": [
@@ -22095,7 +22107,8 @@
         },
         "solar_inverter_visible": {
           "type": "boolean",
-          "comment": "Whether a solar inverter box is visible on exterior or utility closet."
+          "comment": "Whether a solar inverter box is visible on exterior or utility closet.",
+          "optional": true
         },
         "hvac_unit_issues": {
           "enum": [
