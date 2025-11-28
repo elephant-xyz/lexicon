@@ -16107,7 +16107,8 @@
             "null"
           ],
           "comment": "The name of the tax jurisdiction (e.g., county or city name).",
-          "minLength": 1
+          "minLength": 1,
+          "optional": true
         },
         "jurisdiction_type": {
           "enum": [
@@ -16132,6 +16133,7 @@
             null
           ],
           "comment": "The type of tax jurisdiction.",
+          "optional": true,
           "type": [
             "string",
             "null"
@@ -20996,12 +20998,14 @@
             "null"
           ],
           "comment": "The tax year for which the data applies.",
-          "minimum": 1900
+          "minimum": 1900,
+          "optional": true
         },
         "tax_rate": {
           "type": "decimal",
           "format": "percentage",
-          "comment": "The tax rate associated with the exemption."
+          "comment": "The tax rate associated with the exemption.",
+          "optional": true
         },
         "exemption_type": {
           "enum": [
@@ -21014,6 +21018,7 @@
             null
           ],
           "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types.",
+          "optional": true,
           "type": [
             "string",
             "null"
@@ -21022,12 +21027,14 @@
         "exemption_value": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The value associated with the exemption."
+          "comment": "The value associated with the exemption.",
+          "optional": true
         },
         "taxable_value_amount": {
           "type": "decimal",
           "format": "currency",
-          "comment": "The taxable value amount of the property."
+          "comment": "The taxable value amount of the property.",
+          "optional": true
         }
       }
     },
