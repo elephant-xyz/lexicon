@@ -16020,6 +16020,116 @@
       }
     },
     {
+      "type": "tax_jurisdiction",
+      "container_name": "tax_jurisdictions",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "The Tax Jurisdiction class captures detailed information about the various tax authorities that govern a property. It includes properties to identify the specific jurisdiction, such as county, city, school district, and special tax districts. The class documents tax rates for different types of taxes including property tax, school tax, and special assessments. It also records important dates such as assessment dates, tax due dates, and payment deadlines. Additionally, the class includes properties for exemptions and abatements that may apply to the property, as well as historical tax data for trend analysis. This comprehensive documentation is essential for accurate property valuation, tax planning, and compliance with local tax regulations.",
+      "properties": {
+        "source_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    "application/x-www-form-urlencoded",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data.",
+          "minProperties": 1
+        },
+        "request_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+          "minLength": 1
+        },
+        "exemption_type": {
+          "enum": [
+            "Portability",
+            "Homestead",
+            "Add. Homestead",
+            "Wid/Vet/Dis",
+            "Senior",
+            "Affordable Housing",
+            null
+          ],
+          "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "exemption_value": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The value associated with the exemption."
+        },
+        "taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value amount of the property."
+        }
+      }
+    },
+    {
       "type": "appliance",
       "container_name": "appliances",
       "is_deprecated": false,
@@ -23321,6 +23431,12 @@
         },
         {
           "type": "relationship",
+          "from": "tax",
+          "to": "tax_jurisdiction",
+          "relationship_type": "tax_has_tax_jurisdiction"
+        },
+        {
+          "type": "relationship",
           "from": "property",
           "to": "file",
           "relationship_type": "property_has_file"
@@ -23393,7 +23509,8 @@
         "tax_has_fact_sheet",
         "file_has_fact_sheet",
         "tax_authority_has_fact_sheet",
-        "tax_exemption_has_fact_sheet"
+        "tax_exemption_has_fact_sheet",
+        "tax_has_tax_jurisdiction"
       ]
     },
     {
