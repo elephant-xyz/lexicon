@@ -22621,6 +22621,12 @@
         },
         {
           "type": "relationship",
+          "from": "tax",
+          "to": "tax_jurisdiction",
+          "relationship_type": "tax_has_tax_jurisdiction"
+        },
+        {
+          "type": "relationship",
           "from": "property",
           "to": "lot",
           "relationship_type": "property_has_lot"
@@ -22878,7 +22884,8 @@
         "property_improvement_has_fact_sheet",
         "geometry_has_fact_sheet",
         "layout_has_geometry",
-        "parcel_has_geometry"
+        "parcel_has_geometry",
+        "tax_has_tax_jurisdiction"
       ],
       "example": {
         "label": "County",
@@ -23431,12 +23438,6 @@
         },
         {
           "type": "relationship",
-          "from": "tax",
-          "to": "tax_jurisdiction",
-          "relationship_type": "tax_has_tax_jurisdiction"
-        },
-        {
-          "type": "relationship",
           "from": "property",
           "to": "file",
           "relationship_type": "property_has_file"
@@ -23509,8 +23510,7 @@
         "tax_has_fact_sheet",
         "file_has_fact_sheet",
         "tax_authority_has_fact_sheet",
-        "tax_exemption_has_fact_sheet",
-        "tax_has_tax_jurisdiction"
+        "tax_exemption_has_fact_sheet"
       ]
     },
     {
