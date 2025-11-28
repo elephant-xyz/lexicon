@@ -16125,6 +16125,14 @@
             "null"
           ]
         },
+        "tax_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "The tax year for which the data applies.",
+          "minimum": 1900
+        },
         "exemption_type": {
           "enum": [
             "Portability",
