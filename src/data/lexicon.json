@@ -16101,6 +16101,30 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
           "minLength": 1
         },
+        "jurisdiction_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "The name of the tax jurisdiction (e.g., county or city name).",
+          "minLength": 1
+        },
+        "jurisdiction_type": {
+          "enum": [
+            "County",
+            "City",
+            "School",
+            "College",
+            "Hospital",
+            "Sepcial District",
+            null
+          ],
+          "comment": "The type of tax jurisdiction.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "exemption_type": {
           "enum": [
             "Portability",
