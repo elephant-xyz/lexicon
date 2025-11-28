@@ -22553,7 +22553,8 @@
         "fact_sheet",
         "deed",
         "inspection",
-        "geometry"
+        "geometry",
+        "tax_jurisdiction"
       ]
     }
   ],
