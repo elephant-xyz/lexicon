@@ -16125,40 +16125,6 @@
             "null"
           ]
         },
-        "tax_year": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "comment": "The tax year for which the data applies.",
-          "minimum": 1900
-        },
-        "exemption_type": {
-          "enum": [
-            "Portability",
-            "Homestead",
-            "Add. Homestead",
-            "Wid/Vet/Dis",
-            "Senior",
-            "Affordable Housing",
-            null
-          ],
-          "comment": "The type of exemption applied to the property. Must be one of the predefined exemption types.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "exemption_value": {
-          "type": "decimal",
-          "format": "currency",
-          "comment": "The value associated with the exemption."
-        },
-        "taxable_value_amount": {
-          "type": "decimal",
-          "format": "currency",
-          "comment": "The taxable value amount of the property."
-        }
       }
     },
     {
@@ -21012,7 +20978,20 @@
           "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
           "minLength": 1
         },
-        "property_exemption_type": {
+        "tax_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "comment": "The tax year for which the data applies.",
+          "minimum": 1900
+        },
+        "tax_rate": {
+          "type": "decimal",
+          "format": "percentage",
+          "comment": "The tax rate associated with the exemption."
+        },
+        "exemption_type": {
           "enum": [
             "Portability",
             "Homestead",
@@ -21028,10 +21007,15 @@
             "null"
           ]
         },
-        "property_exemption_value": {
+        "exemption_value": {
           "type": "decimal",
           "format": "currency",
           "comment": "The value associated with the exemption."
+        },
+        "taxable_value_amount": {
+          "type": "decimal",
+          "format": "currency",
+          "comment": "The taxable value amount of the property."
         }
       }
     },
@@ -22660,6 +22644,12 @@
         },
         {
           "type": "relationship",
+          "from": "tax_jurisdiction",
+          "to": "tax_exemption",
+          "relationship_type": "tax_jurisdiction_has_tax_exemption"
+        },
+        {
+          "type": "relationship",
           "from": "property",
           "to": "lot",
           "relationship_type": "property_has_lot"
@@ -22918,7 +22908,8 @@
         "geometry_has_fact_sheet",
         "layout_has_geometry",
         "parcel_has_geometry",
-        "tax_has_tax_jurisdiction"
+        "tax_has_tax_jurisdiction",
+        "tax_jurisdiction_has_tax_exemption"
       ],
       "example": {
         "label": "County",
