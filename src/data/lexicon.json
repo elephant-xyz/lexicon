@@ -22888,6 +22888,18 @@
           "from": "geometry",
           "to": "fact_sheet",
           "relationship_type": "geometry_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax_exemption",
+          "to": "fact_sheet",
+          "relationship_type": "tax_exemption_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax_jurisdiction",
+          "to": "fact_sheet",
+          "relationship_type": "tax_jurisdiction_has_fact_sheet"
         }
       ],
       "one_to_many_relationships": [
@@ -22927,6 +22939,8 @@
         "geometry_has_fact_sheet",
         "layout_has_geometry",
         "parcel_has_geometry",
+        "tax_jurisdiction_has_fact_sheet",
+        "tax_exemption_has_fact_sheet",
         "tax_has_tax_jurisdiction",
         "tax_jurisdiction_has_tax_exemption"
       ],
