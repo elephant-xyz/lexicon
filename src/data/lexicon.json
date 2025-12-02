@@ -23431,6 +23431,18 @@
         },
         {
           "type": "relationship",
+          "from": "tax_exemption",
+          "to": "fact_sheet",
+          "relationship_type": "tax_exemption_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
+          "from": "tax_jurisdiction",
+          "to": "fact_sheet",
+          "relationship_type": "tax_jurisdiction_has_fact_sheet"
+        },
+        {
+          "type": "relationship",
           "from": "file",
           "to": "fact_sheet",
           "relationship_type": "file_has_fact_sheet"
