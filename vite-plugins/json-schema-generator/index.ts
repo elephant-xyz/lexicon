@@ -772,56 +772,36 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       // First pass: Generate class schemas
       // 📦 Generating Class Schemas...
 
-      // Create upload promises for parallel execution
-      const classUploadPromises = blockchainTag.classes
-        .map(className => {
-          const lexiconClass = lexiconData.classes.find(c => c.type === className);
-          if (!lexiconClass) {
-            return null;
-          }
+      // Execute class uploads sequentially to respect rate limits
+      const classResults: { className: string; ipfsCid: string; exampleCid: string }[] = [];
+      for (const className of blockchainTag.classes) {
+        const lexiconClass = lexiconData.classes.find(c => c.type === className);
+        if (!lexiconClass) {
+          continue;
+        }
 
-          return (async () => {
-            // 📄 Generating schema for ${className}...
+        const jsonSchema = generateJSONSchemaForClass(lexiconClass);
+        const canonicalized = canonicalize(jsonSchema);
 
-            // Generate JSON Schema
-            const jsonSchema = generateJSONSchemaForClass(lexiconClass);
+        let ipfsCid = '';
+        if (enableIPFSUpload) {
+          ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
+        } else {
+          const localPath = path.join(options.outputDir, `${className}.json`);
+          await fs.writeFile(localPath, canonicalized);
+        }
 
-            // Canonicalize the schema
-            const canonicalized = canonicalize(jsonSchema);
+        let exampleCid = '';
+        if (lexiconClass.example && enableIPFSUpload) {
+          const canonicalizedExample = canonicalize(lexiconClass.example);
+          exampleCid = await uploadToIPFS(canonicalizedExample, `${className}_example.json`);
+        } else if (lexiconClass.example) {
+          const localExamplePath = path.join(options.outputDir, `${className}_example.json`);
+          await fs.writeFile(localExamplePath, canonicalize(lexiconClass.example));
+        }
 
-            let ipfsCid = '';
-            if (enableIPFSUpload) {
-              // Upload to IPFS
-              ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
-              // ✅ ${className} - CID: ${ipfsCid}
-            } else {
-              // Save locally instead
-              const localPath = path.join(options.outputDir, `${className}.json`);
-              await fs.writeFile(localPath, canonicalized);
-              // ✅ ${className} - saved locally
-            }
-
-            // Generate and upload example if it exists
-            let exampleCid = '';
-            if (lexiconClass.example && enableIPFSUpload) {
-              // 📝 Generating example for ${className}...
-              const canonicalizedExample = canonicalize(lexiconClass.example);
-              exampleCid = await uploadToIPFS(canonicalizedExample, `${className}_example.json`);
-              // ✅ ${className} example - CID: ${exampleCid}
-            } else if (lexiconClass.example) {
-              // Save example locally
-              const localExamplePath = path.join(options.outputDir, `${className}_example.json`);
-              await fs.writeFile(localExamplePath, canonicalize(lexiconClass.example));
-              // ✅ ${className} example - saved locally
-            }
-
-            return { className, ipfsCid, exampleCid };
-          })();
-        })
-        .filter(promise => promise !== null);
-
-      // Execute all class uploads in parallel
-      const classResults = await Promise.all(classUploadPromises);
+        classResults.push({ className, ipfsCid, exampleCid });
+      }
 
       // Store results
       for (const result of classResults) {
@@ -868,67 +848,53 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       const relationshipClass = lexiconData.classes.find(c => c.type === 'relationship');
       const relationshipExamples = relationshipClass?.examples || [];
 
-      // Create upload promises for parallel execution
-      const relationshipUploadPromises = Array.from(uniqueRelationships.entries()).map(
-        ([relKey, relationship]) => {
-          return (async () => {
-            // 🔗 Generating schema for ${relKey}...
+      // Execute relationship uploads sequentially to respect rate limits
+      const relationshipResults: {
+        relKey: string;
+        ipfsCid: string;
+        exampleCids: string[];
+        examplesForType: typeof relationshipExamples;
+      }[] = [];
+      for (const [relKey, relationship] of uniqueRelationships.entries()) {
+        const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
+        const canonicalized = canonicalize(relSchema);
 
-            // Generate relationship schema
-            const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
-
-            // Canonicalize and upload
-            const canonicalized = canonicalize(relSchema);
-
-            let ipfsCid = '';
-            if (enableIPFSUpload) {
-              ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
-              // ✅ ${relKey} - CID: ${ipfsCid}
-            } else {
-              // Save locally instead
-              const localPath = path.join(options.outputDir, `${relKey}.json`);
-              await fs.writeFile(localPath, canonicalized);
-              // ✅ ${relKey} - saved locally
-            }
-
-            // Generate and upload examples for this relationship type
-            const examplesForType = relationshipExamples.filter(
-              example =>
-                example.type === relationship.relationship_type ||
-                example.type === `has_${relationship.to}`
-            );
-
-            const exampleCids: string[] = [];
-            for (const example of examplesForType) {
-              if (enableIPFSUpload) {
-                const canonicalizedExample = canonicalize(example);
-                const exampleCid = await uploadToIPFS(
-                  canonicalizedExample,
-                  `${relKey}_${example.type}_example.json`
-                );
-                exampleCids.push(exampleCid);
-                // ✅ ${relKey} ${example.type} example - CID: ${exampleCid}
-              } else {
-                // Save example locally and generate a placeholder CID for manifest
-                const localExamplePath = path.join(
-                  options.outputDir,
-                  `${relKey}_${example.type}_example.json`
-                );
-                await fs.writeFile(localExamplePath, canonicalize(example));
-                // Generate a placeholder CID for local development
-                const placeholderCid = `local_${relKey}_${example.type}_example`;
-                exampleCids.push(placeholderCid);
-                // ✅ ${relKey} ${example.type} example - saved locally
-              }
-            }
-
-            return { relKey, ipfsCid, exampleCids, examplesForType };
-          })();
+        let ipfsCid = '';
+        if (enableIPFSUpload) {
+          ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
+        } else {
+          const localPath = path.join(options.outputDir, `${relKey}.json`);
+          await fs.writeFile(localPath, canonicalized);
         }
-      );
 
-      // Execute all relationship uploads in parallel
-      const relationshipResults = await Promise.all(relationshipUploadPromises);
+        const examplesForType = relationshipExamples.filter(
+          example =>
+            example.type === relationship.relationship_type ||
+            example.type === `has_${relationship.to}`
+        );
+
+        const exampleCids: string[] = [];
+        for (const example of examplesForType) {
+          if (enableIPFSUpload) {
+            const canonicalizedExample = canonicalize(example);
+            const exampleCid = await uploadToIPFS(
+              canonicalizedExample,
+              `${relKey}_${example.type}_example.json`
+            );
+            exampleCids.push(exampleCid);
+          } else {
+            const localExamplePath = path.join(
+              options.outputDir,
+              `${relKey}_${example.type}_example.json`
+            );
+            await fs.writeFile(localExamplePath, canonicalize(example));
+            const placeholderCid = `local_${relKey}_${example.type}_example`;
+            exampleCids.push(placeholderCid);
+          }
+        }
+
+        relationshipResults.push({ relKey, ipfsCid, exampleCids, examplesForType });
+      }
 
       // Store results
       for (const result of relationshipResults) {

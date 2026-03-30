@@ -1,6 +1,13 @@
 import fetch from 'node-fetch';
 import FormData from 'form-data';
 
+const RATE_LIMIT_DELAY_MS = 1500;
+const MAX_RETRIES = 3;
+
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function uploadToIPFS(content: string, fileName: string): Promise<string> {
   const pinataJWT = process.env.PINATA_JWT;
 
@@ -8,49 +15,56 @@ export async function uploadToIPFS(content: string, fileName: string): Promise<s
     throw new Error('PINATA_JWT environment variable is not set');
   }
 
-  const formData = new FormData();
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    const formData = new FormData();
 
-  // Add file as a blob
-  const blob = Buffer.from(content, 'utf-8');
-  formData.append('file', blob, {
-    filename: fileName,
-    contentType: 'application/json',
-  });
+    const blob = Buffer.from(content, 'utf-8');
+    formData.append('file', blob, {
+      filename: fileName,
+      contentType: 'application/json',
+    });
 
-  // Add pinata options for CIDv1
-  formData.append(
-    'pinataOptions',
-    JSON.stringify({
-      cidVersion: 1,
-    })
-  );
+    formData.append(
+      'pinataOptions',
+      JSON.stringify({
+        cidVersion: 1,
+      })
+    );
 
-  // Add pinata metadata
-  formData.append(
-    'pinataMetadata',
-    JSON.stringify({
-      name: fileName,
-      keyvalues: {
-        type: 'json-schema',
-        source: 'elephant-lexicon',
+    formData.append(
+      'pinataMetadata',
+      JSON.stringify({
+        name: fileName,
+        keyvalues: {
+          type: 'json-schema',
+          source: 'elephant-lexicon',
+        },
+      })
+    );
+
+    const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${pinataJWT}`,
+        ...formData.getHeaders(),
       },
-    })
-  );
+      body: formData,
+    });
 
-  const response = await fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${pinataJWT}`,
-      ...formData.getHeaders(),
-    },
-    body: formData,
-  });
+    if (response.ok) {
+      const result = (await response.json()) as { IpfsHash: string };
+      return result.IpfsHash;
+    }
 
-  if (!response.ok) {
+    if (response.status === 429 && attempt < MAX_RETRIES - 1) {
+      const backoff = RATE_LIMIT_DELAY_MS * Math.pow(2, attempt);
+      await delay(backoff);
+      continue;
+    }
+
     const errorText = await response.text();
     throw new Error(`Pinata API error: ${response.status} - ${errorText}`);
   }
 
-  const result = (await response.json()) as { IpfsHash: string };
-  return result.IpfsHash;
+  throw new Error(`Pinata upload failed after ${MAX_RETRIES} retries for ${fileName}`);
 }
