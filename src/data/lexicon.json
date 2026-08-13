@@ -4158,6 +4158,219 @@
       "relationships": {}
     },
     {
+      "type": "business_location",
+      "container_name": "business_locations",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "Represents an immutable, source-stamped observation of a physical business or point-of-interest location. A business location is distinct from a legal company, because one company can operate many locations and one location can host different companies over time. It is also distinct from nearby_location, which is a property-relative marketing projection rather than an independently identified place.",
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "The source system that assigned the record identifier, such as overture_places. Together with source_record_identifier, this identifies the source record family."
+        },
+        "source_record_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "The stable identifier assigned by the source system. For Overture places this is the GERS identifier."
+        },
+        "source_record_version": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "optional": true,
+          "comment": "The source-provided version of this location record, when available."
+        },
+        "source_release": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "The source release or snapshot containing this observation. Category and status facts are interpreted relative to this release, and a changed release produces a new immutable observation."
+        },
+        "source_provenance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dataset": {
+                "type": "string",
+                "minLength": 1,
+                "required": true,
+                "comment": "The contributing source dataset name."
+              },
+              "record_identifier": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "comment": "The contributing dataset's record identifier, when supplied."
+              },
+              "updated_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time",
+                "comment": "The contributing dataset's source update timestamp, when supplied."
+              },
+              "confidence": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 1,
+                "comment": "The contributing dataset's confidence score, when supplied."
+              },
+              "license": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "comment": "The source-reported license identifier for the contributing record, when supplied."
+              }
+            },
+            "additionalProperties": false
+          },
+          "optional": true,
+          "comment": "Source-record provenance entries retained for attribution, license checks, and re-identification across source releases."
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "The source-reported primary name of the physical business or point-of-interest location."
+        },
+        "normalized_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "A normalized form of the location name used for deterministic matching. It does not itself establish a company relationship."
+        },
+        "operating_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "optional": true,
+          "comment": "The source-reported operating status for this release. Absence from a later release must not be interpreted as closure."
+        },
+        "source_confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "optional": true,
+          "comment": "The source's confidence score for the location record. Consumers choose their own threshold because source confidence may not be calibrated across providers."
+        },
+        "taxonomy_primary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "The source taxonomy's most specific primary category. Overture consumers count this field rather than alternate categories."
+        },
+        "taxonomy_hierarchy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "optional": true,
+          "comment": "The ordered source taxonomy path from level zero through taxonomy_primary. Preserve this L0-to-primary order; do not reconstruct it from deprecated categories.primary."
+        },
+        "taxonomy_alternate": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "optional": true,
+          "comment": "Other plausible source taxonomy labels. These are retained but are not substitutes for taxonomy_primary in category counts."
+        },
+        "basic_category": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "The source-provided cognitively basic category label. Overture values pass through unchanged and are not mapped to a closed Elephant vocabulary."
+        },
+        "brand_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "The source-reported primary brand name. This source field does not itself establish a company or brand relationship."
+        },
+        "brand_wikidata_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "The source-reported Wikidata identifier for the brand, when supplied. This source field is retained without normalizing the brand to a company."
+        },
+        "is_hosted_service": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "optional": true,
+          "comment": "An advisory derived flag indicating that the location may be a service hosted inside another business. It never excludes the location from ingestion."
+        },
+        "hosted_service_rule": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "The versioned rule identifier that produced is_hosted_service, so consumers can audit or override the advisory classification."
+        }
+      },
+      "relationships": {
+        "has_geometry": {
+          "targets": [
+            "geometry"
+          ],
+          "comment": "Links the business location to its physical point geometry."
+        },
+        "has_address": {
+          "targets": [
+            "address"
+          ],
+          "comment": "Optionally links the location to a normalized address when the address match is deterministic."
+        },
+        "has_company": {
+          "targets": [
+            "company"
+          ],
+          "comment": "Optionally links an operating or occupying legal company only when explicit or high-confidence evidence exists. Overture ingestion does not create this relationship."
+        },
+        "has_parcel": {
+          "targets": [
+            "parcel"
+          ],
+          "comment": "Optionally links the location to a parcel after an accepted spatial match. Overture ingestion does not infer this relationship directly."
+        }
+      }
+    },
+    {
       "type": "company_connection",
       "container_name": "company_connections",
       "is_deprecated": true,
@@ -22578,6 +22791,7 @@
         "unnormalized_address",
         "address",
         "company",
+        "business_location",
         "structure",
         "tax",
         "parcel",
@@ -23642,6 +23856,42 @@
         "property_has_fact_sheet",
         "sales_history_has_fact_sheet",
         "file_has_fact_sheet"
+      ]
+    },
+    {
+      "label": "Business Location",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "business_location",
+          "to": "geometry",
+          "relationship_type": "business_location_has_geometry"
+        },
+        {
+          "type": "relationship",
+          "from": "business_location",
+          "to": "address",
+          "relationship_type": "business_location_has_address"
+        },
+        {
+          "type": "relationship",
+          "from": "business_location",
+          "to": "company",
+          "relationship_type": "business_location_has_company"
+        },
+        {
+          "type": "relationship",
+          "from": "business_location",
+          "to": "parcel",
+          "relationship_type": "business_location_has_parcel"
+        }
+      ],
+      "required": [
+        "business_location_has_geometry"
+      ],
+      "one_to_many_relationships": [
+        "business_location_has_company",
+        "business_location_has_parcel"
       ]
     }
   ],
