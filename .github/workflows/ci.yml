@@ -4,8 +4,10 @@ on:
   pull_request:
     branches: [main, develop]
 
-env:
-  PINATA_JWT: ${{ secrets.PINATA_JWT }}
+# Pull request validation intentionally omits PINATA_JWT. The existing build
+# generates schemas locally when the token is absent and performs no remote writes.
+permissions:
+  contents: read
 
 jobs:
   lint-and-format:
