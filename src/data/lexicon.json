@@ -4153,6 +4153,14 @@
           ],
           "minLength": 1,
           "comment": "The official name of the company."
+        },
+        "sunbiz_document_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Florida Sunbiz document number for this company when the source is the official corporate registry."
         }
       },
       "relationships": {}
@@ -9853,9 +9861,46 @@
             "string",
             "null"
           ]
+        },
+        "sunbiz_document_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Florida Sunbiz document number for the company that represents this homeowners association."
+        },
+        "company_cid": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "IPFS CID of the company object for this homeowners association."
+        },
+        "property_manager_cid": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "IPFS CID of the property-management company object. Storing this CID on the HOA is the HOA-to-property-management relationship."
         }
       },
-      "relationships": {}
+      "relationships": {
+        "has_company": {
+          "targets": [
+            "company"
+          ],
+          "comment": "Sunbiz company that represents this homeowners association. Stamp the company CID as company_cid."
+        },
+        "has_property_management": {
+          "targets": [
+            "company"
+          ],
+          "comment": "Property-management company for this association. Stamp the company CID as property_manager_cid."
+        }
+      }
     },
     {
       "type": "hoa_policy",
@@ -15375,6 +15420,24 @@
           ],
           "optional": true,
           "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used."
+        },
+        "hoa_cid": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "IPFS CID of the homeowners_association object linked to this property. Storing this CID on the property is the HOA relationship."
+        },
+        "property_manager_cid": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "optional": true,
+          "comment": "IPFS CID of the property-management company object linked to this property. Storing this CID on the property is the property-to-property-management relationship."
         }
       },
       "example": {
@@ -15387,7 +15450,20 @@
         "property_structure_built_year": 2005,
         "property_type": "Townhouse"
       },
-      "relationships": {}
+      "relationships": {
+        "has_homeowners_association": {
+          "targets": [
+            "homeowners_association"
+          ],
+          "comment": "A homeowners association (HOA) is an organization in a residential community that creates and enforces rules and regulations for properties and residents within its jurisdiction."
+        },
+        "has_property_management": {
+          "targets": [
+            "company"
+          ],
+          "comment": "Property-management company for this property. Stamp the company object CID on the property as property_manager_cid."
+        }
+      }
     },
     {
       "type": "layout",
@@ -23400,6 +23476,12 @@
         {
           "type": "relationship",
           "from": "homeowners_association",
+          "to": "company",
+          "relationship_type": "homeowners_association_has_company"
+        },
+        {
+          "type": "relationship",
+          "from": "homeowners_association",
           "to": "fact_sheet",
           "relationship_type": "homeowners_association_has_fact_sheet"
         },
@@ -23418,6 +23500,33 @@
         "property_has_fact_sheet",
         "homeowners_association_has_fact_sheet",
         "hoa_policy_has_fact_sheet"
+      ]
+    },
+    {
+      "label": "Property Management",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "property",
+          "to": "company",
+          "relationship_type": "property_has_property_management"
+        },
+        {
+          "type": "relationship",
+          "from": "homeowners_association",
+          "to": "company",
+          "relationship_type": "homeowners_association_has_property_management"
+        },
+        {
+          "type": "relationship",
+          "from": "company",
+          "to": "fact_sheet",
+          "relationship_type": "company_has_fact_sheet"
+        }
+      ],
+      "required": [],
+      "one_to_many_relationships": [
+        "company_has_fact_sheet"
       ]
     },
     {
