@@ -29,10 +29,7 @@ describe('lexicon source routing', () => {
     );
 
     expect(screen.getByText('Published IPFS catalog')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Published IPFS/ })).toHaveAttribute(
-      'aria-current',
-      'page'
-    );
+    expect(screen.getByRole('link', { name: 'Published' })).toHaveAttribute('aria-current', 'page');
     expect(screen.queryByText('Git working copy catalog')).not.toBeInTheDocument();
   });
 
@@ -45,9 +42,6 @@ describe('lexicon source routing', () => {
 
     expect(screen.getByText('Git working copy catalog')).toBeInTheDocument();
     expect(screen.getByText('Legacy working copy')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /Legacy Git working copy/ })).toHaveAttribute(
-      'aria-current',
-      'page'
-    );
+    expect(screen.getByRole('link', { name: 'Legacy' })).toHaveAttribute('aria-current', 'page');
   });
 });

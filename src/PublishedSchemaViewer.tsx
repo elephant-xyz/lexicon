@@ -75,7 +75,7 @@ const PublishedSchemaViewer: React.FC = () => {
       {schema && entry && (
         <>
           <header className="published-schema__header">
-            <span className="published-card__type">{entry.type}</span>
+            <span className="published-schema__type">{entry.type}</span>
             <h1>{displayName(decodedName)}</h1>
             <p>{schema.description || 'Published JSON Schema definition.'}</p>
             <div className="published-schema__cid">

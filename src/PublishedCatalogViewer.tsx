@@ -83,31 +83,26 @@ const PublishedCatalogViewer: React.FC = () => {
   return (
     <main className="published-shell">
       <header className="published-hero">
-        <div className="published-hero__eyebrow">
-          <span className="published-status-dot" />
-          Content-addressed source
-        </div>
         <img src="/logoElephant-white.svg" alt="Elephant" className="published-hero__logo" />
         <h1>Elephant Lexicon</h1>
         <p>
-          The published data model, read directly from immutable IPFS schemas. Every definition
-          below is identified by its content.
+          A reference for Elephant’s published data model. Definitions are loaded from
+          content-addressed schemas on IPFS.
         </p>
         <div className="published-proof">
-          <span>LIVE MANIFEST</span>
-          <strong>{manifest ? `${total} published objects` : 'Resolving catalog…'}</strong>
+          <strong>{manifest ? `${total} definitions` : 'Loading manifest…'}</strong>
           <code>/json-schemas/schema-manifest.json</code>
         </div>
       </header>
 
       <section className="published-controls" aria-label="Catalog controls">
-        <label htmlFor="published-search">Find a published schema</label>
+        <label htmlFor="published-search">Search schemas</label>
         <input
           id="published-search"
           type="search"
           value={query}
           onChange={event => setQuery(event.target.value)}
-          placeholder="Search groups, classes, relationships…"
+          placeholder="Name or type"
         />
       </section>
 
@@ -137,12 +132,16 @@ const PublishedCatalogViewer: React.FC = () => {
                       className="published-card"
                       key={name}
                     >
-                      <span className="published-card__type">
-                        {section.id === 'examples' ? 'example' : entry.type}
-                      </span>
                       <strong>{displayName(name)}</strong>
-                      <code title={entry.ipfsCid}>{entry.ipfsCid}</code>
-                      <span className="published-card__open">Open schema →</span>
+                      <span className="published-card__meta">
+                        <span className="published-card__type">
+                          {section.id === 'examples' ? 'example' : entry.type}
+                        </span>
+                        <code title={entry.ipfsCid}>{entry.ipfsCid}</code>
+                      </span>
+                      <span className="published-card__open" aria-hidden="true">
+                        →
+                      </span>
                     </Link>
                   ))}
                 </div>
