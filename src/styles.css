@@ -3219,6 +3219,71 @@ mark {
   color: var(--primary-off-white);
 }
 
+.published-error strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+.published-error p {
+  margin: 0;
+  max-width: 62ch;
+  color: rgb(255 255 255 / 68%);
+}
+
+.published-error__actions {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+  gap: 18px;
+}
+
+.published-error__actions a {
+  color: rgb(255 255 255 / 62%);
+  font-size: 0.85rem;
+}
+
+.published-error__actions a:hover {
+  color: var(--primary-off-white);
+}
+
+.published-retry {
+  padding: 9px 16px;
+  border: 1px solid rgb(255 255 255 / 28%);
+  color: var(--primary-off-white);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  transition:
+    border-color 120ms ease,
+    background 120ms ease;
+}
+
+.published-retry:hover {
+  border-color: rgb(255 255 255 / 55%);
+  background: rgb(255 255 255 / 6%);
+}
+
+.published-error__details {
+  margin-top: 18px;
+}
+
+.published-error__details summary {
+  cursor: pointer;
+  color: rgb(255 255 255 / 45%);
+  font-family: var(--font-family-mono);
+  font-size: 0.7rem;
+}
+
+.published-error__details p {
+  margin-top: 10px;
+  color: rgb(255 255 255 / 55%);
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  overflow-wrap: anywhere;
+}
+
 .published-back {
   display: inline-block;
   margin: 20px 0 36px;

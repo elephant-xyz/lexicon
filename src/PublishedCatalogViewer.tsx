@@ -25,9 +25,11 @@ const PublishedCatalogViewer: React.FC = () => {
   const [manifest, setManifest] = useState<SchemaManifest | null>(null);
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setError('');
     getManifest()
       .then(value => {
         if (active) setManifest(value);
@@ -38,7 +40,7 @@ const PublishedCatalogViewer: React.FC = () => {
     return () => {
       active = false;
     };
-  }, []);
+  }, [reload]);
 
   const sections = useMemo<CatalogSection[]>(() => {
     if (!manifest) return [];
@@ -108,9 +110,25 @@ const PublishedCatalogViewer: React.FC = () => {
 
       {error && (
         <section className="published-error" role="alert">
-          <strong>Published catalog unavailable</strong>
-          <p>{error}</p>
-          <p>The legacy git working copy remains available from the Legacy tab.</p>
+          <strong>The catalog didn’t load</strong>
+          <p>
+            The published manifest couldn’t be reached. This is usually temporary. The Legacy tab
+            still works in the meantime.
+          </p>
+          <div className="published-error__actions">
+            <button
+              type="button"
+              className="published-retry"
+              onClick={() => setReload(current => current + 1)}
+            >
+              Try again
+            </button>
+            <Link to="/legacy">Use Legacy</Link>
+          </div>
+          <details className="published-error__details">
+            <summary>Technical details</summary>
+            <p>{error}</p>
+          </details>
         </section>
       )}
 

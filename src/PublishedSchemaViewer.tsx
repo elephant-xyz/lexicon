@@ -29,6 +29,7 @@ const PublishedSchemaViewer: React.FC = () => {
   const [entry, setEntry] = useState<ManifestEntry | null>(null);
   const [error, setError] = useState('');
   const [attempt, setAttempt] = useState(0);
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     setAttempt(0);
@@ -65,7 +66,13 @@ const PublishedSchemaViewer: React.FC = () => {
       active = false;
       window.clearTimeout(retry);
     };
-  }, [decodedName, attempt]);
+  }, [decodedName, attempt, reload]);
+
+  const retryNow = () => {
+    setError('');
+    setAttempt(0);
+    setReload(current => current + 1);
+  };
 
   const cidTargets = useMemo(() => {
     if (!manifest) return new Map<string, string>();
@@ -82,8 +89,21 @@ const PublishedSchemaViewer: React.FC = () => {
 
       {error && (
         <section className="published-error" role="alert">
-          <strong>Published schema unavailable</strong>
-          <p>{error}</p>
+          <strong>This schema didn’t load</strong>
+          <p>
+            {displayName(decodedName)} is stored on IPFS, and the public gateways didn’t answer in
+            time. This usually clears within a few seconds.
+          </p>
+          <div className="published-error__actions">
+            <button type="button" className="published-retry" onClick={retryNow}>
+              Try again
+            </button>
+            <Link to="/">Back to catalog</Link>
+          </div>
+          <details className="published-error__details">
+            <summary>Technical details</summary>
+            <p>{error}</p>
+          </details>
         </section>
       )}
 

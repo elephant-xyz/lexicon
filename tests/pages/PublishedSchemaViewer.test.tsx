@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -45,16 +46,38 @@ describe('PublishedSchemaViewer', () => {
     expect(screen.queryByText('Published schema unavailable')).not.toBeInTheDocument();
   });
 
-  it('reports the failure once the retries are spent', { timeout: 25000 }, async () => {
+  it('explains the failure plainly once the retries are spent', { timeout: 25000 }, async () => {
     vi.mocked(getJsonByCid).mockRejectedValue(
-      new Error('CID bafy-inspection could not be resolved.')
+      new Error('CID bafy-inspection could not be resolved. same-origin reader: 502')
     );
 
     renderViewer();
 
     expect(
-      await screen.findByText('Published schema unavailable', undefined, { timeout: 12000 })
+      await screen.findByText('This schema didn’t load', undefined, { timeout: 12000 })
     ).toBeInTheDocument();
     expect(getJsonByCid).toHaveBeenCalledTimes(3);
+    // The raw gateway text stays available, but behind a disclosure.
+    expect(screen.getByText('Technical details')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
   });
+
+  it(
+    'reloads the schema when the reader recovers and the user retries',
+    { timeout: 25000 },
+    async () => {
+      vi.mocked(getJsonByCid).mockRejectedValue(
+        new Error('CID bafy-inspection could not be resolved.')
+      );
+
+      renderViewer();
+      const retry = await screen.findByRole('button', { name: 'Try again' }, { timeout: 12000 });
+
+      vi.mocked(getJsonByCid).mockResolvedValue(schema);
+      await userEvent.click(retry);
+
+      expect(await screen.findByRole('heading', { name: 'inspection' })).toBeInTheDocument();
+      expect(screen.queryByText('This schema didn’t load')).not.toBeInTheDocument();
+    }
+  );
 });
