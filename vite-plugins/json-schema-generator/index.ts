@@ -10,10 +10,19 @@ import {
 } from '../../src/types/lexicon';
 import { canonicalize } from 'json-canonicalize';
 
-async function seedPublishedManifest(sourcePath: string, outputDir: string): Promise<void> {
-  const manifest: unknown = JSON.parse(await fs.readFile(sourcePath, 'utf-8'));
+const PUBLISHED_MANIFEST_URL = 'https://lexicon.elephant.xyz/json-schemas/schema-manifest.json';
+
+async function seedPublishedManifest(outputDir: string): Promise<void> {
+  const response = await fetch(PUBLISHED_MANIFEST_URL, {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) {
+    throw new Error(`Published Filebase catalog returned ${response.status}.`);
+  }
+
+  const manifest: unknown = await response.json();
   if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
-    throw new Error('Bootstrap schema manifest has an invalid shape.');
+    throw new Error('Published Filebase catalog has an invalid shape.');
   }
 
   await fs.writeFile(
@@ -24,7 +33,6 @@ async function seedPublishedManifest(sourcePath: string, outputDir: string): Pro
 
 interface JSONSchemaGeneratorOptions {
   lexiconPath: string;
-  publishedManifestPath: string;
   outputDir: string;
 }
 
@@ -606,7 +614,7 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   return baseSchema;
 }
 
-export function generateJSONSchemaForRelationship(
+function generateJSONSchemaForRelationship(
   relationship: DataGroupRelationship,
   classCids: Record<string, string>
 ): RelationshipSchema {
@@ -643,7 +651,7 @@ function isOneToManyRelationship(
   return oneToManyRelationships.includes(relationshipType);
 }
 
-export function generateJSONSchemaForDataGroup(
+function generateJSONSchemaForDataGroup(
   dataGroup: DataGroup,
   relationshipCidsMap: Record<string, { cid: string; relationshipType: string }>,
   allDataGroupLabels: string[]
@@ -766,7 +774,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       }
 
       await fs.mkdir(options.outputDir, { recursive: true });
-      await seedPublishedManifest(options.publishedManifestPath, options.outputDir);
+      await seedPublishedManifest(options.outputDir);
       const publishedManifest = JSON.parse(
         await fs.readFile(path.join(options.outputDir, 'schema-manifest.json'), 'utf-8')
       ) as Record<string, { ipfsCid?: string }>;

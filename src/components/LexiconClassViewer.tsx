@@ -691,7 +691,7 @@ const LexiconClassViewer: React.FC<LexiconClassViewerProps> = ({
                     const exampleCid = schemaManifest[exampleKey]?.ipfsCid;
 
                     if (exampleCid) {
-                      const ipfsUrl = `https://ipfs.filebase.io/ipfs/${exampleCid}`;
+                      const ipfsUrl = `https://gateway.pinata.cloud/ipfs/${exampleCid}`;
                       return (
                         <div key={index} className="example-item">
                           <div className="example-header">

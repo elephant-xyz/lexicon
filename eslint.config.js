@@ -134,14 +134,6 @@ export default [
     },
   },
 
-  // Operational scripts report publication progress and final CIDs.
-  {
-    files: ['scripts/**/*.ts'],
-    rules: {
-      'no-console': 'off',
-    },
-  },
-
   // Configuration files
   {
     files: ['*.config.{js,ts}', 'vite.config.ts'],
