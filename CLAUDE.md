@@ -303,21 +303,20 @@ Route order matters in React Router v7 - most specific routes are listed first i
 ### Blockchain Class Schemas
 **Automatic Generation**: JSON Schemas are automatically generated for all blockchain-tagged classes during build:
 - **Vite Plugin**: Custom plugin in `vite-plugins/json-schema-generator/` 
-- **Build Process**: Generates schemas, canonicalizes them, and uploads to IPFS via Pinata
-- **IPFS Storage**: Uses CIDv1 format for content-addressed storage
-- **UI Integration**: Download links appear for blockchain classes in the viewer
+- **Build Process**: Generates local JSON Schema files for tests and copies the live Filebase-backed CID manifest
+- **IPFS Storage**: Published objects are content-addressed CIDv1 blobs already on Filebase
+- **UI Integration**: The default Published view reads those CIDs through `ipfs.filebase.io`
 
 **Implementation Details**:
 - **Schema Generation**: All properties marked as required and nullable per requirements
 - **Type Mapping**: Lexicon types mapped to JSON Schema equivalents with proper formats
 - **Canonicalization**: Uses `canonicalize` library in CommonJS for deterministic output
-- **IPFS Upload**: Requires `PINATA_JWT` environment variable for authentication
-- **Manifest**: `public/json-schemas/schema-manifest.json` contains CID mappings
+- **Published catalog**: Seeded from `https://lexicon.elephant.xyz/json-schemas/schema-manifest.json`; Pinata is not used
+- **Manifest**: `public/json-schemas/schema-manifest.json` contains CID mappings copied from the live catalog
 
 **Configuration**:
-1. Set `PINATA_JWT` environment variable with your Pinata API token
-2. Run `npm run build` to generate and upload schemas
-3. Schemas accessible via IPFS gateway links in the UI
+1. Run `npm run build` to generate local schemas and seed the published Filebase manifest
+2. Schemas are fetched at runtime from Filebase (`/api/ipfs/:cid` or `https://ipfs.filebase.io/ipfs/<cid>`)
 
 ## SEO and Social Media Optimization (December 2024)
 
