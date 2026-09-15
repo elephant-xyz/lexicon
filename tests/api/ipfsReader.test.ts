@@ -63,4 +63,16 @@ describe('same-origin IPFS reader', () => {
     expect(response.status).toBe(502);
     expect(response.headers.get('Cache-Control')).toBe('no-store');
   });
+
+  it('keeps warming the block after giving up, so the next attempt is warm', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 429 }));
+    const waitUntil = vi.fn();
+
+    const response = await handler(new Request(`https://lexicon.elephant.xyz/api/ipfs/${CID}`), {
+      waitUntil,
+    });
+
+    expect(response.status).toBe(502);
+    expect(waitUntil).toHaveBeenCalledTimes(1);
+  });
 });

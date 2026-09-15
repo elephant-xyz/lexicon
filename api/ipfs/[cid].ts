@@ -7,8 +7,13 @@ const GATEWAYS = [
   (cid: string) => `https://ipfs.io/ipfs/${cid}`,
 ];
 
-const ROUND_TIMEOUT_MS = 9000;
-const ROUNDS = 2;
+const ROUND_TIMEOUT_MS = 7000;
+const ROUNDS = 3;
+const WARM_TIMEOUT_MS = 55000;
+
+interface EdgeContext {
+  waitUntil?: (promise: Promise<unknown>) => void;
+}
 
 // Gateways disagree wildly on cold-cache latency, so ask all of them at once.
 async function readFromAnyGateway(cid: string, signal: AbortSignal): Promise<string> {
@@ -46,7 +51,20 @@ async function read(cid: string): Promise<string> {
   throw lastError;
 }
 
-export default async function handler(request: Request): Promise<Response> {
+// Keep pulling after the client gives up, so the next attempt finds a warm gateway.
+function warmInBackground(cid: string, context?: EdgeContext): void {
+  if (!context?.waitUntil) return;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), WARM_TIMEOUT_MS);
+  context.waitUntil(
+    readFromAnyGateway(cid, controller.signal)
+      .catch(() => undefined)
+      .finally(() => clearTimeout(timeout))
+  );
+}
+
+export default async function handler(request: Request, context?: EdgeContext): Promise<Response> {
   const cid = new URL(request.url).pathname.split('/').pop() || '';
   if (!/^[A-Za-z0-9]{46,120}$/.test(cid)) {
     return new Response(JSON.stringify({ error: 'Invalid CID.' }), {
@@ -66,6 +84,7 @@ export default async function handler(request: Request): Promise<Response> {
       },
     });
   } catch {
+    warmInBackground(cid, context);
     return new Response(JSON.stringify({ error: `CID ${cid} could not be resolved.` }), {
       status: 502,
       headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },

@@ -12,6 +12,9 @@ import {
 } from './services/ipfsCatalog';
 import './styles.css';
 
+const MAX_ATTEMPTS = 3;
+const RETRY_DELAY_MS = 2000;
+
 function renderValue(value: unknown): string {
   if (Array.isArray(value)) return value.map(String).join(' | ');
   if (typeof value === 'object' && value !== null) return JSON.stringify(value);
@@ -25,9 +28,15 @@ const PublishedSchemaViewer: React.FC = () => {
   const [schema, setSchema] = useState<JsonSchema | null>(null);
   const [entry, setEntry] = useState<ManifestEntry | null>(null);
   const [error, setError] = useState('');
+  const [attempt, setAttempt] = useState(0);
+
+  useEffect(() => {
+    setAttempt(0);
+  }, [decodedName]);
 
   useEffect(() => {
     let active = true;
+    let retry = 0;
     setSchema(null);
     setError('');
 
@@ -42,13 +51,21 @@ const PublishedSchemaViewer: React.FC = () => {
         if (active) setSchema(publishedSchema);
       })
       .catch(reason => {
-        if (active) setError(reason instanceof Error ? reason.message : 'Schema request failed.');
+        if (!active) return;
+        // A first read of a cold CID often fails while the gateways are still
+        // fetching the block, and succeeds moments later.
+        if (attempt < MAX_ATTEMPTS - 1) {
+          retry = window.setTimeout(() => setAttempt(current => current + 1), RETRY_DELAY_MS);
+          return;
+        }
+        setError(reason instanceof Error ? reason.message : 'Schema request failed.');
       });
 
     return () => {
       active = false;
+      window.clearTimeout(retry);
     };
-  }, [decodedName]);
+  }, [decodedName, attempt]);
 
   const cidTargets = useMemo(() => {
     if (!manifest) return new Map<string, string>();
@@ -70,7 +87,11 @@ const PublishedSchemaViewer: React.FC = () => {
         </section>
       )}
 
-      {!schema && !error && <div className="published-loading">Resolving schema from IPFS…</div>}
+      {!schema && !error && (
+        <div className="published-loading">
+          {attempt === 0 ? 'Resolving schema from IPFS…' : 'Still resolving from IPFS…'}
+        </div>
+      )}
 
       {schema && entry && (
         <>
