@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { DataGroup, DataGroupRelationship } from '../types/lexicon';
 import { schemaService } from '../services/schemaService';
 
@@ -10,6 +10,7 @@ interface DataGroupViewerProps {
 
 export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, searchTerm }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [expandedGroups, setExpandedGroups] = useState<Set<number>>(new Set());
   const [expandedDeprecatedRelationships, setExpandedDeprecatedRelationships] = useState<
     Set<string>
@@ -64,7 +65,8 @@ export const DataGroupViewer: React.FC<DataGroupViewerProps> = ({ dataGroups, se
   };
 
   const handleClassClick = (className: string) => {
-    navigate(`/class/${className}`);
+    const prefix = location.pathname.startsWith('/legacy') ? '/legacy' : '';
+    navigate(`${prefix}/class/${className}`);
   };
 
   const copyToClipboard = async (value: string) => {

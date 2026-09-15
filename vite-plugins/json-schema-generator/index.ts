@@ -8,8 +8,28 @@ import {
   DataGroup,
   DataGroupRelationship,
 } from '../../src/types/lexicon';
-import { uploadToIPFS } from './ipfs-uploader';
 import { canonicalize } from 'json-canonicalize';
+
+const PUBLISHED_MANIFEST_URL = 'https://lexicon.elephant.xyz/json-schemas/schema-manifest.json';
+
+async function seedPublishedManifest(outputDir: string): Promise<void> {
+  const response = await fetch(PUBLISHED_MANIFEST_URL, {
+    headers: { Accept: 'application/json' },
+  });
+  if (!response.ok) {
+    throw new Error(`Published Filebase catalog returned ${response.status}.`);
+  }
+
+  const manifest: unknown = await response.json();
+  if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
+    throw new Error('Published Filebase catalog has an invalid shape.');
+  }
+
+  await fs.writeFile(
+    path.join(outputDir, 'schema-manifest.json'),
+    JSON.stringify(manifest, null, 2)
+  );
+}
 
 interface JSONSchemaGeneratorOptions {
   lexiconPath: string;
@@ -740,13 +760,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
 
       // 🔨 Generating JSON Schemas for blockchain classes...
 
-      // Check if IPFS upload is available
-      const pinataJWT = process.env.PINATA_JWT;
-      const enableIPFSUpload = !!pinataJWT;
-
-      if (!enableIPFSUpload) {
-        // ⚠️  PINATA_JWT not set - skipping IPFS upload. Schemas will be generated locally only.
-      }
+      // Published schemas already live on Filebase. Do not pin through Pinata.
 
       // Read lexicon data
       const lexiconContent = await fs.readFile(options.lexiconPath, 'utf-8');
@@ -759,21 +773,13 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         return;
       }
 
-      // Create output directory
       await fs.mkdir(options.outputDir, { recursive: true });
+      await seedPublishedManifest(options.outputDir);
+      const publishedManifest = JSON.parse(
+        await fs.readFile(path.join(options.outputDir, 'schema-manifest.json'), 'utf-8')
+      ) as Record<string, { ipfsCid?: string }>;
 
-      // Generate schemas for each blockchain class
-      const schemaManifest: Record<
-        string,
-        { ipfsCid: string; type: 'class' | 'relationship' | 'dataGroup' }
-      > = {};
       const classCids: Record<string, string> = {};
-
-      // First pass: Generate class schemas
-      // 📦 Generating Class Schemas...
-
-      // Execute class uploads sequentially to respect rate limits
-      const classResults: { className: string; ipfsCid: string; exampleCid: string }[] = [];
       for (const className of blockchainTag.classes) {
         const lexiconClass = lexiconData.classes.find(c => c.type === className);
         if (!lexiconClass) {
@@ -781,56 +787,25 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         }
 
         const jsonSchema = generateJSONSchemaForClass(lexiconClass);
-        const canonicalized = canonicalize(jsonSchema);
+        await fs.writeFile(
+          path.join(options.outputDir, `${className}.json`),
+          canonicalize(jsonSchema)
+        );
+        classCids[className] = publishedManifest[className]?.ipfsCid || '';
 
-        let ipfsCid = '';
-        if (enableIPFSUpload) {
-          ipfsCid = await uploadToIPFS(canonicalized, `${className}.json`);
-        } else {
-          const localPath = path.join(options.outputDir, `${className}.json`);
-          await fs.writeFile(localPath, canonicalized);
-        }
-
-        let exampleCid = '';
-        if (lexiconClass.example && enableIPFSUpload) {
-          const canonicalizedExample = canonicalize(lexiconClass.example);
-          exampleCid = await uploadToIPFS(canonicalizedExample, `${className}_example.json`);
-        } else if (lexiconClass.example) {
-          const localExamplePath = path.join(options.outputDir, `${className}_example.json`);
-          await fs.writeFile(localExamplePath, canonicalize(lexiconClass.example));
-        }
-
-        classResults.push({ className, ipfsCid, exampleCid });
-      }
-
-      // Store results
-      for (const result of classResults) {
-        if (result) {
-          classCids[result.className] = result.ipfsCid;
-          schemaManifest[result.className] = {
-            ipfsCid: result.ipfsCid,
-            type: 'class',
-          };
-          // Store example CID if it exists
-          if (result.exampleCid) {
-            schemaManifest[`${result.className}_example`] = {
-              ipfsCid: result.exampleCid,
-              type: 'class',
-            };
-          }
+        if (lexiconClass.example) {
+          await fs.writeFile(
+            path.join(options.outputDir, `${className}_example.json`),
+            canonicalize(lexiconClass.example)
+          );
         }
       }
 
-      // Second pass: Generate relationship schemas and examples
-      // 🔗 Generating Relationship Schemas and Examples...
-      const relationshipCids: Record<string, string> = {};
-
-      // Collect unique relationships
       const uniqueRelationships = new Map<string, DataGroupRelationship>();
+      const relationshipCids: Record<string, string> = {};
       for (const dataGroup of lexiconData.data_groups) {
         if (dataGroup.relationships && Array.isArray(dataGroup.relationships)) {
           for (const relationship of dataGroup.relationships) {
-            // Only process relationships where both classes are in blockchain tag
             if (
               blockchainTag.classes.includes(relationship.from) &&
               blockchainTag.classes.includes(relationship.to)
@@ -844,85 +819,31 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         }
       }
 
-      // Find relationship class examples
       const relationshipClass = lexiconData.classes.find(c => c.type === 'relationship');
       const relationshipExamples = relationshipClass?.examples || [];
 
-      // Execute relationship uploads sequentially to respect rate limits
-      const relationshipResults: {
-        relKey: string;
-        ipfsCid: string;
-        exampleCids: string[];
-        examplesForType: typeof relationshipExamples;
-      }[] = [];
       for (const [relKey, relationship] of uniqueRelationships.entries()) {
         const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
-        const canonicalized = canonicalize(relSchema);
-
-        let ipfsCid = '';
-        if (enableIPFSUpload) {
-          ipfsCid = await uploadToIPFS(canonicalized, `${relKey}.json`);
-        } else {
-          const localPath = path.join(options.outputDir, `${relKey}.json`);
-          await fs.writeFile(localPath, canonicalized);
-        }
+        await fs.writeFile(path.join(options.outputDir, `${relKey}.json`), canonicalize(relSchema));
+        relationshipCids[relKey] = publishedManifest[relKey]?.ipfsCid || '';
 
         const examplesForType = relationshipExamples.filter(
           example =>
             example.type === relationship.relationship_type ||
             example.type === `has_${relationship.to}`
         );
-
-        const exampleCids: string[] = [];
         for (const example of examplesForType) {
-          if (enableIPFSUpload) {
-            const canonicalizedExample = canonicalize(example);
-            const exampleCid = await uploadToIPFS(
-              canonicalizedExample,
-              `${relKey}_${example.type}_example.json`
-            );
-            exampleCids.push(exampleCid);
-          } else {
-            const localExamplePath = path.join(
-              options.outputDir,
-              `${relKey}_${example.type}_example.json`
-            );
-            await fs.writeFile(localExamplePath, canonicalize(example));
-            const placeholderCid = `local_${relKey}_${example.type}_example`;
-            exampleCids.push(placeholderCid);
-          }
-        }
-
-        relationshipResults.push({ relKey, ipfsCid, exampleCids, examplesForType });
-      }
-
-      // Store results
-      for (const result of relationshipResults) {
-        relationshipCids[result.relKey] = result.ipfsCid;
-        schemaManifest[result.relKey] = {
-          ipfsCid: result.ipfsCid,
-          type: 'relationship',
-        };
-
-        // Store example CIDs with proper keys
-        for (let i = 0; i < result.exampleCids.length; i++) {
-          const example = result.examplesForType[i];
-          const exampleKey = `relationship_${example.type}_example`;
-          schemaManifest[exampleKey] = {
-            ipfsCid: result.exampleCids[i],
-            type: 'class',
-          };
+          await fs.writeFile(
+            path.join(options.outputDir, `${relKey}_${example.type}_example.json`),
+            canonicalize(example)
+          );
         }
       }
 
-      // Third pass: Generate data group schemas and examples
-      // 📊 Generating Data Group Schemas and Examples...
       const allDataGroupLabels = lexiconData.data_groups.map(g => g.label);
       for (const dataGroup of lexiconData.data_groups) {
-        // Get all relationships for this data group that are in blockchain
         const groupRelationshipCidsMap: Record<string, { cid: string; relationshipType: string }> =
           {};
-
         if (dataGroup.relationships && Array.isArray(dataGroup.relationships)) {
           for (const relationship of dataGroup.relationships) {
             const relKey = `${relationship.from}_to_${relationship.to}`;
@@ -935,67 +856,27 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
           }
         }
 
-        // Only generate schema if there are blockchain relationships
-        if (Object.keys(groupRelationshipCidsMap).length > 0) {
-          const groupKey = dataGroup.label.replace(/\s+/g, '_');
-          // 📊 Generating schema for ${dataGroup.label}...
+        if (Object.keys(groupRelationshipCidsMap).length === 0) {
+          continue;
+        }
 
-          // Generate data group schema
-          const groupSchema = generateJSONSchemaForDataGroup(
-            dataGroup,
-            groupRelationshipCidsMap,
-            allDataGroupLabels
+        const groupKey = dataGroup.label.replace(/\s+/g, '_');
+        const groupSchema = generateJSONSchemaForDataGroup(
+          dataGroup,
+          groupRelationshipCidsMap,
+          allDataGroupLabels
+        );
+        await fs.writeFile(
+          path.join(options.outputDir, `${groupKey}.json`),
+          canonicalize(groupSchema)
+        );
+        if (dataGroup.example) {
+          await fs.writeFile(
+            path.join(options.outputDir, `${groupKey}_example.json`),
+            canonicalize(dataGroup.example)
           );
-
-          // Canonicalize and upload
-          const canonicalized = canonicalize(groupSchema);
-
-          let ipfsCid = '';
-          if (enableIPFSUpload) {
-            ipfsCid = await uploadToIPFS(canonicalized, `${groupKey}.json`);
-            // ✅ ${dataGroup.label} - CID: ${ipfsCid}
-          } else {
-            // Save locally instead
-            const localPath = path.join(options.outputDir, `${groupKey}.json`);
-            await fs.writeFile(localPath, canonicalized);
-            // ✅ ${dataGroup.label} - saved locally
-          }
-
-          schemaManifest[groupKey] = {
-            ipfsCid,
-            type: 'dataGroup',
-          };
-
-          // Generate and upload example if it exists
-          if (dataGroup.example) {
-            // 📝 Generating example for ${dataGroup.label}...
-            const canonicalizedExample = canonicalize(dataGroup.example);
-
-            if (enableIPFSUpload) {
-              const exampleCid = await uploadToIPFS(
-                canonicalizedExample,
-                `${groupKey}_example.json`
-              );
-              // ✅ ${dataGroup.label} example - CID: ${exampleCid}
-              schemaManifest[`${groupKey}_example`] = {
-                ipfsCid: exampleCid,
-                type: 'class',
-              };
-            } else {
-              // Save example locally
-              const localExamplePath = path.join(options.outputDir, `${groupKey}_example.json`);
-              await fs.writeFile(localExamplePath, canonicalizedExample);
-              // ✅ ${dataGroup.label} example - saved locally
-            }
-          }
         }
       }
-
-      // Write manifest file
-      const manifestPath = path.join(options.outputDir, 'schema-manifest.json');
-      await fs.writeFile(manifestPath, JSON.stringify(schemaManifest, null, 2));
-
-      // ✨ JSON Schema generation complete!
     },
   };
 }
