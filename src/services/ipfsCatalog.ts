@@ -34,8 +34,10 @@ const MANIFEST_PATH = '/json-schemas/schema-manifest.json';
 const MANIFEST_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
   ? `https://lexicon.elephant.xyz${MANIFEST_PATH}`
   : MANIFEST_PATH;
-const GATEWAYS: Array<{ name: string; url: (cid: string) => string }> = [
-  { name: 'same-origin proxy', url: cid => `/api/ipfs/${cid}` },
+type Gateway = { name: string; url: (cid: string) => string };
+
+const PROXY: Gateway = { name: 'same-origin reader', url: cid => `/api/ipfs/${cid}` };
+const FALLBACK_GATEWAYS: Gateway[] = [
   { name: 'Filebase', url: cid => `https://ipfs.filebase.io/ipfs/${cid}` },
   { name: 'Web3.Storage', url: cid => `https://${cid}.ipfs.w3s.link` },
   { name: 'IPFS', url: cid => `https://ipfs.io/ipfs/${cid}` },
@@ -51,6 +53,24 @@ async function fetchWithTimeout(url: string, options: Parameters<typeof fetch>[1
     return await fetch(url, { ...options, signal: controller.signal });
   } finally {
     window.clearTimeout(timeout);
+  }
+}
+
+function message(gateway: string, error: unknown): string {
+  return `${gateway}: ${error instanceof Error ? error.message : 'request failed'}`;
+}
+
+async function readFrom(gateway: Gateway, cid: string): Promise<JsonSchema> {
+  try {
+    const response = await fetchWithTimeout(gateway.url(cid), {
+      headers: { Accept: 'application/json' },
+    });
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    return (await response.json()) as JsonSchema;
+  } catch (error) {
+    throw new Error(message(gateway.name, error));
   }
 }
 
@@ -104,32 +124,29 @@ export async function getJsonByCid(cid: string): Promise<JsonSchema> {
   const cached = readCache<JsonSchema>(cid);
   if (cached) return cached;
 
-  // Query every gateway at once; a gateway that is slow for one CID is often fast for another.
-  const attempts = GATEWAYS.map(async gateway => {
-    try {
-      const response = await fetchWithTimeout(gateway.url(cid), {
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) {
-        throw new Error(`${response.status}`);
-      }
-      return (await response.json()) as JsonSchema;
-    } catch (error) {
-      throw new Error(
-        `${gateway.name}: ${error instanceof Error ? error.message : 'request failed'}`
-      );
-    }
-  });
+  const failures: string[] = [];
 
+  // The same-origin reader races gateways server-side and is cached per CID at the edge,
+  // so ask it alone first. Public gateways rate-limit a browser that fans out on every CID.
   try {
-    const schema = await Promise.any(attempts);
+    const schema = await readFrom(PROXY, cid);
     writeCache(cid, schema);
     return schema;
   } catch (error) {
-    const failures =
-      error instanceof AggregateError ? error.errors.map(reason => `${reason.message}`) : [];
-    throw new Error(`CID ${cid} could not be resolved. ${failures.join(' · ')}`);
+    failures.push(error instanceof Error ? error.message : message(PROXY.name, error));
   }
+
+  try {
+    const schema = await Promise.any(FALLBACK_GATEWAYS.map(gateway => readFrom(gateway, cid)));
+    writeCache(cid, schema);
+    return schema;
+  } catch (error) {
+    if (error instanceof AggregateError) {
+      failures.push(...error.errors.map(reason => `${reason.message}`));
+    }
+  }
+
+  throw new Error(`CID ${cid} could not be resolved. ${failures.join(' · ')}`);
 }
 
 export function getManifestEntry(

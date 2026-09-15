@@ -28,31 +28,42 @@ describe('IPFS catalog service', () => {
     );
   });
 
-  it('queries gateways in parallel and caches the first resolved response', async () => {
+  it('resolves a CID from the same-origin reader without calling public gateways', async () => {
     const schema = { title: 'property', type: 'object', properties: {} };
-    const slowGateway = new Promise(() => {});
     vi.stubGlobal(
       'fetch',
-      vi.fn().mockImplementation((url: string) => {
-        if (url === '/api/ipfs/bafy-property') return Promise.resolve({ ok: false, status: 404 });
-        if (url === 'https://ipfs.filebase.io/ipfs/bafy-property') return slowGateway;
-        return Promise.resolve({ ok: true, json: vi.fn().mockResolvedValue(schema) });
-      })
+      vi.fn().mockResolvedValue({ ok: true, json: vi.fn().mockResolvedValue(schema) })
     );
 
     await expect(getJsonByCid('bafy-property')).resolves.toEqual(schema);
-    expect(fetch).toHaveBeenCalledTimes(4);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith('/api/ipfs/bafy-property', expect.any(Object));
     expect(sessionStorage.setItem).toHaveBeenCalledWith(
       'elephant-lexicon-ipfs:bafy-property',
       JSON.stringify(schema)
     );
   });
 
+  it('races public gateways only after the same-origin reader fails', async () => {
+    const schema = { title: 'property', type: 'object', properties: {} };
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockImplementation((url: string) => {
+        if (url === '/api/ipfs/bafy-property') return Promise.resolve({ ok: false, status: 502 });
+        if (url === 'https://ipfs.filebase.io/ipfs/bafy-property') return new Promise(() => {});
+        return Promise.resolve({ ok: true, json: vi.fn().mockResolvedValue(schema) });
+      })
+    );
+
+    await expect(getJsonByCid('bafy-property')).resolves.toEqual(schema);
+    expect(fetch).toHaveBeenCalledTimes(4);
+  });
+
   it('reports every gateway failure when a CID cannot be resolved', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 502 }));
 
     await expect(getJsonByCid('bafy-missing')).rejects.toThrow(
-      /same-origin proxy: 502 · Filebase: 502 · Web3.Storage: 502 · IPFS: 502/
+      'CID bafy-missing could not be resolved. same-origin reader: 502 · Filebase: 502 · Web3.Storage: 502 · IPFS: 502'
     );
   });
 
