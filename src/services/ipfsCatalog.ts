@@ -41,7 +41,8 @@ const GATEWAYS: Array<{ name: string; url: (cid: string) => string }> = [
   { name: 'IPFS', url: cid => `https://ipfs.io/ipfs/${cid}` },
 ];
 const CACHE_PREFIX = 'elephant-lexicon-ipfs:';
-const GATEWAY_TIMEOUT_MS = 7000;
+// A cold Filebase read can take 30s even when a warm read takes under a second.
+const GATEWAY_TIMEOUT_MS = 25000;
 
 async function fetchWithTimeout(url: string, options: Parameters<typeof fetch>[1]) {
   const controller = new window.AbortController();
@@ -103,28 +104,32 @@ export async function getJsonByCid(cid: string): Promise<JsonSchema> {
   const cached = readCache<JsonSchema>(cid);
   if (cached) return cached;
 
-  const failures: string[] = [];
-  for (const gateway of GATEWAYS) {
+  // Query every gateway at once; a gateway that is slow for one CID is often fast for another.
+  const attempts = GATEWAYS.map(async gateway => {
     try {
       const response = await fetchWithTimeout(gateway.url(cid), {
         headers: { Accept: 'application/json' },
       });
       if (!response.ok) {
-        failures.push(`${gateway.name}: ${response.status}`);
-        continue;
+        throw new Error(`${response.status}`);
       }
-
-      const schema = (await response.json()) as JsonSchema;
-      writeCache(cid, schema);
-      return schema;
+      return (await response.json()) as JsonSchema;
     } catch (error) {
-      failures.push(
+      throw new Error(
         `${gateway.name}: ${error instanceof Error ? error.message : 'request failed'}`
       );
     }
-  }
+  });
 
-  throw new Error(`CID ${cid} could not be resolved. ${failures.join(' · ')}`);
+  try {
+    const schema = await Promise.any(attempts);
+    writeCache(cid, schema);
+    return schema;
+  } catch (error) {
+    const failures =
+      error instanceof AggregateError ? error.errors.map(reason => `${reason.message}`) : [];
+    throw new Error(`CID ${cid} could not be resolved. ${failures.join(' · ')}`);
+  }
 }
 
 export function getManifestEntry(

@@ -43,6 +43,7 @@ export default [
         JSX: 'readonly',
         HTMLElement: 'readonly',
         fetch: 'readonly',
+        AggregateError: 'readonly',
       },
     },
     plugins: {
@@ -111,6 +112,23 @@ export default [
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       'no-console': 'off',
+    },
+  },
+
+  // Edge functions run on the web runtime, not the DOM
+  {
+    files: ['api/**/*.ts'],
+    languageOptions: {
+      globals: {
+        fetch: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
+        URL: 'readonly',
+        AbortController: 'readonly',
+        AbortSignal: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+      },
     },
   },
 

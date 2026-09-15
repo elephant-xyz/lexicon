@@ -28,26 +28,31 @@ describe('IPFS catalog service', () => {
     );
   });
 
-  it('falls through gateways and caches a resolved CID', async () => {
+  it('queries gateways in parallel and caches the first resolved response', async () => {
     const schema = { title: 'property', type: 'object', properties: {} };
+    const slowGateway = new Promise(() => {});
     vi.stubGlobal(
       'fetch',
-      vi
-        .fn()
-        .mockResolvedValueOnce({ ok: false, status: 504 })
-        .mockResolvedValueOnce({ ok: true, json: vi.fn().mockResolvedValue(schema) })
+      vi.fn().mockImplementation((url: string) => {
+        if (url === '/api/ipfs/bafy-property') return Promise.resolve({ ok: false, status: 404 });
+        if (url === 'https://ipfs.filebase.io/ipfs/bafy-property') return slowGateway;
+        return Promise.resolve({ ok: true, json: vi.fn().mockResolvedValue(schema) });
+      })
     );
 
     await expect(getJsonByCid('bafy-property')).resolves.toEqual(schema);
-    expect(fetch).toHaveBeenNthCalledWith(1, '/api/ipfs/bafy-property', expect.any(Object));
-    expect(fetch).toHaveBeenNthCalledWith(
-      2,
-      'https://ipfs.filebase.io/ipfs/bafy-property',
-      expect.any(Object)
-    );
+    expect(fetch).toHaveBeenCalledTimes(4);
     expect(sessionStorage.setItem).toHaveBeenCalledWith(
       'elephant-lexicon-ipfs:bafy-property',
       JSON.stringify(schema)
+    );
+  });
+
+  it('reports every gateway failure when a CID cannot be resolved', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 502 }));
+
+    await expect(getJsonByCid('bafy-missing')).rejects.toThrow(
+      /same-origin proxy: 502 · Filebase: 502 · Web3.Storage: 502 · IPFS: 502/
     );
   });
 
