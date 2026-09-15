@@ -19,11 +19,13 @@ describe('same-origin IPFS reader', () => {
     const schema = { title: 'County', type: 'object' };
     vi.stubGlobal(
       'fetch',
-      vi.fn().mockImplementation((url: string) =>
-        url.startsWith('https://ipfs.filebase.io')
-          ? new Promise(() => {})
-          : Promise.resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(schema)) })
-      )
+      vi
+        .fn()
+        .mockImplementation((url: string) =>
+          url.startsWith('https://ipfs.filebase.io')
+            ? new Promise(() => {})
+            : Promise.resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(schema)) })
+        )
     );
 
     const response = await handler(new Request(`https://lexicon.elephant.xyz/api/ipfs/${CID}`));
