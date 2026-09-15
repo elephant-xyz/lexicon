@@ -43,27 +43,17 @@ jobs:
           npm run lint
           npm run test:run -- tests/scripts/publish-schemas-filebase.test.ts
 
-      - name: Check Filebase configuration
-        id: config
+      - name: Require Filebase configuration
         env:
           FILEBASE_ACCESS_KEY: ${{ secrets.FILEBASE_ACCESS_KEY }}
           FILEBASE_SECRET_KEY: ${{ secrets.FILEBASE_SECRET_KEY }}
           FILEBASE_LEXICON_BUCKET: ${{ vars.FILEBASE_LEXICON_BUCKET }}
         run: |
-          if test -n "$FILEBASE_ACCESS_KEY" &&
-             test -n "$FILEBASE_SECRET_KEY" &&
-             test -n "$FILEBASE_LEXICON_BUCKET"; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          elif test "$GITHUB_EVENT_NAME" = "workflow_dispatch"; then
-            echo "::error::Filebase access key, secret key, and bucket must be configured"
-            exit 1
-          else
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Skipping automatic publication until Filebase is configured"
-          fi
+          test -n "$FILEBASE_ACCESS_KEY" || { echo "::error::FILEBASE_ACCESS_KEY is not configured"; exit 1; }
+          test -n "$FILEBASE_SECRET_KEY" || { echo "::error::FILEBASE_SECRET_KEY is not configured"; exit 1; }
+          test -n "$FILEBASE_LEXICON_BUCKET" || { echo "::error::FILEBASE_LEXICON_BUCKET is not configured"; exit 1; }
 
       - name: Publish to Filebase
-        if: steps.config.outputs.enabled == 'true'
         env:
           CONFIRM_FILEBASE_PUBLISH: publish
           FILEBASE_ACCESS_KEY: ${{ secrets.FILEBASE_ACCESS_KEY }}
@@ -73,7 +63,6 @@ jobs:
         run: npm run schemas:publish:filebase
 
       - name: Record publication
-        if: steps.config.outputs.enabled == 'true'
         run: |
           {
             echo "## Filebase schema publication"
@@ -85,7 +74,6 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload publication receipt
-        if: steps.config.outputs.enabled == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: schema-publication-${{ github.sha }}

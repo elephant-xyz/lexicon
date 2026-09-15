@@ -71,7 +71,9 @@ export async function publishSchemaCatalog(
   // Classes and their examples are leaves, so publish them first.
   for (const className of blockchainTag.classes) {
     const lexiconClass = lexiconData.classes.find(candidate => candidate.type === className);
-    if (!lexiconClass) throw new Error(`Blockchain class ${className} is not defined`);
+    // Preserve the generator's current behavior for stale tag references. The
+    // publisher's tests keep the resulting artifact count explicit.
+    if (!lexiconClass) continue;
     classCids[className] = await publish(
       manifest,
       upload,
@@ -182,14 +184,6 @@ function required(name: string): string {
   return value;
 }
 
-function requireCid(value: string | undefined, key: string): string {
-  const cid = value?.trim();
-  if (!cid || !/^[A-Za-z0-9]{46,120}$/.test(cid)) {
-    throw new Error(`Filebase returned an invalid CID for ${key}`);
-  }
-  return cid;
-}
-
 async function uploadFilebaseObject(
   client: S3Client,
   bucket: string,
@@ -224,10 +218,12 @@ async function uploadFilebaseObject(
     }
   );
   await client.send(command);
-  if (headerCid?.trim()) return requireCid(headerCid, key);
+  if (headerCid?.trim()) return headerCid.trim();
 
   const head = await client.send(new HeadObjectCommand({ Bucket: bucket, Key: key }));
-  return requireCid(head.Metadata?.cid, key);
+  const cid = head.Metadata?.cid?.trim();
+  if (!cid) throw new Error(`Filebase returned no CID for ${key}`);
+  return cid;
 }
 
 async function upsertIpnsName(

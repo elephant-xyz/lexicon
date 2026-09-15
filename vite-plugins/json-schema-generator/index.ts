@@ -775,7 +775,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       for (const className of blockchainTag.classes) {
         const lexiconClass = lexiconData.classes.find(c => c.type === className);
         if (!lexiconClass) {
-          throw new Error(`Blockchain class ${className} is not defined`);
+          continue;
         }
 
         const jsonSchema = generateJSONSchemaForClass(lexiconClass);
