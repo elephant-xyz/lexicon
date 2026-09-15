@@ -4,6 +4,10 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/api/ipfs/:cid",
+      "destination": "https://ipfs.filebase.io/ipfs/:cid"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

@@ -25,6 +25,13 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    proxy: {
+      '/api/ipfs': {
+        target: 'https://ipfs.filebase.io',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api\/ipfs/, '/ipfs'),
+      },
+    },
   },
   build: {
     outDir: 'build',

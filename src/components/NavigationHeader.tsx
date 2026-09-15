@@ -77,7 +77,7 @@ const NavigationHeader: React.FC<NavigationHeaderProps> = ({
   };
 
   const handleHome = () => {
-    navigate('/');
+    navigate(location.pathname.startsWith('/legacy') ? '/legacy' : '/');
   };
 
   // Only show navigation controls if we have navigation capabilities or if showHome is true
