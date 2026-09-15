@@ -93,7 +93,7 @@ const PublishedCatalogViewer: React.FC = () => {
         </p>
         <div className="published-proof">
           <strong>{manifest ? `${total} definitions` : 'Loading manifest…'}</strong>
-          <code>/json-schemas/schema-manifest.json</code>
+          <code>/api/manifest</code>
         </div>
       </header>
 

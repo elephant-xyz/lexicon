@@ -298,25 +298,26 @@ Route order matters in React Router v7 - most specific routes are listed first i
 - `src/styles.css`: Comprehensive CSS with custom properties and responsive design
 - CSS patterns: BEM-like naming, component-specific classes, utility classes
 
-## JSON Schema Generation (December 2024)
+## JSON Schema Generation
 
 ### Blockchain Class Schemas
 **Automatic Generation**: JSON Schemas are automatically generated for all blockchain-tagged classes during build:
 - **Vite Plugin**: Custom plugin in `vite-plugins/json-schema-generator/` 
-- **Build Process**: Generates local JSON Schema files for tests and copies the live Filebase-backed CID manifest
-- **IPFS Storage**: Published objects are content-addressed CIDv1 blobs already on Filebase
-- **UI Integration**: The default Published view reads those CIDs through `ipfs.filebase.io`
+- **Build Process**: Generates local JSON Schema files and copies the tracked bootstrap manifest; it performs no network reads or writes
+- **IPFS Storage**: The explicit `Publish schemas to Filebase` workflow uploads the complete schema graph through Filebase and repoints one IPNS name
+- **UI Integration**: The default Published view reads `/api/manifest`, which prefers the Filebase IPNS manifest and falls back to the bootstrap snapshot
 
 **Implementation Details**:
 - **Schema Generation**: All properties marked as required and nullable per requirements
 - **Type Mapping**: Lexicon types mapped to JSON Schema equivalents with proper formats
 - **Canonicalization**: Uses `canonicalize` library in CommonJS for deterministic output
-- **Published catalog**: Seeded from `https://lexicon.elephant.xyz/json-schemas/schema-manifest.json`; Pinata is not used
-- **Manifest**: `public/json-schemas/schema-manifest.json` contains CID mappings copied from the live catalog
+- **Published catalog**: Generated from `src/data/lexicon.json`, uploaded in dependency order, and switched atomically through IPNS
+- **Manifest fallback**: `src/data/published-schema-manifest.json` is the tracked migration and outage snapshot
 
 **Configuration**:
-1. Run `npm run build` to generate local schemas and seed the published Filebase manifest
-2. Schemas are fetched at runtime from Filebase (`/api/ipfs/:cid` or `https://ipfs.filebase.io/ipfs/<cid>`)
+1. Run `npm run build` to generate schemas locally without publishing
+2. Run `npm run schemas:publish:filebase` only with the documented Filebase variables
+3. Follow `docs/schema-publication.md` for initial IPNS cutover, verification, rollback, and later publishes
 
 ## SEO and Social Media Optimization (December 2024)
 

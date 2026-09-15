@@ -23,7 +23,7 @@ describe('IPFS catalog service', () => {
 
     await expect(getManifest()).resolves.toEqual(manifest);
     expect(fetch).toHaveBeenCalledWith(
-      'https://lexicon.elephant.xyz/json-schemas/schema-manifest.json',
+      '/json-schemas/schema-manifest.json',
       expect.objectContaining({ cache: 'no-cache' })
     );
   });

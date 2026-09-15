@@ -2,6 +2,7 @@ node_modules/
 build/
 .mcp.json
 coverage/
+artifacts/
 .env
 public/json-schemas/
 .DS_Store

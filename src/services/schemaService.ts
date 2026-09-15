@@ -18,13 +18,13 @@ class SchemaService {
       return this.manifestPromise;
     }
 
-    this.manifestPromise = fetch('/json-schemas/schema-manifest.json')
-      .then(response => {
-        if (!response.ok) {
-          // Schema manifest not found
-          return {};
+    this.manifestPromise = fetch('/api/manifest')
+      .then(async response => {
+        if (response.ok && response.headers.get('content-type')?.includes('application/json')) {
+          return response.json();
         }
-        return response.json();
+        const fallback = await fetch('/json-schemas/schema-manifest.json');
+        return fallback.ok ? fallback.json() : {};
       })
       .then(data => {
         this.manifest = data;
@@ -45,7 +45,7 @@ class SchemaService {
   }
 
   getIPFSUrl(cid: string): string {
-    return `https://ipfs.io/ipfs/${cid}`;
+    return `https://ipfs.filebase.io/ipfs/${cid}`;
   }
 }
 

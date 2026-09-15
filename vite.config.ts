@@ -14,6 +14,7 @@ export default defineConfig({
     react(),
     jsonSchemaGeneratorPlugin({
       lexiconPath: resolve(__dirname, './src/data/lexicon.json'),
+      publishedManifestPath: resolve(__dirname, './src/data/published-schema-manifest.json'),
       outputDir: resolve(__dirname, './public/json-schemas'),
     }),
   ],

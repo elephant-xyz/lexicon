@@ -1,0 +1,81 @@
+name: Publish schemas to Filebase
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - src/data/lexicon.json
+      - scripts/publish-schemas-filebase.ts
+      - vite-plugins/json-schema-generator/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-lexicon-schemas
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish immutable schemas and update IPNS
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment: schema-publishing
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate source and publisher
+        run: |
+          npm run lint
+          npm run test:run -- tests/scripts/publish-schemas-filebase.test.ts
+
+      - name: Require Filebase configuration
+        env:
+          FILEBASE_ACCESS_KEY: ${{ secrets.FILEBASE_ACCESS_KEY }}
+          FILEBASE_SECRET_KEY: ${{ secrets.FILEBASE_SECRET_KEY }}
+          FILEBASE_LEXICON_BUCKET: ${{ vars.FILEBASE_LEXICON_BUCKET }}
+        run: |
+          test -n "$FILEBASE_ACCESS_KEY" || { echo "::error::FILEBASE_ACCESS_KEY is not configured"; exit 1; }
+          test -n "$FILEBASE_SECRET_KEY" || { echo "::error::FILEBASE_SECRET_KEY is not configured"; exit 1; }
+          test -n "$FILEBASE_LEXICON_BUCKET" || { echo "::error::FILEBASE_LEXICON_BUCKET is not configured"; exit 1; }
+
+      - name: Publish to Filebase
+        env:
+          CONFIRM_FILEBASE_PUBLISH: publish
+          FILEBASE_ACCESS_KEY: ${{ secrets.FILEBASE_ACCESS_KEY }}
+          FILEBASE_SECRET_KEY: ${{ secrets.FILEBASE_SECRET_KEY }}
+          FILEBASE_LEXICON_BUCKET: ${{ vars.FILEBASE_LEXICON_BUCKET }}
+          FILEBASE_LEXICON_IPNS_LABEL: ${{ vars.FILEBASE_LEXICON_IPNS_LABEL }}
+        run: npm run schemas:publish:filebase
+
+      - name: Record publication
+        run: |
+          {
+            echo "## Filebase schema publication"
+            echo
+            echo "- Schemas: $(jq -r '.manifest.entries' artifacts/schema-publication.json)"
+            echo "- Manifest CID: \`$(jq -r '.manifest.cid' artifacts/schema-publication.json)\`"
+            echo "- IPNS name: \`$(jq -r '.ipns.networkKey' artifacts/schema-publication.json)\`"
+            echo "- Published: $(jq -r '.publishedAt' artifacts/schema-publication.json)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload publication receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-publication-${{ github.sha }}
+          path: artifacts/schema-publication.json
+          retention-days: 90
