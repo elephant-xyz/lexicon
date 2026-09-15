@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import handler from '../../api/ipfs/[cid]';
 
 const CID = 'bafkreia6tjziby3upxmidymud5iusd32urrztslgrudkwysc7ydmxoekuq';
+const GATEWAY_COUNT = 4;
 
 describe('same-origin IPFS reader', () => {
   beforeEach(() => {
@@ -33,6 +34,25 @@ describe('same-origin IPFS reader', () => {
     expect(response.status).toBe(200);
     expect(response.headers.get('Cache-Control')).toBe('public, max-age=31536000, immutable');
     await expect(response.json()).resolves.toEqual(schema);
+  });
+
+  it('retries once, because a failed read warms the gateway cache', async () => {
+    const schema = { title: 'County', type: 'object' };
+    let call = 0;
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockImplementation(() => {
+        call += 1;
+        return call <= GATEWAY_COUNT
+          ? Promise.resolve({ ok: false, status: 504 })
+          : Promise.resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(schema)) });
+      })
+    );
+
+    const response = await handler(new Request(`https://lexicon.elephant.xyz/api/ipfs/${CID}`));
+
+    expect(response.status).toBe(200);
+    expect(fetch).toHaveBeenCalledTimes(GATEWAY_COUNT * 2);
   });
 
   it('reports a gateway outage as a bad gateway without caching it', async () => {

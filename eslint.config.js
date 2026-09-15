@@ -107,6 +107,8 @@ export default [
         vi: 'readonly',
         React: 'readonly',
         HTMLSelectElement: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
       },
     },
     rules: {
