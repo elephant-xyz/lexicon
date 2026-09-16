@@ -101,11 +101,19 @@ function isManifest(value: unknown): value is SchemaManifest {
   );
 }
 
+// The deployment has no Filebase catalog pointer at all, so retrying cannot help.
+export class CatalogNotConfiguredError extends Error {}
+
 export async function getManifest(): Promise<SchemaManifest> {
   const response = await fetch(MANIFEST_URL, {
     headers: { Accept: 'application/json' },
     cache: 'no-cache',
   });
+  if (response.status === 503) {
+    throw new CatalogNotConfiguredError(
+      'No published catalog pointer is configured for this deployment.'
+    );
+  }
   if (!response.ok) {
     throw new Error(`Published manifest returned ${response.status}.`);
   }

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import {
+  CatalogNotConfiguredError,
   displayName,
   getJsonByCid,
   getManifest,
@@ -28,6 +29,7 @@ const PublishedSchemaViewer: React.FC = () => {
   const [schema, setSchema] = useState<JsonSchema | null>(null);
   const [entry, setEntry] = useState<ManifestEntry | null>(null);
   const [error, setError] = useState('');
+  const [unconfigured, setUnconfigured] = useState(false);
   const [attempt, setAttempt] = useState(0);
   const [reload, setReload] = useState(0);
 
@@ -40,6 +42,7 @@ const PublishedSchemaViewer: React.FC = () => {
     let retry = 0;
     setSchema(null);
     setError('');
+    setUnconfigured(false);
 
     getManifest()
       .then(async catalog => {
@@ -53,6 +56,11 @@ const PublishedSchemaViewer: React.FC = () => {
       })
       .catch(reason => {
         if (!active) return;
+        if (reason instanceof CatalogNotConfiguredError) {
+          setUnconfigured(true);
+          setError(reason.message);
+          return;
+        }
         // A first read of a cold CID often fails while the gateways are still
         // fetching the block, and succeeds moments later.
         if (attempt < MAX_ATTEMPTS - 1) {
@@ -87,7 +95,20 @@ const PublishedSchemaViewer: React.FC = () => {
         ← Published catalog
       </Link>
 
-      {error && (
+      {error && unconfigured && (
+        <section className="published-error" role="alert">
+          <strong>No published catalog is configured</strong>
+          <p>
+            This deployment has no IPFS catalog pointer, so published schemas cannot be resolved.
+            Set <code>LEXICON_MANIFEST_IPNS</code> or <code>LEXICON_MANIFEST_URL</code> on the host.
+          </p>
+          <div className="published-error__actions">
+            <Link to="/legacy">Use Legacy</Link>
+          </div>
+        </section>
+      )}
+
+      {error && !unconfigured && (
         <section className="published-error" role="alert">
           <strong>This schema didn’t load</strong>
           <p>

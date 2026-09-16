@@ -4,7 +4,11 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import PublishedSchemaViewer from '../../src/PublishedSchemaViewer';
-import { getJsonByCid, getManifest } from '../../src/services/ipfsCatalog';
+import {
+  CatalogNotConfiguredError,
+  getJsonByCid,
+  getManifest,
+} from '../../src/services/ipfsCatalog';
 
 vi.mock('../../src/services/ipfsCatalog', async () => {
   const actual = await vi.importActual<typeof import('../../src/services/ipfsCatalog')>(
@@ -60,6 +64,18 @@ describe('PublishedSchemaViewer', () => {
     // The raw gateway text stays available, but behind a disclosure.
     expect(screen.getByText('Technical details')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+  });
+
+  it('names the missing catalog pointer instead of retrying', async () => {
+    vi.mocked(getManifest).mockRejectedValue(
+      new CatalogNotConfiguredError('No published catalog pointer is configured.')
+    );
+
+    renderViewer();
+
+    expect(await screen.findByText('No published catalog is configured')).toBeInTheDocument();
+    expect(getJsonByCid).not.toHaveBeenCalled();
+    expect(screen.queryByRole('button', { name: 'Try again' })).not.toBeInTheDocument();
   });
 
   it(

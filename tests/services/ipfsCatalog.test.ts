@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { displayName, getJsonByCid, getManifest } from '../../src/services/ipfsCatalog';
+import {
+  CatalogNotConfiguredError,
+  displayName,
+  getJsonByCid,
+  getManifest,
+} from '../../src/services/ipfsCatalog';
 
 describe('IPFS catalog service', () => {
   beforeEach(() => {
@@ -26,6 +31,16 @@ describe('IPFS catalog service', () => {
       '/api/manifest',
       expect.objectContaining({ cache: 'no-cache' })
     );
+  });
+
+  it('separates an unconfigured catalog pointer from a transient failure', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 503 }));
+
+    await expect(getManifest()).rejects.toBeInstanceOf(CatalogNotConfiguredError);
+
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 502 }));
+
+    await expect(getManifest()).rejects.not.toBeInstanceOf(CatalogNotConfiguredError);
   });
 
   it('resolves a CID from the same-origin reader without calling public gateways', async () => {

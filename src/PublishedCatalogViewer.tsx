@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
+  CatalogNotConfiguredError,
   displayName,
   getManifest,
   ManifestEntry,
@@ -24,18 +25,22 @@ function isExample(name: string): boolean {
 const PublishedCatalogViewer: React.FC = () => {
   const [manifest, setManifest] = useState<SchemaManifest | null>(null);
   const [error, setError] = useState('');
+  const [unconfigured, setUnconfigured] = useState(false);
   const [query, setQuery] = useState('');
   const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
     setError('');
+    setUnconfigured(false);
     getManifest()
       .then(value => {
         if (active) setManifest(value);
       })
       .catch(reason => {
-        if (active) setError(reason instanceof Error ? reason.message : 'Manifest request failed.');
+        if (!active) return;
+        setUnconfigured(reason instanceof CatalogNotConfiguredError);
+        setError(reason instanceof Error ? reason.message : 'Manifest request failed.');
       });
     return () => {
       active = false;
@@ -108,7 +113,21 @@ const PublishedCatalogViewer: React.FC = () => {
         />
       </section>
 
-      {error && (
+      {error && unconfigured && (
+        <section className="published-error" role="alert">
+          <strong>No published catalog is configured</strong>
+          <p>
+            This deployment has no IPFS catalog pointer, so there is nothing to read yet. Set
+            <code> LEXICON_MANIFEST_IPNS</code> or <code>LEXICON_MANIFEST_URL</code> on the host to
+            the published Filebase catalog. Retrying will not help until then.
+          </p>
+          <div className="published-error__actions">
+            <Link to="/legacy">Use Legacy</Link>
+          </div>
+        </section>
+      )}
+
+      {error && !unconfigured && (
         <section className="published-error" role="alert">
           <strong>The catalog didn’t load</strong>
           <p>
