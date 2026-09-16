@@ -6,34 +6,23 @@ export interface SchemaManifestEntry {
 export type SchemaManifest = Record<string, SchemaManifestEntry>;
 
 class SchemaService {
-  private manifest: SchemaManifest | null = null;
   private manifestPromise: Promise<SchemaManifest> | null = null;
 
   async getManifest(): Promise<SchemaManifest> {
-    if (this.manifest) {
-      return this.manifest;
-    }
-
     if (this.manifestPromise) {
       return this.manifestPromise;
     }
 
-    this.manifestPromise = fetch('/json-schemas/schema-manifest.json')
+    this.manifestPromise = fetch('/api/manifest', { cache: 'no-cache' })
       .then(response => {
         if (!response.ok) {
-          // Schema manifest not found
           return {};
         }
         return response.json();
       })
-      .then(data => {
-        this.manifest = data;
-        return data;
-      })
-      .catch(_error => {
-        // Error loading schema manifest
-        this.manifestPromise = null; // Allow retries
-        return {};
+      .catch(() => ({}))
+      .finally(() => {
+        this.manifestPromise = null;
       });
 
     return this.manifestPromise;
@@ -45,7 +34,7 @@ class SchemaService {
   }
 
   getIPFSUrl(cid: string): string {
-    return `https://ipfs.io/ipfs/${cid}`;
+    return `https://ipfs.filebase.io/ipfs/${cid}`;
   }
 }
 

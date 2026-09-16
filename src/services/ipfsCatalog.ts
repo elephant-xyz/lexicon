@@ -30,10 +30,7 @@ export interface JsonSchema {
   [key: string]: unknown;
 }
 
-const MANIFEST_PATH = '/json-schemas/schema-manifest.json';
-const MANIFEST_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-  ? `https://lexicon.elephant.xyz${MANIFEST_PATH}`
-  : MANIFEST_PATH;
+const MANIFEST_URL = '/api/manifest';
 type Gateway = { name: string; url: (cid: string) => string };
 
 const PROXY: Gateway = { name: 'same-origin reader', url: cid => `/api/ipfs/${cid}` };

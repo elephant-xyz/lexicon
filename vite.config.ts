@@ -1,9 +1,10 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig, Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import * as dotenv from 'dotenv';
 import { jsonSchemaGeneratorPlugin } from './vite-plugins/json-schema-generator';
+import readPublishedManifest from './api/manifest';
 
 // Load environment variables
 dotenv.config();
@@ -16,6 +17,7 @@ export default defineConfig({
       lexiconPath: resolve(__dirname, './src/data/lexicon.json'),
       outputDir: resolve(__dirname, './public/json-schemas'),
     }),
+    lexiconManifestReaderPlugin(),
   ],
   resolve: {
     alias: {
@@ -58,3 +60,25 @@ export default defineConfig({
     },
   },
 });
+
+function lexiconManifestReaderPlugin(): Plugin {
+  return {
+    name: 'lexicon-manifest-reader',
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const path = req.url?.split('?')[0];
+        if (path !== '/api/manifest') {
+          next();
+          return;
+        }
+
+        const response = await readPublishedManifest();
+        res.statusCode = response.status;
+        response.headers.forEach((value, key) => {
+          res.setHeader(key, value);
+        });
+        res.end(Buffer.from(await response.arrayBuffer()));
+      });
+    },
+  };
+}

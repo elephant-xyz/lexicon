@@ -10,27 +10,6 @@ import {
 } from '../../src/types/lexicon';
 import { canonicalize } from 'json-canonicalize';
 
-const PUBLISHED_MANIFEST_URL = 'https://lexicon.elephant.xyz/json-schemas/schema-manifest.json';
-
-async function seedPublishedManifest(outputDir: string): Promise<void> {
-  const response = await fetch(PUBLISHED_MANIFEST_URL, {
-    headers: { Accept: 'application/json' },
-  });
-  if (!response.ok) {
-    throw new Error(`Published Filebase catalog returned ${response.status}.`);
-  }
-
-  const manifest: unknown = await response.json();
-  if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
-    throw new Error('Published Filebase catalog has an invalid shape.');
-  }
-
-  await fs.writeFile(
-    path.join(outputDir, 'schema-manifest.json'),
-    JSON.stringify(manifest, null, 2)
-  );
-}
-
 interface JSONSchemaGeneratorOptions {
   lexiconPath: string;
   outputDir: string;
@@ -774,10 +753,6 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       }
 
       await fs.mkdir(options.outputDir, { recursive: true });
-      await seedPublishedManifest(options.outputDir);
-      const publishedManifest = JSON.parse(
-        await fs.readFile(path.join(options.outputDir, 'schema-manifest.json'), 'utf-8')
-      ) as Record<string, { ipfsCid?: string }>;
 
       const classCids: Record<string, string> = {};
       for (const className of blockchainTag.classes) {
@@ -791,7 +766,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
           path.join(options.outputDir, `${className}.json`),
           canonicalize(jsonSchema)
         );
-        classCids[className] = publishedManifest[className]?.ipfsCid || '';
+        classCids[className] = '';
 
         if (lexiconClass.example) {
           await fs.writeFile(
@@ -825,7 +800,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
       for (const [relKey, relationship] of uniqueRelationships.entries()) {
         const relSchema = generateJSONSchemaForRelationship(relationship, classCids);
         await fs.writeFile(path.join(options.outputDir, `${relKey}.json`), canonicalize(relSchema));
-        relationshipCids[relKey] = publishedManifest[relKey]?.ipfsCid || '';
+        relationshipCids[relKey] = '';
 
         const examplesForType = relationshipExamples.filter(
           example =>
