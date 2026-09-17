@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import {
+  CatalogNotConfiguredError,
   displayName,
   getJsonByCid,
   getManifest,
@@ -11,6 +12,9 @@ import {
   SchemaManifest,
 } from './services/ipfsCatalog';
 import './styles.css';
+
+const MAX_ATTEMPTS = 3;
+const RETRY_DELAY_MS = 2000;
 
 function renderValue(value: unknown): string {
   if (Array.isArray(value)) return value.map(String).join(' | ');
@@ -25,11 +29,20 @@ const PublishedSchemaViewer: React.FC = () => {
   const [schema, setSchema] = useState<JsonSchema | null>(null);
   const [entry, setEntry] = useState<ManifestEntry | null>(null);
   const [error, setError] = useState('');
+  const [unconfigured, setUnconfigured] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const [reload, setReload] = useState(0);
+
+  useEffect(() => {
+    setAttempt(0);
+  }, [decodedName]);
 
   useEffect(() => {
     let active = true;
+    let retry = 0;
     setSchema(null);
     setError('');
+    setUnconfigured(false);
 
     getManifest()
       .then(async catalog => {
@@ -42,13 +55,32 @@ const PublishedSchemaViewer: React.FC = () => {
         if (active) setSchema(publishedSchema);
       })
       .catch(reason => {
-        if (active) setError(reason instanceof Error ? reason.message : 'Schema request failed.');
+        if (!active) return;
+        if (reason instanceof CatalogNotConfiguredError) {
+          setUnconfigured(true);
+          setError(reason.message);
+          return;
+        }
+        // A first read of a cold CID often fails while the gateways are still
+        // fetching the block, and succeeds moments later.
+        if (attempt < MAX_ATTEMPTS - 1) {
+          retry = window.setTimeout(() => setAttempt(current => current + 1), RETRY_DELAY_MS);
+          return;
+        }
+        setError(reason instanceof Error ? reason.message : 'Schema request failed.');
       });
 
     return () => {
       active = false;
+      window.clearTimeout(retry);
     };
-  }, [decodedName]);
+  }, [decodedName, attempt, reload]);
+
+  const retryNow = () => {
+    setError('');
+    setAttempt(0);
+    setReload(current => current + 1);
+  };
 
   const cidTargets = useMemo(() => {
     if (!manifest) return new Map<string, string>();
@@ -63,19 +95,49 @@ const PublishedSchemaViewer: React.FC = () => {
         ← Published catalog
       </Link>
 
-      {error && (
+      {error && unconfigured && (
         <section className="published-error" role="alert">
-          <strong>Published schema unavailable</strong>
-          <p>{error}</p>
+          <strong>No published catalog is configured</strong>
+          <p>
+            This deployment has no IPFS catalog pointer, so published schemas cannot be resolved.
+            Set <code>LEXICON_MANIFEST_IPNS</code> or <code>LEXICON_MANIFEST_URL</code> on the host.
+          </p>
+          <div className="published-error__actions">
+            <Link to="/legacy">Use Legacy</Link>
+          </div>
         </section>
       )}
 
-      {!schema && !error && <div className="published-loading">Resolving schema from IPFS…</div>}
+      {error && !unconfigured && (
+        <section className="published-error" role="alert">
+          <strong>This schema didn’t load</strong>
+          <p>
+            {displayName(decodedName)} is stored on IPFS, and the public gateways didn’t answer in
+            time. This usually clears within a few seconds.
+          </p>
+          <div className="published-error__actions">
+            <button type="button" className="published-retry" onClick={retryNow}>
+              Try again
+            </button>
+            <Link to="/">Back to catalog</Link>
+          </div>
+          <details className="published-error__details">
+            <summary>Technical details</summary>
+            <p>{error}</p>
+          </details>
+        </section>
+      )}
+
+      {!schema && !error && (
+        <div className="published-loading">
+          {attempt === 0 ? 'Resolving schema from IPFS…' : 'Still resolving from IPFS…'}
+        </div>
+      )}
 
       {schema && entry && (
         <>
           <header className="published-schema__header">
-            <span className="published-card__type">{entry.type}</span>
+            <span className="published-schema__type">{entry.type}</span>
             <h1>{displayName(decodedName)}</h1>
             <p>{schema.description || 'Published JSON Schema definition.'}</p>
             <div className="published-schema__cid">

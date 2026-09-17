@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
+  CatalogNotConfiguredError,
   displayName,
   getManifest,
   ManifestEntry,
@@ -24,21 +25,27 @@ function isExample(name: string): boolean {
 const PublishedCatalogViewer: React.FC = () => {
   const [manifest, setManifest] = useState<SchemaManifest | null>(null);
   const [error, setError] = useState('');
+  const [unconfigured, setUnconfigured] = useState(false);
   const [query, setQuery] = useState('');
+  const [reload, setReload] = useState(0);
 
   useEffect(() => {
     let active = true;
+    setError('');
+    setUnconfigured(false);
     getManifest()
       .then(value => {
         if (active) setManifest(value);
       })
       .catch(reason => {
-        if (active) setError(reason instanceof Error ? reason.message : 'Manifest request failed.');
+        if (!active) return;
+        setUnconfigured(reason instanceof CatalogNotConfiguredError);
+        setError(reason instanceof Error ? reason.message : 'Manifest request failed.');
       });
     return () => {
       active = false;
     };
-  }, []);
+  }, [reload]);
 
   const sections = useMemo<CatalogSection[]>(() => {
     if (!manifest) return [];
@@ -83,39 +90,64 @@ const PublishedCatalogViewer: React.FC = () => {
   return (
     <main className="published-shell">
       <header className="published-hero">
-        <div className="published-hero__eyebrow">
-          <span className="published-status-dot" />
-          Content-addressed source
-        </div>
         <img src="/logoElephant-white.svg" alt="Elephant" className="published-hero__logo" />
         <h1>Elephant Lexicon</h1>
         <p>
-          The published data model, read directly from immutable IPFS schemas. Every definition
-          below is identified by its content.
+          A reference for Elephant’s published data model. Definitions are loaded from
+          content-addressed schemas on IPFS.
         </p>
         <div className="published-proof">
-          <span>LIVE MANIFEST</span>
-          <strong>{manifest ? `${total} published objects` : 'Resolving catalog…'}</strong>
-          <code>/json-schemas/schema-manifest.json</code>
+          <strong>{manifest ? `${total} definitions` : 'Loading manifest…'}</strong>
+          <code>/api/manifest</code>
         </div>
       </header>
 
       <section className="published-controls" aria-label="Catalog controls">
-        <label htmlFor="published-search">Find a published schema</label>
+        <label htmlFor="published-search">Search schemas</label>
         <input
           id="published-search"
           type="search"
           value={query}
           onChange={event => setQuery(event.target.value)}
-          placeholder="Search groups, classes, relationships…"
+          placeholder="Name or type"
         />
       </section>
 
-      {error && (
+      {error && unconfigured && (
         <section className="published-error" role="alert">
-          <strong>Published catalog unavailable</strong>
-          <p>{error}</p>
-          <p>The legacy git working copy remains available from the Legacy tab.</p>
+          <strong>No published catalog is configured</strong>
+          <p>
+            This deployment has no IPFS catalog pointer, so there is nothing to read yet. Set
+            <code> LEXICON_MANIFEST_IPNS</code> or <code>LEXICON_MANIFEST_URL</code> on the host to
+            the published Filebase catalog. Retrying will not help until then.
+          </p>
+          <div className="published-error__actions">
+            <Link to="/legacy">Use Legacy</Link>
+          </div>
+        </section>
+      )}
+
+      {error && !unconfigured && (
+        <section className="published-error" role="alert">
+          <strong>The catalog didn’t load</strong>
+          <p>
+            The published manifest couldn’t be reached. This is usually temporary. The Legacy tab
+            still works in the meantime.
+          </p>
+          <div className="published-error__actions">
+            <button
+              type="button"
+              className="published-retry"
+              onClick={() => setReload(current => current + 1)}
+            >
+              Try again
+            </button>
+            <Link to="/legacy">Use Legacy</Link>
+          </div>
+          <details className="published-error__details">
+            <summary>Technical details</summary>
+            <p>{error}</p>
+          </details>
         </section>
       )}
 
@@ -137,12 +169,16 @@ const PublishedCatalogViewer: React.FC = () => {
                       className="published-card"
                       key={name}
                     >
-                      <span className="published-card__type">
-                        {section.id === 'examples' ? 'example' : entry.type}
-                      </span>
                       <strong>{displayName(name)}</strong>
-                      <code title={entry.ipfsCid}>{entry.ipfsCid}</code>
-                      <span className="published-card__open">Open schema →</span>
+                      <span className="published-card__meta">
+                        <span className="published-card__type">
+                          {section.id === 'examples' ? 'example' : entry.type}
+                        </span>
+                        <code title={entry.ipfsCid}>{entry.ipfsCid}</code>
+                      </span>
+                      <span className="published-card__open" aria-hidden="true">
+                        →
+                      </span>
                     </Link>
                   ))}
                 </div>

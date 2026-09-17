@@ -298,25 +298,18 @@ Route order matters in React Router v7 - most specific routes are listed first i
 - `src/styles.css`: Comprehensive CSS with custom properties and responsive design
 - CSS patterns: BEM-like naming, component-specific classes, utility classes
 
-## JSON Schema Generation (December 2024)
+## JSON Schema Generation
 
 ### Blockchain Class Schemas
-**Automatic Generation**: JSON Schemas are automatically generated for all blockchain-tagged classes during build:
-- **Vite Plugin**: Custom plugin in `vite-plugins/json-schema-generator/` 
-- **Build Process**: Generates local JSON Schema files for tests and copies the live Filebase-backed CID manifest
-- **IPFS Storage**: Published objects are content-addressed CIDv1 blobs already on Filebase
-- **UI Integration**: The default Published view reads those CIDs through `ipfs.filebase.io`
+**Local generation only**: JSON Schemas are generated for blockchain-tagged classes during build for tests and the Legacy git view. This repository does not publish to IPFS.
 
-**Implementation Details**:
-- **Schema Generation**: All properties marked as required and nullable per requirements
-- **Type Mapping**: Lexicon types mapped to JSON Schema equivalents with proper formats
-- **Canonicalization**: Uses `canonicalize` library in CommonJS for deterministic output
-- **Published catalog**: Seeded from `https://lexicon.elephant.xyz/json-schemas/schema-manifest.json`; Pinata is not used
-- **Manifest**: `public/json-schemas/schema-manifest.json` contains CID mappings copied from the live catalog
+- **Vite Plugin**: Custom plugin in `vite-plugins/json-schema-generator/`
+- **Published catalog**: Read at runtime from Filebase through `/api/manifest` (`LEXICON_MANIFEST_IPNS` or `LEXICON_MANIFEST_URL`)
+- **Schema bodies**: Fetched by CID through `/api/ipfs/:cid`
 
 **Configuration**:
-1. Run `npm run build` to generate local schemas and seed the published Filebase manifest
-2. Schemas are fetched at runtime from Filebase (`/api/ipfs/:cid` or `https://ipfs.filebase.io/ipfs/<cid>`)
+1. Run `npm run build` to generate local schemas for tests. The build does not upload or copy a production manifest.
+2. Set `LEXICON_MANIFEST_IPNS` (or `LEXICON_MANIFEST_URL`) on the host so the Published view can resolve the live Filebase catalog.
 
 ## SEO and Social Media Optimization (December 2024)
 

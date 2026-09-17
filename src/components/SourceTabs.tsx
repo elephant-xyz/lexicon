@@ -16,9 +16,7 @@ const SourceTabs: React.FC = () => {
           className={`source-tab ${isLegacy ? '' : 'source-tab--active'}`}
           aria-current={isLegacy ? undefined : 'page'}
         >
-          <span className="source-tab__signal" aria-hidden="true" />
           Published
-          <small>IPFS</small>
         </NavLink>
         <NavLink
           to="/legacy"
@@ -26,7 +24,6 @@ const SourceTabs: React.FC = () => {
           aria-current={isLegacy ? 'page' : undefined}
         >
           Legacy
-          <small>Git working copy</small>
         </NavLink>
       </div>
     </nav>

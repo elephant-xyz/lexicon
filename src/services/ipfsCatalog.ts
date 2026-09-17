@@ -30,18 +30,18 @@ export interface JsonSchema {
   [key: string]: unknown;
 }
 
-const MANIFEST_PATH = '/json-schemas/schema-manifest.json';
-const MANIFEST_URL = ['localhost', '127.0.0.1'].includes(window.location.hostname)
-  ? `https://lexicon.elephant.xyz${MANIFEST_PATH}`
-  : MANIFEST_PATH;
-const GATEWAYS: Array<{ name: string; url: (cid: string) => string }> = [
-  { name: 'same-origin proxy', url: cid => `/api/ipfs/${cid}` },
+const MANIFEST_URL = '/api/manifest';
+type Gateway = { name: string; url: (cid: string) => string };
+
+const PROXY: Gateway = { name: 'same-origin reader', url: cid => `/api/ipfs/${cid}` };
+const FALLBACK_GATEWAYS: Gateway[] = [
   { name: 'Filebase', url: cid => `https://ipfs.filebase.io/ipfs/${cid}` },
   { name: 'Web3.Storage', url: cid => `https://${cid}.ipfs.w3s.link` },
   { name: 'IPFS', url: cid => `https://ipfs.io/ipfs/${cid}` },
 ];
 const CACHE_PREFIX = 'elephant-lexicon-ipfs:';
-const GATEWAY_TIMEOUT_MS = 7000;
+// A cold Filebase read can take 30s even when a warm read takes under a second.
+const GATEWAY_TIMEOUT_MS = 25000;
 
 async function fetchWithTimeout(url: string, options: Parameters<typeof fetch>[1]) {
   const controller = new window.AbortController();
@@ -50,6 +50,24 @@ async function fetchWithTimeout(url: string, options: Parameters<typeof fetch>[1
     return await fetch(url, { ...options, signal: controller.signal });
   } finally {
     window.clearTimeout(timeout);
+  }
+}
+
+function message(gateway: string, error: unknown): string {
+  return `${gateway}: ${error instanceof Error ? error.message : 'request failed'}`;
+}
+
+async function readFrom(gateway: Gateway, cid: string): Promise<JsonSchema> {
+  try {
+    const response = await fetchWithTimeout(gateway.url(cid), {
+      headers: { Accept: 'application/json' },
+    });
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    return (await response.json()) as JsonSchema;
+  } catch (error) {
+    throw new Error(message(gateway.name, error));
   }
 }
 
@@ -83,11 +101,19 @@ function isManifest(value: unknown): value is SchemaManifest {
   );
 }
 
+// The deployment has no Filebase catalog pointer at all, so retrying cannot help.
+export class CatalogNotConfiguredError extends Error {}
+
 export async function getManifest(): Promise<SchemaManifest> {
   const response = await fetch(MANIFEST_URL, {
     headers: { Accept: 'application/json' },
     cache: 'no-cache',
   });
+  if (response.status === 503) {
+    throw new CatalogNotConfiguredError(
+      'No published catalog pointer is configured for this deployment.'
+    );
+  }
   if (!response.ok) {
     throw new Error(`Published manifest returned ${response.status}.`);
   }
@@ -104,23 +130,24 @@ export async function getJsonByCid(cid: string): Promise<JsonSchema> {
   if (cached) return cached;
 
   const failures: string[] = [];
-  for (const gateway of GATEWAYS) {
-    try {
-      const response = await fetchWithTimeout(gateway.url(cid), {
-        headers: { Accept: 'application/json' },
-      });
-      if (!response.ok) {
-        failures.push(`${gateway.name}: ${response.status}`);
-        continue;
-      }
 
-      const schema = (await response.json()) as JsonSchema;
-      writeCache(cid, schema);
-      return schema;
-    } catch (error) {
-      failures.push(
-        `${gateway.name}: ${error instanceof Error ? error.message : 'request failed'}`
-      );
+  // The same-origin reader races gateways server-side and is cached per CID at the edge,
+  // so ask it alone first. Public gateways rate-limit a browser that fans out on every CID.
+  try {
+    const schema = await readFrom(PROXY, cid);
+    writeCache(cid, schema);
+    return schema;
+  } catch (error) {
+    failures.push(error instanceof Error ? error.message : message(PROXY.name, error));
+  }
+
+  try {
+    const schema = await Promise.any(FALLBACK_GATEWAYS.map(gateway => readFrom(gateway, cid)));
+    writeCache(cid, schema);
+    return schema;
+  } catch (error) {
+    if (error instanceof AggregateError) {
+      failures.push(...error.errors.map(reason => `${reason.message}`));
     }
   }
 
