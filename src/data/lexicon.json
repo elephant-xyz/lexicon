@@ -11631,7 +11631,83 @@
       "container_name": "licenses",
       "is_deprecated": false,
       "deprecated_properties": {},
+      "description": "A license identity issued by a licensing authority. The license identifier is the authority's own id. The company that holds the license is a separate object linked by an edge.",
       "properties": {
+        "source_http_request": {
+          "type": "object",
+          "properties": {
+            "method": {
+              "type": "string",
+              "required": true,
+              "enum": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                null
+              ]
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "comment": "The URL endpoint for the request.",
+              "pattern": "^https?://[a-zA-Z0-9.-]+(:[0-9]+)?(/[#a-zA-Z0-9._%-]+)*$"
+            },
+            "headers": {
+              "type": "object",
+              "properties": {
+                "content-type": {
+                  "type": "string",
+                  "enum": [
+                    "application/json",
+                    "multipart/form-data",
+                    "text/xml",
+                    "application/x-www-form-urlencoded",
+                    null
+                  ],
+                  "comment": "Content-Type header for the request, indicating the media type of the resource."
+                }
+              },
+              "additionalProperties": false
+            },
+            "multiValueQueryString": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "comment": "Query string parameters for the request, where each key can have multiple values."
+              }
+            },
+            "body": {
+              "type": "string",
+              "comment": "The body of the request, which may contain JSON or other data formats."
+            },
+            "json": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "comment": "JSON object data"
+                },
+                {
+                  "type": "array",
+                  "comment": "JSON array data"
+                }
+              ]
+            }
+          },
+          "comment": "HTTP request configuration for retrieving this data. For a contractor license this is the official license-detail request that produced the identifier.",
+          "minProperties": 1
+        },
+        "request_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Identifier value that should be substituted into the source HTTP request to retrieve this specific data.",
+          "minLength": 1
+        },
         "license_authority_level_type": {
           "enum": [
             "Private",
@@ -11644,45 +11720,55 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "optional": true
         },
         "license_authority_level_type_other_description": {
           "type": "string",
-          "comment": "If license authority level type is 'other,' license authority level type other description provides more details on the license authority level type."
+          "comment": "If license authority level type is 'other,' license authority level type other description provides more details on the license authority level type.",
+          "optional": true
         },
         "license_exempt_indicator": {
           "type": "boolean",
-          "comment": "License_exempt_indicator indicates whether the party is exempt from specific licensing requirement(s) or not."
+          "comment": "License_exempt_indicator indicates whether the party is exempt from specific licensing requirement(s) or not.",
+          "optional": true
         },
         "license_expiration_date": {
           "type": "string",
           "format": "date",
-          "comment": "license expiration date indicates the date that the license expires."
+          "comment": "license expiration date indicates the date that the license expires.",
+          "optional": true
         },
         "license_identifier": {
           "type": "string",
+          "minLength": 1,
           "comment": "A license identifier is a unique code or number assigned to a license for identification purposes. It is often used in various administrative and legal systems to ensure accuracy and consistency in record-keeping and data management."
         },
         "license_issue_date": {
           "type": "string",
           "format": "date",
-          "comment": "license issue date indicates the date that the license was issued."
+          "comment": "license issue date indicates the date that the license was issued.",
+          "optional": true
         },
         "license_issuing_authority_name": {
           "type": "string",
-          "comment": "license issuing authority name is the name of the authority that issued the license."
+          "comment": "license issuing authority name is the name of the authority that issued the license.",
+          "optional": true
         },
         "license_issuing_state_code": {
           "type": "string",
-          "comment": "license issuing authority state code is code for the state where the licensing authority is located in."
+          "comment": "license issuing authority state code is code for the state where the licensing authority is located in.",
+          "optional": true
         },
         "license_issuing_state_name": {
           "type": "string",
-          "comment": "license issuing authority state name is the name of the state where the licensing authority is located in."
+          "comment": "license issuing authority state name is the name of the state where the licensing authority is located in.",
+          "optional": true
         },
         "sequence_number": {
           "type": "string",
-          "comment": "An address sequence number is a unique numerical identifier assigned to an address within a specific sequence or order. It is used to indicate the position or sequence of an address within a given range or list."
+          "comment": "An address sequence number is a unique numerical identifier assigned to an address within a specific sequence or order. It is used to indicate the position or sequence of an address within a given range or list.",
+          "optional": true
         }
       },
       "relationships": {}
@@ -22867,6 +22953,7 @@
         "unnormalized_address",
         "address",
         "company",
+        "license",
         "business_location",
         "structure",
         "tax",
@@ -23639,6 +23726,12 @@
         },
         {
           "type": "relationship",
+          "from": "company",
+          "to": "license",
+          "relationship_type": "contractor_has_license"
+        },
+        {
+          "type": "relationship",
           "from": "property_improvement",
           "to": "layout",
           "relationship_type": "property_improvement_has_layout"
@@ -23699,6 +23792,7 @@
         "property_improvement_has_contractor",
         "company_has_communication",
         "contractor_has_person",
+        "contractor_has_license",
         "property_improvement_has_inspection",
         "inspection_has_company",
         "inspection_has_person",
