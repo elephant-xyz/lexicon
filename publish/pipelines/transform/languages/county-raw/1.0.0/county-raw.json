@@ -1,0 +1,21 @@
+{
+  "name": "county-raw",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "datasets": [
+    {
+      "type": "parcels",
+      "properties": {
+        "parcel_id": {
+          "type": "string"
+        },
+        "situs_address": {
+          "type": "string"
+        },
+        "assessed_value": {
+          "type": "number"
+        }
+      }
+    }
+  ]
+}

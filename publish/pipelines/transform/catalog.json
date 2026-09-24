@@ -1,0 +1,73 @@
+{
+  "contractVersion": 2,
+  "publisher": "elephant-xyz/lexicon",
+  "repository": "https://github.com/elephant-xyz/lexicon",
+  "ssMPointer": "/lexicon/transform-catalog-uri",
+  "githubRawBase": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform",
+  "entries": [
+    {
+      "kind": "language",
+      "name": "county-curated",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/county-curated/1.0.0/county-curated.json",
+      "sha256": "0a4160ed062363361f44c016272960b26e514ba87f2bec93c0c98ffcbfeedc13"
+    },
+    {
+      "kind": "language",
+      "name": "county-raw",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/county-raw/1.0.0/county-raw.json",
+      "sha256": "0ccdb3a2b625c7baa317389bd1f418a62c6f2e026b3b41dc7c328ca7a5b5dd86"
+    },
+    {
+      "kind": "language",
+      "name": "crm",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/crm/1.0.0/crm.json",
+      "sha256": "f6833de6b92722635cfd846ae2796ec2fd93c18c4e5ebd12838a9dab429a3a50"
+    },
+    {
+      "kind": "language",
+      "name": "warehouse",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/warehouse/1.0.0/warehouse.json",
+      "sha256": "5a47999bf9235b53dbcd436536f601ea665b5b9513d71dcacbaf6a1ba075614b"
+    },
+    {
+      "kind": "mapping",
+      "id": "county-raw-to-curated",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "county-raw",
+      "to": "county-curated",
+      "path": "mappings/county-raw-to-curated/1.0.0/manifest.json",
+      "sha256": "0cd3faf1da62ba9f1924822e48e9ff9ec8dd96f185780c258b2d8b9f551b8885",
+      "querySha256": "4537e89a464471efbb58dc349872393a1e33ce1827bd607c7c7c18f5f58a4b62"
+    },
+    {
+      "kind": "mapping",
+      "id": "crm-to-warehouse",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "crm",
+      "to": "warehouse",
+      "path": "mappings/crm-to-warehouse/1.0.0/manifest.json",
+      "sha256": "b44f4981e5c28187d19ed215eed070caaf4aa41209c4b705716ff1f7107d6237",
+      "querySha256": "8417d426b6a6b64320a236b6e28e64278b6c5a9a8526a54f668530b57b05de12"
+    }
+  ]
+}

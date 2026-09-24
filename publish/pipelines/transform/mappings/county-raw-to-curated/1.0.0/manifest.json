@@ -1,0 +1,34 @@
+{
+  "contractVersion": 2,
+  "id": "county-raw-to-curated",
+  "version": "1.0.0",
+  "engine": "spark-sql",
+  "from": {
+    "name": "county-raw",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "county-curated",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "parcels",
+      "view": "source_parcels",
+      "required": true,
+      "format": "parquet"
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "parquet"
+  },
+  "outputs": [
+    {
+      "dataset": "parcels",
+      "querySha256": "4537e89a464471efbb58dc349872393a1e33ce1827bd607c7c7c18f5f58a4b62",
+      "dependsOn": [],
+      "queryPath": "queries/parcels.sql"
+    }
+  ]
+}

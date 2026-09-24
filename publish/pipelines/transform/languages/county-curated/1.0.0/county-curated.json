@@ -1,0 +1,21 @@
+{
+  "name": "county-curated",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "datasets": [
+    {
+      "type": "parcels",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "value_usd": {
+          "type": "number"
+        }
+      }
+    }
+  ]
+}
