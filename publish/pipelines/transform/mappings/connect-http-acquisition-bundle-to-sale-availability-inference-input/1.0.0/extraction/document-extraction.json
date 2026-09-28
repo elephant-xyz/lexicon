@@ -1,0 +1,107 @@
+{
+  "contractVersion": 1,
+  "id": "sale-availability-html-extraction",
+  "version": "1.0.0",
+  "sourceView": "source_raw_documents",
+  "outputView": "source_html_extracts",
+  "outputColumns": [
+    { "name": "unit", "type": "string", "nullable": true },
+    { "name": "priceMajor", "type": "integer", "nullable": true },
+    { "name": "mlsId", "type": "string", "nullable": true },
+    { "name": "rawStatus", "type": "string", "nullable": true },
+    { "name": "indexComplete", "type": "boolean", "nullable": true },
+    { "name": "listedCount", "type": "integer", "nullable": true }
+  ],
+  "rules": [
+    {
+      "id": "discover-listing-card",
+      "match": {
+        "registrationIds": ["discover-homes-webpage"],
+        "artifactRoles": ["raw"],
+        "contentTypes": ["text/html", "application/xhtml+xml"]
+      },
+      "repeatSelector": ".listing-card",
+      "fields": [
+        {
+          "name": "unit",
+          "value": { "kind": "attribute", "name": "data-unit" },
+          "required": true
+        },
+        {
+          "name": "priceMajor",
+          "value": { "kind": "attribute", "name": "data-price" },
+          "required": true
+        },
+        {
+          "name": "mlsId",
+          "value": { "kind": "attribute", "name": "data-mls" },
+          "required": true
+        },
+        {
+          "name": "rawStatus",
+          "value": { "kind": "attribute", "name": "data-status" },
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "discover-index-summary",
+      "match": {
+        "registrationIds": ["discover-homes-webpage"],
+        "artifactRoles": ["raw"],
+        "contentTypes": ["text/html", "application/xhtml+xml"]
+      },
+      "repeatSelector": "#inventory",
+      "fields": [
+        {
+          "name": "indexComplete",
+          "value": {
+            "kind": "attribute",
+            "name": "data-index-complete"
+          },
+          "required": true
+        },
+        {
+          "name": "listedCount",
+          "value": { "kind": "attribute", "name": "data-listed-count" },
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "sunny-listing-card",
+      "match": {
+        "registrationIds": ["sunny-realty-webpage"],
+        "artifactRoles": ["raw"],
+        "contentTypes": ["text/html", "application/xhtml+xml"]
+      },
+      "repeatSelector": ".property-card",
+      "fields": [
+        {
+          "name": "unit",
+          "value": { "kind": "attribute", "name": "data-unit" },
+          "required": true
+        },
+        {
+          "name": "priceMajor",
+          "value": { "kind": "attribute", "name": "data-price" },
+          "required": true
+        },
+        {
+          "name": "mlsId",
+          "value": { "kind": "attribute", "name": "data-mls" },
+          "required": true
+        },
+        {
+          "name": "rawStatus",
+          "value": { "kind": "attribute", "name": "data-status" },
+          "required": true
+        }
+      ]
+    }
+  ],
+  "determinism": {
+    "status": "DETERMINISTIC",
+    "runtimeFunctions": []
+  }
+}

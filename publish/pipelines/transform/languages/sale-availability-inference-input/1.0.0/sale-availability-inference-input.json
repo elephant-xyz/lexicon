@@ -1,0 +1,287 @@
+{
+  "contractVersion": 2,
+  "name": "sale-availability-inference-input",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "description": "Deterministic Transform A evidence derived from generic HTTP acquisition metadata and verified raw documents. Final cross-source outcome, price selection, and confidence remain System-owned.",
+  "datasets": [
+    {
+      "type": "normalized_evidence",
+      "properties": {
+        "contractVersion": { "type": "integer", "const": 2 },
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^ev_[a-f0-9]{64}$"
+        },
+        "acquisitionId": {
+          "type": "string",
+          "pattern": "^acq_[a-f0-9]{64}$"
+        },
+        "operationRequestId": {
+          "type": "string",
+          "pattern": "^or_[a-f0-9]{32}$"
+        },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "lookupAddress": { "type": "string", "minLength": 1 },
+        "lookupCanonicalKey": { "type": "string", "minLength": 1 },
+        "registrationId": { "type": "string", "minLength": 1 },
+        "registrationVersion": { "type": "string", "minLength": 1 },
+        "publisherId": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": ["string", "null"], "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "sourcePublishedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "httpStatus": {
+          "type": ["integer", "null"],
+          "minimum": 100,
+          "maximum": 599
+        },
+        "retrievalOutcome": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "NOT_FOUND",
+            "DISABLED",
+            "BLOCKED",
+            "HTTP_ERROR",
+            "NETWORK_ERROR",
+            "TIMEOUT",
+            "CONFIGURATION_ERROR",
+            "CONTENT_TYPE_REJECTED",
+            "RESPONSE_TOO_LARGE",
+            "PARSE_ERROR"
+          ]
+        },
+        "evidenceKind": {
+          "type": "string",
+          "enum": [
+            "exact_listing",
+            "complete_index_absence",
+            "discovery_only",
+            "retrieval_failure"
+          ]
+        },
+        "exactPropertyMatch": { "type": ["boolean", "null"] },
+        "indexCompletenessVerified": { "type": "boolean" },
+        "listingStatus": {
+          "type": "string",
+          "enum": ["for_sale", "pending", "off_market", "not_listed", "unknown"]
+        },
+        "rawStatus": { "type": ["string", "null"] },
+        "askingPriceAmountMinor": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "askingPriceCurrency": {
+          "type": ["string", "null"],
+          "enum": ["USD", null]
+        },
+        "askingPriceParseStatus": {
+          "type": "string",
+          "enum": ["parsed", "absent", "rejected", "not_applicable"]
+        },
+        "mlsId": { "type": ["string", "null"] },
+        "evidenceExcerpt": { "type": ["string", "null"] },
+        "primaryRawArtifactUri": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "primaryRawArtifactSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "provenanceJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "acquisitionRecordSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "extractionJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "evidenceId",
+        "acquisitionId",
+        "operationRequestId",
+        "runId",
+        "requestId",
+        "lookupAddress",
+        "lookupCanonicalKey",
+        "registrationId",
+        "registrationVersion",
+        "publisherId",
+        "sourceUrl",
+        "retrievedAt",
+        "sourcePublishedAt",
+        "httpStatus",
+        "retrievalOutcome",
+        "evidenceKind",
+        "exactPropertyMatch",
+        "indexCompletenessVerified",
+        "listingStatus",
+        "rawStatus",
+        "askingPriceAmountMinor",
+        "askingPriceCurrency",
+        "askingPriceParseStatus",
+        "mlsId",
+        "evidenceExcerpt",
+        "primaryRawArtifactUri",
+        "primaryRawArtifactSha256",
+        "provenanceJson",
+        "acquisitionRecordSha256",
+        "extractionJson"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "inference_candidates",
+      "properties": {
+        "contractVersion": { "type": "integer", "const": 2 },
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^ev_[a-f0-9]{64}$"
+        },
+        "acquisitionId": {
+          "type": "string",
+          "pattern": "^acq_[a-f0-9]{64}$"
+        },
+        "operationRequestId": {
+          "type": "string",
+          "pattern": "^or_[a-f0-9]{32}$"
+        },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "lookupAddress": { "type": "string", "minLength": 1 },
+        "lookupCanonicalKey": { "type": "string", "minLength": 1 },
+        "registrationId": { "type": "string", "minLength": 1 },
+        "registrationVersion": { "type": "string", "minLength": 1 },
+        "publisherId": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": ["string", "null"], "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "sourcePublishedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "httpStatus": {
+          "type": ["integer", "null"],
+          "minimum": 100,
+          "maximum": 599
+        },
+        "retrievalOutcome": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "NOT_FOUND",
+            "DISABLED",
+            "BLOCKED",
+            "HTTP_ERROR",
+            "NETWORK_ERROR",
+            "TIMEOUT",
+            "CONFIGURATION_ERROR",
+            "CONTENT_TYPE_REJECTED",
+            "RESPONSE_TOO_LARGE",
+            "PARSE_ERROR"
+          ]
+        },
+        "evidenceKind": {
+          "type": "string",
+          "enum": [
+            "exact_listing",
+            "complete_index_absence",
+            "discovery_only",
+            "retrieval_failure"
+          ]
+        },
+        "exactPropertyMatch": { "type": ["boolean", "null"] },
+        "indexCompletenessVerified": { "type": "boolean" },
+        "listingStatus": {
+          "type": "string",
+          "enum": ["for_sale", "pending", "off_market", "not_listed", "unknown"]
+        },
+        "rawStatus": { "type": ["string", "null"] },
+        "askingPriceAmountMinor": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "askingPriceCurrency": {
+          "type": ["string", "null"],
+          "enum": ["USD", null]
+        },
+        "askingPriceParseStatus": {
+          "type": "string",
+          "enum": ["parsed", "absent", "rejected", "not_applicable"]
+        },
+        "mlsId": { "type": ["string", "null"] },
+        "evidenceExcerpt": { "type": ["string", "null"] },
+        "primaryRawArtifactUri": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "primaryRawArtifactSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "provenanceJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "acquisitionRecordSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "extractionJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "evidenceId",
+        "acquisitionId",
+        "operationRequestId",
+        "runId",
+        "requestId",
+        "lookupAddress",
+        "lookupCanonicalKey",
+        "registrationId",
+        "registrationVersion",
+        "publisherId",
+        "sourceUrl",
+        "retrievedAt",
+        "sourcePublishedAt",
+        "httpStatus",
+        "retrievalOutcome",
+        "evidenceKind",
+        "exactPropertyMatch",
+        "indexCompletenessVerified",
+        "listingStatus",
+        "rawStatus",
+        "askingPriceAmountMinor",
+        "askingPriceCurrency",
+        "askingPriceParseStatus",
+        "mlsId",
+        "evidenceExcerpt",
+        "primaryRawArtifactUri",
+        "primaryRawArtifactSha256",
+        "provenanceJson",
+        "acquisitionRecordSha256",
+        "extractionJson"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "rawArtifactPrefix": "s3://transform-local/source/http-acquisition/raw/",
+  "runs": [
+    {
+      "runId": "http-run-901",
+      "requestId": "unit-901-http-acquisition",
+      "addresses": [
+        "301 174th St Apt 901, Sunny Isles Beach, FL 33160",
+        "301 174th St Apt 516, Sunny Isles Beach, FL 33160"
+      ],
+      "recordCount": 4
+    }
+  ],
+  "acquisitions": [
+    {
+      "acquisitionId": "acq_1111111111111111111111111111111111111111111111111111111111111111",
+      "operationRequestId": "or_11111111111111111111111111111111",
+      "runId": "http-run-901",
+      "requestId": "unit-901-http-acquisition",
+      "operationId": "brave-search",
+      "registrationId": "brave-search-api",
+      "publisherId": "brave-search",
+      "domain": "api.search.brave.com",
+      "sourceUrl": "https://api.search.brave.com/res/v1/web/search",
+      "contentType": "application/json",
+      "outcome": "SUCCESS",
+      "httpStatus": 200,
+      "rawArtifacts": ["brave-search.json"],
+      "robotsArtifact": null,
+      "discoveryArtifacts": [],
+      "parentAcquisitionId": null
+    },
+    {
+      "acquisitionId": "acq_2222222222222222222222222222222222222222222222222222222222222222",
+      "operationRequestId": "or_22222222222222222222222222222222",
+      "runId": "http-run-901",
+      "requestId": "unit-901-http-acquisition",
+      "operationId": "discover-page",
+      "registrationId": "discover-homes-webpage",
+      "publisherId": "discover-homes-miami",
+      "domain": "www.discoverhomesmiami.com",
+      "sourceUrl": "https://www.discoverhomesmiami.com/sunny-isles-beach-condos/winston-towers-500",
+      "contentType": "text/html",
+      "outcome": "SUCCESS",
+      "httpStatus": 200,
+      "rawArtifacts": ["discover-page-1.html", "discover-page-2.html"],
+      "robotsArtifact": "robots.txt",
+      "discoveryArtifacts": ["brave-search.json"],
+      "parentAcquisitionId": "acq_1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "acquisitionId": "acq_3333333333333333333333333333333333333333333333333333333333333333",
+      "operationRequestId": "or_33333333333333333333333333333333",
+      "runId": "http-run-901",
+      "requestId": "unit-901-http-acquisition",
+      "operationId": "sunny-page",
+      "registrationId": "sunny-realty-webpage",
+      "publisherId": "sunny-realty",
+      "domain": "www.sunnyrealty.com",
+      "sourceUrl": "https://www.sunnyrealty.com/Results-BuildingName-Winston%20Towers%20500%20Condo.htm",
+      "contentType": "text/html",
+      "outcome": "SUCCESS",
+      "httpStatus": 200,
+      "rawArtifacts": ["sunny-unit-901.html"],
+      "robotsArtifact": "robots.txt",
+      "discoveryArtifacts": ["brave-search.json"],
+      "parentAcquisitionId": "acq_1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    {
+      "acquisitionId": "acq_4444444444444444444444444444444444444444444444444444444444444444",
+      "operationRequestId": "or_44444444444444444444444444444444",
+      "runId": "http-run-901",
+      "requestId": "unit-901-http-acquisition",
+      "operationId": "blocked-page",
+      "registrationId": "public-webpage",
+      "publisherId": "blocked-publisher",
+      "domain": "blocked.example.test",
+      "sourceUrl": "https://blocked.example.test/property/901",
+      "contentType": null,
+      "outcome": "BLOCKED",
+      "httpStatus": 403,
+      "failureCode": "CONTENT_CHALLENGE",
+      "rawArtifacts": [],
+      "robotsArtifact": null,
+      "discoveryArtifacts": [],
+      "parentAcquisitionId": null
+    }
+  ]
+}

@@ -8,9 +8,31 @@
     "version": "1.0.0",
     "status": "ENABLED",
     "path": "schemas/pipeline-language/1.0.0/schema.json",
-    "sha256": "02cb4837a0ee867d7569efb9faf8d82eef3ef0d47362dd6de285f252c37d8c97"
+    "sha256": "a8b26d9f4d5aeb1485d4c3437a24c050d6b92cf1f8a8e8deec22a9cb1b05c3df"
+  },
+  "mappingSchema": {
+    "version": "1.0.0",
+    "status": "ENABLED",
+    "path": "schemas/pipeline-mapping/1.0.0/schema.json",
+    "sha256": "f17d9f479fffeffcc8afc42e4fe5c801ae4bb5633e7d98bc0d497dede89f7b01"
+  },
+  "documentExtractionSchema": {
+    "version": "1.0.0",
+    "status": "ENABLED",
+    "path": "schemas/document-extraction/1.0.0/schema.json",
+    "sha256": "4fbb6895d22569e20c377d9b5edfc143ef685f05654f90d081a7a53a7de4c6f4"
   },
   "entries": [
+    {
+      "kind": "language",
+      "name": "connect-http-acquisition-bundle",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440"
+    },
     {
       "kind": "language",
       "name": "county-curated",
@@ -43,6 +65,16 @@
     },
     {
       "kind": "language",
+      "name": "sale-availability-inference-input",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-inference-input/1.0.0/sale-availability-inference-input.json",
+      "sha256": "2456f6afdf0ca417976337e39230753191f32f57405cb5273da6141c3fc91da6"
+    },
+    {
+      "kind": "language",
       "name": "warehouse",
       "version": "2.0.0",
       "current": true,
@@ -50,6 +82,17 @@
       "shape": "tabular",
       "path": "languages/warehouse/2.0.0/warehouse.json",
       "sha256": "4ec9c8c180c5b22c5795d5983af0112bec45104e7113ed0ab6ee3ddc5b6bca4c"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-inference-input",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-inference-input",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/manifest.json",
+      "sha256": "0312fc90fdbaf03f813122d13501104eb5669704410a4d31e1c4b8ee7c422f96"
     },
     {
       "kind": "mapping",

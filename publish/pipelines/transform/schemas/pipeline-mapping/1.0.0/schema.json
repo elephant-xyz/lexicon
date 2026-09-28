@@ -1,0 +1,533 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/schemas/pipeline-mapping/1.0.0/schema.json",
+  "title": "Elephant Transform pipeline mapping",
+  "description": "Authoritative publication schema for Spark SQL mapping manifests, including generic raw-artifact hydration and canonical acquisition-bundle adapters.",
+  "type": "object",
+  "properties": {
+    "contractVersion": {
+      "const": 2
+    },
+    "id": {
+      "$ref": "#/$defs/name"
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "status": {
+      "enum": ["ENABLED", "DISABLED"]
+    },
+    "engine": {
+      "const": "spark-sql"
+    },
+    "from": {
+      "$ref": "#/$defs/languageIdentity"
+    },
+    "to": {
+      "$ref": "#/$defs/languageIdentity"
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/input"
+      }
+    },
+    "documentExtraction": {
+      "type": "object",
+      "properties": {
+        "configPath": {
+          "type": "string",
+          "pattern": "^extraction/[^/].*\\.json$"
+        },
+        "configSha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": ["configPath", "configSha256"],
+      "additionalProperties": false
+    },
+    "output": {
+      "$ref": "#/$defs/output"
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/mappingOutput"
+      }
+    }
+  },
+  "required": [
+    "contractVersion",
+    "id",
+    "version",
+    "status",
+    "engine",
+    "from",
+    "to",
+    "inputs",
+    "output",
+    "outputs"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "inputs": {
+            "type": "array",
+            "contains": {
+              "type": "object",
+              "properties": {
+                "format": {
+                  "enum": ["raw-artifacts", "acquisition-bundle"]
+                }
+              },
+              "required": ["format"]
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "documentExtraction": {}
+        },
+        "required": ["documentExtraction"]
+      },
+      "else": {
+        "properties": {
+          "documentExtraction": {}
+        },
+        "not": {
+          "required": ["documentExtraction"]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "datasetName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "viewName": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "languageIdentity": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/name"
+        },
+        "version": {
+          "$ref": "#/$defs/semver"
+        }
+      },
+      "required": ["name", "version"],
+      "additionalProperties": false
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "boolean"
+        },
+        "delimiter": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "escape": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1
+        },
+        "nullValue": {
+          "type": "string"
+        },
+        "emptyValue": {
+          "type": "string"
+        },
+        "multiLine": {
+          "type": "boolean"
+        },
+        "encoding": {
+          "const": "UTF-8"
+        },
+        "dateFormat": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timestampFormat": {
+          "type": "string",
+          "minLength": 1
+        },
+        "compression": {
+          "enum": ["snappy", "gzip", "zstd"]
+        },
+        "ignoreNullFields": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "hydration": {
+      "type": "object",
+      "properties": {
+        "recordsTable": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "runManifestTable": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "maxArtifactBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxTotalArtifactBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "textContentTypes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "requireUtf8ForText": {
+          "type": "boolean"
+        },
+        "includeRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["raw", "robots", "discovery"]
+          }
+        }
+      },
+      "required": [
+        "recordsTable",
+        "runManifestTable",
+        "maxArtifactBytes",
+        "maxTotalArtifactBytes",
+        "textContentTypes",
+        "requireUtf8ForText",
+        "includeRoles"
+      ],
+      "additionalProperties": false
+    },
+    "bundle": {
+      "type": "object",
+      "properties": {
+        "bundleDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "runDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "runView": {
+          "$ref": "#/$defs/viewName"
+        },
+        "recordsDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "recordsView": {
+          "$ref": "#/$defs/viewName"
+        },
+        "rawDocumentsDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "rawDocumentsView": {
+          "$ref": "#/$defs/viewName"
+        },
+        "maxBundleBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxArtifactBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxTotalArtifactBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "textContentTypes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "requireUtf8ForText": {
+          "type": "boolean"
+        },
+        "includeRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["raw", "robots", "discovery"]
+          }
+        }
+      },
+      "required": [
+        "bundleDataset",
+        "runDataset",
+        "runView",
+        "recordsDataset",
+        "recordsView",
+        "rawDocumentsDataset",
+        "rawDocumentsView",
+        "maxBundleBytes",
+        "maxArtifactBytes",
+        "maxTotalArtifactBytes",
+        "textContentTypes",
+        "requireUtf8ForText",
+        "includeRoles"
+      ],
+      "additionalProperties": false
+    },
+    "input": {
+      "type": "object",
+      "properties": {
+        "table": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "derivedDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "view": {
+          "$ref": "#/$defs/viewName"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "format": {
+          "enum": [
+            "parquet",
+            "jsonl",
+            "csv",
+            "xlsx",
+            "raw-artifacts",
+            "acquisition-bundle"
+          ]
+        },
+        "sheet": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 31
+        },
+        "options": {
+          "$ref": "#/$defs/options"
+        },
+        "hydration": {
+          "$ref": "#/$defs/hydration"
+        },
+        "bundle": {
+          "$ref": "#/$defs/bundle"
+        }
+      },
+      "required": ["table", "view", "required", "format"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "const": "raw-artifacts"
+              }
+            },
+            "required": ["format"]
+          },
+          "then": {
+            "properties": {
+              "derivedDataset": {},
+              "hydration": {}
+            },
+            "required": ["derivedDataset", "hydration"],
+            "not": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "bundle": {}
+                  },
+                  "required": ["bundle"]
+                },
+                {
+                  "properties": {
+                    "sheet": {}
+                  },
+                  "required": ["sheet"]
+                },
+                {
+                  "properties": {
+                    "options": {}
+                  },
+                  "required": ["options"]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "const": "acquisition-bundle"
+              }
+            },
+            "required": ["format"]
+          },
+          "then": {
+            "properties": {
+              "derivedDataset": {},
+              "bundle": {}
+            },
+            "required": ["derivedDataset", "bundle"],
+            "not": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "hydration": {}
+                  },
+                  "required": ["hydration"]
+                },
+                {
+                  "properties": {
+                    "sheet": {}
+                  },
+                  "required": ["sheet"]
+                },
+                {
+                  "properties": {
+                    "options": {}
+                  },
+                  "required": ["options"]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "enum": ["parquet", "jsonl", "csv", "xlsx"]
+              }
+            },
+            "required": ["format"]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "derivedDataset": {}
+                  },
+                  "required": ["derivedDataset"]
+                },
+                {
+                  "properties": {
+                    "hydration": {}
+                  },
+                  "required": ["hydration"]
+                },
+                {
+                  "properties": {
+                    "bundle": {}
+                  },
+                  "required": ["bundle"]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "shape": {
+          "const": "tabular"
+        },
+        "format": {
+          "enum": ["parquet", "jsonl", "csv", "xlsx"]
+        },
+        "options": {
+          "$ref": "#/$defs/options"
+        },
+        "profile": {
+          "const": "neptune"
+        }
+      },
+      "required": ["shape", "format"],
+      "additionalProperties": false
+    },
+    "determinism": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "DETERMINISTIC"
+        },
+        "runtimeFunctions": {
+          "type": "array",
+          "maxItems": 0
+        }
+      },
+      "required": ["status", "runtimeFunctions"],
+      "additionalProperties": false
+    },
+    "mappingOutput": {
+      "type": "object",
+      "properties": {
+        "dataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "dependsOn": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/datasetName"
+          }
+        },
+        "queryPath": {
+          "type": "string",
+          "pattern": "^queries/[^/].*\\.sql$"
+        },
+        "querySha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "determinism": {
+          "$ref": "#/$defs/determinism"
+        }
+      },
+      "required": ["dataset", "dependsOn", "queryPath", "querySha256"],
+      "additionalProperties": false
+    }
+  }
+}

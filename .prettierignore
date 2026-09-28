@@ -39,6 +39,9 @@ pnpm-lock.yaml
 # Public assets that shouldn't be formatted
 public/
 
+# Raw mapping fixtures are immutable source bytes
+publish/pipelines/transform/mappings/**/fixtures/**/raw/**
+
 # Data files
 *.json
 
