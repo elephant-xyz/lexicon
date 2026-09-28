@@ -1,5 +1,9 @@
 {
-  "vertices": [
+  "contractVersion": 2,
+  "name": "crm",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "datasets": [
     {
       "type": "customers",
       "description": "Customer records exported by the CRM.",
@@ -25,9 +29,8 @@
           "format": "date"
         }
       },
-      "required": ["customer_code", "balance", "active", "created_on"]
+      "required": ["customer_code", "balance", "active", "created_on"],
+      "additionalProperties": false
     }
-  ],
-  "edges": [],
-  "common_patterns": []
+  ]
 }

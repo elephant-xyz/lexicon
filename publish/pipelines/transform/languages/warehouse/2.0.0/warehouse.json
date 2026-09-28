@@ -1,5 +1,9 @@
 {
-  "vertices": [
+  "contractVersion": 2,
+  "name": "warehouse",
+  "version": "2.0.0",
+  "shape": "tabular",
+  "datasets": [
     {
       "type": "accounts",
       "description": "Account table in the warehouse.",
@@ -22,9 +26,8 @@
           "format": "date"
         }
       },
-      "required": ["account_id", "balance", "active", "created_on"]
+      "required": ["account_id", "balance", "active", "created_on"],
+      "additionalProperties": false
     }
-  ],
-  "edges": [],
-  "common_patterns": []
+  ]
 }

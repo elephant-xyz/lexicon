@@ -1,4 +1,5 @@
 {
+  "contractVersion": 2,
   "name": "county-curated",
   "version": "1.0.0",
   "shape": "tabular",
@@ -15,7 +16,9 @@
         "value_usd": {
           "type": "number"
         }
-      }
+      },
+      "required": [],
+      "additionalProperties": false
     }
   ]
 }

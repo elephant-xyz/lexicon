@@ -2,6 +2,7 @@
   "contractVersion": 2,
   "id": "county-raw-to-curated",
   "version": "1.0.0",
+  "status": "ENABLED",
   "engine": "spark-sql",
   "from": {
     "name": "county-raw",

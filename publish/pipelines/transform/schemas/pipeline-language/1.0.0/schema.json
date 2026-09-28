@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/schemas/pipeline-language/1.0.0/schema.json",
+  "title": "Elephant Transform tabular pipeline language",
+  "description": "Authoritative schema for versioned tabular language artifacts published in the Transform pipeline catalog. Root graph Lexicon vertices and edges remain governed by src/data/lexicon.json.",
+  "type": "object",
+  "properties": {
+    "contractVersion": {
+      "const": 2
+    },
+    "name": {
+      "$ref": "#/$defs/languageName"
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "shape": {
+      "const": "tabular"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "datasets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/dataset"
+      }
+    }
+  },
+  "required": ["contractVersion", "name", "version", "shape", "datasets"],
+  "additionalProperties": false,
+  "$defs": {
+    "languageName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "datasetName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "columnName": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+    },
+    "scalarType": {
+      "enum": ["string", "integer", "number", "boolean"]
+    },
+    "columnType": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scalarType"
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/scalarType"
+            },
+            {
+              "const": "null"
+            }
+          ],
+          "minItems": 2,
+          "maxItems": 2
+        }
+      ]
+    },
+    "scalarValue": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "column": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/columnType"
+        },
+        "const": {
+          "$ref": "#/$defs/scalarValue"
+        },
+        "enum": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/scalarValue"
+          }
+        },
+        "format": {
+          "enum": [
+            "date",
+            "date-time",
+            "time",
+            "email",
+            "uri",
+            "canonical-json"
+          ]
+        },
+        "contentMediaType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pattern": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minLength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "maxLength": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["type"],
+      "additionalProperties": false
+    },
+    "invariant": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "enforcedBy": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["json-schema", "mapping-sql", "producer"]
+          }
+        }
+      },
+      "required": ["name", "description", "enforcedBy"],
+      "additionalProperties": false
+    },
+    "dataset": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "properties": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "$ref": "#/$defs/columnName"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/column"
+          }
+        },
+        "required": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/columnName"
+          }
+        },
+        "additionalProperties": {
+          "const": false
+        },
+        "allOf": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object"
+          }
+        },
+        "x-invariants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/invariant"
+          }
+        }
+      },
+      "required": ["type", "properties", "required", "additionalProperties"],
+      "additionalProperties": false
+    }
+  }
+}

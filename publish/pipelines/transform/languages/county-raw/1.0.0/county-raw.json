@@ -1,4 +1,5 @@
 {
+  "contractVersion": 2,
   "name": "county-raw",
   "version": "1.0.0",
   "shape": "tabular",
@@ -15,7 +16,9 @@
         "assessed_value": {
           "type": "number"
         }
-      }
+      },
+      "required": [],
+      "additionalProperties": false
     }
   ]
 }
