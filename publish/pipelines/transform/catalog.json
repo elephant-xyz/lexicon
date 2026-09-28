@@ -1,0 +1,79 @@
+{
+  "contractVersion": 2,
+  "publisher": "elephant-xyz/lexicon",
+  "repository": "https://github.com/elephant-xyz/lexicon",
+  "ssMPointer": "/lexicon/transform-catalog-uri",
+  "githubRawBase": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform",
+  "languageSchema": {
+    "version": "1.0.0",
+    "status": "ENABLED",
+    "path": "schemas/pipeline-language/1.0.0/schema.json",
+    "sha256": "02cb4837a0ee867d7569efb9faf8d82eef3ef0d47362dd6de285f252c37d8c97"
+  },
+  "entries": [
+    {
+      "kind": "language",
+      "name": "county-curated",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/county-curated/1.0.0/county-curated.json",
+      "sha256": "a58cae8967aee61ef8bacbb32130295b6c4784f1d644829f95d7ba8e7d5f9266"
+    },
+    {
+      "kind": "language",
+      "name": "county-raw",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/county-raw/1.0.0/county-raw.json",
+      "sha256": "20a1595ef03bbe4c6d3f6b64beea75243d9f509380b85c3094ff388fe72daa8d"
+    },
+    {
+      "kind": "language",
+      "name": "crm",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/crm/1.0.0/crm.json",
+      "sha256": "a5fd5b429264ab4e6bcf1d0d0304f496070dcc2d3485803188f80f6dff2a1874"
+    },
+    {
+      "kind": "language",
+      "name": "warehouse",
+      "version": "2.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/warehouse/2.0.0/warehouse.json",
+      "sha256": "4ec9c8c180c5b22c5795d5983af0112bec45104e7113ed0ab6ee3ddc5b6bca4c"
+    },
+    {
+      "kind": "mapping",
+      "id": "county-raw-to-curated",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "county-raw",
+      "to": "county-curated",
+      "path": "mappings/county-raw-to-curated/1.0.0/manifest.json",
+      "sha256": "2c5cef4b3894abaac08534457e4d4c3af6ba43737f7af542e8d6b7232e298775",
+      "querySha256": "4537e89a464471efbb58dc349872393a1e33ce1827bd607c7c7c18f5f58a4b62"
+    },
+    {
+      "kind": "mapping",
+      "id": "crm-to-warehouse",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "crm",
+      "to": "warehouse",
+      "path": "mappings/crm-to-warehouse/1.0.0/manifest.json",
+      "sha256": "b44f4981e5c28187d19ed215eed070caaf4aa41209c4b705716ff1f7107d6237",
+      "querySha256": "8417d426b6a6b64320a236b6e28e64278b6c5a9a8526a54f668530b57b05de12"
+    }
+  ]
+}
