@@ -6,7 +6,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { describe, expect, it } from 'vitest';
 
-type LanguageSchemaRegistration = {
+type PublicationSchemaRegistration = {
   version: string;
   status: 'ENABLED' | 'DISABLED';
   path: string;
@@ -39,7 +39,9 @@ type MappingEntry = {
 
 type TransformCatalog = {
   contractVersion: number;
-  languageSchema: LanguageSchemaRegistration;
+  languageSchema: PublicationSchemaRegistration;
+  mappingSchema: PublicationSchemaRegistration;
+  documentExtractionSchema: PublicationSchemaRegistration;
   entries: Array<LanguageEntry | MappingEntry>;
 };
 
@@ -66,13 +68,30 @@ type MappingManifest = {
   engine: string;
   from: { name: string; version: string };
   to: { name: string; version: string };
-  inputs: Array<{ table: string; view: string; format: string }>;
+  inputs: Array<{
+    table: string;
+    derivedDataset?: string;
+    view: string;
+    format: string;
+    hydration?: {
+      recordsTable: string;
+      runManifestTable: string;
+    };
+  }>;
+  documentExtraction?: {
+    configPath: string;
+    configSha256: string;
+  };
   output: { shape: string; format: string };
   outputs: Array<{
     dataset: string;
     dependsOn: string[];
     queryPath: string;
     querySha256: string;
+    determinism?: {
+      status: string;
+      runtimeFunctions: string[];
+    };
   }>;
 };
 
@@ -83,6 +102,10 @@ const semverPattern =
 
 function readJson<T>(filePath: string): T {
   return JSON.parse(readFileSync(filePath, 'utf8')) as T;
+}
+
+function cloneJson<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
 }
 
 function sha256(filePath: string): string {
@@ -96,20 +119,23 @@ function resolvePinnedPath(relativePath: string): string {
 }
 
 describe('Transform pipeline catalog publication', () => {
-  it('pins one authoritative tabular language schema', () => {
+  it('pins authoritative language, mapping, and extraction schemas', () => {
     expect(catalog.contractVersion).toBe(2);
-    expect(catalog.languageSchema.status).toBe('ENABLED');
-    expect(semverPattern.test(catalog.languageSchema.version)).toBe(true);
-    expect(catalog.languageSchema.path).toBe(
-      `schemas/pipeline-language/${catalog.languageSchema.version}/schema.json`
-    );
-
-    const schemaPath = resolvePinnedPath(catalog.languageSchema.path);
-    expect(sha256(schemaPath)).toBe(catalog.languageSchema.sha256);
-
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     addFormats(ajv);
-    expect(() => ajv.compile(readJson<object>(schemaPath))).not.toThrow();
+    const schemas = [
+      ['pipeline-language', catalog.languageSchema],
+      ['pipeline-mapping', catalog.mappingSchema],
+      ['document-extraction', catalog.documentExtractionSchema],
+    ] as const;
+    for (const [name, registration] of schemas) {
+      expect(registration.status).toBe('ENABLED');
+      expect(semverPattern.test(registration.version)).toBe(true);
+      expect(registration.path).toBe(`schemas/${name}/${registration.version}/schema.json`);
+      const schemaPath = resolvePinnedPath(registration.path);
+      expect(sha256(schemaPath)).toBe(registration.sha256);
+      expect(() => ajv.compile(readJson<object>(schemaPath))).not.toThrow();
+    }
   });
 
   it('validates immutable language identities, paths, shapes, and digests', () => {
@@ -168,6 +194,14 @@ describe('Transform pipeline catalog publication', () => {
   });
 
   it('validates mapping references, directional uniqueness, and SQL digests', () => {
+    const ajv = new Ajv2020({ allErrors: true, strict: true });
+    addFormats(ajv);
+    const validateMapping = ajv.compile(
+      readJson<object>(resolvePinnedPath(catalog.mappingSchema.path))
+    );
+    const validateExtraction = ajv.compile(
+      readJson<object>(resolvePinnedPath(catalog.documentExtractionSchema.path))
+    );
     const languages = new Map<string, PipelineLanguage>();
     for (const entry of catalog.entries) {
       if (entry.kind !== 'language') continue;
@@ -191,6 +225,7 @@ describe('Transform pipeline catalog publication', () => {
       const manifestPath = resolvePinnedPath(entry.path);
       expect(sha256(manifestPath), identity).toBe(entry.sha256);
       const manifest = readJson<MappingManifest>(manifestPath);
+      expect(validateMapping(manifest), JSON.stringify(validateMapping.errors)).toBe(true);
       expect(manifest).toMatchObject({
         contractVersion: 2,
         id: entry.id,
@@ -211,12 +246,47 @@ describe('Transform pipeline catalog publication', () => {
       const sourceDatasets = new Set(fromLanguage?.datasets.map(dataset => dataset.type));
       const targetDatasets = new Set(toLanguage?.datasets.map(dataset => dataset.type));
       for (const input of manifest.inputs) {
-        expect(
-          sourceDatasets.has(input.table),
-          `${identity} references unknown input ${input.table}`
-        ).toBe(true);
+        if (input.format === 'raw-artifacts') {
+          expect(input.derivedDataset, `${identity} raw derived dataset`).toBeDefined();
+          expect(
+            sourceDatasets.has(input.derivedDataset!),
+            `${identity} references unknown derived dataset ${input.derivedDataset}`
+          ).toBe(true);
+          expect(
+            sourceDatasets.has(input.hydration?.recordsTable ?? ''),
+            `${identity} references unknown hydration records table`
+          ).toBe(true);
+          expect(
+            sourceDatasets.has(input.hydration?.runManifestTable ?? ''),
+            `${identity} references unknown hydration manifest table`
+          ).toBe(true);
+        } else {
+          expect(
+            sourceDatasets.has(input.table),
+            `${identity} references unknown input ${input.table}`
+          ).toBe(true);
+        }
       }
 
+      const rawInput = manifest.inputs.find(input => input.format === 'raw-artifacts');
+      if (rawInput === undefined) {
+        expect(manifest.documentExtraction).toBeUndefined();
+      } else {
+        expect(manifest.documentExtraction).toBeDefined();
+        const extractionPath = path.resolve(
+          path.dirname(manifestPath),
+          manifest.documentExtraction!.configPath
+        );
+        expect(extractionPath.startsWith(`${path.dirname(manifestPath)}${path.sep}`)).toBe(true);
+        expect(sha256(extractionPath)).toBe(manifest.documentExtraction!.configSha256);
+        const extraction = readJson<Record<string, unknown>>(extractionPath);
+        expect(validateExtraction(extraction), JSON.stringify(validateExtraction.errors)).toBe(
+          true
+        );
+        expect(extraction.sourceView).toBe(rawInput.view);
+      }
+
+      const declaredOutputNames = new Set(manifest.outputs.map(output => output.dataset));
       const outputNames = new Set<string>();
       const queryDigests: string[] = [];
       for (const output of manifest.outputs) {
@@ -229,6 +299,13 @@ describe('Transform pipeline catalog publication', () => {
           targetDatasets.has(output.dataset),
           `${identity} references unknown output ${output.dataset}`
         ).toBe(true);
+        for (const dependency of output.dependsOn) {
+          expect(
+            declaredOutputNames.has(dependency),
+            `${identity}:${output.dataset} depends on unknown output ${dependency}`
+          ).toBe(true);
+          expect(dependency).not.toBe(output.dataset);
+        }
         expect(output.queryPath).toMatch(/^queries\/[A-Za-z0-9._/-]+$/u);
         expect(output.queryPath).not.toContain('..');
 
@@ -247,5 +324,34 @@ describe('Transform pipeline catalog publication', () => {
         enabledPairs.add(pair);
       }
     }
+  });
+
+  it('requires complete raw-artifact hydration without weakening ordinary inputs', () => {
+    const ajv = new Ajv2020({ allErrors: true, strict: true });
+    addFormats(ajv);
+    const validateMapping = ajv.compile(
+      readJson<object>(resolvePinnedPath(catalog.mappingSchema.path))
+    );
+    const candidate = readJson<Record<string, unknown>>(
+      resolvePinnedPath(
+        'mappings/connect-http-acquisition-to-sale-availability-inference-input/1.0.0/manifest.json'
+      )
+    );
+    expect(validateMapping(candidate), JSON.stringify(validateMapping.errors)).toBe(true);
+
+    const missingExtraction = cloneJson(candidate);
+    delete missingExtraction.documentExtraction;
+    expect(validateMapping(missingExtraction)).toBe(false);
+
+    const missingDerivedDataset = cloneJson(candidate) as {
+      inputs: Array<Record<string, unknown>>;
+    };
+    delete missingDerivedDataset.inputs[2]?.derivedDataset;
+    expect(validateMapping(missingDerivedDataset)).toBe(false);
+
+    const ordinary = readJson<Record<string, unknown>>(
+      resolvePinnedPath('mappings/crm-to-warehouse/1.0.0/manifest.json')
+    );
+    expect(validateMapping(ordinary), JSON.stringify(validateMapping.errors)).toBe(true);
   });
 });

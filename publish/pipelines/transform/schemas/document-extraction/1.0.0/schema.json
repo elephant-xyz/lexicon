@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/schemas/document-extraction/1.0.0/schema.json",
+  "title": "Elephant Transform document extraction package",
+  "description": "Authoritative publication schema for deterministic raw-document extraction configuration referenced by a pipeline mapping.",
+  "type": "object",
+  "properties": {
+    "contractVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/name"
+    },
+    "version": {
+      "$ref": "#/$defs/semver"
+    },
+    "sourceView": {
+      "$ref": "#/$defs/viewName"
+    },
+    "outputView": {
+      "$ref": "#/$defs/viewName"
+    },
+    "outputColumns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/outputColumn"
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/rule"
+      }
+    },
+    "determinism": {
+      "$ref": "#/$defs/determinism"
+    }
+  },
+  "required": [
+    "contractVersion",
+    "id",
+    "version",
+    "sourceView",
+    "outputView",
+    "outputColumns",
+    "rules",
+    "determinism"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "viewName": {
+      "type": "string",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?(?:\\+[0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*)?$"
+    },
+    "outputColumn": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/viewName"
+        },
+        "type": {
+          "enum": ["string", "integer", "boolean"]
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      },
+      "required": ["name", "type", "nullable"],
+      "additionalProperties": false
+    },
+    "match": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "registrationIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "publisherIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "artifactRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["raw", "robots", "discovery"]
+          }
+        },
+        "contentTypes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "value": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "text"
+            }
+          },
+          "required": ["kind"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "attribute"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["kind", "name"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/viewName"
+        },
+        "selector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "$ref": "#/$defs/value"
+        },
+        "required": {
+          "type": "boolean"
+        }
+      },
+      "required": ["name", "value", "required"],
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/name"
+        },
+        "match": {
+          "$ref": "#/$defs/match"
+        },
+        "repeatSelector": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        }
+      },
+      "required": ["id", "match", "fields"],
+      "additionalProperties": false
+    },
+    "determinism": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "DETERMINISTIC"
+        },
+        "runtimeFunctions": {
+          "type": "array",
+          "maxItems": 0
+        }
+      },
+      "required": ["status", "runtimeFunctions"],
+      "additionalProperties": false
+    }
+  }
+}

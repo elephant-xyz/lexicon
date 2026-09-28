@@ -10,16 +10,28 @@
     "path": "schemas/pipeline-language/1.0.0/schema.json",
     "sha256": "02cb4837a0ee867d7569efb9faf8d82eef3ef0d47362dd6de285f252c37d8c97"
   },
+  "mappingSchema": {
+    "version": "1.0.0",
+    "status": "ENABLED",
+    "path": "schemas/pipeline-mapping/1.0.0/schema.json",
+    "sha256": "a32855895888bc127ebe66cfbe49e421020b5dea81f3eec4e7cf6314f76dd2ef"
+  },
+  "documentExtractionSchema": {
+    "version": "1.0.0",
+    "status": "ENABLED",
+    "path": "schemas/document-extraction/1.0.0/schema.json",
+    "sha256": "4fbb6895d22569e20c377d9b5edfc143ef685f05654f90d081a7a53a7de4c6f4"
+  },
   "entries": [
     {
       "kind": "language",
-      "name": "connect-sale-availability-evidence",
-      "version": "2.0.0",
+      "name": "connect-http-acquisition",
+      "version": "1.0.0",
       "current": true,
       "status": "ENABLED",
       "shape": "tabular",
-      "path": "languages/connect-sale-availability-evidence/2.0.0/connect-sale-availability-evidence.json",
-      "sha256": "8518a4ea03c35b4804824f69584358f7d4c11c1df7572e477392a35f217f801c"
+      "path": "languages/connect-http-acquisition/1.0.0/connect-http-acquisition.json",
+      "sha256": "aa54e5f2892529a737e181cd55f68cedafd8c5e4f66b97579cae8e737143e72b"
     },
     {
       "kind": "language",
@@ -59,7 +71,7 @@
       "status": "ENABLED",
       "shape": "tabular",
       "path": "languages/sale-availability-inference-input/1.0.0/sale-availability-inference-input.json",
-      "sha256": "7bb59b5c608e03c1ec746994632eb602790896574869b46112322cb6ca8b78a8"
+      "sha256": "2456f6afdf0ca417976337e39230753191f32f57405cb5273da6141c3fc91da6"
     },
     {
       "kind": "language",
@@ -73,14 +85,14 @@
     },
     {
       "kind": "mapping",
-      "id": "connect-sale-availability-evidence-to-sale-availability-inference-input",
+      "id": "connect-http-acquisition-to-sale-availability-inference-input",
       "version": "1.0.0",
       "current": true,
       "status": "ENABLED",
-      "from": "connect-sale-availability-evidence",
+      "from": "connect-http-acquisition",
       "to": "sale-availability-inference-input",
-      "path": "mappings/connect-sale-availability-evidence-to-sale-availability-inference-input/1.0.0/manifest.json",
-      "sha256": "99da548289480ba2fd46b560ab74494dfa92abf1b86245ced2a17f205b5d12e5"
+      "path": "mappings/connect-http-acquisition-to-sale-availability-inference-input/1.0.0/manifest.json",
+      "sha256": "0a66c362f06f413afa2746a818a4e395877fd921121ec3763b45174a9f51d8f7"
     },
     {
       "kind": "mapping",

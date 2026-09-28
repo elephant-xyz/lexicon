@@ -1,0 +1,83 @@
+{
+  "contractVersion": 2,
+  "id": "connect-http-acquisition-to-sale-availability-inference-input",
+  "version": "1.0.0",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "connect-http-acquisition",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "sale-availability-inference-input",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "run_manifest",
+      "view": "source_run_manifest",
+      "required": true,
+      "format": "jsonl",
+      "options": { "encoding": "UTF-8" }
+    },
+    {
+      "table": "acquisition_records",
+      "view": "source_acquisition_records",
+      "required": true,
+      "format": "jsonl",
+      "options": { "encoding": "UTF-8" }
+    },
+    {
+      "table": "raw_artifacts",
+      "derivedDataset": "raw_documents",
+      "view": "source_raw_documents",
+      "required": true,
+      "format": "raw-artifacts",
+      "hydration": {
+        "recordsTable": "acquisition_records",
+        "runManifestTable": "run_manifest",
+        "maxArtifactBytes": 1048576,
+        "maxTotalArtifactBytes": 4194304,
+        "textContentTypes": [
+          "application/json",
+          "application/xhtml+xml",
+          "text/html",
+          "text/plain"
+        ],
+        "requireUtf8ForText": true,
+        "includeRoles": ["raw", "robots", "discovery"]
+      }
+    }
+  ],
+  "documentExtraction": {
+    "configPath": "extraction/document-extraction.json",
+    "configSha256": "c85ae7d110e7510ac85d4b23488b767754aa5349de8ea4b3138abe8283bfe659"
+  },
+  "output": {
+    "shape": "tabular",
+    "format": "jsonl",
+    "options": { "ignoreNullFields": false }
+  },
+  "outputs": [
+    {
+      "dataset": "normalized_evidence",
+      "dependsOn": [],
+      "queryPath": "queries/normalized_evidence.sql",
+      "querySha256": "9a804bc32f13d1e9af65dd50b74e5c92c560ad4bc85ff3d2d2e6c30d5cb64950",
+      "determinism": {
+        "status": "DETERMINISTIC",
+        "runtimeFunctions": []
+      }
+    },
+    {
+      "dataset": "inference_candidates",
+      "dependsOn": ["normalized_evidence"],
+      "queryPath": "queries/inference_candidates.sql",
+      "querySha256": "0ca36e41b8ebfe22460ac314b0246babe6820f0b1f38ebc9b830dbec749c5833",
+      "determinism": {
+        "status": "DETERMINISTIC",
+        "runtimeFunctions": []
+      }
+    }
+  ]
+}

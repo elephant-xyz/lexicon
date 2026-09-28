@@ -17,7 +17,10 @@ the Lexicon UI (`src/data/lexicon.json`, `/api/manifest`).
 Pipeline tabular languages use the versioned
 `transform/schemas/pipeline-language/1.0.0/schema.json` contract:
 `contractVersion`, language `name` and `version`, `shape: "tabular"`, and
-`datasets`. Root graph Lexicon data continues to use
+`datasets`. Mapping manifests and deterministic extraction packages use
+`transform/schemas/pipeline-mapping/1.0.0/schema.json` and
+`transform/schemas/document-extraction/1.0.0/schema.json`. Root graph Lexicon
+data continues to use
 `src/data/lexicon.json` with `vertices`, `edges`, and `common_patterns`; the two
 models are intentionally separate.
 
@@ -27,10 +30,13 @@ Catalog and mapping digests pin every artifact and SQL query.
 
 ### Sale-availability publication boundary
 
-The first safe slice publishes Connect EvidenceRecord v2, deterministic
-Transform A normalization, and inference-candidate selection only. Nested audit
-objects remain canonical JSON strings; citation rows are a future language
-version.
+The first safe slice publishes generic Connect HTTP acquisition metadata and a
+Transform-owned raw-artifact hydration and document-extraction mapping.
+Transform A owns property matching, listing/completeness/status interpretation,
+asking-price parsing, and MLS extraction before deterministic
+inference-candidate selection. Connect owns only transport metadata and
+immutable raw bytes. Nested acquisition audit objects remain canonical JSON
+strings; citation rows are a future language version.
 
 The inference bundle and Transform B language/mapping are blocked until an
 actual inference Product contract, including its output enums, is checked into

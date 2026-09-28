@@ -3,110 +3,39 @@
   "name": "sale-availability-inference-input",
   "version": "1.0.0",
   "shape": "tabular",
-  "description": "Deterministic Transform A output. It validates every Connect evidence projection and isolates exact-property observations for a future pinned inference Product without defining inference outputs.",
+  "description": "Deterministic Transform A evidence derived from generic HTTP acquisition metadata and verified raw documents. Final cross-source outcome, price selection, and confidence remain System-owned.",
   "datasets": [
     {
       "type": "normalized_evidence",
-      "description": "Validated, scalar-only EvidenceRecord v2 projections retained one-for-one for deterministic downstream interpretation.",
       "properties": {
-        "contractVersion": {
-          "type": "integer",
-          "const": 2
-        },
+        "contractVersion": { "type": "integer", "const": 2 },
         "evidenceId": {
           "type": "string",
           "pattern": "^ev_[a-f0-9]{64}$"
         },
-        "sourceRequestId": {
+        "acquisitionId": {
           "type": "string",
-          "pattern": "^sr_[a-f0-9]{32}$"
+          "pattern": "^acq_[a-f0-9]{64}$"
         },
-        "connectExecutionId": {
+        "operationRequestId": {
           "type": "string",
-          "minLength": 1
+          "pattern": "^or_[a-f0-9]{32}$"
         },
-        "connectRequestId": {
-          "type": "string",
-          "minLength": 1
-        },
-        "lookupKeyType": {
-          "type": "string",
-          "enum": [
-            "address",
-            "parcelId"
-          ]
-        },
-        "lookupCanonicalKey": {
-          "type": "string",
-          "minLength": 1
-        },
-        "lookupAddress": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "lookupParcelId": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "providerId": {
-          "type": "string",
-          "minLength": 1
-        },
-        "providerVersion": {
-          "type": "string",
-          "minLength": 1
-        },
-        "evidenceLevel": {
-          "type": "string",
-          "enum": [
-            "fixture",
-            "live",
-            "deferred"
-          ]
-        },
-        "sourceUrl": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "uri"
-        },
-        "sourceIdentity": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "publisherId": {
-          "type": "string",
-          "minLength": 1
-        },
-        "sourceDomain": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "retrievedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "lookupAddress": { "type": "string", "minLength": 1 },
+        "lookupCanonicalKey": { "type": "string", "minLength": 1 },
+        "registrationId": { "type": "string", "minLength": 1 },
+        "registrationVersion": { "type": "string", "minLength": 1 },
+        "publisherId": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": ["string", "null"], "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
         "sourcePublishedAt": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "date-time"
         },
         "httpStatus": {
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "minimum": 100,
           "maximum": 599
         },
@@ -115,7 +44,6 @@
           "enum": [
             "SUCCESS",
             "NOT_FOUND",
-            "UNSUPPORTED_IDENTITY",
             "DISABLED",
             "BLOCKED",
             "HTTP_ERROR",
@@ -127,24 +55,6 @@
             "PARSE_ERROR"
           ]
         },
-        "retrievalAttempts": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 5
-        },
-        "contentType": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "failureCode": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
-        },
         "evidenceKind": {
           "type": "string",
           "enum": [
@@ -154,125 +64,68 @@
             "retrieval_failure"
           ]
         },
-        "exactPropertyMatch": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "indexCompletenessVerified": {
-          "type": "boolean"
-        },
+        "exactPropertyMatch": { "type": ["boolean", "null"] },
+        "indexCompletenessVerified": { "type": "boolean" },
         "listingStatus": {
           "type": "string",
-          "enum": [
-            "for_sale",
-            "pending",
-            "off_market",
-            "not_listed",
-            "unknown"
-          ]
+          "enum": ["for_sale", "pending", "off_market", "not_listed", "unknown"]
         },
-        "rawStatus": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
+        "rawStatus": { "type": ["string", "null"] },
         "askingPriceAmountMinor": {
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "minimum": 1,
           "maximum": 9007199254740991
         },
         "askingPriceCurrency": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "USD",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["USD", null]
         },
         "askingPriceParseStatus": {
           "type": "string",
-          "enum": [
-            "parsed",
-            "absent",
-            "rejected",
-            "not_applicable"
-          ]
+          "enum": ["parsed", "absent", "rejected", "not_applicable"]
         },
-        "evidenceExcerpt": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
+        "mlsId": { "type": ["string", "null"] },
+        "evidenceExcerpt": { "type": ["string", "null"] },
         "primaryRawArtifactUri": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "uri"
         },
         "primaryRawArtifactSha256": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "pattern": "^[a-f0-9]{64}$"
-        },
-        "evidenceFieldsJson": {
-          "type": "string",
-          "format": "canonical-json",
-          "contentMediaType": "application/json",
-          "minLength": 2
         },
         "provenanceJson": {
           "type": "string",
           "format": "canonical-json",
-          "contentMediaType": "application/json",
-          "minLength": 2
+          "contentMediaType": "application/json"
         },
-        "sourceRecordJson": {
-          "type": "string",
-          "format": "canonical-json",
-          "contentMediaType": "application/json",
-          "minLength": 2
-        },
-        "sourceRecordSha256": {
+        "acquisitionRecordSha256": {
           "type": "string",
           "pattern": "^[a-f0-9]{64}$"
+        },
+        "extractionJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
         }
       },
       "required": [
         "contractVersion",
         "evidenceId",
-        "sourceRequestId",
-        "connectExecutionId",
-        "connectRequestId",
-        "lookupKeyType",
-        "lookupCanonicalKey",
+        "acquisitionId",
+        "operationRequestId",
+        "runId",
+        "requestId",
         "lookupAddress",
-        "lookupParcelId",
-        "providerId",
-        "providerVersion",
-        "evidenceLevel",
-        "sourceUrl",
-        "sourceIdentity",
+        "lookupCanonicalKey",
+        "registrationId",
+        "registrationVersion",
         "publisherId",
-        "sourceDomain",
+        "sourceUrl",
         "retrievedAt",
         "sourcePublishedAt",
         "httpStatus",
         "retrievalOutcome",
-        "retrievalAttempts",
-        "contentType",
-        "failureCode",
         "evidenceKind",
         "exactPropertyMatch",
         "indexCompletenessVerified",
@@ -281,465 +134,47 @@
         "askingPriceAmountMinor",
         "askingPriceCurrency",
         "askingPriceParseStatus",
+        "mlsId",
         "evidenceExcerpt",
         "primaryRawArtifactUri",
         "primaryRawArtifactSha256",
-        "evidenceFieldsJson",
         "provenanceJson",
-        "sourceRecordJson",
-        "sourceRecordSha256"
+        "acquisitionRecordSha256",
+        "extractionJson"
       ],
-      "additionalProperties": false,
-      "allOf": [
-        {
-          "oneOf": [
-            {
-              "properties": {
-                "lookupKeyType": {
-                  "const": "address"
-                },
-                "lookupAddress": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "lookupParcelId": {
-                  "type": "null"
-                }
-              }
-            },
-            {
-              "properties": {
-                "lookupKeyType": {
-                  "const": "parcelId"
-                },
-                "lookupAddress": {
-                  "type": "null"
-                },
-                "lookupParcelId": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          ]
-        },
-        {
-          "oneOf": [
-            {
-              "properties": {
-                "primaryRawArtifactUri": {
-                  "type": "null"
-                },
-                "primaryRawArtifactSha256": {
-                  "type": "null"
-                }
-              }
-            },
-            {
-              "properties": {
-                "primaryRawArtifactUri": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "primaryRawArtifactSha256": {
-                  "type": "string",
-                  "pattern": "^[a-f0-9]{64}$"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "if": {
-            "properties": {
-              "askingPriceParseStatus": {
-                "const": "parsed"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "askingPriceAmountMinor": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9007199254740991
-              },
-              "askingPriceCurrency": {
-                "const": "USD"
-              },
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "evidenceKind": {
-                "const": "exact_listing"
-              },
-              "exactPropertyMatch": {
-                "const": true
-              },
-              "listingStatus": {
-                "const": "for_sale"
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "listingStatus": {
-                "const": "for_sale"
-              },
-              "exactPropertyMatch": {
-                "const": true
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "askingPriceParseStatus": {
-                "enum": [
-                  "parsed",
-                  "absent",
-                  "rejected"
-                ]
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "listingStatus": {
-                "const": "not_listed"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "evidenceKind": {
-                "const": "complete_index_absence"
-              },
-              "exactPropertyMatch": {
-                "const": false
-              },
-              "indexCompletenessVerified": {
-                "const": true
-              },
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "retrieval_failure"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "enum": [
-                  "NOT_FOUND",
-                  "UNSUPPORTED_IDENTITY",
-                  "DISABLED",
-                  "BLOCKED",
-                  "HTTP_ERROR",
-                  "NETWORK_ERROR",
-                  "TIMEOUT",
-                  "CONFIGURATION_ERROR",
-                  "CONTENT_TYPE_REJECTED",
-                  "RESPONSE_TOO_LARGE",
-                  "PARSE_ERROR"
-                ]
-              },
-              "exactPropertyMatch": {
-                "type": "null"
-              },
-              "indexCompletenessVerified": {
-                "const": false
-              },
-              "listingStatus": {
-                "const": "unknown"
-              },
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "discovery_only"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "exactPropertyMatch": {
-                "enum": [
-                  false,
-                  null
-                ]
-              },
-              "indexCompletenessVerified": {
-                "const": false
-              },
-              "listingStatus": {
-                "const": "unknown"
-              },
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "complete_index_absence"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "exactPropertyMatch": {
-                "const": false
-              },
-              "indexCompletenessVerified": {
-                "const": true
-              },
-              "listingStatus": {
-                "const": "not_listed"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "exact_listing"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "exactPropertyMatch": {
-                "const": true
-              },
-              "listingStatus": {
-                "enum": [
-                  "for_sale",
-                  "pending",
-                  "off_market",
-                  "unknown"
-                ]
-              }
-            }
-          }
-        }
-      ],
-      "x-invariants": [
-        {
-          "name": "positive_safe_integer_price",
-          "description": "askingPriceAmountMinor is null or a positive JavaScript-safe integer number of USD cents.",
-          "enforcedBy": [
-            "json-schema",
-            "mapping-sql",
-            "producer"
-          ]
-        },
-        {
-          "name": "structured_price_authority",
-          "description": "Only an exact successful for-sale listing with parse status parsed can carry amount and USD currency.",
-          "enforcedBy": [
-            "json-schema",
-            "mapping-sql",
-            "producer"
-          ]
-        },
-        {
-          "name": "canonical_nested_audit_json",
-          "description": "evidenceFieldsJson, provenanceJson, and sourceRecordJson are retained as canonical JSON strings; nested citations are not emitted as rows in this language version.",
-          "enforcedBy": [
-            "json-schema",
-            "producer"
-          ]
-        },
-        {
-          "name": "source_record_digest",
-          "description": "sourceRecordSha256 is the SHA-256 digest of the exact UTF-8 sourceRecordJson string.",
-          "enforcedBy": [
-            "producer"
-          ]
-        },
-        {
-          "name": "evidence_identity",
-          "description": "evidenceId remains the producer content identity and excludes Connect run IDs.",
-          "enforcedBy": [
-            "producer"
-          ]
-        }
-      ]
+      "additionalProperties": false
     },
     {
       "type": "inference_candidates",
-      "description": "Exact-property successful listing observations eligible for the separately governed inference Product.",
       "properties": {
-        "contractVersion": {
-          "type": "integer",
-          "const": 2
-        },
+        "contractVersion": { "type": "integer", "const": 2 },
         "evidenceId": {
           "type": "string",
           "pattern": "^ev_[a-f0-9]{64}$"
         },
-        "sourceRequestId": {
+        "acquisitionId": {
           "type": "string",
-          "pattern": "^sr_[a-f0-9]{32}$"
+          "pattern": "^acq_[a-f0-9]{64}$"
         },
-        "connectExecutionId": {
+        "operationRequestId": {
           "type": "string",
-          "minLength": 1
+          "pattern": "^or_[a-f0-9]{32}$"
         },
-        "connectRequestId": {
-          "type": "string",
-          "minLength": 1
-        },
-        "lookupKeyType": {
-          "type": "string",
-          "enum": [
-            "address",
-            "parcelId"
-          ]
-        },
-        "lookupCanonicalKey": {
-          "type": "string",
-          "minLength": 1
-        },
-        "lookupAddress": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "lookupParcelId": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "providerId": {
-          "type": "string",
-          "minLength": 1
-        },
-        "providerVersion": {
-          "type": "string",
-          "minLength": 1
-        },
-        "evidenceLevel": {
-          "type": "string",
-          "enum": [
-            "fixture",
-            "live",
-            "deferred"
-          ]
-        },
-        "sourceUrl": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "format": "uri"
-        },
-        "sourceIdentity": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "publisherId": {
-          "type": "string",
-          "minLength": 1
-        },
-        "sourceDomain": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "retrievedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "lookupAddress": { "type": "string", "minLength": 1 },
+        "lookupCanonicalKey": { "type": "string", "minLength": 1 },
+        "registrationId": { "type": "string", "minLength": 1 },
+        "registrationVersion": { "type": "string", "minLength": 1 },
+        "publisherId": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": ["string", "null"], "format": "uri" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
         "sourcePublishedAt": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "date-time"
         },
         "httpStatus": {
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "minimum": 100,
           "maximum": 599
         },
@@ -748,7 +183,6 @@
           "enum": [
             "SUCCESS",
             "NOT_FOUND",
-            "UNSUPPORTED_IDENTITY",
             "DISABLED",
             "BLOCKED",
             "HTTP_ERROR",
@@ -760,24 +194,6 @@
             "PARSE_ERROR"
           ]
         },
-        "retrievalAttempts": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 5
-        },
-        "contentType": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "failureCode": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
-        },
         "evidenceKind": {
           "type": "string",
           "enum": [
@@ -787,125 +203,68 @@
             "retrieval_failure"
           ]
         },
-        "exactPropertyMatch": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "indexCompletenessVerified": {
-          "type": "boolean"
-        },
+        "exactPropertyMatch": { "type": ["boolean", "null"] },
+        "indexCompletenessVerified": { "type": "boolean" },
         "listingStatus": {
           "type": "string",
-          "enum": [
-            "for_sale",
-            "pending",
-            "off_market",
-            "not_listed",
-            "unknown"
-          ]
+          "enum": ["for_sale", "pending", "off_market", "not_listed", "unknown"]
         },
-        "rawStatus": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
+        "rawStatus": { "type": ["string", "null"] },
         "askingPriceAmountMinor": {
-          "type": [
-            "integer",
-            "null"
-          ],
+          "type": ["integer", "null"],
           "minimum": 1,
           "maximum": 9007199254740991
         },
         "askingPriceCurrency": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "enum": [
-            "USD",
-            null
-          ]
+          "type": ["string", "null"],
+          "enum": ["USD", null]
         },
         "askingPriceParseStatus": {
           "type": "string",
-          "enum": [
-            "parsed",
-            "absent",
-            "rejected",
-            "not_applicable"
-          ]
+          "enum": ["parsed", "absent", "rejected", "not_applicable"]
         },
-        "evidenceExcerpt": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
+        "mlsId": { "type": ["string", "null"] },
+        "evidenceExcerpt": { "type": ["string", "null"] },
         "primaryRawArtifactUri": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "format": "uri"
         },
         "primaryRawArtifactSha256": {
-          "type": [
-            "string",
-            "null"
-          ],
+          "type": ["string", "null"],
           "pattern": "^[a-f0-9]{64}$"
-        },
-        "evidenceFieldsJson": {
-          "type": "string",
-          "format": "canonical-json",
-          "contentMediaType": "application/json",
-          "minLength": 2
         },
         "provenanceJson": {
           "type": "string",
           "format": "canonical-json",
-          "contentMediaType": "application/json",
-          "minLength": 2
+          "contentMediaType": "application/json"
         },
-        "sourceRecordJson": {
-          "type": "string",
-          "format": "canonical-json",
-          "contentMediaType": "application/json",
-          "minLength": 2
-        },
-        "sourceRecordSha256": {
+        "acquisitionRecordSha256": {
           "type": "string",
           "pattern": "^[a-f0-9]{64}$"
+        },
+        "extractionJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
         }
       },
       "required": [
         "contractVersion",
         "evidenceId",
-        "sourceRequestId",
-        "connectExecutionId",
-        "connectRequestId",
-        "lookupKeyType",
-        "lookupCanonicalKey",
+        "acquisitionId",
+        "operationRequestId",
+        "runId",
+        "requestId",
         "lookupAddress",
-        "lookupParcelId",
-        "providerId",
-        "providerVersion",
-        "evidenceLevel",
-        "sourceUrl",
-        "sourceIdentity",
+        "lookupCanonicalKey",
+        "registrationId",
+        "registrationVersion",
         "publisherId",
-        "sourceDomain",
+        "sourceUrl",
         "retrievedAt",
         "sourcePublishedAt",
         "httpStatus",
         "retrievalOutcome",
-        "retrievalAttempts",
-        "contentType",
-        "failureCode",
         "evidenceKind",
         "exactPropertyMatch",
         "indexCompletenessVerified",
@@ -914,383 +273,15 @@
         "askingPriceAmountMinor",
         "askingPriceCurrency",
         "askingPriceParseStatus",
+        "mlsId",
         "evidenceExcerpt",
         "primaryRawArtifactUri",
         "primaryRawArtifactSha256",
-        "evidenceFieldsJson",
         "provenanceJson",
-        "sourceRecordJson",
-        "sourceRecordSha256"
+        "acquisitionRecordSha256",
+        "extractionJson"
       ],
-      "additionalProperties": false,
-      "allOf": [
-        {
-          "oneOf": [
-            {
-              "properties": {
-                "lookupKeyType": {
-                  "const": "address"
-                },
-                "lookupAddress": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "lookupParcelId": {
-                  "type": "null"
-                }
-              }
-            },
-            {
-              "properties": {
-                "lookupKeyType": {
-                  "const": "parcelId"
-                },
-                "lookupAddress": {
-                  "type": "null"
-                },
-                "lookupParcelId": {
-                  "type": "string",
-                  "minLength": 1
-                }
-              }
-            }
-          ]
-        },
-        {
-          "oneOf": [
-            {
-              "properties": {
-                "primaryRawArtifactUri": {
-                  "type": "null"
-                },
-                "primaryRawArtifactSha256": {
-                  "type": "null"
-                }
-              }
-            },
-            {
-              "properties": {
-                "primaryRawArtifactUri": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "primaryRawArtifactSha256": {
-                  "type": "string",
-                  "pattern": "^[a-f0-9]{64}$"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "if": {
-            "properties": {
-              "askingPriceParseStatus": {
-                "const": "parsed"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "askingPriceAmountMinor": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9007199254740991
-              },
-              "askingPriceCurrency": {
-                "const": "USD"
-              },
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "evidenceKind": {
-                "const": "exact_listing"
-              },
-              "exactPropertyMatch": {
-                "const": true
-              },
-              "listingStatus": {
-                "const": "for_sale"
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "listingStatus": {
-                "const": "for_sale"
-              },
-              "exactPropertyMatch": {
-                "const": true
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "askingPriceParseStatus": {
-                "enum": [
-                  "parsed",
-                  "absent",
-                  "rejected"
-                ]
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "listingStatus": {
-                "const": "not_listed"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "evidenceKind": {
-                "const": "complete_index_absence"
-              },
-              "exactPropertyMatch": {
-                "const": false
-              },
-              "indexCompletenessVerified": {
-                "const": true
-              },
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "retrieval_failure"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "enum": [
-                  "NOT_FOUND",
-                  "UNSUPPORTED_IDENTITY",
-                  "DISABLED",
-                  "BLOCKED",
-                  "HTTP_ERROR",
-                  "NETWORK_ERROR",
-                  "TIMEOUT",
-                  "CONFIGURATION_ERROR",
-                  "CONTENT_TYPE_REJECTED",
-                  "RESPONSE_TOO_LARGE",
-                  "PARSE_ERROR"
-                ]
-              },
-              "exactPropertyMatch": {
-                "type": "null"
-              },
-              "indexCompletenessVerified": {
-                "const": false
-              },
-              "listingStatus": {
-                "const": "unknown"
-              },
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "discovery_only"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "exactPropertyMatch": {
-                "enum": [
-                  false,
-                  null
-                ]
-              },
-              "indexCompletenessVerified": {
-                "const": false
-              },
-              "listingStatus": {
-                "const": "unknown"
-              },
-              "askingPriceAmountMinor": {
-                "type": "null"
-              },
-              "askingPriceCurrency": {
-                "type": "null"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "complete_index_absence"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "exactPropertyMatch": {
-                "const": false
-              },
-              "indexCompletenessVerified": {
-                "const": true
-              },
-              "listingStatus": {
-                "const": "not_listed"
-              },
-              "askingPriceParseStatus": {
-                "const": "not_applicable"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "evidenceKind": {
-                "const": "exact_listing"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "retrievalOutcome": {
-                "const": "SUCCESS"
-              },
-              "exactPropertyMatch": {
-                "const": true
-              },
-              "listingStatus": {
-                "enum": [
-                  "for_sale",
-                  "pending",
-                  "off_market",
-                  "unknown"
-                ]
-              }
-            }
-          }
-        },
-        {
-          "properties": {
-            "retrievalOutcome": {
-              "const": "SUCCESS"
-            },
-            "evidenceKind": {
-              "const": "exact_listing"
-            },
-            "exactPropertyMatch": {
-              "const": true
-            }
-          }
-        }
-      ],
-      "x-invariants": [
-        {
-          "name": "positive_safe_integer_price",
-          "description": "askingPriceAmountMinor is null or a positive JavaScript-safe integer number of USD cents.",
-          "enforcedBy": [
-            "json-schema",
-            "mapping-sql",
-            "producer"
-          ]
-        },
-        {
-          "name": "structured_price_authority",
-          "description": "Only an exact successful for-sale listing with parse status parsed can carry amount and USD currency.",
-          "enforcedBy": [
-            "json-schema",
-            "mapping-sql",
-            "producer"
-          ]
-        },
-        {
-          "name": "canonical_nested_audit_json",
-          "description": "evidenceFieldsJson, provenanceJson, and sourceRecordJson are retained as canonical JSON strings; nested citations are not emitted as rows in this language version.",
-          "enforcedBy": [
-            "json-schema",
-            "producer"
-          ]
-        },
-        {
-          "name": "source_record_digest",
-          "description": "sourceRecordSha256 is the SHA-256 digest of the exact UTF-8 sourceRecordJson string.",
-          "enforcedBy": [
-            "producer"
-          ]
-        },
-        {
-          "name": "evidence_identity",
-          "description": "evidenceId remains the producer content identity and excludes Connect run IDs.",
-          "enforcedBy": [
-            "producer"
-          ]
-        },
-        {
-          "name": "candidate_eligibility",
-          "description": "Rows are eligible only when retrieval succeeded and evidenceKind is exact_listing with exactPropertyMatch true; discovery-only, retrieval-failure, and complete-index-absence rows are excluded.",
-          "enforcedBy": [
-            "json-schema",
-            "mapping-sql"
-          ]
-        }
-      ]
+      "additionalProperties": false
     }
   ]
 }

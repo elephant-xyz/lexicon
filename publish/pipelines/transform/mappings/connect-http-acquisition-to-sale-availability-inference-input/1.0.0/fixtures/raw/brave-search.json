@@ -1,0 +1,19 @@
+{
+  "query": {
+    "original": "\"301 174th St Apt 901, Sunny Isles Beach, FL 33160\" property for sale"
+  },
+  "web": {
+    "results": [
+      {
+        "description": "Unit 901 offered for $445,000, MLS A12076063",
+        "title": "Winston Towers 500 Unit 901",
+        "url": "https://www.discoverhomesmiami.com/sunny-isles-beach-condos/winston-towers-500"
+      },
+      {
+        "description": "Current and available: Unit 901, $445,000, MLS A12076063",
+        "title": "Winston Towers 500 Condo",
+        "url": "https://www.sunnyrealty.com/Results-BuildingName-Winston%20Towers%20500%20Condo.htm"
+      }
+    ]
+  }
+}
