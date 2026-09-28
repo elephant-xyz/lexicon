@@ -25,6 +25,18 @@ Published language and mapping paths are immutable. Any content change after a
 version reaches `main` requires a new SemVer directory and catalog identity.
 Catalog and mapping digests pin every artifact and SQL query.
 
+### Sale-availability publication boundary
+
+The first safe slice publishes Connect EvidenceRecord v2, deterministic
+Transform A normalization, and inference-candidate selection only. Nested audit
+objects remain canonical JSON strings; citation rows are a future language
+version.
+
+The inference bundle and Transform B language/mapping are blocked until an
+actual inference Product contract, including its output enums, is checked into
+and pinned from its owning repository. This catalog does not invent that
+contract.
+
 ## Local resolution
 
 Set `ELEPHANT_LEXICON_ROOT` to this repo checkout, or place `lexicon` as a sibling

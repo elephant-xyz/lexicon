@@ -1,0 +1,445 @@
+{
+  "source": {
+    "repository": "https://github.com/elephant-xyz/connect",
+    "branch": "feat/live-public-sale-availability-source",
+    "commit": "a4f94fe88d82dcc2dca2391acb0cc8deda105d54",
+    "contractPath": "src/sale-availability-contracts.ts",
+    "contractSha256": "7e04cf1064bc0cc6a96a1e059d40ba273f7476194d916589d64b193dbe3e38fe",
+    "schemaPath": "schemas/sale-availability-web.schema.json",
+    "schemaSha256": "39647072366059d6f6941dbd8d0d067171f75fe971b5e8de4db2833382b4aaf4"
+  },
+  "datasets": {
+    "run_manifest": {
+      "columns": [
+        {
+          "name": "contractVersion",
+          "type": "integer",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "executionId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "requestId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "startedAt",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "completedAt",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "languageName",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "languageVersion",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "requestUri",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "requestSha256",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "providerRegistryUri",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "providerRegistrySha256",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceEvidenceUri",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceEvidenceSha256",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "projectedEvidenceUri",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "projectedEvidenceSha256",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "recordCount",
+          "type": "integer",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "lookupCount",
+          "type": "integer",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "outcomeCountsJson",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "providerCountsJson",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "publisherCountsJson",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "rawArtifactPrefix",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        }
+      ],
+      "required": [
+        "contractVersion",
+        "executionId",
+        "requestId",
+        "startedAt",
+        "completedAt",
+        "status",
+        "languageName",
+        "languageVersion",
+        "requestUri",
+        "requestSha256",
+        "providerRegistryUri",
+        "providerRegistrySha256",
+        "sourceEvidenceUri",
+        "sourceEvidenceSha256",
+        "projectedEvidenceUri",
+        "projectedEvidenceSha256",
+        "recordCount",
+        "lookupCount",
+        "outcomeCountsJson",
+        "providerCountsJson",
+        "publisherCountsJson",
+        "rawArtifactPrefix"
+      ]
+    },
+    "evidence_records": {
+      "columns": [
+        {
+          "name": "contractVersion",
+          "type": "integer",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "evidenceId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceRequestId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "connectExecutionId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "connectRequestId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "lookupKeyType",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "lookupCanonicalKey",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "lookupAddress",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "lookupParcelId",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "providerId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "providerVersion",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "evidenceLevel",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceUrl",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "sourceIdentity",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "publisherId",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceDomain",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "retrievedAt",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourcePublishedAt",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "httpStatus",
+          "type": "integer",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "retrievalOutcome",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "retrievalAttempts",
+          "type": "integer",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "contentType",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "failureCode",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "evidenceKind",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "exactPropertyMatch",
+          "type": "boolean",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "indexCompletenessVerified",
+          "type": "boolean",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "listingStatus",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "rawStatus",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "askingPriceAmountMinor",
+          "type": "integer",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "askingPriceCurrency",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "askingPriceParseStatus",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "evidenceExcerpt",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "primaryRawArtifactUri",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "primaryRawArtifactSha256",
+          "type": "string",
+          "nullable": true,
+          "required": true
+        },
+        {
+          "name": "evidenceFieldsJson",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "provenanceJson",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceRecordJson",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        },
+        {
+          "name": "sourceRecordSha256",
+          "type": "string",
+          "nullable": false,
+          "required": true
+        }
+      ],
+      "required": [
+        "contractVersion",
+        "evidenceId",
+        "sourceRequestId",
+        "connectExecutionId",
+        "connectRequestId",
+        "lookupKeyType",
+        "lookupCanonicalKey",
+        "lookupAddress",
+        "lookupParcelId",
+        "providerId",
+        "providerVersion",
+        "evidenceLevel",
+        "sourceUrl",
+        "sourceIdentity",
+        "publisherId",
+        "sourceDomain",
+        "retrievedAt",
+        "sourcePublishedAt",
+        "httpStatus",
+        "retrievalOutcome",
+        "retrievalAttempts",
+        "contentType",
+        "failureCode",
+        "evidenceKind",
+        "exactPropertyMatch",
+        "indexCompletenessVerified",
+        "listingStatus",
+        "rawStatus",
+        "askingPriceAmountMinor",
+        "askingPriceCurrency",
+        "askingPriceParseStatus",
+        "evidenceExcerpt",
+        "primaryRawArtifactUri",
+        "primaryRawArtifactSha256",
+        "evidenceFieldsJson",
+        "provenanceJson",
+        "sourceRecordJson",
+        "sourceRecordSha256"
+      ]
+    }
+  }
+}

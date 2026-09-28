@@ -13,6 +13,16 @@
   "entries": [
     {
       "kind": "language",
+      "name": "connect-sale-availability-evidence",
+      "version": "2.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/connect-sale-availability-evidence/2.0.0/connect-sale-availability-evidence.json",
+      "sha256": "8518a4ea03c35b4804824f69584358f7d4c11c1df7572e477392a35f217f801c"
+    },
+    {
+      "kind": "language",
       "name": "county-curated",
       "version": "1.0.0",
       "current": true,
@@ -43,6 +53,16 @@
     },
     {
       "kind": "language",
+      "name": "sale-availability-inference-input",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-inference-input/1.0.0/sale-availability-inference-input.json",
+      "sha256": "7bb59b5c608e03c1ec746994632eb602790896574869b46112322cb6ca8b78a8"
+    },
+    {
+      "kind": "language",
       "name": "warehouse",
       "version": "2.0.0",
       "current": true,
@@ -50,6 +70,17 @@
       "shape": "tabular",
       "path": "languages/warehouse/2.0.0/warehouse.json",
       "sha256": "4ec9c8c180c5b22c5795d5983af0112bec45104e7113ed0ab6ee3ddc5b6bca4c"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-sale-availability-evidence-to-sale-availability-inference-input",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-sale-availability-evidence",
+      "to": "sale-availability-inference-input",
+      "path": "mappings/connect-sale-availability-evidence-to-sale-availability-inference-input/1.0.0/manifest.json",
+      "sha256": "99da548289480ba2fd46b560ab74494dfa92abf1b86245ced2a17f205b5d12e5"
     },
     {
       "kind": "mapping",

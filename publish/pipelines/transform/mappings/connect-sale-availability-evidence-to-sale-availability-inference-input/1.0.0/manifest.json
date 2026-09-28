@@ -1,0 +1,64 @@
+{
+  "contractVersion": 2,
+  "id": "connect-sale-availability-evidence-to-sale-availability-inference-input",
+  "version": "1.0.0",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "connect-sale-availability-evidence",
+    "version": "2.0.0"
+  },
+  "to": {
+    "name": "sale-availability-inference-input",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "run_manifest",
+      "view": "source_run_manifest",
+      "required": true,
+      "format": "jsonl",
+      "options": {
+        "encoding": "UTF-8"
+      }
+    },
+    {
+      "table": "evidence_records",
+      "view": "source_evidence_records",
+      "required": true,
+      "format": "jsonl",
+      "options": {
+        "encoding": "UTF-8"
+      }
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "jsonl",
+    "options": {
+      "ignoreNullFields": false
+    }
+  },
+  "outputs": [
+    {
+      "dataset": "normalized_evidence",
+      "dependsOn": [],
+      "querySha256": "8a2856a885ca00ee4afef8401bb5ef5cb9bb5515c69c407ff4377e9ebb9c3578",
+      "queryPath": "queries/normalized_evidence.sql",
+      "determinism": {
+        "status": "DETERMINISTIC",
+        "runtimeFunctions": []
+      }
+    },
+    {
+      "dataset": "inference_candidates",
+      "dependsOn": ["normalized_evidence"],
+      "querySha256": "48a8eb173e9cf7820924eddc8a91a4cf7dae92693d557d2c319d18f06e9b793a",
+      "queryPath": "queries/inference_candidates.sql",
+      "determinism": {
+        "status": "DETERMINISTIC",
+        "runtimeFunctions": []
+      }
+    }
+  ]
+}
