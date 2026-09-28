@@ -49,7 +49,7 @@
       "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
     },
     "scalarType": {
-      "enum": ["string", "integer", "number", "boolean"]
+      "enum": ["string", "integer", "number", "boolean", "object", "array"]
     },
     "columnType": {
       "oneOf": [
@@ -135,6 +135,35 @@
         },
         "maximum": {
           "type": "number"
+        },
+        "properties": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/columnName"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/column"
+          }
+        },
+        "required": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/columnName"
+          }
+        },
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "$ref": "#/$defs/column"
+            }
+          ]
+        },
+        "items": {
+          "$ref": "#/$defs/column"
         },
         "description": {
           "type": "string",

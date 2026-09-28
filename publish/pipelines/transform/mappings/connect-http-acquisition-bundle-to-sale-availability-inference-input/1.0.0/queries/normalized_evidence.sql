@@ -1,24 +1,18 @@
-WITH run_counts AS (
+WITH record_context AS (
   SELECT
-    runId,
-    COUNT(*) AS actualRecordCount
+    acquisition.*,
+    COUNT(*) OVER () AS actualRecordCount
   FROM source_acquisition_records
-  GROUP BY runId
+    AS acquisition
 ),
 targets AS (
   SELECT
     acquisition.*,
-    GET_JSON_OBJECT(
-      acquisition.contextJson,
-      '$.opaqueCallerInput.address'
-    ) AS lookupAddress,
+    targetAddress AS lookupAddress,
     LOWER(
       REGEXP_REPLACE(
         REGEXP_REPLACE(
-          GET_JSON_OBJECT(
-            acquisition.contextJson,
-            '$.opaqueCallerInput.address'
-          ),
+          targetAddress,
           '(?i)(?:apt|apartment|unit)\\.?\\s*|#\\s*',
           ' unit '
         ),
@@ -28,31 +22,33 @@ targets AS (
     ) AS normalizedAddress,
     LOWER(
       REGEXP_EXTRACT(
-        GET_JSON_OBJECT(
-          acquisition.contextJson,
-          '$.opaqueCallerInput.address'
-        ),
+        targetAddress,
         '(?i)(?:(?:apt|apartment|unit)\\.?\\s*|#\\s*)([A-Za-z0-9-]+)',
         1
       )
     ) AS targetUnit,
     CASE
       WHEN
-        manifest.recordCount = run_counts.actualRecordCount
-        AND manifest.runId = acquisition.runId
-        AND manifest.requestId = acquisition.requestId
+        run.recordCount = acquisition.actualRecordCount
+        AND run.runId = acquisition.runId
+        AND run.requestId = acquisition.requestId
       THEN TRUE
-      ELSE RAISE_ERROR('connect-http-acquisition run manifest mismatch')
+      ELSE RAISE_ERROR('connect-http-acquisition bundle mismatch')
     END AS manifestValid
-  FROM source_acquisition_records AS acquisition
-  INNER JOIN source_run_manifest AS manifest
-    ON manifest.runId = acquisition.runId
-  INNER JOIN run_counts
-    ON run_counts.runId = acquisition.runId
+  FROM record_context AS acquisition
+  INNER JOIN source_run_context AS run
+    ON run.runId = acquisition.runId
+  LATERAL VIEW EXPLODE(
+    FROM_JSON(
+      GET_JSON_OBJECT(run.contextJson, '$.opaqueCallerInput.addresses'),
+      'ARRAY<STRING>'
+    )
+  ) targetAddresses AS targetAddress
 ),
 extract_rollup AS (
   SELECT
     target.acquisitionId,
+    target.targetUnit,
     MAX(
       CASE
         WHEN extract.unit = target.targetUnit THEN 1
@@ -122,7 +118,9 @@ classified AS (
     END AS evidenceKindValue
   FROM targets AS target
   LEFT JOIN extract_rollup AS rollup
-    ON rollup.acquisitionId = target.acquisitionId
+    ON
+      rollup.acquisitionId = target.acquisitionId
+      AND rollup.targetUnit = target.targetUnit
   LEFT JOIN brave_rollup AS brave
     ON brave.acquisitionId = target.acquisitionId
   WHERE target.manifestValid = TRUE

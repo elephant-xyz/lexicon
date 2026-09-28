@@ -40,7 +40,7 @@ pnpm-lock.yaml
 public/
 
 # Raw mapping fixtures are immutable source bytes
-publish/pipelines/transform/mappings/**/fixtures/raw/**
+publish/pipelines/transform/mappings/**/fixtures/**/raw/**
 
 # Data files
 *.json

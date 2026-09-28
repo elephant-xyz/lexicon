@@ -1,11 +1,11 @@
 {
   "contractVersion": 2,
-  "id": "connect-http-acquisition-to-sale-availability-inference-input",
+  "id": "connect-http-acquisition-bundle-to-sale-availability-inference-input",
   "version": "1.0.0",
   "status": "ENABLED",
   "engine": "spark-sql",
   "from": {
-    "name": "connect-http-acquisition",
+    "name": "connect-http-acquisition-bundle",
     "version": "1.0.0"
   },
   "to": {
@@ -14,28 +14,20 @@
   },
   "inputs": [
     {
-      "table": "run_manifest",
-      "view": "source_run_manifest",
-      "required": true,
-      "format": "jsonl",
-      "options": { "encoding": "UTF-8" }
-    },
-    {
-      "table": "acquisition_records",
+      "table": "acquisition_bundle",
+      "derivedDataset": "acquisition_records",
       "view": "source_acquisition_records",
       "required": true,
-      "format": "jsonl",
-      "options": { "encoding": "UTF-8" }
-    },
-    {
-      "table": "raw_artifacts",
-      "derivedDataset": "raw_documents",
-      "view": "source_raw_documents",
-      "required": true,
-      "format": "raw-artifacts",
-      "hydration": {
-        "recordsTable": "acquisition_records",
-        "runManifestTable": "run_manifest",
+      "format": "acquisition-bundle",
+      "bundle": {
+        "bundleDataset": "acquisition_bundle",
+        "runDataset": "run_context",
+        "runView": "source_run_context",
+        "recordsDataset": "acquisition_records",
+        "recordsView": "source_acquisition_records",
+        "rawDocumentsDataset": "raw_documents",
+        "rawDocumentsView": "source_raw_documents",
+        "maxBundleBytes": 5242880,
         "maxArtifactBytes": 1048576,
         "maxTotalArtifactBytes": 4194304,
         "textContentTypes": [
@@ -63,7 +55,7 @@
       "dataset": "normalized_evidence",
       "dependsOn": [],
       "queryPath": "queries/normalized_evidence.sql",
-      "querySha256": "9a804bc32f13d1e9af65dd50b74e5c92c560ad4bc85ff3d2d2e6c30d5cb64950",
+      "querySha256": "20e4d76a07493df8ae47049920ac868b6b882b02c0679edaa3edfabd5318983e",
       "determinism": {
         "status": "DETERMINISTIC",
         "runtimeFunctions": []

@@ -1,0 +1,55 @@
+{
+  "connectSource": {
+    "repository": "https://github.com/elephant-xyz/connect",
+    "branch": "feat/live-public-sale-availability-source",
+    "commit": "9b5ae4dd34eeee4a145c42caf49684d50cc7e162",
+    "files": [
+      {
+        "path": "src/http-acquisition-contracts.ts",
+        "sha256": "f17fcec86a7b63b68f6743ee85b66c2ffc0c500287da4ec6cb65020bac55267a"
+      },
+      {
+        "path": "schemas/http-acquisition.schema.json",
+        "sha256": "cb69432738bb2e743ed4d08efc1b52052e39f727dafd7f7e6075ce38962e9beb"
+      }
+    ]
+  },
+  "transformCandidate": {
+    "repository": "https://github.com/elephant-xyz/transform",
+    "branch": "feat/sale-availability-transform-a",
+    "commit": "8d7e9b94a8142b278d3378b46373db5531d1d64f",
+    "catalogSha256": "1f82e2a5cc8369c0cd885878de223353e816c83a00d951105f96b5937bf4839d",
+    "artifacts": [
+      {
+        "path": "languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+        "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440"
+      },
+      {
+        "path": "languages/sale-availability-inference-input/1.0.0/sale-availability-inference-input.json",
+        "sha256": "2456f6afdf0ca417976337e39230753191f32f57405cb5273da6141c3fc91da6"
+      },
+      {
+        "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/manifest.json",
+        "sha256": "0312fc90fdbaf03f813122d13501104eb5669704410a4d31e1c4b8ee7c422f96"
+      },
+      {
+        "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/extraction/document-extraction.json",
+        "sha256": "c85ae7d110e7510ac85d4b23488b767754aa5349de8ea4b3138abe8283bfe659"
+      },
+      {
+        "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/queries/normalized_evidence.sql",
+        "sha256": "20e4d76a07493df8ae47049920ac868b6b882b02c0679edaa3edfabd5318983e"
+      },
+      {
+        "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/queries/inference_candidates.sql",
+        "sha256": "0ca36e41b8ebfe22460ac314b0246babe6820f0b1f38ebc9b830dbec749c5833"
+      }
+    ]
+  },
+  "bundleFixture": {
+    "path": "publish/pipelines/transform/mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/fixtures/object-store/transform-local/source/http-acquisition/acquisition_bundle.json",
+    "sha256": "917945262ffaa65c49511ba5914545848251a4a083ea3d3322ae7ed81a07ec62",
+    "contentSha256": "f4e7fdc8c6d7d5b476fce9899e627e5478c64703b86076363d7586ab62dd2c59",
+    "acquisitionCount": 4
+  }
+}

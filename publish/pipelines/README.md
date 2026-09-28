@@ -30,13 +30,15 @@ Catalog and mapping digests pin every artifact and SQL query.
 
 ### Sale-availability publication boundary
 
-The first safe slice publishes generic Connect HTTP acquisition metadata and a
-Transform-owned raw-artifact hydration and document-extraction mapping.
-Transform A owns property matching, listing/completeness/status interpretation,
-asking-price parsing, and MLS extraction before deterministic
-inference-candidate selection. Connect owns only transport metadata and
-immutable raw bytes. Nested acquisition audit objects remain canonical JSON
-strings; citation rows are a future language version.
+The first safe slice publishes one strict nested Connect
+`AcquisitionBundle@1` and a Transform-owned `acquisition-bundle` adapter. The
+adapter derives `run_context`, `acquisition_records`, and `raw_documents`
+internally; they are not separate Connect outputs. Transform A owns property
+matching, listing/completeness/status interpretation, asking-price parsing, and
+MLS extraction before deterministic inference-candidate selection. Connect owns
+only transport metadata and immutable raw bytes. Nested acquisition audit
+objects remain canonical JSON strings; citation rows are a future language
+version.
 
 The inference bundle and Transform B language/mapping are blocked until an
 actual inference Product contract, including its output enums, is checked into

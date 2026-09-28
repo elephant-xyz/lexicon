@@ -1,0 +1,36 @@
+{
+  "source": {
+    "repository": "https://github.com/elephant-xyz/transform",
+    "branch": "feat/sale-availability-transform-a",
+    "commit": "8d7e9b94a8142b278d3378b46373db5531d1d64f",
+    "testPath": "glue_scripts/test_sale_availability_transform.py"
+  },
+  "bundle": {
+    "s3Uri": "s3://transform-local/source/http-acquisition/acquisition_bundle.json",
+    "sha256": "917945262ffaa65c49511ba5914545848251a4a083ea3d3322ae7ed81a07ec62",
+    "contentSha256": "f4e7fdc8c6d7d5b476fce9899e627e5478c64703b86076363d7586ab62dd2c59",
+    "rows": 1,
+    "acquisitionRows": 4,
+    "rawArtifacts": 5
+  },
+  "normalizedEvidenceCount": 8,
+  "inferenceCandidateCount": 2,
+  "candidatePublishers": ["discover-homes-miami", "sunny-realty"],
+  "candidateAcquisitionIds": [
+    "acq_64caa5c252b0c76a3186990d1f378ffa9a950fbbdc03eff97317019313a83ecb",
+    "acq_23180cf98b601cc7804f48d28ea6c203a2fe8f49de443dd2e77c6af50199025c"
+  ],
+  "candidateSignal": {
+    "listingStatus": "for_sale",
+    "askingPriceAmountMinor": 44500000,
+    "askingPriceCurrency": "USD",
+    "mlsId": "A12076063"
+  },
+  "completeIndexAbsence": {
+    "acquisitionId": "acq_64caa5c252b0c76a3186990d1f378ffa9a950fbbdc03eff97317019313a83ecb",
+    "lookupAddressContains": "516",
+    "listingStatus": "not_listed",
+    "evidenceKind": "complete_index_absence",
+    "askingPriceAmountMinor": null
+  }
+}

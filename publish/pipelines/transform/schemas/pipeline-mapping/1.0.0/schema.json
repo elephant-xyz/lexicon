@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/schemas/pipeline-mapping/1.0.0/schema.json",
   "title": "Elephant Transform pipeline mapping",
-  "description": "Authoritative publication schema for Spark SQL mapping manifests, including generic raw-artifact hydration inputs.",
+  "description": "Authoritative publication schema for Spark SQL mapping manifests, including generic raw-artifact hydration and canonical acquisition-bundle adapters.",
   "type": "object",
   "properties": {
     "contractVersion": {
@@ -81,7 +81,7 @@
               "type": "object",
               "properties": {
                 "format": {
-                  "const": "raw-artifacts"
+                  "enum": ["raw-artifacts", "acquisition-bundle"]
                 }
               },
               "required": ["format"]
@@ -238,6 +238,80 @@
       ],
       "additionalProperties": false
     },
+    "bundle": {
+      "type": "object",
+      "properties": {
+        "bundleDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "runDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "runView": {
+          "$ref": "#/$defs/viewName"
+        },
+        "recordsDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "recordsView": {
+          "$ref": "#/$defs/viewName"
+        },
+        "rawDocumentsDataset": {
+          "$ref": "#/$defs/datasetName"
+        },
+        "rawDocumentsView": {
+          "$ref": "#/$defs/viewName"
+        },
+        "maxBundleBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxArtifactBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxTotalArtifactBytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "textContentTypes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "requireUtf8ForText": {
+          "type": "boolean"
+        },
+        "includeRoles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["raw", "robots", "discovery"]
+          }
+        }
+      },
+      "required": [
+        "bundleDataset",
+        "runDataset",
+        "runView",
+        "recordsDataset",
+        "recordsView",
+        "rawDocumentsDataset",
+        "rawDocumentsView",
+        "maxBundleBytes",
+        "maxArtifactBytes",
+        "maxTotalArtifactBytes",
+        "textContentTypes",
+        "requireUtf8ForText",
+        "includeRoles"
+      ],
+      "additionalProperties": false
+    },
     "input": {
       "type": "object",
       "properties": {
@@ -254,7 +328,14 @@
           "type": "boolean"
         },
         "format": {
-          "enum": ["parquet", "jsonl", "csv", "xlsx", "raw-artifacts"]
+          "enum": [
+            "parquet",
+            "jsonl",
+            "csv",
+            "xlsx",
+            "raw-artifacts",
+            "acquisition-bundle"
+          ]
         },
         "sheet": {
           "type": "string",
@@ -266,6 +347,9 @@
         },
         "hydration": {
           "$ref": "#/$defs/hydration"
+        },
+        "bundle": {
+          "$ref": "#/$defs/bundle"
         }
       },
       "required": ["table", "view", "required", "format"],
@@ -290,6 +374,12 @@
               "anyOf": [
                 {
                   "properties": {
+                    "bundle": {}
+                  },
+                  "required": ["bundle"]
+                },
+                {
+                  "properties": {
                     "sheet": {}
                   },
                   "required": ["sheet"]
@@ -302,8 +392,57 @@
                 }
               ]
             }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "const": "acquisition-bundle"
+              }
+            },
+            "required": ["format"]
           },
-          "else": {
+          "then": {
+            "properties": {
+              "derivedDataset": {},
+              "bundle": {}
+            },
+            "required": ["derivedDataset", "bundle"],
+            "not": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "hydration": {}
+                  },
+                  "required": ["hydration"]
+                },
+                {
+                  "properties": {
+                    "sheet": {}
+                  },
+                  "required": ["sheet"]
+                },
+                {
+                  "properties": {
+                    "options": {}
+                  },
+                  "required": ["options"]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "format": {
+                "enum": ["parquet", "jsonl", "csv", "xlsx"]
+              }
+            },
+            "required": ["format"]
+          },
+          "then": {
             "not": {
               "anyOf": [
                 {
@@ -317,6 +456,12 @@
                     "hydration": {}
                   },
                   "required": ["hydration"]
+                },
+                {
+                  "properties": {
+                    "bundle": {}
+                  },
+                  "required": ["bundle"]
                 }
               ]
             }

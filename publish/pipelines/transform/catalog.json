@@ -8,13 +8,13 @@
     "version": "1.0.0",
     "status": "ENABLED",
     "path": "schemas/pipeline-language/1.0.0/schema.json",
-    "sha256": "02cb4837a0ee867d7569efb9faf8d82eef3ef0d47362dd6de285f252c37d8c97"
+    "sha256": "a8b26d9f4d5aeb1485d4c3437a24c050d6b92cf1f8a8e8deec22a9cb1b05c3df"
   },
   "mappingSchema": {
     "version": "1.0.0",
     "status": "ENABLED",
     "path": "schemas/pipeline-mapping/1.0.0/schema.json",
-    "sha256": "a32855895888bc127ebe66cfbe49e421020b5dea81f3eec4e7cf6314f76dd2ef"
+    "sha256": "f17d9f479fffeffcc8afc42e4fe5c801ae4bb5633e7d98bc0d497dede89f7b01"
   },
   "documentExtractionSchema": {
     "version": "1.0.0",
@@ -25,13 +25,13 @@
   "entries": [
     {
       "kind": "language",
-      "name": "connect-http-acquisition",
+      "name": "connect-http-acquisition-bundle",
       "version": "1.0.0",
       "current": true,
       "status": "ENABLED",
       "shape": "tabular",
-      "path": "languages/connect-http-acquisition/1.0.0/connect-http-acquisition.json",
-      "sha256": "aa54e5f2892529a737e181cd55f68cedafd8c5e4f66b97579cae8e737143e72b"
+      "path": "languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440"
     },
     {
       "kind": "language",
@@ -85,14 +85,14 @@
     },
     {
       "kind": "mapping",
-      "id": "connect-http-acquisition-to-sale-availability-inference-input",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-inference-input",
       "version": "1.0.0",
       "current": true,
       "status": "ENABLED",
-      "from": "connect-http-acquisition",
+      "from": "connect-http-acquisition-bundle",
       "to": "sale-availability-inference-input",
-      "path": "mappings/connect-http-acquisition-to-sale-availability-inference-input/1.0.0/manifest.json",
-      "sha256": "0a66c362f06f413afa2746a818a4e395877fd921121ec3763b45174a9f51d8f7"
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/manifest.json",
+      "sha256": "0312fc90fdbaf03f813122d13501104eb5669704410a4d31e1c4b8ee7c422f96"
     },
     {
       "kind": "mapping",

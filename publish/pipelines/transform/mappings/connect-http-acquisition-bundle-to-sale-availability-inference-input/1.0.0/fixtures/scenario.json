@@ -4,14 +4,11 @@
     {
       "runId": "http-run-901",
       "requestId": "unit-901-http-acquisition",
-      "address": "301 174th St Apt 901, Sunny Isles Beach, FL 33160",
+      "addresses": [
+        "301 174th St Apt 901, Sunny Isles Beach, FL 33160",
+        "301 174th St Apt 516, Sunny Isles Beach, FL 33160"
+      ],
       "recordCount": 4
-    },
-    {
-      "runId": "http-run-516",
-      "requestId": "unit-516-http-acquisition",
-      "address": "301 174th St Apt 516, Sunny Isles Beach, FL 33160",
-      "recordCount": 2
     }
   ],
   "acquisitions": [
@@ -87,42 +84,6 @@
       "robotsArtifact": null,
       "discoveryArtifacts": [],
       "parentAcquisitionId": null
-    },
-    {
-      "acquisitionId": "acq_5555555555555555555555555555555555555555555555555555555555555555",
-      "operationRequestId": "or_55555555555555555555555555555555",
-      "runId": "http-run-516",
-      "requestId": "unit-516-http-acquisition",
-      "operationId": "brave-search",
-      "registrationId": "brave-search-api",
-      "publisherId": "brave-search",
-      "domain": "api.search.brave.com",
-      "sourceUrl": "https://api.search.brave.com/res/v1/web/search",
-      "contentType": "application/json",
-      "outcome": "SUCCESS",
-      "httpStatus": 200,
-      "rawArtifacts": ["brave-search-516.json"],
-      "robotsArtifact": null,
-      "discoveryArtifacts": [],
-      "parentAcquisitionId": null
-    },
-    {
-      "acquisitionId": "acq_6666666666666666666666666666666666666666666666666666666666666666",
-      "operationRequestId": "or_66666666666666666666666666666666",
-      "runId": "http-run-516",
-      "requestId": "unit-516-http-acquisition",
-      "operationId": "discover-page",
-      "registrationId": "discover-homes-webpage",
-      "publisherId": "discover-homes-miami",
-      "domain": "www.discoverhomesmiami.com",
-      "sourceUrl": "https://www.discoverhomesmiami.com/sunny-isles-beach-condos/winston-towers-500",
-      "contentType": "text/html",
-      "outcome": "SUCCESS",
-      "httpStatus": 200,
-      "rawArtifacts": ["discover-page-1.html", "discover-page-2.html"],
-      "robotsArtifact": "robots.txt",
-      "discoveryArtifacts": ["brave-search-516.json"],
-      "parentAcquisitionId": "acq_5555555555555555555555555555555555555555555555555555555555555555"
     }
   ]
 }

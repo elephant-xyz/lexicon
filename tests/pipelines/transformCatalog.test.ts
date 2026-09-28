@@ -77,6 +77,15 @@ type MappingManifest = {
       recordsTable: string;
       runManifestTable: string;
     };
+    bundle?: {
+      bundleDataset: string;
+      runDataset: string;
+      runView: string;
+      recordsDataset: string;
+      recordsView: string;
+      rawDocumentsDataset: string;
+      rawDocumentsView: string;
+    };
   }>;
   documentExtraction?: {
     configPath: string;
@@ -260,6 +269,22 @@ describe('Transform pipeline catalog publication', () => {
             sourceDatasets.has(input.hydration?.runManifestTable ?? ''),
             `${identity} references unknown hydration manifest table`
           ).toBe(true);
+        } else if (input.format === 'acquisition-bundle') {
+          expect(input.bundle, `${identity} bundle adapter`).toBeDefined();
+          expect(input.table).toBe(input.bundle?.bundleDataset);
+          expect(input.derivedDataset).toBe(input.bundle?.recordsDataset);
+          expect(input.view).toBe(input.bundle?.recordsView);
+          for (const derivedDataset of [
+            input.bundle?.bundleDataset,
+            input.bundle?.runDataset,
+            input.bundle?.recordsDataset,
+            input.bundle?.rawDocumentsDataset,
+          ]) {
+            expect(
+              sourceDatasets.has(derivedDataset ?? ''),
+              `${identity} references unknown bundle dataset ${derivedDataset}`
+            ).toBe(true);
+          }
         } else {
           expect(
             sourceDatasets.has(input.table),
@@ -268,8 +293,10 @@ describe('Transform pipeline catalog publication', () => {
         }
       }
 
-      const rawInput = manifest.inputs.find(input => input.format === 'raw-artifacts');
-      if (rawInput === undefined) {
+      const adapterInput = manifest.inputs.find(input =>
+        ['raw-artifacts', 'acquisition-bundle'].includes(input.format)
+      );
+      if (adapterInput === undefined) {
         expect(manifest.documentExtraction).toBeUndefined();
       } else {
         expect(manifest.documentExtraction).toBeDefined();
@@ -283,7 +310,9 @@ describe('Transform pipeline catalog publication', () => {
         expect(validateExtraction(extraction), JSON.stringify(validateExtraction.errors)).toBe(
           true
         );
-        expect(extraction.sourceView).toBe(rawInput.view);
+        expect(extraction.sourceView).toBe(
+          adapterInput.bundle?.rawDocumentsView ?? adapterInput.view
+        );
       }
 
       const declaredOutputNames = new Set(manifest.outputs.map(output => output.dataset));
@@ -326,7 +355,7 @@ describe('Transform pipeline catalog publication', () => {
     }
   });
 
-  it('requires complete raw-artifact hydration without weakening ordinary inputs', () => {
+  it('requires complete bundle adapters without weakening ordinary inputs', () => {
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     addFormats(ajv);
     const validateMapping = ajv.compile(
@@ -334,7 +363,7 @@ describe('Transform pipeline catalog publication', () => {
     );
     const candidate = readJson<Record<string, unknown>>(
       resolvePinnedPath(
-        'mappings/connect-http-acquisition-to-sale-availability-inference-input/1.0.0/manifest.json'
+        'mappings/connect-http-acquisition-bundle-to-sale-availability-inference-input/1.0.0/manifest.json'
       )
     );
     expect(validateMapping(candidate), JSON.stringify(validateMapping.errors)).toBe(true);
@@ -346,8 +375,14 @@ describe('Transform pipeline catalog publication', () => {
     const missingDerivedDataset = cloneJson(candidate) as {
       inputs: Array<Record<string, unknown>>;
     };
-    delete missingDerivedDataset.inputs[2]?.derivedDataset;
+    delete missingDerivedDataset.inputs[0]?.derivedDataset;
     expect(validateMapping(missingDerivedDataset)).toBe(false);
+
+    const missingBundle = cloneJson(candidate) as {
+      inputs: Array<Record<string, unknown>>;
+    };
+    delete missingBundle.inputs[0]?.bundle;
+    expect(validateMapping(missingBundle)).toBe(false);
 
     const ordinary = readJson<Record<string, unknown>>(
       resolvePinnedPath('mappings/crm-to-warehouse/1.0.0/manifest.json')
