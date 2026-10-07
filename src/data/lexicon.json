@@ -13212,6 +13212,384 @@
       }
     },
     {
+      "type": "listing_observation",
+      "container_name": "listing_observations",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "An immutable, provider-scoped observation of whether a listing was found for an address at a retrieval time. The observation identifier is the lowercase SHA-256 hash of the provider identifier, source request or listing identity, retrieval time, and evidence artifact digest. Address linkage records the lookup subject and never establishes canonical property identity.",
+      "properties": {
+        "model_version": {
+          "type": "string",
+          "const": "1.0.0",
+          "comment": "The immutable listing_observation model version."
+        },
+        "observation_identifier": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "comment": "Deterministic lowercase SHA-256 identity derived from provider, source request or listing identity, retrieval time, and evidence artifact digest."
+        },
+        "provider_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable identifier for the provider that supplied the observation."
+        },
+        "source_request_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable identifier for the source request that produced this observation."
+        },
+        "source_listing_identifier": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Provider listing identifier when the source supplied one."
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "comment": "Source listing or lookup URL when available."
+        },
+        "source_as_of": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Provider-declared effective timestamp for the source record when available."
+        },
+        "source_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Unmodified provider status value when available."
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time",
+          "comment": "Timestamp when the source evidence was retrieved."
+        },
+        "observation_outcome": {
+          "type": "string",
+          "enum": [
+            "LISTING_FOUND",
+            "LISTING_ABSENT",
+            "LOOKUP_FAILED"
+          ],
+          "comment": "Outcome of this provider lookup. A failed lookup is not evidence that a listing is absent."
+        },
+        "market_status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "COMING_SOON",
+            "PENDING",
+            "UNDER_CONTRACT",
+            "OTHER",
+            "UNKNOWN"
+          ],
+          "comment": "Canonical market status interpreted from the provider evidence."
+        },
+        "asking_price_amount_minor": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "comment": "Asking price in minor currency units when parsing succeeded. Zero is never a valid parsed asking price."
+        },
+        "asking_price_currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 3,
+          "maxLength": 3,
+          "pattern": "^[A-Z]{3}$",
+          "comment": "ISO 4217 currency code for the parsed asking price."
+        },
+        "price_parse_status": {
+          "type": "string",
+          "enum": [
+            "PARSED",
+            "ABSENT",
+            "REJECTED",
+            "NOT_APPLICABLE"
+          ],
+          "comment": "Price parsing result. REJECTED requires a null asking_price_amount_minor and must never be represented as zero."
+        },
+        "evidence_artifact_uri": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1,
+          "comment": "URI of the immutable evidence artifact supporting this observation."
+        },
+        "evidence_artifact_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "comment": "Lowercase SHA-256 digest of the exact evidence artifact bytes."
+        },
+        "exact_address_match_state": {
+          "type": "string",
+          "enum": [
+            "EXACT",
+            "NON_EXACT",
+            "AMBIGUOUS",
+            "UNKNOWN"
+          ],
+          "comment": "Whether the provider evidence identifies the exact address that was requested."
+        },
+        "freshness_state": {
+          "type": "string",
+          "enum": [
+            "FRESH",
+            "STALE",
+            "UNKNOWN"
+          ],
+          "comment": "Freshness result under freshness_policy_version."
+        },
+        "freshness_evaluated_at": {
+          "type": "string",
+          "format": "date-time",
+          "comment": "Timestamp when freshness_state was evaluated."
+        },
+        "freshness_policy_version": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Version of the policy used to evaluate freshness_state."
+        },
+        "coverage_state": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "PARTIAL",
+            "UNAVAILABLE",
+            "UNKNOWN"
+          ],
+          "comment": "Coverage of the provider lookup for the requested subject."
+        },
+        "authority_state": {
+          "type": "string",
+          "enum": [
+            "AUTHORITATIVE",
+            "SUPPORTING",
+            "UNKNOWN"
+          ],
+          "comment": "Authority assigned to this source for sale-availability assessment."
+        }
+      },
+      "relationships": {},
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "price_parse_status": {
+                "const": "REJECTED"
+              }
+            },
+            "required": [
+              "price_parse_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "asking_price_amount_minor": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "sale_availability_assessment",
+      "container_name": "sale_availability_assessments",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "A versioned sale-availability decision for an address and optional independently established property identity. The assessment identifier is the lowercase SHA-256 hash of subject scope, policy version, assessment window, and sorted listing observation identifiers. Observation evidence is linked through required one-to-many relationships rather than embedded.",
+      "properties": {
+        "model_version": {
+          "type": "string",
+          "const": "1.1.0",
+          "comment": "The immutable sale_availability_assessment model version."
+        },
+        "assessment_identifier": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "comment": "Deterministic lowercase SHA-256 identity derived from subject scope, policy version, assessment window, and sorted evidence observation identifiers."
+        },
+        "availability_status": {
+          "type": "string",
+          "enum": [
+            "FOR_SALE",
+            "NOT_FOR_SALE",
+            "UNKNOWN",
+            "CONFLICT"
+          ],
+          "comment": "Policy result for the assessed subject and evidence window."
+        },
+        "is_for_sale": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "comment": "Boolean projection of availability_status: true for FOR_SALE, false for NOT_FOR_SALE, and null for UNKNOWN or CONFLICT."
+        },
+        "list_price_amount_minor": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "comment": "Eligible exact, fresh active-listing price in integer minor currency units, or null. Zero is never a sentinel."
+        },
+        "list_price_currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 3,
+          "maxLength": 3,
+          "pattern": "^[A-Z]{3}$",
+          "comment": "ISO 4217 currency paired with list_price_amount_minor, or null."
+        },
+        "policy_version": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Version of the deterministic assessment policy."
+        },
+        "assessed_at": {
+          "type": "string",
+          "format": "date-time",
+          "comment": "Timestamp when the assessment was produced."
+        },
+        "window_start_at": {
+          "type": "string",
+          "format": "date-time",
+          "comment": "Inclusive start of the evidence window."
+        },
+        "window_end_at": {
+          "type": "string",
+          "format": "date-time",
+          "comment": "Inclusive end of the evidence window."
+        },
+        "reason_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "comment": "One or more stable policy reason codes explaining the assessment."
+        }
+      },
+      "relationships": {},
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "availability_status": {
+                  "const": "FOR_SALE"
+                },
+                "is_for_sale": {
+                  "const": true
+                }
+              }
+            },
+            {
+              "properties": {
+                "availability_status": {
+                  "const": "NOT_FOR_SALE"
+                },
+                "is_for_sale": {
+                  "const": false
+                }
+              }
+            },
+            {
+              "properties": {
+                "availability_status": {
+                  "const": "UNKNOWN"
+                },
+                "is_for_sale": {
+                  "const": null
+                }
+              }
+            },
+            {
+              "properties": {
+                "availability_status": {
+                  "const": "CONFLICT"
+                },
+                "is_for_sale": {
+                  "const": null
+                }
+              }
+            }
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "list_price_amount_minor": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                },
+                "list_price_currency": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{3}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "list_price_amount_minor": {
+                  "type": "null"
+                },
+                "list_price_currency": {
+                  "type": "null"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "if": {
+            "properties": {
+              "availability_status": {
+                "enum": [
+                  "NOT_FOR_SALE",
+                  "UNKNOWN",
+                  "CONFLICT"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "list_price_amount_minor": {
+                "type": "null"
+              },
+              "list_price_currency": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
       "type": "relationship",
       "container_name": "relationships",
       "is_deprecated": false,
@@ -13254,6 +13632,12 @@
             "property_has_environmental_risk",
             "property_seed",
             "property_flood_storm_information",
+            "listing_observation_has_address",
+            "listing_observation_has_file",
+            "listing_observation_has_property",
+            "sale_availability_assessment_has_address",
+            "sale_availability_assessment_has_listing_observation",
+            "sale_availability_assessment_has_property",
             null
           ],
           "comment": "A reference to the associated schema for relashionship",
@@ -22955,6 +23339,8 @@
         "company",
         "license",
         "business_location",
+        "listing_observation",
+        "sale_availability_assessment",
         "structure",
         "tax",
         "parcel",
@@ -24095,6 +24481,57 @@
       "one_to_many_relationships": [
         "business_location_has_company",
         "business_location_has_parcel"
+      ]
+    },
+    {
+      "label": "Sale Availability",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "listing_observation",
+          "to": "address",
+          "relationship_type": "listing_observation_has_address"
+        },
+        {
+          "type": "relationship",
+          "from": "listing_observation",
+          "to": "file",
+          "relationship_type": "listing_observation_has_file"
+        },
+        {
+          "type": "relationship",
+          "from": "listing_observation",
+          "to": "property",
+          "relationship_type": "listing_observation_has_property"
+        },
+        {
+          "type": "relationship",
+          "from": "sale_availability_assessment",
+          "to": "address",
+          "relationship_type": "sale_availability_assessment_has_address"
+        },
+        {
+          "type": "relationship",
+          "from": "sale_availability_assessment",
+          "to": "listing_observation",
+          "relationship_type": "sale_availability_assessment_has_listing_observation"
+        },
+        {
+          "type": "relationship",
+          "from": "sale_availability_assessment",
+          "to": "property",
+          "relationship_type": "sale_availability_assessment_has_property"
+        }
+      ],
+      "required": [
+        "listing_observation_has_address",
+        "listing_observation_has_file",
+        "sale_availability_assessment_has_address",
+        "sale_availability_assessment_has_listing_observation"
+      ],
+      "one_to_many_relationships": [
+        "listing_observation_has_file",
+        "sale_availability_assessment_has_listing_observation"
       ]
     }
   ],

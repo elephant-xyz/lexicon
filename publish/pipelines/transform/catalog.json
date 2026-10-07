@@ -5,12 +5,22 @@
   "ssMPointer": "/lexicon/transform-catalog-uri",
   "githubRawBase": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform",
   "languageSchema": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "status": "ENABLED",
-    "path": "schemas/pipeline-language/1.0.0/schema.json",
-    "sha256": "02cb4837a0ee867d7569efb9faf8d82eef3ef0d47362dd6de285f252c37d8c97"
+    "path": "schemas/pipeline-language/1.1.0/schema.json",
+    "sha256": "caa47a58f2dc54b053b9e447e0d58c74b153c219c7802d24d0b35c75a09d0260"
   },
   "entries": [
+    {
+      "kind": "language",
+      "name": "connect-http-acquisition-bundle",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440"
+    },
     {
       "kind": "language",
       "name": "county-curated",
@@ -43,6 +53,36 @@
     },
     {
       "kind": "language",
+      "name": "sale-availability-assessment",
+      "version": "1.0.0",
+      "current": false,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-assessment/1.0.0/sale-availability-assessment.json",
+      "sha256": "c8949ed59c513392bb1f4f705231577e9d8c8c7d2878e41ab4ad483335f08603"
+    },
+    {
+      "kind": "language",
+      "name": "sale-availability-assessment",
+      "version": "1.1.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-assessment/1.1.0/sale-availability-assessment.json",
+      "sha256": "e90b110b907ca368084f77057fe46468bbbf1f02f18b6250fbba7cf22d303e1e"
+    },
+    {
+      "kind": "language",
+      "name": "sale-availability-evidence",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-evidence/1.0.0/sale-availability-evidence.json",
+      "sha256": "32bf5542a11b7c438d0fa891f77f5d1097dba968e26047c01ac133dbd41e4632"
+    },
+    {
+      "kind": "language",
       "name": "warehouse",
       "version": "2.0.0",
       "current": true,
@@ -50,6 +90,42 @@
       "shape": "tabular",
       "path": "languages/warehouse/2.0.0/warehouse.json",
       "sha256": "4ec9c8c180c5b22c5795d5983af0112bec45104e7113ed0ab6ee3ddc5b6bca4c"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+      "version": "1.0.0",
+      "current": false,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-evidence",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/manifest.json",
+      "sha256": "01075c45599dcaa703e4bfaf2f844ac474a1403fe70f39d47ce4c72117af6123",
+      "querySha256": "55fc063a9ea3fa31d92db517b4394dccf048cdd22ef8685a338c25d0812c1e97"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+      "version": "1.0.1",
+      "current": false,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-evidence",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/manifest.json",
+      "sha256": "2498926e54b76988ec2d1f526fc8932f8e5f6593778d2a4edf6189b6584dc719",
+      "querySha256": "ea2f9b21ff013ff9be12f848e71dd1dcf0d7c2bac30ced0696011458e1379440"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+      "version": "1.1.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-evidence",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/manifest.json",
+      "sha256": "2d236dd59d93fa0fe103c4e8f7523f016da41fc0632b79589996a03953bf26f0",
+      "querySha256": "08674062f3e3f66738ac101f108fa7ff267e7152bc0bda68848b150de9644fbc"
     },
     {
       "kind": "mapping",
@@ -74,6 +150,42 @@
       "path": "mappings/crm-to-warehouse/1.0.0/manifest.json",
       "sha256": "b44f4981e5c28187d19ed215eed070caaf4aa41209c4b705716ff1f7107d6237",
       "querySha256": "8417d426b6a6b64320a236b6e28e64278b6c5a9a8526a54f668530b57b05de12"
+    },
+    {
+      "kind": "mapping",
+      "id": "sale-availability-evidence-to-sale-availability-assessment",
+      "version": "1.0.0",
+      "current": false,
+      "status": "ENABLED",
+      "from": "sale-availability-evidence",
+      "to": "sale-availability-assessment",
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/manifest.json",
+      "sha256": "ede97ac1b2e65550ef36908923e092af6f5625372e832164aa3b501fa67d0e24",
+      "querySha256": "c768b28defeda4f7897757ac55ed6326e1f3cf0d9f2149cf17787d5b5e4a7819"
+    },
+    {
+      "kind": "mapping",
+      "id": "sale-availability-evidence-to-sale-availability-assessment",
+      "version": "1.1.0",
+      "current": false,
+      "status": "ENABLED",
+      "from": "sale-availability-evidence",
+      "to": "sale-availability-assessment",
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/manifest.json",
+      "sha256": "02423a79da74d830b640d5f2143d82234b2ad3eef661e3e8b91fd5a658455a05",
+      "querySha256": "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7"
+    },
+    {
+      "kind": "mapping",
+      "id": "sale-availability-evidence-to-sale-availability-assessment",
+      "version": "1.2.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "sale-availability-evidence",
+      "to": "sale-availability-assessment",
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/manifest.json",
+      "sha256": "55392d99b183a2830bfca16e2569682388f34722baf63224ee03f677055dd6d9",
+      "querySha256": "9815a337cbc6456eea44774b6ae7e5d879ac80e4613eb1631818dfd0ea2ace1f"
     }
   ]
 }

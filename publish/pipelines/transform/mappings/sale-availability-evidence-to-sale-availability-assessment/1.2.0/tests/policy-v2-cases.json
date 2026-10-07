@@ -1,0 +1,505 @@
+{
+  "contractVersion": 1,
+  "policyVersion": "sale-availability-policy-v2",
+  "assessmentIdentity": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "separator": "|",
+    "components": [
+      "address_reference",
+      "independent_property_reference_or_empty",
+      "policy_version",
+      "window_start_at_utc_milliseconds",
+      "window_end_at_utc_milliseconds",
+      "comma_joined_bytewise_sorted_unique_observation_identifiers"
+    ]
+  },
+  "reasonCodePolicy": {
+    "primaryPosition": 0,
+    "primaryPrecedence": [
+      "CONFLICTING_ELIGIBLE_ACTIVE_PRICES",
+      "CONFLICTING_FRESH_EXACT_EVIDENCE",
+      "ACTIVE_LISTING_PRICE_AVAILABLE",
+      "ACTIVE_LISTING_PRICE_UNAVAILABLE",
+      "AUTHORITATIVE_COMPLETE_NEGATIVE",
+      "ADDRESS_AMBIGUOUS",
+      "NON_EXACT_MATCH",
+      "AUTH_FAILED",
+      "SEARCH_CANDIDATE_FOUND",
+      "RATE_LIMITED",
+      "PROVIDER_LOOKUP_FAILED",
+      "STALE_EVIDENCE",
+      "LISTING_STATUS_UNKNOWN",
+      "UNSUPPORTED_STATUS",
+      "NO_PROVIDER_MATCH"
+    ]
+  },
+  "defaultObservation": {
+    "providerIdentifier": "rentcast",
+    "retrievedAt": "2026-10-05T12:00:00.000Z",
+    "sourceAsOf": "2026-10-05T10:00:00.000Z",
+    "sourceStatus": "Active",
+    "freshnessEvaluatedAt": "2026-10-05T12:00:00.000Z",
+    "freshnessPolicyVersion": "rentcast-30d-v1",
+    "observationOutcome": "LISTING_FOUND",
+    "marketStatus": "ACTIVE",
+    "exactAddressMatchState": "EXACT",
+    "freshnessState": "FRESH",
+    "coverageState": "PARTIAL",
+    "authorityState": "SUPPORTING",
+    "priceParseStatus": "ABSENT",
+    "askingPriceAmountMinor": null,
+    "askingPriceCurrency": null
+  },
+  "cases": [
+    {
+      "caseId": "fresh-exact-active-price-available",
+      "addressReference": "address:assessment:active-price",
+      "independentPropertyReference": "property:independently-established-001",
+      "observations": [
+        {
+          "observationIdentifier": "0101010101010101010101010101010101010101010101010101010101010101",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44490000,
+          "askingPriceCurrency": "USD"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 44490000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_AVAILABLE"],
+        "observationReferences": [
+          "0101010101010101010101010101010101010101010101010101010101010101"
+        ]
+      }
+    },
+    {
+      "caseId": "fresh-exact-active-price-absent",
+      "addressReference": "address:assessment:active-price-absent",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0202020202020202020202020202020202020202020202020202020202020202"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_UNAVAILABLE"],
+        "observationReferences": [
+          "0202020202020202020202020202020202020202020202020202020202020202"
+        ]
+      }
+    },
+    {
+      "caseId": "fresh-exact-active-price-rejected",
+      "addressReference": "address:assessment:active-price-rejected",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0303030303030303030303030303030303030303030303030303030303030303",
+          "priceParseStatus": "REJECTED"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_UNAVAILABLE"],
+        "observationReferences": [
+          "0303030303030303030303030303030303030303030303030303030303030303"
+        ]
+      }
+    },
+    {
+      "caseId": "no-rentcast-row",
+      "addressReference": "address:assessment:no-provider-match",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0404040404040404040404040404040404040404040404040404040404040404",
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": null,
+          "sourceAsOf": null,
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["NO_PROVIDER_MATCH"],
+        "observationReferences": [
+          "0404040404040404040404040404040404040404040404040404040404040404"
+        ]
+      }
+    },
+    {
+      "caseId": "provider-lookup-failed",
+      "addressReference": "address:assessment:lookup-failed",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0505050505050505050505050505050505050505050505050505050505050505",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": "TIMEOUT",
+          "sourceAsOf": null,
+          "freshnessState": "UNKNOWN",
+          "coverageState": "UNAVAILABLE",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["PROVIDER_LOOKUP_FAILED"],
+        "observationReferences": [
+          "0505050505050505050505050505050505050505050505050505050505050505"
+        ]
+      }
+    },
+    {
+      "caseId": "provider-rate-limited",
+      "addressReference": "address:assessment:rate-limited",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0606060606060606060606060606060606060606060606060606060606060606",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": "HTTP 429 RATE_LIMITED",
+          "sourceAsOf": null,
+          "freshnessState": "UNKNOWN",
+          "coverageState": "UNAVAILABLE",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["RATE_LIMITED"],
+        "observationReferences": [
+          "0606060606060606060606060606060606060606060606060606060606060606"
+        ]
+      }
+    },
+    {
+      "caseId": "provider-authentication-failed",
+      "addressReference": "address:assessment:auth-failed",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0707070707070707070707070707070707070707070707070707070707070707",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": "HTTP 401 AUTHENTICATION_FAILED",
+          "sourceAsOf": null,
+          "freshnessState": "UNKNOWN",
+          "coverageState": "UNAVAILABLE",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["AUTH_FAILED"],
+        "observationReferences": [
+          "0707070707070707070707070707070707070707070707070707070707070707"
+        ]
+      }
+    },
+    {
+      "caseId": "stale-active",
+      "addressReference": "address:assessment:stale",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0808080808080808080808080808080808080808080808080808080808080808",
+          "freshnessState": "STALE",
+          "sourceAsOf": "2026-08-01T10:00:00.000Z"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["STALE_EVIDENCE"],
+        "observationReferences": [
+          "0808080808080808080808080808080808080808080808080808080808080808"
+        ]
+      }
+    },
+    {
+      "caseId": "listing-status-unknown",
+      "addressReference": "address:assessment:status-unknown",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0909090909090909090909090909090909090909090909090909090909090909",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": null
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["LISTING_STATUS_UNKNOWN"],
+        "observationReferences": [
+          "0909090909090909090909090909090909090909090909090909090909090909"
+        ]
+      }
+    },
+    {
+      "caseId": "unsupported-status",
+      "addressReference": "address:assessment:unsupported-status",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a",
+          "marketStatus": "PENDING",
+          "sourceStatus": "Pending"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["UNSUPPORTED_STATUS"],
+        "observationReferences": [
+          "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a"
+        ]
+      }
+    },
+    {
+      "caseId": "non-exact-active",
+      "addressReference": "address:assessment:non-exact",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+          "exactAddressMatchState": "NON_EXACT"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["NON_EXACT_MATCH"],
+        "observationReferences": [
+          "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b"
+        ]
+      }
+    },
+    {
+      "caseId": "ambiguous-address",
+      "addressReference": "address:assessment:ambiguous",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c",
+          "exactAddressMatchState": "AMBIGUOUS"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["ADDRESS_AMBIGUOUS"],
+        "observationReferences": [
+          "0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c"
+        ]
+      }
+    },
+    {
+      "caseId": "google-search-candidate",
+      "addressReference": "address:assessment:google-search",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d",
+          "providerIdentifier": "google-search-grounding",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": "SEARCH_CANDIDATE",
+          "sourceAsOf": null,
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["SEARCH_CANDIDATE_FOUND", "NO_PROVIDER_MATCH"],
+        "observationReferences": [
+          "0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d"
+        ]
+      }
+    },
+    {
+      "caseId": "search-candidate-stops-stale-fallback",
+      "addressReference": "address:assessment:search-stops-stale",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "1515151515151515151515151515151515151515151515151515151515151515",
+          "freshnessState": "STALE",
+          "sourceAsOf": "2026-08-01T10:00:00.000Z"
+        },
+        {
+          "observationIdentifier": "1616161616161616161616161616161616161616161616161616161616161616",
+          "providerIdentifier": "google-search-grounding",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": "SEARCH_CANDIDATE",
+          "sourceAsOf": null,
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["SEARCH_CANDIDATE_FOUND", "STALE_EVIDENCE"],
+        "observationReferences": [
+          "1515151515151515151515151515151515151515151515151515151515151515",
+          "1616161616161616161616161616161616161616161616161616161616161616"
+        ]
+      }
+    },
+    {
+      "caseId": "brave-search-candidate",
+      "addressReference": "address:assessment:brave-search",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e",
+          "providerIdentifier": "brave-search",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": "SEARCH_CANDIDATE",
+          "sourceAsOf": null,
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["SEARCH_CANDIDATE_FOUND", "NO_PROVIDER_MATCH"],
+        "observationReferences": [
+          "0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e"
+        ]
+      }
+    },
+    {
+      "caseId": "search-absence",
+      "addressReference": "address:assessment:search-absence",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
+          "providerIdentifier": "brave-search",
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": null,
+          "sourceAsOf": null,
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": ["NO_PROVIDER_MATCH"],
+        "observationReferences": [
+          "0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f"
+        ]
+      }
+    },
+    {
+      "caseId": "conflicting-fresh-records",
+      "addressReference": "address:assessment:conflict",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "1010101010101010101010101010101010101010101010101010101010101010"
+        },
+        {
+          "observationIdentifier": "1111111111111111111111111111111111111111111111111111111111111111",
+          "marketStatus": "PENDING",
+          "sourceStatus": "Pending"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "reasonCodes": ["CONFLICTING_FRESH_EXACT_EVIDENCE"],
+        "observationReferences": [
+          "1010101010101010101010101010101010101010101010101010101010101010",
+          "1111111111111111111111111111111111111111111111111111111111111111"
+        ]
+      }
+    },
+    {
+      "caseId": "conflicting-eligible-active-prices",
+      "addressReference": "address:assessment:price-conflict",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "1212121212121212121212121212121212121212121212121212121212121212",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44490000,
+          "askingPriceCurrency": "USD"
+        },
+        {
+          "observationIdentifier": "1313131313131313131313131313131313131313131313131313131313131313",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44500000,
+          "askingPriceCurrency": "USD"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["CONFLICTING_ELIGIBLE_ACTIVE_PRICES"],
+        "observationReferences": [
+          "1212121212121212121212121212121212121212121212121212121212121212",
+          "1313131313131313131313131313131313131313131313131313131313131313"
+        ]
+      }
+    },
+    {
+      "caseId": "authoritative-complete-negative",
+      "addressReference": "address:assessment:authoritative-negative",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "1414141414141414141414141414141414141414141414141414141414141414",
+          "providerIdentifier": "governed-authoritative-source",
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "sourceStatus": null,
+          "coverageState": "COMPLETE",
+          "authorityState": "AUTHORITATIVE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "NOT_FOR_SALE",
+        "isForSale": false,
+        "reasonCodes": ["AUTHORITATIVE_COMPLETE_NEGATIVE"],
+        "observationReferences": [
+          "1414141414141414141414141414141414141414141414141414141414141414"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "contractVersion": 1,
+  "id": "sale-availability-system-input-package",
+  "version": "1.1.0",
+  "source": {
+    "contract": "Connect ResultManifest",
+    "providers": [
+      "google-address-validation-review-evidence",
+      "rentcast-review-sale-evidence",
+      "google-search-grounding-review-evidence",
+      "brave-search-review-property-evidence"
+    ]
+  },
+  "target": {
+    "language": "connect-http-acquisition-bundle",
+    "version": "1.0.0",
+    "datasets": [
+      {
+        "table": "acquisition_records",
+        "format": "jsonl",
+        "view": "source_acquisition_records"
+      },
+      {
+        "table": "raw_documents",
+        "format": "jsonl",
+        "view": "source_raw_documents"
+      }
+    ]
+  },
+  "governedContext": {
+    "jsonPointer": "/saleAvailability",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "addressReference",
+        "independentPropertyReference",
+        "freshnessEvaluatedAt",
+        "freshnessPolicyVersion",
+        "artifactFileReferencesBySha256"
+      ],
+      "properties": {
+        "addressReference": {
+          "type": "string",
+          "minLength": 1,
+          "description": "An existing address endpoint. It never creates a property identity."
+        },
+        "independentPropertyReference": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "description": "An already established property endpoint, or null. System must not derive it from the address or provider response."
+        },
+        "freshnessEvaluatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "freshnessPolicyVersion": {
+          "const": "rentcast-30d-v1"
+        },
+        "artifactFileReferencesBySha256": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Maps each verified raw artifact digest to an existing file endpoint."
+        }
+      }
+    }
+  },
+  "materializationRules": [
+    {
+      "rule": "one-acquisition-row-per-connect-result",
+      "source": "ResultManifest plus immutable acquisition metadata",
+      "target": "acquisition_records",
+      "requirements": [
+        "contextJson is canonical JSON and identical for the related provider results",
+        "inputJson is the canonical provider JobRequest payload without credentials",
+        "primaryRawArtifactUri and primaryRawArtifactSha256 copy the selected ResultManifest file pointer exactly",
+        "outcome and failureCode copy transport outcomes without sale classification"
+      ]
+    },
+    {
+      "rule": "one-raw-document-row-per-result-file",
+      "source": "ResultManifest.files[]",
+      "target": "raw_documents",
+      "requirements": [
+        "sourceUri and sha256 copy the immutable file pointer exactly",
+        "bodyText is the exact UTF-8 decoded body and sha256 remains the digest of the original bytes",
+        "no provider field is parsed or normalized during packaging",
+        "artifactOrdinal is the zero-based ResultManifest file order"
+      ]
+    },
+    {
+      "rule": "pair-by-request",
+      "requirements": [
+        "Address validation, RentCast, Google Search grounding, and Brave acquisitions for one subject use the same requestId",
+        "Each provider inputJson contains the exact normalized_address.one_line submitted to Connect",
+        "Google Address Validation is identity evidence only",
+        "RentCast remains supporting partial listing evidence",
+        "Google Search citations and Brave results remain supporting partial discovery evidence"
+      ]
+    },
+    {
+      "rule": "search-candidates-are-discovery-only",
+      "requirements": [
+        "Google Search emits one candidate per url_citation annotation",
+        "Brave emits one candidate per web.results item",
+        "Search candidates use UNKNOWN market status and NOT_APPLICABLE price",
+        "Search candidate absence remains partial and cannot establish a negative result",
+        "Search evidence never upgrades address identity or creates property identity"
+      ]
+    }
+  ],
+  "fixture": {
+    "testCasesPath": "../tests/policy-v2-cases.json",
+    "representativeCaseId": "fresh-exact-active",
+    "representativeSearchCaseId": "google-search-citations",
+    "expectedDatasets": ["acquisition_records", "raw_documents"]
+  },
+  "prohibited": [
+    "provider status classification in System or Connect",
+    "price parsing in System or Connect",
+    "property identity derived from an address",
+    "search snippets or citations interpreted as FOR_SALE or NOT_FOR_SALE",
+    "search results used to broaden exact address identity"
+  ]
+}

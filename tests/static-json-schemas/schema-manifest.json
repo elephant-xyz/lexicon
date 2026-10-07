@@ -19,6 +19,22 @@
     "ipfsCid": "",
     "type": "class"
   },
+  "license": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "business_location": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "listing_observation": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "sale_availability_assessment": {
+    "ipfsCid": "",
+    "type": "class"
+  },
   "structure": {
     "ipfsCid": "",
     "type": "class"
@@ -132,6 +148,10 @@
     "type": "class"
   },
   "geometry": {
+    "ipfsCid": "",
+    "type": "class"
+  },
+  "tax_jurisdiction": {
     "ipfsCid": "",
     "type": "class"
   },
@@ -478,5 +498,33 @@
   "sales_history_to_file": {
     "ipfsCid": "",
     "type": "relationship"
+  },
+  "listing_observation_to_address": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "listing_observation_to_file": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "listing_observation_to_property": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sale_availability_assessment_to_address": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sale_availability_assessment_to_listing_observation": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "sale_availability_assessment_to_property": {
+    "ipfsCid": "",
+    "type": "relationship"
+  },
+  "Sale_Availability": {
+    "ipfsCid": "",
+    "type": "dataGroup"
   }
 }

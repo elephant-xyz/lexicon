@@ -259,8 +259,14 @@ function mapLexiconTypeToJSONSchema(
   if (property.minLength !== undefined) {
     schema.minLength = property.minLength;
   }
+  if (property.maxLength !== undefined) {
+    schema.maxLength = property.maxLength;
+  }
   if (property.minimum !== undefined) {
     schema.minimum = property.minimum;
+  }
+  if (property.uniqueItems !== undefined) {
+    schema.uniqueItems = property.uniqueItems;
   }
   if (property.format) {
     schema.format = property.format;
@@ -565,6 +571,10 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
     additionalProperties: false,
   };
 
+  if (lexiconClass.allOf) {
+    baseSchema.allOf = lexiconClass.allOf;
+  }
+
   // Add HTTP request validation rules if source_http_request is present
   if (properties.source_http_request) {
     const validationRules = generateHTTPRequestValidationRules();
@@ -593,7 +603,7 @@ export function generateJSONSchemaForClass(lexiconClass: LexiconClass): JSONSche
   return baseSchema;
 }
 
-function generateJSONSchemaForRelationship(
+export function generateJSONSchemaForRelationship(
   relationship: DataGroupRelationship,
   classCids: Record<string, string>
 ): RelationshipSchema {
@@ -630,7 +640,7 @@ function isOneToManyRelationship(
   return oneToManyRelationships.includes(relationshipType);
 }
 
-function generateJSONSchemaForDataGroup(
+export function generateJSONSchemaForDataGroup(
   dataGroup: DataGroup,
   relationshipCidsMap: Record<string, { cid: string; relationshipType: string }>,
   allDataGroupLabels: string[]
@@ -822,7 +832,7 @@ export function jsonSchemaGeneratorPlugin(options: JSONSchemaGeneratorOptions): 
         if (dataGroup.relationships && Array.isArray(dataGroup.relationships)) {
           for (const relationship of dataGroup.relationships) {
             const relKey = `${relationship.from}_to_${relationship.to}`;
-            if (relationshipCids[relKey]) {
+            if (Object.hasOwn(relationshipCids, relKey)) {
               groupRelationshipCidsMap[relKey] = {
                 cid: relationshipCids[relKey],
                 relationshipType: relationship.relationship_type || `has_${relationship.to}`,

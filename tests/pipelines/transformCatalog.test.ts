@@ -67,7 +67,17 @@ type MappingManifest = {
   from: { name: string; version: string };
   to: { name: string; version: string };
   inputs: Array<{ table: string; view: string; format: string }>;
-  output: { shape: string; format: string };
+  output: {
+    shape: string;
+    format: string;
+    delivery?: {
+      mode: 'inline';
+      dataset: string;
+      cardinality: 'exactly-one';
+      maxBytes: number;
+      requireVersionId: boolean;
+    };
+  };
   outputs: Array<{
     dataset: string;
     dependsOn: string[];
@@ -237,6 +247,9 @@ describe('Transform pipeline catalog publication', () => {
         expect(sha256(queryPath), `${identity}:${output.dataset}`).toBe(output.querySha256);
         queryDigests.push(output.querySha256);
       }
+      if (manifest.output.delivery !== undefined) {
+        expect(outputNames.has(manifest.output.delivery.dataset), identity).toBe(true);
+      }
       if (entry.querySha256 !== undefined) {
         expect(queryDigests).toContain(entry.querySha256);
       }
@@ -247,5 +260,24 @@ describe('Transform pipeline catalog publication', () => {
         enabledPairs.add(pair);
       }
     }
+  });
+
+  it('pins assessment inline delivery while retaining immutable pointer delivery', () => {
+    const assessment = catalog.entries.find(
+      entry =>
+        entry.kind === 'mapping' &&
+        entry.id === 'sale-availability-evidence-to-sale-availability-assessment'
+    );
+    expect(assessment?.kind).toBe('mapping');
+    if (assessment?.kind !== 'mapping') return;
+
+    const manifest = readJson<MappingManifest>(resolvePinnedPath(assessment.path));
+    expect(manifest.output.delivery).toEqual({
+      mode: 'inline',
+      dataset: 'sale_availability_assessments',
+      cardinality: 'exactly-one',
+      maxBytes: 65_536,
+      requireVersionId: true,
+    });
   });
 });

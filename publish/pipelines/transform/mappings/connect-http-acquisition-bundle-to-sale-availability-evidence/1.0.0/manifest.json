@@ -1,0 +1,88 @@
+{
+  "contractVersion": 2,
+  "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+  "version": "1.0.0",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "connect-http-acquisition-bundle",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "sale-availability-evidence",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "acquisition_records",
+      "view": "source_acquisition_records",
+      "required": true,
+      "format": "jsonl"
+    },
+    {
+      "table": "raw_documents",
+      "view": "source_raw_documents",
+      "required": true,
+      "format": "jsonl"
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "parquet"
+  },
+  "outputs": [
+    {
+      "dataset": "listing_observations",
+      "dependsOn": [],
+      "queryPath": "queries/listing_observations.sql",
+      "querySha256": "55fc063a9ea3fa31d92db517b4394dccf048cdd22ef8685a338c25d0812c1e97",
+      "invariantEvidence": [
+        {
+          "invariant": "deterministic_observation_identity",
+          "querySha256s": [
+            "55fc063a9ea3fa31d92db517b4394dccf048cdd22ef8685a338c25d0812c1e97"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "da19aabbd180e3a1c4b622715acbbdb0217f754e77471aabf2e4dd7a5af41686",
+              "description": "Pins observation identity inputs and independent expected policy results for every synthetic case."
+            }
+          ]
+        },
+        {
+          "invariant": "rejected_price_is_null",
+          "querySha256s": [
+            "55fc063a9ea3fa31d92db517b4394dccf048cdd22ef8685a338c25d0812c1e97"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "da19aabbd180e3a1c4b622715acbbdb0217f754e77471aabf2e4dd7a5af41686",
+              "description": "Pins the rejected-price fixture whose expected minor amount and currency are null."
+            }
+          ]
+        },
+        {
+          "invariant": "relationship_endpoints_exist",
+          "querySha256s": [
+            "55fc063a9ea3fa31d92db517b4394dccf048cdd22ef8685a338c25d0812c1e97"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "da19aabbd180e3a1c4b622715acbbdb0217f754e77471aabf2e4dd7a5af41686",
+              "description": "Pins required address/file references, nullable independent property references, and duplicate-reference normalization."
+            }
+          ],
+          "engineChecks": [
+            {
+              "kind": "array-sorted-unique",
+              "jsonPointer": "/relationships/listing_observation_has_file"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

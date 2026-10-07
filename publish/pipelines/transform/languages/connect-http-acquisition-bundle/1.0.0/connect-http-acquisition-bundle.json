@@ -1,0 +1,600 @@
+{
+  "contractVersion": 2,
+  "name": "connect-http-acquisition-bundle",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "description": "One generic Connect AcquisitionBundle@1 plus Transform-derived run_context, acquisition_records, and raw_documents datasets. Connect owns transport and immutable raw bytes; no business interpretation is present.",
+  "datasets": [
+    {
+      "type": "run_context",
+      "properties": {
+        "contractVersion": { "type": "integer", "const": 1 },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": ["COMPLETED", "COMPLETED_WITH_FAILURES"]
+        },
+        "contextJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "contextSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "requestArtifactUri": { "type": "string", "pattern": "^s3://" },
+        "requestArtifactSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "registryArtifactUri": { "type": "string", "pattern": "^s3://" },
+        "registryArtifactSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "registryVersion": { "type": "string", "minLength": 1 },
+        "recordCount": { "type": "integer", "minimum": 1 },
+        "outcomeCountsJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "publisherCountsJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "rawArtifactPrefix": { "type": "string", "pattern": "^s3://" },
+        "contentSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "runId",
+        "requestId",
+        "startedAt",
+        "completedAt",
+        "status",
+        "contextJson",
+        "contextSha256",
+        "requestArtifactUri",
+        "requestArtifactSha256",
+        "registryArtifactUri",
+        "registryArtifactSha256",
+        "registryVersion",
+        "recordCount",
+        "outcomeCountsJson",
+        "publisherCountsJson",
+        "rawArtifactPrefix",
+        "contentSha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "acquisition_bundle",
+      "properties": {
+        "contractVersion": { "type": "integer", "const": 1 },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": ["COMPLETED", "COMPLETED_WITH_FAILURES"]
+        },
+        "contextJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "contextSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "requestArtifact": {
+          "type": "object",
+          "properties": {
+            "s3Uri": { "type": "string", "pattern": "^s3://" },
+            "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          },
+          "required": ["s3Uri", "sha256"],
+          "additionalProperties": false
+        },
+        "registryArtifact": {
+          "type": "object",
+          "properties": {
+            "s3Uri": { "type": "string", "pattern": "^s3://" },
+            "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          },
+          "required": ["s3Uri", "sha256"],
+          "additionalProperties": false
+        },
+        "registryVersion": { "type": "string", "minLength": 1 },
+        "acquisitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "contractVersion": { "type": "integer", "const": 1 },
+              "acquisitionId": {
+                "type": "string",
+                "pattern": "^acq_[a-f0-9]{64}$"
+              },
+              "operationRequestId": {
+                "type": "string",
+                "pattern": "^or_[a-f0-9]{32}$"
+              },
+              "runId": { "type": "string", "minLength": 1 },
+              "requestId": { "type": "string", "minLength": 1 },
+              "operationId": { "type": "string", "minLength": 1 },
+              "registrationId": { "type": "string", "minLength": 1 },
+              "registrationVersion": { "type": "string", "minLength": 1 },
+              "contextJson": {
+                "type": "string",
+                "format": "canonical-json"
+              },
+              "contextSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "inputJson": {
+                "type": "string",
+                "format": "canonical-json"
+              },
+              "inputSha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "publisherId": { "type": "string", "minLength": 1 },
+                  "domain": { "type": ["string", "null"] },
+                  "sourceUrl": {
+                    "type": ["string", "null"],
+                    "format": "uri"
+                  }
+                },
+                "required": ["publisherId", "domain", "sourceUrl"],
+                "additionalProperties": false
+              },
+              "request": {
+                "type": "object",
+                "properties": {
+                  "method": { "type": "string", "enum": ["GET", "POST"] },
+                  "headerNames": {
+                    "type": "array",
+                    "items": { "type": "string", "minLength": 1 }
+                  },
+                  "querySha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "bodySha256": {
+                    "type": ["string", "null"],
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "method",
+                  "headerNames",
+                  "querySha256",
+                  "bodySha256"
+                ],
+                "additionalProperties": false
+              },
+              "retrieval": {
+                "type": "object",
+                "properties": {
+                  "retrievedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "sourcePublishedAt": {
+                    "type": ["string", "null"],
+                    "format": "date-time"
+                  },
+                  "httpStatus": { "type": ["integer", "null"] },
+                  "contentType": { "type": ["string", "null"] },
+                  "contentLength": {
+                    "type": ["integer", "null"],
+                    "minimum": 0
+                  },
+                  "outcome": {
+                    "type": "string",
+                    "enum": [
+                      "SUCCESS",
+                      "NOT_FOUND",
+                      "DISABLED",
+                      "BLOCKED",
+                      "HTTP_ERROR",
+                      "NETWORK_ERROR",
+                      "TIMEOUT",
+                      "CONFIGURATION_ERROR",
+                      "CONTENT_TYPE_REJECTED",
+                      "RESPONSE_TOO_LARGE",
+                      "PARSE_ERROR"
+                    ]
+                  },
+                  "attempts": { "type": "integer", "minimum": 0 },
+                  "failureCode": { "type": ["string", "null"] }
+                },
+                "required": [
+                  "retrievedAt",
+                  "sourcePublishedAt",
+                  "httpStatus",
+                  "contentType",
+                  "contentLength",
+                  "outcome",
+                  "attempts",
+                  "failureCode"
+                ],
+                "additionalProperties": false
+              },
+              "provenance": {
+                "type": "object",
+                "properties": {
+                  "requestSha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "registrySha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "rawArtifact": {
+                    "type": ["object", "null"],
+                    "properties": {
+                      "s3Uri": { "type": "string", "pattern": "^s3://" },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": ["s3Uri", "sha256"],
+                    "additionalProperties": false
+                  },
+                  "rawArtifacts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "s3Uri": { "type": "string", "pattern": "^s3://" },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": ["s3Uri", "sha256"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "robotsArtifact": {
+                    "type": ["object", "null"],
+                    "properties": {
+                      "s3Uri": { "type": "string", "pattern": "^s3://" },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      }
+                    },
+                    "required": ["s3Uri", "sha256"],
+                    "additionalProperties": false
+                  },
+                  "discoveryArtifacts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "s3Uri": { "type": "string", "pattern": "^s3://" },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": ["s3Uri", "sha256"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "parentAcquisitionId": {
+                    "type": ["string", "null"],
+                    "pattern": "^acq_[a-f0-9]{64}$"
+                  },
+                  "redirectChain": {
+                    "type": "array",
+                    "items": { "type": "string", "format": "uri" }
+                  },
+                  "paginationUrls": {
+                    "type": "array",
+                    "items": { "type": "string", "format": "uri" }
+                  }
+                },
+                "required": [
+                  "requestSha256",
+                  "registrySha256",
+                  "rawArtifact",
+                  "rawArtifacts",
+                  "robotsArtifact",
+                  "discoveryArtifacts",
+                  "parentAcquisitionId",
+                  "redirectChain",
+                  "paginationUrls"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "contractVersion",
+              "acquisitionId",
+              "operationRequestId",
+              "runId",
+              "requestId",
+              "operationId",
+              "registrationId",
+              "registrationVersion",
+              "contextJson",
+              "contextSha256",
+              "inputJson",
+              "inputSha256",
+              "source",
+              "request",
+              "retrieval",
+              "provenance"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "recordCount": { "type": "integer", "minimum": 1 },
+        "outcomeCounts": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "publisherCounts": {
+          "type": "object",
+          "additionalProperties": { "type": "integer", "minimum": 0 }
+        },
+        "rawArtifactPrefix": { "type": "string", "pattern": "^s3://" },
+        "contentSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "runId",
+        "requestId",
+        "startedAt",
+        "completedAt",
+        "status",
+        "contextJson",
+        "contextSha256",
+        "requestArtifact",
+        "registryArtifact",
+        "registryVersion",
+        "acquisitions",
+        "recordCount",
+        "outcomeCounts",
+        "publisherCounts",
+        "rawArtifactPrefix",
+        "contentSha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "acquisition_records",
+      "properties": {
+        "contractVersion": { "type": "integer", "const": 1 },
+        "acquisitionId": {
+          "type": "string",
+          "pattern": "^acq_[a-f0-9]{64}$"
+        },
+        "operationRequestId": {
+          "type": "string",
+          "pattern": "^or_[a-f0-9]{32}$"
+        },
+        "runId": { "type": "string", "minLength": 1 },
+        "requestId": { "type": "string", "minLength": 1 },
+        "operationId": { "type": "string", "minLength": 1 },
+        "registrationId": { "type": "string", "minLength": 1 },
+        "registrationVersion": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "contextJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "contextSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "inputJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "inputSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "publisherId": { "type": "string", "minLength": 1 },
+        "domain": { "type": ["string", "null"] },
+        "sourceUrl": { "type": ["string", "null"], "format": "uri" },
+        "method": { "type": "string", "enum": ["GET", "POST"] },
+        "requestHeaderNamesJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "requestQuerySha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "requestBodySha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "sourcePublishedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "httpStatus": {
+          "type": ["integer", "null"],
+          "minimum": 100,
+          "maximum": 599
+        },
+        "contentType": { "type": ["string", "null"] },
+        "contentLength": { "type": ["integer", "null"], "minimum": 0 },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "NOT_FOUND",
+            "DISABLED",
+            "BLOCKED",
+            "HTTP_ERROR",
+            "NETWORK_ERROR",
+            "TIMEOUT",
+            "CONFIGURATION_ERROR",
+            "CONTENT_TYPE_REJECTED",
+            "RESPONSE_TOO_LARGE",
+            "PARSE_ERROR"
+          ]
+        },
+        "attempts": { "type": "integer", "minimum": 0 },
+        "failureCode": { "type": ["string", "null"] },
+        "primaryRawArtifactUri": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "primaryRawArtifactSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "rawArtifactCount": { "type": "integer", "minimum": 0 },
+        "robotsArtifactUri": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "robotsArtifactSha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "parentAcquisitionId": {
+          "type": ["string", "null"],
+          "pattern": "^acq_[a-f0-9]{64}$"
+        },
+        "redirectChainJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "paginationUrlsJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "provenanceJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "sourceRecordJson": {
+          "type": "string",
+          "format": "canonical-json",
+          "contentMediaType": "application/json"
+        },
+        "sourceRecordSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "acquisitionId",
+        "operationRequestId",
+        "runId",
+        "requestId",
+        "operationId",
+        "registrationId",
+        "registrationVersion",
+        "contextJson",
+        "contextSha256",
+        "inputJson",
+        "inputSha256",
+        "publisherId",
+        "domain",
+        "sourceUrl",
+        "method",
+        "requestHeaderNamesJson",
+        "requestQuerySha256",
+        "requestBodySha256",
+        "retrievedAt",
+        "sourcePublishedAt",
+        "httpStatus",
+        "contentType",
+        "contentLength",
+        "outcome",
+        "attempts",
+        "failureCode",
+        "primaryRawArtifactUri",
+        "primaryRawArtifactSha256",
+        "rawArtifactCount",
+        "robotsArtifactUri",
+        "robotsArtifactSha256",
+        "parentAcquisitionId",
+        "redirectChainJson",
+        "paginationUrlsJson",
+        "provenanceJson",
+        "sourceRecordJson",
+        "sourceRecordSha256"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "raw_documents",
+      "description": "Transform-derived rows hydrated only from authorized, digest-verified S3/local artifacts.",
+      "properties": {
+        "acquisitionId": {
+          "type": "string",
+          "pattern": "^acq_[a-f0-9]{64}$"
+        },
+        "artifactOrdinal": { "type": "integer", "minimum": 0 },
+        "artifactRole": {
+          "type": "string",
+          "enum": ["raw", "robots", "discovery"]
+        },
+        "registrationId": { "type": "string", "minLength": 1 },
+        "publisherId": { "type": "string", "minLength": 1 },
+        "sourceUrl": { "type": ["string", "null"], "format": "uri" },
+        "sourceUri": { "type": "string", "pattern": "^s3://" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "contentType": { "type": ["string", "null"] },
+        "bodyText": { "type": ["string", "null"] },
+        "bodyLength": { "type": "integer", "minimum": 0 }
+      },
+      "required": [
+        "acquisitionId",
+        "artifactOrdinal",
+        "artifactRole",
+        "registrationId",
+        "publisherId",
+        "sourceUrl",
+        "sourceUri",
+        "sha256",
+        "contentType",
+        "bodyText",
+        "bodyLength"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}
