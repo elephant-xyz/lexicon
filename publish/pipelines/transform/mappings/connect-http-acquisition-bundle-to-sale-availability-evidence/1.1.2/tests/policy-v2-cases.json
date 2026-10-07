@@ -1,0 +1,716 @@
+{
+  "contractVersion": 1,
+  "policyVersion": "sale-availability-policy-v2",
+  "freshnessPolicy": {
+    "version": "rentcast-30d-v1",
+    "evaluatedAt": "2026-10-05T12:00:00.000Z",
+    "maximumAgeSeconds": 2592000,
+    "futureToleranceSeconds": 300
+  },
+  "observationIdentity": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "separator": "|",
+    "components": [
+      "provider_identifier",
+      "source_listing_identifier_or_source_request_identifier",
+      "retrieved_at_utc_milliseconds",
+      "evidence_artifact_sha256"
+    ]
+  },
+  "cases": [
+    {
+      "caseId": "fresh-exact-active",
+      "addressReference": "address:fresh-exact-active",
+      "independentPropertyReference": "property:independently-established-001",
+      "requestedAddress": "100 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "100 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:fresh-exact-active"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:fresh-exact-active",
+        "listings": [
+          {
+            "id": "rentcast-active-001",
+            "formattedAddress": "100 Main St, Springfield, IL 62701",
+            "status": "Active",
+            "price": "$450,000.25",
+            "lastSeenDate": "2026-10-05T10:00:00.000Z",
+            "listedDate": "2026-09-20T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-active-001"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-active-001",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 45000025,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": [
+            "file:google:fresh-exact-active",
+            "file:rentcast:fresh-exact-active"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "fresh-exact-active-zip-suffix",
+      "addressReference": "address:fresh-exact-active-zip-suffix",
+      "independentPropertyReference": "property:independently-established-zip",
+      "requestedAddress": "150 Main St, Springfield, IL 62701-1234",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "150 Main St, Springfield, IL 62701-1234",
+        "postalAddress": {
+          "regionCode": "US",
+          "postalCode": "62701-1234",
+          "administrativeArea": "IL",
+          "locality": "Springfield",
+          "addressLines": ["150 Main St"]
+        },
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:fresh-exact-active-zip-suffix"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "httpStatus": 200,
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:fresh-exact-active-zip-suffix",
+        "listings": [
+          {
+            "id": "rentcast-active-zip-001",
+            "formattedAddress": "150 Main St, Springfield, IL 62701",
+            "addressLine1": "150 Main St",
+            "addressLine2": null,
+            "city": "Springfield",
+            "state": "IL",
+            "zipCode": "62701",
+            "status": "Active",
+            "price": "475000",
+            "lastSeenDate": "2026-10-05T10:00:00.000Z",
+            "listedDate": "2026-09-20T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-active-zip-001"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-active-zip-001",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 47500000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": [
+            "file:google:fresh-exact-active-zip-suffix",
+            "file:rentcast:fresh-exact-active-zip-suffix"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "no-row",
+      "addressReference": "address:no-row",
+      "independentPropertyReference": null,
+      "requestedAddress": "200 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "200 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:no-row"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "httpStatus": 200,
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:no-row",
+        "listings": []
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": null,
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:no-row", "file:rentcast:no-row"]
+        }
+      ]
+    },
+    {
+      "caseId": "retained-404-no-match",
+      "addressReference": "address:retained-404-no-match",
+      "independentPropertyReference": null,
+      "requestedAddress": "250 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "250 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:retained-404-no-match"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "httpStatus": null,
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:retained-404-no-match",
+        "body": {
+          "error": "not_found",
+          "message": "No matching listings",
+          "status": 404
+        }
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": null,
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": [
+            "file:google:retained-404-no-match",
+            "file:rentcast:retained-404-no-match"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "malformed-success-object",
+      "addressReference": "address:malformed-success-object",
+      "independentPropertyReference": null,
+      "requestedAddress": "275 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "275 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:malformed-success-object"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "httpStatus": 200,
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:malformed-success-object",
+        "body": {
+          "error": "unexpected_shape",
+          "message": "Synthetic malformed success body",
+          "status": 200
+        }
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": null,
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "fileReferences": [
+            "file:google:malformed-success-object",
+            "file:rentcast:malformed-success-object"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "lookup-failure",
+      "addressReference": "address:lookup-failure",
+      "independentPropertyReference": null,
+      "requestedAddress": "300 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "300 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:lookup-failure"
+      },
+      "rentcast": {
+        "outcome": "TIMEOUT",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": null,
+        "listings": null
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": null,
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:lookup-failure"]
+        }
+      ]
+    },
+    {
+      "caseId": "stale",
+      "addressReference": "address:stale",
+      "independentPropertyReference": null,
+      "requestedAddress": "400 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "400 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:stale"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:stale",
+        "listings": [
+          {
+            "id": "rentcast-stale-001",
+            "formattedAddress": "400 Main St, Springfield, IL 62701",
+            "status": "Active",
+            "price": "350000",
+            "lastSeenDate": "2026-08-01T10:00:00.000Z",
+            "listedDate": "2026-07-15T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-stale-001"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-stale-001",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "STALE",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 35000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:stale", "file:rentcast:stale"]
+        }
+      ]
+    },
+    {
+      "caseId": "non-exact",
+      "addressReference": "address:non-exact",
+      "independentPropertyReference": null,
+      "requestedAddress": "500 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "500 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:non-exact"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:non-exact",
+        "listings": [
+          {
+            "id": "rentcast-non-exact-001",
+            "formattedAddress": "502 Main St, Springfield, IL 62701",
+            "status": "Active",
+            "price": "500000",
+            "lastSeenDate": "2026-10-05T10:00:00.000Z",
+            "listedDate": "2026-09-28T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-non-exact-001"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-non-exact-001",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "NON_EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 50000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:non-exact", "file:rentcast:non-exact"]
+        }
+      ]
+    },
+    {
+      "caseId": "ambiguous-address",
+      "addressReference": "address:ambiguous",
+      "independentPropertyReference": null,
+      "requestedAddress": "600 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "600 Main St, Springfield, IL 62701",
+        "addressComplete": false,
+        "hasUnconfirmedComponents": true,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:ambiguous"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:ambiguous",
+        "listings": [
+          {
+            "id": "rentcast-ambiguous-001",
+            "formattedAddress": "600 Main St, Springfield, IL 62701",
+            "status": "Active",
+            "price": "525000",
+            "lastSeenDate": "2026-10-05T10:00:00.000Z",
+            "listedDate": "2026-09-28T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-ambiguous-001"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-ambiguous-001",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "AMBIGUOUS",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 52500000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:ambiguous", "file:rentcast:ambiguous"]
+        }
+      ]
+    },
+    {
+      "caseId": "unknown-status",
+      "addressReference": "address:unknown-status",
+      "independentPropertyReference": null,
+      "requestedAddress": "700 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "700 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:unknown-status"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:unknown-status",
+        "listings": [
+          {
+            "id": "rentcast-unknown-status-001",
+            "formattedAddress": "700 Main St, Springfield, IL 62701",
+            "status": null,
+            "price": "575000",
+            "lastSeenDate": "2026-10-05T10:00:00.000Z",
+            "listedDate": "2026-09-28T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-unknown-status-001"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-unknown-status-001",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 57500000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": [
+            "file:google:unknown-status",
+            "file:rentcast:unknown-status"
+          ]
+        }
+      ]
+    },
+    {
+      "caseId": "conflicting-fresh-records",
+      "addressReference": "address:conflicting-fresh-records",
+      "independentPropertyReference": null,
+      "requestedAddress": "800 Main St, Springfield, IL 62701",
+      "google": {
+        "retrievedAt": "2026-10-05T11:58:00.000Z",
+        "formattedAddress": "800 Main St, Springfield, IL 62701",
+        "addressComplete": true,
+        "hasUnconfirmedComponents": false,
+        "hasInferredComponents": false,
+        "hasReplacedComponents": false,
+        "fileReference": "file:google:conflict"
+      },
+      "rentcast": {
+        "outcome": "SUCCESS",
+        "retrievedAt": "2026-10-05T12:00:00.000Z",
+        "fileReference": "file:rentcast:conflict",
+        "listings": [
+          {
+            "id": "rentcast-conflict-active",
+            "formattedAddress": "800 Main St, Springfield, IL 62701",
+            "status": "Active",
+            "price": "700000",
+            "lastSeenDate": "2026-10-05T10:00:00.000Z",
+            "listedDate": "2026-09-28T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-conflict-active"
+          },
+          {
+            "id": "rentcast-conflict-pending",
+            "formattedAddress": "800 Main St, Springfield, IL 62701",
+            "status": "Pending",
+            "price": "700000",
+            "lastSeenDate": "2026-10-05T10:05:00.000Z",
+            "listedDate": "2026-09-28T09:00:00.000Z",
+            "url": "https://listings.example.invalid/rentcast-conflict-pending"
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "rentcast-conflict-active",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 70000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:conflict", "file:rentcast:conflict"]
+        },
+        {
+          "sourceListingIdentifier": "rentcast-conflict-pending",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "PENDING",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 70000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "fileReferences": ["file:google:conflict", "file:rentcast:conflict"]
+        }
+      ]
+    }
+  ],
+  "searchCases": [
+    {
+      "caseId": "google-search-citations",
+      "addressReference": "address:google-search-citations",
+      "independentPropertyReference": null,
+      "requestedAddress": "900 Main St, Springfield, IL 62701",
+      "provider": "google-search-grounding",
+      "registrationId": "google-search-grounding-review-evidence",
+      "outcome": "SUCCESS",
+      "retrievedAt": "2026-10-05T12:00:00.000Z",
+      "fileReference": "file:google-search:citations",
+      "body": {
+        "steps": [
+          {
+            "type": "model_output",
+            "content": [
+              {
+                "type": "text",
+                "text": "Possible listing pages were found.",
+                "annotations": [
+                  {
+                    "type": "url_citation",
+                    "start_index": 0,
+                    "end_index": 12,
+                    "title": "Candidate listing A",
+                    "url": "https://search.example.invalid/google-candidate-a"
+                  },
+                  {
+                    "type": "url_citation",
+                    "start_index": 13,
+                    "end_index": 25,
+                    "title": "Candidate listing B",
+                    "url": "https://search.example.invalid/google-candidate-b"
+                  },
+                  {
+                    "type": "url_citation",
+                    "start_index": 26,
+                    "end_index": 38,
+                    "title": "Candidate listing C",
+                    "url": "https://search.example.invalid/google-candidate-c"
+                  },
+                  {
+                    "type": "url_citation",
+                    "start_index": 39,
+                    "end_index": 51,
+                    "title": "Candidate listing D",
+                    "url": "https://search.example.invalid/google-candidate-d"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "citation-0000-0000-0000",
+          "sourceUrl": "https://search.example.invalid/google-candidate-a",
+          "observationOutcome": "LISTING_FOUND"
+        },
+        {
+          "sourceListingIdentifier": "citation-0000-0000-0001",
+          "sourceUrl": "https://search.example.invalid/google-candidate-b",
+          "observationOutcome": "LISTING_FOUND"
+        },
+        {
+          "sourceListingIdentifier": "citation-0000-0000-0002",
+          "sourceUrl": "https://search.example.invalid/google-candidate-c",
+          "observationOutcome": "LISTING_FOUND"
+        }
+      ]
+    },
+    {
+      "caseId": "brave-search-results",
+      "addressReference": "address:brave-search-results",
+      "independentPropertyReference": null,
+      "requestedAddress": "1000 Main St, Springfield, IL 62701",
+      "provider": "brave-search",
+      "registrationId": "brave-search-review-property-evidence",
+      "outcome": "SUCCESS",
+      "retrievedAt": "2026-10-05T12:00:00.000Z",
+      "fileReference": "file:brave-search:results",
+      "body": {
+        "web": {
+          "results": [
+            {
+              "title": "Candidate listing C",
+              "url": "https://search.example.invalid/brave-candidate-c",
+              "description": "A search snippet that mentions the property.",
+              "extra_snippets": ["Additional discovery-only text."]
+            },
+            {
+              "title": "Candidate listing D",
+              "url": "https://search.example.invalid/brave-candidate-d",
+              "description": "Another search snippet.",
+              "extra_snippets": []
+            }
+          ]
+        }
+      },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": "result-0000",
+          "sourceUrl": "https://search.example.invalid/brave-candidate-c",
+          "observationOutcome": "LISTING_FOUND"
+        },
+        {
+          "sourceListingIdentifier": "result-0001",
+          "sourceUrl": "https://search.example.invalid/brave-candidate-d",
+          "observationOutcome": "LISTING_FOUND"
+        }
+      ]
+    },
+    {
+      "caseId": "brave-search-absence",
+      "addressReference": "address:brave-search-absence",
+      "independentPropertyReference": null,
+      "requestedAddress": "1100 Main St, Springfield, IL 62701",
+      "provider": "brave-search",
+      "registrationId": "brave-search-review-property-evidence",
+      "outcome": "SUCCESS",
+      "retrievedAt": "2026-10-05T12:00:00.000Z",
+      "fileReference": "file:brave-search:absence",
+      "body": { "web": { "results": [] } },
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": null,
+          "sourceUrl": null,
+          "observationOutcome": "LISTING_ABSENT"
+        }
+      ]
+    },
+    {
+      "caseId": "google-search-failure",
+      "addressReference": "address:google-search-failure",
+      "independentPropertyReference": null,
+      "requestedAddress": "1200 Main St, Springfield, IL 62701",
+      "provider": "google-search-grounding",
+      "registrationId": "google-search-grounding-review-evidence",
+      "outcome": "TIMEOUT",
+      "retrievedAt": "2026-10-05T12:00:00.000Z",
+      "fileReference": null,
+      "body": null,
+      "expectedObservations": [
+        {
+          "sourceListingIdentifier": null,
+          "sourceUrl": null,
+          "observationOutcome": "LOOKUP_FAILED"
+        }
+      ]
+    }
+  ],
+  "invalidSourceCases": [
+    {
+      "caseId": "missing-required-field",
+      "dataset": "acquisition_records",
+      "mutation": { "remove": "operationRequestId" },
+      "expectedFailure": "missing required fields"
+    },
+    {
+      "caseId": "wrong-type",
+      "dataset": "acquisition_records",
+      "mutation": { "replace": { "attempts": "one" } },
+      "expectedFailure": "malformed"
+    }
+  ]
+}

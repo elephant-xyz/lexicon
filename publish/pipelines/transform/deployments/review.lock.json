@@ -3,19 +3,19 @@
   "stage": "review",
   "accountId": "708502238428",
   "region": "us-east-2",
-  "publishedAt": "2026-10-06T20:13:54Z",
+  "publishedAt": "2026-10-07T14:17:03Z",
   "bucket": {
     "name": "transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p",
     "versioned": true,
     "prefix": "config/transform/",
-    "publishedObjectCount": 34
+    "publishedObjectCount": 42
   },
   "catalog": {
     "s3Uri": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/config/transform/catalog.json",
-    "versionId": "7joFMPmmyfiOeiYV.8nf.i76xZZoctDd",
-    "eTag": "\"35f413fcc52d0824a67d22fe8254c3dc\"",
-    "size": 7449,
-    "sha256": "fb23430b1823b0c8d81a777441523aa64af2d7b376340cd24fc41755f0df71e8",
+    "versionId": "rj5aSLeSlAEw9PFLoyPxcglQqYYTbFbC",
+    "eTag": "\"89ee58ff94177dc8d8961b5664f2614c\"",
+    "size": 8575,
+    "sha256": "1f16ea1c21e4561f960ab7ba75be88654a3df28616ea6c48f97815a7f90b43dd",
     "localReadbackMatched": true
   },
   "pointer": {
@@ -84,28 +84,29 @@
     }
   },
   "inertSearchCandidate": {
-    "status": "PROMOTED_BRAVE_ONLY_CURRENT_REGISTERED",
+    "status": "PROMOTED_BRAVE_ONLY_1_1_2_CURRENT_REGISTERED",
     "providerRightsConfirmed": true,
     "publishedAt": "2026-10-07T12:12:47Z",
     "catalog": {
       "key": "config/transform/candidates/sale-search-2026-10-07/catalog.json",
-      "versionId": "k3LbaHGA_xTOqRSNTB_HjCxEUXBEJW5z",
-      "sha256": "fb23430b1823b0c8d81a777441523aa64af2d7b376340cd24fc41755f0df71e8",
-      "livePointerUnchanged": true,
-      "promotedLiveCatalogVersionId": "7joFMPmmyfiOeiYV.8nf.i76xZZoctDd"
+      "versionId": "rj5aSLeSlAEw9PFLoyPxcglQqYYTbFbC",
+      "sha256": "1f16ea1c21e4561f960ab7ba75be88654a3df28616ea6c48f97815a7f90b43dd",
+      "livePointerUnchanged": false,
+      "promotedLiveCatalogVersionId": "rj5aSLeSlAEw9PFLoyPxcglQqYYTbFbC"
     },
     "evidenceMapping": {
       "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
-      "version": "1.1.0",
-      "manifestVersionId": "XpSVcwJ1vZAt6.bTSX6pZlN_xZ4mbwmV",
-      "manifestSha256": "2d236dd59d93fa0fe103c4e8f7523f016da41fc0632b79589996a03953bf26f0",
-      "queryVersionId": "1hqltkE.KCWtC_K86RY0jD00kYOT2eAy",
-      "querySha256": "08674062f3e3f66738ac101f108fa7ff267e7152bc0bda68848b150de9644fbc",
-      "fixtureVersionId": "sVr_N_Ew6Eo330vzPcJO4w8nEAIiEAN3",
-      "fixtureSha256": "38b9cc1d682fb41a051fc815ea47942cee5e0ebc31193231474e5051db260b04",
-      "testsVersionId": "J_snBy9jryTFYZTOi0333xDz_4R.NA5O",
-      "testsSha256": "a162cf0fd075d9270b903d891e1e319abe0bfff86b6c34d678427da1043665da",
-      "registrationObjectVersionId": "fGlFhxp239VMJv7DEH9xCnBBtpT5NU6o"
+      "version": "1.1.2",
+      "manifestVersionId": "Ldedoq7rm62CnUwV.fUJo3C3OPeDw1ld",
+      "manifestSha256": "83936c4f592bd788d9b0dd061124b438f7708bf97640ef7d78537ec3195750d6",
+      "queryVersionId": "j83YUmG6QMdYwoJANMX9lctvvILIY3V.",
+      "querySha256": "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441",
+      "fixtureVersionId": "FMzO5_umaHaIFM8hGWG0WAsegv8A9yLw",
+      "fixtureSha256": "4af686fd3f7976e801e5dfa9487179f65552fc9631a7d90b98c9a6770f6f0f47",
+      "testsVersionId": "nP5A.2CbPH_llkZ6rr30sgTBSs5lgPt_",
+      "testsSha256": "b9dba52562e950e539a9ec95c958bc2f568d909a6ec2e93f14992756ec96a150",
+      "registrationObjectVersionId": "Kvg8_KtkoI2RPFg.PFJ1B6j_uK47B8FY",
+      "supersededImmutableVersions": ["1.1.0", "1.1.1"]
     },
     "assessmentMapping": {
       "id": "sale-availability-evidence-to-sale-availability-assessment",
@@ -122,5 +123,13 @@
     "reason": "The immutable provider-generic mappings are live; System supplies only primary plus Brave evidence and never supplies Google Search grounding."
   },
   "providerRunStarted": true,
-  "remainingGate": "The one authorized full-System canary stopped at NON_EXACT_MATCH before Brave; a separately authorized corrected no-match canary is still required."
+  "remainingGate": null,
+  "verification": {
+    "fullSystemInvocationId": "4c6d773f-a808-45ae-b996-05d75f4014c0",
+    "braveRequests": 1,
+    "googleSearchGroundingRequests": 0,
+    "mapping112EvidenceReplayId": "verify-evidence-112-84b9c47b-0ec4-4ea2-a69e-6aace8019c25",
+    "mapping112AssessmentReplayId": "verify-assessment-120-2500e7c7-96be-4c3d-8903-41d1b152e02a",
+    "mapping112AssessmentReason": "NO_PROVIDER_MATCH"
+  }
 }

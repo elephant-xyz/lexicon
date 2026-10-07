@@ -119,13 +119,37 @@
       "kind": "mapping",
       "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
       "version": "1.1.0",
-      "current": true,
+      "current": false,
       "status": "ENABLED",
       "from": "connect-http-acquisition-bundle",
       "to": "sale-availability-evidence",
       "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/manifest.json",
       "sha256": "2d236dd59d93fa0fe103c4e8f7523f016da41fc0632b79589996a03953bf26f0",
       "querySha256": "08674062f3e3f66738ac101f108fa7ff267e7152bc0bda68848b150de9644fbc"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+      "version": "1.1.1",
+      "current": false,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-evidence",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/manifest.json",
+      "sha256": "1ebe10a63f4fc04a56dece846a71066566cceab7e621c6cdbf7fbea24ae7314e",
+      "querySha256": "4de1390bd460dca0e8f958ee489991517402ffe282af079a7b2a651e0858b042"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+      "version": "1.1.2",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-evidence",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/manifest.json",
+      "sha256": "83936c4f592bd788d9b0dd061124b438f7708bf97640ef7d78537ec3195750d6",
+      "querySha256": "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441"
     },
     {
       "kind": "mapping",

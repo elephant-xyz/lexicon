@@ -384,7 +384,7 @@ describe('sale availability pipeline contracts', () => {
     const pairs = [
       {
         id: evidenceMappingId,
-        version: '1.1.0',
+        version: '1.1.2',
         from: 'connect-http-acquisition-bundle',
         to: 'sale-availability-evidence',
         target: dataset(evidence, 'listing_observations'),
