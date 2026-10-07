@@ -96,7 +96,7 @@ unexpected nested fields, and incompatible types.
 Set `ELEPHANT_LEXICON_ROOT` to this repo checkout, or place `lexicon` as a sibling
 of `connect` / `transform`. Products resolve:
 
-`publish/pipelines/transform/catalog.json`  
+`publish/pipelines/transform/catalog.json`
 `publish/pipelines/connect/catalog.json`
 
 ## Remote resolution
