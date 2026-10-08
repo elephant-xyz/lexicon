@@ -1,0 +1,946 @@
+{
+  "schemaVersion": 1,
+  "stage": "prod",
+  "accountId": "708502238428",
+  "region": "us-east-2",
+  "publishedAt": "2026-10-08T14:46:55Z",
+  "recordedAt": "2026-10-08T14:48:26.293Z",
+  "source": {
+    "repository": "https://github.com/elephant-xyz/lexicon",
+    "pullRequest": "https://github.com/elephant-xyz/lexicon/pull/181",
+    "branch": "feat/sale-availability-lexicon",
+    "revision": "93eaceb29af0ffcbbaa0a4ac0f95462f9588e86c",
+    "workingTreeCleanAtPublication": true,
+    "reviewedCatalog": {
+      "path": "publish/pipelines/transform/catalog.json",
+      "sha256": "98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045"
+    }
+  },
+  "deployment": {
+    "stack": {
+      "name": "Transform-prod",
+      "status": "CREATE_COMPLETE",
+      "arn": "arn:aws:cloudformation:us-east-2:708502238428:stack/Transform-prod/56f14ce0-c315-11f1-9bf1-02b4701da051",
+      "sourceRevision": "8cf183674baf618bcbb427bde8aa22b267ec1378"
+    },
+    "outputs": {
+      "dataBucket": "transform-prod-artifacts-708502238428-us-east-2",
+      "catalogParameter": "/lexicon/prod/transform-catalog-uri",
+      "configurationPrefix": "stages/prod/configurations/",
+      "apiUrlParameter": "/transform/prod/api-url",
+      "stateMachineArn": "arn:aws:states:us-east-2:708502238428:stateMachine:transform-prod-pipeline",
+      "glueJobName": "transform-prod-job"
+    },
+    "activationEnabled": false
+  },
+  "bucket": {
+    "name": "transform-prod-artifacts-708502238428-us-east-2",
+    "versioned": true,
+    "encryption": "AES256",
+    "publicAccessBlocked": true,
+    "requiredStagePrefix": "stages/prod/",
+    "registrationPrefix": "stages/prod/configurations/",
+    "publicationPrefix": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/",
+    "publishedObjectCount": 54
+  },
+  "catalog": {
+    "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/catalog.json",
+    "versionId": "ef3zeb7WSGdfBFSXQfU0fnE3oFGB7.Ey",
+    "eTag": "\"5836e4c80cb3324c35dfdca77f181453\"",
+    "size": 9401,
+    "sha256": "62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e",
+    "checksumSHA256": "YtsyJrMKVwhqbJIBEa1q0O+MOvOQfLFXF+acm510gw4=",
+    "byteForByteReadback": true,
+    "publishedLast": true,
+    "sourceCatalog": {
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045/catalog.json",
+      "versionId": "qlrB7lt_p6OcnyxTMEhbKbPpgfwC_1yk",
+      "eTag": "\"4ebaa77755f0f207ecff96f2db61023f\"",
+      "size": 9396,
+      "sha256": "98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045",
+      "byteForByteReadback": true,
+      "selected": false
+    },
+    "productionProjection": {
+      "onlyChangedField": "ssMPointer",
+      "from": "/lexicon/transform-catalog-uri",
+      "to": "/lexicon/prod/transform-catalog-uri",
+      "governedEntriesAndDigestsUnchanged": true
+    }
+  },
+  "pointer": {
+    "name": "/lexicon/prod/transform-catalog-uri",
+    "value": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/catalog.json",
+    "version": 2,
+    "lastModifiedDate": "2026-10-08T07:47:10.689000-07:00",
+    "arn": "arn:aws:ssm:us-east-2:708502238428:parameter/lexicon/prod/transform-catalog-uri",
+    "dataType": "text"
+  },
+  "firecrawlResultArtifacts": {
+    "languageSchema": {
+      "path": "schemas/pipeline-language/1.1.0/schema.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/schemas/pipeline-language/1.1.0/schema.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/schemas/pipeline-language/1.1.0/schema.json",
+      "versionId": ".0WBNhqm_qp_E6rNJplRSistXFe06mnr",
+      "eTag": "\"8fa273e09d6c2e207dbc90ce877b6877\"",
+      "size": 6082,
+      "sha256": "caa47a58f2dc54b053b9e447e0d58c74b153c219c7802d24d0b35c75a09d0260",
+      "checksumSHA256": "yqR6WPLcVLBTueRH4NWMdLFTwhnHgC0k0LNcdaCdAmA=",
+      "byteForByteReadback": true
+    },
+    "sourceDefinition": {
+      "name": "connect-http-acquisition-bundle",
+      "version": "1.0.0",
+      "path": "languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "versionId": "qPoS7d4NR2cTcgNsSBnyhlrXHClmsQfM",
+      "eTag": "\"62911c9367eb0106abcae0fb0282d97b\"",
+      "size": 20147,
+      "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440",
+      "checksumSHA256": "DDVlsMH0QGFnDQUThYLpbk5Hj03nRpgCKcIeG5gw9EA=",
+      "byteForByteReadback": true
+    },
+    "targetDefinition": {
+      "name": "sale-availability-result",
+      "version": "1.0.0",
+      "path": "languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "versionId": "EbGA11nxsLhlscIaID8CiegjUn6TaqI2",
+      "eTag": "\"f7ec80da87293604cdf07437a6d30d94\"",
+      "size": 14038,
+      "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957",
+      "checksumSHA256": "bSFNxWbOlVVjoalVeyCwbpSA3FKKiAtzbVbcq+6FWVc=",
+      "byteForByteReadback": true
+    },
+    "mapping": {
+      "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+      "version": "1.0.0",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "versionId": "GFY1sqltjjOqhKLB0uFfJVAIT_Skypcz",
+      "eTag": "\"31b01699396e9aa78534cb35e6507aca\"",
+      "size": 6517,
+      "sha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
+      "checksumSHA256": "ge9j5lecxLkq+EY8ZBJl9sUlPkRWxr/zfacBL+PAfa4=",
+      "byteForByteReadback": true
+    },
+    "observationQuery": {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/listing_observations.sql",
+      "versionId": "jghu6pXuVxAAsTY7RxrOg2WKJBgS9CEe",
+      "eTag": "\"297bdaa5fcf01f6202a52e7e665ca9a5\"",
+      "size": 16072,
+      "sha256": "c5f4442d3b6429ce6648d9ab5b3856ab41e78c00ee4d4b8687c9be54cf504133",
+      "checksumSHA256": "xfRELTtkKc5mSNmrWzhWq0HnjADuTUuGh8m+VM9QQTM=",
+      "byteForByteReadback": true
+    },
+    "assessmentQuery": {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/sale_availability_assessments.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/sale_availability_assessments.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/sale_availability_assessments.sql",
+      "versionId": "i5kIGPacwHsaHHsa070hgD_qNbxDNsFr",
+      "eTag": "\"9bbd90e44b5d4312509f4b8668c8ebcd\"",
+      "size": 7360,
+      "sha256": "be89d0d4249ec642f8181ddf95b338b40cf547d1143a4db8c3824ea90524f0e3",
+      "checksumSHA256": "vonQ1CSexkL4GB3flbM4tAz1R9EUOk24w4JOqQUk8OM=",
+      "byteForByteReadback": true
+    },
+    "requestFixture": {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/request.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/request.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/request.json",
+      "versionId": "g689tU2TD6Y1.CI4NPCGEkFqsL8MNxSC",
+      "eTag": "\"3f818ab7fb0584ca7121a7a1d614c358\"",
+      "size": 528,
+      "sha256": "ddc8ff6c906a7a977b7b97a1f87c3bd00c3899be5def50a487373f1c92dc7cda",
+      "checksumSHA256": "3cj/bJBqepd7e5eh+Hw70Aw4mb5d71Ckhzc/HJLcfNo=",
+      "byteForByteReadback": true
+    },
+    "packagingFixture": {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/system-input-packaging.contract.json",
+      "versionId": "22QvSu_out6yg.vgVGFpLr.0kAitgyWI",
+      "eTag": "\"e73c57a0a913899f179618c25b790699\"",
+      "size": 5364,
+      "sha256": "309fb4efbd1f781060392e51c58d9c9af1eca5516f13be0ba5158e2c70c2a5c5",
+      "checksumSHA256": "MJ+0770feBBgOS5RxY2cmvHspVFvE74LpRWOLHDCpcU=",
+      "byteForByteReadback": true
+    },
+    "policyTests": {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/tests/firecrawl-policy-v1-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/tests/firecrawl-policy-v1-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/tests/firecrawl-policy-v1-cases.json",
+      "versionId": "5Epz24wipt2pw.EiKHrnEA854IP73A1g",
+      "eTag": "\"491f5cebe26ee28aa09c483d92e9923d\"",
+      "size": 27232,
+      "sha256": "ffdd480cda6a1793578da79df3564d540bffe52894370d2477981c475313b9b6",
+      "checksumSHA256": "/91IDNpqF5NXjaed81ZNVAv/5SiUNw0kd5gcR1MTubY=",
+      "byteForByteReadback": true
+    }
+  },
+  "artifacts": [
+    {
+      "path": "languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+      "versionId": "qPoS7d4NR2cTcgNsSBnyhlrXHClmsQfM",
+      "eTag": "\"62911c9367eb0106abcae0fb0282d97b\"",
+      "size": 20147,
+      "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440",
+      "checksumSHA256": "DDVlsMH0QGFnDQUThYLpbk5Hj03nRpgCKcIeG5gw9EA=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/county-curated/1.0.0/county-curated.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/county-curated/1.0.0/county-curated.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/county-curated/1.0.0/county-curated.json",
+      "versionId": "yawJ.g0TiJAJFVfNrqKZwByIXnOCwiah",
+      "eTag": "\"60fced533e9f10efa4868dded73062ce\"",
+      "size": 419,
+      "sha256": "a58cae8967aee61ef8bacbb32130295b6c4784f1d644829f95d7ba8e7d5f9266",
+      "checksumSHA256": "pYyuiWeu5h74usuzITApW2xHhPHWRIKflde6jn1fkmY=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/county-raw/1.0.0/county-raw.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/county-raw/1.0.0/county-raw.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/county-raw/1.0.0/county-raw.json",
+      "versionId": "fF2CLd49v2.YHnWQaYJAIK4QOhwOa040",
+      "eTag": "\"2a5647570d041150423218ee3e75bbde\"",
+      "size": 433,
+      "sha256": "20a1595ef03bbe4c6d3f6b64beea75243d9f509380b85c3094ff388fe72daa8d",
+      "checksumSHA256": "IKFZXvA7vkxtP2tkvup1JD2fUJOAuFwwlP84j+ctqo0=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/crm/1.0.0/crm.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/crm/1.0.0/crm.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/crm/1.0.0/crm.json",
+      "versionId": "ftk_zkMBAhH0g.2nR4qDiK3ZnRlQwx9i",
+      "eTag": "\"93e1b782d4fd0ceabc2c62baf0aeb6c9\"",
+      "size": 910,
+      "sha256": "a5fd5b429264ab4e6bcf1d0d0304f496070dcc2d3485803188f80f6dff2a1874",
+      "checksumSHA256": "pf1bQpJkq05rzx0NAwT0lgcNzC00hYAxiPgPbf8qGHQ=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/sale-availability-assessment/1.0.0/sale-availability-assessment.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-assessment/1.0.0/sale-availability-assessment.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-assessment/1.0.0/sale-availability-assessment.json",
+      "versionId": "CyLOI6fT9FzH9HRYcVAPP3IoJpbxyK8Y",
+      "eTag": "\"87093f7c7518463d26f0a860a03d21c3\"",
+      "size": 5480,
+      "sha256": "c8949ed59c513392bb1f4f705231577e9d8c8c7d2878e41ab4ad483335f08603",
+      "checksumSHA256": "yJSe1ZxRM5K7H09wUjFXfp2MjH0oeOQatK1IMzXwhgM=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/sale-availability-assessment/1.1.0/sale-availability-assessment.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-assessment/1.1.0/sale-availability-assessment.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-assessment/1.1.0/sale-availability-assessment.json",
+      "versionId": "AdBqTOOLptFh3AXHjuLQcMKThJP_mQRf",
+      "eTag": "\"7b527d9b321d7077cb062888ecdfa2ac\"",
+      "size": 7880,
+      "sha256": "e90b110b907ca368084f77057fe46468bbbf1f02f18b6250fbba7cf22d303e1e",
+      "checksumSHA256": "6QsRC5B8o2gIT3cFf+RkaLu/HwLxi2JQ+7p88i0wPh4=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/sale-availability-evidence/1.0.0/sale-availability-evidence.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-evidence/1.0.0/sale-availability-evidence.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-evidence/1.0.0/sale-availability-evidence.json",
+      "versionId": "DOfmEbyyljH.wfECBPDe2adrqfsNxf.b",
+      "eTag": "\"d4659ce9cef55a94efb47e6ebf291c92\"",
+      "size": 6484,
+      "sha256": "32bf5542a11b7c438d0fa891f77f5d1097dba968e26047c01ac133dbd41e4632",
+      "checksumSHA256": "Mr9VQqEbfEOND6iR939dEJfbqWjiYEfAGsEz29QeRjI=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "versionId": "EbGA11nxsLhlscIaID8CiegjUn6TaqI2",
+      "eTag": "\"f7ec80da87293604cdf07437a6d30d94\"",
+      "size": 14038,
+      "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957",
+      "checksumSHA256": "bSFNxWbOlVVjoalVeyCwbpSA3FKKiAtzbVbcq+6FWVc=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "languages/warehouse/2.0.0/warehouse.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/warehouse/2.0.0/warehouse.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/warehouse/2.0.0/warehouse.json",
+      "versionId": "8mDXX.6UU5ZsLlfg42QklXAt3UrVi1Iu",
+      "eTag": "\"d338e9a503b8636ee1ee3caa90d61661\"",
+      "size": 704,
+      "sha256": "4ec9c8c180c5b22c5795d5983af0112bec45104e7113ed0ab6ee3ddc5b6bca4c",
+      "checksumSHA256": "TsnIwYDFsixXldWYOvARK+xFEE5xE+0Ktu493Ftrykw=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/fixtures/system-input-packaging.contract.json",
+      "versionId": "j4_DrGAsHe3DAAbibNlDxZVTACedu.Dq",
+      "eTag": "\"4cde1cf98eef5b68c5e8aa169b5429ab\"",
+      "size": 3912,
+      "sha256": "2382b10b09dd8b11949afcc4b347a17643a136cf64c489c9e8fa69043d75ce69",
+      "checksumSHA256": "I4KxCwndixGUmvzEs0ehdkOhNs9kxInJ6PppBD11zmk=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/manifest.json",
+      "versionId": "5V00DYua5VlnKCwev0JVpP3BY6CjeDbj",
+      "eTag": "\"121de26a7ddc2299153f38ff594ed87e\"",
+      "size": 2759,
+      "sha256": "01075c45599dcaa703e4bfaf2f844ac474a1403fe70f39d47ce4c72117af6123",
+      "checksumSHA256": "AQdcRVmdyqcD5L+vL4RKxHShQD/nDznUfOTHIRevYSM=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/queries/listing_observations.sql",
+      "versionId": "mDS_60Gz1smTEQ.Y63lYvcO_hXt5F14O",
+      "eTag": "\"dbd42d0baa11cc294fa0f50bac8c9491\"",
+      "size": 8676,
+      "sha256": "55fc063a9ea3fa31d92db517b4394dccf048cdd22ef8685a338c25d0812c1e97",
+      "checksumSHA256": "VfwGOp6j+jHZLbUXtDlNzPBIzdIu+GhaM4wl0IEsHpc=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/tests/policy-v1-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/tests/policy-v1-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.0/tests/policy-v1-cases.json",
+      "versionId": "lf5.28A7WHAoygxAG4jGFVvQY32n8ehz",
+      "eTag": "\"94f669856e09336364ebe6061093c2b5\"",
+      "size": 20231,
+      "sha256": "da19aabbd180e3a1c4b622715acbbdb0217f754e77471aabf2e4dd7a5af41686",
+      "checksumSHA256": "2hmqu9GA46HEtiJxWsu9sCF/dU53Rxqr8uTdelr0FoY=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/fixtures/system-input-packaging.contract.json",
+      "versionId": "ld32ahHdoovq.7BDHkUgVUtmTZGdjuI9",
+      "eTag": "\"4cde1cf98eef5b68c5e8aa169b5429ab\"",
+      "size": 3912,
+      "sha256": "2382b10b09dd8b11949afcc4b347a17643a136cf64c489c9e8fa69043d75ce69",
+      "checksumSHA256": "I4KxCwndixGUmvzEs0ehdkOhNs9kxInJ6PppBD11zmk=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/manifest.json",
+      "versionId": "ItCjlrLzB6wUWOUf16L.HiDwZHj8gCvk",
+      "eTag": "\"2d833b1f862201e6ccecbfb608addb22\"",
+      "size": 2759,
+      "sha256": "2498926e54b76988ec2d1f526fc8932f8e5f6593778d2a4edf6189b6584dc719",
+      "checksumSHA256": "JJiSblS3aYjsLR9Sb8iTL45fZZN3jSpO32GJtlhNxxk=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/queries/listing_observations.sql",
+      "versionId": "eh5LqRwTOJkJTnM8yAw8lDMNblG.aurU",
+      "eTag": "\"941139053b510bba7b42e2366480b378\"",
+      "size": 11585,
+      "sha256": "ea2f9b21ff013ff9be12f848e71dd1dcf0d7c2bac30ced0696011458e1379440",
+      "checksumSHA256": "6i+bIf8BP/m+EvhI5x3R3PDXwrrDDO0GlgEUWOE3lEA=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/tests/policy-v1-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/tests/policy-v1-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.0.1/tests/policy-v1-cases.json",
+      "versionId": "Z7eGdCpQW6MVdpJcYzITgcG69NeTGVz0",
+      "eTag": "\"bd3cd722aa53addb1c1001d386781a71\"",
+      "size": 24952,
+      "sha256": "27296221921d20c2feaa266b283db1a684a62df9de1e3403dccde340a3589413",
+      "checksumSHA256": "JyliIZIdIML+qiZrKD2xpoSmLfneHjQD3M3jQKNYlBM=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/fixtures/system-input-packaging.contract.json",
+      "versionId": "QayPjMMIwr3yXcF87PLW0DM0LKeIeYyM",
+      "eTag": "\"f8620468622901d747e6d1f2c0b966f9\"",
+      "size": 4841,
+      "sha256": "38b9cc1d682fb41a051fc815ea47942cee5e0ebc31193231474e5051db260b04",
+      "checksumSHA256": "OLnMHWgvtBoFH8gV6keULO5eDrwxGTIxR05QUdsmCwQ=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/manifest.json",
+      "versionId": "onHFlP0YI5UaDo7U60NN4Syr.FUz49DA",
+      "eTag": "\"c2eef7cecd818fb7162a44fb2724c3d4\"",
+      "size": 2858,
+      "sha256": "2d236dd59d93fa0fe103c4e8f7523f016da41fc0632b79589996a03953bf26f0",
+      "checksumSHA256": "LSNt1Z2T+g/hA8To91I/AW2kH8BjK3lYmZagOVO/JvA=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/queries/listing_observations.sql",
+      "versionId": "FRGpNDmG7e1OfdWQvmtZBcYMVK8ZL0o0",
+      "eTag": "\"bab8deac00a197c9ef9eac651832a662\"",
+      "size": 20791,
+      "sha256": "08674062f3e3f66738ac101f108fa7ff267e7152bc0bda68848b150de9644fbc",
+      "checksumSHA256": "CGdAYvPj9mc4rBAfEI+n/yZ+cVK8C9pohIsVDelkT7w=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/tests/policy-v2-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/tests/policy-v2-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.0/tests/policy-v2-cases.json",
+      "versionId": "TkNfoaw_OdLCY8i8JdQ6OKi_TP33Vhr_",
+      "eTag": "\"2f3b7fd5977b1afd255e3591a4e145ae\"",
+      "size": 20367,
+      "sha256": "a162cf0fd075d9270b903d891e1e319abe0bfff86b6c34d678427da1043665da",
+      "checksumSHA256": "oWLPD9B12ScLkD2JHh4xmr4L//hrbDTWeEJ9oQQ2Zdo=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/fixtures/system-input-packaging.contract.json",
+      "versionId": "IURWlDA4opVtrnFgRzfw9Ht3glcGJdfo",
+      "eTag": "\"a2636e44e8307547e5fd6ecb8f2e52ff\"",
+      "size": 4841,
+      "sha256": "27aefaf85c45d3040e2cb342d4dd9c1972a5925f800e5d06ddc54a5f815fef2a",
+      "checksumSHA256": "J676+FxF0wQOLLNC1N2cGXKlkl+ADl0G3cVKX4Ff7yo=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/manifest.json",
+      "versionId": "DnFcpdVjIIiXxIZEbKUuC0R9K08GgQd_",
+      "eTag": "\"4d80bb1d16fb89f81a98a46ada0c1cf9\"",
+      "size": 2858,
+      "sha256": "1ebe10a63f4fc04a56dece846a71066566cceab7e621c6cdbf7fbea24ae7314e",
+      "checksumSHA256": "Hr4Qpj9PwEpW3s6EanEGZWbM6rfmIcbNv3++okrnMU4=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/queries/listing_observations.sql",
+      "versionId": "5upfainhZAWLPwb..L2pNJj5mcdF.Z53",
+      "eTag": "\"37a11afc1529bd3207542379226e92a5\"",
+      "size": 21662,
+      "sha256": "4de1390bd460dca0e8f958ee489991517402ffe282af079a7b2a651e0858b042",
+      "checksumSHA256": "TeE5C9Rg3KDo+VjuSJmRUXQC/+KCrweaeyplHghYsEI=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/tests/policy-v2-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/tests/policy-v2-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.1/tests/policy-v2-cases.json",
+      "versionId": "fJnXp2xyohVLsIJtHMmZbkTq8mGjx.9Y",
+      "eTag": "\"87b8fa67faae44d00956481f07329aa2\"",
+      "size": 25837,
+      "sha256": "e1a537a4e3d53442ad4a1ade3f681c238f610f7f4838b13c585f1333dc379bdc",
+      "checksumSHA256": "4aU3pOPVNEKtShreP2gcI49hD39IOLE8WF8TM9w3m9w=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/fixtures/system-input-packaging.contract.json",
+      "versionId": "wRzxhqzYYAhWpURuqNoRv0Q99XlSfCqF",
+      "eTag": "\"91acd0b334d9b3c563a9b1ec052cd163\"",
+      "size": 4841,
+      "sha256": "4af686fd3f7976e801e5dfa9487179f65552fc9631a7d90b98c9a6770f6f0f47",
+      "checksumSHA256": "SvaG/T95dugB5d+pSHF59lVS/JYxp9kLmMmmdw9vD0c=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/manifest.json",
+      "versionId": "xKxNCBJpKLz2ILzS8TqfZgOojxcVLgdU",
+      "eTag": "\"2c9e1de65bf5a6f9fb4e60cf39e33a30\"",
+      "size": 2858,
+      "sha256": "83936c4f592bd788d9b0dd061124b438f7708bf97640ef7d78537ec3195750d6",
+      "checksumSHA256": "g5NsT1kr14jZsN0GESS0OPdwi/l2QO99eFN+wxlXUNY=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/queries/listing_observations.sql",
+      "versionId": "dB0rbiR9atgabCefN7bjUx8e7lWG3lcg",
+      "eTag": "\"4fab49e6e3e70f5f5aa141ff0326a56d\"",
+      "size": 22200,
+      "sha256": "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441",
+      "checksumSHA256": "0SroP4zxI2Po24cqyWrZIv0RTWaTL50y4Om32xSxhEE=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/tests/policy-v2-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/tests/policy-v2-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/tests/policy-v2-cases.json",
+      "versionId": "mUD93IE3UzXb6mx4ZljJd93LrAmmalxb",
+      "eTag": "\"08762185a9867927673bec3a1fc91f9d\"",
+      "size": 25838,
+      "sha256": "b9dba52562e950e539a9ec95c958bc2f568d909a6ec2e93f14992756ec96a150",
+      "checksumSHA256": "udulJWLpUOU5qeyVyVi8L1aNkJpuwuk/FJknVuyWoVA=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/request.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/request.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/request.json",
+      "versionId": "g689tU2TD6Y1.CI4NPCGEkFqsL8MNxSC",
+      "eTag": "\"3f818ab7fb0584ca7121a7a1d614c358\"",
+      "size": 528,
+      "sha256": "ddc8ff6c906a7a977b7b97a1f87c3bd00c3899be5def50a487373f1c92dc7cda",
+      "checksumSHA256": "3cj/bJBqepd7e5eh+Hw70Aw4mb5d71Ckhzc/HJLcfNo=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/system-input-packaging.contract.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/system-input-packaging.contract.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/fixtures/system-input-packaging.contract.json",
+      "versionId": "22QvSu_out6yg.vgVGFpLr.0kAitgyWI",
+      "eTag": "\"e73c57a0a913899f179618c25b790699\"",
+      "size": 5364,
+      "sha256": "309fb4efbd1f781060392e51c58d9c9af1eca5516f13be0ba5158e2c70c2a5c5",
+      "checksumSHA256": "MJ+0770feBBgOS5RxY2cmvHspVFvE74LpRWOLHDCpcU=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "versionId": "GFY1sqltjjOqhKLB0uFfJVAIT_Skypcz",
+      "eTag": "\"31b01699396e9aa78534cb35e6507aca\"",
+      "size": 6517,
+      "sha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
+      "checksumSHA256": "ge9j5lecxLkq+EY8ZBJl9sUlPkRWxr/zfacBL+PAfa4=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/listing_observations.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/listing_observations.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/listing_observations.sql",
+      "versionId": "jghu6pXuVxAAsTY7RxrOg2WKJBgS9CEe",
+      "eTag": "\"297bdaa5fcf01f6202a52e7e665ca9a5\"",
+      "size": 16072,
+      "sha256": "c5f4442d3b6429ce6648d9ab5b3856ab41e78c00ee4d4b8687c9be54cf504133",
+      "checksumSHA256": "xfRELTtkKc5mSNmrWzhWq0HnjADuTUuGh8m+VM9QQTM=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/sale_availability_assessments.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/sale_availability_assessments.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/queries/sale_availability_assessments.sql",
+      "versionId": "i5kIGPacwHsaHHsa070hgD_qNbxDNsFr",
+      "eTag": "\"9bbd90e44b5d4312509f4b8668c8ebcd\"",
+      "size": 7360,
+      "sha256": "be89d0d4249ec642f8181ddf95b338b40cf547d1143a4db8c3824ea90524f0e3",
+      "checksumSHA256": "vonQ1CSexkL4GB3flbM4tAz1R9EUOk24w4JOqQUk8OM=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/tests/firecrawl-policy-v1-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/tests/firecrawl-policy-v1-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/tests/firecrawl-policy-v1-cases.json",
+      "versionId": "5Epz24wipt2pw.EiKHrnEA854IP73A1g",
+      "eTag": "\"491f5cebe26ee28aa09c483d92e9923d\"",
+      "size": 27232,
+      "sha256": "ffdd480cda6a1793578da79df3564d540bffe52894370d2477981c475313b9b6",
+      "checksumSHA256": "/91IDNpqF5NXjaed81ZNVAv/5SiUNw0kd5gcR1MTubY=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/county-raw-to-curated/1.0.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/county-raw-to-curated/1.0.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/county-raw-to-curated/1.0.0/manifest.json",
+      "versionId": "s3yrqG2FNO.VFqCmEqfA9YlsgOTv3p.4",
+      "eTag": "\"85bca30196fbd3505847b2ea9ad2d9a5\"",
+      "size": 683,
+      "sha256": "2c5cef4b3894abaac08534457e4d4c3af6ba43737f7af542e8d6b7232e298775",
+      "checksumSHA256": "LFzvSziUq6rAhTRFfk1MOva6Q3N/evVC6Na3Iy4ph3U=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/county-raw-to-curated/1.0.0/queries/parcels.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/county-raw-to-curated/1.0.0/queries/parcels.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/county-raw-to-curated/1.0.0/queries/parcels.sql",
+      "versionId": "7zHKmZ18kMcaoUGmNkux1p5Idsw6BMcB",
+      "eTag": "\"b9330fbb41c5b20173b92bb5408fb8e5\"",
+      "size": 104,
+      "sha256": "4537e89a464471efbb58dc349872393a1e33ce1827bd607c7c7c18f5f58a4b62",
+      "checksumSHA256": "RTfomkZEce+7WNw0mHI5Oh4zzhgnvWB8fHwY9fWKS2I=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/crm-to-warehouse/1.0.0/fixtures/customers.jsonl",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/fixtures/customers.jsonl",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/fixtures/customers.jsonl",
+      "versionId": "YYUG074sWkH_wegFPC_a5IlUhbxw8Wvt",
+      "eTag": "\"503767e026a80e9aef564685042b53d3\"",
+      "size": 445,
+      "sha256": "cd22ec5181d5b5a74d641b4c2a1244b354a1fe7a763b6c9f534fd16ef3358dd9",
+      "checksumSHA256": "zSLsUYHVtadNZBtMKhJEs1Sh/np2O2yfU0/RbvM1jdk=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/crm-to-warehouse/1.0.0/fixtures/expected-accounts.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/fixtures/expected-accounts.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/fixtures/expected-accounts.json",
+      "versionId": "5KrMpbQiMsdbjaidY30ErJCUdYWXKeBL",
+      "eTag": "\"227098380642fbd44cc16b29c7feda29\"",
+      "size": 544,
+      "sha256": "fd7a6d9d1d73487bbee8828c2387f9133e152d58c143a9ae57e8b28348b0bae0",
+      "checksumSHA256": "/XptnR1zSHu+6IKMI4f5Ez4VLVjBQ6muV+iyg0iwuuA=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/crm-to-warehouse/1.0.0/fixtures/request.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/fixtures/request.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/fixtures/request.json",
+      "versionId": "R68NZt9pVav2DLigyMt.T8ku1yUzMh4_",
+      "eTag": "\"275d9a6154db2fcc2a28c8d868e215bf\"",
+      "size": 280,
+      "sha256": "741970f681e72c6c32ab7e164967b38292c2993c741094517a6e58c0371d02bd",
+      "checksumSHA256": "dBlw9oHnLGwyq34WSWezgpLCmTx0EJRRem5YwDcdAr0=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/crm-to-warehouse/1.0.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/manifest.json",
+      "versionId": "BUcWPLNCDnqQScNKJhsUrJzc3o45XhAB",
+      "eTag": "\"a9aa31bd90987bd2bcefe68eadf6581a\"",
+      "size": 670,
+      "sha256": "b44f4981e5c28187d19ed215eed070caaf4aa41209c4b705716ff1f7107d6237",
+      "checksumSHA256": "tE9JgeXCgYfRntIV7tBwyq9KpBIJxLcFcW/x9xB9Yjc=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/crm-to-warehouse/1.0.0/queries/accounts.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/queries/accounts.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/crm-to-warehouse/1.0.0/queries/accounts.sql",
+      "versionId": "zER.XNJhsuoDMARp4Pg9aseTL.ZdFCho",
+      "eTag": "\"3e660d0864dc4fe2ab4e032e6a070fef\"",
+      "size": 161,
+      "sha256": "8417d426b6a6b64320a236b6e28e64278b6c5a9a8526a54f668530b57b05de12",
+      "checksumSHA256": "hBfUJramtkMgoja24o5kJ4tsWpqFJqVPZoUwtXsF3hI=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/manifest.json",
+      "versionId": ".PHSU8QBNx_wt3cnLrG89hEYt3.ATncg",
+      "eTag": "\"b4ba721aeb268aeb38ee693f82881bbd\"",
+      "size": 3374,
+      "sha256": "ede97ac1b2e65550ef36908923e092af6f5625372e832164aa3b501fa67d0e24",
+      "checksumSHA256": "7el6wbLmVVDvNpCJI+CSr29WJTcugyFkqjtQH6Z9DiQ=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/queries/sale_availability_assessments.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/queries/sale_availability_assessments.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/queries/sale_availability_assessments.sql",
+      "versionId": "Mw3eQQ9mBDm.QaWu832qTkayMe7IWukF",
+      "eTag": "\"104c2747442496063cca721aca598154\"",
+      "size": 3924,
+      "sha256": "c768b28defeda4f7897757ac55ed6326e1f3cf0d9f2149cf17787d5b5e4a7819",
+      "checksumSHA256": "x2iyje/tpPeJd1esVe1jJuHzzw2fIUnPF3h9W15KeBk=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/tests/policy-v1-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/tests/policy-v1-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.0.0/tests/policy-v1-cases.json",
+      "versionId": "UT4W4KBRnUt3lRnv9qHEzdtHwocMG.tk",
+      "eTag": "\"06497e40171df4e0e5b476809aa4c2ee\"",
+      "size": 9909,
+      "sha256": "90fef7c98c36b749ed6018c3f7f11989ebaca9d1e544d601a78678dc1dacb12d",
+      "checksumSHA256": "kP73yYw2t0ntYBjD9/EZieusqdHlRNYBp4Z43B2ssS0=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/manifest.json",
+      "versionId": "R2HPbjr7Gp_7Y9CKGFMSV42o1blLgT6r",
+      "eTag": "\"16c9bcc34bb2dc914811631068f18a25\"",
+      "size": 3934,
+      "sha256": "02423a79da74d830b640d5f2143d82234b2ad3eef661e3e8b91fd5a658455a05",
+      "checksumSHA256": "AkI6edp02DC2QNXyFD2CI0sq0+72YePouR/VplhFWgU=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/queries/sale_availability_assessments.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/queries/sale_availability_assessments.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/queries/sale_availability_assessments.sql",
+      "versionId": "BGHjVx6jD2dkfVbjrHnhbOignTE9FHXm",
+      "eTag": "\"6af95881e4b0fd9ca3f34915ef9bb08e\"",
+      "size": 5498,
+      "sha256": "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7",
+      "checksumSHA256": "sNG3p7crmHqYGFJWs9qpePV5xFmyDCi/bikLNii1guc=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/tests/policy-v1-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/tests/policy-v1-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.1.0/tests/policy-v1-cases.json",
+      "versionId": "aGiQb_gxHOdor7oMeNYyAJDeHAJegyYf",
+      "eTag": "\"e6a149d0717014bc9ec8cca6edb334fd\"",
+      "size": 13850,
+      "sha256": "7c4beb1b08cef212585610ed99da73d7b843a276477fe36ed87d1d432b27b3b8",
+      "checksumSHA256": "fEvrGwjO8hJYVhDtmdpz17hDonZHf+Nu2H0dQysns7g=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/manifest.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/manifest.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/manifest.json",
+      "versionId": "J3.T8RvORiozeuQzYvXIf7BMHHjlU7rq",
+      "eTag": "\"0cae04e6d922eac06157addcb2d1e16d\"",
+      "size": 3927,
+      "sha256": "55392d99b183a2830bfca16e2569682388f34722baf63224ee03f677055dd6d9",
+      "checksumSHA256": "VTktmbGDooML/KFuJWloI4jzRyK69jIk7gP2dwVd1tk=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/queries/sale_availability_assessments.sql",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/queries/sale_availability_assessments.sql",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/queries/sale_availability_assessments.sql",
+      "versionId": "B39300cpL43c5kkOkmklT3wWLwa0eSVK",
+      "eTag": "\"7f83fea7438ccd7b1bc02a8ec439b0f8\"",
+      "size": 9380,
+      "sha256": "9815a337cbc6456eea44774b6ae7e5d879ac80e4613eb1631818dfd0ea2ace1f",
+      "checksumSHA256": "mBWjN8vGRW7qRHdLaufl2HmsgORhPrFjGBjf0Ooqzh8=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/tests/policy-v2-cases.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/tests/policy-v2-cases.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/tests/policy-v2-cases.json",
+      "versionId": "iWX_i6tjEj_J608deqIzBjJ0Dswf.e5.",
+      "eTag": "\"310f8822f7d6e0c496ae3ce3967df9e3\"",
+      "size": 17515,
+      "sha256": "1144885b2abec7f482b2bbc14e41d8caffd841ceee5803f4ca27dd0a5b56345b",
+      "checksumSHA256": "EUSIWyq+x/SCsrvBTkHYyv/YQc7uWAP0yifdCltWNFs=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "schemas/pipeline-language/1.0.0/schema.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/schemas/pipeline-language/1.0.0/schema.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/schemas/pipeline-language/1.0.0/schema.json",
+      "versionId": "3y3hVwALEtZ8SQoEoo72qv7DX7N0_iog",
+      "eTag": "\"89f6f3b0ec0c03116364974a90a8780d\"",
+      "size": 5239,
+      "sha256": "02cb4837a0ee867d7569efb9faf8d82eef3ef0d47362dd6de285f252c37d8c97",
+      "checksumSHA256": "AstIN6Duhn11ae+5+vjYLu8+8NRzYt1t4oXyUsN9jJc=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "schemas/pipeline-language/1.1.0/schema.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/schemas/pipeline-language/1.1.0/schema.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/schemas/pipeline-language/1.1.0/schema.json",
+      "versionId": ".0WBNhqm_qp_E6rNJplRSistXFe06mnr",
+      "eTag": "\"8fa273e09d6c2e207dbc90ce877b6877\"",
+      "size": 6082,
+      "sha256": "caa47a58f2dc54b053b9e447e0d58c74b153c219c7802d24d0b35c75a09d0260",
+      "checksumSHA256": "yqR6WPLcVLBTueRH4NWMdLFTwhnHgC0k0LNcdaCdAmA=",
+      "byteForByteReadback": true
+    },
+    {
+      "path": "catalog.json",
+      "key": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/catalog.json",
+      "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/catalog.json",
+      "versionId": "ef3zeb7WSGdfBFSXQfU0fnE3oFGB7.Ey",
+      "eTag": "\"5836e4c80cb3324c35dfdca77f181453\"",
+      "size": 9401,
+      "sha256": "62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e",
+      "checksumSHA256": "YtsyJrMKVwhqbJIBEa1q0O+MOvOQfLFXF+acm510gw4=",
+      "byteForByteReadback": true
+    }
+  ],
+  "verification": {
+    "local": {
+      "revision": "93eaceb29af0ffcbbaa0a4ac0f95462f9588e86c",
+      "eslint": "passed",
+      "prettier": "passed",
+      "vitest": {
+        "filesPassed": 28,
+        "testsPassed": 417
+      },
+      "typeScriptBuild": "passed",
+      "viteBuild": "passed"
+    },
+    "initialExactCatalogCheck": {
+      "requestId": "8b4ce3ab-e20d-4513-8e4b-12b897818d2a",
+      "httpStatus": 500,
+      "error": {
+        "code": "Transform catalog declares SSM pointer '/lexicon/transform-catalog-uri', expected '/lexicon/prod/transform-catalog-uri'",
+        "message": "Transform API request failed"
+      },
+      "disposition": "Not selected: reviewed catalog declared the review pointer; all governed entries and digests were retained in the production projection."
+    },
+    "api": {
+      "baseline": {
+        "httpStatus": 200,
+        "requestId": "eb7fd970-01b8-4252-be88-72b83fa333cd",
+        "status": "VALID",
+        "configuration": {
+          "contractVersion": 2,
+          "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+          "version": "1.0.0",
+          "from": {
+            "name": "connect-http-acquisition-bundle",
+            "version": "1.0.0"
+          },
+          "to": {
+            "name": "sale-availability-result",
+            "version": "1.0.0"
+          },
+          "catalog": {
+            "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/catalog.json",
+            "sha256": "62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e",
+            "versionId": "ef3zeb7WSGdfBFSXQfU0fnE3oFGB7.Ey",
+            "eTag": "\"5836e4c80cb3324c35dfdca77f181453\"",
+            "size": 9401
+          },
+          "sourceDefinition": {
+            "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/connect-http-acquisition-bundle/1.0.0/connect-http-acquisition-bundle.json",
+            "sha256": "0c3565b0c1f44061670d05138582e96e4e478f4de746980229c21e1b9830f440",
+            "versionId": "qPoS7d4NR2cTcgNsSBnyhlrXHClmsQfM",
+            "eTag": "\"62911c9367eb0106abcae0fb0282d97b\"",
+            "size": 20147
+          },
+          "targetDefinition": {
+            "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/languages/sale-availability-result/1.0.0/sale-availability-result.json",
+            "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957",
+            "versionId": "EbGA11nxsLhlscIaID8CiegjUn6TaqI2",
+            "eTag": "\"f7ec80da87293604cdf07437a6d30d94\"",
+            "size": 14038
+          },
+          "mapping": {
+            "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+            "version": "1.0.0",
+            "artifact": {
+              "s3Uri": "s3://transform-prod-artifacts-708502238428-us-east-2/stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+              "sha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
+              "versionId": "GFY1sqltjjOqhKLB0uFfJVAIT_Skypcz",
+              "eTag": "\"31b01699396e9aa78534cb35e6507aca\"",
+              "size": 6517
+            }
+          },
+          "registeredAt": "2026-10-08T14:47:19.327Z"
+        }
+      },
+      "replay": {
+        "httpStatus": 200,
+        "requestId": "0eab9cb2-31ac-43df-85b7-963720699452",
+        "configurationMatchedBaseline": true
+      },
+      "variant": {
+        "httpStatus": 200,
+        "requestId": "8e8de195-4bba-435b-8dbc-6b1e41f3cfe5",
+        "status": "VALID",
+        "id": "crm-to-warehouse",
+        "version": "1.0.0"
+      },
+      "invalid": {
+        "httpStatus": 400,
+        "requestId": "0546ec7c-d3bb-4895-8772-7aaab88034f3",
+        "error": {
+          "code": "ContractInvalid",
+          "message": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"string\",\n    \"received\": \"undefined\",\n    \"path\": [\n      \"to\"\n    ],\n    \"message\": \"Required\"\n  }\n]"
+        }
+      },
+      "unauthorized": {
+        "httpStatus": 403,
+        "requestId": "77da5fa3-efda-421e-81b6-da0cb7e6e00b"
+      },
+      "invariants": {
+        "registrationObjectCount": 0,
+        "apiActivationEnabled": false,
+        "resolverActivationEnabled": false,
+        "stateMachineExecutionCount": 0,
+        "glueJobRunCount": 0
+      }
+    },
+    "cloudWatch": {
+      "logGroup": "/aws/lambda/transform-prod-api",
+      "logStream": "2026/10/08/transform-prod-api[$LATEST]0f3ecb2317a147c29588ad4e2509ca68",
+      "baselineRequestId": "eb7fd970-01b8-4252-be88-72b83fa333cd",
+      "invalidRequestId": "0546ec7c-d3bb-4895-8772-7aaab88034f3",
+      "initialMismatchXRayTraceId": "1-6ac7ac16-58d4bc8d5811ea521f403858",
+      "invalidXRayTraceId": "1-6ac7ad09-30d2436e5990e0a734de66cb"
+    }
+  },
+  "effects": {
+    "mappingsRegistered": 0,
+    "dataStaged": false,
+    "stepFunctionsExecutionsStarted": 0,
+    "glueRunsStarted": 0,
+    "transformActivated": false,
+    "ipfsPublished": false,
+    "sqlOrDefinitionBytesChanged": false
+  },
+  "kecleonRegistrationHandoff": {
+    "owner": "kecleon",
+    "apiUrlParameter": "/transform/prod/api-url",
+    "authentication": "AWS_IAM Lambda Function URL, SigV4 service lambda",
+    "method": "POST",
+    "route": "/configurations/register",
+    "body": {
+      "contractVersion": 2,
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-result"
+    },
+    "expected": {
+      "httpStatus": 201,
+      "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+      "version": "1.0.0",
+      "catalogSha256": "62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e",
+      "mappingSha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
+      "targetDefinitionSha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957",
+      "registrationObjectKey": "stages/prod/configurations/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0.json"
+    },
+    "readback": {
+      "method": "GET",
+      "route": "/configurations/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0"
+    },
+    "constraints": [
+      "Do not activate Transform.",
+      "Do not stage input data.",
+      "Do not start Step Functions or Glue.",
+      "Fail on any digest or immutable-registration conflict."
+    ]
+  },
+  "cleanup": {
+    "exactSourceCatalogPrefixRetainedAsImmutableEvidence": "stages/prod/catalogs/transform/98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045/",
+    "selectedCatalogPrefix": "stages/prod/catalogs/transform/62db3226b30a57086a6c920111ad6ad0ef8c3af3907cb15717e69c9b9d74830e/",
+    "registrationPrefixUnchangedAndEmpty": true,
+    "sharedObjectsDeleted": false
+  },
+  "credentials": {
+    "profile": null,
+    "selection": "invocation-time only"
+  }
+}
