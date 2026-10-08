@@ -469,7 +469,7 @@ describe('sale availability pipeline contracts', () => {
   it('publishes one Firecrawl mapping with ordered dependent Parquet outputs', () => {
     const bundle = mapping(resultMappingId);
     expect(bundle.catalogEntry).toMatchObject({
-      version: '1.0.0',
+      version: '1.0.1',
       status: 'ENABLED',
       from: 'connect-http-acquisition-bundle',
       to: 'sale-availability-result',
@@ -478,7 +478,7 @@ describe('sale availability pipeline contracts', () => {
     expect(bundle.manifest).toMatchObject({
       contractVersion: 2,
       id: resultMappingId,
-      version: '1.0.0',
+      version: '1.0.1',
       status: 'ENABLED',
       from: { name: 'connect-http-acquisition-bundle', version: '1.0.0' },
       to: { name: 'sale-availability-result', version: '1.0.0' },
@@ -525,10 +525,14 @@ describe('sale availability pipeline contracts', () => {
 
   it('pins synthetic fail-closed Firecrawl policy and version-free wire request fixtures', () => {
     const bundle = mapping(resultMappingId);
-    const fixturePath = path.join(bundle.root, 'tests', 'firecrawl-policy-v1-cases.json');
+    const fixturePath = path.join(bundle.root, 'tests', 'firecrawl-policy-v2-cases.json');
     const rawFixture = readFileSync(fixturePath, 'utf8');
     const fixture = JSON.parse(rawFixture) as {
       policyVersion: string;
+      structuredEvidenceLimits: {
+        maximumJsonLdBlocksPerPage: number;
+        maximumJsonLdCharactersPerBlock: number;
+      };
       cases: Array<{
         caseId: string;
         expectedObservations: unknown[];
@@ -540,16 +544,30 @@ describe('sale availability pipeline contracts', () => {
       }>;
       replays: Array<{ sourceCaseId: string }>;
     };
-    expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v1');
+    expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v2');
+    expect(fixture.structuredEvidenceLimits).toEqual({
+      maximumJsonLdBlocksPerPage: 16,
+      maximumJsonLdCharactersPerBlock: 262_144,
+    });
     expect(fixture.cases.map(item => item.caseId)).toEqual([
       'active-exact-jsonld',
-      'future-public-auction',
+      'later-jsonld-array-active',
+      'later-jsonld-graph-active',
+      'irrelevant-software-offers-ignored',
       'three-page-conflict',
+      'single-page-status-conflict',
+      'unstructured-for-sale-text',
+      'embedded-app-active-only',
+      'unstructured-future-public-auction',
+      'active-exact-missing-date',
+      'active-exact-price-missing-currency',
       'empty-web-results',
       'provider-success-false',
       'missing-raw-html',
       'blocked-page-metadata',
       'malformed-envelope-json',
+      'malformed-jsonld',
+      'jsonld-block-limit-exceeded',
       'non-exact-address',
       'stale-active-page',
     ]);
@@ -559,12 +577,39 @@ describe('sale availability pipeline contracts', () => {
     expect(
       fixture.cases.find(item => item.caseId === 'three-page-conflict')?.expectedAssessment
     ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
-    for (const caseFixture of fixture.cases.slice(3)) {
+    expect(
+      fixture.cases.find(item => item.caseId === 'single-page-status-conflict')?.expectedAssessment
+    ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
+    for (const caseId of [
+      'active-exact-jsonld',
+      'later-jsonld-array-active',
+      'later-jsonld-graph-active',
+      'irrelevant-software-offers-ignored',
+      'active-exact-price-missing-currency',
+    ]) {
+      expect(fixture.cases.find(item => item.caseId === caseId)?.expectedAssessment).toMatchObject({
+        availabilityStatus: 'FOR_SALE',
+        isForSale: true,
+      });
+    }
+    for (const caseFixture of fixture.cases.filter(
+      item =>
+        ![
+          'active-exact-jsonld',
+          'later-jsonld-array-active',
+          'later-jsonld-graph-active',
+          'irrelevant-software-offers-ignored',
+          'active-exact-price-missing-currency',
+          'three-page-conflict',
+          'single-page-status-conflict',
+        ].includes(item.caseId)
+    )) {
       expect(caseFixture.expectedAssessment.availabilityStatus, caseFixture.caseId).toBe('UNKNOWN');
       expect(caseFixture.expectedAssessment.isForSale, caseFixture.caseId).toBeNull();
     }
     expect(fixture.replays).toEqual([
       expect.objectContaining({ sourceCaseId: 'active-exact-jsonld' }),
+      expect.objectContaining({ sourceCaseId: 'later-jsonld-array-active' }),
     ]);
     expect(rawFixture).not.toMatch(
       /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com/iu
@@ -586,14 +631,17 @@ describe('sale availability pipeline contracts', () => {
       expect(input).not.toHaveProperty('format');
     }
     const packaging = readJson<{
-      source: { flow: string; configuration: string };
+      source: { flow: string; configurations: string[] };
       target: { language: string; datasets: Array<{ table: string; format: string }> };
       materializationRules: Array<{ rule: string }>;
     }>(path.join(bundle.root, 'fixtures', 'system-input-packaging.contract.json'));
     expect(packaging).toMatchObject({
       source: {
         flow: 'firecrawl-property-page-evidence@1',
-        configuration: 'firecrawl-review-property-page-evidence',
+        configurations: [
+          'firecrawl-review-property-page-evidence',
+          'firecrawl-prod-property-page-evidence',
+        ],
       },
       target: {
         language: 'connect-http-acquisition-bundle',
@@ -617,7 +665,12 @@ describe('sale availability pipeline contracts', () => {
     );
     expect(listingSql).toContain('POSEXPLODE');
     expect(listingSql).toContain('firecrawlEnvelope.data.web');
+    expect(listingSql).toContain('SLICE(');
+    expect(listingSql).toContain('application/ld\\\\+json');
+    expect(listingSql).toContain('262144');
+    expect(listingSql).not.toMatch(/rawHtml[^;\n]*for\\\\s\+sale/iu);
     expect(assessmentSql).toContain('FROM target_listing_observations');
+    expect(assessmentSql).toContain('sale-availability-firecrawl-policy-v2');
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 

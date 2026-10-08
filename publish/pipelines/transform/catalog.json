@@ -165,12 +165,23 @@
       "kind": "mapping",
       "id": "connect-http-acquisition-bundle-to-sale-availability-result",
       "version": "1.0.0",
-      "current": true,
+      "current": false,
       "status": "ENABLED",
       "from": "connect-http-acquisition-bundle",
       "to": "sale-availability-result",
       "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
       "sha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+      "version": "1.0.1",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-result",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.1/manifest.json",
+      "sha256": "b41c0c651028cfcbf0ee8d69d436d1cc22fa74123c9f65dc07870316f8d3533d"
     },
     {
       "kind": "mapping",

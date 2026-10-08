@@ -97,24 +97,28 @@ unexpected nested fields, and incompatible types.
 `listing_observations` and `sale_availability_assessments` dataset definitions
 without changing their fields, types, relationships, model versions, or
 invariants. The immutable directional mapping
-`connect-http-acquisition-bundle-to-sale-availability-result@1.0.0` reads the
+`connect-http-acquisition-bundle-to-sale-availability-result@1.0.1` reads the
 standard JSONL `acquisition_records` and `raw_documents` datasets and writes
 Parquet.
 
 The first output uses `POSEXPLODE` over the Firecrawl `data.web` envelope and
-emits one observation per page. Empty, failed, malformed, blocked, or
-missing-HTML envelopes emit a deterministic sentinel observation. The second
-output declares `dependsOn: ["listing_observations"]` and reads
+emits one observation per page. Per page it evaluates at most 16 JSON-LD blocks
+of at most 262,144 characters each, including later blocks, top-level arrays,
+nested `@graph` nodes, and nested offers. Empty, failed, malformed, over-limit,
+blocked, or missing-HTML envelopes remain fail-closed. The second output
+declares `dependsOn: ["listing_observations"]` and reads
 `target_listing_observations`, so the observations and one bounded assessment
 are produced by one Glue execution. Exactly-one inline delivery applies only to
 the assessment; both datasets retain their normal durable Parquet prefixes.
 
 The mapping is deliberately fail-closed. Only an exact-address page with a
-fresh explicit active-sale, future public-auction, or structured availability
-signal can contribute `FOR_SALE`. Absence never contributes `NOT_FOR_SALE`;
-non-exact, stale, ambiguous, blocked, failed, or unparseable evidence remains
-`UNKNOWN`, and incompatible fresh exact signals or eligible prices produce
-`CONFLICT`. Search position and publisher domain do not grant authority.
+fresh explicit JSON-LD availability or whitelisted listing-status signal can
+contribute `FOR_SALE`. Positive amount and currency must occur in that same
+eligible block. Visible text, title, OpenGraph, domain, search rank, future
+auction prose, and unscoped embedded application state do not establish active
+status. Absence never contributes `NOT_FOR_SALE`; non-exact, stale, undated,
+ambiguous, blocked, failed, malformed, or over-limit evidence remains `UNKNOWN`,
+and incompatible fresh exact signals or eligible prices produce `CONFLICT`.
 Synthetic `.invalid` fixtures cover all policy paths and deterministic replay;
 no commercial page HTML, live result URL, or customer address is checked in.
 
@@ -136,7 +140,8 @@ Raw GitHub (default `main`):
 
 `https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/catalog.json`
 
-The 2026-10-08 review publication is pinned in
+Version `1.0.1` is source-only and has not been published, registered, deployed,
+activated, or executed in AWS. The prior `1.0.0` review publication is pinned in
 `transform/deployments/review.lock.json`. Its versioned S3 catalog SHA-256 is
 `98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045`;
 the local file and remote readback matched, and
