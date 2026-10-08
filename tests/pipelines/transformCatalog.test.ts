@@ -247,6 +247,26 @@ describe('Transform pipeline catalog publication', () => {
         expect(sha256(queryPath), `${identity}:${output.dataset}`).toBe(output.querySha256);
         queryDigests.push(output.querySha256);
       }
+      for (const output of manifest.outputs) {
+        for (const dependency of output.dependsOn) {
+          expect(
+            outputNames.has(dependency),
+            `${identity}:${output.dataset} depends on unknown output ${dependency}`
+          ).toBe(true);
+        }
+      }
+      const pending = new Set(outputNames);
+      const resolved = new Set<string>();
+      while (pending.size > 0) {
+        const ready = manifest.outputs
+          .filter(output => pending.has(output.dataset))
+          .filter(output => output.dependsOn.every(dependency => resolved.has(dependency)));
+        expect(ready.length, `${identity} has cyclic output dependencies`).toBeGreaterThan(0);
+        for (const output of ready) {
+          pending.delete(output.dataset);
+          resolved.add(output.dataset);
+        }
+      }
       if (manifest.output.delivery !== undefined) {
         expect(outputNames.has(manifest.output.delivery.dataset), identity).toBe(true);
       }
@@ -279,5 +299,19 @@ describe('Transform pipeline catalog publication', () => {
       maxBytes: 65_536,
       requireVersionId: true,
     });
+
+    const combined = catalog.entries.find(
+      entry =>
+        entry.kind === 'mapping' &&
+        entry.id === 'connect-http-acquisition-bundle-to-sale-availability-result'
+    );
+    expect(combined?.kind).toBe('mapping');
+    if (combined?.kind !== 'mapping') return;
+    const combinedManifest = readJson<MappingManifest>(resolvePinnedPath(combined.path));
+    expect(combinedManifest.output.delivery).toEqual(manifest.output.delivery);
+    expect(combinedManifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual([
+      ['listing_observations', []],
+      ['sale_availability_assessments', ['listing_observations']],
+    ]);
   });
 });

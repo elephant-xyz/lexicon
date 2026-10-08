@@ -83,6 +83,16 @@
     },
     {
       "kind": "language",
+      "name": "sale-availability-result",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-result/1.0.0/sale-availability-result.json",
+      "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957"
+    },
+    {
+      "kind": "language",
       "name": "warehouse",
       "version": "2.0.0",
       "current": true,
@@ -150,6 +160,17 @@
       "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-evidence/1.1.2/manifest.json",
       "sha256": "83936c4f592bd788d9b0dd061124b438f7708bf97640ef7d78537ec3195750d6",
       "querySha256": "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-result",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.0/manifest.json",
+      "sha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae"
     },
     {
       "kind": "mapping",

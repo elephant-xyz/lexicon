@@ -77,6 +77,7 @@ type MappingManifest = {
   };
   outputs: Array<{
     dataset: string;
+    dependsOn: string[];
     queryPath: string;
     querySha256: string;
     invariantEvidence: Array<{
@@ -108,6 +109,15 @@ const assessment = readJson<PipelineLanguage>(
     'sale-availability-assessment.json'
   )
 );
+const result = readJson<PipelineLanguage>(
+  path.join(
+    transformRoot,
+    'languages',
+    'sale-availability-result',
+    '1.0.0',
+    'sale-availability-result.json'
+  )
+);
 const acquisitionBundle = readJson<PipelineLanguage>(
   path.join(
     transformRoot,
@@ -121,6 +131,7 @@ const shaA = 'a'.repeat(64);
 const shaB = 'b'.repeat(64);
 const evidenceMappingId = 'connect-http-acquisition-bundle-to-sale-availability-evidence';
 const assessmentMappingId = 'sale-availability-evidence-to-sale-availability-assessment';
+const resultMappingId = 'connect-http-acquisition-bundle-to-sale-availability-result';
 
 function readJson<T>(filePath: string): T {
   return JSON.parse(readFileSync(filePath, 'utf8')) as T;
@@ -228,9 +239,22 @@ describe('sale availability pipeline contracts', () => {
     const ajv = new Ajv2020({ allErrors: true, strict: true });
     addFormats(ajv);
     const validateLanguage = ajv.compile(readJson<object>(selectedPath));
-    for (const language of [acquisitionBundle, evidence, assessment]) {
+    for (const language of [acquisitionBundle, evidence, assessment, result]) {
       expect(validateLanguage(language), JSON.stringify(validateLanguage.errors)).toBe(true);
     }
+  });
+
+  it('composes the result language from the exact governed dataset contracts', () => {
+    expect(result).toMatchObject({
+      contractVersion: 2,
+      name: 'sale-availability-result',
+      version: '1.0.0',
+      shape: 'tabular',
+    });
+    expect(result.datasets).toEqual([
+      dataset(evidence, 'listing_observations'),
+      dataset(assessment, 'sale_availability_assessments'),
+    ]);
   });
 
   it('reuses only the generic acquisition bundle and artifact hydration datasets', () => {
@@ -370,6 +394,7 @@ describe('sale availability pipeline contracts', () => {
       'connect-http-acquisition-bundle',
       'sale-availability-evidence',
       'sale-availability-assessment',
+      'sale-availability-result',
     ]) {
       const entry = catalog.entries.find(
         candidate =>
@@ -441,23 +466,179 @@ describe('sale availability pipeline contracts', () => {
     }
   });
 
-  it('pins pointer-plus-inline completion only for the exactly-one assessment mapping', () => {
+  it('publishes one Firecrawl mapping with ordered dependent Parquet outputs', () => {
+    const bundle = mapping(resultMappingId);
+    expect(bundle.catalogEntry).toMatchObject({
+      version: '1.0.0',
+      status: 'ENABLED',
+      from: 'connect-http-acquisition-bundle',
+      to: 'sale-availability-result',
+    });
+    expect(bundle.catalogEntry.querySha256).toBeUndefined();
+    expect(bundle.manifest).toMatchObject({
+      contractVersion: 2,
+      id: resultMappingId,
+      version: '1.0.0',
+      status: 'ENABLED',
+      from: { name: 'connect-http-acquisition-bundle', version: '1.0.0' },
+      to: { name: 'sale-availability-result', version: '1.0.0' },
+      inputs: [
+        { table: 'acquisition_records', format: 'jsonl' },
+        { table: 'raw_documents', format: 'jsonl' },
+      ],
+      output: {
+        shape: 'tabular',
+        format: 'parquet',
+        delivery: {
+          mode: 'inline',
+          dataset: 'sale_availability_assessments',
+          cardinality: 'exactly-one',
+          maxBytes: 65_536,
+          requireVersionId: true,
+        },
+      },
+    });
+    expect(bundle.manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual([
+      ['listing_observations', []],
+      ['sale_availability_assessments', ['listing_observations']],
+    ]);
+
+    for (const output of bundle.manifest.outputs) {
+      expect(sha256(path.join(bundle.root, output.queryPath))).toBe(output.querySha256);
+      const target = dataset(result, output.dataset);
+      const requiredInvariants = target['x-invariants']!.filter(invariant =>
+        invariant.enforcedBy.some(owner => owner === 'producer' || owner === 'mapping-sql')
+      )
+        .map(invariant => invariant.name)
+        .sort();
+      expect(output.invariantEvidence.map(item => item.invariant).sort()).toEqual(
+        requiredInvariants
+      );
+      for (const invariant of output.invariantEvidence) {
+        expect(invariant.querySha256s).toEqual([output.querySha256]);
+        for (const test of invariant.tests) {
+          expect(sha256(path.join(bundle.root, test.path))).toBe(test.sha256);
+        }
+      }
+    }
+  });
+
+  it('pins synthetic fail-closed Firecrawl policy and version-free wire request fixtures', () => {
+    const bundle = mapping(resultMappingId);
+    const fixturePath = path.join(bundle.root, 'tests', 'firecrawl-policy-v1-cases.json');
+    const rawFixture = readFileSync(fixturePath, 'utf8');
+    const fixture = JSON.parse(rawFixture) as {
+      policyVersion: string;
+      cases: Array<{
+        caseId: string;
+        expectedObservations: unknown[];
+        expectedAssessment: {
+          availabilityStatus: string;
+          isForSale: boolean | null;
+          reasonCodes: string[];
+        };
+      }>;
+      replays: Array<{ sourceCaseId: string }>;
+    };
+    expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v1');
+    expect(fixture.cases.map(item => item.caseId)).toEqual([
+      'active-exact-jsonld',
+      'future-public-auction',
+      'three-page-conflict',
+      'empty-web-results',
+      'provider-success-false',
+      'missing-raw-html',
+      'blocked-page-metadata',
+      'malformed-envelope-json',
+      'non-exact-address',
+      'stale-active-page',
+    ]);
+    expect(
+      fixture.cases.find(item => item.caseId === 'three-page-conflict')?.expectedObservations
+    ).toHaveLength(3);
+    expect(
+      fixture.cases.find(item => item.caseId === 'three-page-conflict')?.expectedAssessment
+    ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
+    for (const caseFixture of fixture.cases.slice(3)) {
+      expect(caseFixture.expectedAssessment.availabilityStatus, caseFixture.caseId).toBe('UNKNOWN');
+      expect(caseFixture.expectedAssessment.isForSale, caseFixture.caseId).toBeNull();
+    }
+    expect(fixture.replays).toEqual([
+      expect.objectContaining({ sourceCaseId: 'active-exact-jsonld' }),
+    ]);
+    expect(rawFixture).not.toMatch(
+      /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com/iu
+    );
+
+    const request = readJson<Record<string, unknown>>(
+      path.join(bundle.root, 'fixtures', 'request.json')
+    );
+    expect(request).toMatchObject({
+      contractVersion: 2,
+      from: 'connect-http-acquisition-bundle',
+      to: 'sale-availability-result',
+    });
+    expect(request).not.toHaveProperty('mapping');
+    expect(request).not.toHaveProperty('mappingId');
+    expect(request).not.toHaveProperty('fromVersion');
+    expect(request).not.toHaveProperty('toVersion');
+    for (const input of request.inputs as Array<Record<string, unknown>>) {
+      expect(input).not.toHaveProperty('format');
+    }
+    const packaging = readJson<{
+      source: { flow: string; configuration: string };
+      target: { language: string; datasets: Array<{ table: string; format: string }> };
+      materializationRules: Array<{ rule: string }>;
+    }>(path.join(bundle.root, 'fixtures', 'system-input-packaging.contract.json'));
+    expect(packaging).toMatchObject({
+      source: {
+        flow: 'firecrawl-property-page-evidence@1',
+        configuration: 'firecrawl-review-property-page-evidence',
+      },
+      target: {
+        language: 'connect-http-acquisition-bundle',
+        datasets: [
+          { table: 'acquisition_records', format: 'jsonl' },
+          { table: 'raw_documents', format: 'jsonl' },
+        ],
+      },
+    });
+    expect(packaging.materializationRules.map(item => item.rule)).toContain(
+      'one-transform-run-per-subject'
+    );
+
+    const listingSql = readFileSync(
+      path.join(bundle.root, 'queries', 'listing_observations.sql'),
+      'utf8'
+    );
+    const assessmentSql = readFileSync(
+      path.join(bundle.root, 'queries', 'sale_availability_assessments.sql'),
+      'utf8'
+    );
+    expect(listingSql).toContain('POSEXPLODE');
+    expect(listingSql).toContain('firecrawlEnvelope.data.web');
+    expect(assessmentSql).toContain('FROM target_listing_observations');
+    expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
+  });
+
+  it('pins inline completion only on mappings with an exactly-one assessment output', () => {
     const evidenceMapping = mapping(evidenceMappingId).manifest;
     const assessmentMapping = mapping(assessmentMappingId).manifest;
+    const resultMapping = mapping(resultMappingId).manifest;
 
     expect(evidenceMapping.output).not.toHaveProperty('delivery');
-    expect(assessmentMapping.output.delivery).toEqual({
-      mode: 'inline',
-      dataset: 'sale_availability_assessments',
-      cardinality: 'exactly-one',
-      maxBytes: 65_536,
-      requireVersionId: true,
-    });
-    expect(
-      assessmentMapping.outputs.some(
-        output => output.dataset === assessmentMapping.output.delivery?.dataset
-      )
-    ).toBe(true);
+    for (const manifest of [assessmentMapping, resultMapping]) {
+      expect(manifest.output.delivery).toEqual({
+        mode: 'inline',
+        dataset: 'sale_availability_assessments',
+        cardinality: 'exactly-one',
+        maxBytes: 65_536,
+        requireVersionId: true,
+      });
+      expect(
+        manifest.outputs.some(output => output.dataset === manifest.output.delivery?.dataset)
+      ).toBe(true);
+    }
   });
 
   it('pins independent policy-v2 cases and deterministic primary reason codes', () => {

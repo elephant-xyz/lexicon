@@ -91,6 +91,37 @@ Transform tolerates parser-conservative nested Parquet nullability while keeping
 definition-derived row validation fail-closed for required nulls, missing or
 unexpected nested fields, and incompatible types.
 
+### Firecrawl one-run result
+
+`sale-availability-result@1.0.0` composes the existing
+`listing_observations` and `sale_availability_assessments` dataset definitions
+without changing their fields, types, relationships, model versions, or
+invariants. The immutable directional mapping
+`connect-http-acquisition-bundle-to-sale-availability-result@1.0.0` reads the
+standard JSONL `acquisition_records` and `raw_documents` datasets and writes
+Parquet.
+
+The first output uses `POSEXPLODE` over the Firecrawl `data.web` envelope and
+emits one observation per page. Empty, failed, malformed, blocked, or
+missing-HTML envelopes emit a deterministic sentinel observation. The second
+output declares `dependsOn: ["listing_observations"]` and reads
+`target_listing_observations`, so the observations and one bounded assessment
+are produced by one Glue execution. Exactly-one inline delivery applies only to
+the assessment; both datasets retain their normal durable Parquet prefixes.
+
+The mapping is deliberately fail-closed. Only an exact-address page with a
+fresh explicit active-sale, future public-auction, or structured availability
+signal can contribute `FOR_SALE`. Absence never contributes `NOT_FOR_SALE`;
+non-exact, stale, ambiguous, blocked, failed, or unparseable evidence remains
+`UNKNOWN`, and incompatible fresh exact signals or eligible prices produce
+`CONFLICT`. Search position and publisher domain do not grant authority.
+Synthetic `.invalid` fixtures cover all policy paths and deterministic replay;
+no commercial page HTML, live result URL, or customer address is checked in.
+
+Transform callers select the pair only by `from` and `to`; wire requests contain
+no language versions, mapping identity, formats, or output-dataset selectors.
+The previous two-step mappings remain enabled and unchanged for compatibility.
+
 ## Local resolution
 
 Set `ELEPHANT_LEXICON_ROOT` to this repo checkout, or place `lexicon` as a sibling
