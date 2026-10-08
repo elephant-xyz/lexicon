@@ -136,13 +136,14 @@ Raw GitHub (default `main`):
 
 `https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/catalog.json`
 
-The 2026-10-06 review publication is pinned in
+The 2026-10-08 review publication is pinned in
 `transform/deployments/review.lock.json`. Its versioned S3 catalog SHA-256 is
-`91fdc05ef3f44ff91533480f52cca61370bba935e1c92219b56152207f55f176`;
+`98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045`;
 the local file and remote readback matched, and
-`/lexicon/transform-catalog-uri` points to that exact object key. Both sale
-mappings were subsequently validated and immutably registered through the
-IAM-authenticated Transform API. Evidence mapping `1.0.1` is the sole enabled
-current mapping for its direction; the published `1.0.0` bytes and object
-versions remain unchanged. This publication evidence does not claim a provider
-canary.
+`/lexicon/transform-catalog-uri` points to that object key. The Firecrawl
+one-run result mapping was validated and immutably registered through the
+IAM-authenticated Transform API. One synthetic three-page review execution
+produced three listing observations and one `CONFLICT` assessment in one Glue
+run at a measured cost of `$0.05964444444444445`; it made no provider call.
+Evidence mapping `1.1.2` and assessment mapping `1.2.0` remain enabled and
+unchanged for their existing two-step pairs.

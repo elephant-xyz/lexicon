@@ -3,19 +3,19 @@
   "stage": "review",
   "accountId": "708502238428",
   "region": "us-east-2",
-  "publishedAt": "2026-10-07T14:17:03Z",
+  "publishedAt": "2026-10-08T04:35:48Z",
   "bucket": {
     "name": "transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p",
     "versioned": true,
     "prefix": "config/transform/",
-    "publishedObjectCount": 42
+    "publishedObjectCount": 55
   },
   "catalog": {
     "s3Uri": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/config/transform/catalog.json",
-    "versionId": "rj5aSLeSlAEw9PFLoyPxcglQqYYTbFbC",
-    "eTag": "\"89ee58ff94177dc8d8961b5664f2614c\"",
-    "size": 8575,
-    "sha256": "1f16ea1c21e4561f960ab7ba75be88654a3df28616ea6c48f97815a7f90b43dd",
+    "versionId": "x057oScrpeVYAgTGBcW2IypEnusL4L1W",
+    "eTag": "\"4ebaa77755f0f207ecff96f2db61023f\"",
+    "size": 9396,
+    "sha256": "98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045",
     "localReadbackMatched": true
   },
   "pointer": {
@@ -81,6 +81,32 @@
         "sha256": "ede97ac1b2e65550ef36908923e092af6f5625372e832164aa3b501fa67d0e24",
         "bytesUnchanged": true
       }
+    },
+    "resultDefinition": {
+      "name": "sale-availability-result",
+      "version": "1.0.0",
+      "versionId": "jo.dunYU08UKM2tpwT7XTXHkWkvFXSna",
+      "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957",
+      "eTag": "\"f7ec80da87293604cdf07437a6d30d94\"",
+      "size": 14038
+    },
+    "firecrawlResultMapping": {
+      "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+      "version": "1.0.0",
+      "manifestVersionId": "nR_nTZQmdgOfeFddIF8R2frrifI9w9_U",
+      "manifestSha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
+      "observationQueryVersionId": "4ov8L.SKNv3PQbePRFiwjgw0y75s2b5O",
+      "observationQuerySha256": "c5f4442d3b6429ce6648d9ab5b3856ab41e78c00ee4d4b8687c9be54cf504133",
+      "assessmentQueryVersionId": "8dIoxMbyuioQ9mQQL0HWcN4zXdwG53pp",
+      "assessmentQuerySha256": "be89d0d4249ec642f8181ddf95b338b40cf547d1143a4db8c3824ea90524f0e3",
+      "requestFixtureVersionId": "Wk0uuy_YwKpUhnzSEh5JrXPRgFHmFy2F",
+      "requestFixtureSha256": "ddc8ff6c906a7a977b7b97a1f87c3bd00c3899be5def50a487373f1c92dc7cda",
+      "packagingFixtureVersionId": "6JD9om_KpZncBzkwT2iANBw2FD8qtdzx",
+      "packagingFixtureSha256": "309fb4efbd1f781060392e51c58d9c9af1eca5516f13be0ba5158e2c70c2a5c5",
+      "testsVersionId": "eudhyqL5nWu.i.9sJohIrHhknsjyoFUZ",
+      "testsSha256": "ffdd480cda6a1793578da79df3564d540bffe52894370d2477981c475313b9b6",
+      "registrationObjectVersionId": "QAufZ90Ks6M4_FGgRz0veqHlqDuEh4l8",
+      "registration": "REGISTERED"
     }
   },
   "inertSearchCandidate": {
@@ -130,6 +156,26 @@
     "googleSearchGroundingRequests": 0,
     "mapping112EvidenceReplayId": "verify-evidence-112-84b9c47b-0ec4-4ea2-a69e-6aace8019c25",
     "mapping112AssessmentReplayId": "verify-assessment-120-2500e7c7-96be-4c3d-8903-41d1b152e02a",
-    "mapping112AssessmentReason": "NO_PROVIDER_MATCH"
+    "mapping112AssessmentReason": "NO_PROVIDER_MATCH",
+    "firecrawlOneRun": {
+      "executionId": "firecrawl-result-review-20261008T044000Z",
+      "executionArn": "arn:aws:states:us-east-2:708502238428:execution:TransformPipelineStack-transform-pipeline:firecrawl-result-review-20261008T044000Z",
+      "glueJobRunId": "jr_a910e0980f5856bf5f6f3d110d9c908d775a5c5bb3790089fd4c8f7290bdd14c",
+      "status": "SUCCEEDED",
+      "glueExecutionTimeSeconds": 122,
+      "dpuSeconds": 245,
+      "listingObservationRows": 3,
+      "assessmentRows": 1,
+      "assessmentStatus": "CONFLICT",
+      "assessmentReason": "CONFLICTING_ELIGIBLE_ACTIVE_PRICES",
+      "predictedCostUsd": 0.06404444444444445,
+      "actualCostUsd": 0.05964444444444445,
+      "outputManifestS3Uri": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/review/outputs/firecrawl-result-review-20261008T044000Z/firecrawl-result-review-20261008T044000Z/_metadata.json",
+      "resultManifestS3Uri": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/review/outputs/firecrawl-result-review-20261008T044000Z/firecrawl-result-review-20261008T044000Z/_result/sale_availability_assessments.json",
+      "resultManifestVersionId": "mge27WNM65qFioSn9UnhcsiYUYCuP__X",
+      "resultManifestSha256": "7bf1d8ed3fbdbb2bf3fc34147f7c7e316ec7348f99f089dbe09c25451a9e303e",
+      "oneGlueRun": true,
+      "providerCallStarted": false
+    }
   }
 }
