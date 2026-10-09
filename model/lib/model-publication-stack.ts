@@ -158,6 +158,7 @@ export class ModelPublicationStack extends Stack {
     });
 
     this.grantArtifactRead(validatorFunction, artifactBucket, props.destinationPrefix);
+    this.grantScopedList(validatorFunction, artifactBucket, [props.destinationPrefix]);
     this.grantPointerRead(validatorFunction, props.pointerName);
     for (const writer of [publisherFunction, rollbackFunction]) {
       this.grantArtifactRead(writer, artifactBucket, props.destinationPrefix);
@@ -170,6 +171,11 @@ export class ModelPublicationStack extends Stack {
         })
       );
     }
+    this.grantScopedList(publisherFunction, artifactBucket, [props.destinationPrefix]);
+    this.grantScopedList(rollbackFunction, artifactBucket, [
+      props.destinationPrefix,
+      props.receiptPrefix,
+    ]);
     this.grantArtifactWrite(
       publisherFunction,
       artifactBucket,
@@ -258,6 +264,7 @@ export class ModelPublicationStack extends Stack {
         resources: [artifactBucket.arnForObjects(`${props.receiptPrefix.replace(/\/+$/u, '')}/*`)],
       })
     );
+    this.grantScopedList(apiFunction, artifactBucket, [props.receiptPrefix]);
 
     const apiUrl = apiFunction.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.AWS_IAM,
@@ -421,6 +428,20 @@ export class ModelPublicationStack extends Stack {
       new iam.PolicyStatement({
         actions: ['s3:GetObject', 's3:GetObjectVersion'],
         resources: [bucket.arnForObjects(`${destinationPrefix.replace(/\/+$/u, '')}/*`)],
+      })
+    );
+  }
+
+  private grantScopedList(fn: lambda.IFunction, bucket: s3.IBucket, prefixes: string[]): void {
+    fn.addToRolePolicy(
+      new iam.PolicyStatement({
+        actions: ['s3:ListBucket'],
+        resources: [bucket.bucketArn],
+        conditions: {
+          StringLike: {
+            's3:prefix': prefixes.map(prefix => `${prefix.replace(/\/+$/u, '')}/*`),
+          },
+        },
       })
     );
   }

@@ -94,10 +94,35 @@ describe('Model publication CDK stack', () => {
   it('never grants artifact deletion or wildcard SSM writes', () => {
     const policies = template.findResources('AWS::IAM::Policy');
     const serialized = JSON.stringify(policies);
+    type PolicyStatement = {
+      Action?: string | string[];
+      Resource?: unknown;
+      Condition?: Record<string, Record<string, string | string[]>>;
+    };
+    const statements = Object.values(policies).flatMap(policy => {
+      const typed = policy as {
+        Properties?: { PolicyDocument?: { Statement?: PolicyStatement[] } };
+      };
+      return typed.Properties?.PolicyDocument?.Statement ?? [];
+    });
     expect(serialized).not.toContain('s3:DeleteObject');
     expect(serialized).not.toContain('"ssm:*"');
     expect(serialized).toContain('ssm:PutParameter');
     expect(serialized).toContain('parameter/lexicon/transform-catalog-uri');
+
+    const listStatements = statements.filter(statement =>
+      [statement.Action].flat().includes('s3:ListBucket')
+    );
+    expect(listStatements).toHaveLength(4);
+    for (const statement of listStatements) {
+      const configured = statement.Condition?.StringLike?.['s3:prefix'];
+      const prefixes = [configured].flat().filter((value): value is string => value !== undefined);
+      expect(prefixes.length).toBeGreaterThan(0);
+      expect(
+        prefixes.every(prefix => prefix === 'config/*' || prefix === 'model-publication/receipts/*')
+      ).toBe(true);
+      expect(JSON.stringify(statement.Resource)).not.toBe('"*"');
+    }
 
     const rollbackPolicy = Object.entries(policies).find(([logicalId]) =>
       logicalId.startsWith('RollbackRoleDefaultPolicy')
@@ -105,7 +130,7 @@ describe('Model publication CDK stack', () => {
       | {
           Properties?: {
             PolicyDocument?: {
-              Statement?: Array<{ Action?: string | string[]; Resource?: unknown }>;
+              Statement?: PolicyStatement[];
             };
           };
         }
