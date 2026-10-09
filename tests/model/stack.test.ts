@@ -59,6 +59,23 @@ describe('Model publication CDK stack', () => {
     template.resourceCountIs('AWS::CloudWatch::Dashboard', 1);
   });
 
+  it('routes the workflow request object to every worker Lambda', () => {
+    const template = synthesize();
+    const stateMachine = Object.values(
+      template.findResources('AWS::StepFunctions::StateMachine')
+    )[0] as {
+      Properties?: {
+        DefinitionString?: { 'Fn::Join'?: [string, unknown[]] };
+      };
+    };
+    const definition = stateMachine.Properties?.DefinitionString?.['Fn::Join']?.[1]
+      .filter((part): part is string => typeof part === 'string')
+      .join('');
+
+    expect(definition?.match(/"InputPath":"\$\.request"/gu)).toHaveLength(3);
+    expect(definition).not.toContain('"Parameters":"$.request"');
+  });
+
   it('uses Node 24, active tracing, bounded concurrency, and 90-day logs', () => {
     const template = synthesize();
     template.allResourcesProperties('AWS::Lambda::Function', {

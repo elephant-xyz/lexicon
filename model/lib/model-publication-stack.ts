@@ -180,20 +180,20 @@ export class ModelPublicationStack extends Stack {
 
     const validateTask = new tasks.LambdaInvoke(this, 'ValidateRelease', {
       lambdaFunction: validatorFunction,
-      payload: sfn.TaskInput.fromJsonPathAt('$.request'),
+      inputPath: '$.request',
       payloadResponseOnly: true,
       resultPath: '$.validation',
     });
     this.addSafeRetry(validateTask);
     const publishTask = new tasks.LambdaInvoke(this, 'PublishRelease', {
       lambdaFunction: publisherFunction,
-      payload: sfn.TaskInput.fromJsonPathAt('$.request'),
+      inputPath: '$.request',
       payloadResponseOnly: true,
     });
     this.addSafeRetry(publishTask);
     const rollbackTask = new tasks.LambdaInvoke(this, 'RollbackRelease', {
       lambdaFunction: rollbackFunction,
-      payload: sfn.TaskInput.fromJsonPathAt('$.request'),
+      inputPath: '$.request',
       payloadResponseOnly: true,
     });
     this.addSafeRetry(rollbackTask);
