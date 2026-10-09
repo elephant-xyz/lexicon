@@ -140,9 +140,11 @@ Raw GitHub (default `main`):
 
 `https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/catalog.json`
 
-Version `1.0.1` is immutably published to the review catalog but has not been
-registered, activated, or executed. The controlled publication and byte-for-byte
-readback are pinned in `transform/deployments/review.lock.json`; catalog version
+Version `1.0.1` is immutably published to the review catalog. A separate
+post-publication Transform API flow registered the same digest-pinned artifacts;
+it has not been activated or executed. The controlled publication,
+registration readback, and exact provenance are pinned in
+`transform/deployments/review.lock.json`; catalog version
 `EEoZsHslzYHllFg_54qzPpf036KdMcvQ` has SHA-256
 `df00361432379273184975753dbb22872116524e25532b51012eff5cacc99a68`, and
 `/lexicon/transform-catalog-uri` version `2` resolves its object key. Version

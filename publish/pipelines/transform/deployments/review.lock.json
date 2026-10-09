@@ -10,6 +10,7 @@
     "sourceRevision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
     "workingTreeCleanAtPublication": true,
     "modelPublicationReviewUsed": false,
+    "transformApiMutationPerformedByPublicationOperator": false,
     "immutableCreateOnly": true,
     "catalogPublishedLast": true,
     "catalogCompareAndSwap": {
@@ -138,7 +139,17 @@
       "packagingFixtureSha256": "fa8b7fcc56b1eb933518542705be2ea0567d0113096d556cab5fc0e31dd793e0",
       "testsVersionId": "DfdeosPvQes0fC4B9TCxz4MbIUbzMxrY",
       "testsSha256": "c0a01f3259de7f4410411d49aaa80b1d6666da01bee1646e08a6af43dbb83dc0",
-      "registration": "NOT_REGISTERED",
+      "registration": "REGISTERED_AFTER_PUBLICATION",
+      "registrationPerformedByPublicationOperator": false,
+      "registrationObjectVersionId": "hENDTWs9woj712b_.WYlxYppZ9unbZUe",
+      "registrationObjectSha256": "c0ba0e47ae80bce95f8c0a53c59318dc47c74ec114db5d2c61bc80c7b80dd833",
+      "registeredAt": "2026-10-09T13:26:36.210Z",
+      "registrationReadbackMatched": true,
+      "registrationApiRequestIds": [
+        "13b919bf-5274-44f1-a6b5-d1f6e693d898",
+        "65f821c9-9637-4c1e-8608-7a05441e6924",
+        "d02f92ce-cf6f-46dd-adcf-983033213e25"
+      ],
       "execution": "NOT_RUN",
       "providerCallStarted": false,
       "previousVersion": {
@@ -162,8 +173,9 @@
       },
       "handoff": {
         "owner": "Kecleon",
-        "registration": "PENDING",
+        "registration": "OBSERVED_COMPLETE",
         "providerFreeDevReplays": 2,
+        "providerFreeDevReplaysCompleted": 0,
         "maxCostUsdEach": 0.1
       }
     }
