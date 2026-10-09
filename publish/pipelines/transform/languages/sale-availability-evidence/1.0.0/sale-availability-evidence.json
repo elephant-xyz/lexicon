@@ -1,0 +1,207 @@
+{
+  "contractVersion": 2,
+  "name": "sale-availability-evidence",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "description": "Immutable listing observations and explicit graph relationship references used as evidence for sale-availability assessment.",
+  "datasets": [
+    {
+      "type": "listing_observations",
+      "description": "One row per listing_observation@1.0.0, including only explicit endpoint references for Sale Availability relationships.",
+      "properties": {
+        "model_version": {
+          "type": "string",
+          "const": "1.0.0"
+        },
+        "observation_identifier": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "provider_identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_request_identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_listing_identifier": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "source_url": {
+          "type": ["string", "null"],
+          "format": "uri"
+        },
+        "source_as_of": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "source_status": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "observation_outcome": {
+          "type": "string",
+          "enum": ["LISTING_FOUND", "LISTING_ABSENT", "LOOKUP_FAILED"]
+        },
+        "market_status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "COMING_SOON",
+            "PENDING",
+            "UNDER_CONTRACT",
+            "OTHER",
+            "UNKNOWN"
+          ]
+        },
+        "asking_price_amount_minor": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "asking_price_currency": {
+          "type": ["string", "null"],
+          "minLength": 3,
+          "maxLength": 3,
+          "pattern": "^[A-Z]{3}$"
+        },
+        "price_parse_status": {
+          "type": "string",
+          "enum": ["PARSED", "ABSENT", "REJECTED", "NOT_APPLICABLE"]
+        },
+        "evidence_artifact_uri": {
+          "type": "string",
+          "format": "uri",
+          "minLength": 1
+        },
+        "evidence_artifact_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "exact_address_match_state": {
+          "type": "string",
+          "enum": ["EXACT", "NON_EXACT", "AMBIGUOUS", "UNKNOWN"]
+        },
+        "freshness_state": {
+          "type": "string",
+          "enum": ["FRESH", "STALE", "UNKNOWN"]
+        },
+        "freshness_evaluated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "freshness_policy_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coverage_state": {
+          "type": "string",
+          "enum": ["COMPLETE", "PARTIAL", "UNAVAILABLE", "UNKNOWN"]
+        },
+        "authority_state": {
+          "type": "string",
+          "enum": ["AUTHORITATIVE", "SUPPORTING", "UNKNOWN"]
+        },
+        "relationships": {
+          "type": "object",
+          "description": "Explicit endpoint references. A relationship is emitted only when both endpoint records exist.",
+          "properties": {
+            "listing_observation_has_address": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Reference to an existing address. This reference never establishes property identity."
+            },
+            "listing_observation_has_file": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": "References to one or more existing evidence file records."
+            },
+            "listing_observation_has_property": {
+              "type": ["string", "null"],
+              "minLength": 1,
+              "description": "Reference to an independently established property identity, or null when none exists."
+            }
+          },
+          "required": [
+            "listing_observation_has_address",
+            "listing_observation_has_file",
+            "listing_observation_has_property"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "model_version",
+        "observation_identifier",
+        "provider_identifier",
+        "source_request_identifier",
+        "source_listing_identifier",
+        "source_url",
+        "source_as_of",
+        "source_status",
+        "retrieved_at",
+        "observation_outcome",
+        "market_status",
+        "asking_price_amount_minor",
+        "asking_price_currency",
+        "price_parse_status",
+        "evidence_artifact_uri",
+        "evidence_artifact_sha256",
+        "exact_address_match_state",
+        "freshness_state",
+        "freshness_evaluated_at",
+        "freshness_policy_version",
+        "coverage_state",
+        "authority_state",
+        "relationships"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "price_parse_status": {
+                "const": "REJECTED"
+              }
+            },
+            "required": ["price_parse_status"]
+          },
+          "then": {
+            "properties": {
+              "asking_price_amount_minor": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "x-invariants": [
+        {
+          "name": "deterministic_observation_identity",
+          "description": "observation_identifier is the SHA-256 hash of provider, source request or listing identity, retrieval time, and artifact digest.",
+          "enforcedBy": ["producer"]
+        },
+        {
+          "name": "rejected_price_is_null",
+          "description": "REJECTED price parsing always has a null minor-unit amount and never uses zero as a sentinel.",
+          "enforcedBy": ["json-schema", "producer"]
+        },
+        {
+          "name": "relationship_endpoints_exist",
+          "description": "Emit each relationship only after both referenced endpoint records exist; an address reference cannot mint property identity.",
+          "enforcedBy": ["producer"]
+        }
+      ]
+    }
+  ]
+}

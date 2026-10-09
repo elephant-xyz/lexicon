@@ -1,0 +1,159 @@
+{
+  "contractVersion": 1,
+  "id": "firecrawl-sale-availability-system-input-package",
+  "version": "1.0.0",
+  "source": {
+    "contract": "Connect ResultManifest",
+    "flow": "firecrawl-property-page-evidence@1",
+    "configuration": "firecrawl-review-property-page-evidence",
+    "fileBody": {
+      "type": "object",
+      "required": ["success", "id", "data", "creditsUsed"],
+      "properties": {
+        "success": { "type": "boolean" },
+        "id": { "type": "string" },
+        "data": {
+          "type": "object",
+          "required": ["web"],
+          "properties": {
+            "web": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["url", "rawHtml", "metadata"],
+                "properties": {
+                  "url": { "type": "string" },
+                  "rawHtml": { "type": "string" },
+                  "metadata": {
+                    "type": "object",
+                    "required": [
+                      "sourceURL",
+                      "url",
+                      "title",
+                      "description",
+                      "cacheState",
+                      "contentType",
+                      "robots",
+                      "statusCode"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "creditsUsed": { "type": "integer" }
+      }
+    }
+  },
+  "target": {
+    "language": "connect-http-acquisition-bundle",
+    "version": "1.0.0",
+    "datasets": [
+      {
+        "table": "acquisition_records",
+        "format": "jsonl",
+        "view": "source_acquisition_records"
+      },
+      {
+        "table": "raw_documents",
+        "format": "jsonl",
+        "view": "source_raw_documents"
+      }
+    ]
+  },
+  "governedContext": {
+    "jsonPointer": "/saleAvailability",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "addressReference",
+        "independentPropertyReference",
+        "freshnessEvaluatedAt",
+        "freshnessPolicyVersion",
+        "artifactFileReferencesBySha256"
+      ],
+      "properties": {
+        "addressReference": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Existing address endpoint for the quoted exact-address query."
+        },
+        "independentPropertyReference": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "description": "Existing independently established property endpoint, or null."
+        },
+        "freshnessEvaluatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "freshnessPolicyVersion": {
+          "const": "firecrawl-page-30d-v1"
+        },
+        "artifactFileReferencesBySha256": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Maps the verified Firecrawl FileRef digest to an existing file endpoint."
+        }
+      }
+    }
+  },
+  "materializationRules": [
+    {
+      "rule": "one-acquisition-row-per-connect-result",
+      "source": "Firecrawl ResultManifest plus immutable acquisition metadata",
+      "target": "acquisition_records",
+      "requirements": [
+        "registrationId is firecrawl-review-property-page-evidence",
+        "inputJson preserves property_reference and exact_address_query without credentials",
+        "primaryRawArtifactUri and primaryRawArtifactSha256 copy the Connect FileRef exactly",
+        "outcome and transport status are copied without sale classification"
+      ]
+    },
+    {
+      "rule": "one-raw-document-row-for-the-firecrawl-envelope",
+      "source": "ResultManifest.files[0]",
+      "target": "raw_documents",
+      "requirements": [
+        "artifactOrdinal is 0 and artifactRole is raw",
+        "sourceUri and sha256 copy the Connect FileRef exactly",
+        "bodyText is the exact UTF-8 decoded envelope and its sha256 remains the digest of the original bytes",
+        "the page array is not exploded or interpreted during packaging"
+      ]
+    },
+    {
+      "rule": "one-transform-run-per-subject",
+      "requirements": [
+        "one Firecrawl envelope may contain zero through three web pages",
+        "Transform POSEXPLODE emits one observation per page or one failure/empty sentinel",
+        "the dependent assessment consumes target_listing_observations in the same Glue execution",
+        "the exactly-one completion projection rejects cross-subject batches"
+      ]
+    }
+  ],
+  "fixture": {
+    "testCasesPath": "../tests/firecrawl-policy-v1-cases.json",
+    "representativeCaseId": "active-exact-jsonld",
+    "representativeConflictCaseId": "three-page-conflict",
+    "expectedOutputs": [
+      "listing_observations",
+      "sale_availability_assessments"
+    ]
+  },
+  "prohibited": [
+    "commercial or customer HTML in source control",
+    "search rank or domain used as authority",
+    "missing pages interpreted as NOT_FOR_SALE",
+    "mapping identifiers, language versions, formats, or output datasets added to Transform wire requests",
+    "provider status, address, price, or availability interpretation in Connect or System packaging"
+  ]
+}

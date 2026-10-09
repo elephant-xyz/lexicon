@@ -1,0 +1,26 @@
+{
+  "contractVersion": 1,
+  "publisher": "elephant-xyz/lexicon",
+  "repository": "https://github.com/elephant-xyz/lexicon",
+  "ssMPointer": "/lexicon/connect-catalog-uri",
+  "githubRawBase": "https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/connect",
+  "transformCatalogPointer": "/lexicon/transform-catalog-uri",
+  "entries": [
+    {
+      "kind": "source",
+      "id": "elephant-county-atlas",
+      "version": "1.0.0",
+      "status": "ENABLED",
+      "path": "source-county-atlas.json",
+      "sha256": "da678bc865de275151300192ff61c51dbf1118f3b07c910f53c2478e5b788517",
+      "notes": "First Elephant Connect registration (county/Atlas-shaped)"
+    },
+    {
+      "kind": "config-artifact",
+      "name": "examples-source-catalog.json",
+      "path": "examples-source-catalog.json",
+      "sha256": "4072974585154daa391e06dc35799089a90f0b0bf70cc9582122d0e9b6ed4708",
+      "status": "ENABLED"
+    }
+  ]
+}

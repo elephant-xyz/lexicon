@@ -1,0 +1,1188 @@
+{
+  "contractVersion": 1,
+  "policyVersion": "sale-availability-firecrawl-policy-v2",
+  "structuredEvidenceLimits": {
+    "maximumJsonLdBlocksPerPage": 16,
+    "maximumJsonLdCharactersPerBlock": 262144
+  },
+  "freshnessPolicy": {
+    "version": "firecrawl-page-30d-v1",
+    "evaluatedAt": "2026-10-08T21:00:00.000Z",
+    "maximumAgeSeconds": 2592000,
+    "futureToleranceSeconds": 300
+  },
+  "observationIdentity": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "separator": "|",
+    "components": [
+      "provider_identifier",
+      "source_listing_identifier",
+      "retrieved_at_utc_milliseconds",
+      "evidence_artifact_sha256"
+    ]
+  },
+  "assessmentIdentity": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "separator": "|",
+    "components": [
+      "address_reference",
+      "independent_property_reference_or_empty",
+      "policy_version",
+      "window_start_at_utc_milliseconds",
+      "window_end_at_utc_milliseconds",
+      "sorted_observation_identifiers_csv"
+    ]
+  },
+  "cases": [
+    {
+      "caseId": "active-exact-jsonld",
+      "addressReference": "address:synthetic:active-exact-jsonld",
+      "independentPropertyReference": "property:synthetic:active-exact-jsonld",
+      "exactAddressQuery": "\"100 Test Parcel Avenue, Example City, CA 90000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:00:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-active-exact",
+        "data": {
+          "web": [
+            {
+              "url": "https://listing-one.example.invalid/properties/100-test-parcel",
+              "rawHtml": "<!doctype html><html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:30:00.000Z\",\"mainEntity\":{\"@type\":\"Residence\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"100 Test Parcel Avenue\",\"addressLocality\":\"Example City\",\"addressRegion\":\"CA\",\"postalCode\":\"90000\"}},\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"450000.25\",\"priceCurrency\":\"USD\"}}</script></head><body><h1>100 Test Parcel Avenue, Example City, CA 90000</h1></body></html>",
+              "metadata": {
+                "sourceURL": "https://listing-one.example.invalid/properties/100-test-parcel",
+                "url": "https://listing-one.example.invalid/properties/100-test-parcel",
+                "title": "Synthetic active listing",
+                "description": "Synthetic JSON-LD listing fixture",
+                "cacheState": "miss",
+                "contentType": "text/html; charset=utf-8",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:listing-one.example.invalid",
+          "sourceListingIdentifier": "fc-active-exact:web:0000",
+          "sourceUrl": "https://listing-one.example.invalid/properties/100-test-parcel",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 45000025,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "statusCode=200",
+            "jsonLdBlocks=1",
+            "signal=ACTIVE_STRUCTURED"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 45000025,
+        "listPriceCurrency": "USD",
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_AVAILABLE"]
+      }
+    },
+    {
+      "caseId": "later-jsonld-array-active",
+      "addressReference": "address:synthetic:later-jsonld-array-active",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"200 Later Script Street, Example City, GA 30000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:01:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-later-array",
+        "data": {
+          "web": [
+            {
+              "url": "https://later-array.example.invalid/listings/200-later-script",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"Organization\",\"address\":{\"streetAddress\":\"1 Publisher Plaza\",\"addressLocality\":\"Elsewhere\",\"addressRegion\":\"GA\",\"postalCode\":\"39999\"}}</script><script type=\"application/ld+json\">[{\"@type\":\"RealEstateListing\",\"datePosted\":\"2026-10-07T12:00:00.000Z\"},{\"@type\":\"SingleFamilyResidence\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"200 Later Script Street\",\"addressLocality\":\"Example City\",\"addressRegion\":\"GA\",\"postalCode\":\"30000\"}},{\"@type\":\"Product\",\"offers\":{\"@type\":\"Offer\",\"priceCurrency\":\"USD\",\"availability\":\"https://schema.org/InStock\",\"price\":\"610000\"}}]</script></head><body>200 Later Script Street, Example City, GA 30000</body></html>",
+              "metadata": {
+                "sourceURL": "https://later-array.example.invalid/listings/200-later-script",
+                "url": "https://later-array.example.invalid/listings/200-later-script",
+                "title": "Synthetic later-array listing",
+                "description": "The first JSON-LD block is unrelated publisher data.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:later-array.example.invalid",
+          "sourceListingIdentifier": "fc-later-array:web:0000",
+          "sourceUrl": "https://later-array.example.invalid/listings/200-later-script",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 61000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "jsonLdBlocks=2",
+            "signal=ACTIVE_STRUCTURED"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 61000000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_AVAILABLE"]
+      }
+    },
+    {
+      "caseId": "later-jsonld-graph-active",
+      "addressReference": "address:synthetic:later-jsonld-graph-active",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"300 Graph Court, Example City, GA 30001, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:02:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-later-graph",
+        "data": {
+          "web": [
+            {
+              "url": "https://later-graph.example.invalid/listings/300-graph-court",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"BreadcrumbList\",\"itemListElement\":[]}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":[\"RealEstateListing\",\"Product\"],\"datePosted\":\"2026-10-08T00:00:00-04:00\",\"offers\":{\"@type\":\"Offer\",\"price\":725000,\"priceCurrency\":\"USD\",\"availability\":\"https://schema.org/InStock\"},\"mainEntity\":{\"@type\":\"SingleFamilyResidence\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"300 Graph Court\",\"addressLocality\":\"Example City\",\"addressRegion\":\"GA\",\"postalCode\":\"30001\"}}}]}</script></head><body>300 Graph Court, Example City, GA 30001</body></html>",
+              "metadata": {
+                "sourceURL": "https://later-graph.example.invalid/listings/300-graph-court",
+                "url": "https://later-graph.example.invalid/listings/300-graph-court",
+                "title": "Synthetic graph listing",
+                "description": "The listing is nested in a later JSON-LD @graph block.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:later-graph.example.invalid",
+          "sourceListingIdentifier": "fc-later-graph:web:0000",
+          "sourceUrl": "https://later-graph.example.invalid/listings/300-graph-court",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 72500000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "jsonLdBlocks=2",
+            "signal=ACTIVE_STRUCTURED"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 72500000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_AVAILABLE"]
+      }
+    },
+    {
+      "caseId": "irrelevant-software-offers-ignored",
+      "addressReference": "address:synthetic:irrelevant-software-offers",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"400 Relevant Offer Lane, Example City, VA 22000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:03:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-ignore-software",
+        "data": {
+          "web": [
+            {
+              "url": "https://mixed-schemas.example.invalid/listings/400-relevant-offer",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T16:00:00.000Z\",\"address\":{\"streetAddress\":\"400 Relevant Offer Lane\",\"addressLocality\":\"Example City\",\"addressRegion\":\"VA\",\"postalCode\":\"22000\"},\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"515000\",\"priceCurrency\":\"USD\"}}</script><script type=\"application/ld+json\">{\"@type\":\"SoftwareApplication\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}}</script><script type=\"application/ld+json\">{\"@type\":\"SoftwareApplication\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}}</script></head><body>400 Relevant Offer Lane, Example City, VA 22000</body></html>",
+              "metadata": {
+                "sourceURL": "https://mixed-schemas.example.invalid/listings/400-relevant-offer",
+                "url": "https://mixed-schemas.example.invalid/listings/400-relevant-offer",
+                "title": "Synthetic mixed-schema page",
+                "description": "Unrelated software prices must not alter the listing price.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:mixed-schemas.example.invalid",
+          "sourceListingIdentifier": "fc-ignore-software:web:0000",
+          "sourceUrl": "https://mixed-schemas.example.invalid/listings/400-relevant-offer",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 51500000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "jsonLdBlocks=3",
+            "signal=ACTIVE_STRUCTURED"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 51500000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_AVAILABLE"]
+      }
+    },
+    {
+      "caseId": "three-page-conflict",
+      "addressReference": "address:synthetic:three-page-conflict",
+      "independentPropertyReference": "property:synthetic:three-page-conflict",
+      "exactAddressQuery": "\"500 Conflict Lane, Example City, TX 75000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:04:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-three-page-conflict",
+        "data": {
+          "web": [
+            {
+              "url": "https://publisher-a.example.invalid/listings/500-conflict-lane",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:00:00.000Z\",\"address\":{\"streetAddress\":\"500 Conflict Lane\",\"addressLocality\":\"Example City\",\"addressRegion\":\"TX\",\"postalCode\":\"75000\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"500000\",\"priceCurrency\":\"USD\"}}</script></head><body>500 Conflict Lane, Example City, TX 75000</body></html>",
+              "metadata": {
+                "sourceURL": "https://publisher-a.example.invalid/listings/500-conflict-lane",
+                "url": "https://publisher-a.example.invalid/listings/500-conflict-lane",
+                "title": "Synthetic active evidence A",
+                "description": "Synthetic conflict fixture A",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            },
+            {
+              "url": "https://publisher-b.example.invalid/listings/500-conflict-lane",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:10:00.000Z\",\"address\":{\"streetAddress\":\"500 Conflict Lane\",\"addressLocality\":\"Example City\",\"addressRegion\":\"TX\",\"postalCode\":\"75000\"},\"offers\":{\"availability\":\"https://schema.org/SoldOut\"}}</script></head><body>500 Conflict Lane, Example City, TX 75000</body></html>",
+              "metadata": {
+                "sourceURL": "https://publisher-b.example.invalid/listings/500-conflict-lane",
+                "url": "https://publisher-b.example.invalid/listings/500-conflict-lane",
+                "title": "Synthetic inactive evidence",
+                "description": "Synthetic conflict fixture B",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            },
+            {
+              "url": "https://publisher-c.example.invalid/listings/500-conflict-lane",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:20:00.000Z\",\"address\":{\"streetAddress\":\"500 Conflict Lane\",\"addressLocality\":\"Example City\",\"addressRegion\":\"TX\",\"postalCode\":\"75000\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"510000\",\"priceCurrency\":\"USD\"}}</script></head><body>500 Conflict Lane, Example City, TX 75000</body></html>",
+              "metadata": {
+                "sourceURL": "https://publisher-c.example.invalid/listings/500-conflict-lane",
+                "url": "https://publisher-c.example.invalid/listings/500-conflict-lane",
+                "title": "Synthetic active evidence C",
+                "description": "Synthetic conflict fixture C",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 5
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:publisher-a.example.invalid",
+          "sourceListingIdentifier": "fc-three-page-conflict:web:0000",
+          "sourceUrl": "https://publisher-a.example.invalid/listings/500-conflict-lane",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 50000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=ACTIVE_STRUCTURED"]
+        },
+        {
+          "pageOrdinal": 1,
+          "providerIdentifier": "firecrawl:publisher-b.example.invalid",
+          "sourceListingIdentifier": "fc-three-page-conflict:web:0001",
+          "sourceUrl": "https://publisher-b.example.invalid/listings/500-conflict-lane",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "OTHER",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "ABSENT",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=OTHER"]
+        },
+        {
+          "pageOrdinal": 2,
+          "providerIdentifier": "firecrawl:publisher-c.example.invalid",
+          "sourceListingIdentifier": "fc-three-page-conflict:web:0002",
+          "sourceUrl": "https://publisher-c.example.invalid/listings/500-conflict-lane",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 51000000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=ACTIVE_STRUCTURED"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["CONFLICTING_ELIGIBLE_ACTIVE_PRICES"]
+      }
+    },
+    {
+      "caseId": "single-page-status-conflict",
+      "addressReference": "address:synthetic:single-page-status-conflict",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"600 Status Conflict Road, Example City, OH 43000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:05:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-status-conflict",
+        "data": {
+          "web": [
+            {
+              "url": "https://status-conflict.example.invalid/listings/600-status-conflict",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@graph\":[{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:00:00.000Z\",\"address\":{\"streetAddress\":\"600 Status Conflict Road\",\"addressLocality\":\"Example City\",\"addressRegion\":\"OH\",\"postalCode\":\"43000\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"300000\",\"priceCurrency\":\"USD\"}},{\"@type\":\"Offer\",\"availability\":\"https://schema.org/SoldOut\"}]}</script></head><body>600 Status Conflict Road, Example City, OH 43000</body></html>",
+              "metadata": {
+                "sourceURL": "https://status-conflict.example.invalid/listings/600-status-conflict",
+                "url": "https://status-conflict.example.invalid/listings/600-status-conflict",
+                "title": "Synthetic conflicting structured statuses",
+                "description": "One block contains incompatible availability values.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:status-conflict.example.invalid",
+          "sourceListingIdentifier": "fc-status-conflict:web:0000",
+          "sourceUrl": "https://status-conflict.example.invalid/listings/600-status-conflict",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "OTHER",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=CONFLICT"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["CONFLICTING_STRUCTURED_EVIDENCE"]
+      }
+    },
+    {
+      "caseId": "unstructured-for-sale-text",
+      "addressReference": "address:synthetic:unstructured-text",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"700 Text Only Avenue, Example City, NY 10000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:06:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-text-only",
+        "data": {
+          "web": [
+            {
+              "url": "https://text-only.example.invalid/listings/700-text-only",
+              "rawHtml": "<html><head><title>700 Text Only Avenue for sale</title><meta property=\"og:title\" content=\"700 Text Only Avenue for sale\"><meta property=\"product:price:amount\" content=\"299000\"><meta property=\"product:price:currency\" content=\"USD\"></head><body><h1>For Sale</h1><p>700 Text Only Avenue, Example City, NY 10000</p></body></html>",
+              "metadata": {
+                "sourceURL": "https://text-only.example.invalid/listings/700-text-only",
+                "url": "https://text-only.example.invalid/listings/700-text-only",
+                "title": "700 Text Only Avenue for sale",
+                "description": "OpenGraph and visible text are not structured active status.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:text-only.example.invalid",
+          "sourceListingIdentifier": "fc-text-only:web:0000",
+          "sourceUrl": "https://text-only.example.invalid/listings/700-text-only",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "ABSENT",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["jsonLdBlocks=0", "signal=UNKNOWN"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["LISTING_STATUS_UNKNOWN"]
+      }
+    },
+    {
+      "caseId": "embedded-app-active-only",
+      "addressReference": "address:synthetic:embedded-app-only",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"800 Embedded State Drive, Example City, CO 80000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:07:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-embedded-only",
+        "data": {
+          "web": [
+            {
+              "url": "https://embedded-only.example.invalid/listings/800-embedded-state",
+              "rawHtml": "<html><head><script>window.__APP_STATE__={\"mlsStatus\":\"Active\",\"price\":555000,\"historicalPrice\":396000};</script></head><body>800 Embedded State Drive, Example City, CO 80000</body></html>",
+              "metadata": {
+                "sourceURL": "https://embedded-only.example.invalid/listings/800-embedded-state",
+                "url": "https://embedded-only.example.invalid/listings/800-embedded-state",
+                "title": "Synthetic embedded application state",
+                "description": "Unscoped application state is not JSON-LD evidence.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:embedded-only.example.invalid",
+          "sourceListingIdentifier": "fc-embedded-only:web:0000",
+          "sourceUrl": "https://embedded-only.example.invalid/listings/800-embedded-state",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "ABSENT",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["jsonLdBlocks=0", "signal=UNKNOWN"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["LISTING_STATUS_UNKNOWN"]
+      }
+    },
+    {
+      "caseId": "unstructured-future-public-auction",
+      "addressReference": "address:synthetic:unstructured-auction",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"900 Civic Auction Road, Example City, NC 27000, US\" \"auction\"",
+      "retrievedAt": "2026-10-08T20:08:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-unstructured-auction",
+        "data": {
+          "web": [
+            {
+              "url": "https://public-auctions.example.gov.invalid/notices/900-civic-auction-road",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"Event\",\"name\":\"Synthetic Public Auction\",\"startDate\":\"2026-10-28T15:00:00.000Z\",\"dateModified\":\"2026-10-08T18:00:00.000Z\",\"location\":{\"address\":{\"streetAddress\":\"900 Civic Auction Road\",\"addressLocality\":\"Example City\",\"addressRegion\":\"NC\",\"postalCode\":\"27000\"}}}</script></head><body><h1>Public Auction</h1><p>900 Civic Auction Road, Example City, NC 27000</p></body></html>",
+              "metadata": {
+                "sourceURL": "https://public-auctions.example.gov.invalid/notices/900-civic-auction-road",
+                "url": "https://public-auctions.example.gov.invalid/notices/900-civic-auction-road",
+                "title": "Synthetic future public auction",
+                "description": "An event without structured listing availability remains unknown.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:public-auctions.example.gov.invalid",
+          "sourceListingIdentifier": "fc-unstructured-auction:web:0000",
+          "sourceUrl": "https://public-auctions.example.gov.invalid/notices/900-civic-auction-road",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "ABSENT",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=UNKNOWN"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["LISTING_STATUS_UNKNOWN"]
+      }
+    },
+    {
+      "caseId": "active-exact-missing-date",
+      "addressReference": "address:synthetic:active-missing-date",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1000 Missing Date Way, Example City, IL 60000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:09:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-missing-date",
+        "data": {
+          "web": [
+            {
+              "url": "https://missing-date.example.invalid/listings/1000-missing-date",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"address\":{\"streetAddress\":\"1000 Missing Date Way\",\"addressLocality\":\"Example City\",\"addressRegion\":\"IL\",\"postalCode\":\"60000\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"350000\",\"priceCurrency\":\"USD\"}}</script></head><body>1000 Missing Date Way, Example City, IL 60000</body></html>",
+              "metadata": {
+                "sourceURL": "https://missing-date.example.invalid/listings/1000-missing-date",
+                "url": "https://missing-date.example.invalid/listings/1000-missing-date",
+                "title": "Synthetic active listing without a date",
+                "description": "Explicit active status cannot bypass freshness.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:missing-date.example.invalid",
+          "sourceListingIdentifier": "fc-missing-date:web:0000",
+          "sourceUrl": "https://missing-date.example.invalid/listings/1000-missing-date",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=ACTIVE_INELIGIBLE"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["FRESHNESS_UNKNOWN"]
+      }
+    },
+    {
+      "caseId": "active-exact-price-missing-currency",
+      "addressReference": "address:synthetic:price-missing-currency",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1100 Missing Currency Place, Example City, AZ 85000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:10:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-missing-currency",
+        "data": {
+          "web": [
+            {
+              "url": "https://missing-currency.example.invalid/listings/1100-missing-currency",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:00:00.000Z\",\"address\":{\"streetAddress\":\"1100 Missing Currency Place\",\"addressLocality\":\"Example City\",\"addressRegion\":\"AZ\",\"postalCode\":\"85000\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"410000\"}}</script></head><body>1100 Missing Currency Place, Example City, AZ 85000</body></html>",
+              "metadata": {
+                "sourceURL": "https://missing-currency.example.invalid/listings/1100-missing-currency",
+                "url": "https://missing-currency.example.invalid/listings/1100-missing-currency",
+                "title": "Synthetic listing with incomplete price",
+                "description": "Active status remains usable but price is rejected.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:missing-currency.example.invalid",
+          "sourceListingIdentifier": "fc-missing-currency:web:0000",
+          "sourceUrl": "https://missing-currency.example.invalid/listings/1100-missing-currency",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=ACTIVE_STRUCTURED"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["ACTIVE_LISTING_PRICE_UNAVAILABLE"]
+      }
+    },
+    {
+      "caseId": "empty-web-results",
+      "addressReference": "address:synthetic:empty-web-results",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1200 Empty Result Street, Example City, FL 33000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:11:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-empty-web",
+        "data": {
+          "web": []
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": null,
+          "providerIdentifier": "firecrawl:api.firecrawl.dev",
+          "sourceListingIdentifier": "fc-empty-web:sentinel",
+          "sourceUrl": "https://api.firecrawl.dev/v2/search",
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["failure=EMPTY_WEB_RESULTS"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["NO_WEB_RESULTS"]
+      }
+    },
+    {
+      "caseId": "provider-success-false",
+      "addressReference": "address:synthetic:provider-success-false",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1300 Provider Failure Way, Example City, WA 98000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:12:00.000Z",
+      "envelope": {
+        "success": false,
+        "id": "fc-success-false",
+        "data": {
+          "web": []
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": null,
+          "providerIdentifier": "firecrawl:api.firecrawl.dev",
+          "sourceListingIdentifier": "fc-success-false:sentinel",
+          "sourceUrl": "https://api.firecrawl.dev/v2/search",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["failure=FIRECRAWL_SUCCESS_FALSE"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["PROVIDER_RESPONSE_FAILED"]
+      }
+    },
+    {
+      "caseId": "missing-raw-html",
+      "addressReference": "address:synthetic:missing-raw-html",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1400 Missing HTML Drive, Example City, OR 97000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:13:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-missing-html",
+        "data": {
+          "web": [
+            {
+              "url": "https://missing-html.example.invalid/listings/1400-missing-html",
+              "metadata": {
+                "sourceURL": "https://missing-html.example.invalid/listings/1400-missing-html",
+                "url": "https://missing-html.example.invalid/listings/1400-missing-html",
+                "title": "Synthetic missing HTML",
+                "description": "Synthetic missing rawHtml fixture",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:missing-html.example.invalid",
+          "sourceListingIdentifier": "fc-missing-html:web:0000",
+          "sourceUrl": "https://missing-html.example.invalid/listings/1400-missing-html",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["failure=MISSING_RAW_HTML"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["PAGE_CONTENT_UNAVAILABLE"]
+      }
+    },
+    {
+      "caseId": "blocked-page-metadata",
+      "addressReference": "address:synthetic:blocked-page",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1500 Blocked Page Court, Example City, AZ 85001, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:14:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-blocked-page",
+        "data": {
+          "web": [
+            {
+              "url": "https://blocked-page.example.invalid/listings/1500-blocked-page",
+              "rawHtml": "<html><body><h1>Access denied</h1></body></html>",
+              "metadata": {
+                "sourceURL": "https://blocked-page.example.invalid/listings/1500-blocked-page",
+                "url": "https://blocked-page.example.invalid/listings/1500-blocked-page",
+                "title": "Access denied",
+                "description": "Synthetic blocked response",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "noindex,nofollow",
+                "statusCode": 403
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:blocked-page.example.invalid",
+          "sourceListingIdentifier": "fc-blocked-page:web:0000",
+          "sourceUrl": "https://blocked-page.example.invalid/listings/1500-blocked-page",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "statusCode=403",
+            "failure=PAGE_HTTP_403"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["PAGE_BLOCKED_OR_HTTP_ERROR"]
+      }
+    },
+    {
+      "caseId": "malformed-envelope-json",
+      "addressReference": "address:synthetic:malformed-envelope",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1600 Malformed Envelope Boulevard, Example City, CO 80001, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:15:00.000Z",
+      "malformedBodyText": "{\"success\":true,\"id\":\"fc-malformed\",\"data\":{\"web\":[",
+      "expectedObservations": [
+        {
+          "pageOrdinal": null,
+          "providerIdentifier": "firecrawl:api.firecrawl.dev",
+          "sourceListingIdentifierSource": "operationRequestId",
+          "sourceListingIdentifierSuffix": ":sentinel",
+          "sourceUrl": "https://api.firecrawl.dev/v2/search",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["failure=MALFORMED_FIRECRAWL_ENVELOPE"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["MALFORMED_PROVIDER_RESPONSE"]
+      }
+    },
+    {
+      "caseId": "malformed-jsonld",
+      "addressReference": "address:synthetic:malformed-jsonld",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1700 Malformed JSONLD Road, Example City, UT 84000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:16:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-malformed-jsonld",
+        "data": {
+          "web": [
+            {
+              "url": "https://malformed-jsonld.example.invalid/listings/1700-malformed",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"offers\":{\"availability\":\"https://schema.org/InStock\"</script></head><body>1700 Malformed JSONLD Road, Example City, UT 84000</body></html>",
+              "metadata": {
+                "sourceURL": "https://malformed-jsonld.example.invalid/listings/1700-malformed",
+                "url": "https://malformed-jsonld.example.invalid/listings/1700-malformed",
+                "title": "Synthetic malformed JSON-LD",
+                "description": "Malformed structured data fails closed.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:malformed-jsonld.example.invalid",
+          "sourceListingIdentifier": "fc-malformed-jsonld:web:0000",
+          "sourceUrl": "https://malformed-jsonld.example.invalid/listings/1700-malformed",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["failure=MALFORMED_JSON_LD"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["INVALID_STRUCTURED_EVIDENCE"]
+      }
+    },
+    {
+      "caseId": "jsonld-block-limit-exceeded",
+      "addressReference": "address:synthetic:block-limit",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1800 Bounded Extraction Street, Example City, NV 89000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:17:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-block-limit",
+        "data": {
+          "web": [
+            {
+              "url": "https://block-limit.example.invalid/listings/1800-bounded",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"01\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"02\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"03\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"04\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"05\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"06\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"07\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"08\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"09\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"10\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"11\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"12\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"13\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"14\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"15\"}</script><script type=\"application/ld+json\">{\"@type\":\"Thing\",\"name\":\"16\"}</script><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:00:00.000Z\",\"address\":{\"streetAddress\":\"1800 Bounded Extraction Street\",\"addressLocality\":\"Example City\",\"addressRegion\":\"NV\",\"postalCode\":\"89000\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"420000\",\"priceCurrency\":\"USD\"}}</script></head><body>1800 Bounded Extraction Street, Example City, NV 89000</body></html>",
+              "metadata": {
+                "sourceURL": "https://block-limit.example.invalid/listings/1800-bounded",
+                "url": "https://block-limit.example.invalid/listings/1800-bounded",
+                "title": "Synthetic over-limit structured page",
+                "description": "The seventeenth block is never trusted.",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:block-limit.example.invalid",
+          "sourceListingIdentifier": "fc-block-limit:web:0000",
+          "sourceUrl": "https://block-limit.example.invalid/listings/1800-bounded",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "exactAddressMatchState": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "priceParseStatus": "NOT_APPLICABLE",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "UNAVAILABLE",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "failure=STRUCTURED_EVIDENCE_BLOCK_LIMIT_EXCEEDED"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["INVALID_STRUCTURED_EVIDENCE"]
+      }
+    },
+    {
+      "caseId": "non-exact-address",
+      "addressReference": "address:synthetic:non-exact",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"1900 Exact Address Street, Example City, NY 10001, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:18:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-non-exact",
+        "data": {
+          "web": [
+            {
+              "url": "https://nearby-listing.example.invalid/listings/1902-exact-address",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:00:00.000Z\",\"address\":{\"streetAddress\":\"1902 Exact Address Street\",\"addressLocality\":\"Example City\",\"addressRegion\":\"NY\",\"postalCode\":\"10001\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"625000\",\"priceCurrency\":\"USD\"}}</script></head><body>1902 Exact Address Street, Example City, NY 10001</body></html>",
+              "metadata": {
+                "sourceURL": "https://nearby-listing.example.invalid/listings/1902-exact-address",
+                "url": "https://nearby-listing.example.invalid/listings/1902-exact-address",
+                "title": "Synthetic nearby active listing",
+                "description": "Synthetic non-exact fixture",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:nearby-listing.example.invalid",
+          "sourceListingIdentifier": "fc-non-exact:web:0000",
+          "sourceUrl": "https://nearby-listing.example.invalid/listings/1902-exact-address",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "NON_EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=ACTIVE_INELIGIBLE"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["NON_EXACT_MATCH"]
+      }
+    },
+    {
+      "caseId": "stale-active-page",
+      "addressReference": "address:synthetic:stale-active",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"2000 Stale Listing Avenue, Example City, IL 60001, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:19:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-stale-active",
+        "data": {
+          "web": [
+            {
+              "url": "https://stale-listing.example.invalid/listings/2000-stale-listing",
+              "rawHtml": "<html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-07-01T09:00:00.000Z\",\"address\":{\"streetAddress\":\"2000 Stale Listing Avenue\",\"addressLocality\":\"Example City\",\"addressRegion\":\"IL\",\"postalCode\":\"60001\"},\"offers\":{\"availability\":\"https://schema.org/InStock\",\"price\":\"350000\",\"priceCurrency\":\"USD\"}}</script></head><body>2000 Stale Listing Avenue, Example City, IL 60001</body></html>",
+              "metadata": {
+                "sourceURL": "https://stale-listing.example.invalid/listings/2000-stale-listing",
+                "url": "https://stale-listing.example.invalid/listings/2000-stale-listing",
+                "title": "Synthetic stale active listing",
+                "description": "Synthetic stale fixture",
+                "cacheState": "miss",
+                "contentType": "text/html",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 2
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:stale-listing.example.invalid",
+          "sourceListingIdentifier": "fc-stale-active:web:0000",
+          "sourceUrl": "https://stale-listing.example.invalid/listings/2000-stale-listing",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "STALE",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["signal=ACTIVE_INELIGIBLE"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["STALE_EVIDENCE"]
+      }
+    }
+  ],
+  "replays": [
+    {
+      "caseId": "active-exact-jsonld-deterministic-replay",
+      "sourceCaseId": "active-exact-jsonld",
+      "expectIdenticalObservationIdentifiers": true,
+      "expectIdenticalAssessmentIdentifier": true,
+      "expectIdenticalAssessmentValue": true
+    },
+    {
+      "caseId": "later-array-deterministic-replay",
+      "sourceCaseId": "later-jsonld-array-active",
+      "expectIdenticalObservationIdentifiers": true,
+      "expectIdenticalAssessmentIdentifier": true,
+      "expectIdenticalAssessmentValue": true
+    }
+  ],
+  "prohibitedFixtureContent": [
+    "copied commercial HTML",
+    "real customer addresses",
+    "live provider result URLs",
+    "raw Connect canary payload"
+  ]
+}

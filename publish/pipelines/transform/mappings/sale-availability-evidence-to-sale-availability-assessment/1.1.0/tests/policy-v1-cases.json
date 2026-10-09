@@ -1,0 +1,426 @@
+{
+  "contractVersion": 1,
+  "policyVersion": "sale-availability-policy-v1",
+  "assessmentIdentity": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "separator": "|",
+    "components": [
+      "address_reference",
+      "independent_property_reference_or_empty",
+      "policy_version",
+      "window_start_at_utc_milliseconds",
+      "window_end_at_utc_milliseconds",
+      "comma_joined_bytewise_sorted_unique_observation_identifiers"
+    ]
+  },
+  "defaultObservation": {
+    "providerIdentifier": "rentcast",
+    "retrievedAt": "2026-10-05T12:00:00.000Z",
+    "sourceAsOf": "2026-10-05T10:00:00.000Z",
+    "freshnessEvaluatedAt": "2026-10-05T12:00:00.000Z",
+    "freshnessPolicyVersion": "rentcast-30d-v1",
+    "observationOutcome": "LISTING_FOUND",
+    "marketStatus": "ACTIVE",
+    "exactAddressMatchState": "EXACT",
+    "freshnessState": "FRESH",
+    "coverageState": "PARTIAL",
+    "authorityState": "SUPPORTING",
+    "priceParseStatus": "ABSENT",
+    "askingPriceAmountMinor": null,
+    "askingPriceCurrency": null
+  },
+  "cases": [
+    {
+      "caseId": "fresh-exact-active",
+      "addressReference": "address:assessment:active",
+      "independentPropertyReference": "property:independently-established-001",
+      "observations": [
+        {
+          "observationIdentifier": "0101010101010101010101010101010101010101010101010101010101010101",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44490000,
+          "askingPriceCurrency": "USD"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 44490000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": [
+          "FRESH_EXACT_ACTIVE_LISTING"
+        ],
+        "observationReferences": [
+          "0101010101010101010101010101010101010101010101010101010101010101"
+        ]
+      }
+    },
+    {
+      "caseId": "pending",
+      "addressReference": "address:assessment:pending",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0202020202020202020202020202020202020202020202020202020202020202",
+          "marketStatus": "PENDING"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "NON_ACTIVE_MARKET_STATUS"
+        ],
+        "observationReferences": [
+          "0202020202020202020202020202020202020202020202020202020202020202"
+        ]
+      }
+    },
+    {
+      "caseId": "under-contract",
+      "addressReference": "address:assessment:under-contract",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0303030303030303030303030303030303030303030303030303030303030303",
+          "marketStatus": "UNDER_CONTRACT"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "NON_ACTIVE_MARKET_STATUS"
+        ],
+        "observationReferences": [
+          "0303030303030303030303030303030303030303030303030303030303030303"
+        ]
+      }
+    },
+    {
+      "caseId": "coming-soon",
+      "addressReference": "address:assessment:coming-soon",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0404040404040404040404040404040404040404040404040404040404040404",
+          "marketStatus": "COMING_SOON"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "NON_ACTIVE_MARKET_STATUS"
+        ],
+        "observationReferences": [
+          "0404040404040404040404040404040404040404040404040404040404040404"
+        ]
+      }
+    },
+    {
+      "caseId": "supporting-partial-absence",
+      "addressReference": "address:assessment:no-row",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0505050505050505050505050505050505050505050505050505050505050505",
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "sourceAsOf": null
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "observationReferences": [
+          "0505050505050505050505050505050505050505050505050505050505050505"
+        ]
+      }
+    },
+    {
+      "caseId": "lookup-failure",
+      "addressReference": "address:assessment:lookup-failure",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0606060606060606060606060606060606060606060606060606060606060606",
+          "observationOutcome": "LOOKUP_FAILED",
+          "marketStatus": "UNKNOWN",
+          "freshnessState": "UNKNOWN",
+          "coverageState": "UNAVAILABLE",
+          "sourceAsOf": null
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "observationReferences": [
+          "0606060606060606060606060606060606060606060606060606060606060606"
+        ]
+      }
+    },
+    {
+      "caseId": "stale-active",
+      "addressReference": "address:assessment:stale",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0707070707070707070707070707070707070707070707070707070707070707",
+          "freshnessState": "STALE",
+          "sourceAsOf": "2026-08-01T10:00:00.000Z"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "observationReferences": [
+          "0707070707070707070707070707070707070707070707070707070707070707"
+        ]
+      }
+    },
+    {
+      "caseId": "non-exact-active",
+      "addressReference": "address:assessment:non-exact",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0808080808080808080808080808080808080808080808080808080808080808",
+          "exactAddressMatchState": "NON_EXACT"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "observationReferences": [
+          "0808080808080808080808080808080808080808080808080808080808080808"
+        ]
+      }
+    },
+    {
+      "caseId": "ambiguous-active",
+      "addressReference": "address:assessment:ambiguous",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0909090909090909090909090909090909090909090909090909090909090909",
+          "exactAddressMatchState": "AMBIGUOUS"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "reasonCodes": [
+          "INSUFFICIENT_EVIDENCE"
+        ],
+        "observationReferences": [
+          "0909090909090909090909090909090909090909090909090909090909090909"
+        ]
+      }
+    },
+    {
+      "caseId": "active-with-rejected-price",
+      "addressReference": "address:assessment:price-rejection",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a",
+          "priceParseStatus": "REJECTED"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": [
+          "FRESH_EXACT_ACTIVE_LISTING"
+        ],
+        "observationReferences": [
+          "0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a"
+        ]
+      }
+    },
+    {
+      "caseId": "active-with-absent-price",
+      "addressReference": "address:assessment:price-absent",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "1313131313131313131313131313131313131313131313131313131313131313"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": [
+          "FRESH_EXACT_ACTIVE_LISTING"
+        ],
+        "observationReferences": [
+          "1313131313131313131313131313131313131313131313131313131313131313"
+        ]
+      }
+    },
+    {
+      "caseId": "duplicate-observation-references",
+      "addressReference": "address:assessment:duplicate-references",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 27500000,
+          "askingPriceCurrency": "USD"
+        },
+        {
+          "observationIdentifier": "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 27500000,
+          "askingPriceCurrency": "USD"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 27500000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": [
+          "FRESH_EXACT_ACTIVE_LISTING"
+        ],
+        "observationReferences": [
+          "0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b"
+        ]
+      }
+    },
+    {
+      "caseId": "conflicting-eligible-active-prices",
+      "addressReference": "address:assessment:price-conflict",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44490000,
+          "askingPriceCurrency": "USD"
+        },
+        {
+          "observationIdentifier": "1010101010101010101010101010101010101010101010101010101010101010",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44500000,
+          "askingPriceCurrency": "USD"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": [
+          "CONFLICTING_ELIGIBLE_ACTIVE_PRICES"
+        ],
+        "observationReferences": [
+          "0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
+          "1010101010101010101010101010101010101010101010101010101010101010"
+        ]
+      }
+    },
+    {
+      "caseId": "conflicting-eligible-active-currencies",
+      "addressReference": "address:assessment:currency-conflict",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "1111111111111111111111111111111111111111111111111111111111111111",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44490000,
+          "askingPriceCurrency": "USD"
+        },
+        {
+          "observationIdentifier": "1212121212121212121212121212121212121212121212121212121212121212",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 44490000,
+          "askingPriceCurrency": "CAD"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": [
+          "CONFLICTING_ELIGIBLE_ACTIVE_PRICES"
+        ],
+        "observationReferences": [
+          "1111111111111111111111111111111111111111111111111111111111111111",
+          "1212121212121212121212121212121212121212121212121212121212121212"
+        ]
+      }
+    },
+    {
+      "caseId": "conflicting-fresh-records",
+      "addressReference": "address:assessment:conflict",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c",
+          "marketStatus": "PENDING"
+        },
+        {
+          "observationIdentifier": "0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "reasonCodes": [
+          "CONFLICTING_FRESH_EXACT_EVIDENCE"
+        ],
+        "observationReferences": [
+          "0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c",
+          "0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d0d"
+        ]
+      }
+    },
+    {
+      "caseId": "authoritative-complete-negative",
+      "addressReference": "address:assessment:authoritative-negative",
+      "independentPropertyReference": null,
+      "observations": [
+        {
+          "observationIdentifier": "0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e",
+          "providerIdentifier": "governed-authoritative-source",
+          "observationOutcome": "LISTING_ABSENT",
+          "marketStatus": "UNKNOWN",
+          "coverageState": "COMPLETE",
+          "authorityState": "AUTHORITATIVE"
+        }
+      ],
+      "expected": {
+        "availabilityStatus": "NOT_FOR_SALE",
+        "isForSale": false,
+        "reasonCodes": [
+          "AUTHORITATIVE_COMPLETE_NEGATIVE"
+        ],
+        "observationReferences": [
+          "0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e"
+        ]
+      }
+    }
+  ]
+}

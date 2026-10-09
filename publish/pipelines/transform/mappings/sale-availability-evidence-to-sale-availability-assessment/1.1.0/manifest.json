@@ -1,0 +1,115 @@
+{
+  "contractVersion": 2,
+  "id": "sale-availability-evidence-to-sale-availability-assessment",
+  "version": "1.1.0",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "sale-availability-evidence",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "sale-availability-assessment",
+    "version": "1.1.0"
+  },
+  "inputs": [
+    {
+      "table": "listing_observations",
+      "view": "source_listing_observations",
+      "required": true,
+      "format": "parquet"
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "parquet",
+    "delivery": {
+      "mode": "inline",
+      "dataset": "sale_availability_assessments",
+      "cardinality": "exactly-one",
+      "maxBytes": 65536,
+      "requireVersionId": true
+    }
+  },
+  "outputs": [
+    {
+      "dataset": "sale_availability_assessments",
+      "dependsOn": [],
+      "queryPath": "queries/sale_availability_assessments.sql",
+      "querySha256": "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7",
+      "invariantEvidence": [
+        {
+          "invariant": "availability_boolean_projection",
+          "querySha256s": [
+            "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "7c4beb1b08cef212585610ed99da73d7b843a276477fe36ed87d1d432b27b3b8",
+              "description": "Pins true, false, and null boolean projections for every assessment state."
+            }
+          ]
+        },
+        {
+          "invariant": "deterministic_assessment_identity",
+          "querySha256s": [
+            "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "7c4beb1b08cef212585610ed99da73d7b843a276477fe36ed87d1d432b27b3b8",
+              "description": "Pins subject, policy, window, and evidence-reference identity inputs independently of SQL."
+            }
+          ]
+        },
+        {
+          "invariant": "sorted_observation_references",
+          "querySha256s": [
+            "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "7c4beb1b08cef212585610ed99da73d7b843a276477fe36ed87d1d432b27b3b8",
+              "description": "Pins duplicate and conflicting observation-reference cases with bytewise sorted unique expectations."
+            }
+          ],
+          "engineChecks": [
+            {
+              "kind": "array-sorted-unique",
+              "jsonPointer": "/relationships/sale_availability_assessment_has_listing_observation"
+            }
+          ]
+        },
+        {
+          "invariant": "relationship_endpoints_exist",
+          "querySha256s": [
+            "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "7c4beb1b08cef212585610ed99da73d7b843a276477fe36ed87d1d432b27b3b8",
+              "description": "Pins required address and observation endpoints plus nullable independently established property references."
+            }
+          ]
+        },
+        {
+          "invariant": "eligible_list_price_projection",
+          "querySha256s": [
+            "b0d1b7a7b72b987a98185256b3daa978f579c459b20c28bf6e290b3628b582e7"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v1-cases.json",
+              "sha256": "7c4beb1b08cef212585610ed99da73d7b843a276477fe36ed87d1d432b27b3b8",
+              "description": "Pins one eligible price, absent and rejected prices, duplicate identical prices, and conflicting amount or currency outcomes."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

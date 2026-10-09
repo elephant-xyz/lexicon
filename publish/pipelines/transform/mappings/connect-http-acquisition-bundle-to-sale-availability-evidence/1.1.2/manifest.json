@@ -1,0 +1,88 @@
+{
+  "contractVersion": 2,
+  "id": "connect-http-acquisition-bundle-to-sale-availability-evidence",
+  "version": "1.1.2",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "connect-http-acquisition-bundle",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "sale-availability-evidence",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "acquisition_records",
+      "view": "source_acquisition_records",
+      "required": true,
+      "format": "jsonl"
+    },
+    {
+      "table": "raw_documents",
+      "view": "source_raw_documents",
+      "required": true,
+      "format": "jsonl"
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "parquet"
+  },
+  "outputs": [
+    {
+      "dataset": "listing_observations",
+      "dependsOn": [],
+      "queryPath": "queries/listing_observations.sql",
+      "querySha256": "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441",
+      "invariantEvidence": [
+        {
+          "invariant": "deterministic_observation_identity",
+          "querySha256s": [
+            "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v2-cases.json",
+              "sha256": "b9dba52562e950e539a9ec95c958bc2f568d909a6ec2e93f14992756ec96a150",
+              "description": "Pins provider, source identity or candidate ordinal, retrieval time, artifact digest, and independent expected outcomes for RentCast, Google Search grounding, and Brave."
+            }
+          ]
+        },
+        {
+          "invariant": "rejected_price_is_null",
+          "querySha256s": [
+            "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v2-cases.json",
+              "sha256": "b9dba52562e950e539a9ec95c958bc2f568d909a6ec2e93f14992756ec96a150",
+              "description": "Pins null price projection for absent, failed, rejected, and search discovery observations."
+            }
+          ]
+        },
+        {
+          "invariant": "relationship_endpoints_exist",
+          "querySha256s": [
+            "d12ae83f8cf12363e8db872ac96ad922fd114d66932f9d32e0e9b7db14b18441"
+          ],
+          "tests": [
+            {
+              "path": "tests/policy-v2-cases.json",
+              "sha256": "b9dba52562e950e539a9ec95c958bc2f568d909a6ec2e93f14992756ec96a150",
+              "description": "Pins required address and file references, nullable independent property references, and unchanged address identity for search candidates."
+            }
+          ],
+          "engineChecks": [
+            {
+              "kind": "array-sorted-unique",
+              "jsonPointer": "/relationships/listing_observation_has_file"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
