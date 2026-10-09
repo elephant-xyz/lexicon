@@ -1,0 +1,116 @@
+{
+  "contractVersion": 1,
+  "id": "sale-availability-system-input-package",
+  "version": "1.0.0",
+  "source": {
+    "contract": "Connect ResultManifest",
+    "providers": [
+      "google-address-validation-review-evidence",
+      "rentcast-review-sale-evidence"
+    ]
+  },
+  "target": {
+    "language": "connect-http-acquisition-bundle",
+    "version": "1.0.0",
+    "datasets": [
+      {
+        "table": "acquisition_records",
+        "format": "jsonl",
+        "view": "source_acquisition_records"
+      },
+      {
+        "table": "raw_documents",
+        "format": "jsonl",
+        "view": "source_raw_documents"
+      }
+    ]
+  },
+  "governedContext": {
+    "jsonPointer": "/saleAvailability",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "addressReference",
+        "independentPropertyReference",
+        "freshnessEvaluatedAt",
+        "freshnessPolicyVersion",
+        "artifactFileReferencesBySha256"
+      ],
+      "properties": {
+        "addressReference": {
+          "type": "string",
+          "minLength": 1,
+          "description": "An existing address endpoint. It never creates a property identity."
+        },
+        "independentPropertyReference": {
+          "type": ["string", "null"],
+          "minLength": 1,
+          "description": "An already established property endpoint, or null. System must not derive it from the address or provider response."
+        },
+        "freshnessEvaluatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "freshnessPolicyVersion": {
+          "const": "rentcast-30d-v1"
+        },
+        "artifactFileReferencesBySha256": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Maps each verified raw artifact digest to an existing file endpoint."
+        }
+      }
+    }
+  },
+  "materializationRules": [
+    {
+      "rule": "one-acquisition-row-per-connect-result",
+      "source": "ResultManifest plus immutable acquisition metadata",
+      "target": "acquisition_records",
+      "requirements": [
+        "contextJson is canonical JSON and identical for the paired provider results",
+        "inputJson is the canonical provider JobRequest payload without credentials",
+        "primaryRawArtifactUri and primaryRawArtifactSha256 copy the selected ResultManifest file pointer exactly",
+        "outcome and failureCode copy transport outcomes without sale classification"
+      ]
+    },
+    {
+      "rule": "one-raw-document-row-per-result-file",
+      "source": "ResultManifest.files[]",
+      "target": "raw_documents",
+      "requirements": [
+        "sourceUri and sha256 copy the immutable file pointer exactly",
+        "bodyText is the exact UTF-8 decoded body and sha256 remains the digest of the original bytes",
+        "no provider field is parsed or normalized during packaging",
+        "artifactOrdinal is the zero-based ResultManifest file order"
+      ]
+    },
+    {
+      "rule": "pair-by-request",
+      "requirements": [
+        "Google and RentCast acquisition rows use the same requestId",
+        "RentCast inputJson contains the exact normalized_address.one_line submitted to Connect",
+        "Google is identity evidence only and RentCast remains supporting partial listing evidence"
+      ]
+    }
+  ],
+  "fixture": {
+    "testCasesPath": "../tests/policy-v1-cases.json",
+    "representativeCaseId": "fresh-exact-active",
+    "expectedDatasets": ["acquisition_records", "raw_documents"]
+  },
+  "prohibited": [
+    "provider status classification in System or Connect",
+    "price parsing in System or Connect",
+    "property identity derived from an address",
+    "web-search evidence in policy v1"
+  ]
+}

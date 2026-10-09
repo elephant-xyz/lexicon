@@ -5,6 +5,7 @@ export interface LexiconProperty {
   pattern?: string;
   format?: string;
   minLength?: number;
+  maxLength?: number;
   minimum?: number;
   maximum?: number;
   properties?: Record<string, LexiconProperty>;
@@ -12,12 +13,13 @@ export interface LexiconProperty {
   additionalProperties?: LexiconProperty | boolean;
   items?: LexiconProperty;
   minItems?: number;
+  uniqueItems?: boolean;
   minProperties?: number;
   required?: boolean;
   optional?: boolean; // New field to mark properties as optional
   oneOf?: LexiconProperty[];
   allOf?: LexiconProperty[];
-  const?: string;
+  const?: string | number | boolean | null;
   not?: LexiconProperty;
 }
 
@@ -58,6 +60,7 @@ export interface LexiconClass {
   required?: string[];
   example?: Record<string, unknown>;
   examples?: Array<Record<string, unknown>>;
+  allOf?: Array<Record<string, unknown>>;
   _searchMatches?: SearchMatch[];
   _hasPropertyMatches?: boolean;
   _hasRelationshipMatches?: boolean;

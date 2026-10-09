@@ -1,0 +1,23 @@
+{
+  "id": "elephant-county-atlas",
+  "version": "1.0.0",
+  "adapter": "s3-file",
+  "language": "county-raw",
+  "entityType": "parcel",
+  "rootTable": "parcels",
+  "deliveryBoundary": "after_consumer",
+  "tables": [
+    {
+      "name": "parcels",
+      "format": "parquet",
+      "objectKey": "fixtures/county/parcels.parquet",
+      "recordKey": [
+        "parcel_id"
+      ],
+      "entityLink": {
+        "type": "direct",
+        "column": "parcel_id"
+      }
+    }
+  ]
+}
