@@ -2,7 +2,7 @@ import path from 'node:path';
 
 import { App } from 'aws-cdk-lib';
 import { Match, Template } from 'aws-cdk-lib/assertions';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
 import { ModelPublicationStack } from '../../model/lib/model-publication-stack.js';
 
@@ -22,8 +22,13 @@ function synthesize(): Template {
 }
 
 describe('Model publication CDK stack', () => {
+  let template: Template;
+
+  beforeAll(() => {
+    template = synthesize();
+  }, 30_000);
+
   it('keeps publication inactive and exposes only an IAM-authenticated URL', () => {
-    const template = synthesize();
     template.hasParameter('PublicationEnabled', {
       Type: 'String',
       Default: 'false',
@@ -38,7 +43,6 @@ describe('Model publication CDK stack', () => {
   });
 
   it('provisions an observable Standard workflow and retained lock state', () => {
-    const template = synthesize();
     template.hasResourceProperties('AWS::StepFunctions::StateMachine', {
       StateMachineType: 'STANDARD',
       TracingConfiguration: { Enabled: true },
@@ -60,7 +64,6 @@ describe('Model publication CDK stack', () => {
   });
 
   it('routes the workflow request object to every worker Lambda', () => {
-    const template = synthesize();
     const stateMachine = Object.values(
       template.findResources('AWS::StepFunctions::StateMachine')
     )[0] as {
@@ -77,7 +80,6 @@ describe('Model publication CDK stack', () => {
   });
 
   it('uses Node 24, active tracing, bounded concurrency, and 90-day logs', () => {
-    const template = synthesize();
     template.allResourcesProperties('AWS::Lambda::Function', {
       Runtime: 'nodejs24.x',
       Architectures: ['arm64'],
@@ -90,7 +92,6 @@ describe('Model publication CDK stack', () => {
   });
 
   it('never grants artifact deletion or wildcard SSM writes', () => {
-    const template = synthesize();
     const policies = template.findResources('AWS::IAM::Policy');
     const serialized = JSON.stringify(policies);
     expect(serialized).not.toContain('s3:DeleteObject');
