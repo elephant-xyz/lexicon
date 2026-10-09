@@ -154,10 +154,12 @@ export class GitHubSourceRepository implements SourceRepository {
         'Pull request does not authorize the exact requested revision'
       );
     }
+    const merged = pullRequest.merged_at !== null;
     if (
-      pullRequest.mergeable_state === 'dirty' ||
-      pullRequest.mergeable_state === 'draft' ||
-      pullRequest.mergeable_state === 'unknown'
+      !merged &&
+      (pullRequest.mergeable_state === 'dirty' ||
+        pullRequest.mergeable_state === 'draft' ||
+        pullRequest.mergeable_state === 'unknown')
     ) {
       throw new PublicationError(
         'SOURCE_NOT_APPROVED',
