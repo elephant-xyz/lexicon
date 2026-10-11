@@ -1,0 +1,6142 @@
+{
+  "source": {
+    "repository": "https://github.com/elephant-xyz/lexicon",
+    "revision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
+    "path": "src/data/lexicon.json",
+    "digest": "sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c"
+  },
+  "decisions": [
+    {
+      "kind": "topVertex",
+      "definitionId": "property",
+      "reason": "Contract 1.0 requires one local top vertex. Reachability from that vertex is not enforced by the current compiler."
+    },
+    {
+      "kind": "identity",
+      "strategy": "contentHash",
+      "reason": "The viewer lexicon does not declare Model identity properties, so every local vertex uses content-hash identity."
+    },
+    {
+      "kind": "baseLabelsNotRedeclared",
+      "labels": [
+        "address",
+        "company",
+        "person"
+      ],
+      "reason": "These labels belong to model-shared-base-v1.5.0. An extension cannot redeclare them, so Elephant fields on these classes stay only in lexicon.json."
+    }
+  ],
+  "duplicateChoices": {
+    "product_api": {
+      "classIndex": 146,
+      "bodySha256": "sha256:a9f0f18651fed381a5e128e3779c6ff3a9f786b77b4c09ab3ce90facc981b8c7",
+      "reason": "Keeps property and relationship comments. The other body, class index 173, removes those comments and sets container_name to relationships."
+    },
+    "product_configuration": {
+      "classIndex": 148,
+      "bodySha256": "sha256:9e6b5f466b4de848efde28047d9672b148f8c0f09f49d50290e4f98414e668f6",
+      "reason": "Keeps property and relationship comments. The other body, class index 174, removes those comments and sets container_name to relationships."
+    },
+    "ticket": {
+      "classIndex": 213,
+      "bodySha256": "sha256:8a872d7b69a1bc5b19789eaa9e711f29260ae9e85a320feed883e200cca8be6f",
+      "reason": "Keeps property and relationship comments. The other body, class index 214, removes those comments and sets container_name to tickets."
+    }
+  },
+  "omittedDocumentKeys": [
+    "tags",
+    "data_groups",
+    "common_patterns"
+  ],
+  "droppedConstraints": [
+    {
+      "class": "listing_observation",
+      "kind": "allOf",
+      "reason": "Composition Contract 1.0 cannot store conditional allOf constraints."
+    },
+    {
+      "class": "sale_availability_assessment",
+      "kind": "allOf",
+      "reason": "Composition Contract 1.0 cannot store conditional allOf constraints."
+    }
+  ],
+  "convertedProperties": [
+    {
+      "class": "school",
+      "property": "description",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "school",
+      "property": "grade_rating",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "school",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "school",
+      "property": "school_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "school",
+      "property": "school_ranking",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "school",
+      "property": "school_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "transportation_access",
+      "property": "commute_quality",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "transportation_access",
+      "property": "highway_access",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "transportation_access",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "transportation_access",
+      "property": "walkability_description",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "safety_security",
+      "property": "crime_rate",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "safety_security",
+      "property": "crime_rate_comparison",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "safety_security",
+      "property": "emergency_response_time",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "safety_security",
+      "property": "emergency_services_response",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "safety_security",
+      "property": "overall_safety_grade",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "safety_security",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "air_quality_index",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "earthquake_zone",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "environmental_hazards",
+      "facet": "items.null",
+      "reason": "nullability was removed from array items"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "environmental_surroundings",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "fire_zone",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "flood_risk_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "flood_zone_designation",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "light_pollution_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "noise_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "noise_sources",
+      "facet": "items.null",
+      "reason": "nullability was removed from array items"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "radon_building_type_assessment",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "radon_risk_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "soil_stability",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "wildfire_risk_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "wind_storm_risk",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_ranking_overall",
+      "property": "ranking_percentile",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_ranking_overall",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_ranking_overall",
+      "property": "safety_grade",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "home_buy_search",
+      "property": "current_list_price_max",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "home_buy_search",
+      "property": "current_list_price_min",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "home_buy_search",
+      "property": "email_frequency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "home_sell_tracking",
+      "property": "email_frequency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "mortgage_rate_tracking",
+      "property": "email_frequency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "mortgage_rate_tracking",
+      "property": "monthly_payment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "mortgage_rate_tracking",
+      "property": "monthly_payment",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "mortgage_rate_tracking",
+      "property": "usage_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "unsubscribe",
+      "property": "unsubscribe_timestamp",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "current_first_mortgage_holder_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "estimated_cash_out_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "estimated_cash_out_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "refinance_program_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "refinance_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "total_prior_lien_payoff_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_refinance",
+      "property": "total_prior_lien_payoff_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "address_validation",
+      "property": "validation_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "unnormalized_address",
+      "property": "county_jurisdiction",
+      "facet": "enum",
+      "reason": "enum contains duplicate strings"
+    },
+    {
+      "class": "unnormalized_address",
+      "property": "latitude",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "unnormalized_address",
+      "property": "longitude",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "unnormalized_address",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "geometry",
+      "property": "latitude",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "geometry",
+      "property": "longitude",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "geometry",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "parcel",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "api_scenario",
+      "property": "scenario_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "api",
+      "property": "invocation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "asset",
+      "property": "asset_account_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "asset",
+      "property": "asset_cash_or_market_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "asset",
+      "property": "asset_net_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "asset",
+      "property": "asset_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "asset",
+      "property": "current_unpaid_principal_balance_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "asset",
+      "property": "life_insurance_face_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "asset",
+      "property": "market_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "asset",
+      "property": "reo_intended_disposition_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "authorization",
+      "property": "authorization_timestamp",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "authorization",
+      "property": "authorization_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "asset_representation_and_warranty_relief_eligibility_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "aus_decision_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "aus_eligibility_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "aus_purchase_eligibility_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "aus_recommendation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "aus_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "collateral_representation_and_warranty_relief_eligibility_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automated_underwriting_system",
+      "property": "income_representation_and_warranty_relief_eligibility_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "template",
+      "property": "template_engine",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "campaign",
+      "property": "campaign_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "automobile",
+      "property": "automobile_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "bundle",
+      "property": "bundle_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "chat_message",
+      "property": "author_role",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "chat_message",
+      "property": "message_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "chat_note",
+      "property": "note_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "chat_thread",
+      "property": "thread_created_at",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "closing_adjustment_item",
+      "property": "closing_adjustment_item_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "closing_adjustment_item",
+      "property": "closing_adjustment_item_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "closing_adjustment_item",
+      "property": "integrated_disclosure_cash_to_close_item_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "closing_adjustment_item",
+      "property": "integrated_disclosure_cash_to_close_item_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "closing_adjustment_item",
+      "property": "integrated_disclosure_section_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "collection",
+      "property": "created_at",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "collection",
+      "property": "updated_at",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "communication",
+      "property": "email_address",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "communication",
+      "property": "phone_number",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "basic_category",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "brand_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "brand_wikidata_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "hosted_service_rule",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "is_hosted_service",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "normalized_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "operating_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "source_confidence",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "source_record_version",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "business_location",
+      "property": "taxonomy_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "company_connection",
+      "property": "environment_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "company_relation",
+      "property": "company_relation_state_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "company_relation",
+      "property": "company_relation_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "company_relation",
+      "property": "company_relation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "consent",
+      "property": "consent_action_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "consent",
+      "property": "consent_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "consent",
+      "property": "consent_timestamp",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "console",
+      "property": "console_configuration_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "contract",
+      "property": "effective_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "contract",
+      "property": "expiration_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "correspondence",
+      "property": "contact_attempt_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "correspondence",
+      "property": "feedback_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "credit_inquiry",
+      "property": "credit_business_detail_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "credit_inquiry",
+      "property": "credit_business_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "credit_public_record",
+      "property": "credit_public_record_legal_obligation_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "credit_score",
+      "property": "credit_score_rank_percentile_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "credit_score",
+      "property": "credit_score_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "credit",
+      "property": "credit_limit_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "credit",
+      "property": "credit_request_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "click_source_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_action_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_initiator_role",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_method_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_purpose_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_result_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "contact_status_type_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "customer_contact",
+      "property": "feedback_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "keyword_match_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "phone_call_customer_sentiment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "customer_contact",
+      "property": "phone_call_direction",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "phone_call_price",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "customer_contact",
+      "property": "phone_call_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "customer_contact",
+      "property": "phone_call_transcript_confidence",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "customer_contact",
+      "property": "snoozed_until",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "customer_contact",
+      "property": "voicemail_end_time",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "customer_contact",
+      "property": "voicemail_start_time",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "declaration",
+      "property": "citizenship_residency_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "declaration",
+      "property": "prior_property_title_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "declaration",
+      "property": "prior_property_usage_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "declaration",
+      "property": "undisclosed_borrowed_funds_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "deployment",
+      "property": "deployment_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "development",
+      "property": "community_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "device",
+      "property": "device_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "file",
+      "property": "document_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "file",
+      "property": "file_format",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "file",
+      "property": "ipfs_url",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "file",
+      "property": "name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "file",
+      "property": "original_url",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "file",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "document",
+      "property": "delivery_method_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "document",
+      "property": "document_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "document",
+      "property": "staircase_document_category_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "education",
+      "property": "start_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "email_event",
+      "property": "email_event_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "email_event",
+      "property": "email_event_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "employment_classification_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "employment_monthly_income_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "employment",
+      "property": "employment_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "employment_subtype",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "employment_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "ownership_interest_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "special_borrower_employer_relationship_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "employment",
+      "property": "start_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "environment",
+      "property": "environment_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment",
+      "property": "environment_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environment",
+      "property": "ever_to_date_cost_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "environment",
+      "property": "last_month_cost_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "environment",
+      "property": "year_to_date_cost_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "error",
+      "property": "error_timestamp",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "error",
+      "property": "error_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "error",
+      "property": "severity_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "escrow_item",
+      "property": "escrow_item_estimated_total_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "escrow_item",
+      "property": "escrow_item_per_diem_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "escrow_item",
+      "property": "escrow_item_per_diem_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "escrow_item",
+      "property": "escrow_item_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "estimated_property_cost",
+      "property": "projected_payment_escrowed_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "estimated_property_cost",
+      "property": "projected_payment_estimated_taxes_insurance_assessment_component_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "expense",
+      "property": "alimony_paid_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "expense",
+      "property": "educator_expenses_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "expense",
+      "property": "educator_expenses_per_irs_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "expense",
+      "property": "expense_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "expense",
+      "property": "expense_baseline_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "expense",
+      "property": "expense_monthly_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "expense",
+      "property": "expense_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "expense",
+      "property": "fixed_property_expense_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "expense",
+      "property": "frequency_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "expense",
+      "property": "mortgage_property_expense_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "expense",
+      "property": "occupant_property_expense_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "expense",
+      "property": "reservist_and_other_business_expense_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "exterior",
+      "property": "lot_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "exterior",
+      "property": "outdoor_living_space_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "exterior",
+      "property": "parking_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "exterior",
+      "property": "pool_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "exterior",
+      "property": "spa_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "exterior",
+      "property": "view_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "air_quality_index",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "earthquake_zone",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "environmental_hazards",
+      "facet": "items.null",
+      "reason": "nullability was removed from array items"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "fire_zone",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "light_pollution_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "noise_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "soil_stability",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "wildfire_risk_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "fee",
+      "property": "actual_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "fee",
+      "property": "assessed_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "fee",
+      "property": "fee_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "government_monitoring",
+      "property": "application_taken_method_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "government_monitoring",
+      "property": "demographic_collection_version_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "government_monitoring",
+      "property": "ethnicity_origin_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "government_monitoring",
+      "property": "ethnicity_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "government_monitoring",
+      "property": "gender_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "government_monitoring",
+      "property": "race_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "graph_entity",
+      "property": "date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "health_metric",
+      "property": "created_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "health_metric",
+      "property": "session_end_time",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "health_metric",
+      "property": "session_start_time",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "health_metric",
+      "property": "site_event_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "homeowners_association_amenity",
+      "property": "homeowners_association_amenity_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association_inclusion",
+      "property": "homeowners_association_inclusion_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "amenities",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "company_cid",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "homeowners_association_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "homeowners_association_fee_frequency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "homeowners_association_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "homeowners_association_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "homeowners_association_year",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "property_manager_cid",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "security_features",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "sunbiz_document_number",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "hoa_policy",
+      "property": "general_restrictions",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "hoa_policy",
+      "property": "leasing_policy",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "hoa_policy",
+      "property": "pet_policy",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "hoa_policy",
+      "property": "vehicle_policy",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "identity",
+      "property": "identity_verified_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "income",
+      "property": "annual_income",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "income",
+      "property": "income_pay_frequency_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "income",
+      "property": "income_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "income",
+      "property": "median_household_income_census_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "income",
+      "property": "predicted_net_worth_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "base_loan_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "borrower_requested_interest_rate_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "coverage_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "deductible_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "five_year_cost_comparison_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "housing_cost_over_five_years_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "investor_program_name_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "insurance",
+      "property": "loan_identifier_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "insurance",
+      "property": "premium_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "rate_quote_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "insurance",
+      "property": "second_deductible_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "insurance",
+      "property": "third_deductible_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "interaction",
+      "property": "date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "interaction",
+      "property": "lead_interaction_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "interaction",
+      "property": "snoozed_until",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "invocation",
+      "property": "invocation_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "invocation",
+      "property": "invocation_timestamp",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "lead",
+      "property": "lead_source",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lead",
+      "property": "lead_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lead_person_relation",
+      "property": "relation_role",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lease",
+      "property": "monthly_rate",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "liability",
+      "property": "credit_business_detail_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "credit_business_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "home_equity_line_of_credit_heloc_maximum_balance_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "liability",
+      "property": "integrated_disclosure_section_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "liability_account_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "liability_current_rating_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "liability_high_balance_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "liability",
+      "property": "liability_highest_adverse_rating_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "liability_loan_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "liability_monthly_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "liability",
+      "property": "liability_terms_source_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability",
+      "property": "liability_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "liability_timeline",
+      "property": "liability_unpaid_balance_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "license",
+      "property": "license_authority_level_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "license",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_timeline",
+      "property": "listing_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_timeline",
+      "property": "price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing_timeline",
+      "property": "price_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_term",
+      "property": "listing_term_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "broker_cancellation_fee_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "broker_cancellation_fee_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "broker_compensation_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "broker_compensation_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "broker_compensation_percentage",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "broker_compensation_percentage",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "broker_deposit_fee_percentage",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "broker_deposit_fee_percentage",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "broker_leasing_fee_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "broker_leasing_fee_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "buy_side_commission",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "buy_side_commission",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "commission_percentage",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "commission_percentage",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "commission_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "current_list_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "current_list_price_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "final_list_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "final_list_price_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "gross_lease_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "gross_lease_value_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "gross_lease_value_percentage",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "gross_lease_value_percentage",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "list_price_reduced_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "list_price_reduced_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "listing_price_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "listing_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "listing_term_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "original_list_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "original_list_price_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "property_forecast_sale_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "property_forecast_sale_price_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "property_typical_marketing_days_duration_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "sell_side_commission",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "sell_side_commission",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "short_sale_offering_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing",
+      "property": "sold_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "sold_price_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing",
+      "property": "staircase_discount_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "listing",
+      "property": "staircase_discount_price_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "loan_timeline",
+      "property": "unpaid_balance_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "loan_timeline",
+      "property": "unpaid_principal_interest_balance_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "loan",
+      "property": "borrower_count",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "end_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "lender_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "lien_priority_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "loan_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "loan",
+      "property": "loan_closing_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "loan_purpose_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "mortgage_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "note_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "loan",
+      "property": "note_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "note_rate_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "loan",
+      "property": "occupancy",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "loan",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "driveway_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "driveway_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "fence_height",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "fence_length",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "fencing_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "landscaping_features",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "lot_area_sqft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "lot_condition_issues",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "lot_length_feet",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "lot_size_acre",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "lot_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "lot_width_feet",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "paving_area_sqft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "paving_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "paving_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "site_lighting_fixture_count",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "site_lighting_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "site_lighting_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "lot",
+      "property": "view",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_observation",
+      "property": "asking_price_amount_minor",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_observation",
+      "property": "asking_price_currency",
+      "facet": "maxLength",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing_observation",
+      "property": "asking_price_currency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_observation",
+      "property": "model_version",
+      "facet": "const",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "listing_observation",
+      "property": "source_as_of",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_observation",
+      "property": "source_listing_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_observation",
+      "property": "source_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "listing_observation",
+      "property": "source_url",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "sale_availability_assessment",
+      "property": "is_for_sale",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "sale_availability_assessment",
+      "property": "list_price_amount_minor",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "sale_availability_assessment",
+      "property": "list_price_currency",
+      "facet": "maxLength",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "sale_availability_assessment",
+      "property": "list_price_currency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "sale_availability_assessment",
+      "property": "model_version",
+      "facet": "const",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "sale_availability_assessment",
+      "property": "reason_codes",
+      "facet": "uniqueItems",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "relationship",
+      "property": "from",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "relationship",
+      "property": "to",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "relationship",
+      "property": "type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "military_service",
+      "property": "military_branch_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "military_service",
+      "property": "military_service_classification_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "military_service",
+      "property": "military_status_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "offering",
+      "property": "offering_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "offering",
+      "property": "offering_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "open_house",
+      "property": "end_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "open_house",
+      "property": "start_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "outage",
+      "property": "end_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "outage",
+      "property": "start_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "ownership",
+      "property": "ownership_percentage",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "ownership",
+      "property": "property_ownership_structure",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "ownership",
+      "property": "trust_information",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "partner_revenue_record",
+      "property": "partner_revenue",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "partner_revenue_record",
+      "property": "payment_received",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "partner_revenue_record",
+      "property": "revenue_share_EM",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "frequency_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "payment",
+      "property": "last_paid_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "late_charge_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "late_charge_maximum_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "late_charge_minimum_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "next_fourth_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "next_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "next_second_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "next_third_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payment",
+      "property": "payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payoff",
+      "property": "integrated_disclosure_section_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "payoff",
+      "property": "payoff_action_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "payoff",
+      "property": "payoff_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payoff",
+      "property": "payoff_application_sequence_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "payoff",
+      "property": "payoff_ordered_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "payoff",
+      "property": "payoff_per_diem_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "payoff",
+      "property": "payoff_prepayment_penalty_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "communication_validation",
+      "property": "validation_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "person_validation",
+      "property": "validation_datetime",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "permission",
+      "property": "company_contact_role_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "prepaid_item",
+      "property": "prepaid_item_estimated_total_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "prepaid_item",
+      "property": "prepaid_item_per_diem_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "prepaid_item",
+      "property": "prepaid_item_per_diem_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "prepaid_item",
+      "property": "prepaid_item_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "apr",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "closing_cost",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "discount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "first_year_monthly_payment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "monthly_insurance",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "piti",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "piti",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "price",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "principal_and_interest",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "rate",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "rebate",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "second_year_monthly_payment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "third_year_monthly_payment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "pricing_schema",
+      "property": "total_monthly_payment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "product_api",
+      "property": "product_api_invocation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product_api",
+      "property": "product_api_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product_price",
+      "property": "product_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "product_price",
+      "property": "product_price_amount_unit_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product_price",
+      "property": "product_price_calculation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product_price",
+      "property": "product_price_timing_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product_price",
+      "property": "product_price_unit_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product",
+      "property": "function",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product",
+      "property": "product_capability",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "product",
+      "property": "product_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "projected_payment",
+      "property": "calculation_period_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "projected_payment",
+      "property": "projected_payment_estimated_escrow_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "projected_payment",
+      "property": "projected_payment_estimated_total_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "projected_payment",
+      "property": "projected_payment_mi_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "projected_payment",
+      "property": "projected_payment_principal_and_interest_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_seed",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "area_under_air",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "build_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "hoa_cid",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "livable_floor_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "number_of_units",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "number_of_units_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "ownership_estate_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "property_effective_built_year",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "property_legal_description_text",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "property_manager_cid",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "property_structure_built_year",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "property_usage_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "structure_form",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "subdivision",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "total_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property",
+      "property": "zoning",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "adjustable_area_sq_ft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "area_under_air_sq_ft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "bathroom_renovation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "building_number",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "built_year",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "cabinet_style",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "clutter_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "condition_issues",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "countertop_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "decor_elements",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "design_style",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "fixture_finish_quality",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "floor_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "flooring_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "flooring_material_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "flooring_wear",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "furnished",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "has_windows",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "heated_area_sq_ft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "kitchen_renovation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "lighting_features",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "livable_area_sq_ft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "natural_light_quality",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "paint_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "pool_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "pool_equipment",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "pool_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "pool_surface_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "pool_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "pool_water_quality",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "safety_features",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "size_square_feet",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "spa_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "spa_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "space_type",
+      "facet": "enum",
+      "reason": "enum contains duplicate strings"
+    },
+    {
+      "class": "layout",
+      "property": "space_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "story_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "total_area_sq_ft",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "view_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "visible_damage",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "window_design_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "window_material_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "layout",
+      "property": "window_treatment_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_jurisdiction",
+      "property": "jurisdiction_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_jurisdiction",
+      "property": "jurisdiction_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_jurisdiction",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "appliance",
+      "property": "appliance_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "appliance",
+      "property": "finish",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "application_received_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "completion_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "contractor_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "fee",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_improvement",
+      "property": "final_inspection_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "improvement_action",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "improvement_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "improvement_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "is_disaster_recovery",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "is_owner_builder",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "permit_close_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "permit_issue_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "permit_number",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "private_provider_inspections",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_improvement",
+      "property": "private_provider_plan_review",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "nearby_location",
+      "property": "distance_miles",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "nearby_location",
+      "property": "features",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "nearby_location",
+      "property": "location_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "nearby_location",
+      "property": "name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "nearby_location",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_unit",
+      "property": "property_unit_occupancy_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "property_valuation",
+      "property": "area_max_property_price_psf",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_valuation",
+      "property": "area_min_property_price_psf",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_valuation",
+      "property": "current_avm_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_valuation",
+      "property": "high_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_valuation",
+      "property": "low_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_valuation",
+      "property": "standard_deviation",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "property_valuation",
+      "property": "valuation_method_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "authorize_to_view",
+      "property": "authority_level",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "finance_relation",
+      "property": "borrower_intent",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "finance_relation",
+      "property": "borrower_question",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "finance_relation",
+      "property": "feedback_value",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "finance_relation",
+      "property": "has_stage_value",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "finance_relation",
+      "property": "role",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "rent",
+      "property": "monthly_rate",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "rent",
+      "property": "start_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "residence",
+      "property": "residency_basis_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "residence",
+      "property": "residency_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "room",
+      "property": "room_feature_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "room",
+      "property": "room_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "value_history",
+      "property": "capped_assessed",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "value_history",
+      "property": "classified_use",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "value_history",
+      "property": "exemptions",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "value_history",
+      "property": "just_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "value_history",
+      "property": "land_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "value_history",
+      "property": "market_assessed",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "value_history",
+      "property": "taxable",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "sales_history",
+      "property": "ownership_transfer_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "sales_history",
+      "property": "purchase_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "sales_history",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "deed",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "voucher",
+      "property": "voucher_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "cooling_system_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "heating_system_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "pool_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "section_amenity_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "section_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "spa_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "section",
+      "property": "view_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "session",
+      "property": "session_end_time",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "session",
+      "property": "session_start_time",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "signature",
+      "property": "signature_date",
+      "from": "date",
+      "to": "date"
+    },
+    {
+      "class": "signature",
+      "property": "signature_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "site_event",
+      "property": "site_event_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "spoken_language",
+      "property": "spoken_language_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "community_id",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "effective_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "evacuation_zone",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "fema_search_url",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "flood_zone",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "map_version",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "panel_number",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "architectural_style_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "attachment_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "ceiling_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "ceiling_height_average",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "ceiling_insulation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "ceiling_structure_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "ceiling_surface_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_door_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_condition_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_condition_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_insulation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_insulation_type_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_insulation_type_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_material_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "exterior_wall_material_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "finished_base_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "finished_basement_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "finished_upper_story_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "flooring_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "flooring_material_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "flooring_material_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "foundation_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "foundation_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "foundation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "foundation_waterproofing",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "gutters_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "gutters_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_door_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_finish_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_finish_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_structure_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_structure_material_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_structure_material_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_surface_material_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "interior_wall_surface_material_secondary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "number_of_stories",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "primary_framing_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_age_years",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_covering_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_design_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_material_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_structure_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "roof_underlayment_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "secondary_framing_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "structural_damage_indicators",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "subfloor_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "unfinished_base_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "unfinished_basement_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "unfinished_upper_story_area",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "window_frame_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "window_glazing_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "window_operation_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "structure",
+      "property": "window_screen_material",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription_filter",
+      "property": "filter_value_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription_filter",
+      "property": "operator",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription",
+      "property": "billing_cycle_anchor",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "subscription",
+      "property": "currency",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription",
+      "property": "current_period_end",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "subscription",
+      "property": "current_period_start",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "subscription",
+      "property": "delivery_day",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription",
+      "property": "start_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "subscription",
+      "property": "subscription_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription",
+      "property": "subscription_unit_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "subscription",
+      "property": "total_cost",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "task",
+      "property": "completed_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "task",
+      "property": "created_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "task",
+      "property": "due_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "task",
+      "property": "points",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "task",
+      "property": "task_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "task",
+      "property": "task_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "agricultural_valuation_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "building_depreciated_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "building_replacement_cost_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "city_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "college_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "county_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "first_year_building_on_tax_roll",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "first_year_on_tax_roll",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "homestead_cap_loss_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "hospital_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "millage_rate",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "monthly_tax_amount",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "period_end_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "period_start_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "property_assessed_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "property_building_amount",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "property_exemption_amount",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "property_land_amount",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "property_market_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "property_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "school_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "special_district_taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax",
+      "property": "tax_year",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax",
+      "property": "yearly_tax_amount",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "exemption_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "exemption_value",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "tax_rate",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "tax_year",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "taxable_value_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "tax_authority",
+      "property": "authority_account_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_authority",
+      "property": "authority_category",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_authority",
+      "property": "authority_name",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "tax_authority",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "amortization_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "arm_first_cap_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "arm_index_value_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "arm_index_value_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "arm_lifetime_cap_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "arm_margin_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "arm_periodic_cap_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "combined_loan_to_value_cltv_ratio_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "compensation_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "compensation_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "compensation_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "current_interest_rate_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "discount_points_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "discount_points_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "home_equity_combined_loan_to_value_hcltv_ratio_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_amortization_period_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_annual_percentage_rate",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_annual_percentage_rate",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_cost",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_cost",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_par_price_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "loan_to_value_ltv_ratio_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "mi_monthly_payment_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "mi_monthly_payment_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "monthly_payment",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "monthly_payment",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "mortgage_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "note_rate_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "note_rate_percent",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "original_interest_rate_discount_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "origination_points_rate_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "origination_points_rate_percent",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "piti",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "piti",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "rebate_amount",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "rebate_amount",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "rebate_percent",
+      "from": "decimal",
+      "to": "number"
+    },
+    {
+      "class": "terms_of_loan",
+      "property": "rebate_percent",
+      "facet": "restrictions",
+      "reason": "facet is not part of the composition property schema"
+    },
+    {
+      "class": "ticket",
+      "property": "completed_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "ticket",
+      "property": "created_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "ticket",
+      "property": "due_date",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "ticket",
+      "property": "points",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "ticket",
+      "property": "request_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "ticket",
+      "property": "status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "ticket",
+      "property": "ticket_status",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "ticket",
+      "property": "ticket_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "trace",
+      "property": "created_at",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "transaction",
+      "property": "created_at",
+      "from": "dateTime",
+      "to": "date-time"
+    },
+    {
+      "class": "utility",
+      "property": "cooling_system_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "electrical_panel_capacity",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "electrical_panel_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "electrical_rewire_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "electrical_wiring_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "electrical_wiring_type_other_description",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "heating_fuel_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "heating_system_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_capacity_kw",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_capacity_tons",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_condensing_unit_present",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_equipment_component",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_equipment_manufacturer",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_equipment_model",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_seer_rating",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_system_configuration",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_unit_condition",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "hvac_unit_issues",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "plumbing_fixture_count",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "plumbing_fixture_quality",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "plumbing_fixture_type_primary",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "plumbing_system_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "plumbing_system_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "plumbing_system_type_other_description",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "public_utility_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "request_identifier",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "sewer_connection_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "sewer_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "smart_home_features",
+      "facet": "items.null",
+      "reason": "nullability was removed from array items"
+    },
+    {
+      "class": "utility",
+      "property": "smart_home_features",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "smart_home_features_other_description",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "solar_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "solar_inverter_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "solar_inverter_manufacturer",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "solar_inverter_model",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "solar_panel_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "solar_panel_type_other_description",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "water_connection_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "water_heater_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "water_heater_manufacturer",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "water_heater_model",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "water_source_type",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    },
+    {
+      "class": "utility",
+      "property": "well_installation_date",
+      "facet": "null",
+      "reason": "nullability was removed from the property type"
+    }
+  ],
+  "droppedProperties": [
+    {
+      "class": "school",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "transportation_access",
+      "property": "major_highways",
+      "reason": "array items type \"object\" is not a scalar"
+    },
+    {
+      "class": "transportation_access",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "safety_security",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "beach_proximity",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "environment_characteristics",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "property_ranking_overall",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "unnormalized_address",
+      "property": "entry_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "unnormalized_address",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "geometry",
+      "property": "polygon",
+      "reason": "array items type \"object\" is not a scalar"
+    },
+    {
+      "class": "geometry",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "parcel",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "business_location",
+      "property": "source_provenance",
+      "reason": "array items type \"object\" is not a scalar"
+    },
+    {
+      "class": "file",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "environmental_risk",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "homeowners_association",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "hoa_policy",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "license",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "loan",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "lot",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "property_seed",
+      "property": "entry_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "property_seed",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "property",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "layout",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "tax_jurisdiction",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "appliance",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "property_improvement",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "nearby_location",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "sales_history",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "deed",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "flood_storm_information",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "structure",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "tax",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "tax_exemption",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "tax_authority",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    },
+    {
+      "class": "utility",
+      "property": "source_http_request",
+      "reason": "unsupported type object"
+    }
+  ],
+  "omittedRelationships": [
+    {
+      "from": "api_schema_field",
+      "name": "has_api_schema_field",
+      "targets": [
+        "api_schema_field",
+        "graph_entity"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "api_schema",
+      "name": "has_api_schema_field",
+      "targets": [
+        "api_schema_field",
+        "graph_entity"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "chat_note",
+      "name": "has_related_entities",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "collection",
+      "name": "has_data",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "expense",
+      "name": "paid_by",
+      "targets": [
+        "company",
+        "person"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "expense",
+      "name": "paid_to",
+      "targets": [
+        "company",
+        "person"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "income",
+      "name": "paid_by",
+      "targets": [
+        "company",
+        "person"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "invocation",
+      "name": "has_focus_node_identifier",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "lead",
+      "name": "has_employment",
+      "targets": [
+        "employment",
+        "employment"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "loan_application_process",
+      "name": "has_employment",
+      "targets": [
+        "employment",
+        "employment"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "product_configuration",
+      "name": "has_configuration",
+      "targets": [
+        "configuration",
+        "product_configuration"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "product",
+      "name": "owned_by",
+      "targets": [
+        "company",
+        "person"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "data_source",
+      "name": "has_employment",
+      "targets": [
+        "employment",
+        "employment"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "filter",
+      "name": "has_configuration",
+      "targets": [
+        "configuration",
+        "product_configuration"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "filter",
+      "name": "has_data_guid",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "source",
+      "name": "has_associated_class",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "view",
+      "name": "has_configuration",
+      "targets": [
+        "configuration",
+        "product_configuration"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "view",
+      "name": "has_data_guid",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "replacement",
+      "name": "replaced_by",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "replacement",
+      "name": "replaces",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "source_property",
+      "name": "has_source",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "source_property",
+      "name": "has_target",
+      "targets": [
+        "class"
+      ],
+      "reason": "target is not a known class"
+    },
+    {
+      "from": "task",
+      "name": "has_dependency",
+      "targets": [
+        "member",
+        "task",
+        "ticket"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "ticket",
+      "name": "has_dependency",
+      "targets": [
+        "member",
+        "task",
+        "ticket"
+      ],
+      "reason": "relationship does not have exactly one target"
+    },
+    {
+      "from": "ontology",
+      "name": "has_product_family",
+      "targets": [
+        "product_family"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "outage",
+      "name": "has_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ownership",
+      "name": "has_owner_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ownership",
+      "name": "owned_automobile",
+      "targets": [
+        "automobile"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ownership",
+      "name": "owned_by",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ownership",
+      "name": "owned_property",
+      "targets": [
+        "property"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "permission",
+      "name": "has_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "process",
+      "name": "has_loan_application_process",
+      "targets": [
+        "loan_application_process"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_api",
+      "targets": [
+        "api"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_api_schema",
+      "targets": [
+        "api_schema"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_example",
+      "targets": [
+        "example"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_price",
+      "targets": [
+        "product_price"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_product_api_example",
+      "targets": [
+        "example"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_product_configuration",
+      "targets": [
+        "product_configuration"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_request_sample",
+      "targets": [
+        "collection"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_api",
+      "name": "has_response_sample",
+      "targets": [
+        "collection"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_configuration",
+      "name": "configured_for_api",
+      "targets": [
+        "product_api"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_configuration",
+      "name": "configured_for_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_configuration",
+      "name": "configured_for_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_configuration",
+      "name": "has_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_configuration",
+      "name": "has_product_api",
+      "targets": [
+        "product_api"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product_configuration",
+      "name": "owned_by_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product",
+      "name": "has_outage",
+      "targets": [
+        "outage"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product",
+      "name": "has_product_api",
+      "targets": [
+        "product_api"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product",
+      "name": "has_product_configuration",
+      "targets": [
+        "product_configuration"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product",
+      "name": "has_task_project",
+      "targets": [
+        "task_project"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product",
+      "name": "integrated_with",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "product",
+      "name": "using_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "project_member",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "project_member",
+      "name": "has_task_project",
+      "targets": [
+        "task_project"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "project",
+      "name": "has_member",
+      "targets": [
+        "member"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "project",
+      "name": "has_ticket",
+      "targets": [
+        "ticket"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "property_seed",
+      "name": "has_property",
+      "targets": [
+        "property"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "property_unit",
+      "name": "has_expense",
+      "targets": [
+        "expense"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "property",
+      "name": "has_homeowners_association",
+      "targets": [
+        "homeowners_association"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "property",
+      "name": "has_property_management",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "qualification",
+      "name": "has_document",
+      "targets": [
+        "document"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "qualification",
+      "name": "has_income",
+      "targets": [
+        "income"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "qualification",
+      "name": "has_qualifier",
+      "targets": [
+        "bot"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "regulatory_product",
+      "name": "has_credit_repository",
+      "targets": [
+        "credit_repository"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "rent",
+      "name": "has_expense",
+      "targets": [
+        "expense"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "rent",
+      "name": "has_income",
+      "targets": [
+        "income"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "residence",
+      "name": "has_address",
+      "targets": [
+        "address"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "residence",
+      "name": "has_expense",
+      "targets": [
+        "expense"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "residence",
+      "name": "has_landlord",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "residence",
+      "name": "has_property",
+      "targets": [
+        "property"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "residence",
+      "name": "has_resident",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "saved_property",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "saved_property",
+      "name": "has_property",
+      "targets": [
+        "property"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_address",
+      "targets": [
+        "address"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_asset",
+      "targets": [
+        "asset"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_communication",
+      "targets": [
+        "communication"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_credit",
+      "targets": [
+        "credit"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_finance_relation",
+      "targets": [
+        "finance_relation"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_income",
+      "targets": [
+        "income"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_liability",
+      "targets": [
+        "liability"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_loan",
+      "targets": [
+        "loan"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_loan_timeline",
+      "targets": [
+        "loan_timeline"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_ownership",
+      "targets": [
+        "ownership"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_property",
+      "targets": [
+        "property"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "settlement",
+      "name": "has_residence",
+      "targets": [
+        "residence"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "signature",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "site_event",
+      "name": "has_address",
+      "targets": [
+        "address"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "site_event",
+      "name": "has_device",
+      "targets": [
+        "device"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "site",
+      "name": "has_transaction",
+      "targets": [
+        "transaction"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "source_property",
+      "name": "has_source_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "source_property",
+      "name": "has_source_product_api",
+      "targets": [
+        "product_api"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "source_property",
+      "name": "has_source_product_configuration",
+      "targets": [
+        "product_configuration"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "source",
+      "name": "has_originator_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "source",
+      "name": "has_originator_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "spoken_language",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription_filter",
+      "name": "has_graph_entity",
+      "targets": [
+        "graph_entity"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "for_api",
+      "targets": [
+        "product_api"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "has_lead",
+      "targets": [
+        "lead"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "has_subscription_filter",
+      "targets": [
+        "subscription_filter"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "has_subscription_price",
+      "targets": [
+        "product_price"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "has_transaction",
+      "targets": [
+        "transaction"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "subscribed_company",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "subscribed_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "subscription",
+      "name": "subscribed_person_transaction",
+      "targets": [
+        "transaction"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "task_member",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "task_member",
+      "name": "has_task_project",
+      "targets": [
+        "task_project"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "task",
+      "name": "has_task_project",
+      "targets": [
+        "task_project"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "task",
+      "name": "has_task_tag",
+      "targets": [
+        "task_tag"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "terms_of_loan",
+      "name": "has_closing_adjustment_item",
+      "targets": [
+        "closing_adjustment_item"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "terms_of_loan",
+      "name": "has_loan",
+      "targets": [
+        "loan"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_collection",
+      "targets": [
+        "collection"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_member",
+      "targets": [
+        "member"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_product",
+      "targets": [
+        "product"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_project",
+      "targets": [
+        "project"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_requester",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_requestor",
+      "targets": [
+        "company"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_tag",
+      "targets": [
+        "tag"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_task_project",
+      "targets": [
+        "task_project"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "ticket",
+      "name": "has_transaction",
+      "targets": [
+        "transaction"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "transaction",
+      "name": "has_collection",
+      "targets": [
+        "collection"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "transaction",
+      "name": "has_device",
+      "targets": [
+        "device"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "transaction",
+      "name": "has_health_metric",
+      "targets": [
+        "health_metric"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "transaction",
+      "name": "has_site",
+      "targets": [
+        "site"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "transaction",
+      "name": "has_trace",
+      "targets": [
+        "trace"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "unsubscribe",
+      "name": "has_email_address",
+      "targets": [
+        "communication"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "unsubscribe",
+      "name": "has_input_name",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "unsubscribe",
+      "name": "has_lead",
+      "targets": [
+        "lead"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "unsubscribe",
+      "name": "has_phone_number",
+      "targets": [
+        "communication"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "unsubscribe",
+      "name": "has_residence",
+      "targets": [
+        "residence"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "unsubscribe",
+      "name": "has_unsubscribe",
+      "targets": [
+        "unsubscribe"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "value_history",
+      "name": "has_property",
+      "targets": [
+        "property"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "view",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "voucher",
+      "name": "has_address",
+      "targets": [
+        "address"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "voucher",
+      "name": "has_lead",
+      "targets": [
+        "lead"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    },
+    {
+      "from": "voucher",
+      "name": "has_person",
+      "targets": [
+        "person"
+      ],
+      "reason": "omitted because the composition definition limit is 500"
+    }
+  ],
+  "counts": {
+    "vertices": 214,
+    "relationshipsEligible": 400,
+    "relationshipsIncluded": 286,
+    "relationshipsOmitted": 138,
+    "definitions": 500,
+    "convertedProperties": 794,
+    "droppedProperties": 36
+  }
+}

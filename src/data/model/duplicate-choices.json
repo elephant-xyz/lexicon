@@ -1,0 +1,17 @@
+{
+  "product_api": {
+    "classIndex": 146,
+    "bodySha256": "sha256:a9f0f18651fed381a5e128e3779c6ff3a9f786b77b4c09ab3ce90facc981b8c7",
+    "reason": "Keeps property and relationship comments. The other body, class index 173, removes those comments and sets container_name to relationships."
+  },
+  "product_configuration": {
+    "classIndex": 148,
+    "bodySha256": "sha256:9e6b5f466b4de848efde28047d9672b148f8c0f09f49d50290e4f98414e668f6",
+    "reason": "Keeps property and relationship comments. The other body, class index 174, removes those comments and sets container_name to relationships."
+  },
+  "ticket": {
+    "classIndex": 213,
+    "bodySha256": "sha256:8a872d7b69a1bc5b19789eaa9e711f29260ae9e85a320feed883e200cca8be6f",
+    "reason": "Keeps property and relationship comments. The other body, class index 214, removes those comments and sets container_name to tickets."
+  }
+}
