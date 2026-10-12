@@ -577,6 +577,7 @@ describe('sale availability pipeline contracts', () => {
       'undated-active-cache-state-missing',
       'undated-active-miss-with-cached-at',
       'old-posted-stale-reviewed-fresh-fetch',
+      'contingent-reviewed-conflicts-with-fresh-fetch',
     ]);
     expect(
       fixture.cases.find(item => item.caseId === 'three-page-conflict')?.expectedObservations
@@ -586,6 +587,10 @@ describe('sale availability pipeline contracts', () => {
     ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
     expect(
       fixture.cases.find(item => item.caseId === 'single-page-status-conflict')?.expectedAssessment
+    ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
+    expect(
+      fixture.cases.find(item => item.caseId === 'contingent-reviewed-conflicts-with-fresh-fetch')
+        ?.expectedAssessment
     ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
     for (const caseId of [
       'active-exact-jsonld',
@@ -615,6 +620,7 @@ describe('sale availability pipeline contracts', () => {
           'multi-portal-reviewed-and-fresh-fetch',
           'three-page-conflict',
           'single-page-status-conflict',
+          'contingent-reviewed-conflicts-with-fresh-fetch',
         ].includes(item.caseId)
     )) {
       expect(caseFixture.expectedAssessment.availabilityStatus, caseFixture.caseId).toBe('UNKNOWN');

@@ -442,7 +442,7 @@ classified_candidates AS (
     CASE
       WHEN
         normalized.normalizedAvailability RLIKE
-          '(^|[/#])(soldout|outofstock|discontinued)$'
+          '(^|[/#])(soldout|outofstock|discontinued|limitedavailability)$'
         OR normalized.normalizedListingStatus IN (
           'coming soon',
           'coming_soon',
@@ -461,6 +461,8 @@ classified_candidates AS (
     CASE
       WHEN normalized.normalizedListingStatus IN ('coming soon', 'coming_soon')
         THEN 'COMING_SOON'
+      WHEN normalized.normalizedAvailability RLIKE '(^|[/#])limitedavailability$'
+        THEN 'UNDER_CONTRACT'
       WHEN
         normalized.normalizedListingStatus IN (
           'under contract',
@@ -488,7 +490,7 @@ classified_candidates AS (
         OR (
           normalized.normalizedAvailability RLIKE '(^|[/#])instock$'
           AND normalized.normalizedAvailability RLIKE
-            '(^|[/#])(soldout|outofstock|discontinued)$'
+            '(^|[/#])(soldout|outofstock|discontinued|limitedavailability)$'
         )
         THEN TRUE
       ELSE FALSE

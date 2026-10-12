@@ -192,7 +192,7 @@
       "from": "connect-http-acquisition-bundle",
       "to": "sale-availability-result",
       "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.2/manifest.json",
-      "sha256": "ed874c05fa360b3fa0cd21443e60fa467af500e4adcb300081b1ed236dde7b60"
+      "sha256": "6022aa26e539a90b2b366dc84a351840d870373042b1afb87efdd7e44611232e"
     },
     {
       "kind": "mapping",

@@ -1603,6 +1603,90 @@
         "listPriceCurrency": null,
         "reasonCodes": ["STALE_EVIDENCE"]
       }
+    },
+    {
+      "caseId": "contingent-reviewed-conflicts-with-fresh-fetch",
+      "addressReference": "address:synthetic:contingent-reviewed-conflicts-with-fresh-fetch",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"301 Example Harbor Rd APT 901, Example Beach, FL 33000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:27:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-contingent-conflict",
+        "data": {
+          "web": [
+            {
+              "url": "https://portal-r.example.invalid/detail/301-example-harbor-rd-apt-901",
+              "rawHtml": "<!doctype html><html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Synthetic Portal\"}</script><script type=\"application/ld+json\">[{\"@context\":\"https://schema.org\",\"@type\":[\"RealEstateListing\",\"Product\"],\"@id\":\"https://portal-r.example.invalid/detail/301-example-harbor-rd-apt-901#realestatelisting\",\"name\":\"301 Example Harbor Rd Apt 901, Example Beach, FL 33000\",\"url\":\"https://portal-r.example.invalid/detail/301-example-harbor-rd-apt-901\",\"datePosted\":\"2026-07-20T15:39:15Z\",\"lastReviewed\":\"2026-10-08T19:41:24Z\",\"reviewedBy\":{\"@type\":\"Organization\",\"name\":\"Synthetic Portal R\"},\"mainEntity\":{\"@type\":\"SingleFamilyResidence\",\"name\":\"301 Example Harbor Rd Apt 901, Example Beach, FL 33000\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"301 Example Harbor Rd Apt 901\",\"addressLocality\":\"Example Beach\",\"addressRegion\":\"FL\",\"postalCode\":\"33000\",\"addressCountry\":\"US\"}},\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/LimitedAvailability\",\"priceCurrency\":\"USD\",\"price\":429000}}]</script></head><body>301 Example Harbor Rd Apt 901, Example Beach, FL 33000</body></html>",
+              "metadata": {
+                "sourceURL": "https://portal-r.example.invalid/detail/301-example-harbor-rd-apt-901",
+                "url": "https://portal-r.example.invalid/detail/301-example-harbor-rd-apt-901",
+                "title": "Synthetic reviewed listing",
+                "description": "Reviewed portal page marks the listing under contract.",
+                "cacheState": "miss",
+                "contentType": "text/html; charset=utf-8",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            },
+            {
+              "url": "https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/",
+              "rawHtml": "<!doctype html><html><head><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Synthetic Portal\"}</script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":[\"RealEstateListing\",\"Product\"],\"@id\":\"https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/\",\"name\":\"301 Example Harbor Rd Apt 901, Example Beach, FL 33000\",\"url\":\"https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/\",\"inLanguage\":\"en-US\",\"offers\":{\"@context\":\"https://schema.org\",\"@type\":\"Offer\",\"itemOffered\":{\"@context\":\"https://schema.org\",\"@type\":\"Apartment\",\"name\":\"301 Example Harbor Rd Apt 901, Example Beach, FL 33000\",\"address\":{\"@context\":\"https://schema.org\",\"@type\":\"PostalAddress\",\"streetAddress\":\"301 Example Harbor Rd APT 901\",\"addressLocality\":\"Example Beach\",\"addressRegion\":\"FL\",\"postalCode\":\"33000\"},\"url\":\"https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/\"},\"price\":429000,\"priceCurrency\":\"USD\",\"businessFunction\":\"http://purl.org/goodrelations/v1#Sell\",\"availability\":\"https://schema.org/InStock\"}}</script></head><body>301 Example Harbor Rd Apt 901, Example Beach, FL 33000</body></html>",
+              "metadata": {
+                "sourceURL": "https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/",
+                "url": "https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/",
+                "title": "Synthetic undated listing",
+                "description": "Undated portal page fetched live.",
+                "cacheState": "miss",
+                "contentType": "text/html; charset=utf-8",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        }
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:portal-r.example.invalid",
+          "sourceListingIdentifier": "fc-contingent-conflict:web:0000",
+          "sourceUrl": "https://portal-r.example.invalid/detail/301-example-harbor-rd-apt-901",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNDER_CONTRACT",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["asOf=LAST_REVIEWED", "signal=UNDER_CONTRACT"]
+        },
+        {
+          "pageOrdinal": 1,
+          "providerIdentifier": "firecrawl:portal-z.example.invalid",
+          "sourceListingIdentifier": "fc-contingent-conflict:web:0001",
+          "sourceUrl": "https://portal-z.example.invalid/homedetails/301-example-harbor-rd-apt-901/",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 42900000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": ["asOf=FRESH_FETCH", "signal=ACTIVE_STRUCTURED"]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "CONFLICT",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": ["CONFLICTING_FRESH_EXACT_EVIDENCE"]
+      }
     }
   ],
   "replays": [
