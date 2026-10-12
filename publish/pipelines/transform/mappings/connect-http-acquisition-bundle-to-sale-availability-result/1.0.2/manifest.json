@@ -42,17 +42,17 @@
       "dataset": "listing_observations",
       "dependsOn": [],
       "queryPath": "queries/listing_observations.sql",
-      "querySha256": "7985019f70ac648b64b73116fee852b7cad661383189ea0dfbf82c4c7595bc8f",
+      "querySha256": "d44274c930b3bd5fb711ccf7d9d1ac15ca1e26c77b6bcf16ff84dbe17a93696e",
       "invariantEvidence": [
         {
           "invariant": "deterministic_observation_identity",
           "querySha256s": [
-            "7985019f70ac648b64b73116fee852b7cad661383189ea0dfbf82c4c7595bc8f"
+            "d44274c930b3bd5fb711ccf7d9d1ac15ca1e26c77b6bcf16ff84dbe17a93696e"
           ],
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins deterministic page identities and replay while bounded extraction evaluates first, later, top-level-array, and @graph JSON-LD blocks without changing source page cardinality."
             }
           ]
@@ -60,25 +60,25 @@
         {
           "invariant": "rejected_price_is_null",
           "querySha256s": [
-            "7985019f70ac648b64b73116fee852b7cad661383189ea0dfbf82c4c7595bc8f"
+            "d44274c930b3bd5fb711ccf7d9d1ac15ca1e26c77b6bcf16ff84dbe17a93696e"
           ],
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
-              "description": "Pins price only from one eligible exact, fresh, explicitly active structured block and nulls missing-currency, stale, non-exact, malformed, over-limit, text-only, application-state-only, and conflicting evidence. Freshness uses dateModified, then lastReviewed, then the retrieval time of a provably live (cacheState miss, no cachedAt, HTTP 200) fetch; datePosted and datePublished never establish freshness. schema.org LimitedAvailability is an under-contract signal."
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
+              "description": "Pins price only from one eligible exact, fresh, explicitly active structured block and nulls missing-currency, stale, non-exact, malformed, over-limit, text-only, application-state-only, and conflicting evidence. Freshness uses dateModified, then lastReviewed, then the retrieval time of a provably live (cacheState miss, no cachedAt, HTTP 200) fetch; datePosted and datePublished never establish freshness. schema.org LimitedAvailability is an under-contract signal, and an offer whose businessFunction is not Sell (for example LeaseOut) is a non-sale signal."
             }
           ]
         },
         {
           "invariant": "relationship_endpoints_exist",
           "querySha256s": [
-            "7985019f70ac648b64b73116fee852b7cad661383189ea0dfbf82c4c7595bc8f"
+            "d44274c930b3bd5fb711ccf7d9d1ac15ca1e26c77b6bcf16ff84dbe17a93696e"
           ],
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins the existing address, FileRef, optional independent-property endpoints, and one deterministic sentinel observation for empty or failed envelopes."
             }
           ],
@@ -105,7 +105,7 @@
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins true only for fresh, exact, explicit structured active evidence and null for unknown or conflicting broad-web evidence."
             }
           ]
@@ -118,7 +118,7 @@
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins subject, Firecrawl policy v2, window, sorted observation references, and deterministic replay independently of generated output."
             }
           ]
@@ -131,7 +131,7 @@
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins ascending unique observation references across one-page, three-page, malformed, bounded-limit, and sentinel assessments."
             }
           ],
@@ -150,7 +150,7 @@
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins the existing address, sorted observation, and optional independently established property relationships."
             }
           ]
@@ -163,7 +163,7 @@
           "tests": [
             {
               "path": "tests/firecrawl-policy-v2-cases.json",
-              "sha256": "31c8b7c448727bee68b528d194a61dcb4b927ab287acc0bf1e6eb3621b4d704d",
+              "sha256": "a2f71c4d7fbb666a4dc8f7845d0844d33ba0f43fe45c6901cf1b1df703f32531",
               "description": "Pins price only from the same eligible structured block as status, exact address, and freshness; unrelated software offers and application-state prices are ignored."
             }
           ]

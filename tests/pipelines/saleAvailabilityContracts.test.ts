@@ -578,6 +578,8 @@ describe('sale availability pipeline contracts', () => {
       'undated-active-miss-with-cached-at',
       'old-posted-stale-reviewed-fresh-fetch',
       'contingent-reviewed-conflicts-with-fresh-fetch',
+      'rental-offer-fresh-fetch-not-for-sale',
+      'sale-and-rental-offers-conflict',
     ]);
     expect(
       fixture.cases.find(item => item.caseId === 'three-page-conflict')?.expectedObservations
@@ -590,6 +592,10 @@ describe('sale availability pipeline contracts', () => {
     ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
     expect(
       fixture.cases.find(item => item.caseId === 'contingent-reviewed-conflicts-with-fresh-fetch')
+        ?.expectedAssessment
+    ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
+    expect(
+      fixture.cases.find(item => item.caseId === 'sale-and-rental-offers-conflict')
         ?.expectedAssessment
     ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
     for (const caseId of [
@@ -621,6 +627,7 @@ describe('sale availability pipeline contracts', () => {
           'three-page-conflict',
           'single-page-status-conflict',
           'contingent-reviewed-conflicts-with-fresh-fetch',
+          'sale-and-rental-offers-conflict',
         ].includes(item.caseId)
     )) {
       expect(caseFixture.expectedAssessment.availabilityStatus, caseFixture.caseId).toBe('UNKNOWN');
@@ -692,6 +699,8 @@ describe('sale availability pipeline contracts', () => {
     expect(listingSql).not.toContain('"datePosted"');
     expect(listingSql).not.toContain('"datePublished"');
     expect(listingSql).toContain("= 'miss'");
+    expect(listingSql).toContain('"businessFunction"');
+    expect(listingSql).toContain('limitedavailability');
     expect(assessmentSql).toContain('FROM target_listing_observations');
     expect(assessmentSql).toContain('sale-availability-firecrawl-policy-v2');
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");

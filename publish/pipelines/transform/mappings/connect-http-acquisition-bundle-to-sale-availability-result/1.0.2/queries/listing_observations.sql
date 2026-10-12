@@ -246,6 +246,14 @@ candidate_fields AS (
     NULLIF(
       REGEXP_EXTRACT(
         COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"businessFunction"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS structuredBusinessFunction,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
         '(?is)"price"\\s*:\\s*"?([0-9][0-9,]*(?:\\.[0-9]{1,2})?)"?',
         1
       ),
@@ -395,7 +403,15 @@ normalized_candidates AS (
     LOWER(TRIM(COALESCE(candidate.structuredListingStatus, '')))
       AS normalizedListingStatus,
     LOWER(TRIM(COALESCE(candidate.structuredAvailability, '')))
-      AS normalizedAvailability
+      AS normalizedAvailability,
+    CASE
+      WHEN
+        candidate.structuredBusinessFunction IS NOT NULL
+        AND NOT LOWER(TRIM(candidate.structuredBusinessFunction))
+          RLIKE '(^|[/#])sell$'
+        THEN TRUE
+      ELSE FALSE
+    END AS nonSaleOffer
   FROM candidate_fields AS candidate
 ),
 classified_candidates AS (
@@ -429,6 +445,7 @@ classified_candidates AS (
       ELSE 'STALE'
     END AS candidateFreshnessState,
     CASE
+      WHEN normalized.nonSaleOffer THEN FALSE
       WHEN
         normalized.normalizedAvailability RLIKE '(^|[/#])instock$'
         OR normalized.normalizedListingStatus IN (
@@ -440,6 +457,7 @@ classified_candidates AS (
       ELSE FALSE
     END AS candidateActiveSignal,
     CASE
+      WHEN normalized.nonSaleOffer THEN TRUE
       WHEN
         normalized.normalizedAvailability RLIKE
           '(^|[/#])(soldout|outofstock|discontinued|limitedavailability)$'
