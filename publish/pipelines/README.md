@@ -140,15 +140,17 @@ Raw GitHub (default `main`):
 
 `https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/catalog.json`
 
-Version `1.0.1` is source-only and has not been published, registered, deployed,
-activated, or executed in AWS. The prior `1.0.0` review publication is pinned in
-`transform/deployments/review.lock.json`. Its versioned S3 catalog SHA-256 is
-`98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045`;
-the local file and remote readback matched, and
-`/lexicon/transform-catalog-uri` points to that object key. The Firecrawl
-one-run result mapping was validated and immutably registered through the
-IAM-authenticated Transform API. One synthetic three-page review execution
-produced three listing observations and one `CONFLICT` assessment in one Glue
-run at a measured cost of `$0.05964444444444445`; it made no provider call.
-Evidence mapping `1.1.2` and assessment mapping `1.2.0` remain enabled and
-unchanged for their existing two-step pairs.
+Version `1.0.2` is the current Firecrawl one-run result mapping in the review
+catalog. The review catalog is published as a self-contained immutable bundle
+under `config/transform/catalogs/<catalog-sha256>/`; catalog SHA-256
+`3c5a112794b827873272879ee368b4d212bc781acef01d5ff040e881434f32a4` is the
+unmodified `main` catalog, and `/lexicon/transform-catalog-uri` version `3`
+resolves it. Relative to the previous review catalog it adds only the `1.0.2`
+entry and marks `1.0.1` non-current; the 59 unchanged artifacts are
+byte-identical. The review Transform API validated and registered `1.0.2`, and
+one review execution on a saved Sunny Isles Beach bundle returned `FOR_SALE` at
+`42900000` USD minor units in one Glue run at a measured cost of
+`$0.07577777777777778`; it made no provider call. Publication, registration,
+and execution evidence are pinned in `transform/deployments/review.lock.json`.
+Evidence mapping `1.1.2` and assessment mapping `1.2.0` remain enabled,
+registered, and unchanged for their existing two-step pairs.
