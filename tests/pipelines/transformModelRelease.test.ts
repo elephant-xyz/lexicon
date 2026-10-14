@@ -202,3 +202,67 @@ describe('Transform languages derive from the pinned Model release', () => {
     );
   });
 });
+
+describe('model-persist-lexicon/v2 releases', () => {
+  type ProfileV2Vertex = Vertex & { allOf?: unknown[] };
+
+  function profileV2(dataset: Dataset, className: string, allOf?: unknown[]) {
+    const pinned = vertex(className);
+    const properties = Object.fromEntries(
+      Object.entries(pinned.properties).map(([name, property]) => {
+        const transform = dataset.properties[name];
+        const types = Array.isArray(transform?.type) ? transform.type : [];
+        return [name, types.includes('null') ? { ...property, nullable: true } : property];
+      })
+    );
+    for (const [name, property] of Object.entries(dataset.properties)) {
+      for (const keyword of ['const', 'maxLength', 'uniqueItems']) {
+        if (Object.hasOwn(property, keyword) && properties[name]) {
+          properties[name] = { ...properties[name], [keyword]: property[keyword] };
+        }
+      }
+    }
+    const relationships = Object.keys(
+      (dataset.properties.relationships?.properties as Record<string, unknown> | undefined) ?? {}
+    );
+    const release: ProfileV2Vertex = { ...pinned, properties, ...(allOf ? { allOf } : {}) };
+    const releaseCompiled = {
+      vertices: [release],
+      edges: relationships.map(type => ({ type, from: className, to: 'address' })),
+    };
+    return compareDataset(dataset, release, {
+      rootClass: rootLexicon.classes.find(item => item.type === className),
+      rootLexicon,
+      compiled: releaseCompiled,
+      className,
+    }) as Difference[];
+  }
+
+  it('reads nullable, value constraints and exact data-group edge labels from the release', () => {
+    const dataset = observations();
+    const differences = profileV2(dataset, 'listing_observation', dataset.allOf);
+    expect(differences.map(difference => difference.kind)).toEqual([
+      'REQUIRED_COLUMNS_NOT_IN_RELEASE',
+    ]);
+  });
+
+  it('documents an allOf that only adds required keys as a Transform contract', () => {
+    const dataset = observations();
+    const loosened = JSON.parse(JSON.stringify(dataset.allOf), (key, value) =>
+      key === 'required' ? undefined : value
+    ) as unknown[];
+    expect(profileV2(dataset, 'listing_observation', loosened)).toContainEqual(
+      expect.objectContaining({ kind: 'ALLOF_MISMATCH', cause: 'TRANSFORM_CONTRACT' })
+    );
+  });
+
+  it('fails an allOf that changes a constraint value', () => {
+    const dataset = observations();
+    const changed = JSON.parse(
+      JSON.stringify(dataset.allOf).replace('"REJECTED"', '"ACCEPTED"')
+    ) as unknown[];
+    expect(profileV2(dataset, 'listing_observation', changed)).toContainEqual(
+      expect.objectContaining({ kind: 'ALLOF_MISMATCH', documentable: false })
+    );
+  });
+});

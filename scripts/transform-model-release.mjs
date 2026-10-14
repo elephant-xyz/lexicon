@@ -37,6 +37,7 @@ const DOCUMENTABLE_KINDS = new Set([
   'RELATIONSHIPS_NOT_IN_RELEASE',
   'REQUIRED_COLUMNS_NOT_IN_RELEASE',
   'ALLOF_NOT_IN_RELEASE',
+  'ALLOF_MISMATCH',
 ]);
 
 function sha256Hex(bytes) {
@@ -47,16 +48,46 @@ function readJson(filePath) {
   return JSON.parse(readFileSync(filePath, 'utf8'));
 }
 
+// JSON Schema spells nullability as a "null" type member; model-persist-lexicon/v2 keeps a single
+// Persist type and records it as `nullable: true`.
 function typeParts(schema) {
   const types = Array.isArray(schema.type) ? schema.type : [schema.type];
   return {
     base: types.filter(type => type !== 'null'),
-    nullable: types.includes('null'),
+    nullable: types.includes('null') || schema.nullable === true,
   };
 }
 
 function sameValue(left, right) {
   return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.keys(value)
+        .sort()
+        .map(key => [key, canonical(value[key])])
+    );
+  }
+  return value;
+}
+
+function withoutRequired(value) {
+  if (Array.isArray(value)) return value.map(withoutRequired);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([key]) => key !== 'required')
+        .map(([key, nested]) => [key, withoutRequired(nested)])
+    );
+  }
+  return value;
+}
+
+function sameSchema(left, right) {
+  return sameValue(canonical(left), canonical(right));
 }
 
 function sameEnum(left, right) {
@@ -144,6 +175,10 @@ function releaseEdgeTypes(compiled) {
   return new Set(compiled.edges.map(edge => edge.type));
 }
 
+function releaseEdgesFrom(compiled, className) {
+  return new Set(compiled.edges.filter(edge => edge.from === className).map(edge => edge.type));
+}
+
 function rootRelationshipTypes(rootLexicon, className) {
   const types = new Set();
   for (const group of rootLexicon.data_groups ?? []) {
@@ -157,7 +192,10 @@ function rootRelationshipTypes(rootLexicon, className) {
 // Classifies a documentable difference as a loss in the release (the root lexicon at the
 // release source still declares it) or a Transform-only contract. Returns null when the
 // difference would let Transform emit values the canonical model forbids.
-function differenceCause(difference, { rootClass, rootLexicon, compiled, className, dataset }) {
+function differenceCause(
+  difference,
+  { rootClass, rootLexicon, compiled, className, dataset, vertex }
+) {
   switch (difference.kind) {
     case 'NULLABLE_ONLY_IN_TRANSFORM': {
       const rootProperty = rootClass && lookupPath(rootClass, difference.segments);
@@ -187,6 +225,11 @@ function differenceCause(difference, { rootClass, rootLexicon, compiled, classNa
       return 'TRANSFORM_CONTRACT';
     case 'ALLOF_NOT_IN_RELEASE':
       return rootClass?.allOf?.length ? 'RELEASE_LOSS' : 'TRANSFORM_CONTRACT';
+    // Transform may only tighten the release's constraints by requiring keys it always emits.
+    case 'ALLOF_MISMATCH':
+      return sameSchema(withoutRequired(dataset.allOf), withoutRequired(vertex.allOf))
+        ? 'TRANSFORM_CONTRACT'
+        : null;
     default:
       return null;
   }
@@ -196,7 +239,11 @@ export function compareDataset(dataset, vertex, context) {
   const differences = [];
   for (const [name, property] of Object.entries(dataset.properties)) {
     if (name === 'relationships') {
-      differences.push({ kind: 'RELATIONSHIPS_NOT_IN_RELEASE', path: name });
+      const edges = releaseEdgesFrom(context.compiled, context.className);
+      const names = Object.keys(property.properties ?? {});
+      if (names.length === 0 || !names.every(relationship => edges.has(relationship))) {
+        differences.push({ kind: 'RELATIONSHIPS_NOT_IN_RELEASE', path: name });
+      }
       continue;
     }
     const releaseProperty = vertex.properties[name];
@@ -227,10 +274,12 @@ export function compareDataset(dataset, vertex, context) {
   }
   if (dataset.allOf !== undefined && vertex.allOf === undefined) {
     differences.push({ kind: 'ALLOF_NOT_IN_RELEASE', path: 'allOf' });
+  } else if (dataset.allOf !== undefined && !sameSchema(dataset.allOf, vertex.allOf)) {
+    differences.push({ kind: 'ALLOF_MISMATCH', path: 'allOf' });
   }
   return differences.map(difference => {
     const cause = DOCUMENTABLE_KINDS.has(difference.kind)
-      ? differenceCause(difference, { ...context, dataset })
+      ? differenceCause(difference, { ...context, dataset, vertex })
       : null;
     const visible = { ...difference };
     delete visible.segments;
