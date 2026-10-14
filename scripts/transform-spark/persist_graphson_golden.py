@@ -42,6 +42,8 @@ def parse_args():
     ap.add_argument("--all", action="store_true", help="every real run instead of the representative set")
     ap.add_argument("--report")
     ap.add_argument("--only", help="run only case ids containing this text")
+    ap.add_argument("--skip-cases", help="file of case ids to skip, one per line (resume a run)")
+    ap.add_argument("--limit", type=int, help="run at most this many cases (Spark driver state grows per run)")
     return ap.parse_args()
 
 
@@ -66,6 +68,7 @@ class Harness:
             SparkSession.builder.master("local[2]")
             .config("spark.ui.enabled", "false")
             .config("spark.sql.shuffle.partitions", "2")
+            .config("spark.driver.memory", os.environ.get("SPARK_DRIVER_MEMORY", "4g"))
             .getOrCreate()
         )
         self.spark.sparkContext.setLogLevel("ERROR")
@@ -289,6 +292,11 @@ def main():
 
     if args.only:
         h.cases = [c for c in h.cases if args.only in c["_id"]]
+    if args.skip_cases:
+        skip = set(Path(args.skip_cases).read_text().split())
+        h.cases = [c for c in h.cases if c["_id"] not in skip]
+    if args.limit:
+        h.cases = h.cases[: args.limit]
     mapping, plans = h.resolve()
     results = []
     for cid, plan in plans.items():
