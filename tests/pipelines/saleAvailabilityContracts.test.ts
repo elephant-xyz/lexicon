@@ -706,6 +706,100 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
+  it('keeps candidate result mapping 1.0.3 unpublished with pinned policy-v3 regressions', () => {
+    const current = mapping(resultMappingId);
+    expect(current.catalogEntry.version).toBe('1.0.2');
+    expect(
+      catalog.entries.some(
+        entry =>
+          entry.kind === 'mapping' && entry.id === resultMappingId && entry.version === '1.0.3'
+      )
+    ).toBe(false);
+
+    const root = path.join(transformRoot, 'mappings', resultMappingId, '1.0.3');
+    const manifest = readJson<MappingManifest>(path.join(root, 'manifest.json'));
+    expect(manifest).toMatchObject({
+      contractVersion: 2,
+      id: resultMappingId,
+      version: '1.0.3',
+      status: 'ENABLED',
+      from: current.manifest.from,
+      to: current.manifest.to,
+      inputs: current.manifest.inputs,
+      output: current.manifest.output,
+    });
+    expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
+      current.manifest.outputs.map(output => [output.dataset, output.dependsOn])
+    );
+    for (const [index, output] of manifest.outputs.entries()) {
+      expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
+      expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
+        current.manifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+      );
+      for (const invariant of output.invariantEvidence) {
+        expect(invariant.querySha256s).toEqual([output.querySha256]);
+        for (const test of invariant.tests) {
+          expect(test.path).toBe('tests/firecrawl-policy-v3-cases.json');
+          expect(sha256(path.join(root, test.path))).toBe(test.sha256);
+        }
+      }
+    }
+
+    const rawFixture = readFileSync(
+      path.join(root, 'tests', 'firecrawl-policy-v3-cases.json'),
+      'utf8'
+    );
+    const fixture = JSON.parse(rawFixture) as {
+      policyVersion: string;
+      cases: Array<{
+        caseId: string;
+        expectedAssessment: { availabilityStatus: string; isForSale: boolean | null };
+      }>;
+    };
+    const v2Fixture = readJson<{ cases: Array<{ caseId: string }> }>(
+      path.join(current.root, 'tests', 'firecrawl-policy-v2-cases.json')
+    );
+    expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v3');
+    expect(fixture.cases.slice(0, v2Fixture.cases.length).map(item => item.caseId)).toEqual(
+      v2Fixture.cases.map(item => item.caseId)
+    );
+    const regressions = Object.fromEntries(
+      fixture.cases
+        .slice(v2Fixture.cases.length)
+        .map(item => [item.caseId, item.expectedAssessment.availabilityStatus])
+    );
+    expect(regressions).toEqual({
+      'visible-pending-overrides-structured-in-stock': 'UNKNOWN',
+      'visible-accepting-backups-under-contract': 'UNKNOWN',
+      'pre-foreclosure-auction-estimate-price': 'UNKNOWN',
+      'estimate-price-is-not-an-active-listing': 'UNKNOWN',
+      'offer-price-is-not-the-list-price': 'FOR_SALE',
+      'post-directional-and-suffix-normalize-exact': 'FOR_SALE',
+      'unit-designator-and-zip4-normalize-exact': 'FOR_SALE',
+      'different-unit-stays-non-exact': 'UNKNOWN',
+      'added-pre-directional-stays-non-exact': 'UNKNOWN',
+      'headline-for-sale-with-pending-price-history': 'FOR_SALE',
+      'not-for-sale-headline-overrides': 'UNKNOWN',
+      'script-only-pending-text-is-not-visible': 'FOR_SALE',
+    });
+    expect(rawFixture).not.toMatch(
+      /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com|opendoor\.com/iu
+    );
+
+    const listingSql = readFileSync(path.join(root, 'queries', 'listing_observations.sql'), 'utf8');
+    const assessmentSql = readFileSync(
+      path.join(root, 'queries', 'sale_availability_assessments.sql'),
+      'utf8'
+    );
+    expect(listingSql).toContain('AS visibleTextKey');
+    expect(listingSql).toContain('AS normalizedStructuredAddressKey');
+    expect(listingSql).toContain('visibleInactiveOverride');
+    expect(listingSql).not.toContain('"datePosted"');
+    expect(assessmentSql).toContain('sale-availability-firecrawl-policy-v3');
+    expect(assessmentSql).not.toContain('sale-availability-firecrawl-policy-v2');
+    expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
+  });
+
   it('pins inline completion only on mappings with an exactly-one assessment output', () => {
     const evidenceMapping = mapping(evidenceMappingId).manifest;
     const assessmentMapping = mapping(assessmentMappingId).manifest;
