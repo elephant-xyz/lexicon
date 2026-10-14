@@ -1,0 +1,1365 @@
+{
+ "description": "Golden cases for sale-availability-persist-input-to-persist-graphson@1.0.0. Every expectation is produced by the executable spec (build_graphson.py and scale_build.py), never by the mapping, and graphs are build_graphson output with observations in observation_identifier order. Inputs are synthetic or sanitized (listing URLs, request ids and evidence locations replaced).",
+ "spec": {
+  "build_graphson.py": "b36c628a429963edc5717eec574cd7aaa08b3167553858b33b34f19481b9f110",
+  "scale_build.py": "8c1faad3711cf766764d2e9cd4adc15109d45deccbd50266ba7dea1702054245",
+  "addressVectors": {
+   "source": "elephant-xyz/system systems/sale-availability/fixtures/persist/address-vectors.json",
+   "sha256": "23fe1049501297f3a8c9fc69c413b1baeb5cfed16e3781ee5b5b7128ff5539ea"
+  }
+ },
+ "addressCases": [
+  {
+   "id": "structured-unit-designator:original",
+   "request": {
+    "address": {
+     "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160",
+     "structured": {
+      "street": "301 174th St",
+      "unit": "APT 901",
+      "city": "Sunny Isles Beach",
+      "state": "FL",
+      "postalCode": "33160",
+      "countryCode": "US"
+     }
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "301",
+     "street_suffix_type": "ST",
+     "street_name": "174th",
+     "address_unit_designator_type": "APT",
+     "unit_identifier": "901",
+     "city_name": "Sunny Isles Beach",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "33160"
+    }
+   }
+  },
+  {
+   "id": "structured-unit-designator:upper",
+   "request": {
+    "address": {
+     "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160",
+     "structured": {
+      "street": "301 174TH ST",
+      "unit": "APT 901",
+      "city": "SUNNY ISLES BEACH",
+      "state": "FL",
+      "postalCode": "33160",
+      "countryCode": "US"
+     }
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "301",
+     "street_suffix_type": "ST",
+     "street_name": "174th",
+     "address_unit_designator_type": "APT",
+     "unit_identifier": "901",
+     "city_name": "Sunny Isles Beach",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "33160"
+    }
+   }
+  },
+  {
+   "id": "structured-hash-unit:original",
+   "request": {
+    "address": {
+     "canonical": "6534 FAIRWAY GARDENS DR, # 17-201, BRADENTON, FL 34203",
+     "structured": {
+      "street": "6534 Fairway Gardens Dr",
+      "unit": "# 17-201",
+      "city": "Bradenton",
+      "state": "FL",
+      "postalCode": "34203",
+      "countryCode": "US"
+     }
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6534",
+     "street_suffix_type": "DR",
+     "street_name": "Fairway Gardens",
+     "unit_identifier": "17-201",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "structured-hash-unit:upper",
+   "request": {
+    "address": {
+     "canonical": "6534 FAIRWAY GARDENS DR, # 17-201, BRADENTON, FL 34203",
+     "structured": {
+      "street": "6534 FAIRWAY GARDENS DR",
+      "unit": "# 17-201",
+      "city": "BRADENTON",
+      "state": "FL",
+      "postalCode": "34203",
+      "countryCode": "US"
+     }
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6534",
+     "street_suffix_type": "DR",
+     "street_name": "Fairway Gardens",
+     "unit_identifier": "17-201",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-bare-unit-after-suffix:original",
+   "request": {
+    "address": {
+     "canonical": "7990 E BAYMEADOWS RD 823, JACKSONVILLE, FL 32256"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "7990",
+     "street_pre_directional_text": "E",
+     "street_suffix_type": "RD",
+     "street_name": "Baymeadows",
+     "unit_identifier": "823",
+     "city_name": "Jacksonville",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32256"
+    }
+   }
+  },
+  {
+   "id": "text-bare-unit-after-suffix:upper",
+   "request": {
+    "address": {
+     "canonical": "7990 E BAYMEADOWS RD 823, JACKSONVILLE, FL 32256"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "7990",
+     "street_pre_directional_text": "E",
+     "street_suffix_type": "RD",
+     "street_name": "Baymeadows",
+     "unit_identifier": "823",
+     "city_name": "Jacksonville",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32256"
+    }
+   }
+  },
+  {
+   "id": "text-bare-unit-after-suffix-multiword:original",
+   "request": {
+    "address": {
+     "canonical": "8849 S OLD KINGS RD 181, JACKSONVILLE, FL 32257"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "8849",
+     "street_pre_directional_text": "S",
+     "street_suffix_type": "RD",
+     "street_name": "Old Kings",
+     "unit_identifier": "181",
+     "city_name": "Jacksonville",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32257"
+    }
+   }
+  },
+  {
+   "id": "text-bare-unit-after-suffix-multiword:upper",
+   "request": {
+    "address": {
+     "canonical": "8849 S OLD KINGS RD 181, JACKSONVILLE, FL 32257"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "8849",
+     "street_pre_directional_text": "S",
+     "street_suffix_type": "RD",
+     "street_name": "Old Kings",
+     "unit_identifier": "181",
+     "city_name": "Jacksonville",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32257"
+    }
+   }
+  },
+  {
+   "id": "text-alphanumeric-street-name:original",
+   "request": {
+    "address": {
+     "canonical": "6300 A1A S Unit A7-4D, Saint Augustine, FL 32080"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6300",
+     "street_post_directional_text": "S",
+     "street_name": "A1A",
+     "address_unit_designator_type": "UNIT",
+     "unit_identifier": "A7-4D",
+     "city_name": "Saint Augustine",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32080"
+    }
+   }
+  },
+  {
+   "id": "text-alphanumeric-street-name:upper",
+   "request": {
+    "address": {
+     "canonical": "6300 A1A S UNIT A7-4D, SAINT AUGUSTINE, FL 32080"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6300",
+     "street_post_directional_text": "S",
+     "street_name": "A1A",
+     "address_unit_designator_type": "UNIT",
+     "unit_identifier": "A7-4D",
+     "city_name": "Saint Augustine",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32080"
+    }
+   }
+  },
+  {
+   "id": "text-usps-suffix-loop:original",
+   "request": {
+    "address": {
+     "canonical": "6248 SW 134th Loop, OCALA, FL 34473"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6248",
+     "street_pre_directional_text": "SW",
+     "street_suffix_type": "LOOP",
+     "street_name": "134th",
+     "city_name": "Ocala",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34473"
+    }
+   }
+  },
+  {
+   "id": "text-usps-suffix-loop:upper",
+   "request": {
+    "address": {
+     "canonical": "6248 SW 134TH LOOP, OCALA, FL 34473"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6248",
+     "street_pre_directional_text": "SW",
+     "street_suffix_type": "LOOP",
+     "street_name": "134th",
+     "city_name": "Ocala",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34473"
+    }
+   }
+  },
+  {
+   "id": "text-usps-suffix-run-synthetic:original",
+   "request": {
+    "address": {
+     "canonical": "455 Deer Run, Ocala, FL 34472"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "455",
+     "street_suffix_type": "RUN",
+     "street_name": "Deer",
+     "city_name": "Ocala",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34472"
+    }
+   }
+  },
+  {
+   "id": "text-usps-suffix-run-synthetic:upper",
+   "request": {
+    "address": {
+     "canonical": "455 DEER RUN, OCALA, FL 34472"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "455",
+     "street_suffix_type": "RUN",
+     "street_name": "Deer",
+     "city_name": "Ocala",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34472"
+    }
+   }
+  },
+  {
+   "id": "text-post-directional:original",
+   "request": {
+    "address": {
+     "canonical": "6718 64th Ter E, Bradenton, FL 34203"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6718",
+     "street_post_directional_text": "E",
+     "street_suffix_type": "TER",
+     "street_name": "64th",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-post-directional:upper",
+   "request": {
+    "address": {
+     "canonical": "6718 64TH TER E, BRADENTON, FL 34203"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6718",
+     "street_post_directional_text": "E",
+     "street_suffix_type": "TER",
+     "street_name": "64th",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-suffix-word-in-name:original",
+   "request": {
+    "address": {
+     "canonical": "210 40th Street Ct NW, Bradenton, FL 34209"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "210",
+     "street_post_directional_text": "NW",
+     "street_suffix_type": "CT",
+     "street_name": "40th Street",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34209"
+    }
+   }
+  },
+  {
+   "id": "text-suffix-word-in-name:upper",
+   "request": {
+    "address": {
+     "canonical": "210 40TH STREET CT NW, BRADENTON, FL 34209"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "210",
+     "street_post_directional_text": "NW",
+     "street_suffix_type": "CT",
+     "street_name": "40th Street",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34209"
+    }
+   }
+  },
+  {
+   "id": "text-hash-unit:original",
+   "request": {
+    "address": {
+     "canonical": "6534 Fairway Gardens Dr # 17-201, Bradenton, FL 34203"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6534",
+     "street_suffix_type": "DR",
+     "street_name": "Fairway Gardens",
+     "unit_identifier": "17-201",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-hash-unit:upper",
+   "request": {
+    "address": {
+     "canonical": "6534 FAIRWAY GARDENS DR # 17-201, BRADENTON, FL 34203"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6534",
+     "street_suffix_type": "DR",
+     "street_name": "Fairway Gardens",
+     "unit_identifier": "17-201",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-unit-own-segment:original",
+   "request": {
+    "address": {
+     "canonical": "301 174th St, APT 901, Sunny Isles Beach, FL 33160"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "301",
+     "street_suffix_type": "ST",
+     "street_name": "174th",
+     "address_unit_designator_type": "APT",
+     "unit_identifier": "901",
+     "city_name": "Sunny Isles Beach",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "33160"
+    }
+   }
+  },
+  {
+   "id": "text-unit-own-segment:upper",
+   "request": {
+    "address": {
+     "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "301",
+     "street_suffix_type": "ST",
+     "street_name": "174th",
+     "address_unit_designator_type": "APT",
+     "unit_identifier": "901",
+     "city_name": "Sunny Isles Beach",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "33160"
+    }
+   }
+  },
+  {
+   "id": "text-unit-designator-inline:original",
+   "request": {
+    "address": {
+     "canonical": "6342 Grand Oak Cir Apt 105, Bradenton, FL 34203"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6342",
+     "street_suffix_type": "CIR",
+     "street_name": "Grand Oak",
+     "address_unit_designator_type": "APT",
+     "unit_identifier": "105",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-unit-designator-inline:upper",
+   "request": {
+    "address": {
+     "canonical": "6342 GRAND OAK CIR APT 105, BRADENTON, FL 34203"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "6342",
+     "street_suffix_type": "CIR",
+     "street_name": "Grand Oak",
+     "address_unit_designator_type": "APT",
+     "unit_identifier": "105",
+     "city_name": "Bradenton",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "34203"
+    }
+   }
+  },
+  {
+   "id": "text-ordinal-upper:original",
+   "request": {
+    "address": {
+     "canonical": "2373 2ND AVE, JACKSONVILLE, FL 32208"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "2373",
+     "street_suffix_type": "AVE",
+     "street_name": "2nd",
+     "city_name": "Jacksonville",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32208"
+    }
+   }
+  },
+  {
+   "id": "text-ordinal-upper:upper",
+   "request": {
+    "address": {
+     "canonical": "2373 2ND AVE, JACKSONVILLE, FL 32208"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "NORMALIZED",
+    "address": {
+     "sequence_number": "2373",
+     "street_suffix_type": "AVE",
+     "street_name": "2nd",
+     "city_name": "Jacksonville",
+     "state_code": "FL",
+     "country_code": "US",
+     "postal_code": "32208"
+    }
+   }
+  },
+  {
+   "id": "text-production-canary:original",
+   "request": {
+    "address": {
+     "canonical": "redacted-production-canary"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "UNPARSEABLE"
+   }
+  },
+  {
+   "id": "text-production-canary:upper",
+   "request": {
+    "address": {
+     "canonical": "REDACTED-PRODUCTION-CANARY"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "UNPARSEABLE"
+   }
+  },
+  {
+   "id": "text-no-house-number-synthetic:original",
+   "request": {
+    "address": {
+     "canonical": "Main St, Springfield, IL 62701"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "UNPARSEABLE"
+   }
+  },
+  {
+   "id": "text-no-house-number-synthetic:upper",
+   "request": {
+    "address": {
+     "canonical": "MAIN ST, SPRINGFIELD, IL 62701"
+    },
+    "independentPropertyReference": null
+   },
+   "expected": {
+    "status": "UNPARSEABLE"
+   }
+  }
+ ],
+ "graphCases": [
+  {
+   "id": "synthetic-for_sale-0",
+   "inputs": {
+    "listing_observations": [
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "49dc2bd141307197927cec0fbd2a8ee2b1f96f4e5a5ebf9e62b4b1f4ad8968bf",
+      "provider_identifier": "firecrawl:zillow.com",
+      "source_request_identifier": "synthetic-request-0-0",
+      "source_listing_identifier": "synthetic-listing-0-0",
+      "source_url": "https://www.zillow.com/synthetic-listing-0-0/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=ACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-09T16:22:39.010Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "ACTIVE",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-0/responses/1",
+      "evidence_artifact_sha256": "9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-09T16:22:23.712Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:42f82315ebb0097cbe5c690ee00c4012ca75fbe6ae73e6ab470081d2493c398d",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-0/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "2433907de7a2740319f00a8ba78818219655db95072a6dafa85759a3d65f1617",
+      "provider_identifier": "firecrawl:redfin.com",
+      "source_request_identifier": "synthetic-request-0-1",
+      "source_listing_identifier": "synthetic-listing-0-1",
+      "source_url": "https://www.redfin.com/synthetic-listing-0-1/",
+      "source_as_of": "2026-09-18T16:14:36.919Z",
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=9|signal=ACTIVE_STRUCTURED",
+      "retrieved_at": "2026-10-09T16:22:39.010Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "ACTIVE",
+      "asking_price_amount_minor": 77500000,
+      "asking_price_currency": "USD",
+      "price_parse_status": "PARSED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-0/responses/1",
+      "evidence_artifact_sha256": "9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "FRESH",
+      "freshness_evaluated_at": "2026-10-09T16:22:23.712Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:42f82315ebb0097cbe5c690ee00c4012ca75fbe6ae73e6ab470081d2493c398d",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-0/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "9381b7505c1096cda2fb38e7005a923f8a816899b4f0079a074a0efcaac47d93",
+      "provider_identifier": "firecrawl:realtor.com",
+      "source_request_identifier": "synthetic-request-0-2",
+      "source_listing_identifier": "synthetic-listing-0-2",
+      "source_url": "https://www.realtor.com/synthetic-listing-0-2/",
+      "source_as_of": "2026-09-18T17:32:16.000Z",
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=ACTIVE_STRUCTURED",
+      "retrieved_at": "2026-10-09T16:22:39.010Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "ACTIVE",
+      "asking_price_amount_minor": 77500000,
+      "asking_price_currency": "USD",
+      "price_parse_status": "PARSED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-0/responses/1",
+      "evidence_artifact_sha256": "9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "FRESH",
+      "freshness_evaluated_at": "2026-10-09T16:22:23.712Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:42f82315ebb0097cbe5c690ee00c4012ca75fbe6ae73e6ab470081d2493c398d",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-0/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     }
+    ],
+    "sale_availability_assessments": [
+     {
+      "model_version": "1.1.0",
+      "assessment_identifier": "ac17ea0cf1bb61ed1904bc51d1b0e0fda0d6a4346e297379897d95181c76d3ae",
+      "availability_status": "FOR_SALE",
+      "is_for_sale": true,
+      "list_price_amount_minor": 77500000,
+      "list_price_currency": "USD",
+      "policy_version": "sale-availability-firecrawl-policy-v2",
+      "assessed_at": "2026-10-09T16:22:23.712Z",
+      "window_start_at": "2026-10-09T16:22:39.010Z",
+      "window_end_at": "2026-10-09T16:22:23.712Z",
+      "reason_codes": [
+       "ACTIVE_LISTING_PRICE_AVAILABLE"
+      ],
+      "relationships": {
+       "sale_availability_assessment_has_address": "input-address:42f82315ebb0097cbe5c690ee00c4012ca75fbe6ae73e6ab470081d2493c398d",
+       "sale_availability_assessment_has_listing_observation": [
+        "2433907de7a2740319f00a8ba78818219655db95072a6dafa85759a3d65f1617",
+        "49dc2bd141307197927cec0fbd2a8ee2b1f96f4e5a5ebf9e62b4b1f4ad8968bf",
+        "9381b7505c1096cda2fb38e7005a923f8a816899b4f0079a074a0efcaac47d93"
+       ],
+       "sale_availability_assessment_has_property": null
+      }
+     }
+    ],
+    "request_address": [
+     {
+      "address": {
+       "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160",
+       "structured": {
+        "street": "301 174TH ST",
+        "unit": "APT 901",
+        "city": "SUNNY ISLES BEACH",
+        "state": "FL",
+        "postalCode": "33160",
+        "countryCode": "US"
+       }
+      },
+      "independentPropertyReference": null
+     }
+    ]
+   },
+   "expected": {
+    "address_status": "NORMALIZED",
+    "graph": "{\"edges\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9b8113d0-2af6-5c28-88cc-ec289389ce4b\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"6a52592e-f5cc-5465-aa2c-59a6ab4a4713\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"343ee0ce-59c9-5313-82cb-46cb670915d0\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"73c7868b-8cca-5407-a30e-450d0ea634cf\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"5091ae3c-9cac-5455-8176-fb6b064e1d86\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"343ee0ce-59c9-5313-82cb-46cb670915d0\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d108d574-4e00-59a0-99d7-e29ce4c5f256\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"6a52592e-f5cc-5465-aa2c-59a6ab4a4713\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"c98fd203-0d5a-543d-8d31-2d105847d6bb\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f1cdfb3c-76be-5f21-9044-cde495d20ff5\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"5091ae3c-9cac-5455-8176-fb6b064e1d86\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"c98fd203-0d5a-543d-8d31-2d105847d6bb\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4f94d2de-b14e-5935-8d67-8a193d071b5e\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"6a52592e-f5cc-5465-aa2c-59a6ab4a4713\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"77f2c5aa-f1e8-5f13-ad77-92fd75e8a18e\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0b3cbb30-4d7d-5576-82dc-cfe9f65d0f8d\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"5091ae3c-9cac-5455-8176-fb6b064e1d86\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"77f2c5aa-f1e8-5f13-ad77-92fd75e8a18e\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d2e0ebd1-a795-5bed-ae6a-c497db1de531\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"6a52592e-f5cc-5465-aa2c-59a6ab4a4713\"},\"inVLabel\":\"address\",\"label\":\"sale_availability_assessment_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"8b2bd2f3-10d6-5c65-b2ca-a9c4b5db1f4c\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"438fe39a-cafd-5827-8458-62cdec64ea36\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"343ee0ce-59c9-5313-82cb-46cb670915d0\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"8b2bd2f3-10d6-5c65-b2ca-a9c4b5db1f4c\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5ae6c905-6b03-5400-8bdb-866814ef7f73\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"c98fd203-0d5a-543d-8d31-2d105847d6bb\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"8b2bd2f3-10d6-5c65-b2ca-a9c4b5db1f4c\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a9f373b0-783f-5f61-ac27-f09ce17a0105\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"77f2c5aa-f1e8-5f13-ad77-92fd75e8a18e\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"8b2bd2f3-10d6-5c65-b2ca-a9c4b5db1f4c\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}}],\"vertices\":[{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6a52592e-f5cc-5465-aa2c-59a6ab4a4713\"},\"label\":\"address\",\"properties\":{\"address_unit_designator_type\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2da8e4cd-5417-5c64-98b8-a5769eebe1f8\"},\"label\":\"address_unit_designator_type\",\"value\":\"APT\"}}],\"city_name\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b405a432-95bb-5ce0-b2de-a308b505e60d\"},\"label\":\"city_name\",\"value\":\"Sunny Isles Beach\"}}],\"country_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"454fe473-9e38-5875-beaa-a82e25e7a24a\"},\"label\":\"country_code\",\"value\":\"US\"}}],\"postal_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"74d05682-5f55-516e-a781-7d482f453165\"},\"label\":\"postal_code\",\"value\":\"33160\"}}],\"sequence_number\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a73f6bdc-46ae-55c5-a201-25affc45b163\"},\"label\":\"sequence_number\",\"value\":\"301\"}}],\"state_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2bd5c8b8-10c2-5ce0-a487-1f06a127d391\"},\"label\":\"state_code\",\"value\":\"FL\"}}],\"street_name\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"06fbec76-2130-57ce-9d11-2278c30cda46\"},\"label\":\"street_name\",\"value\":\"174th\"}}],\"street_suffix_type\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e584a8de-64fc-5cb9-a6a6-1c9961203360\"},\"label\":\"street_suffix_type\",\"value\":\"ST\"}}],\"unit_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0de019d2-dc5f-552c-8c01-15bbec39bb9a\"},\"label\":\"unit_identifier\",\"value\":\"901\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"343ee0ce-59c9-5313-82cb-46cb670915d0\"},\"label\":\"listing_observation\",\"properties\":{\"asking_price_amount_minor\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"856c462b-22d0-5d93-908b-30be665e5193\"},\"label\":\"asking_price_amount_minor\",\"value\":{\"@type\":\"g:Int64\",\"@value\":77500000}}}],\"asking_price_currency\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3fc55bb6-2861-535d-b796-e7038f1b0ec7\"},\"label\":\"asking_price_currency\",\"value\":\"USD\"}}],\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e9cc5f77-dda3-57ad-87c7-cc5a43d07047\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"674830b9-bbdb-5ec8-aa10-f3e9776893bf\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c0a0ff0d-a0bf-5110-a86e-dddf4bd4d895\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"59c22c4d-bafb-5740-afbc-d33ac89ba532\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-0/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6e7b80e0-cb5b-5547-8de8-cefa228f194e\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f40455d9-7539-5f89-b99c-925932028f1d\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-09T16:22:23.712Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f424901f-3455-52e9-9551-be70415099be\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4d3716c3-53cc-573d-9358-d90c2c0b434c\"},\"label\":\"freshness_state\",\"value\":\"FRESH\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a00f101e-1d02-5e1b-bc87-4a88c791bed7\"},\"label\":\"market_status\",\"value\":\"ACTIVE\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"180d49e9-8240-541f-9465-fbf5bf90de63\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9302569f-5d15-5c6c-8970-f9b23f1d1048\"},\"label\":\"observation_identifier\",\"value\":\"2433907de7a2740319f00a8ba78818219655db95072a6dafa85759a3d65f1617\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2776e5e5-3608-5fc2-804a-273596423f95\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"629b7e49-4494-5390-8cb2-2ef16ebd5a5b\"},\"label\":\"price_parse_status\",\"value\":\"PARSED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7749915e-9322-500e-96ff-4a349331464a\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:redfin.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0ad1da32-0318-5e53-83fa-d71ef7ea39fc\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-09T16:22:39.010Z\"}}],\"source_as_of\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"27ac139c-20e2-5e1c-8982-f3e1329d6489\"},\"label\":\"source_as_of\",\"value\":\"2026-09-18T16:14:36.919Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"38a56e9b-89c2-5a01-8f3c-fa7989e968aa\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-0-1\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"241e4e6e-9011-5dc6-bf51-4b186f58d4fe\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-0-1\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"902b5c37-c7bc-57e6-91f2-a5fc70155169\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=9|signal=ACTIVE_STRUCTURED\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5c8a48c7-16a7-54c3-b4ea-6ead87fbcd0b\"},\"label\":\"source_url\",\"value\":\"https://www.redfin.com/synthetic-listing-0-1/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5091ae3c-9cac-5455-8176-fb6b064e1d86\"},\"label\":\"file\",\"properties\":{\"original_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"53e82494-83e4-5405-aed1-1b7d25a654b7\"},\"label\":\"original_url\",\"value\":\"s3://example-connect-landing/jobs/synthetic-0/responses/1\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c98fd203-0d5a-543d-8d31-2d105847d6bb\"},\"label\":\"listing_observation\",\"properties\":{\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"51a8f704-8bde-5cfa-8731-68c48f69b221\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f22d6cf4-340a-5f64-9b1b-4d0de4c2ad35\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"10ddb124-d4c6-5772-885e-46b6600f53b6\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b64f4009-8b0b-5607-b4b4-c14a61d9a3c1\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-0/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0fb302cb-95a5-5d6f-8c59-76b5cb331036\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8d0dc5d7-87f8-5f89-8b47-638caee70966\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-09T16:22:23.712Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ed990885-9137-534d-b999-751e4eb9bc22\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"bd1776fb-9498-5f86-b167-6e37ac4099c5\"},\"label\":\"freshness_state\",\"value\":\"UNKNOWN\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fb60b6c6-2693-55bd-8530-d6e385adf6d4\"},\"label\":\"market_status\",\"value\":\"ACTIVE\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4eb9ebe6-c9f6-55d7-bfb3-9fdc2a50032c\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b97162fe-7ad1-547f-adb4-34096f54521a\"},\"label\":\"observation_identifier\",\"value\":\"49dc2bd141307197927cec0fbd2a8ee2b1f96f4e5a5ebf9e62b4b1f4ad8968bf\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0698813f-5906-55d6-8a21-b7369e67c8f7\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7f62cc9d-bdf2-5c39-8c69-3eb7823e01c1\"},\"label\":\"price_parse_status\",\"value\":\"REJECTED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"84928946-affe-5a97-8c94-28f6985f306c\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:zillow.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"894089ad-af4d-58fc-afa4-95392bf80b80\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-09T16:22:39.010Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2985aea6-5ec9-5c61-9986-29c804fad4a5\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-0-0\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"bee7f553-6cbf-58b8-8f05-17aed51c92d9\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-0-0\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7cf40740-5e9f-55eb-8ae2-56896efbbf24\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=ACTIVE_INELIGIBLE\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b39e1d64-ddd7-592a-99c3-5174c6d0f0fc\"},\"label\":\"source_url\",\"value\":\"https://www.zillow.com/synthetic-listing-0-0/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"77f2c5aa-f1e8-5f13-ad77-92fd75e8a18e\"},\"label\":\"listing_observation\",\"properties\":{\"asking_price_amount_minor\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"292e0c6f-4ee5-5cc8-92ba-0515b787316f\"},\"label\":\"asking_price_amount_minor\",\"value\":{\"@type\":\"g:Int64\",\"@value\":77500000}}}],\"asking_price_currency\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fe2addf4-3f91-5683-9db6-89f680a8ad25\"},\"label\":\"asking_price_currency\",\"value\":\"USD\"}}],\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6118e9a2-455d-5f6f-8872-e511607ac1da\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4377fe33-f0c1-544a-8cad-68c05a433d6a\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9ff293e0-4826-5321-8d57-0bf282fefe87\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5d46557c-79a0-592d-b637-3f517845f467\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-0/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c8b90901-106f-5104-9fbd-1ce1a5e5a28e\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"18e57137-c934-520e-9115-e9d075421483\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-09T16:22:23.712Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"76dc909a-cb74-5c4a-96d6-6c5f7b53fc04\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"52925f42-5707-58fc-b3dd-927b3f9d65fd\"},\"label\":\"freshness_state\",\"value\":\"FRESH\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5fda000c-90ca-5bde-ba88-24dd34ec6c23\"},\"label\":\"market_status\",\"value\":\"ACTIVE\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3c5aed67-7b4c-57cc-9397-e3ef53c3d534\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8913d04c-4277-5a06-93f1-1cc26ec3b021\"},\"label\":\"observation_identifier\",\"value\":\"9381b7505c1096cda2fb38e7005a923f8a816899b4f0079a074a0efcaac47d93\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"30958873-dbd9-5040-99c6-61306c906d6a\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"04b29a7b-3530-55dd-ab85-0943df907cd7\"},\"label\":\"price_parse_status\",\"value\":\"PARSED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a7781eee-8ffb-56b4-8086-127e7896aeb9\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:realtor.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1425d525-1e26-52f1-8796-d1f1f3fd8968\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-09T16:22:39.010Z\"}}],\"source_as_of\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2bcfe8aa-46a4-5bcf-beeb-0c2afee76529\"},\"label\":\"source_as_of\",\"value\":\"2026-09-18T17:32:16.000Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ed46e125-a20e-514b-a3da-da432ff4bfe3\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-0-2\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f1f94b23-161c-595f-84ff-3944bef44276\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-0-2\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"15bd275d-79ae-548d-982a-9a667c9f2882\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=ACTIVE_STRUCTURED\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"122b5781-147a-5716-8b7a-555d89bcbb9a\"},\"label\":\"source_url\",\"value\":\"https://www.realtor.com/synthetic-listing-0-2/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8b2bd2f3-10d6-5c65-b2ca-a9c4b5db1f4c\"},\"label\":\"sale_availability_assessment\",\"properties\":{\"assessed_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"27d3dc72-3550-53d8-9875-fec057b1fe6f\"},\"label\":\"assessed_at\",\"value\":\"2026-10-09T16:22:23.712Z\"}}],\"assessment_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f1a22ab9-65f1-5282-8c79-427949a7e8f9\"},\"label\":\"assessment_identifier\",\"value\":\"ac17ea0cf1bb61ed1904bc51d1b0e0fda0d6a4346e297379897d95181c76d3ae\"}}],\"availability_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"47e75c51-d167-590b-b0c1-fea90cb53d04\"},\"label\":\"availability_status\",\"value\":\"FOR_SALE\"}}],\"is_for_sale\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"95d9d8a5-e279-55cb-a261-1c98014d5e26\"},\"label\":\"is_for_sale\",\"value\":true}}],\"list_price_amount_minor\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"dca97778-aae2-57d3-82a6-099e0edf00fb\"},\"label\":\"list_price_amount_minor\",\"value\":{\"@type\":\"g:Int64\",\"@value\":77500000}}}],\"list_price_currency\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"39ff1d6b-6cff-5fb0-902e-8223d1009b25\"},\"label\":\"list_price_currency\",\"value\":\"USD\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"bff38f09-8687-5a29-b2b2-0adc6511b54f\"},\"label\":\"model_version\",\"value\":\"1.1.0\"}}],\"policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1a07924b-edd2-5d5f-9952-df59e5875f7b\"},\"label\":\"policy_version\",\"value\":\"sale-availability-firecrawl-policy-v2\"}}],\"reason_codes\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"71ab3911-93b4-5740-8e7e-31423c73b85a\"},\"label\":\"reason_codes\",\"value\":{\"@type\":\"g:List\",\"@value\":[\"ACTIVE_LISTING_PRICE_AVAILABLE\"]}}}],\"window_end_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f45259d9-fa9d-5651-a94e-da49a35e655c\"},\"label\":\"window_end_at\",\"value\":\"2026-10-09T16:22:23.712Z\"}}],\"window_start_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5403ccad-17fd-5fe9-b0b2-3915e3268dd0\"},\"label\":\"window_start_at\",\"value\":\"2026-10-09T16:22:39.010Z\"}}]}}}]}"
+   }
+  },
+  {
+   "id": "synthetic-conflict-1",
+   "inputs": {
+    "listing_observations": [
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "701f4b5c1f35572d567504df7f96bd98905d6ebdfc66b695941cf281ecc28543",
+      "provider_identifier": "firecrawl:realtor.com",
+      "source_request_identifier": "synthetic-request-1-0",
+      "source_listing_identifier": "synthetic-listing-1-0",
+      "source_url": "https://www.realtor.com/synthetic-listing-1-0/",
+      "source_as_of": "2026-09-28T00:46:09.000Z",
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|asOf=LAST_REVIEWED|signal=UNDER_CONTRACT",
+      "retrieved_at": "2026-10-13T15:39:37.117Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "UNDER_CONTRACT",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-1/responses/1",
+      "evidence_artifact_sha256": "e351b799cd8ab6137690d7dc7631ce9d78f26d804c5ca8f828908c6d53fd8eb9",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "FRESH",
+      "freshness_evaluated_at": "2026-10-13T15:39:28.256Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:09caae6086ae873dc83c21f87db27c63f1cd0466a3cf3aca9e3af2c808f32405",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-1/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "c7e29605d77146ec64a250b90e7571a93394422e85ac03432e20fe6d6a8e0f05",
+      "provider_identifier": "firecrawl:zillow.com",
+      "source_request_identifier": "synthetic-request-1-1",
+      "source_listing_identifier": "synthetic-listing-1-1",
+      "source_url": "https://www.zillow.com/synthetic-listing-1-1/",
+      "source_as_of": "2026-10-13T15:39:37.117Z",
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|asOf=FRESH_FETCH|signal=ACTIVE_STRUCTURED",
+      "retrieved_at": "2026-10-13T15:39:37.117Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "ACTIVE",
+      "asking_price_amount_minor": 44990000,
+      "asking_price_currency": "USD",
+      "price_parse_status": "PARSED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-1/responses/1",
+      "evidence_artifact_sha256": "e351b799cd8ab6137690d7dc7631ce9d78f26d804c5ca8f828908c6d53fd8eb9",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "FRESH",
+      "freshness_evaluated_at": "2026-10-13T15:39:28.256Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:09caae6086ae873dc83c21f87db27c63f1cd0466a3cf3aca9e3af2c808f32405",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-1/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "8ced75f6244a654cd656ecc78829679ad47c213852f09552dc6abd0a4b8e6d14",
+      "provider_identifier": "firecrawl:adamscameron.com",
+      "source_request_identifier": "synthetic-request-1-2",
+      "source_listing_identifier": "synthetic-listing-1-2",
+      "source_url": "https://www.adamscameron.com/synthetic-listing-1-2/",
+      "source_as_of": null,
+      "source_status": "statusCode=403|cacheState=miss|jsonLdBlocks=0|failure=PAGE_HTTP_403",
+      "retrieved_at": "2026-10-13T15:39:37.117Z",
+      "observation_outcome": "LOOKUP_FAILED",
+      "market_status": "UNKNOWN",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "NOT_APPLICABLE",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-1/responses/1",
+      "evidence_artifact_sha256": "e351b799cd8ab6137690d7dc7631ce9d78f26d804c5ca8f828908c6d53fd8eb9",
+      "exact_address_match_state": "UNKNOWN",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-13T15:39:28.256Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "UNAVAILABLE",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:09caae6086ae873dc83c21f87db27c63f1cd0466a3cf3aca9e3af2c808f32405",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-1/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     }
+    ],
+    "sale_availability_assessments": [
+     {
+      "model_version": "1.1.0",
+      "assessment_identifier": "2f3ad9b86cbc68f316b1392f087090e6c011cfe9648ce3e42cc81ad8c3554c34",
+      "availability_status": "CONFLICT",
+      "is_for_sale": null,
+      "list_price_amount_minor": null,
+      "list_price_currency": null,
+      "policy_version": "sale-availability-firecrawl-policy-v2",
+      "assessed_at": "2026-10-13T15:39:28.256Z",
+      "window_start_at": "2026-10-13T15:39:37.117Z",
+      "window_end_at": "2026-10-13T15:39:28.256Z",
+      "reason_codes": [
+       "CONFLICTING_FRESH_EXACT_EVIDENCE"
+      ],
+      "relationships": {
+       "sale_availability_assessment_has_address": "input-address:09caae6086ae873dc83c21f87db27c63f1cd0466a3cf3aca9e3af2c808f32405",
+       "sale_availability_assessment_has_listing_observation": [
+        "701f4b5c1f35572d567504df7f96bd98905d6ebdfc66b695941cf281ecc28543",
+        "8ced75f6244a654cd656ecc78829679ad47c213852f09552dc6abd0a4b8e6d14",
+        "c7e29605d77146ec64a250b90e7571a93394422e85ac03432e20fe6d6a8e0f05"
+       ],
+       "sale_availability_assessment_has_property": null
+      }
+     }
+    ],
+    "request_address": [
+     {
+      "address": {
+       "canonical": "6300 A1A S UNIT A7-4D, SAINT AUGUSTINE, FL 32080"
+      },
+      "independentPropertyReference": null
+     }
+    ]
+   },
+   "expected": {
+    "address_status": "NORMALIZED",
+    "graph": "{\"edges\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"09fa5502-f19a-570f-94d5-4ab5edf22dfb\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"83f834d4-8cd5-5fb4-b042-76842342aca7\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"80cf662c-1917-562c-9093-d3c9aa81149e\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5a1056e5-3919-571e-99e3-89514753fea1\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"b43db424-2392-500f-8f3c-d37ea957864b\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"80cf662c-1917-562c-9093-d3c9aa81149e\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ff677f9b-54ff-5ba9-b11d-253087927613\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"83f834d4-8cd5-5fb4-b042-76842342aca7\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"1b6f5f90-9780-54e4-9635-167424bb1050\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9f6e5124-b64a-5474-8a1d-1b2ce0201a44\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"b43db424-2392-500f-8f3c-d37ea957864b\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"1b6f5f90-9780-54e4-9635-167424bb1050\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6f83daec-e84f-505f-a160-2d377549b4fb\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"83f834d4-8cd5-5fb4-b042-76842342aca7\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"04d7e3e1-b134-5d40-82af-784d9aa0bcdf\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0858e040-4688-5ad9-a201-f39da9d3a8c1\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"b43db424-2392-500f-8f3c-d37ea957864b\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"04d7e3e1-b134-5d40-82af-784d9aa0bcdf\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e55fd66e-503a-5418-b7f3-cc1e64f2f884\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"83f834d4-8cd5-5fb4-b042-76842342aca7\"},\"inVLabel\":\"address\",\"label\":\"sale_availability_assessment_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"95832121-cdb7-50ce-abf2-332f0658c31d\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3ec517ab-e121-5803-bb29-9339798b32bf\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"80cf662c-1917-562c-9093-d3c9aa81149e\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"95832121-cdb7-50ce-abf2-332f0658c31d\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5df7406e-65fd-517a-8705-1760134a9751\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"1b6f5f90-9780-54e4-9635-167424bb1050\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"95832121-cdb7-50ce-abf2-332f0658c31d\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ef1ba167-7a48-5b92-a829-3f2d4ddf5b78\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"04d7e3e1-b134-5d40-82af-784d9aa0bcdf\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"95832121-cdb7-50ce-abf2-332f0658c31d\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}}],\"vertices\":[{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"83f834d4-8cd5-5fb4-b042-76842342aca7\"},\"label\":\"address\",\"properties\":{\"address_unit_designator_type\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5def1a1b-1848-5205-b02b-b268ef8f8164\"},\"label\":\"address_unit_designator_type\",\"value\":\"UNIT\"}}],\"city_name\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f15e3218-1180-57f7-925f-85175b1d1bb1\"},\"label\":\"city_name\",\"value\":\"Saint Augustine\"}}],\"country_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4e15daad-0f93-515e-92d3-f98500c69077\"},\"label\":\"country_code\",\"value\":\"US\"}}],\"postal_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"29017e62-bf30-5160-8115-16482313ec1f\"},\"label\":\"postal_code\",\"value\":\"32080\"}}],\"sequence_number\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c6cfe35f-1e6a-51f5-a440-20943d4c7c03\"},\"label\":\"sequence_number\",\"value\":\"6300\"}}],\"state_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"698fbee0-3ae4-5edc-b01f-23764e612ad1\"},\"label\":\"state_code\",\"value\":\"FL\"}}],\"street_name\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"682a20f5-3183-5043-a98b-6ad9d90a02f4\"},\"label\":\"street_name\",\"value\":\"A1A\"}}],\"street_post_directional_text\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fa5097eb-1024-53af-bfdb-f1d578718da4\"},\"label\":\"street_post_directional_text\",\"value\":\"S\"}}],\"unit_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fe93ceb9-e488-5bfd-a8bc-1e0c2bc52a7e\"},\"label\":\"unit_identifier\",\"value\":\"A7-4D\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"80cf662c-1917-562c-9093-d3c9aa81149e\"},\"label\":\"listing_observation\",\"properties\":{\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5d333a1c-4a08-5b6c-8a7a-53998543a9a4\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"aff4dbdf-78ec-5237-96d4-789d6d2d0382\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2376dea0-ea4c-5a7e-bcf6-f787e7d31d85\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"e351b799cd8ab6137690d7dc7631ce9d78f26d804c5ca8f828908c6d53fd8eb9\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3348581a-c7a6-54db-8808-0aeeb922e661\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-1/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5f5dfe21-7acf-5b6d-abe9-37c215736d13\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ed98bfd3-de18-5332-bc06-1f3ac6363402\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-13T15:39:28.256Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"86e14f72-0131-53ed-b0b4-95226b47180a\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f1eb23f9-4443-50bc-b82e-0c179ee1a272\"},\"label\":\"freshness_state\",\"value\":\"FRESH\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3c41df18-a937-53ff-8ef8-6d809a428870\"},\"label\":\"market_status\",\"value\":\"UNDER_CONTRACT\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7857dbe2-d7db-5b3e-8822-d619c6a0622f\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c842cc4a-fced-5f60-92a2-c196a4aefb20\"},\"label\":\"observation_identifier\",\"value\":\"701f4b5c1f35572d567504df7f96bd98905d6ebdfc66b695941cf281ecc28543\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1e506acf-67e1-5a82-9b4a-210e77eec829\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"01673e14-5ed9-5c58-9c61-dd1812c8cf04\"},\"label\":\"price_parse_status\",\"value\":\"REJECTED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8acb0049-649a-5bc5-a765-9f05b7956734\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:realtor.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6f2d1e4d-6487-5ac9-9b04-a95c2eaa39d9\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-13T15:39:37.117Z\"}}],\"source_as_of\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"239ecf84-fbe6-5bee-8317-ace67ae7b0d7\"},\"label\":\"source_as_of\",\"value\":\"2026-09-28T00:46:09.000Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8e858d93-8cb2-59fc-b355-e3753045d010\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-1-0\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7772723f-00c9-5ca3-bdbf-1e1e05a62d2e\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-1-0\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"94f3c39f-9876-5d08-b696-bed5dcd17fe0\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=3|asOf=LAST_REVIEWED|signal=UNDER_CONTRACT\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"041e4ab7-114f-556d-9644-1b729e6ee8df\"},\"label\":\"source_url\",\"value\":\"https://www.realtor.com/synthetic-listing-1-0/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b43db424-2392-500f-8f3c-d37ea957864b\"},\"label\":\"file\",\"properties\":{\"original_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"15cca623-ddb5-5178-9ecf-e3aa6220aaaa\"},\"label\":\"original_url\",\"value\":\"s3://example-connect-landing/jobs/synthetic-1/responses/1\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1b6f5f90-9780-54e4-9635-167424bb1050\"},\"label\":\"listing_observation\",\"properties\":{\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"249d654b-140c-5154-aa39-5f8430ebcd32\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d2e7ccc1-dd16-5bf6-9802-07419d9ed491\"},\"label\":\"coverage_state\",\"value\":\"UNAVAILABLE\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"13d016c5-4b50-5c12-9841-8b0e6cb9c32e\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"e351b799cd8ab6137690d7dc7631ce9d78f26d804c5ca8f828908c6d53fd8eb9\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d2975786-f371-5725-97a2-dc6784d5729c\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-1/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6ad018fc-d937-54a6-a4d3-e0bbae95ab3e\"},\"label\":\"exact_address_match_state\",\"value\":\"UNKNOWN\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d6c8ff38-7f8d-5ae9-90f4-d78206ae1360\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-13T15:39:28.256Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1805b5b3-b1c4-5952-9549-f88a61ad28d8\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"817bfed5-f9bc-5f8e-a590-97f4c578a32c\"},\"label\":\"freshness_state\",\"value\":\"UNKNOWN\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4daaffdb-b883-5fbe-8600-139e7be9dc27\"},\"label\":\"market_status\",\"value\":\"UNKNOWN\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ab1023fa-4934-5a70-a8cc-2406f1078fdc\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3fcaf08a-253a-5f24-b93e-f3bb3440bc29\"},\"label\":\"observation_identifier\",\"value\":\"8ced75f6244a654cd656ecc78829679ad47c213852f09552dc6abd0a4b8e6d14\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6b6b21ff-fd9f-5d53-8de9-a5ed60ad833b\"},\"label\":\"observation_outcome\",\"value\":\"LOOKUP_FAILED\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"33e0da6a-adf0-5d58-91e8-e7929cbc60c7\"},\"label\":\"price_parse_status\",\"value\":\"NOT_APPLICABLE\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"97ff318e-5922-56e1-9fda-99c8cb528e9a\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:adamscameron.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"bcb45da4-9f16-5504-a711-5ffa499c0c56\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-13T15:39:37.117Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e915fe86-fd64-56cb-9c57-7c842dc48a9c\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-1-2\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e360dd1e-6cf5-5bfa-bdbb-e01be90b63ed\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-1-2\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6f9bb26e-885c-5840-b6ca-baa8025da5bb\"},\"label\":\"source_status\",\"value\":\"statusCode=403|cacheState=miss|jsonLdBlocks=0|failure=PAGE_HTTP_403\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2b55fabf-b0c6-53d5-98ff-ec5b17f19b11\"},\"label\":\"source_url\",\"value\":\"https://www.adamscameron.com/synthetic-listing-1-2/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"04d7e3e1-b134-5d40-82af-784d9aa0bcdf\"},\"label\":\"listing_observation\",\"properties\":{\"asking_price_amount_minor\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4cf1b948-9d5e-5027-9117-5ab72fa848d0\"},\"label\":\"asking_price_amount_minor\",\"value\":{\"@type\":\"g:Int64\",\"@value\":44990000}}}],\"asking_price_currency\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"98e7212a-7f72-5be3-a8a1-a9a7e2341d4d\"},\"label\":\"asking_price_currency\",\"value\":\"USD\"}}],\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1f3b1530-c888-5393-9ac8-13933e0d670c\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5edb7ae5-d6bf-572c-af50-6fb9128cc1b9\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"aace86cf-5871-5a0b-a679-8aa6a3800bfa\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"e351b799cd8ab6137690d7dc7631ce9d78f26d804c5ca8f828908c6d53fd8eb9\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e09be8a2-071d-5232-96a1-d28e2d1a9e55\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-1/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b745c835-f695-56fc-b694-42f4c23dec20\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"06b4975c-3213-547a-9bd9-d8c5deb26d99\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-13T15:39:28.256Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5bf6139d-9ac7-5f1c-b439-c9b1afdc3165\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b6c4ea5f-5596-581e-ae00-940e57488819\"},\"label\":\"freshness_state\",\"value\":\"FRESH\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fab120f0-e1b6-56dd-81b3-65a68a83bea8\"},\"label\":\"market_status\",\"value\":\"ACTIVE\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1ec17e17-7f85-568b-a796-ad57b14eebde\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8d98e84d-3b4b-52b5-805c-0933b01f36b8\"},\"label\":\"observation_identifier\",\"value\":\"c7e29605d77146ec64a250b90e7571a93394422e85ac03432e20fe6d6a8e0f05\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3c2aa883-474a-5d79-9f01-32ab4309cebd\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"967e6c9f-d48f-5452-9a59-18bbd9668654\"},\"label\":\"price_parse_status\",\"value\":\"PARSED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"af6bebe4-d478-5f1a-a794-9182fb31fdd7\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:zillow.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9ba6fd2b-a62d-53b3-be9a-29568c33abf8\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-13T15:39:37.117Z\"}}],\"source_as_of\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"aad32651-3f02-56f6-aa54-33e67d400ffb\"},\"label\":\"source_as_of\",\"value\":\"2026-10-13T15:39:37.117Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2f7044c9-1700-5acf-b8a0-e5fc9435ca15\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-1-1\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d3721cb7-2496-56c0-a088-d6f5b19a9c40\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-1-1\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3129df73-b293-5a00-aa57-d35d5ec8bc44\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=3|asOf=FRESH_FETCH|signal=ACTIVE_STRUCTURED\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ca19c429-fbd9-5820-9757-925dc02aff8e\"},\"label\":\"source_url\",\"value\":\"https://www.zillow.com/synthetic-listing-1-1/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"95832121-cdb7-50ce-abf2-332f0658c31d\"},\"label\":\"sale_availability_assessment\",\"properties\":{\"assessed_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a0a4da04-c0dc-5005-bcf7-c1da7559bc55\"},\"label\":\"assessed_at\",\"value\":\"2026-10-13T15:39:28.256Z\"}}],\"assessment_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fcd7a2f3-00f0-556c-ad80-b355f207072a\"},\"label\":\"assessment_identifier\",\"value\":\"2f3ad9b86cbc68f316b1392f087090e6c011cfe9648ce3e42cc81ad8c3554c34\"}}],\"availability_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a128ebdf-2f24-54a0-b441-05bd232e9057\"},\"label\":\"availability_status\",\"value\":\"CONFLICT\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3cb19cab-3b78-5f0b-87ae-5a4a0e9e1615\"},\"label\":\"model_version\",\"value\":\"1.1.0\"}}],\"policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8ee80b11-face-5126-aedc-26611e6c92d1\"},\"label\":\"policy_version\",\"value\":\"sale-availability-firecrawl-policy-v2\"}}],\"reason_codes\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c151064d-ac3b-5e82-b1c3-c7e24e5b6e95\"},\"label\":\"reason_codes\",\"value\":{\"@type\":\"g:List\",\"@value\":[\"CONFLICTING_FRESH_EXACT_EVIDENCE\"]}}}],\"window_end_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"edacade2-663b-5146-a273-18ed3ccc8398\"},\"label\":\"window_end_at\",\"value\":\"2026-10-13T15:39:28.256Z\"}}],\"window_start_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"cacd10d9-192a-56a1-b5ae-f57677890d32\"},\"label\":\"window_start_at\",\"value\":\"2026-10-13T15:39:37.117Z\"}}]}}}]}"
+   }
+  },
+  {
+   "id": "synthetic-unknown-2",
+   "inputs": {
+    "listing_observations": [
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "54a050ddc4716bdafd351e78dcb53376ff8e9f2ed6d7596b758f83d4dcc2868b",
+      "provider_identifier": "firecrawl:zillow.com",
+      "source_request_identifier": "synthetic-request-2-0",
+      "source_listing_identifier": "synthetic-listing-2-0",
+      "source_url": "https://www.zillow.com/synthetic-listing-2-0/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=INACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-11T18:35:32.325Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "OTHER",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-2/responses/1",
+      "evidence_artifact_sha256": "d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-11T18:35:24.531Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-2/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "0a252440b70a855e34a105d60edaea7d8d6b7a3409c708cc49f2a2a1356f0403",
+      "provider_identifier": "firecrawl:realtor.com",
+      "source_request_identifier": "synthetic-request-2-1",
+      "source_listing_identifier": "synthetic-listing-2-1",
+      "source_url": "https://www.realtor.com/synthetic-listing-2-1/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=INACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-11T18:35:32.325Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "OTHER",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-2/responses/1",
+      "evidence_artifact_sha256": "d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-11T18:35:24.531Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-2/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "42361c55317443d39492fadcb3aca821d06617000905fe9e9c12da9f46b65cbf",
+      "provider_identifier": "firecrawl:redfin.com",
+      "source_request_identifier": "synthetic-request-2-2",
+      "source_listing_identifier": "synthetic-listing-2-2",
+      "source_url": "https://www.redfin.com/synthetic-listing-2-2/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=13|signal=INACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-11T18:35:32.325Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "OTHER",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-2/responses/1",
+      "evidence_artifact_sha256": "d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-11T18:35:24.531Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-2/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     }
+    ],
+    "sale_availability_assessments": [
+     {
+      "model_version": "1.1.0",
+      "assessment_identifier": "3aa5f04aaa10ae773aebec1871b13cfab9652a9b04d771b21a083a54b1515467",
+      "availability_status": "UNKNOWN",
+      "is_for_sale": null,
+      "list_price_amount_minor": null,
+      "list_price_currency": null,
+      "policy_version": "sale-availability-firecrawl-policy-v2",
+      "assessed_at": "2026-10-11T18:35:24.531Z",
+      "window_start_at": "2026-10-11T18:35:32.325Z",
+      "window_end_at": "2026-10-11T18:35:24.531Z",
+      "reason_codes": [
+       "NO_EXPLICIT_ACTIVE_SIGNAL"
+      ],
+      "relationships": {
+       "sale_availability_assessment_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "sale_availability_assessment_has_listing_observation": [
+        "0a252440b70a855e34a105d60edaea7d8d6b7a3409c708cc49f2a2a1356f0403",
+        "42361c55317443d39492fadcb3aca821d06617000905fe9e9c12da9f46b65cbf",
+        "54a050ddc4716bdafd351e78dcb53376ff8e9f2ed6d7596b758f83d4dcc2868b"
+       ],
+       "sale_availability_assessment_has_property": null
+      }
+     }
+    ],
+    "request_address": [
+     {
+      "address": {
+       "canonical": "455 DEER RUN, OCALA, FL 34472"
+      },
+      "independentPropertyReference": null
+     }
+    ]
+   },
+   "expected": {
+    "address_status": "NORMALIZED",
+    "graph": "{\"edges\":[{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8a7e89f5-0de0-596d-951d-57398e592bc0\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"d0a77eb1-78e4-5a08-8da5-647abbfdac9d\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"61a349b2-b1e2-560a-9ecc-bd8a8c1c35a0\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"529a3ae7-0244-561e-9442-58d75365daf0\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"b320b745-6c33-5275-80ae-ef3b0220d917\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"61a349b2-b1e2-560a-9ecc-bd8a8c1c35a0\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4a081c83-9d4d-56a8-8afb-693da147fb41\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"d0a77eb1-78e4-5a08-8da5-647abbfdac9d\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"f2b9cd96-cea2-5795-8db3-e875a2802a2d\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e2081a19-c322-56a7-a1f0-239446176308\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"b320b745-6c33-5275-80ae-ef3b0220d917\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"f2b9cd96-cea2-5795-8db3-e875a2802a2d\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"95eee554-757c-5c8b-982a-c20c09f41d37\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"d0a77eb1-78e4-5a08-8da5-647abbfdac9d\"},\"inVLabel\":\"address\",\"label\":\"listing_observation_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"82c290cc-fd73-58ff-aa84-a64193124273\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"4770306c-2cc6-5b39-b104-a0133c31b167\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"b320b745-6c33-5275-80ae-ef3b0220d917\"},\"inVLabel\":\"file\",\"label\":\"listing_observation_has_file\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"82c290cc-fd73-58ff-aa84-a64193124273\"},\"outVLabel\":\"listing_observation\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b6ad9b74-7c82-5c1b-87c6-902d29d1c26b\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"d0a77eb1-78e4-5a08-8da5-647abbfdac9d\"},\"inVLabel\":\"address\",\"label\":\"sale_availability_assessment_has_address\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"9a706893-37cb-5481-9821-8068672326fd\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"29a48539-3fbf-57ac-9962-3421973b2f32\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"61a349b2-b1e2-560a-9ecc-bd8a8c1c35a0\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"9a706893-37cb-5481-9821-8068672326fd\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d45d9d81-7c2f-5391-8cca-7b3351f12eb8\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"f2b9cd96-cea2-5795-8db3-e875a2802a2d\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"9a706893-37cb-5481-9821-8068672326fd\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}},{\"@type\":\"g:Edge\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2d34ce10-aad8-5b4a-91ac-5c290820c225\"},\"inV\":{\"@type\":\"g:UUID\",\"@value\":\"82c290cc-fd73-58ff-aa84-a64193124273\"},\"inVLabel\":\"listing_observation\",\"label\":\"sale_availability_assessment_has_listing_observation\",\"outV\":{\"@type\":\"g:UUID\",\"@value\":\"9a706893-37cb-5481-9821-8068672326fd\"},\"outVLabel\":\"sale_availability_assessment\",\"properties\":{}}}],\"vertices\":[{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d0a77eb1-78e4-5a08-8da5-647abbfdac9d\"},\"label\":\"address\",\"properties\":{\"city_name\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"26f2579b-552b-5af1-b450-9530955a624d\"},\"label\":\"city_name\",\"value\":\"Ocala\"}}],\"country_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"da8b411c-371e-5b52-b8a6-a2d016f259a6\"},\"label\":\"country_code\",\"value\":\"US\"}}],\"postal_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c2c8757d-c6ba-51af-9e8d-962089957886\"},\"label\":\"postal_code\",\"value\":\"34472\"}}],\"sequence_number\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9bd3ca31-93c2-5ccf-826d-cd5dd20ae127\"},\"label\":\"sequence_number\",\"value\":\"455\"}}],\"state_code\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7695c63e-cd97-5800-a670-cac519e86ddc\"},\"label\":\"state_code\",\"value\":\"FL\"}}],\"street_name\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"21ceb6c9-e258-5beb-a165-8b218dc64247\"},\"label\":\"street_name\",\"value\":\"Deer\"}}],\"street_suffix_type\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0f768a15-b472-53a7-b635-f5db2ffb0ec9\"},\"label\":\"street_suffix_type\",\"value\":\"RUN\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"61a349b2-b1e2-560a-9ecc-bd8a8c1c35a0\"},\"label\":\"listing_observation\",\"properties\":{\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b6229fb8-1b33-50dc-8765-7774bce9cba6\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"71980d05-79cc-5cbb-9ffd-fb6a97066ade\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d1b66e05-7870-588c-9616-720b9ae9bb87\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6d43c7b0-6a29-5e7c-8558-aa804ae040c9\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-2/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ea0693ba-ebce-54d2-b054-f18b517a7816\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"6780740c-d962-5d95-8bbf-1c99a4b57604\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-11T18:35:24.531Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c2da247f-f6e6-5c29-9f2f-cc402a679166\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"cf19a513-e47e-5e21-a71e-d1f7dd8d1bb8\"},\"label\":\"freshness_state\",\"value\":\"UNKNOWN\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"cd8a1ee1-7649-5436-8e9b-bea1ed8b37d2\"},\"label\":\"market_status\",\"value\":\"OTHER\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"83cfa6b4-db1e-5d15-9689-b130378845e4\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"97db29e3-d38a-5004-99f3-8404cfe2d2e1\"},\"label\":\"observation_identifier\",\"value\":\"0a252440b70a855e34a105d60edaea7d8d6b7a3409c708cc49f2a2a1356f0403\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"651d940e-4110-5231-ae41-f74e31e15721\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"19d7fedb-ddd1-5936-a3e1-53691a282d7a\"},\"label\":\"price_parse_status\",\"value\":\"REJECTED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e9076cc3-b5bc-5954-b35a-8d68b98fee19\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:realtor.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3f08f83c-87a8-5ee0-88a6-3d42441a0035\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-11T18:35:32.325Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"93ce83e4-577a-58e5-8b25-d90fc9d2fabb\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-2-1\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"fe7e51f3-be7b-530d-8639-b3f02c482a61\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-2-1\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c9ff478e-1eb5-5161-bdcb-efc181329f3f\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=INACTIVE_INELIGIBLE\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b66ab598-bc14-5ab8-a809-4660c6e36f43\"},\"label\":\"source_url\",\"value\":\"https://www.realtor.com/synthetic-listing-2-1/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b320b745-6c33-5275-80ae-ef3b0220d917\"},\"label\":\"file\",\"properties\":{\"original_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9489f249-03e3-512d-ab41-be670bdaf657\"},\"label\":\"original_url\",\"value\":\"s3://example-connect-landing/jobs/synthetic-2/responses/1\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f2b9cd96-cea2-5795-8db3-e875a2802a2d\"},\"label\":\"listing_observation\",\"properties\":{\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8e5712d4-9605-5bc4-84cc-ebe12c7c97bc\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"16ec6c84-e061-5bc5-8dbe-526cc2f1c2d5\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0d9d9813-6f6d-5e4f-af41-e0002ec02583\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f0345b23-d177-5b5d-8820-91682d707759\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-2/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"18a8697e-0d43-5eff-a566-f4158f4cb12c\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2ee4b59c-4301-545b-bf4f-988bca373a92\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-11T18:35:24.531Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a7cc6a2f-da21-5dd6-8416-a58f1e975e3e\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3fa1bb95-7026-587a-a0ea-8d522fef14e4\"},\"label\":\"freshness_state\",\"value\":\"UNKNOWN\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7aa20090-7c03-5f6e-8e24-c029c60fc302\"},\"label\":\"market_status\",\"value\":\"OTHER\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"321c19b5-ce7d-5b66-9a84-c9b5c025fb29\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"3cc5dd94-2460-5f09-a0d5-a2ea9c765717\"},\"label\":\"observation_identifier\",\"value\":\"42361c55317443d39492fadcb3aca821d06617000905fe9e9c12da9f46b65cbf\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"cb0219c9-580e-5b08-8c6e-b9165c604351\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"07dc2c32-c888-5b59-8116-fcc90dede636\"},\"label\":\"price_parse_status\",\"value\":\"REJECTED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"c6db2237-89b2-5b5b-8276-2b6c326a7e41\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:redfin.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ee4a7156-cd03-57f6-9a6b-6396f487dce1\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-11T18:35:32.325Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8844212b-b022-522f-a681-655691b4b464\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-2-2\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"adf23a23-1ee2-5108-9f00-d92d7912d4cd\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-2-2\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b2e10a7c-6b1e-5a9d-ad0e-214c50ea2e6d\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=13|signal=INACTIVE_INELIGIBLE\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9b462997-5326-5b7d-abbe-1f6c316cb46f\"},\"label\":\"source_url\",\"value\":\"https://www.redfin.com/synthetic-listing-2-2/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"82c290cc-fd73-58ff-aa84-a64193124273\"},\"label\":\"listing_observation\",\"properties\":{\"authority_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d3c709ae-9043-56ed-8d1d-30a95e4dd8ab\"},\"label\":\"authority_state\",\"value\":\"SUPPORTING\"}}],\"coverage_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"004da65c-5435-5db2-8de0-fcaf20a648bc\"},\"label\":\"coverage_state\",\"value\":\"PARTIAL\"}}],\"evidence_artifact_sha256\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"8861da81-5704-5db2-a532-332c0c7211a4\"},\"label\":\"evidence_artifact_sha256\",\"value\":\"d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2\"}}],\"evidence_artifact_uri\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"7c92db58-71cb-587a-ad39-a074c1620026\"},\"label\":\"evidence_artifact_uri\",\"value\":\"s3://example-connect-landing/jobs/synthetic-2/responses/1\"}}],\"exact_address_match_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"0a389221-0e5f-542c-95f7-a32b34085d73\"},\"label\":\"exact_address_match_state\",\"value\":\"EXACT\"}}],\"freshness_evaluated_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e5c5d32e-4564-5d09-b757-7fd256f60459\"},\"label\":\"freshness_evaluated_at\",\"value\":\"2026-10-11T18:35:24.531Z\"}}],\"freshness_policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ceadd8d8-9f13-5dd4-9e57-d655525a1ff6\"},\"label\":\"freshness_policy_version\",\"value\":\"firecrawl-page-30d-v2\"}}],\"freshness_state\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f90630c3-b7ba-5d56-96ab-8064386746da\"},\"label\":\"freshness_state\",\"value\":\"UNKNOWN\"}}],\"market_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"934b419a-fc62-58be-88e2-439d53c69f19\"},\"label\":\"market_status\",\"value\":\"OTHER\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"71141fa1-1f28-562e-b358-b53159b4affd\"},\"label\":\"model_version\",\"value\":\"1.0.0\"}}],\"observation_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"aeb97ace-2c46-5ab5-9141-efe4d94cad4e\"},\"label\":\"observation_identifier\",\"value\":\"54a050ddc4716bdafd351e78dcb53376ff8e9f2ed6d7596b758f83d4dcc2868b\"}}],\"observation_outcome\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"15bb4922-26a5-5505-be8f-1945ce59e590\"},\"label\":\"observation_outcome\",\"value\":\"LISTING_FOUND\"}}],\"price_parse_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e586aa03-74c4-5975-97ad-66b3d8cc57a7\"},\"label\":\"price_parse_status\",\"value\":\"REJECTED\"}}],\"provider_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e531c684-764f-52ea-b974-86c88a586326\"},\"label\":\"provider_identifier\",\"value\":\"firecrawl:zillow.com\"}}],\"retrieved_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"d5e8c6e7-2a21-52bc-83c6-a5f051704d13\"},\"label\":\"retrieved_at\",\"value\":\"2026-10-11T18:35:32.325Z\"}}],\"source_listing_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"2e75ada6-01af-5701-8b64-e0bd69014f70\"},\"label\":\"source_listing_identifier\",\"value\":\"synthetic-listing-2-0\"}}],\"source_request_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"f27d0970-58f1-5020-af88-b8dd4b486c83\"},\"label\":\"source_request_identifier\",\"value\":\"synthetic-request-2-0\"}}],\"source_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"1c765487-6f48-5ae4-838b-3c08f9bca13e\"},\"label\":\"source_status\",\"value\":\"statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=INACTIVE_INELIGIBLE\"}}],\"source_url\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"07cda09a-1646-5022-a1c3-fe00b2954a44\"},\"label\":\"source_url\",\"value\":\"https://www.zillow.com/synthetic-listing-2-0/\"}}]}}},{\"@type\":\"g:Vertex\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"9a706893-37cb-5481-9821-8068672326fd\"},\"label\":\"sale_availability_assessment\",\"properties\":{\"assessed_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"ef206146-7b9d-54b1-9a9a-0e0a29e9ea0d\"},\"label\":\"assessed_at\",\"value\":\"2026-10-11T18:35:24.531Z\"}}],\"assessment_identifier\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"b9eac159-be89-5073-a2d4-9bbe2abc5edd\"},\"label\":\"assessment_identifier\",\"value\":\"3aa5f04aaa10ae773aebec1871b13cfab9652a9b04d771b21a083a54b1515467\"}}],\"availability_status\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"e3c013ab-28af-5658-99e7-1e300379c38c\"},\"label\":\"availability_status\",\"value\":\"UNKNOWN\"}}],\"model_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"5cc1b92e-ab08-581e-ba1e-adb8d5d2e535\"},\"label\":\"model_version\",\"value\":\"1.1.0\"}}],\"policy_version\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"a4558362-72c4-547f-abcb-e29cd27d4c75\"},\"label\":\"policy_version\",\"value\":\"sale-availability-firecrawl-policy-v2\"}}],\"reason_codes\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"44b1d1be-6ea7-5972-96e8-f7818cd1414a\"},\"label\":\"reason_codes\",\"value\":{\"@type\":\"g:List\",\"@value\":[\"NO_EXPLICIT_ACTIVE_SIGNAL\"]}}}],\"window_end_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"cd83fdb2-0f2b-5b34-939e-01950bde8970\"},\"label\":\"window_end_at\",\"value\":\"2026-10-11T18:35:24.531Z\"}}],\"window_start_at\":[{\"@type\":\"g:VertexProperty\",\"@value\":{\"id\":{\"@type\":\"g:UUID\",\"@value\":\"eee453cc-316a-5b62-912f-0b7ffa340e21\"},\"label\":\"window_start_at\",\"value\":\"2026-10-11T18:35:32.325Z\"}}]}}}]}"
+   }
+  },
+  {
+   "id": "synthetic-unknown-3",
+   "inputs": {
+    "listing_observations": [
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "54a050ddc4716bdafd351e78dcb53376ff8e9f2ed6d7596b758f83d4dcc2868b",
+      "provider_identifier": "firecrawl:zillow.com",
+      "source_request_identifier": "synthetic-request-3-0",
+      "source_listing_identifier": "synthetic-listing-3-0",
+      "source_url": "https://www.zillow.com/synthetic-listing-3-0/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=INACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-11T18:35:32.325Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "OTHER",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-3/responses/1",
+      "evidence_artifact_sha256": "d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-11T18:35:24.531Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-3/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "0a252440b70a855e34a105d60edaea7d8d6b7a3409c708cc49f2a2a1356f0403",
+      "provider_identifier": "firecrawl:realtor.com",
+      "source_request_identifier": "synthetic-request-3-1",
+      "source_listing_identifier": "synthetic-listing-3-1",
+      "source_url": "https://www.realtor.com/synthetic-listing-3-1/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=INACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-11T18:35:32.325Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "OTHER",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-3/responses/1",
+      "evidence_artifact_sha256": "d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-11T18:35:24.531Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-3/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "42361c55317443d39492fadcb3aca821d06617000905fe9e9c12da9f46b65cbf",
+      "provider_identifier": "firecrawl:redfin.com",
+      "source_request_identifier": "synthetic-request-3-2",
+      "source_listing_identifier": "synthetic-listing-3-2",
+      "source_url": "https://www.redfin.com/synthetic-listing-3-2/",
+      "source_as_of": null,
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=13|signal=INACTIVE_INELIGIBLE",
+      "retrieved_at": "2026-10-11T18:35:32.325Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "OTHER",
+      "asking_price_amount_minor": null,
+      "asking_price_currency": null,
+      "price_parse_status": "REJECTED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-3/responses/1",
+      "evidence_artifact_sha256": "d632caec68f50e3da58d274876580647aea4739b99c7683f07dc055bb29542b2",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "UNKNOWN",
+      "freshness_evaluated_at": "2026-10-11T18:35:24.531Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-3/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     }
+    ],
+    "sale_availability_assessments": [
+     {
+      "model_version": "1.1.0",
+      "assessment_identifier": "3aa5f04aaa10ae773aebec1871b13cfab9652a9b04d771b21a083a54b1515467",
+      "availability_status": "UNKNOWN",
+      "is_for_sale": null,
+      "list_price_amount_minor": null,
+      "list_price_currency": null,
+      "policy_version": "sale-availability-firecrawl-policy-v2",
+      "assessed_at": "2026-10-11T18:35:24.531Z",
+      "window_start_at": "2026-10-11T18:35:32.325Z",
+      "window_end_at": "2026-10-11T18:35:24.531Z",
+      "reason_codes": [
+       "NO_EXPLICIT_ACTIVE_SIGNAL"
+      ],
+      "relationships": {
+       "sale_availability_assessment_has_address": "input-address:a25d4d391237db5f1eaba47990dcb628a08ca6731e5107f343454b07a3ea4833",
+       "sale_availability_assessment_has_listing_observation": [
+        "0a252440b70a855e34a105d60edaea7d8d6b7a3409c708cc49f2a2a1356f0403",
+        "42361c55317443d39492fadcb3aca821d06617000905fe9e9c12da9f46b65cbf",
+        "54a050ddc4716bdafd351e78dcb53376ff8e9f2ed6d7596b758f83d4dcc2868b"
+       ],
+       "sale_availability_assessment_has_property": null
+      }
+     }
+    ],
+    "request_address": [
+     {
+      "address": {
+       "canonical": "REDACTED-PRODUCTION-CANARY"
+      },
+      "independentPropertyReference": null
+     }
+    ]
+   },
+   "expected": {
+    "address_status": "UNPARSEABLE",
+    "graph": null
+   }
+  }
+ ],
+ "failureCases": [
+  {
+   "id": "property-reference-set",
+   "mutate": {
+    "request_address": [
+     {
+      "address": {
+       "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160",
+       "structured": {
+        "street": "301 174TH ST",
+        "unit": "APT 901",
+        "city": "SUNNY ISLES BEACH",
+        "state": "FL",
+        "postalCode": "33160",
+        "countryCode": "US"
+       }
+      },
+      "independentPropertyReference": "persist-property-id"
+     }
+    ]
+   },
+   "error": "independentPropertyReference is not supported"
+  },
+  {
+   "id": "two-request-address-rows",
+   "mutate": {
+    "request_address": [
+     {
+      "address": {
+       "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160",
+       "structured": {
+        "street": "301 174TH ST",
+        "unit": "APT 901",
+        "city": "SUNNY ISLES BEACH",
+        "state": "FL",
+        "postalCode": "33160",
+        "countryCode": "US"
+       }
+      },
+      "independentPropertyReference": null
+     },
+     {
+      "address": {
+       "canonical": "301 174TH ST, APT 901, SUNNY ISLES BEACH, FL 33160",
+       "structured": {
+        "street": "301 174TH ST",
+        "unit": "APT 901",
+        "city": "SUNNY ISLES BEACH",
+        "state": "FL",
+        "postalCode": "33160",
+        "countryCode": "US"
+       }
+      },
+      "independentPropertyReference": null
+     }
+    ]
+   },
+   "error": "exactly one"
+  },
+  {
+   "id": "dangling-observation-reference",
+   "mutate": {
+    "listing_observations": [
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "2433907de7a2740319f00a8ba78818219655db95072a6dafa85759a3d65f1617",
+      "provider_identifier": "firecrawl:redfin.com",
+      "source_request_identifier": "synthetic-request-0-1",
+      "source_listing_identifier": "synthetic-listing-0-1",
+      "source_url": "https://www.redfin.com/synthetic-listing-0-1/",
+      "source_as_of": "2026-09-18T16:14:36.919Z",
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=9|signal=ACTIVE_STRUCTURED",
+      "retrieved_at": "2026-10-09T16:22:39.010Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "ACTIVE",
+      "asking_price_amount_minor": 77500000,
+      "asking_price_currency": "USD",
+      "price_parse_status": "PARSED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-0/responses/1",
+      "evidence_artifact_sha256": "9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "FRESH",
+      "freshness_evaluated_at": "2026-10-09T16:22:23.712Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:42f82315ebb0097cbe5c690ee00c4012ca75fbe6ae73e6ab470081d2493c398d",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-0/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     },
+     {
+      "model_version": "1.0.0",
+      "observation_identifier": "9381b7505c1096cda2fb38e7005a923f8a816899b4f0079a074a0efcaac47d93",
+      "provider_identifier": "firecrawl:realtor.com",
+      "source_request_identifier": "synthetic-request-0-2",
+      "source_listing_identifier": "synthetic-listing-0-2",
+      "source_url": "https://www.realtor.com/synthetic-listing-0-2/",
+      "source_as_of": "2026-09-18T17:32:16.000Z",
+      "source_status": "statusCode=200|cacheState=miss|jsonLdBlocks=3|signal=ACTIVE_STRUCTURED",
+      "retrieved_at": "2026-10-09T16:22:39.010Z",
+      "observation_outcome": "LISTING_FOUND",
+      "market_status": "ACTIVE",
+      "asking_price_amount_minor": 77500000,
+      "asking_price_currency": "USD",
+      "price_parse_status": "PARSED",
+      "evidence_artifact_uri": "s3://example-connect-landing/jobs/synthetic-0/responses/1",
+      "evidence_artifact_sha256": "9537cec8ae907831209278a8e04f6301967770b34b7a63fd1428ae5c10c6e261",
+      "exact_address_match_state": "EXACT",
+      "freshness_state": "FRESH",
+      "freshness_evaluated_at": "2026-10-09T16:22:23.712Z",
+      "freshness_policy_version": "firecrawl-page-30d-v2",
+      "coverage_state": "PARTIAL",
+      "authority_state": "SUPPORTING",
+      "relationships": {
+       "listing_observation_has_address": "input-address:42f82315ebb0097cbe5c690ee00c4012ca75fbe6ae73e6ab470081d2493c398d",
+       "listing_observation_has_file": [
+        "s3://example-connect-landing/jobs/synthetic-0/responses/1"
+       ],
+       "listing_observation_has_property": null
+      }
+     }
+    ]
+   },
+   "error": "unknown listing_observation"
+  }
+ ]
+}

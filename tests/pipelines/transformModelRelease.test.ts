@@ -1,5 +1,14 @@
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import {
+  cpSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -72,6 +81,40 @@ function observations(): Dataset {
   ) as Dataset;
 }
 
+type Lock = {
+  bindings: Array<{
+    name: string;
+    version: string;
+    datasets: Array<{ dataset: string }>;
+    unmodelledDatasets?: Array<{ dataset: string; reason?: string }>;
+  }>;
+};
+
+function evaluateWithLock(mutate: (lock: Lock) => void): string[] {
+  const root = mkdtempSync(path.join(tmpdir(), 'model-release-gate-'));
+  try {
+    for (const relative of [
+      TRANSFORM_ROOT,
+      path.join('src', 'data', 'lexicon.json'),
+      lock.modelRelease.vendoredPath,
+    ]) {
+      cpSync(path.resolve(process.cwd(), relative), path.join(root, relative), { recursive: true });
+    }
+    const copy = readJson<Lock>(path.join(root, LOCK_PATH));
+    mutate(copy);
+    writeFileSync(path.join(root, LOCK_PATH), JSON.stringify(copy));
+    return evaluate(root).errors as string[];
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+}
+
+function persistInputBinding(copy: Lock) {
+  const binding = copy.bindings.find(item => item.name === 'sale-availability-persist-input');
+  expect(binding).toBeDefined();
+  return binding!;
+}
+
 function files(root: string): string[] {
   return readdirSync(root).flatMap(name => {
     const full = path.join(root, name);
@@ -85,6 +128,7 @@ describe('Transform languages derive from the pinned Model release', () => {
     expect(report.errors).toEqual([]);
     expect(report.bindings.map((binding: { language: string }) => binding.language)).toEqual([
       'sale-availability-result@1.1.0',
+      'sale-availability-persist-input@1.0.0',
       'sale-availability-result@1.0.0',
       'sale-availability-evidence@1.0.0',
       'sale-availability-assessment@1.1.0',
@@ -199,6 +243,49 @@ describe('Transform languages derive from the pinned Model release', () => {
         path: 'relationships',
         cause: 'RELEASE_LOSS',
       })
+    );
+  });
+
+  it('carries the result datasets byte-identically into the Persist graph input language', () => {
+    const result = language('sale-availability-result', '1.1.0');
+    const input = language('sale-availability-persist-input', '1.0.0');
+    expect(input.datasets.map(item => item.type)).toEqual([
+      'listing_observations',
+      'sale_availability_assessments',
+      'request_address',
+    ]);
+    expect(input.datasets.slice(0, 2)).toEqual(result.datasets);
+  });
+
+  it('rejects an unmodelled dataset that shares a release class name', () => {
+    const errors = evaluateWithLock(copy => {
+      const binding = persistInputBinding(copy);
+      binding.datasets = binding.datasets.filter(item => item.dataset !== 'listing_observations');
+      binding.unmodelledDatasets = [
+        ...(binding.unmodelledDatasets ?? []),
+        { dataset: 'listing_observations', reason: 'not a projection' },
+      ];
+    });
+    expect(errors).toContain(
+      'sale-availability-persist-input@1.0.0:listing_observations collides with release class listing_observation and must be bound'
+    );
+  });
+
+  it('requires a reason for every unmodelled dataset', () => {
+    const errors = evaluateWithLock(copy => {
+      persistInputBinding(copy).unmodelledDatasets = [{ dataset: 'request_address' }];
+    });
+    expect(errors).toContain(
+      'sale-availability-persist-input@1.0.0:request_address unmodelled dataset needs a reason'
+    );
+  });
+
+  it('rejects a dataset with neither a class binding nor an unmodelled reason', () => {
+    const errors = evaluateWithLock(copy => {
+      delete persistInputBinding(copy).unmodelledDatasets;
+    });
+    expect(errors).toContain(
+      'sale-availability-persist-input@1.0.0:request_address has no Model class binding'
     );
   });
 });

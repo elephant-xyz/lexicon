@@ -186,6 +186,65 @@ sidecar bindings without changing their immutable bytes. Re-pinning to a newer
 release means vendoring it, updating the lock, and publishing any changed
 language as a new version.
 
+`sale-availability-persist-input@1.0.0` binds its two result datasets like
+`sale-availability-result@1.1.0` and lists `request_address` under the
+binding's `unmodelledDatasets`: a System request envelope with a reason, which
+the gate rejects if it shares a release class name. `persist-graphson` is out
+of scope as a wire format; Persist validates its contents.
+
+## Persist graph
+
+`sale-availability-persist-input-to-persist-graphson@1.0.0` turns one completed
+sale-availability run into the body System posts to Persist `/persist/validate`
+and `/persist/ingest` (Persist contract sections 3-6; executable spec
+`build_graphson.py` and `scale_build.py` in `prismteam-ai/system`
+`tmp/persist-sale-availability/scripts`).
+
+- Inputs: `listing_observations` and `sale_availability_assessments` exactly as
+  the result mapping wrote them (Parquet; their schemas equal
+  `sale-availability-result@1.0.0` and `@1.1.0`), plus the one-row JSONL
+  `request_address` System writes:
+  `{"address": {"canonical", "structured"?}, "independentPropertyReference": null}`.
+  The source is a separate language because a mapping reads only datasets of
+  its source language, and a new current `sale-availability-result` version
+  would retire the live result mapping's target.
+- Inline delivery (`persist_graph`, exactly one row):
+  `{"address_status": "NORMALIZED" | "UNPARSEABLE", "graph": <text> | null}`.
+  `graph` is the canonical JSON text (sorted keys, no whitespace) of the bare
+  `tinker:graph` `@value`, `{"edges": [...], "vertices": [...]}`; System wraps
+  it as `{"@type": "tinker:graph", "@value": ...}`. Transform's inline
+  delivery serializes typed Spark columns with nulls kept, so a GraphSON object
+  (mixed value types, omitted nulls) can only travel as `canonical-json` text
+  until Transform can embed such a column as JSON.
+- `UNPARSEABLE` (for example `redacted-production-canary`, or no house number)
+  has a null `graph`, so no assessment is ever written without its address
+  edge. A set `independentPropertyReference`, a `request_address` without
+  exactly one row, or an assessment referencing a missing observation fails the
+  run.
+- This mapping is the only address parser. Structured fields win; otherwise
+  `canonical` is split as `street [unit], city, ST zip`, including a bare unit
+  after a suffix (`7990 E BAYMEADOWS RD 823`). Normalization is
+  case-insensitive, so the cache-normalized upper-case input yields the same
+  `address` vertex.
+- Observations are emitted in `observation_identifier` order; placeholder ids
+  are the spec's UUIDv5 values and never affect Persist's content-hash ids.
+- Spark resolves lambdas one nesting level per analyzer pass under a fixed
+  limit of 100 passes, so the SQL recomputes values inside one projection rather
+  than chaining deep CTEs. The query needs 73 passes.
+
+Golden cases (`tests/persist-graphson-golden-cases.json`) hold only spec output:
+the 15 System address vectors in original and upper case, sanitized FOR_SALE,
+CONFLICT and UNKNOWN runs, and the fail-closed cases. Run them on the Transform
+Spark worker with the deployed resolver:
+
+```bash
+scripts/transform-spark/persist_graphson_golden.py --transform-root <transform checkout> \
+  [--spec-dir <dir with build_graphson.py> --scale-dir <scale-test dir> [--all]]
+```
+
+It needs Python 3.10 with `pyspark==3.3.0` and `pyarrow`, Java 17, and the
+Transform checkout's `node_modules`.
+
 ## Local resolution
 
 Set `ELEPHANT_LEXICON_ROOT` to this repo checkout, or place `lexicon` as a sibling

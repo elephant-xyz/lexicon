@@ -1,0 +1,95 @@
+{
+  "contractVersion": 2,
+  "name": "persist-graphson",
+  "version": "1.0.0",
+  "shape": "tabular",
+  "description": "Persist GraphSON v3 ingest content for one sale-availability run. persist_graph has exactly one row, delivered inline as {\"address_status\": \"NORMALIZED\" | \"UNPARSEABLE\", \"graph\": ...}. graph is the canonical JSON text of the bare tinker:graph @value {edges, vertices}; System wraps it as {\"@type\":\"tinker:graph\",\"@value\":<graph>} for Persist /persist/validate and /persist/ingest. Transform inline delivery carries only typed columns, so the object travels as canonical-json text. Element contents are validated by Persist against its effective lexicon, not by this language.",
+  "datasets": [
+    {
+      "type": "persist_graph",
+      "description": "One row per run. NORMALIZED carries the graph; UNPARSEABLE carries a null graph, so no assessment is ever persisted without its address edge.",
+      "properties": {
+        "address_status": {
+          "type": "string",
+          "enum": [
+            "NORMALIZED",
+            "UNPARSEABLE"
+          ]
+        },
+        "graph": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "canonical-json",
+          "contentMediaType": "application/json",
+          "minLength": 2,
+          "maxLength": 60000,
+          "description": "Canonical JSON (sorted keys, no whitespace) of the bare tinker:graph @value {\"edges\":[g:Edge...],\"vertices\":[g:Vertex...]}. Nulls and empty arrays are omitted; arrays are g:List; *_amount_minor are g:Int64; date-times are ISO-8601 UTC with milliseconds and Z. Client ids are UUIDv5 placeholders that Persist replaces with content hashes."
+        }
+      },
+      "required": [
+        "address_status",
+        "graph"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "address_status": {
+                "const": "NORMALIZED"
+              }
+            },
+            "required": [
+              "address_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "graph": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "address_status": {
+                "const": "UNPARSEABLE"
+              }
+            },
+            "required": [
+              "address_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "graph": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "x-invariants": [
+        {
+          "name": "graph_matches_reference_builder",
+          "description": "graph equals the canonical JSON of build_graphson.py for the same run and request address, with observations in observation_identifier order; the address vertex follows contract section 6 (rule 4a for text) and is case-insensitive.",
+          "enforcedBy": [
+            "mapping-sql"
+          ]
+        },
+        {
+          "name": "no_assessment_without_address",
+          "description": "UNPARSEABLE addresses yield a null graph; NORMALIZED graphs carry the address vertex and every non-null *_has_address edge.",
+          "enforcedBy": [
+            "json-schema",
+            "mapping-sql"
+          ]
+        }
+      ]
+    }
+  ]
+}
