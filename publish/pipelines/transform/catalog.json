@@ -53,6 +53,16 @@
     },
     {
       "kind": "language",
+      "name": "persist-graphson",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/persist-graphson/1.0.0/persist-graphson.json",
+      "sha256": "846ef4db2fd361d1b3193e1bde07a5453e680d61be506c38531c19479b8504bf"
+    },
+    {
+      "kind": "language",
       "name": "sale-availability-assessment",
       "version": "1.0.0",
       "current": false,
@@ -80,6 +90,16 @@
       "shape": "tabular",
       "path": "languages/sale-availability-evidence/1.0.0/sale-availability-evidence.json",
       "sha256": "32bf5542a11b7c438d0fa891f77f5d1097dba968e26047c01ac133dbd41e4632"
+    },
+    {
+      "kind": "language",
+      "name": "sale-availability-persist-input",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-persist-input/1.0.0/sale-availability-persist-input.json",
+      "sha256": "68be36ad9cf0be54b65401199065a04f3ecbf84dbdbd4a5e08212d690975586f"
     },
     {
       "kind": "language",
@@ -274,6 +294,17 @@
       "path": "mappings/sale-availability-evidence-to-sale-availability-assessment/1.2.0/manifest.json",
       "sha256": "55392d99b183a2830bfca16e2569682388f34722baf63224ee03f677055dd6d9",
       "querySha256": "9815a337cbc6456eea44774b6ae7e5d879ac80e4613eb1631818dfd0ea2ace1f"
+    },
+    {
+      "kind": "mapping",
+      "id": "sale-availability-persist-input-to-persist-graphson",
+      "version": "1.0.0",
+      "current": true,
+      "status": "ENABLED",
+      "from": "sale-availability-persist-input",
+      "to": "persist-graphson",
+      "path": "mappings/sale-availability-persist-input-to-persist-graphson/1.0.0/manifest.json",
+      "sha256": "c4823e8287db5f8042ff8a84fb29ca1d91791c965bcbcbddd88614fe0364a6dc"
     }
   ]
 }

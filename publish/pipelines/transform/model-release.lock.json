@@ -196,6 +196,170 @@
       ]
     },
     {
+      "name": "sale-availability-persist-input",
+      "version": "1.0.0",
+      "sha256": "68be36ad9cf0be54b65401199065a04f3ecbf84dbdbd4a5e08212d690975586f",
+      "pin": "embedded",
+      "datasets": [
+        {
+          "dataset": "listing_observations",
+          "modelClass": "listing_observation",
+          "deviations": [
+            {
+              "kind": "CONSTRAINT_ONLY_IN_TRANSFORM",
+              "path": "model_version/const",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares const on listing_observation.model_version; the release dropped the keyword. Transform keeps the stricter canonical constraint.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "source_listing_identifier",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares listing_observation.source_listing_identifier nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "source_url",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares listing_observation.source_url nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "source_as_of",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares listing_observation.source_as_of nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "source_status",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares listing_observation.source_status nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "asking_price_amount_minor",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares listing_observation.asking_price_amount_minor nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "asking_price_currency",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares listing_observation.asking_price_currency nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "CONSTRAINT_ONLY_IN_TRANSFORM",
+              "path": "asking_price_currency/maxLength",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares maxLength on listing_observation.asking_price_currency; the release dropped the keyword. Transform keeps the stricter canonical constraint.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "RELATIONSHIPS_NOT_IN_RELEASE",
+              "path": "relationships",
+              "cause": "RELEASE_LOSS",
+              "reason": "The root lexicon Sale Availability data group declares listing_observation_has_address, listing_observation_has_file, listing_observation_has_property; the release has no edges for listing_observation because the composition builder drops data_groups. Transform keeps the relationship references as a column until the release ships these edges.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "REQUIRED_COLUMNS_NOT_IN_RELEASE",
+              "path": "required",
+              "cause": "TRANSFORM_CONTRACT",
+              "reason": "Transform tabular contract: every declared column must be present and nullability is expressed by type. The model-persist-lexicon/v1 profile emits required: [] for every vertex."
+            },
+            {
+              "kind": "ALLOF_NOT_IN_RELEASE",
+              "path": "allOf",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares cross-field allOf constraints on listing_observation; composition contract 1.0 drops allOf. Transform keeps them as dataset assertions.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            }
+          ]
+        },
+        {
+          "dataset": "sale_availability_assessments",
+          "modelClass": "sale_availability_assessment",
+          "deviations": [
+            {
+              "kind": "CONSTRAINT_ONLY_IN_TRANSFORM",
+              "path": "model_version/const",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares const on sale_availability_assessment.model_version; the release dropped the keyword. Transform keeps the stricter canonical constraint.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "is_for_sale",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares sale_availability_assessment.is_for_sale nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "list_price_amount_minor",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares sale_availability_assessment.list_price_amount_minor nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "NULLABLE_ONLY_IN_TRANSFORM",
+              "path": "list_price_currency",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares sale_availability_assessment.list_price_currency nullable; the release compiled it non-nullable because composition contract 1.0 drops nullability. Transform keeps the canonical nullability so absent or rejected values stay valid.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "CONSTRAINT_ONLY_IN_TRANSFORM",
+              "path": "list_price_currency/maxLength",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares maxLength on sale_availability_assessment.list_price_currency; the release dropped the keyword. Transform keeps the stricter canonical constraint.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "CONSTRAINT_ONLY_IN_TRANSFORM",
+              "path": "reason_codes/uniqueItems",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares uniqueItems on sale_availability_assessment.reason_codes; the release dropped the keyword. Transform keeps the stricter canonical constraint.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "RELATIONSHIPS_NOT_IN_RELEASE",
+              "path": "relationships",
+              "cause": "RELEASE_LOSS",
+              "reason": "The root lexicon Sale Availability data group declares sale_availability_assessment_has_address, sale_availability_assessment_has_listing_observation, sale_availability_assessment_has_property; the release has no edges for sale_availability_assessment because the composition builder drops data_groups. Transform keeps the relationship references as a column until the release ships these edges.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            },
+            {
+              "kind": "REQUIRED_COLUMNS_NOT_IN_RELEASE",
+              "path": "required",
+              "cause": "TRANSFORM_CONTRACT",
+              "reason": "Transform tabular contract: every declared column must be present and nullability is expressed by type. The model-persist-lexicon/v1 profile emits required: [] for every vertex."
+            },
+            {
+              "kind": "ALLOF_NOT_IN_RELEASE",
+              "path": "allOf",
+              "cause": "RELEASE_LOSS",
+              "reason": "src/data/lexicon.json declares cross-field allOf constraints on sale_availability_assessment; composition contract 1.0 drops allOf. Transform keeps them as dataset assertions.",
+              "handoff": "Model composition builder (composition contract 1.0, elephant-xyz/lexicon#185 / Dialga): carry nullability, keyword constraints, allOf and data_groups edges into the release."
+            }
+          ]
+        }
+      ],
+      "unmodelledDatasets": [
+        {
+          "dataset": "request_address",
+          "reason": "System request envelope (cache-normalized canonical address, optional structured fields, independent property reference). The mapping derives the release address class from it; it is not itself a release class projection."
+        }
+      ]
+    },
+    {
       "name": "sale-availability-result",
       "version": "1.0.0",
       "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957",
@@ -555,6 +719,11 @@
     {
       "name": "warehouse",
       "reason": "Demonstration warehouse fixture (accounts); no release class.",
+      "releaseNameCollisions": []
+    },
+    {
+      "name": "persist-graphson",
+      "reason": "Persist GraphSON v3 wire format (canonical graph text plus address status). Its vertex and edge contents are validated by Persist /persist/validate against the effective lexicon, not projected from one release class.",
       "releaseNameCollisions": []
     }
   ]

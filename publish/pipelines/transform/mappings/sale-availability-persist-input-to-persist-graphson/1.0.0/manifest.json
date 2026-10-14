@@ -1,0 +1,82 @@
+{
+  "contractVersion": 2,
+  "id": "sale-availability-persist-input-to-persist-graphson",
+  "version": "1.0.0",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "sale-availability-persist-input",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "persist-graphson",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "listing_observations",
+      "view": "source_listing_observations",
+      "required": true,
+      "format": "parquet"
+    },
+    {
+      "table": "sale_availability_assessments",
+      "view": "source_sale_availability_assessments",
+      "required": true,
+      "format": "parquet"
+    },
+    {
+      "table": "request_address",
+      "view": "source_request_address",
+      "required": true,
+      "format": "jsonl"
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "parquet",
+    "delivery": {
+      "mode": "inline",
+      "dataset": "persist_graph",
+      "cardinality": "exactly-one",
+      "maxBytes": 65536,
+      "requireVersionId": true
+    }
+  },
+  "outputs": [
+    {
+      "dataset": "persist_graph",
+      "dependsOn": [],
+      "queryPath": "queries/persist_graph.sql",
+      "querySha256": "65105dd5d9570b3359409b1dfc8e143bda0cfa6b952b1dbcbcc92c59373be16d",
+      "invariantEvidence": [
+        {
+          "invariant": "graph_matches_reference_builder",
+          "querySha256s": [
+            "65105dd5d9570b3359409b1dfc8e143bda0cfa6b952b1dbcbcc92c59373be16d"
+          ],
+          "tests": [
+            {
+              "path": "tests/persist-graphson-golden-cases.json",
+              "sha256": "07e62f67f9a800f98561106a25efa6f162b891fbed761c9e3f1f8c1ff6f9d49f",
+              "description": "Pins byte-identical canonical graphs against build_graphson.py (observations in observation_identifier order) for sanitized FOR_SALE, CONFLICT and UNKNOWN runs, including a shared evidence file, and all 15 System address vectors in original and cache-normalized upper case."
+            }
+          ]
+        },
+        {
+          "invariant": "no_assessment_without_address",
+          "querySha256s": [
+            "65105dd5d9570b3359409b1dfc8e143bda0cfa6b952b1dbcbcc92c59373be16d"
+          ],
+          "tests": [
+            {
+              "path": "tests/persist-graphson-golden-cases.json",
+              "sha256": "07e62f67f9a800f98561106a25efa6f162b891fbed761c9e3f1f8c1ff6f9d49f",
+              "description": "Pins UNPARSEABLE with a null graph for the production canary text and an address without a house number, and fail-closed errors for a set property reference, two request_address rows and a dangling observation reference."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -361,8 +361,29 @@ export function evaluate(repoRoot = process.cwd()) {
       errors.push(`${identity} pin must be embedded or sidecar`);
     }
     const boundDatasets = new Set(binding.datasets.map(item => item.dataset));
+    const unmodelled = new Map(
+      (binding.unmodelledDatasets ?? []).map(item => [item.dataset, item])
+    );
+    for (const [name, item] of unmodelled) {
+      if (!language.datasets.some(dataset => dataset.type === name)) {
+        errors.push(`${identity}:${name} is listed as unmodelled but is not a dataset`);
+      }
+      if (boundDatasets.has(name)) {
+        errors.push(`${identity}:${name} is both bound and unmodelled`);
+      }
+      if (!item.reason?.trim()) {
+        errors.push(`${identity}:${name} unmodelled dataset needs a reason`);
+      }
+      for (const candidate of [name, name.replace(/s$/u, '')]) {
+        if (vertices.has(candidate)) {
+          errors.push(
+            `${identity}:${name} collides with release class ${candidate} and must be bound`
+          );
+        }
+      }
+    }
     for (const dataset of language.datasets) {
-      if (!boundDatasets.has(dataset.type)) {
+      if (!boundDatasets.has(dataset.type) && !unmodelled.has(dataset.type)) {
         errors.push(`${identity}:${dataset.type} has no Model class binding`);
       }
     }
