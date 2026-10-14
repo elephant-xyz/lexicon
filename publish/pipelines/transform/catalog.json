@@ -85,11 +85,21 @@
       "kind": "language",
       "name": "sale-availability-result",
       "version": "1.0.0",
-      "current": true,
+      "current": false,
       "status": "ENABLED",
       "shape": "tabular",
       "path": "languages/sale-availability-result/1.0.0/sale-availability-result.json",
       "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957"
+    },
+    {
+      "kind": "language",
+      "name": "sale-availability-result",
+      "version": "1.1.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-result/1.1.0/sale-availability-result.json",
+      "sha256": "f42385f9c0f860386307420038ef84c13d0875e5fcc6a8492cda0075ba68b033"
     },
     {
       "kind": "language",
@@ -187,12 +197,23 @@
       "kind": "mapping",
       "id": "connect-http-acquisition-bundle-to-sale-availability-result",
       "version": "1.0.2",
-      "current": true,
+      "current": false,
       "status": "ENABLED",
       "from": "connect-http-acquisition-bundle",
       "to": "sale-availability-result",
       "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.2/manifest.json",
       "sha256": "f711cb3c0853a681f682408ce12967e2c03c92dcc5bf849edd1e8dc5d2a32c11"
+    },
+    {
+      "kind": "mapping",
+      "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+      "version": "1.0.3",
+      "current": true,
+      "status": "ENABLED",
+      "from": "connect-http-acquisition-bundle",
+      "to": "sale-availability-result",
+      "path": "mappings/connect-http-acquisition-bundle-to-sale-availability-result/1.0.3/manifest.json",
+      "sha256": "a08249ef32bb94f0fd3c390e8f43cf910837e1fc4238d76ef2ae2c56fc862c8b"
     },
     {
       "kind": "mapping",
