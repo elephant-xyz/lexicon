@@ -23326,6 +23326,571 @@
           "optional": true
         }
       }
+    },
+    {
+      "type": "source_system",
+      "container_name": "source_systems",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "An external system that originates communication data, such as a meeting platform, a chat platform, a document store or a media store. Identifies where source records were retrieved from without describing how they were retrieved.",
+      "properties": {
+        "source_system_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable, provider-independent identifier of the source system, for example 'google_meet' or 'google_chat'. Used as the identity of the source system across runs and environments.",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Human-readable name of the source system."
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Organization or vendor that operates the source system, for example 'google'.",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "system_kind": {
+          "type": "string",
+          "enum": [
+            "MEETING_PLATFORM",
+            "CHAT_PLATFORM",
+            "DOCUMENT_STORE",
+            "MEDIA_STORE",
+            "OTHER"
+          ],
+          "comment": "Category of communication data the source system primarily exposes."
+        }
+      },
+      "required": [
+        "source_system_identifier",
+        "name",
+        "provider",
+        "system_kind"
+      ],
+      "example": {
+        "source_system_identifier": "google_meet",
+        "name": "Google Meet",
+        "provider": "google",
+        "system_kind": "MEETING_PLATFORM"
+      },
+      "relationships": {}
+    },
+    {
+      "type": "source_record",
+      "container_name": "source_records",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "An immutable raw artifact retrieved from a source system, such as one page of transcript entries, one chat message, one generated transcript document or one media reference. Preserves the provider identity, revision, finalization state, checksum and retrieval metadata so that every derived communication fact can be traced back to unchanged source evidence.",
+      "properties": {
+        "source_record_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Identifier assigned by the source system to this record, for example the Google resource name. Combined with source_revision it identifies one immutable landed artifact."
+        },
+        "source_revision": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Revision, version or etag of the record as exposed by the source system. Null when the source does not expose revisions.",
+          "optional": true
+        },
+        "record_kind": {
+          "type": "string",
+          "enum": [
+            "TRANSCRIPT_ENTRY",
+            "CHAT_MESSAGE",
+            "TRANSCRIPT_DOCUMENT",
+            "MEDIA_REFERENCE",
+            "SESSION_METADATA"
+          ],
+          "comment": "Kind of raw artifact the record holds."
+        },
+        "finalization_status": {
+          "type": "string",
+          "enum": [
+            "PENDING",
+            "FINAL",
+            "EDITED",
+            "DELETED"
+          ],
+          "comment": "Finalization state of the record as exposed by the source: PENDING while the source may still change it, FINAL once the source marks it complete, EDITED when the source reports a later edit, DELETED when the source reports removal. Deletions are preserved as records, not removed."
+        },
+        "content_checksum": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "SHA-256 digest of the landed raw payload bytes, used to prove the artifact is unchanged.",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "retrieved_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the record was retrieved from the source system."
+        },
+        "source_created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the source system reports the record was created.",
+          "optional": true
+        },
+        "source_updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the source system reports the record was last updated.",
+          "optional": true
+        },
+        "page_cursor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Pagination cursor or page token under which this record was retrieved, preserved for incremental retrieval and replay.",
+          "optional": true
+        },
+        "artifact_uri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "URI of the landed raw artifact in the evidence store.",
+          "optional": true,
+          "format": "uri"
+        },
+        "authorization_reference": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Opaque reference to the authorization or permission scope that allowed retrieval of this record. Never contains credentials.",
+          "optional": true
+        }
+      },
+      "required": [
+        "source_record_identifier",
+        "record_kind",
+        "finalization_status",
+        "content_checksum",
+        "retrieved_at"
+      ],
+      "example": {
+        "source_record_identifier": "conferenceRecords/abc-123/transcripts/tr-1/entries/e-42",
+        "source_revision": "3",
+        "record_kind": "TRANSCRIPT_ENTRY",
+        "finalization_status": "FINAL",
+        "content_checksum": "sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+        "retrieved_at": "2026-10-14T15:04:05Z",
+        "source_created_at": "2026-10-14T14:00:00Z",
+        "source_updated_at": "2026-10-14T14:30:00Z",
+        "page_cursor": "CiAKGjBpNDd2Nmp2Zml2cXRwYjBpOXA",
+        "artifact_uri": "s3://evidence/google-meet/abc-123/e-42.json",
+        "authorization_reference": "workspace-domain-wide-delegation"
+      },
+      "relationships": {}
+    },
+    {
+      "type": "communication_session",
+      "container_name": "communication_sessions",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "A bounded communication exchange between participants, such as one meeting or one chat conversation. The session is the canonical anchor for transcripts, participation and source evidence. The approved session kinds are MEETING and CHAT.",
+      "properties": {
+        "session_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable canonical identifier of the session, derived deterministically from the source system and the source conversation identifier so that replays resolve to the same session."
+        },
+        "session_kind": {
+          "type": "string",
+          "enum": [
+            "MEETING",
+            "CHAT"
+          ],
+          "comment": "Approved kind of communication session. MEETING is a scheduled or ad hoc synchronous conference; CHAT is an asynchronous message conversation such as a space or thread."
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Title or subject of the session as exposed by the source system.",
+          "optional": true
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the session started, when exposed by the source.",
+          "optional": true
+        },
+        "ended_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the session ended, when exposed by the source. Null for an open chat conversation.",
+          "optional": true
+        },
+        "media_uri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "URI of the authorized recording or media associated with the session, when the source provides one.",
+          "optional": true,
+          "format": "uri"
+        }
+      },
+      "required": [
+        "session_identifier",
+        "session_kind"
+      ],
+      "example": {
+        "session_identifier": "google_meet:conferenceRecords/abc-123",
+        "session_kind": "MEETING",
+        "title": "Weekly product sync",
+        "started_at": "2026-10-14T14:00:00Z",
+        "ended_at": "2026-10-14T14:45:00Z",
+        "media_uri": "https://drive.google.com/file/d/1AbC/view"
+      },
+      "relationships": {}
+    },
+    {
+      "type": "transcript",
+      "container_name": "transcripts",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "One revision of the textual record of a communication session, composed of ordered utterances. A session may have several transcript revisions over time; a newer revision supersedes an older one through the transcript_supersedes_transcript relationship and the older revision is retained as evidence.",
+      "properties": {
+        "transcript_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable canonical identifier of this transcript revision, derived from the session identifier and the source transcript identity plus revision."
+        },
+        "transcript_revision": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Revision label of this transcript as exposed by or derived from the source, for example a source revision number or a content-derived revision."
+        },
+        "language_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "BCP 47 language tag of the transcript text, for example 'en-US'.",
+          "optional": true,
+          "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+        },
+        "generation_method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "PROVIDER_AUTOMATIC",
+            "PROVIDER_DOCUMENT",
+            "MESSAGE_SEQUENCE",
+            "MANUAL",
+            null
+          ],
+          "comment": "How the transcript text was produced: PROVIDER_AUTOMATIC from the source's speech recognition, PROVIDER_DOCUMENT from a generated transcript document, MESSAGE_SEQUENCE from ordered chat messages, MANUAL from human transcription.",
+          "optional": true
+        },
+        "generated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the transcript revision was generated by the source.",
+          "optional": true
+        },
+        "is_final": {
+          "type": "boolean",
+          "comment": "True when the source reports this transcript revision as complete and no longer changing."
+        },
+        "content_checksum": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "SHA-256 digest of the canonical ordered utterance text of this revision, used for idempotent replay and change detection.",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "transcript_identifier",
+        "transcript_revision",
+        "is_final",
+        "content_checksum"
+      ],
+      "example": {
+        "transcript_identifier": "google_meet:conferenceRecords/abc-123/transcripts/tr-1:r3",
+        "transcript_revision": "3",
+        "language_code": "en-US",
+        "generation_method": "PROVIDER_AUTOMATIC",
+        "generated_at": "2026-10-14T14:50:00Z",
+        "is_final": true,
+        "content_checksum": "sha256:2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
+      },
+      "relationships": {}
+    },
+    {
+      "type": "utterance",
+      "container_name": "utterances",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "One ordered speaker turn or message inside a transcript revision: who said what, in which order and when. The utterance is the smallest unit of evidence that search results, extracted knowledge and assistant answers cite.",
+      "properties": {
+        "utterance_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable canonical identifier of the utterance, derived from the transcript identifier and the sequence number."
+        },
+        "sequence_number": {
+          "type": "integer",
+          "minimum": 0,
+          "comment": "Zero-based position of the utterance in the ordered transcript revision."
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Verbatim text of the utterance as provided by the source."
+        },
+        "started_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Absolute timestamp at which the utterance started, when exposed by the source.",
+          "optional": true
+        },
+        "ended_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Absolute timestamp at which the utterance ended, when exposed by the source.",
+          "optional": true
+        },
+        "start_offset_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "comment": "Offset in milliseconds from the start of the associated media at which the utterance starts, used to seek the recording. Null when no media timing is available.",
+          "optional": true
+        },
+        "end_offset_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "comment": "Offset in milliseconds from the start of the associated media at which the utterance ends. Null when no media timing is available.",
+          "optional": true
+        },
+        "language_code": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "BCP 47 language tag of this utterance when it differs from the transcript language.",
+          "optional": true,
+          "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+        },
+        "recognition_confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "comment": "Confidence reported by the source speech recognition for this utterance text, between 0 and 1. Null when the source reports none.",
+          "optional": true
+        }
+      },
+      "required": [
+        "utterance_identifier",
+        "sequence_number",
+        "text"
+      ],
+      "example": {
+        "utterance_identifier": "google_meet:conferenceRecords/abc-123/transcripts/tr-1:r3#42",
+        "sequence_number": 42,
+        "text": "We decided to keep the original transcript as evidence and never overwrite it.",
+        "started_at": "2026-10-14T14:12:03Z",
+        "ended_at": "2026-10-14T14:12:09Z",
+        "start_offset_ms": 723000,
+        "end_offset_ms": 729000,
+        "language_code": null,
+        "recognition_confidence": 0.93
+      },
+      "relationships": {}
+    },
+    {
+      "type": "source_speaker",
+      "container_name": "source_speakers",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "A speaker exactly as the source system identifies them inside a transcript, for example a named Google participant or an anonymous 'Speaker 2'. Kept separate from person so that attribution of utterances is always evidence-backed and the link to a person can carry its own confidence.",
+      "properties": {
+        "source_speaker_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Identifier of the speaker as assigned by the source system within the session, scoped by the transcript."
+        },
+        "display_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Display name of the speaker as exposed by the source system.",
+          "optional": true
+        },
+        "speaker_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Anonymous label assigned by the source when no identity is exposed, for example 'Speaker 2'.",
+          "optional": true
+        },
+        "source_email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Email address of the speaker as exposed by the source system, when authorized and available.",
+          "optional": true,
+          "format": "email"
+        },
+        "person_resolution_method": {
+          "type": "string",
+          "enum": [
+            "EXPLICIT",
+            "INFERRED",
+            "UNRESOLVED"
+          ],
+          "comment": "How the speaker was linked to a person: EXPLICIT when the source exposes the identity, INFERRED when attribution was derived and carries a confidence, UNRESOLVED when no person link exists."
+        },
+        "person_resolution_confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "comment": "Confidence of the link from this speaker to a person, between 0 and 1. Null when the resolution is EXPLICIT or UNRESOLVED.",
+          "optional": true
+        }
+      },
+      "required": [
+        "source_speaker_identifier",
+        "person_resolution_method"
+      ],
+      "example": {
+        "source_speaker_identifier": "google_meet:conferenceRecords/abc-123/participants/p-7",
+        "display_name": "Alex Rivera",
+        "speaker_label": null,
+        "source_email": "alex.rivera@example.com",
+        "person_resolution_method": "EXPLICIT",
+        "person_resolution_confidence": null
+      },
+      "relationships": {}
+    },
+    {
+      "type": "participation",
+      "container_name": "participations",
+      "is_deprecated": false,
+      "deprecated_properties": {},
+      "description": "The fact that a person took part in a communication session, with their role and attendance interval. Participation is distinct from speaking: a participant may never speak, and a source speaker may not resolve to a participant.",
+      "properties": {
+        "participation_identifier": {
+          "type": "string",
+          "minLength": 1,
+          "comment": "Stable canonical identifier of the participation, derived from the session identifier and the participant identity exposed by the source."
+        },
+        "role": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "ORGANIZER",
+            "HOST",
+            "PARTICIPANT",
+            "GUEST",
+            "OBSERVER",
+            null
+          ],
+          "comment": "Role of the participant in the session as exposed by or derived from the source.",
+          "optional": true
+        },
+        "joined_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the participant joined the session, when exposed by the source.",
+          "optional": true
+        },
+        "left_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "comment": "Timestamp at which the participant left the session, when exposed by the source.",
+          "optional": true
+        },
+        "participation_evidence": {
+          "type": "string",
+          "enum": [
+            "EXPLICIT",
+            "INFERRED"
+          ],
+          "comment": "EXPLICIT when the source lists the participant, INFERRED when participation was derived, for example from authored messages."
+        }
+      },
+      "required": [
+        "participation_identifier",
+        "participation_evidence"
+      ],
+      "example": {
+        "participation_identifier": "google_meet:conferenceRecords/abc-123/participants/p-7",
+        "role": "PARTICIPANT",
+        "joined_at": "2026-10-14T14:01:10Z",
+        "left_at": "2026-10-14T14:45:00Z",
+        "participation_evidence": "EXPLICIT"
+      },
+      "relationships": {}
     }
   ],
   "tags": [
@@ -24532,6 +25097,115 @@
       "one_to_many_relationships": [
         "listing_observation_has_file",
         "sale_availability_assessment_has_listing_observation"
+      ]
+    },
+    {
+      "label": "Communication",
+      "relationships": [
+        {
+          "type": "relationship",
+          "from": "source_system",
+          "to": "source_record",
+          "relationship_type": "source_system_has_source_record"
+        },
+        {
+          "type": "relationship",
+          "from": "source_record",
+          "to": "source_record",
+          "relationship_type": "source_record_supersedes_source_record"
+        },
+        {
+          "type": "relationship",
+          "from": "communication_session",
+          "to": "source_system",
+          "relationship_type": "communication_session_has_source_system"
+        },
+        {
+          "type": "relationship",
+          "from": "communication_session",
+          "to": "source_record",
+          "relationship_type": "communication_session_has_source_record"
+        },
+        {
+          "type": "relationship",
+          "from": "communication_session",
+          "to": "transcript",
+          "relationship_type": "communication_session_has_transcript"
+        },
+        {
+          "type": "relationship",
+          "from": "communication_session",
+          "to": "participation",
+          "relationship_type": "communication_session_has_participation"
+        },
+        {
+          "type": "relationship",
+          "from": "transcript",
+          "to": "source_record",
+          "relationship_type": "transcript_has_source_record"
+        },
+        {
+          "type": "relationship",
+          "from": "transcript",
+          "to": "transcript",
+          "relationship_type": "transcript_supersedes_transcript"
+        },
+        {
+          "type": "relationship",
+          "from": "transcript",
+          "to": "utterance",
+          "relationship_type": "transcript_has_utterance"
+        },
+        {
+          "type": "relationship",
+          "from": "transcript",
+          "to": "source_speaker",
+          "relationship_type": "transcript_has_source_speaker"
+        },
+        {
+          "type": "relationship",
+          "from": "utterance",
+          "to": "source_speaker",
+          "relationship_type": "utterance_has_source_speaker"
+        },
+        {
+          "type": "relationship",
+          "from": "utterance",
+          "to": "source_record",
+          "relationship_type": "utterance_has_source_record"
+        },
+        {
+          "type": "relationship",
+          "from": "source_speaker",
+          "to": "person",
+          "relationship_type": "source_speaker_has_person"
+        },
+        {
+          "type": "relationship",
+          "from": "participation",
+          "to": "person",
+          "relationship_type": "participation_has_person"
+        },
+        {
+          "type": "relationship",
+          "from": "participation",
+          "to": "company",
+          "relationship_type": "participation_has_company"
+        }
+      ],
+      "required": [
+        "communication_session_has_source_system",
+        "communication_session_has_source_record"
+      ],
+      "one_to_many_relationships": [
+        "source_system_has_source_record",
+        "communication_session_has_source_record",
+        "communication_session_has_transcript",
+        "communication_session_has_participation",
+        "transcript_has_source_record",
+        "transcript_has_utterance",
+        "transcript_has_source_speaker",
+        "utterance_has_source_record"
       ]
     }
   ],
