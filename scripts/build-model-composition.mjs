@@ -1,3 +1,5 @@
+/* global console, process */
+
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -183,7 +185,7 @@ function loadChoices() {
   let document;
   try {
     document = JSON.parse(readFileSync(choicesPath, 'utf8'));
-  } catch (error) {
+  } catch {
     fail(`duplicate choices file is missing or invalid: ${choicesPath}`);
   }
   for (const type of ['product_api', 'product_configuration', 'ticket']) {
