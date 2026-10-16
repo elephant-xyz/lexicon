@@ -126,6 +126,66 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
+## Model release source of truth
+
+Transform languages that project Lexicon classes are derived from, pinned to,
+and validated against one published Model release, recorded in
+`transform/model-release.lock.json`:
+
+- release `rel-0b272a683e5755ec` (release digest
+  `sha256:b7dffe252afbad142707edc2dec05c2d37d4db9421cd39cfba5ea9f446f779ba`,
+  SSM `/lexicon/release-uri` version 1), built from this repository at
+  `dbf2b2d` on shared base `model-shared-base-v1.5.0`;
+- artifact `compiled/persist-lexicon.json` (profile `model-persist-lexicon/v1`,
+  `sha256:e9fa4f2f014ccb8df942d5c3f5835a5b51e5de82ff038467119542f2e8580b78`),
+  vendored byte-for-byte with `release.json` under
+  `publish/model-releases/elephant/lexicon/rel-0b272a683e5755ec/`.
+
+Transform's catalog, language, and mapping parsers are strict, so a structured
+`sourceOfTruth` field would be rejected rather than ignored. The lock is the
+structured pin and travels inside every published catalog bundle. A language
+version that embeds the pin also names the release, release digest, and
+artifact digest in its `description`, so its own digest binds it to the
+release. Each lock binding pins a catalog language version by SHA-256 and maps
+every dataset to a release class.
+
+`npm run check:model-release` (also a Vitest test and a CI step) verifies the
+vendored digests against `release.json`, then compares every bound dataset
+with its release class: property names, base types, enums, formats, patterns,
+and bounds. It fails on unknown or missing properties, type or enum drift, and
+any constraint weaker than the release. Differences where Transform is stricter
+or carries data the release lost must be listed in the lock with a reason; the
+gate fails on undocumented and stale entries. Each entry is classified
+automatically:
+
+- `RELEASE_LOSS`: `src/data/lexicon.json` still declares what the release
+  dropped. Composition contract 1.0 drops nullability (6 `listing_observation`
+  and 3 `sale_availability_assessment` columns), `const`, `maxLength`,
+  `uniqueItems`, and `allOf`, and the composition builder drops `data_groups`,
+  so the release has no Sale Availability edges. Transform keeps the canonical
+  contract and carries relationship references as a column. Nullability the
+  root lexicon does not declare is a violation, not a deviation.
+- `TRANSFORM_CONTRACT`: Transform's tabular contract requires every column
+  key; the compiled profile emits `required: []` for every vertex.
+
+Before publishing a catalog, run `npm run check:model-release -- --verify-s3`
+with the operator's AWS profile; it re-reads the pinned S3 object versions and
+fails if their digests changed. Every catalog language must be bound,
+superseded (non-current only), or out of scope. `connect-http-acquisition-bundle`,
+`county-raw`, `county-curated`, `crm`, and `warehouse` correspond to no release
+class; the county `parcels` datasets only collide with the release `parcel`
+name, which the lock records.
+
+`sale-availability-result@1.1.0` embeds the pin and is otherwise identical to
+`1.0.0`. Mapping
+`connect-http-acquisition-bundle-to-sale-availability-result@1.0.3` targets it
+and is byte-identical to `1.0.2` except for its version and target language
+version. `sale-availability-evidence@1.0.0`, `sale-availability-assessment@1.1.0`,
+and the production `sale-availability-result@1.0.0` are validated through
+sidecar bindings without changing their immutable bytes. Re-pinning to a newer
+release means vendoring it, updating the lock, and publishing any changed
+language as a new version.
+
 ## Local resolution
 
 Set `ELEPHANT_LEXICON_ROOT` to this repo checkout, or place `lexicon` as a sibling

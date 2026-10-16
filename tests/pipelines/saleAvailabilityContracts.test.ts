@@ -114,7 +114,7 @@ const result = readJson<PipelineLanguage>(
     transformRoot,
     'languages',
     'sale-availability-result',
-    '1.0.0',
+    '1.1.0',
     'sale-availability-result.json'
   )
 );
@@ -248,7 +248,7 @@ describe('sale availability pipeline contracts', () => {
     expect(result).toMatchObject({
       contractVersion: 2,
       name: 'sale-availability-result',
-      version: '1.0.0',
+      version: '1.1.0',
       shape: 'tabular',
     });
     expect(result.datasets).toEqual([
@@ -469,7 +469,7 @@ describe('sale availability pipeline contracts', () => {
   it('publishes one Firecrawl mapping with ordered dependent Parquet outputs', () => {
     const bundle = mapping(resultMappingId);
     expect(bundle.catalogEntry).toMatchObject({
-      version: '1.0.2',
+      version: '1.0.3',
       status: 'ENABLED',
       from: 'connect-http-acquisition-bundle',
       to: 'sale-availability-result',
@@ -478,10 +478,10 @@ describe('sale availability pipeline contracts', () => {
     expect(bundle.manifest).toMatchObject({
       contractVersion: 2,
       id: resultMappingId,
-      version: '1.0.2',
+      version: '1.0.3',
       status: 'ENABLED',
       from: { name: 'connect-http-acquisition-bundle', version: '1.0.0' },
-      to: { name: 'sale-availability-result', version: '1.0.0' },
+      to: { name: 'sale-availability-result', version: '1.1.0' },
       inputs: [
         { table: 'acquisition_records', format: 'jsonl' },
         { table: 'raw_documents', format: 'jsonl' },
