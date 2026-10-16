@@ -1,4 +1,32 @@
 {
-  "embeddings": {},
-  "derivedIndexes": {}
+  "embeddings": {
+    "document_paragraph": {
+      "paragraph_text": {
+        "source_property": "document_text",
+        "content": "text",
+        "version": "1",
+        "chunking": {
+          "strategy": "whole"
+        }
+      }
+    }
+  },
+  "derivedIndexes": {
+    "renovation": {
+      "renovation_year_latest": {
+        "type": "integer",
+        "comment": "smoke-test derived index (persist index checkpoint bootstrap); not a Model field",
+        "change_trigger": {
+          "type": "vertex",
+          "label": "renovation"
+        },
+        "subject_query": {
+          "gremlin": "g.V(__ID__).id()"
+        },
+        "value_query": {
+          "gremlin": "g.V(__ID__).values('renovation_year').limit(1)"
+        }
+      }
+    }
+  }
 }

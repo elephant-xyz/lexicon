@@ -1,6 +1,6 @@
-/* global console, process, structuredClone */
+/* global Buffer, console, process, structuredClone */
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -8,6 +8,12 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lexiconPath = path.join(root, 'src/data/lexicon.json');
 const choicesPath = path.join(root, 'src/data/model/duplicate-choices.json');
 const runtimePath = path.join(root, 'src/data/model/persist-runtime.json');
+const compatibilityDirectory = path.join(root, 'src/data/model/compatibility');
+const baselinePath = path.join(compatibilityDirectory, 'persist-elephant-07e2289b.json');
+const compatibilityReportPath = path.join(
+  compatibilityDirectory,
+  'contract-1.1-compatibility-report.json'
+);
 const compositionPath = path.join(root, 'src/data/model/elephant-lexicon.composition.json');
 const omissionsPath = path.join(root, 'src/data/model/omissions.json');
 
@@ -15,7 +21,18 @@ export const SOURCE_DIGEST =
   'sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c';
 export const SOURCE_REVISION = 'dbf2b2dea8f332aff28b3444ceffd44f9e17364d';
 export const CONTRACT_VERSION = '1.1';
-const BASE_LABELS = new Set(['person', 'company', 'address']);
+export const ACTIVE_EXTENSION_DIGEST =
+  'sha256:07e2289b6eab0d55eefc229b4b34375ba8be941905e63c39d1943fb1c66882a5';
+export const BASE_RELEASE_ID = 'model-shared-base-v2.0.0';
+export const BASE_RELEASE_DIGEST =
+  'sha256:7ac6a25e5ca41c3f234a34d67cec0d6ade257cd5a9a12b79d6492c0739058ad6';
+export const COMPILED_DIGEST =
+  'sha256:0f9a400f71675313652b484cb49f68f332f8b2a192bfcc0bf9349bfc3854bdf3';
+export const DEPENDENCY_LOCK_DIGEST =
+  'sha256:339ff4425cd5151f0995527aa6910c2204c031c36ba9319be1a72a90eee496be';
+export const GOVERNANCE_BASE_RELEASE_ID = 'rel-30b456730cd6ee29';
+export const DOCUMENT_ARTIFACT_ID = 'elephant-lexicon-contract-1-1-compatibility';
+const BASE_LABELS = new Set(['person', 'company', 'address', 'payment']);
 const MAX_DEFINITIONS = 2000;
 const IDENTIFIER = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 const CONSTRAINT_KEYWORDS = new Set([
@@ -48,7 +65,7 @@ export class CompositionBuildError extends Error {}
  * becomes one edge per target labelled `<from>__<name>__<target>`. Data-group relationships keep
  * their `relationship_type` as the label, which is the key Transform languages emit.
  */
-export function buildModelComposition({ lexicon, choices, runtime = {} }) {
+export function buildModelComposition({ lexicon, choices, runtime = {}, compatibilityBaseline }) {
   const omissions = {
     source: {
       repository: 'https://github.com/elephant-xyz/lexicon',
@@ -79,7 +96,7 @@ export function buildModelComposition({ lexicon, choices, runtime = {} }) {
         kind: 'baseLabelsNotRedeclared',
         labels: [...BASE_LABELS].sort(),
         reason:
-          'These labels belong to model-shared-base-v1.5.0. An extension cannot redeclare them, so Elephant fields on these classes stay only in lexicon.json.',
+          'These labels remain owned by the compatibility shared base. The extension cannot redeclare them, so ownership is unchanged from the installed Persist components.',
       },
       {
         kind: 'classRelationshipLabels',
@@ -144,6 +161,7 @@ export function buildModelComposition({ lexicon, choices, runtime = {} }) {
   emitted.sort((left, right) => left.definitionId.localeCompare(right.definitionId));
 
   const definitions = [...vertices, ...emitted.map(buildRelationship)];
+  const compatibility = applyCompatibilityBaseline(definitions, compatibilityBaseline, omissions);
   if (definitions.length > MAX_DEFINITIONS) {
     fail(`definition count ${definitions.length} exceeds ${MAX_DEFINITIONS}`);
   }
@@ -159,8 +177,8 @@ export function buildModelComposition({ lexicon, choices, runtime = {} }) {
           alias: 'base',
           accountId: 'model',
           vocabularyId: 'model-shared-base',
-          releaseId: 'model-shared-base-v1.5.0',
-          releaseDigest: 'sha256:83ab8d88a50867f1cceb01cc7499de871fec36df2e06ba3f76ef51dad25c1272',
+          releaseId: BASE_RELEASE_ID,
+          releaseDigest: BASE_RELEASE_DIGEST,
           namespace: 'https://schemas.prism.ai/base',
           packageKind: 'base',
         },
@@ -179,6 +197,43 @@ export function buildModelComposition({ lexicon, choices, runtime = {} }) {
     },
     definitions,
   };
+  const sourceBytes = Buffer.from(serialize(composition), 'utf8');
+  const sourceDigest = `sha256:${createHash('sha256').update(sourceBytes).digest('hex')}`;
+  const candidateInput = {
+    vocabularyId: 'lexicon',
+    baseReleaseId: GOVERNANCE_BASE_RELEASE_ID,
+    sourceDigest,
+    proposedRevisions: [],
+    artifacts: [
+      {
+        artifactId: DOCUMENT_ARTIFACT_ID,
+        fileName: 'elephant-lexicon.composition.json',
+        mediaType: 'application/json',
+        digest: sourceDigest,
+        byteLength: sourceBytes.byteLength,
+        governsExecutionOnly: false,
+      },
+    ],
+    composition: { documentArtifactId: DOCUMENT_ARTIFACT_ID },
+  };
+  const candidateDigest = `sha256:${createHash('sha256')
+    .update(canonicalJson(candidateInput))
+    .digest('hex')}`;
+  compatibility.model = {
+    governanceBaseReleaseId: GOVERNANCE_BASE_RELEASE_ID,
+    sourceDigest,
+    sourceByteLength: sourceBytes.byteLength,
+    candidateDigest,
+    plannedReleaseId: `rel-${candidateDigest.slice(7, 23)}`,
+    compiledDigest: COMPILED_DIGEST,
+    compiledByteLength: 468058,
+    dependencyLockDigest: DEPENDENCY_LOCK_DIGEST,
+    dependencyLockByteLength: 267,
+    compilerVersion: '2.2.0',
+    profileVersion: 'model-persist-lexicon/v2',
+    persistSchemaRevision: '2e1418890c18af9ccba3eb3b6bb27f575527c555',
+    request: candidateInput,
+  };
 
   omissions.counts = {
     vertices: vertices.length,
@@ -192,7 +247,7 @@ export function buildModelComposition({ lexicon, choices, runtime = {} }) {
     droppedConstraints: omissions.droppedConstraints.length,
     droppedProperties: omissions.droppedProperties.length,
   };
-  return { composition, omissions };
+  return { composition, omissions, compatibility };
 }
 
 function classRelationships(selected, knownTypes, omissions) {
@@ -455,6 +510,165 @@ function applyRuntime(vertices, runtime) {
       vertex.body[field] = { ...(vertex.body[field] ?? {}), ...structuredClone(declarations) };
     }
   }
+}
+
+function applyCompatibilityBaseline(definitions, baseline, omissions) {
+  if (!baseline || !Array.isArray(baseline.vertices) || !Array.isArray(baseline.edges)) {
+    fail('an exact installed Persist extension baseline is required');
+  }
+  const byId = new Map(definitions.map(definition => [definition.definitionId, definition]));
+
+  for (const vertex of baseline.vertices) {
+    const definition = byId.get(vertex.type);
+    if (definition?.body.kind !== 'vertex') {
+      fail(`installed vertex ${vertex.type} is missing or changes kind`);
+    }
+    definition.body.properties = structuredClone(vertex.properties);
+    definition.body.required = [...vertex.required];
+    definition.body.indexes = structuredClone(vertex.indexes ?? {});
+    replaceOptional(definition.body, 'embeddings', vertex.embeddings);
+    replaceOptional(definition.body, 'allOf', vertex.allOf);
+  }
+
+  for (const edge of baseline.edges) {
+    const definition = byId.get(edge.type);
+    if (definition?.body.kind !== 'relationship') {
+      fail(`installed relationship ${edge.type} is missing or changes kind`);
+    }
+    if (
+      definition.body.from.definitionId !== edge.from ||
+      definition.body.to.definitionId !== edge.to
+    ) {
+      fail(`installed relationship ${edge.type} changes endpoints from ${edge.from} -> ${edge.to}`);
+    }
+    definition.body.properties = structuredClone(edge.properties);
+    definition.body.required = [...edge.required];
+    replaceOptional(definition.body, 'indexes', edge.indexes);
+    replaceOptional(definition.body, 'embeddings', edge.embeddings);
+  }
+
+  const baselineVertices = new Set(baseline.vertices.map(vertex => vertex.type));
+  const baselineEdges = new Set(baseline.edges.map(edge => edge.type));
+  const candidateVertices = definitions
+    .filter(definition => definition.body.kind === 'vertex')
+    .map(definition => definition.definitionId);
+  const candidateEdges = definitions
+    .filter(definition => definition.body.kind === 'relationship')
+    .map(definition => definition.definitionId);
+  const removedVertices = [...baselineVertices].filter(label => !candidateVertices.includes(label));
+  const removedRelationships = [...baselineEdges].filter(label => !candidateEdges.includes(label));
+  const changedVertices = baseline.vertices
+    .filter(vertex => {
+      const definition = byId.get(vertex.type);
+      return canonicalJson(runtimeVertex(definition)) !== canonicalJson(vertex);
+    })
+    .map(vertex => vertex.type);
+  const changedRelationships = baseline.edges
+    .filter(edge => {
+      const definition = byId.get(edge.type);
+      return (
+        canonicalJson(runtimeRelationship(definition)) !== canonicalJson(stripEdgeComment(edge))
+      );
+    })
+    .map(edge => edge.type);
+
+  if (
+    removedVertices.length > 0 ||
+    removedRelationships.length > 0 ||
+    changedVertices.length > 0 ||
+    changedRelationships.length > 0
+  ) {
+    fail(
+      `compatibility baseline changed: ${JSON.stringify({
+        removedVertices,
+        removedRelationships,
+        changedVertices,
+        changedRelationships,
+      })}`
+    );
+  }
+
+  const report = {
+    contractVersion: 1,
+    classification: 'PERSIST_COMPONENT_STRICT_ADDITIVE_COMPATIBILITY',
+    baseline: {
+      component: 'elephant',
+      digest: ACTIVE_EXTENSION_DIGEST,
+      s3VersionId: 'hkP6TF3F_aSbGd72NZMrqcmelRkONB3y',
+      appliedAt: '2026-10-14T17:53:26.967Z',
+      vertices: baseline.vertices.length,
+      relationships: baseline.edges.length,
+    },
+    candidate: {
+      baseReleaseId: BASE_RELEASE_ID,
+      baseReleaseDigest: BASE_RELEASE_DIGEST,
+      vertices: candidateVertices.length,
+      relationships: candidateEdges.length,
+    },
+    delta: {
+      addedVertices: candidateVertices.filter(label => !baselineVertices.has(label)).sort(),
+      addedRelationships: candidateEdges.filter(label => !baselineEdges.has(label)).sort(),
+      removedVertices,
+      removedRelationships,
+      changedVertices,
+      changedRelationships,
+      ownershipChanges: [],
+      labelKindChanges: [],
+      restrictiveConstraintChanges: [],
+    },
+    preserved: {
+      indexes: ['renovation.renovation_year_latest'],
+      embeddings: ['document_paragraph.paragraph_text'],
+    },
+    verdict: 'ZERO_BREAKING_STRICT_ADDITIVE',
+  };
+  omissions.decisions.push({
+    kind: 'installedPersistCompatibility',
+    baselineDigest: ACTIVE_EXTENSION_DIGEST,
+    rule: 'Every installed vertex and relationship keeps its label, kind, endpoints, properties, required fields, indexes, embeddings and constraints; source-only changes apply only to new relationship labels.',
+  });
+  return report;
+}
+
+function replaceOptional(body, key, value) {
+  if (value === undefined) {
+    delete body[key];
+  } else {
+    body[key] = structuredClone(value);
+  }
+}
+
+function runtimeVertex(definition) {
+  const body = definition?.body;
+  if (body?.kind !== 'vertex') return null;
+  return {
+    type: definition.definitionId,
+    properties: body.properties,
+    required: body.required,
+    ...(Object.keys(body.indexes ?? {}).length === 0 ? {} : { indexes: body.indexes }),
+    ...(body.embeddings === undefined ? {} : { embeddings: body.embeddings }),
+    ...(body.allOf === undefined ? {} : { allOf: body.allOf }),
+  };
+}
+
+function runtimeRelationship(definition) {
+  const body = definition?.body;
+  if (body?.kind !== 'relationship') return null;
+  return {
+    type: definition.definitionId,
+    from: body.from.definitionId,
+    to: body.to.definitionId,
+    properties: body.properties,
+    required: body.required,
+    ...(body.indexes === undefined ? {} : { indexes: body.indexes }),
+    ...(body.embeddings === undefined ? {} : { embeddings: body.embeddings }),
+  };
+}
+
+function stripEdgeComment(edge) {
+  const runtime = { ...edge };
+  delete runtime.comment;
+  return runtime;
 }
 
 function mapProperty(classType, name, spec, requiredNames, omissions) {
@@ -739,6 +953,17 @@ function fail(message) {
 }
 
 export function readSources() {
+  if (process.env.PERSIST_EXTENSION_SOURCE) {
+    const sourceBytes = readFileSync(path.resolve(process.env.PERSIST_EXTENSION_SOURCE));
+    const digest = `sha256:${createHash('sha256').update(sourceBytes).digest('hex')}`;
+    if (digest !== ACTIVE_EXTENSION_DIGEST) {
+      throw new CompositionBuildError(
+        `installed Persist extension digest is ${digest}, expected ${ACTIVE_EXTENSION_DIGEST}`
+      );
+    }
+    mkdirSync(compatibilityDirectory, { recursive: true });
+    writeFileSync(baselinePath, sourceBytes);
+  }
   const lexiconBytes = readFileSync(lexiconPath);
   const digest = `sha256:${createHash('sha256').update(lexiconBytes).digest('hex')}`;
   if (digest !== SOURCE_DIGEST) {
@@ -750,10 +975,11 @@ export function readSources() {
     lexicon: JSON.parse(lexiconBytes.toString('utf8')),
     choices: JSON.parse(readFileSync(choicesPath, 'utf8')),
     runtime: JSON.parse(readFileSync(runtimePath, 'utf8')),
+    compatibilityBaseline: JSON.parse(readFileSync(baselinePath, 'utf8')),
   };
 }
 
-export const OUTPUT_PATHS = { compositionPath, omissionsPath };
+export const OUTPUT_PATHS = { compositionPath, omissionsPath, compatibilityReportPath };
 
 export function serialize(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
@@ -761,9 +987,10 @@ export function serialize(value) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    const { composition, omissions } = buildModelComposition(readSources());
+    const { composition, omissions, compatibility } = buildModelComposition(readSources());
     writeFileSync(compositionPath, serialize(composition));
     writeFileSync(omissionsPath, serialize(omissions));
+    writeFileSync(compatibilityReportPath, serialize(compatibility));
     console.log(
       `wrote ${omissions.counts.definitions} definitions (${omissions.counts.vertices} vertices, ${omissions.counts.classRelationships} class and ${omissions.counts.dataGroupRelationships} data-group relationships)`
     );

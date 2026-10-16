@@ -3,7 +3,12 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 import {
+  ACTIVE_EXTENSION_DIGEST,
+  BASE_RELEASE_DIGEST,
+  BASE_RELEASE_ID,
+  COMPILED_DIGEST,
   CompositionBuildError,
+  DEPENDENCY_LOCK_DIGEST,
   OUTPUT_PATHS,
   buildModelComposition,
   readSources,
@@ -35,6 +40,38 @@ type Built = {
     omittedRelationships: Array<{ from: string; name: string; targets: string[] }>;
     counts: Record<string, number>;
   };
+  compatibility: {
+    baseline: { digest: string; vertices: number; relationships: number };
+    candidate: {
+      baseReleaseId: string;
+      baseReleaseDigest: string;
+      vertices: number;
+      relationships: number;
+    };
+    delta: {
+      addedVertices: string[];
+      addedRelationships: string[];
+      removedVertices: string[];
+      removedRelationships: string[];
+      changedVertices: string[];
+      changedRelationships: string[];
+      ownershipChanges: string[];
+      labelKindChanges: string[];
+      restrictiveConstraintChanges: string[];
+    };
+    verdict: string;
+    model: {
+      governanceBaseReleaseId: string;
+      sourceDigest: string;
+      sourceByteLength: number;
+      candidateDigest: string;
+      plannedReleaseId: string;
+      compiledDigest: string;
+      compiledByteLength: number;
+      dependencyLockDigest: string;
+      dependencyLockByteLength: number;
+    };
+  };
 };
 type Lexicon = {
   classes: Array<{ type: string; relationships?: Record<string, { targets?: string[] }> }>;
@@ -44,7 +81,15 @@ type Lexicon = {
   }>;
 };
 
-const sources = readSources() as { lexicon: Lexicon; choices: unknown; runtime: unknown };
+const sources = readSources() as {
+  lexicon: Lexicon;
+  choices: unknown;
+  runtime: {
+    embeddings: Record<string, Record<string, unknown>>;
+    derivedIndexes: Record<string, Record<string, unknown>>;
+  };
+  compatibilityBaseline: unknown;
+};
 const built = buildModelComposition(sources) as Built;
 const definitions = new Map(
   built.composition.definitions.map(definition => [definition.definitionId, definition])
@@ -68,6 +113,9 @@ describe('Model composition of the Elephant lexicon', () => {
   it('matches the committed composition and omissions', () => {
     expect(readFileSync(OUTPUT_PATHS.compositionPath, 'utf8')).toBe(serialize(built.composition));
     expect(readFileSync(OUTPUT_PATHS.omissionsPath, 'utf8')).toBe(serialize(built.omissions));
+    expect(readFileSync(OUTPUT_PATHS.compatibilityReportPath, 'utf8')).toBe(
+      serialize(built.compatibility)
+    );
   });
 
   it('uses Contract 1.1 without truncating definitions', () => {
@@ -150,28 +198,58 @@ describe('Model composition of the Elephant lexicon', () => {
     }
   });
 
-  it('preserves nullability, value constraints and allOf', () => {
-    expect(properties('listing_observation').asking_price_currency).toMatchObject({
-      type: 'string',
-      nullable: true,
-      maxLength: 3,
+  it('keeps every installed definition and adds exactly 233 relationships', () => {
+    expect(built.compatibility.baseline).toMatchObject({
+      digest: ACTIVE_EXTENSION_DIGEST,
+      vertices: 213,
+      relationships: 292,
     });
-    expect(properties('listing_observation').model_version).toMatchObject({
-      const: expect.any(String),
+    expect(built.compatibility.candidate).toEqual({
+      baseReleaseId: BASE_RELEASE_ID,
+      baseReleaseDigest: BASE_RELEASE_DIGEST,
+      vertices: 213,
+      relationships: 525,
     });
-    expect(properties('sale_availability_assessment').reason_codes).toMatchObject({
-      type: 'array',
-      uniqueItems: true,
+    expect(built.compatibility.delta.addedVertices).toEqual([]);
+    expect(built.compatibility.delta.addedRelationships).toHaveLength(233);
+    expect(built.compatibility.delta.removedVertices).toEqual([]);
+    expect(built.compatibility.delta.removedRelationships).toEqual([]);
+    expect(built.compatibility.delta.changedVertices).toEqual([]);
+    expect(built.compatibility.delta.changedRelationships).toEqual([]);
+    expect(built.compatibility.delta.ownershipChanges).toEqual([]);
+    expect(built.compatibility.delta.labelKindChanges).toEqual([]);
+    expect(built.compatibility.delta.restrictiveConstraintChanges).toEqual([]);
+    expect(built.compatibility.verdict).toBe('ZERO_BREAKING_STRICT_ADDITIVE');
+    expect(built.compatibility.model).toMatchObject({
+      governanceBaseReleaseId: 'rel-30b456730cd6ee29',
+      sourceDigest: 'sha256:a7ce21abfdca94d8ffdab7846c331d68e1848df7f02edc9a384c02b4782e2594',
+      sourceByteLength: 1106172,
+      candidateDigest: 'sha256:f02038f1e16ee22379c559063760436ce2532a0e6668bf738fce88c3d243bc48',
+      plannedReleaseId: 'rel-f02038f1e16ee223',
+      compiledDigest: COMPILED_DIGEST,
+      compiledByteLength: 468058,
+      dependencyLockDigest: DEPENDENCY_LOCK_DIGEST,
+      dependencyLockByteLength: 267,
     });
-    expect(properties('sale_availability_assessment').is_for_sale).toMatchObject({
-      type: 'boolean',
-      nullable: true,
-    });
-    expect(definitions.get('listing_observation')?.body.allOf).toHaveLength(1);
-    expect(definitions.get('sale_availability_assessment')?.body.allOf).toHaveLength(3);
   });
 
-  it('adds governed Persist runtime declarations and rejects unknown vertices', () => {
+  it('does not apply unproved restrictive source constraints to installed properties', () => {
+    expect(properties('layout').space_type.enum).toBeUndefined();
+    expect(properties('listing_observation').asking_price_currency.maxLength).toBeUndefined();
+    expect(properties('listing_observation').model_version.const).toBeUndefined();
+    expect(properties('sale_availability_assessment').reason_codes.uniqueItems).toBeUndefined();
+    expect(properties('unnormalized_address').county_jurisdiction.enum).toBeUndefined();
+    expect(definitions.get('listing_observation')?.body.allOf).toBeUndefined();
+    expect(definitions.get('sale_availability_assessment')?.body.allOf).toBeUndefined();
+  });
+
+  it('preserves governed Persist runtime declarations and rejects unknown vertices', () => {
+    expect(definitions.get('document_paragraph')?.body.embeddings).toEqual(
+      sources.runtime.embeddings.document_paragraph
+    );
+    expect(definitions.get('renovation')?.body.indexes).toEqual(
+      sources.runtime.derivedIndexes.renovation
+    );
     const runtime = {
       embeddings: {
         document_paragraph: {
@@ -184,8 +262,7 @@ describe('Model composition of the Elephant lexicon', () => {
     const paragraph = withRuntime.composition.definitions.find(
       item => item.definitionId === 'document_paragraph'
     );
-    expect(paragraph?.body.embeddings).toEqual(runtime.embeddings.document_paragraph);
-    expect(definitions.get('document_paragraph')?.body.embeddings).toBeUndefined();
+    expect(paragraph?.body.embeddings).toEqual(sources.runtime.embeddings.document_paragraph);
 
     expect(() =>
       buildModelComposition({
