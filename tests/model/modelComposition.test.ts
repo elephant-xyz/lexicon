@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 
+import Ajv from 'ajv/dist/ajv.js';
+import addFormats from 'ajv-formats';
 import { describe, expect, it } from 'vitest';
 
 import {
@@ -241,6 +243,44 @@ describe('Model composition of the Elephant lexicon', () => {
     expect(properties('unnormalized_address').county_jurisdiction.enum).toBeUndefined();
     expect(definitions.get('listing_observation')?.body.allOf).toBeUndefined();
     expect(definitions.get('sale_availability_assessment')?.body.allOf).toBeUndefined();
+  });
+
+  it('accepts representative installed values while retaining compatible type checks', () => {
+    const ajv = new Ajv({ allErrors: true, strict: false });
+    addFormats(ajv);
+    const validate = (type: string, value: Record<string, unknown>) => {
+      const body = definitions.get(type)?.body;
+      expect(body?.kind, type).toBe('vertex');
+      const validator = ajv.compile({
+        type: 'object',
+        properties: body?.properties ?? {},
+        required: [],
+        additionalProperties: false,
+      });
+      expect(validator(value), JSON.stringify(validator.errors)).toBe(true);
+    };
+
+    validate('layout', { space_type: 'FUTURE_SOURCE_VALUE' });
+    validate('listing_observation', {
+      asking_price_currency: 'USD',
+      model_version: 'compatibility-successor',
+    });
+    validate('sale_availability_assessment', {
+      list_price_currency: 'USD',
+      model_version: 'compatibility-successor',
+      reason_codes: ['SOURCE_UNAVAILABLE', 'SOURCE_UNAVAILABLE'],
+    });
+    validate('unnormalized_address', { county_jurisdiction: 'New County' });
+    validate('renovation', { renovation_year: 2020 });
+    validate('document_paragraph', { document_text: 'Representative installed paragraph.' });
+
+    const renovation = definitions.get('renovation')?.body;
+    const invalid = ajv.compile({
+      type: 'object',
+      properties: renovation?.properties ?? {},
+      additionalProperties: false,
+    });
+    expect(invalid({ renovation_year: '2020' })).toBe(false);
   });
 
   it('preserves governed Persist runtime declarations and rejects unknown vertices', () => {
