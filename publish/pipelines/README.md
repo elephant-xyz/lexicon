@@ -140,8 +140,16 @@ Raw GitHub (default `main`):
 
 `https://raw.githubusercontent.com/elephant-xyz/lexicon/main/publish/pipelines/transform/catalog.json`
 
-Version `1.0.1` is source-only and has not been published, registered, deployed,
-activated, or executed in AWS. The prior `1.0.0` review publication is pinned in
+Version `1.0.1` is immutably published and selected in the production catalog.
+`/lexicon/prod/transform-catalog-uri` version `3` points to catalog SHA-256
+`e94def8f71662b9436ac4119edb88f7d8b9cc98d2360d73ea99376d6661980b0`;
+the complete byte/version readback is pinned in
+`transform/deployments/prod.lock.json`. Version `1.0.0` remains immutable,
+enabled, and non-current. Version `1.0.1` is not registered in Transform-prod,
+and its catalog publication did not change activation, start Transform/Glue, or
+call Connect or a provider.
+
+The prior `1.0.0` review publication is pinned in
 `transform/deployments/review.lock.json`. Its versioned S3 catalog SHA-256 is
 `98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045`;
 the local file and remote readback matched, and
