@@ -11,7 +11,7 @@
   },
   "candidate": {
     "baseReleaseId": "model-shared-base-v2.0.0",
-    "baseReleaseDigest": "sha256:7ac6a25e5ca41c3f234a34d67cec0d6ade257cd5a9a12b79d6492c0739058ad6",
+    "baseReleaseDigest": "sha256:c8309ebae693d026ec33f0f862639eb85b61f77cfc166c499e5ead4655f56f41",
     "vertices": 213,
     "relationships": 525
   },
@@ -271,13 +271,13 @@
   "verdict": "ZERO_BREAKING_STRICT_ADDITIVE",
   "model": {
     "governanceBaseReleaseId": "rel-30b456730cd6ee29",
-    "sourceDigest": "sha256:a7ce21abfdca94d8ffdab7846c331d68e1848df7f02edc9a384c02b4782e2594",
+    "sourceDigest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
     "sourceByteLength": 1106172,
-    "candidateDigest": "sha256:f02038f1e16ee22379c559063760436ce2532a0e6668bf738fce88c3d243bc48",
-    "plannedReleaseId": "rel-f02038f1e16ee223",
+    "candidateDigest": "sha256:d85a36437e48d608beaa8bc4dec50d5609ff9e08d7d4e6385e7ce385ef26b574",
+    "plannedReleaseId": "rel-d85a36437e48d608",
     "compiledDigest": "sha256:0f9a400f71675313652b484cb49f68f332f8b2a192bfcc0bf9349bfc3854bdf3",
     "compiledByteLength": 468058,
-    "dependencyLockDigest": "sha256:339ff4425cd5151f0995527aa6910c2204c031c36ba9319be1a72a90eee496be",
+    "dependencyLockDigest": "sha256:a657cddf7dc63b924ba8ed596dce724a5a7d5ff8b8f6e14e6a9e48a62ff27362",
     "dependencyLockByteLength": 267,
     "compilerVersion": "2.2.0",
     "profileVersion": "model-persist-lexicon/v2",
@@ -285,14 +285,14 @@
     "request": {
       "vocabularyId": "lexicon",
       "baseReleaseId": "rel-30b456730cd6ee29",
-      "sourceDigest": "sha256:a7ce21abfdca94d8ffdab7846c331d68e1848df7f02edc9a384c02b4782e2594",
+      "sourceDigest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
       "proposedRevisions": [],
       "artifacts": [
         {
           "artifactId": "elephant-lexicon-contract-1-1-compatibility",
           "fileName": "elephant-lexicon.composition.json",
           "mediaType": "application/json",
-          "digest": "sha256:a7ce21abfdca94d8ffdab7846c331d68e1848df7f02edc9a384c02b4782e2594",
+          "digest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
           "byteLength": 1106172,
           "governsExecutionOnly": false
         }

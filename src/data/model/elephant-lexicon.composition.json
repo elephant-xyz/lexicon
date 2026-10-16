@@ -9,7 +9,7 @@
         "accountId": "model",
         "vocabularyId": "model-shared-base",
         "releaseId": "model-shared-base-v2.0.0",
-        "releaseDigest": "sha256:7ac6a25e5ca41c3f234a34d67cec0d6ade257cd5a9a12b79d6492c0739058ad6",
+        "releaseDigest": "sha256:c8309ebae693d026ec33f0f862639eb85b61f77cfc166c499e5ead4655f56f41",
         "namespace": "https://schemas.prism.ai/base",
         "packageKind": "base"
       }

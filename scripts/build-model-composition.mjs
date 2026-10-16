@@ -25,11 +25,11 @@ export const ACTIVE_EXTENSION_DIGEST =
   'sha256:07e2289b6eab0d55eefc229b4b34375ba8be941905e63c39d1943fb1c66882a5';
 export const BASE_RELEASE_ID = 'model-shared-base-v2.0.0';
 export const BASE_RELEASE_DIGEST =
-  'sha256:7ac6a25e5ca41c3f234a34d67cec0d6ade257cd5a9a12b79d6492c0739058ad6';
+  'sha256:c8309ebae693d026ec33f0f862639eb85b61f77cfc166c499e5ead4655f56f41';
 export const COMPILED_DIGEST =
   'sha256:0f9a400f71675313652b484cb49f68f332f8b2a192bfcc0bf9349bfc3854bdf3';
 export const DEPENDENCY_LOCK_DIGEST =
-  'sha256:339ff4425cd5151f0995527aa6910c2204c031c36ba9319be1a72a90eee496be';
+  'sha256:a657cddf7dc63b924ba8ed596dce724a5a7d5ff8b8f6e14e6a9e48a62ff27362';
 export const GOVERNANCE_BASE_RELEASE_ID = 'rel-30b456730cd6ee29';
 export const DOCUMENT_ARTIFACT_ID = 'elephant-lexicon-contract-1-1-compatibility';
 const BASE_LABELS = new Set(['person', 'company', 'address', 'payment']);
