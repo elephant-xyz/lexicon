@@ -469,7 +469,7 @@ describe('sale availability pipeline contracts', () => {
   it('publishes one Firecrawl mapping with ordered dependent Parquet outputs', () => {
     const bundle = mapping(resultMappingId);
     expect(bundle.catalogEntry).toMatchObject({
-      version: '1.0.1',
+      version: '1.0.2',
       status: 'ENABLED',
       from: 'connect-http-acquisition-bundle',
       to: 'sale-availability-result',
@@ -478,7 +478,7 @@ describe('sale availability pipeline contracts', () => {
     expect(bundle.manifest).toMatchObject({
       contractVersion: 2,
       id: resultMappingId,
-      version: '1.0.1',
+      version: '1.0.2',
       status: 'ENABLED',
       from: { name: 'connect-http-acquisition-bundle', version: '1.0.0' },
       to: { name: 'sale-availability-result', version: '1.0.0' },
@@ -570,6 +570,16 @@ describe('sale availability pipeline contracts', () => {
       'jsonld-block-limit-exceeded',
       'non-exact-address',
       'stale-active-page',
+      'reviewed-listing-old-posted-date',
+      'undated-active-fresh-fetch',
+      'multi-portal-reviewed-and-fresh-fetch',
+      'old-posted-only-cached-active',
+      'undated-active-cache-state-missing',
+      'undated-active-miss-with-cached-at',
+      'old-posted-stale-reviewed-fresh-fetch',
+      'contingent-reviewed-conflicts-with-fresh-fetch',
+      'rental-offer-fresh-fetch-not-for-sale',
+      'sale-and-rental-offers-conflict',
     ]);
     expect(
       fixture.cases.find(item => item.caseId === 'three-page-conflict')?.expectedObservations
@@ -580,12 +590,23 @@ describe('sale availability pipeline contracts', () => {
     expect(
       fixture.cases.find(item => item.caseId === 'single-page-status-conflict')?.expectedAssessment
     ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
+    expect(
+      fixture.cases.find(item => item.caseId === 'contingent-reviewed-conflicts-with-fresh-fetch')
+        ?.expectedAssessment
+    ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
+    expect(
+      fixture.cases.find(item => item.caseId === 'sale-and-rental-offers-conflict')
+        ?.expectedAssessment
+    ).toMatchObject({ availabilityStatus: 'CONFLICT', isForSale: null });
     for (const caseId of [
       'active-exact-jsonld',
       'later-jsonld-array-active',
       'later-jsonld-graph-active',
       'irrelevant-software-offers-ignored',
       'active-exact-price-missing-currency',
+      'reviewed-listing-old-posted-date',
+      'undated-active-fresh-fetch',
+      'multi-portal-reviewed-and-fresh-fetch',
     ]) {
       expect(fixture.cases.find(item => item.caseId === caseId)?.expectedAssessment).toMatchObject({
         availabilityStatus: 'FOR_SALE',
@@ -600,8 +621,13 @@ describe('sale availability pipeline contracts', () => {
           'later-jsonld-graph-active',
           'irrelevant-software-offers-ignored',
           'active-exact-price-missing-currency',
+          'reviewed-listing-old-posted-date',
+          'undated-active-fresh-fetch',
+          'multi-portal-reviewed-and-fresh-fetch',
           'three-page-conflict',
           'single-page-status-conflict',
+          'contingent-reviewed-conflicts-with-fresh-fetch',
+          'sale-and-rental-offers-conflict',
         ].includes(item.caseId)
     )) {
       expect(caseFixture.expectedAssessment.availabilityStatus, caseFixture.caseId).toBe('UNKNOWN');
@@ -669,6 +695,12 @@ describe('sale availability pipeline contracts', () => {
     expect(listingSql).toContain('application/ld\\\\+json');
     expect(listingSql).toContain('262144');
     expect(listingSql).not.toMatch(/rawHtml[^;\n]*for\\\\s\+sale/iu);
+    expect(listingSql).toContain('"lastReviewed"');
+    expect(listingSql).not.toContain('"datePosted"');
+    expect(listingSql).not.toContain('"datePublished"');
+    expect(listingSql).toContain("= 'miss'");
+    expect(listingSql).toContain('"businessFunction"');
+    expect(listingSql).toContain('limitedavailability');
     expect(assessmentSql).toContain('FROM target_listing_observations');
     expect(assessmentSql).toContain('sale-availability-firecrawl-policy-v2');
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
