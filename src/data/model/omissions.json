@@ -26,9 +26,10 @@
       "labels": [
         "address",
         "company",
+        "payment",
         "person"
       ],
-      "reason": "These labels belong to model-shared-base-v1.5.0. An extension cannot redeclare them, so Elephant fields on these classes stay only in lexicon.json."
+      "reason": "These labels remain owned by the compatibility shared base. The extension cannot redeclare them, so ownership is unchanged from the installed Persist components."
     },
     {
       "kind": "classRelationshipLabels",
@@ -44,6 +45,11 @@
       "kind": "dataGroupEndpointConflict",
       "rule": "when one relationship_type declares several endpoint pairs, keep the single pair named <from>_has_<to>; otherwise fail",
       "reason": "A Persist edge label has one endpoint pair. The other pairs are source defects and are listed in omittedRelationships."
+    },
+    {
+      "kind": "installedPersistCompatibility",
+      "baselineDigest": "sha256:07e2289b6eab0d55eefc229b4b34375ba8be941905e63c39d1943fb1c66882a5",
+      "rule": "Every installed vertex and relationship keeps its label, kind, endpoints, properties, required fields, indexes, embeddings and constraints; source-only changes apply only to new relationship labels."
     }
   ],
   "duplicateChoices": {
@@ -761,60 +767,6 @@
     {
       "class": "partner_revenue_record",
       "property": "revenue_share_EM",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "last_paid_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "late_charge_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "late_charge_maximum_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "late_charge_minimum_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "next_fourth_payment_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "next_payment_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "next_second_payment_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "next_third_payment_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "payment",
-      "property": "payment_amount",
       "from": "decimal",
       "to": "number"
     },
@@ -2062,12 +2014,12 @@
     }
   ],
   "counts": {
-    "vertices": 214,
+    "vertices": 213,
     "classRelationships": 427,
     "dataGroupRelationships": 98,
     "relationshipsOmitted": 12,
-    "definitions": 739,
-    "typeMappings": 226,
+    "definitions": 738,
+    "typeMappings": 217,
     "normalizations": 5,
     "droppedConstraints": 32,
     "droppedProperties": 36
