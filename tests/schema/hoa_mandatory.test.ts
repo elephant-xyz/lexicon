@@ -55,7 +55,10 @@ describe('property hoa_mandatory evidence contract', () => {
   });
 
   it('accepts omission for an existing property record without adding a default', () => {
-    const candidate = structuredClone(existingPropertyRecord);
+    const candidate = {
+      ...existingPropertyRecord,
+      source_http_request: { ...existingPropertyRecord.source_http_request },
+    };
 
     expect(validateProperty(candidate), JSON.stringify(validateProperty.errors)).toBe(true);
     expect(candidate).not.toHaveProperty('hoa_mandatory');
