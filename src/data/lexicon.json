@@ -15883,6 +15883,14 @@
           "optional": true,
           "comment": "Subdivision is the term used to describe a defined area within a city or community that has been divided into individual plots or lots, usually intended for residential or commercial development. It is often formally designated by the township or municipality."
         },
+        "hoa_mandatory": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "optional": true,
+          "comment": "Evidence-safe tri-state indicator for whether at least one in-scope mandatory homeowners association applies to this exact property under the reviewed domain contract. Set true only when authoritative or adjudicated exact-property evidence proves mandatory membership or dues. Set false only when such evidence affirmatively proves that no in-scope mandatory homeowners association applies. Omit or set null when evidence is unknown, unresolved, unavailable, conflicting, or inference-only; absence must never default to false. Search snippets, subdivision or nearby-property inference, CDD or tax records, voluntary civic associations, condominium or cooperative status under a different legal regime, and missing fee data do not establish this value. Preserve master and sub-association distinctions in their association records; this field answers only whether at least one in-scope mandatory homeowners association applies."
+        },
         "zoning": {
           "type": [
             "string",
