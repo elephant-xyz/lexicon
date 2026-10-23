@@ -800,6 +800,155 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
+  it('keeps candidate result mapping 1.0.4 unpublished with pinned production failure-mode regressions', () => {
+    const current = mapping(resultMappingId);
+    expect(current.catalogEntry.version).toBe('1.0.2');
+    expect(
+      catalog.entries.some(
+        entry =>
+          entry.kind === 'mapping' &&
+          entry.id === resultMappingId &&
+          ['1.0.3', '1.0.4'].includes(entry.version)
+      )
+    ).toBe(false);
+
+    const root = path.join(transformRoot, 'mappings', resultMappingId, '1.0.4');
+    const previousRoot = path.join(transformRoot, 'mappings', resultMappingId, '1.0.3');
+    const manifest = readJson<MappingManifest>(path.join(root, 'manifest.json'));
+    expect(manifest).toMatchObject({
+      contractVersion: 2,
+      id: resultMappingId,
+      version: '1.0.4',
+      status: 'ENABLED',
+      from: current.manifest.from,
+      to: current.manifest.to,
+      inputs: current.manifest.inputs,
+      output: current.manifest.output,
+    });
+    expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
+      current.manifest.outputs.map(output => [output.dataset, output.dependsOn])
+    );
+    for (const [index, output] of manifest.outputs.entries()) {
+      expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
+      expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
+        current.manifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+      );
+      for (const invariant of output.invariantEvidence) {
+        expect(invariant.querySha256s).toEqual([output.querySha256]);
+        for (const test of invariant.tests) {
+          expect(test.path).toBe('tests/firecrawl-policy-v3-cases.json');
+          expect(sha256(path.join(root, test.path))).toBe(test.sha256);
+        }
+      }
+    }
+    expect(sha256(path.join(root, 'queries', 'sale_availability_assessments.sql'))).toBe(
+      sha256(path.join(previousRoot, 'queries', 'sale_availability_assessments.sql'))
+    );
+
+    const rawFixture = readFileSync(
+      path.join(root, 'tests', 'firecrawl-policy-v3-cases.json'),
+      'utf8'
+    );
+    const fixture = JSON.parse(rawFixture) as {
+      policyVersion: string;
+      cases: Array<{
+        caseId: string;
+        failureMode?: string;
+        expectedAssessment: {
+          availabilityStatus: string;
+          isForSale: boolean | null;
+          listPriceAmountMinor: number | null;
+        };
+      }>;
+      regressionCases1_0_4: { caseIds: string[] };
+    };
+    const previousFixture = readJson<{ cases: Array<{ caseId: string }> }>(
+      path.join(previousRoot, 'tests', 'firecrawl-policy-v3-cases.json')
+    );
+    expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v3');
+    expect(fixture.cases.slice(0, previousFixture.cases.length).map(item => item.caseId)).toEqual(
+      previousFixture.cases.map(item => item.caseId)
+    );
+    const added = fixture.cases.slice(previousFixture.cases.length);
+    expect(added.map(item => item.caseId)).toEqual(fixture.regressionCases1_0_4.caseIds);
+    expect(
+      Object.fromEntries(
+        added.map(item => [
+          item.caseId,
+          [
+            item.failureMode,
+            item.expectedAssessment.availabilityStatus,
+            item.expectedAssessment.listPriceAmountMinor,
+          ],
+        ])
+      )
+    ).toEqual({
+      'v4-visible-sale-pending-label': ['pending-or-under-contract', 'UNKNOWN', null],
+      'v4-visible-contingent-label': ['pending-or-under-contract', 'UNKNOWN', null],
+      'v4-visible-under-agreement-label': ['pending-or-under-contract', 'UNKNOWN', null],
+      'v4-visible-active-under-contract-label': ['pending-or-under-contract', 'UNKNOWN', null],
+      'v4-structured-pending-status-overrides-in-stock': [
+        'pending-or-under-contract',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-structured-contingent-status-overrides-in-stock': [
+        'pending-or-under-contract',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-not-currently-for-sale-label': [
+        'estimate-auction-or-off-market-as-for-sale',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-off-the-market-label': ['estimate-auction-or-off-market-as-for-sale', 'UNKNOWN', null],
+      'v4-pending-page-and-active-page-conflict': ['pending-or-under-contract', 'CONFLICT', null],
+      'v4-app-state-offer-price-rejected': ['offer-price-as-list-price', 'FOR_SALE', 24400000],
+      'v4-app-state-offer-equal-to-list-price-kept': [
+        'offer-price-as-list-price',
+        'FOR_SALE',
+        25000000,
+      ],
+      'v4-visible-instant-offer-label-rejected': ['offer-price-as-list-price', 'FOR_SALE', null],
+      'v4-app-state-zestimate-price-not-active': [
+        'estimate-auction-or-off-market-as-for-sale',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-tax-assessed-value-not-list-price': [
+        'estimate-auction-or-off-market-as-for-sale',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-auction-starting-bid-not-list-price': [
+        'estimate-auction-or-off-market-as-for-sale',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-rent-zestimate-not-list-price': [
+        'estimate-auction-or-off-market-as-for-sale',
+        'UNKNOWN',
+        null,
+      ],
+      'v4-other-estimate-does-not-reject-list-price': [
+        'estimate-auction-or-off-market-as-for-sale',
+        'FOR_SALE',
+        30000000,
+      ],
+    });
+    expect(rawFixture).not.toMatch(
+      /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com|opendoor\.com/iu
+    );
+
+    const listingSql = readFileSync(path.join(root, 'queries', 'listing_observations.sql'), 'utf8');
+    expect(listingSql).toContain('AS structuredInactiveStatus');
+    expect(listingSql).toContain('AS nonListPriceKind');
+    expect(listingSql).toContain('AS appStateListPriceMatch');
+    expect(listingSql).not.toContain('"datePosted"');
+    expect(listingSql).not.toContain("'NOT_FOR_SALE'");
+  });
+
   it('pins inline completion only on mappings with an exactly-one assessment output', () => {
     const evidenceMapping = mapping(evidenceMappingId).manifest;
     const assessmentMapping = mapping(assessmentMappingId).manifest;
