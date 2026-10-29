@@ -126,11 +126,11 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
-#### Policy v3 candidates (`1.0.3`, `1.0.4`)
+#### Policy v3 candidates (`1.0.3`, `1.0.4`, `1.0.5`)
 
-Candidate versions `1.0.3` and `1.0.4` use `sale-availability-firecrawl-policy-v3`
+Candidate versions `1.0.3`, `1.0.4` and `1.0.5` use `sale-availability-firecrawl-policy-v3`
 and are not in `catalog.json`; `1.0.2` stays current until a separate, approved
-promotion. Both keep the output columns, enums, and reason-code vocabulary of
+promotion. All keep the output columns, enums, and reason-code vocabulary of
 `1.0.2`. Visible text and embedded application state still never establish
 `FOR_SALE` or a price; they can only take one away:
 
@@ -152,6 +152,21 @@ equals the page's own offer or estimate value in application state (for example
 `listPrice`. Third, more pending, off-market, offer, rent, assessed-value, and
 bid label variants are recognised. Its fixture extends the `1.0.3` cases with
 17 synthetic regressions for these failure modes.
+
+`1.0.5` adds four rules to `1.0.4`, from comparing production answers with MLS
+data on 2026-10-26. First, a page about another property no longer matches the
+requested address through a passing mention (a nearby-homes card, a resident's
+other address): when its title or URL leads with another house number, its
+blocks without an address are `NON_EXACT`. Second, fresh exact active prices
+that disagree resolve to the newest one when every other price was stated more
+than a day earlier; prices within a day of each other still conflict. Third,
+more USPS suffixes are abbreviated (for example Bend/Bnd), and Saint, Mount and
+Fort compare with St, Mt and Ft in street and city names. Fourth, a home found
+fresh, exact and not active (pending, under contract, off market) is reported as
+`NO_EXPLICIT_ACTIVE_SIGNAL` rather than `NON_EXACT_MATCH` when another page is
+non-exact; other reason codes are unchanged. A single fresh exact off-market
+page still conflicts with active listings. Its fixture extends the `1.0.4` cases
+with 10 synthetic regressions.
 
 ## Local resolution
 
