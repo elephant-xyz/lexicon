@@ -126,11 +126,13 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
-#### Policy v3 candidates (`1.0.3`, `1.0.4`, `1.0.5`, `1.0.6`)
+#### Policy v3 (`1.0.3` to `1.0.6`; `1.0.6` current)
 
-Candidate versions `1.0.3`, `1.0.4`, `1.0.5` and `1.0.6` use `sale-availability-firecrawl-policy-v3`
-and are not in `catalog.json`; `1.0.2` stays current until a separate, approved
-promotion. All keep the output columns, enums, and reason-code vocabulary of
+Versions `1.0.3`, `1.0.4`, `1.0.5` and `1.0.6` use `sale-availability-firecrawl-policy-v3`.
+`1.0.6` is current in `catalog.json`; `1.0.2` stays enabled and the intermediate
+`1.0.3` to `1.0.5` are never published, since `1.0.6` carries all of their
+rules. A catalog change takes effect in a stage only when that stage's catalog
+pointer is moved by a separate, approved publication. All keep the output columns, enums, and reason-code vocabulary of
 `1.0.2`. Visible text and embedded application state still never establish
 `FOR_SALE` or a price; they can only take one away:
 
