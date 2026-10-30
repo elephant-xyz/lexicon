@@ -715,7 +715,7 @@ describe('sale availability pipeline contracts', () => {
 
   it('keeps candidate result mapping 1.0.3 unpublished with pinned policy-v3 regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
-    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.6');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.7');
     expect(
       catalog.entries.some(
         entry =>
@@ -809,7 +809,7 @@ describe('sale availability pipeline contracts', () => {
 
   it('keeps candidate result mapping 1.0.4 unpublished with pinned production failure-mode regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
-    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.6');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.7');
     expect(
       catalog.entries.some(
         entry =>
@@ -958,7 +958,7 @@ describe('sale availability pipeline contracts', () => {
 
   it('keeps candidate result mapping 1.0.5 unpublished with pinned Oct 26 comparison regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
-    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.6');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.7');
     expect(
       catalog.entries.some(
         entry =>
@@ -1116,13 +1116,14 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
-  it('makes result mapping 1.0.6 current with pinned Oct 30 replay regressions', () => {
+  it('keeps result mapping 1.0.6 published with pinned Oct 30 replay regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
     expect(published.catalogEntry.current).toBe(false);
     expect(published.catalogEntry.status).toBe('ENABLED');
-    const promoted = mapping(resultMappingId);
-    expect(promoted.catalogEntry).toMatchObject({
+    const previous = mapping(resultMappingId, '1.0.6');
+    expect(previous.catalogEntry).toMatchObject({
       version: '1.0.6',
+      current: false,
       status: 'ENABLED',
       from: 'connect-http-acquisition-bundle',
       to: 'sale-availability-result',
@@ -1269,13 +1270,18 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
-  it('keeps candidate result mapping 1.0.7 unpublished with pinned Oct 29 MLS regressions', () => {
+  it('makes result mapping 1.0.7 current with pinned Oct 29 MLS regressions', () => {
+    expect(mapping(resultMappingId).catalogEntry).toMatchObject({
+      version: '1.0.7',
+      status: 'ENABLED',
+      from: 'connect-http-acquisition-bundle',
+      to: 'sale-availability-result',
+    });
     expect(
-      catalog.entries.some(
-        entry =>
-          entry.kind === 'mapping' && entry.id === resultMappingId && entry.version === '1.0.7'
+      catalog.entries.filter(
+        entry => entry.kind === 'mapping' && entry.id === resultMappingId && entry.current
       )
-    ).toBe(false);
+    ).toHaveLength(1);
 
     const root = path.join(transformRoot, 'mappings', resultMappingId, '1.0.7');
     const previousRoot = path.join(transformRoot, 'mappings', resultMappingId, '1.0.6');
