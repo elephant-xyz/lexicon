@@ -114,7 +114,7 @@ const result = readJson<PipelineLanguage>(
     transformRoot,
     'languages',
     'sale-availability-result',
-    '1.0.0',
+    '1.1.0',
     'sale-availability-result.json'
   )
 );
@@ -248,7 +248,7 @@ describe('sale availability pipeline contracts', () => {
     expect(result).toMatchObject({
       contractVersion: 2,
       name: 'sale-availability-result',
-      version: '1.0.0',
+      version: '1.1.0',
       shape: 'tabular',
     });
     expect(result.datasets).toEqual([

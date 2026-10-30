@@ -51,6 +51,9 @@ jobs:
       - name: Build application to generate schemas
         run: npm run build
 
+      - name: Check Transform catalog against the pinned Model release
+        run: npm run check:model-release
+
       - name: Run tests with coverage
         run: npm run test:coverage
 

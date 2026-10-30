@@ -85,11 +85,21 @@
       "kind": "language",
       "name": "sale-availability-result",
       "version": "1.0.0",
-      "current": true,
+      "current": false,
       "status": "ENABLED",
       "shape": "tabular",
       "path": "languages/sale-availability-result/1.0.0/sale-availability-result.json",
       "sha256": "6d214dc566ce955563a1a9557b20b06e9480dc528a880b736d56dcabee855957"
+    },
+    {
+      "kind": "language",
+      "name": "sale-availability-result",
+      "version": "1.1.0",
+      "current": true,
+      "status": "ENABLED",
+      "shape": "tabular",
+      "path": "languages/sale-availability-result/1.1.0/sale-availability-result.json",
+      "sha256": "f42385f9c0f860386307420038ef84c13d0875e5fcc6a8492cda0075ba68b033"
     },
     {
       "kind": "language",
