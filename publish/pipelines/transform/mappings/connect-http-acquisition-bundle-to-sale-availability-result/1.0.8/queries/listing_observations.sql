@@ -1,0 +1,1714 @@
+WITH firecrawl_records AS (
+  SELECT
+    acquisition.*,
+    document.sourceUri AS rawArtifactUri,
+    document.sha256 AS rawArtifactSha256,
+    document.bodyText AS rawBodyText,
+    FROM_JSON(
+      acquisition.contextJson,
+      'STRUCT<saleAvailability:STRUCT<addressReference:STRING,independentPropertyReference:STRING,freshnessEvaluatedAt:STRING,freshnessPolicyVersion:STRING,artifactFileReferencesBySha256:MAP<STRING,STRING>>>'
+    ).saleAvailability AS governedContext,
+    FROM_JSON(
+      acquisition.inputJson,
+      'STRUCT<property_reference:STRING,exact_address_query:STRING,request_payload:STRUCT<property_reference:STRING,exact_address_query:STRING>>'
+    ) AS requestInput,
+    FROM_JSON(
+      document.bodyText,
+      'STRUCT<success:BOOLEAN,id:STRING,data:STRUCT<web:ARRAY<STRUCT<url:STRING,rawHtml:STRING,metadata:STRUCT<sourceURL:STRING,url:STRING,title:STRING,description:STRING,cacheState:STRING,cachedAt:STRING,contentType:STRING,robots:STRING,statusCode:INT>>>>,creditsUsed:BIGINT>'
+    ) AS firecrawlEnvelope
+  FROM source_acquisition_records AS acquisition
+  LEFT JOIN source_raw_documents AS document
+    ON acquisition.acquisitionId = document.acquisitionId
+    AND document.artifactRole = 'raw'
+    AND document.artifactOrdinal = 0
+  WHERE
+    LOWER(acquisition.publisherId) = 'firecrawl'
+    OR acquisition.registrationId IN (
+      'firecrawl-review-property-page-evidence',
+      'firecrawl-prod-property-page-evidence'
+    )
+),
+expanded_pages AS (
+  SELECT
+    record.*,
+    pageOrdinal,
+    page
+  FROM firecrawl_records AS record
+  LATERAL VIEW OUTER POSEXPLODE(
+    CASE
+      WHEN
+        record.firecrawlEnvelope.data.web IS NOT NULL
+        AND SIZE(record.firecrawlEnvelope.data.web) > 0
+        THEN record.firecrawlEnvelope.data.web
+      ELSE ARRAY(
+        CAST(
+          NULL
+          AS STRUCT<url:STRING,rawHtml:STRING,metadata:STRUCT<sourceURL:STRING,url:STRING,title:STRING,description:STRING,cacheState:STRING,cachedAt:STRING,contentType:STRING,robots:STRING,statusCode:INT>>
+        )
+      )
+    END
+  ) pages AS pageOrdinal, page
+),
+page_inputs AS (
+  SELECT
+    expanded.*,
+    COALESCE(
+      expanded.requestInput.exact_address_query,
+      expanded.requestInput.request_payload.exact_address_query
+    ) AS exactAddressQuery,
+    COALESCE(
+      NULLIF(TRIM(expanded.page.metadata.sourceURL), ''),
+      NULLIF(TRIM(expanded.page.metadata.url), ''),
+      NULLIF(TRIM(expanded.page.url), ''),
+      expanded.sourceUrl
+    ) AS pageUrl,
+    COALESCE(
+      expanded.rawArtifactUri,
+      expanded.primaryRawArtifactUri
+    ) AS evidenceArtifactUriValue,
+    COALESCE(
+      expanded.rawArtifactSha256,
+      expanded.primaryRawArtifactSha256
+    ) AS evidenceArtifactSha256Value,
+    LOWER(
+      TRIM(
+        REGEXP_REPLACE(
+          REGEXP_REPLACE(
+            REGEXP_REPLACE(
+              REGEXP_EXTRACT(
+                COALESCE(
+                  expanded.requestInput.exact_address_query,
+                  expanded.requestInput.request_payload.exact_address_query,
+                  ''
+                ),
+                '^"([^"]+)"',
+                1
+              ),
+              '(?i)(,|\\s)+US\\s*$',
+              ''
+            ),
+            '[^A-Za-z0-9]+',
+            ' '
+          ),
+          '\\s+',
+          ' '
+        )
+      )
+    ) AS requestedAddressKey,
+    LOWER(
+      TRIM(
+        REGEXP_REPLACE(
+          REGEXP_REPLACE(
+            REGEXP_REPLACE(
+              COALESCE(expanded.page.rawHtml, ''),
+              '(?is)<[^>]+>',
+              ' '
+            ),
+            '[^A-Za-z0-9]+',
+            ' '
+          ),
+          '\\s+',
+          ' '
+        )
+      )
+    ) AS pageTextKey,
+    -- Rendered text only: script, style and noscript bodies (including
+    -- embedded JSON) never count as visible listing status.
+    LOWER(
+      TRIM(
+        REGEXP_REPLACE(
+          REGEXP_REPLACE(
+            REGEXP_REPLACE(
+              REGEXP_REPLACE(
+                REGEXP_REPLACE(
+                  REGEXP_REPLACE(
+                    COALESCE(expanded.page.rawHtml, ''),
+                    '(?is)<script\\b.*?</script\\s*>',
+                    ' '
+                  ),
+                  '(?is)<style\\b.*?</style\\s*>',
+                  ' '
+                ),
+                '(?is)<noscript\\b.*?</noscript\\s*>',
+                ' '
+              ),
+              '(?is)<[^>]+>',
+              ' '
+            ),
+            '(?i)&(?:#[0-9]+|#x[0-9a-f]+|[a-z]+);|[^A-Za-z0-9]+',
+            ' '
+          ),
+          '\\s+',
+          ' '
+        )
+      )
+    ) AS visibleTextKey,
+    LOWER(
+      REGEXP_REPLACE(
+        REGEXP_EXTRACT(
+          COALESCE(
+            expanded.page.metadata.sourceURL,
+            expanded.page.metadata.url,
+            expanded.page.url,
+            expanded.sourceUrl,
+            ''
+          ),
+          '^https?://([^/:?#]+)',
+          1
+        ),
+        '^www\\.',
+        ''
+      )
+    ) AS pageDomain,
+    TO_TIMESTAMP(expanded.governedContext.freshnessEvaluatedAt)
+      AS freshnessEvaluatedAtValue,
+    -- Firecrawl reports cacheState=miss without cachedAt only for a page it
+    -- fetched live during this acquisition; any other state is not proof.
+    CASE
+      WHEN
+        LOWER(TRIM(COALESCE(expanded.page.metadata.cacheState, ''))) = 'miss'
+        AND NULLIF(TRIM(expanded.page.metadata.cachedAt), '') IS NULL
+        AND expanded.page.metadata.statusCode = 200
+        THEN expanded.retrievedAt
+      ELSE CAST(NULL AS TIMESTAMP)
+    END AS freshFetchAtValue,
+    ARRAY_SORT(
+      ARRAY_DISTINCT(
+        TRANSFORM(
+          MAP_VALUES(expanded.governedContext.artifactFileReferencesBySha256),
+          reference -> COALESCE(reference, '')
+        )
+      )
+    ) AS fileReferences,
+    CASE
+      WHEN
+        expanded.page.rawHtml IS NOT NULL
+        AND expanded.page.rawHtml RLIKE
+          '(?is)<script\\b[^>]*application/ld\\+json[^>]*>'
+        THEN SLICE(
+          SPLIT(
+            expanded.page.rawHtml,
+            '(?is)<script\\b[^>]*application/ld\\+json[^>]*>',
+            18
+          ),
+          2,
+          16
+        )
+      ELSE ARRAY(CAST(NULL AS STRING))
+    END AS jsonLdFragments,
+    CASE
+      WHEN
+        expanded.page.rawHtml IS NOT NULL
+        AND SIZE(
+          SPLIT(
+            expanded.page.rawHtml,
+            '(?is)<script\\b[^>]*application/ld\\+json[^>]*>',
+            18
+          )
+        ) = 18
+        THEN TRUE
+      ELSE FALSE
+    END AS jsonLdBlockLimitExceeded
+  FROM expanded_pages AS expanded
+),
+expanded_jsonld AS (
+  SELECT
+    page_input.*,
+    jsonLdOrdinal,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(jsonLdFragment, ''),
+        '(?is)^(.*?)</script\\s*>',
+        1
+      ),
+      ''
+    ) AS jsonLdDocument
+  FROM page_inputs AS page_input
+  LATERAL VIEW OUTER POSEXPLODE(page_input.jsonLdFragments)
+    documents AS jsonLdOrdinal, jsonLdFragment
+),
+bounded_jsonld AS (
+  SELECT
+    expanded.*,
+    CASE
+      WHEN
+        expanded.jsonLdDocument IS NOT NULL
+        AND LENGTH(expanded.jsonLdDocument) <= 262144
+        AND GET_JSON_OBJECT(expanded.jsonLdDocument, '$') IS NOT NULL
+        THEN expanded.jsonLdDocument
+      ELSE CAST(NULL AS STRING)
+    END AS usableJsonLdDocument,
+    CASE
+      WHEN
+        expanded.jsonLdDocument IS NOT NULL
+        AND LENGTH(expanded.jsonLdDocument) > 262144
+        THEN TRUE
+      ELSE FALSE
+    END AS jsonLdDocumentLimitExceeded,
+    CASE
+      WHEN
+        expanded.jsonLdDocument IS NOT NULL
+        AND LENGTH(expanded.jsonLdDocument) <= 262144
+        AND GET_JSON_OBJECT(expanded.jsonLdDocument, '$') IS NULL
+        THEN TRUE
+      ELSE FALSE
+    END AS malformedJsonLdDocument
+  FROM expanded_jsonld AS expanded
+),
+candidate_fields AS (
+  SELECT
+    bounded.*,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"availability"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS structuredAvailability,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"(?:homeStatus|mlsStatus|listingStatus)"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS structuredListingStatus,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"businessFunction"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS structuredBusinessFunction,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"price"\\s*:\\s*"?([0-9][0-9,]*(?:\\.[0-9]{1,2})?)"?',
+        1
+      ),
+      ''
+    ) AS structuredPrice,
+    UPPER(
+      NULLIF(
+        REGEXP_EXTRACT(
+          COALESCE(bounded.usableJsonLdDocument, ''),
+          '(?is)"priceCurrency"\\s*:\\s*"([A-Za-z]{3})"',
+          1
+        ),
+        ''
+      )
+    ) AS structuredCurrency,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"dateModified"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS structuredDateModified,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"lastReviewed"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS structuredLastReviewed,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"streetAddress"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS pageStreet,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"addressLocality"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS pageLocality,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"addressRegion"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS pageRegion,
+    NULLIF(
+      REGEXP_EXTRACT(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"postalCode"\\s*:\\s*"([^"]+)"',
+        1
+      ),
+      ''
+    ) AS pagePostalCode,
+    GREATEST(
+      SIZE(
+        SPLIT(
+          COALESCE(bounded.usableJsonLdDocument, ''),
+          '(?is)"availability"\\s*:',
+          3
+        )
+      ) - 1,
+      0
+    ) AS availabilityFieldCount,
+    GREATEST(
+      SIZE(
+        SPLIT(
+          COALESCE(bounded.usableJsonLdDocument, ''),
+          '(?is)"price"\\s*:',
+          3
+        )
+      ) - 1,
+      0
+    ) AS priceFieldCount,
+    GREATEST(
+      SIZE(
+        SPLIT(
+          COALESCE(bounded.usableJsonLdDocument, ''),
+          '(?is)"priceCurrency"\\s*:',
+          3
+        )
+      ) - 1,
+      0
+    ) AS currencyFieldCount,
+    -- Every availability value and street address in the block, so that one
+    -- status repeated for one property (a listing's offer repeated in its
+    -- open-house event) is not mistaken for an ambiguous block.
+    SIZE(
+      SPLIT(COALESCE(bounded.usableJsonLdDocument, ''), '(?is)"availability"\\s*:')
+    ) - 1 AS availabilityFieldTotal,
+    SIZE(
+      REGEXP_EXTRACT_ALL(
+        COALESCE(bounded.usableJsonLdDocument, ''),
+        '(?is)"availability"\\s*:\\s*"[^"]+"',
+        0
+      )
+    ) AS availabilityStringTotal,
+    ARRAY_DISTINCT(
+      TRANSFORM(
+        REGEXP_EXTRACT_ALL(
+          COALESCE(bounded.usableJsonLdDocument, ''),
+          '(?is)"availability"\\s*:\\s*"([^"]+)"',
+          1
+        ),
+        value -> REGEXP_EXTRACT(LOWER(TRIM(value)), '([^/#]*)$', 1)
+      )
+    ) AS availabilityValues,
+    ARRAY_DISTINCT(
+      TRANSFORM(
+        REGEXP_EXTRACT_ALL(
+          COALESCE(bounded.usableJsonLdDocument, ''),
+          '(?is)"streetAddress"\\s*:\\s*"([^"]+)"',
+          1
+        ),
+        value -> TRIM(REGEXP_REPLACE(LOWER(value), '[^a-z0-9]+', ' '))
+      )
+    ) AS streetAddressValues
+  FROM bounded_jsonld AS bounded
+),
+normalized_candidates AS (
+  SELECT
+    candidate.*,
+    LOWER(
+      TRIM(
+        REGEXP_REPLACE(
+          REGEXP_REPLACE(
+            CONCAT_WS(
+              ' ',
+              candidate.pageStreet,
+              candidate.pageLocality,
+              candidate.pageRegion,
+              candidate.pagePostalCode
+            ),
+            '[^A-Za-z0-9]+',
+            ' '
+          ),
+          '\\s+',
+          ' '
+        )
+      )
+    ) AS structuredAddressKey,
+    LOWER(
+      TRIM(
+        REGEXP_REPLACE(
+          REGEXP_REPLACE(COALESCE(candidate.pageStreet, ''), '[^A-Za-z0-9]+', ' '),
+          '\\s+',
+          ' '
+        )
+      )
+    ) AS structuredStreetKey,
+    -- datePosted and datePublished date the listing, not its current status,
+    -- so they never establish freshness.
+    CASE
+      WHEN candidate.structuredDateModified IS NOT NULL
+        THEN TRY_CAST(candidate.structuredDateModified AS TIMESTAMP)
+      WHEN candidate.structuredLastReviewed IS NOT NULL
+        THEN TRY_CAST(candidate.structuredLastReviewed AS TIMESTAMP)
+      WHEN
+        candidate.structuredAvailability IS NOT NULL
+        OR candidate.structuredListingStatus IS NOT NULL
+        THEN candidate.freshFetchAtValue
+      ELSE CAST(NULL AS TIMESTAMP)
+    END AS sourceAsOfValue,
+    CASE
+      WHEN candidate.structuredDateModified IS NOT NULL THEN 'DATE_MODIFIED'
+      WHEN candidate.structuredLastReviewed IS NOT NULL THEN 'LAST_REVIEWED'
+      WHEN
+        (
+          candidate.structuredAvailability IS NOT NULL
+          OR candidate.structuredListingStatus IS NOT NULL
+        )
+        AND candidate.freshFetchAtValue IS NOT NULL
+        THEN 'FRESH_FETCH'
+      ELSE CAST(NULL AS STRING)
+    END AS sourceAsOfBasis,
+    TRY_CAST(
+      REGEXP_REPLACE(COALESCE(candidate.structuredPrice, ''), ',', '')
+      AS DECIMAL(20, 2)
+    ) AS parsedStructuredPrice,
+    LOWER(TRIM(COALESCE(candidate.structuredListingStatus, '')))
+      AS normalizedListingStatus,
+    LOWER(TRIM(COALESCE(candidate.structuredAvailability, '')))
+      AS normalizedAvailability,
+    CASE
+      WHEN
+        candidate.structuredBusinessFunction IS NOT NULL
+        AND NOT LOWER(TRIM(candidate.structuredBusinessFunction))
+          RLIKE '(^|[/#])sell$'
+        THEN TRUE
+      ELSE FALSE
+    END AS nonSaleOffer
+  FROM candidate_fields AS candidate
+),
+-- Address keys compare after unit designators are dropped, USPS street
+-- suffixes, directionals and Saint/Mount/Fort are abbreviated (in street and
+-- city alike, so West Saint Paul matches West St Paul), a post-directional is moved
+-- after the house number and a ZIP+4 extension is removed. House number,
+-- street name, unit number, city, state and ZIP5 must still all match. A unit
+-- designator is dropped before a number or a single letter (Unit 5, Unit C).
+address_normalized_candidates AS (
+  SELECT
+    normalized.*,
+    TRIM(
+      REGEXP_REPLACE(
+        REGEXP_REPLACE(
+          ARRAY_JOIN(
+            TRANSFORM(
+              SPLIT(
+                REGEXP_REPLACE(
+                  normalized.requestedAddressKey,
+                  '(^| )(apt|apartment|unit|ste|suite)(?= [a-z]?[0-9]| [a-z]( |$))',
+                  ''
+                ),
+                ' '
+              ),
+              token -> CASE token
+                WHEN 'alley' THEN 'aly'
+                WHEN 'avenue' THEN 'ave'
+                WHEN 'av' THEN 'ave'
+                WHEN 'bend' THEN 'bnd'
+                WHEN 'boulevard' THEN 'blvd'
+                WHEN 'canyon' THEN 'cyn'
+                WHEN 'center' THEN 'ctr'
+                WHEN 'circle' THEN 'cir'
+                WHEN 'court' THEN 'ct'
+                WHEN 'cove' THEN 'cv'
+                WHEN 'creek' THEN 'crk'
+                WHEN 'crest' THEN 'crst'
+                WHEN 'crossing' THEN 'xing'
+                WHEN 'drive' THEN 'dr'
+                WHEN 'estates' THEN 'ests'
+                WHEN 'expressway' THEN 'expy'
+                WHEN 'forest' THEN 'frst'
+                WHEN 'fort' THEN 'ft'
+                WHEN 'freeway' THEN 'fwy'
+                WHEN 'gardens' THEN 'gdns'
+                WHEN 'glen' THEN 'gln'
+                WHEN 'grove' THEN 'grv'
+                WHEN 'harbor' THEN 'hbr'
+                WHEN 'heights' THEN 'hts'
+                WHEN 'highway' THEN 'hwy'
+                WHEN 'hill' THEN 'hl'
+                WHEN 'hills' THEN 'hls'
+                WHEN 'hollow' THEN 'holw'
+                WHEN 'junction' THEN 'jct'
+                WHEN 'knoll' THEN 'knl'
+                WHEN 'lake' THEN 'lk'
+                WHEN 'lakes' THEN 'lks'
+                WHEN 'landing' THEN 'lndg'
+                WHEN 'lane' THEN 'ln'
+                WHEN 'manor' THEN 'mnr'
+                WHEN 'meadow' THEN 'mdw'
+                WHEN 'meadows' THEN 'mdws'
+                WHEN 'mount' THEN 'mt'
+                WHEN 'mountain' THEN 'mtn'
+                WHEN 'parkway' THEN 'pkwy'
+                WHEN 'place' THEN 'pl'
+                WHEN 'plaza' THEN 'plz'
+                WHEN 'point' THEN 'pt'
+                WHEN 'ranch' THEN 'rnch'
+                WHEN 'ridge' THEN 'rdg'
+                WHEN 'road' THEN 'rd'
+                WHEN 'saint' THEN 'st'
+                WHEN 'shores' THEN 'shrs'
+                WHEN 'spring' THEN 'spg'
+                WHEN 'springs' THEN 'spgs'
+                WHEN 'square' THEN 'sq'
+                WHEN 'station' THEN 'sta'
+                WHEN 'street' THEN 'st'
+                WHEN 'summit' THEN 'smt'
+                WHEN 'terrace' THEN 'ter'
+                WHEN 'trail' THEN 'trl'
+                WHEN 'trace' THEN 'trce'
+                WHEN 'turnpike' THEN 'tpke'
+                WHEN 'valley' THEN 'vly'
+                WHEN 'view' THEN 'vw'
+                WHEN 'village' THEN 'vlg'
+                WHEN 'vista' THEN 'vis'
+                WHEN 'north' THEN 'n'
+                WHEN 'south' THEN 's'
+                WHEN 'east' THEN 'e'
+                WHEN 'west' THEN 'w'
+                WHEN 'northeast' THEN 'ne'
+                WHEN 'northwest' THEN 'nw'
+                WHEN 'southeast' THEN 'se'
+                WHEN 'southwest' THEN 'sw'
+                ELSE token
+              END
+            ),
+            ' '
+          ),
+          '^([0-9]+[a-z]?) (.+?) (aly|ave|blvd|bnd|cir|crk|crst|ct|ctr|cv|cyn|dr|ests|expy|frst|fwy|gdns|gln|grv|hbr|hl|hls|holw|hts|hwy|jct|knl|lk|lks|ln|lndg|loop|mdw|mdws|mnr|mtn|pass|path|pike|pkwy|pl|plz|pt|rdg|rd|rnch|run|shrs|smt|spg|spgs|sq|st|sta|ter|tpke|trce|trl|vis|vlg|vly|vw|walk|way|xing) (n|s|e|w|ne|nw|se|sw)( |$)',
+          '$1 $4 $2 $3$5'
+        ),
+        '([0-9]{5}) [0-9]{4}$',
+        '$1'
+      )
+    ) AS normalizedRequestedAddressKey,
+    TRIM(
+      REGEXP_REPLACE(
+        REGEXP_REPLACE(
+          ARRAY_JOIN(
+            TRANSFORM(
+              SPLIT(
+                REGEXP_REPLACE(
+                  normalized.structuredAddressKey,
+                  '(^| )(apt|apartment|unit|ste|suite)(?= [a-z]?[0-9]| [a-z]( |$))',
+                  ''
+                ),
+                ' '
+              ),
+              token -> CASE token
+                WHEN 'alley' THEN 'aly'
+                WHEN 'avenue' THEN 'ave'
+                WHEN 'av' THEN 'ave'
+                WHEN 'bend' THEN 'bnd'
+                WHEN 'boulevard' THEN 'blvd'
+                WHEN 'canyon' THEN 'cyn'
+                WHEN 'center' THEN 'ctr'
+                WHEN 'circle' THEN 'cir'
+                WHEN 'court' THEN 'ct'
+                WHEN 'cove' THEN 'cv'
+                WHEN 'creek' THEN 'crk'
+                WHEN 'crest' THEN 'crst'
+                WHEN 'crossing' THEN 'xing'
+                WHEN 'drive' THEN 'dr'
+                WHEN 'estates' THEN 'ests'
+                WHEN 'expressway' THEN 'expy'
+                WHEN 'forest' THEN 'frst'
+                WHEN 'fort' THEN 'ft'
+                WHEN 'freeway' THEN 'fwy'
+                WHEN 'gardens' THEN 'gdns'
+                WHEN 'glen' THEN 'gln'
+                WHEN 'grove' THEN 'grv'
+                WHEN 'harbor' THEN 'hbr'
+                WHEN 'heights' THEN 'hts'
+                WHEN 'highway' THEN 'hwy'
+                WHEN 'hill' THEN 'hl'
+                WHEN 'hills' THEN 'hls'
+                WHEN 'hollow' THEN 'holw'
+                WHEN 'junction' THEN 'jct'
+                WHEN 'knoll' THEN 'knl'
+                WHEN 'lake' THEN 'lk'
+                WHEN 'lakes' THEN 'lks'
+                WHEN 'landing' THEN 'lndg'
+                WHEN 'lane' THEN 'ln'
+                WHEN 'manor' THEN 'mnr'
+                WHEN 'meadow' THEN 'mdw'
+                WHEN 'meadows' THEN 'mdws'
+                WHEN 'mount' THEN 'mt'
+                WHEN 'mountain' THEN 'mtn'
+                WHEN 'parkway' THEN 'pkwy'
+                WHEN 'place' THEN 'pl'
+                WHEN 'plaza' THEN 'plz'
+                WHEN 'point' THEN 'pt'
+                WHEN 'ranch' THEN 'rnch'
+                WHEN 'ridge' THEN 'rdg'
+                WHEN 'road' THEN 'rd'
+                WHEN 'saint' THEN 'st'
+                WHEN 'shores' THEN 'shrs'
+                WHEN 'spring' THEN 'spg'
+                WHEN 'springs' THEN 'spgs'
+                WHEN 'square' THEN 'sq'
+                WHEN 'station' THEN 'sta'
+                WHEN 'street' THEN 'st'
+                WHEN 'summit' THEN 'smt'
+                WHEN 'terrace' THEN 'ter'
+                WHEN 'trail' THEN 'trl'
+                WHEN 'trace' THEN 'trce'
+                WHEN 'turnpike' THEN 'tpke'
+                WHEN 'valley' THEN 'vly'
+                WHEN 'view' THEN 'vw'
+                WHEN 'village' THEN 'vlg'
+                WHEN 'vista' THEN 'vis'
+                WHEN 'north' THEN 'n'
+                WHEN 'south' THEN 's'
+                WHEN 'east' THEN 'e'
+                WHEN 'west' THEN 'w'
+                WHEN 'northeast' THEN 'ne'
+                WHEN 'northwest' THEN 'nw'
+                WHEN 'southeast' THEN 'se'
+                WHEN 'southwest' THEN 'sw'
+                ELSE token
+              END
+            ),
+            ' '
+          ),
+          '^([0-9]+[a-z]?) (.+?) (aly|ave|blvd|bnd|cir|crk|crst|ct|ctr|cv|cyn|dr|ests|expy|frst|fwy|gdns|gln|grv|hbr|hl|hls|holw|hts|hwy|jct|knl|lk|lks|ln|lndg|loop|mdw|mdws|mnr|mtn|pass|path|pike|pkwy|pl|plz|pt|rdg|rd|rnch|run|shrs|smt|spg|spgs|sq|st|sta|ter|tpke|trce|trl|vis|vlg|vly|vw|walk|way|xing) (n|s|e|w|ne|nw|se|sw)( |$)',
+          '$1 $4 $2 $3$5'
+        ),
+        '([0-9]{5}) [0-9]{4}$',
+        '$1'
+      )
+    ) AS normalizedStructuredAddressKey,
+    TRIM(
+      REGEXP_REPLACE(
+        REGEXP_REPLACE(
+          ARRAY_JOIN(
+            TRANSFORM(
+              SPLIT(
+                REGEXP_REPLACE(
+                  normalized.structuredStreetKey,
+                  '(^| )(apt|apartment|unit|ste|suite)(?= [a-z]?[0-9]| [a-z]( |$))',
+                  ''
+                ),
+                ' '
+              ),
+              token -> CASE token
+                WHEN 'alley' THEN 'aly'
+                WHEN 'avenue' THEN 'ave'
+                WHEN 'av' THEN 'ave'
+                WHEN 'bend' THEN 'bnd'
+                WHEN 'boulevard' THEN 'blvd'
+                WHEN 'canyon' THEN 'cyn'
+                WHEN 'center' THEN 'ctr'
+                WHEN 'circle' THEN 'cir'
+                WHEN 'court' THEN 'ct'
+                WHEN 'cove' THEN 'cv'
+                WHEN 'creek' THEN 'crk'
+                WHEN 'crest' THEN 'crst'
+                WHEN 'crossing' THEN 'xing'
+                WHEN 'drive' THEN 'dr'
+                WHEN 'estates' THEN 'ests'
+                WHEN 'expressway' THEN 'expy'
+                WHEN 'forest' THEN 'frst'
+                WHEN 'fort' THEN 'ft'
+                WHEN 'freeway' THEN 'fwy'
+                WHEN 'gardens' THEN 'gdns'
+                WHEN 'glen' THEN 'gln'
+                WHEN 'grove' THEN 'grv'
+                WHEN 'harbor' THEN 'hbr'
+                WHEN 'heights' THEN 'hts'
+                WHEN 'highway' THEN 'hwy'
+                WHEN 'hill' THEN 'hl'
+                WHEN 'hills' THEN 'hls'
+                WHEN 'hollow' THEN 'holw'
+                WHEN 'junction' THEN 'jct'
+                WHEN 'knoll' THEN 'knl'
+                WHEN 'lake' THEN 'lk'
+                WHEN 'lakes' THEN 'lks'
+                WHEN 'landing' THEN 'lndg'
+                WHEN 'lane' THEN 'ln'
+                WHEN 'manor' THEN 'mnr'
+                WHEN 'meadow' THEN 'mdw'
+                WHEN 'meadows' THEN 'mdws'
+                WHEN 'mount' THEN 'mt'
+                WHEN 'mountain' THEN 'mtn'
+                WHEN 'parkway' THEN 'pkwy'
+                WHEN 'place' THEN 'pl'
+                WHEN 'plaza' THEN 'plz'
+                WHEN 'point' THEN 'pt'
+                WHEN 'ranch' THEN 'rnch'
+                WHEN 'ridge' THEN 'rdg'
+                WHEN 'road' THEN 'rd'
+                WHEN 'saint' THEN 'st'
+                WHEN 'shores' THEN 'shrs'
+                WHEN 'spring' THEN 'spg'
+                WHEN 'springs' THEN 'spgs'
+                WHEN 'square' THEN 'sq'
+                WHEN 'station' THEN 'sta'
+                WHEN 'street' THEN 'st'
+                WHEN 'summit' THEN 'smt'
+                WHEN 'terrace' THEN 'ter'
+                WHEN 'trail' THEN 'trl'
+                WHEN 'trace' THEN 'trce'
+                WHEN 'turnpike' THEN 'tpke'
+                WHEN 'valley' THEN 'vly'
+                WHEN 'view' THEN 'vw'
+                WHEN 'village' THEN 'vlg'
+                WHEN 'vista' THEN 'vis'
+                WHEN 'north' THEN 'n'
+                WHEN 'south' THEN 's'
+                WHEN 'east' THEN 'e'
+                WHEN 'west' THEN 'w'
+                WHEN 'northeast' THEN 'ne'
+                WHEN 'northwest' THEN 'nw'
+                WHEN 'southeast' THEN 'se'
+                WHEN 'southwest' THEN 'sw'
+                ELSE token
+              END
+            ),
+            ' '
+          ),
+          '^([0-9]+[a-z]?) (.+?) (aly|ave|blvd|bnd|cir|crk|crst|ct|ctr|cv|cyn|dr|ests|expy|frst|fwy|gdns|gln|grv|hbr|hl|hls|holw|hts|hwy|jct|knl|lk|lks|ln|lndg|loop|mdw|mdws|mnr|mtn|pass|path|pike|pkwy|pl|plz|pt|rdg|rd|rnch|run|shrs|smt|spg|spgs|sq|st|sta|ter|tpke|trce|trl|vis|vlg|vly|vw|walk|way|xing) (n|s|e|w|ne|nw|se|sw)( |$)',
+          '$1 $4 $2 $3$5'
+        ),
+        '([0-9]{5}) [0-9]{4}$',
+        '$1'
+      )
+    ) AS normalizedStructuredStreetKey,
+    CASE
+      WHEN
+        normalized.parsedStructuredPrice IS NOT NULL
+        AND normalized.parsedStructuredPrice >= 1000
+        AND normalized.parsedStructuredPrice
+          <= CAST(90071992547409.91 AS DECIMAL(20, 2))
+        THEN INSTR(
+          CONCAT(' ', normalized.visibleTextKey, ' '),
+          CONCAT(
+            ' ',
+            REGEXP_REPLACE(
+              FORMAT_NUMBER(FLOOR(normalized.parsedStructuredPrice), 0),
+              ',',
+              ' '
+            ),
+            ' '
+          )
+        )
+      ELSE 0
+    END AS visiblePriceIndex,
+    REGEXP_EXTRACT(normalized.requestedAddressKey, '^([0-9]+[a-z]?) ', 1)
+      AS requestedHouseNumber,
+    -- The house number a page's title or URL path leads with names the
+    -- property the page is about; counts such as "3 beds" are not addresses.
+    REGEXP_EXTRACT(
+      LOWER(TRIM(COALESCE(normalized.page.metadata.title, ''))),
+      '^([0-9]+[a-z]?) +(?!(?:beds?|bd|bds|baths?|ba|br|bedrooms?|bathrooms?|sq|sqft|acres?|units?|homes?|houses?|propert(?:y|ies)|lots?|listings?|results?)\\b)[a-z]',
+      1
+    ) AS titleHouseNumber,
+    REGEXP_EXTRACT(
+      REGEXP_REPLACE(LOWER(COALESCE(normalized.pageUrl, '')), '^[a-z]+://[^/]*', ''),
+      '/([0-9]+[a-z]?)-[a-z]',
+      1
+    ) AS urlHouseNumber
+  FROM normalized_candidates AS normalized
+),
+-- The rendered words just before the first displayed copy of the
+-- structured price are the page's headline label for that price.
+visible_price_candidates AS (
+  SELECT
+    located.*,
+    CASE
+      WHEN located.visiblePriceIndex > 0
+        THEN TRIM(
+          SUBSTRING(
+            CONCAT(' ', located.visibleTextKey, ' '),
+            GREATEST(1, located.visiblePriceIndex - 120),
+            located.visiblePriceIndex - GREATEST(1, located.visiblePriceIndex - 120)
+          )
+        )
+      ELSE CAST(NULL AS STRING)
+    END AS visiblePriceContext,
+    -- The same home under another spelling of its address:
+    -- * another city name for the same street, state and ZIP5 (portals name a
+    --   home's city as a neighbourhood, a postal city or a metro): the
+    --   requested key starts with the structured street, continues with a
+    --   word of two or more letters (a city, not a unit) and ends with the
+    --   structured state and ZIP5. Keys hold only [a-z0-9 ], so they are safe
+    --   inside the pattern;
+    -- * a street name split or joined differently (Glen Cove, Glencove): the
+    --   keys agree once every space is removed and the house numbers agree.
+    (
+      located.normalizedStructuredStreetKey RLIKE '^[0-9]+[a-z]? [a-z0-9]'
+      AND located.normalizedStructuredAddressKey RLIKE '^[0-9]+[a-z]? .* [a-z]{2} [0-9]{5}$'
+      AND located.normalizedRequestedAddressKey RLIKE CONCAT(
+        '^',
+        located.normalizedStructuredStreetKey,
+        ' [a-z]{2,}[a-z ]* ',
+        REGEXP_EXTRACT(located.normalizedStructuredAddressKey, '([a-z]{2} [0-9]{5})$', 1),
+        '$'
+      )
+    )
+    OR (
+      located.requestedHouseNumber <> ''
+      AND REGEXP_EXTRACT(located.structuredAddressKey, '^([0-9]+[a-z]?) ', 1)
+        = located.requestedHouseNumber
+      AND REPLACE(located.structuredAddressKey, ' ', '')
+        = REPLACE(located.requestedAddressKey, ' ', '')
+    ) AS addressAliasMatch,
+    -- An explicit "Listing Status" field in the rendered page (for example
+    -- "Listing Status Under Contract - P") states the page's status even when
+    -- it is printed after the price rather than before it; '' when absent.
+    -- A search filter menu lists several statuses in a row ("Listing Status
+    -- Coming Soon Open Houses Contingent Pending"), so a status followed by
+    -- another status word is not a label.
+    REGEXP_EXTRACT(
+      CONCAT(' ', located.visibleTextKey, ' '),
+      ' listing status (active|for sale|new listing|sale pending|pending|contingent|under contract|under agreement|offer accepted|accepted offer|coming soon|off market|sold|withdrawn|expired|cancelled|canceled) (?!(?:active|for sale|new|sale|pending|contingent|under|offer|accepted|coming|off|sold|withdrawn|expired|cancell?ed|open houses?|price reduced|foreclosures?|auctions?)( |$))',
+      1
+    ) AS listingStatusLabel
+  FROM address_normalized_candidates AS located
+),
+visible_status_candidates AS (
+  SELECT
+    labelled.*,
+    -- The pattern takes the last status phrase, so a "Listing Status" label,
+    -- appended after a separator, wins over the words before the price.
+    NULLIF(
+      REGEXP_EXTRACT(
+        CONCAT(COALESCE(labelled.visiblePriceContext, ''), ' | ', labelled.listingStatusLabel, ' '),
+        '^.*(?:^| )((?<!not )(?<!not currently )(?<!no longer )for sale|active|new listing|price reduced|sale pending|pending|contingent|under contract|under agreement|offer accepted|accepted offer|accepting backups?|backup offers?|pre ?foreclosure|foreclosure auction|auction|off market|off the market|sold|not for sale|not currently for sale|no longer for sale|no longer available|withdrawn|expired|cancelled|canceled|delisted|coming soon) ',
+        1
+      ),
+      ''
+    ) AS visibleStatusPhrase,
+    -- Rent, assessed, bid and estimate labels are checked before offer labels
+    -- so a value that is not an asking price never survives as one.
+    CASE
+      WHEN
+        COALESCE(labelled.visiblePriceContext, '')
+          RLIKE '(^| )(rent|monthly rent|for rent|rent zestimate|rent estimate|rental estimate|estimated rent|rental value)$'
+        THEN 'RENT'
+      WHEN
+        COALESCE(labelled.visiblePriceContext, '')
+          RLIKE '(^| )((tax )?assessed( value)?|(tax )?assessment|taxable value|appraised value|just value|land value)$'
+        THEN 'ASSESSED_VALUE'
+      WHEN
+        COALESCE(labelled.visiblePriceContext, '')
+          RLIKE '(^| )((starting|opening|current|minimum|min|credit|high|highest|winning|final) bid|bids? starts? at|reserve price|auction price)$'
+        THEN 'AUCTION_BID'
+      WHEN
+        COALESCE(labelled.visiblePriceContext, '')
+          RLIKE '(^| )(est|estimate|estimated|zestimate|estimated value|est value|home value|estimated home value|market value|estimated market value)$'
+        THEN 'ESTIMATE'
+      WHEN
+        COALESCE(labelled.visiblePriceContext, '')
+          RLIKE '(^| )(buy with opendoor|opendoor price|opendoor offer|cash offer|instant offer|buy with offerpad|offerpad price)$'
+        THEN 'OFFER'
+      ELSE CAST(NULL AS STRING)
+    END AS visiblePriceLabelKind,
+    CASE
+      WHEN
+        labelled.parsedStructuredPrice IS NOT NULL
+        AND labelled.parsedStructuredPrice >= 1000
+        AND labelled.parsedStructuredPrice
+          <= CAST(90071992547409.91 AS DECIMAL(20, 2))
+        AND labelled.parsedStructuredPrice = FLOOR(labelled.parsedStructuredPrice)
+        THEN CAST(CAST(labelled.parsedStructuredPrice AS BIGINT) AS STRING)
+      ELSE CAST(NULL AS STRING)
+    END AS structuredPriceToken
+  FROM visible_price_candidates AS labelled
+),
+-- Embedded application state only ever rejects a structured price: an
+-- amount that the page itself names as an offer or an estimate is not the
+-- asking price unless the same amount is also named as the list price.
+price_provenance_candidates AS (
+  SELECT
+    visible.*,
+    CASE
+      WHEN visible.structuredPriceToken IS NULL THEN CAST(NULL AS STRING)
+      WHEN
+        COALESCE(visible.page.rawHtml, '') RLIKE CONCAT(
+          '(?i)\\\\*"(?:buyDirectPrice|opendoorPrice|cashOfferPrice|instantOfferPrice)\\\\*"\\s*:\\s*\\\\*"?',
+          visible.structuredPriceToken,
+          '(?:\\.0+)?(?![0-9.])'
+        )
+        THEN 'OFFER'
+      WHEN
+        COALESCE(visible.page.rawHtml, '') RLIKE CONCAT(
+          '(?i)\\\\*"(?:zestimate|rentZestimate|rentEstimate|estimatedValue|predictedValue|avmValue|taxAssessedValue|assessedValue)\\\\*"\\s*:\\s*\\\\*"?',
+          visible.structuredPriceToken,
+          '(?:\\.0+)?(?![0-9.])'
+        )
+        THEN 'ESTIMATE'
+      ELSE CAST(NULL AS STRING)
+    END AS appStatePriceKind,
+    CASE
+      WHEN visible.structuredPriceToken IS NULL THEN FALSE
+      ELSE COALESCE(visible.page.rawHtml, '') RLIKE CONCAT(
+        '(?i)\\\\*"(?:listPrice|listingPrice|askingPrice|currentListPrice|list_price)\\\\*"\\s*:\\s*\\\\*"?',
+        visible.structuredPriceToken,
+        '(?:\\.0+)?(?![0-9.])'
+      )
+    END AS appStateListPriceMatch
+  FROM visible_status_candidates AS visible
+),
+price_label_candidates AS (
+  SELECT
+    provenance.*,
+    COALESCE(
+      provenance.visiblePriceLabelKind,
+      CASE
+        WHEN NOT provenance.appStateListPriceMatch
+          THEN provenance.appStatePriceKind
+        ELSE CAST(NULL AS STRING)
+      END
+    ) AS nonListPriceKind
+  FROM price_provenance_candidates AS provenance
+),
+signal_candidates AS (
+  SELECT
+    labelled.*,
+    COALESCE(
+      labelled.nonListPriceKind IN ('ESTIMATE', 'RENT', 'ASSESSED_VALUE', 'AUCTION_BID'),
+      FALSE
+    ) AS estimatePriceSignal,
+    COALESCE(labelled.nonListPriceKind = 'OFFER', FALSE) AS offerPriceSignal
+  FROM price_label_candidates AS labelled
+),
+override_candidates AS (
+  SELECT
+    visible.*,
+    CASE
+      WHEN
+        NOT visible.nonSaleOffer
+        AND (
+          visible.normalizedAvailability RLIKE '(^|[/#])instock$'
+          OR visible.normalizedListingStatus IN ('active', 'for sale', 'for_sale')
+        )
+        AND COALESCE(visible.visibleStatusPhrase, '') RLIKE
+          '^(sale pending|pending|contingent|under contract|under agreement|offer accepted|accepted offer|accepting backups?|backup offers?|pre ?foreclosure|foreclosure auction|auction|off market|off the market|sold|not for sale|not currently for sale|no longer for sale|no longer available|withdrawn|expired|cancelled|canceled|delisted|coming soon)$'
+        THEN TRUE
+      ELSE FALSE
+    END AS visibleInactiveOverride,
+    -- An explicit pending, contract or off-market listing status in a block
+    -- outranks that block's InStock availability.
+    visible.normalizedListingStatus IN (
+      'coming soon',
+      'coming_soon',
+      'pending',
+      'sale pending',
+      'sale_pending',
+      'pending sale',
+      'pending_sale',
+      'under contract',
+      'under_contract',
+      'active under contract',
+      'active_under_contract',
+      'under agreement',
+      'under_agreement',
+      'contingent',
+      'sold',
+      'recently sold',
+      'recently_sold',
+      'off market',
+      'off_market',
+      'not for sale',
+      'not_for_sale',
+      'pre foreclosure',
+      'pre_foreclosure',
+      'foreclosure auction',
+      'auction',
+      'withdrawn',
+      'expired',
+      'cancelled',
+      'canceled'
+    ) AS structuredInactiveStatus
+  FROM signal_candidates AS visible
+),
+-- A block without a structured address takes its address from the page
+-- text only when the page is about the requested property: a page whose
+-- title or URL leads with another house number mentions the requested
+-- address only in passing (a nearby-homes card, a resident's other address).
+-- Structured addresses elsewhere on a page do not decide this; listing pages
+-- embed blocks for nearby homes.
+identified_candidates AS (
+  SELECT
+    normalized.*,
+    normalized.requestedHouseNumber <> ''
+      AND (
+        (
+          normalized.titleHouseNumber <> ''
+          AND normalized.titleHouseNumber <> normalized.requestedHouseNumber
+        )
+        OR (
+          normalized.urlHouseNumber <> ''
+          AND normalized.urlHouseNumber <> normalized.requestedHouseNumber
+        )
+      ) AS pageNamesOtherProperty
+  FROM override_candidates AS normalized
+),
+classified_candidates AS (
+  SELECT
+    normalized.*,
+    CASE
+      WHEN
+        normalized.normalizedRequestedAddressKey <> ''
+        AND normalized.normalizedStructuredAddressKey
+          = normalized.normalizedRequestedAddressKey
+        THEN 'EXACT'
+      WHEN normalized.addressAliasMatch THEN 'EXACT'
+      WHEN normalized.structuredAddressKey <> '' THEN 'NON_EXACT'
+      WHEN normalized.pageNamesOtherProperty THEN 'NON_EXACT'
+      WHEN
+        normalized.requestedAddressKey <> ''
+        AND INSTR(
+          CONCAT(' ', normalized.pageTextKey, ' '),
+          CONCAT(' ', normalized.requestedAddressKey, ' ')
+        ) > 0
+        THEN 'EXACT'
+      ELSE 'UNKNOWN'
+    END AS candidateAddressState,
+    CASE
+      WHEN
+        normalized.sourceAsOfValue IS NULL
+        OR normalized.freshnessEvaluatedAtValue IS NULL
+        THEN 'UNKNOWN'
+      WHEN
+        CAST(normalized.sourceAsOfValue AS LONG)
+          BETWEEN CAST(normalized.freshnessEvaluatedAtValue AS LONG) - 2592000
+          AND CAST(normalized.freshnessEvaluatedAtValue AS LONG) + 300
+        THEN 'FRESH'
+      ELSE 'STALE'
+    END AS candidateFreshnessState,
+    CASE
+      WHEN normalized.nonSaleOffer THEN FALSE
+      WHEN normalized.visibleInactiveOverride THEN FALSE
+      WHEN normalized.structuredInactiveStatus THEN FALSE
+      WHEN normalized.estimatePriceSignal THEN FALSE
+      WHEN
+        normalized.normalizedAvailability RLIKE '(^|[/#])instock$'
+        OR normalized.normalizedListingStatus IN (
+          'active',
+          'for sale',
+          'for_sale'
+        )
+        THEN TRUE
+      ELSE FALSE
+    END AS candidateActiveSignal,
+    CASE
+      WHEN normalized.nonSaleOffer THEN TRUE
+      WHEN normalized.visibleInactiveOverride THEN TRUE
+      WHEN
+        normalized.normalizedAvailability RLIKE
+          '(^|[/#])(soldout|outofstock|discontinued|limitedavailability)$'
+        OR normalized.structuredInactiveStatus
+        THEN TRUE
+      ELSE FALSE
+    END AS candidateInactiveSignal,
+    CASE
+      WHEN
+        normalized.visibleInactiveOverride
+        AND normalized.visibleStatusPhrase IN ('pending', 'sale pending')
+        THEN 'PENDING'
+      WHEN
+        normalized.visibleInactiveOverride
+        AND normalized.visibleStatusPhrase RLIKE
+          '^(contingent|under contract|under agreement|offer accepted|accepted offer|accepting backups?|backup offers?)$'
+        THEN 'UNDER_CONTRACT'
+      WHEN
+        normalized.visibleInactiveOverride
+        AND normalized.visibleStatusPhrase = 'coming soon'
+        THEN 'COMING_SOON'
+      WHEN normalized.visibleInactiveOverride THEN 'OTHER'
+      WHEN normalized.normalizedListingStatus IN ('coming soon', 'coming_soon')
+        THEN 'COMING_SOON'
+      WHEN normalized.normalizedAvailability RLIKE '(^|[/#])limitedavailability$'
+        THEN 'UNDER_CONTRACT'
+      WHEN
+        normalized.normalizedListingStatus IN (
+          'under contract',
+          'under_contract',
+          'active under contract',
+          'active_under_contract',
+          'under agreement',
+          'under_agreement',
+          'contingent'
+        )
+        THEN 'UNDER_CONTRACT'
+      WHEN
+        normalized.normalizedListingStatus IN (
+          'pending',
+          'sale pending',
+          'sale_pending',
+          'pending sale',
+          'pending_sale'
+        )
+        THEN 'PENDING'
+      ELSE 'OTHER'
+    END AS candidateInactiveStatus,
+    CASE
+      WHEN
+        normalized.parsedStructuredPrice IS NOT NULL
+        AND normalized.parsedStructuredPrice > 0
+        AND normalized.parsedStructuredPrice
+          <= CAST(90071992547409.91 AS DECIMAL(20, 2))
+        AND normalized.structuredCurrency RLIKE '^[A-Z]{3}$'
+        AND normalized.priceFieldCount = 1
+        AND normalized.currencyFieldCount = 1
+        AND NOT normalized.estimatePriceSignal
+        AND NOT normalized.offerPriceSignal
+        THEN TRUE
+      ELSE FALSE
+    END AS candidateValidPrice,
+    -- Several availability fields are ambiguous unless they are all the same
+    -- string value and the block names exactly one street address.
+    CASE
+      WHEN
+        (
+          normalized.availabilityFieldCount > 1
+          AND NOT (
+            SIZE(normalized.availabilityValues) = 1
+            AND normalized.availabilityStringTotal
+              = normalized.availabilityFieldTotal
+            AND SIZE(normalized.streetAddressValues) = 1
+          )
+        )
+        OR (
+          normalized.normalizedAvailability RLIKE '(^|[/#])instock$'
+          AND normalized.normalizedAvailability RLIKE
+            '(^|[/#])(soldout|outofstock|discontinued|limitedavailability)$'
+        )
+        THEN TRUE
+      ELSE FALSE
+    END AS candidateStatusAmbiguous
+  FROM identified_candidates AS normalized
+),
+eligible_candidates AS (
+  SELECT
+    classified.*,
+    CASE
+      WHEN
+        classified.candidateActiveSignal
+        AND NOT classified.candidateInactiveSignal
+        AND NOT classified.candidateStatusAmbiguous
+        AND classified.candidateAddressState = 'EXACT'
+        AND classified.candidateFreshnessState = 'FRESH'
+        THEN TRUE
+      ELSE FALSE
+    END AS candidateEligibleActive,
+    CASE
+      WHEN
+        classified.candidateInactiveSignal
+        AND NOT classified.candidateActiveSignal
+        AND NOT classified.candidateStatusAmbiguous
+        AND classified.candidateAddressState = 'EXACT'
+        AND classified.candidateFreshnessState = 'FRESH'
+        THEN TRUE
+      ELSE FALSE
+    END AS candidateEligibleInactive
+  FROM classified_candidates AS classified
+),
+candidate_summary AS (
+  SELECT
+    eligible.acquisitionId,
+    eligible.pageOrdinal,
+    COUNT(eligible.jsonLdDocument) AS structuredBlockCount,
+    MAX(CASE WHEN eligible.jsonLdBlockLimitExceeded THEN 1 ELSE 0 END)
+      AS blockLimitExceededCount,
+    SUM(CASE WHEN eligible.jsonLdDocumentLimitExceeded THEN 1 ELSE 0 END)
+      AS documentLimitExceededCount,
+    SUM(CASE WHEN eligible.malformedJsonLdDocument THEN 1 ELSE 0 END)
+      AS malformedDocumentCount,
+    SUM(CASE WHEN eligible.candidateActiveSignal THEN 1 ELSE 0 END)
+      AS activeSignalCount,
+    SUM(CASE WHEN eligible.candidateInactiveSignal THEN 1 ELSE 0 END)
+      AS inactiveSignalCount,
+    SUM(CASE WHEN eligible.candidateStatusAmbiguous THEN 1 ELSE 0 END)
+      AS ambiguousStatusCount,
+    SUM(CASE WHEN eligible.candidateEligibleActive THEN 1 ELSE 0 END)
+      AS eligibleActiveCount,
+    SUM(CASE WHEN eligible.candidateEligibleInactive THEN 1 ELSE 0 END)
+      AS eligibleInactiveCount,
+    SUM(
+      CASE
+        WHEN
+          eligible.candidateActiveSignal
+          AND eligible.candidateAddressState = 'EXACT'
+          AND eligible.candidateFreshnessState = 'STALE'
+          THEN 1
+        ELSE 0
+      END
+    ) AS staleExactActiveCount,
+    SUM(
+      CASE
+        WHEN
+          eligible.candidateActiveSignal
+          AND eligible.candidateAddressState = 'EXACT'
+          AND eligible.candidateFreshnessState = 'UNKNOWN'
+          THEN 1
+        ELSE 0
+      END
+    ) AS unknownFreshnessExactActiveCount,
+    SUM(
+      CASE
+        WHEN
+          eligible.candidateActiveSignal
+          AND eligible.candidateAddressState = 'NON_EXACT'
+          THEN 1
+        ELSE 0
+      END
+    ) AS nonExactActiveCount,
+    SUM(
+      CASE
+        WHEN eligible.candidateAddressState = 'EXACT' THEN 1
+        ELSE 0
+      END
+    ) AS anyExactCount,
+    SUM(
+      CASE
+        WHEN eligible.candidateAddressState = 'NON_EXACT' THEN 1
+        ELSE 0
+      END
+    ) AS anyNonExactCount,
+    SUM(
+      CASE
+        WHEN eligible.candidateFreshnessState = 'FRESH' THEN 1
+        ELSE 0
+      END
+    ) AS anyFreshCount,
+    SUM(
+      CASE
+        WHEN eligible.candidateFreshnessState = 'STALE' THEN 1
+        ELSE 0
+      END
+    ) AS anyStaleCount,
+    SUM(
+      CASE
+        WHEN
+          eligible.structuredPrice IS NOT NULL
+          OR eligible.structuredCurrency IS NOT NULL
+          THEN 1
+        ELSE 0
+      END
+    ) AS explicitPriceFieldCount,
+    ARRAY_SORT(
+      COLLECT_SET(
+        CASE
+          WHEN
+            eligible.candidateEligibleActive
+            AND eligible.candidateValidPrice
+            THEN CONCAT(
+              eligible.structuredCurrency,
+              ':',
+              CAST(eligible.parsedStructuredPrice AS STRING)
+            )
+          ELSE NULL
+        END
+      )
+    ) AS eligiblePriceKeys,
+    MAX(
+      CASE
+        WHEN eligible.candidateEligibleActive THEN eligible.sourceAsOfValue
+        ELSE CAST(NULL AS TIMESTAMP)
+      END
+    ) AS eligibleActiveSourceAsOf,
+    MAX(
+      CASE
+        WHEN eligible.candidateActiveSignal THEN eligible.sourceAsOfValue
+        ELSE CAST(NULL AS TIMESTAMP)
+      END
+    ) AS activeSourceAsOf,
+    MAX(eligible.sourceAsOfValue) AS anySourceAsOf,
+    MAX(
+      CASE
+        WHEN eligible.candidateEligibleActive THEN eligible.sourceAsOfBasis
+        ELSE CAST(NULL AS STRING)
+      END
+    ) AS eligibleActiveSourceAsOfBasis,
+    MAX(
+      CASE
+        WHEN eligible.candidateActiveSignal THEN eligible.sourceAsOfBasis
+        ELSE CAST(NULL AS STRING)
+      END
+    ) AS activeSourceAsOfBasis,
+    MAX(eligible.sourceAsOfBasis) AS anySourceAsOfBasis,
+    MAX(
+      CASE
+        WHEN eligible.candidateEligibleInactive
+          THEN eligible.candidateInactiveStatus
+        ELSE CAST(NULL AS STRING)
+      END
+    ) AS eligibleInactiveStatus,
+    MAX(
+      CASE
+        WHEN eligible.visibleInactiveOverride
+          THEN eligible.visibleStatusPhrase
+        ELSE CAST(NULL AS STRING)
+      END
+    ) AS visibleOverridePhrase,
+    SUM(CASE WHEN eligible.nonListPriceKind = 'ESTIMATE' THEN 1 ELSE 0 END)
+      AS estimatePriceCount,
+    SUM(CASE WHEN eligible.offerPriceSignal THEN 1 ELSE 0 END)
+      AS offerPriceCount,
+    SUM(CASE WHEN eligible.nonListPriceKind = 'ASSESSED_VALUE' THEN 1 ELSE 0 END)
+      AS assessedValuePriceCount,
+    SUM(CASE WHEN eligible.nonListPriceKind = 'AUCTION_BID' THEN 1 ELSE 0 END)
+      AS auctionBidPriceCount,
+    SUM(CASE WHEN eligible.nonListPriceKind = 'RENT' THEN 1 ELSE 0 END)
+      AS rentPriceCount,
+    SUM(CASE WHEN eligible.nonSaleOffer THEN 1 ELSE 0 END) AS nonSaleOfferCount
+  FROM eligible_candidates AS eligible
+  GROUP BY eligible.acquisitionId, eligible.pageOrdinal
+),
+classified_pages AS (
+  SELECT
+    page.*,
+    summary.structuredBlockCount,
+    summary.blockLimitExceededCount,
+    summary.documentLimitExceededCount,
+    summary.malformedDocumentCount,
+    summary.activeSignalCount,
+    summary.inactiveSignalCount,
+    summary.ambiguousStatusCount,
+    summary.eligibleActiveCount,
+    summary.eligibleInactiveCount,
+    summary.staleExactActiveCount,
+    summary.unknownFreshnessExactActiveCount,
+    summary.nonExactActiveCount,
+    summary.anyExactCount,
+    summary.anyNonExactCount,
+    summary.anyFreshCount,
+    summary.anyStaleCount,
+    summary.explicitPriceFieldCount,
+    summary.eligiblePriceKeys,
+    summary.eligibleActiveSourceAsOf,
+    summary.activeSourceAsOf,
+    summary.anySourceAsOf,
+    summary.eligibleInactiveStatus,
+    summary.visibleOverridePhrase,
+    summary.estimatePriceCount,
+    summary.offerPriceCount,
+    summary.assessedValuePriceCount,
+    summary.auctionBidPriceCount,
+    summary.rentPriceCount,
+    summary.nonSaleOfferCount,
+    COALESCE(
+      summary.eligibleActiveSourceAsOfBasis,
+      summary.activeSourceAsOfBasis,
+      summary.anySourceAsOfBasis
+    ) AS sourceAsOfBasisValue,
+    CASE
+      WHEN page.outcome <> 'SUCCESS' THEN CONCAT('ACQUISITION_', page.outcome)
+      WHEN page.rawBodyText IS NULL THEN 'MISSING_RAW_DOCUMENT'
+      WHEN page.firecrawlEnvelope IS NULL THEN 'MALFORMED_FIRECRAWL_ENVELOPE'
+      WHEN page.firecrawlEnvelope.success IS NULL
+        THEN 'MALFORMED_FIRECRAWL_ENVELOPE'
+      WHEN NOT page.firecrawlEnvelope.success THEN 'FIRECRAWL_SUCCESS_FALSE'
+      WHEN page.firecrawlEnvelope.data IS NULL
+        THEN 'MALFORMED_FIRECRAWL_ENVELOPE'
+      WHEN
+        page.firecrawlEnvelope.data.web IS NULL
+        OR SIZE(page.firecrawlEnvelope.data.web) = 0
+        THEN 'EMPTY_WEB_RESULTS'
+      WHEN page.page IS NULL THEN 'EMPTY_WEB_RESULTS'
+      WHEN page.page.rawHtml IS NULL OR TRIM(page.page.rawHtml) = ''
+        THEN 'MISSING_RAW_HTML'
+      WHEN page.page.metadata.statusCode IS NULL THEN 'MISSING_PAGE_STATUS'
+      WHEN
+        page.page.metadata.statusCode < 200
+        OR page.page.metadata.statusCode >= 300
+        THEN CONCAT(
+          'PAGE_HTTP_',
+          CAST(page.page.metadata.statusCode AS STRING)
+        )
+      WHEN summary.blockLimitExceededCount > 0
+        THEN 'STRUCTURED_EVIDENCE_BLOCK_LIMIT_EXCEEDED'
+      WHEN summary.documentLimitExceededCount > 0
+        THEN 'STRUCTURED_EVIDENCE_DOCUMENT_LIMIT_EXCEEDED'
+      WHEN summary.malformedDocumentCount > 0
+        THEN 'MALFORMED_JSON_LD'
+      ELSE CAST(NULL AS STRING)
+    END AS failureReason,
+    CASE
+      WHEN
+        summary.ambiguousStatusCount > 0
+        OR (
+          summary.eligibleActiveCount > 0
+          AND summary.eligibleInactiveCount > 0
+        )
+        OR SIZE(summary.eligiblePriceKeys) > 1
+        THEN TRUE
+      ELSE FALSE
+    END AS hasStructuredConflict,
+    CASE
+      WHEN summary.eligibleActiveCount > 0 THEN 'EXACT'
+      WHEN summary.eligibleInactiveCount > 0 THEN 'EXACT'
+      WHEN summary.activeSignalCount > 0 AND summary.nonExactActiveCount > 0
+        THEN 'NON_EXACT'
+      WHEN summary.activeSignalCount > 0
+        AND (
+          summary.staleExactActiveCount > 0
+          OR summary.unknownFreshnessExactActiveCount > 0
+        )
+        THEN 'EXACT'
+      WHEN summary.anyExactCount > 0 THEN 'EXACT'
+      WHEN summary.anyNonExactCount > 0 THEN 'NON_EXACT'
+      ELSE 'UNKNOWN'
+    END AS exactAddressMatchStateValue,
+    CASE
+      WHEN summary.eligibleActiveCount > 0 THEN 'FRESH'
+      WHEN summary.eligibleInactiveCount > 0 THEN 'FRESH'
+      WHEN summary.staleExactActiveCount > 0 THEN 'STALE'
+      WHEN summary.unknownFreshnessExactActiveCount > 0 THEN 'UNKNOWN'
+      WHEN summary.anyFreshCount > 0 THEN 'FRESH'
+      WHEN summary.anyStaleCount > 0 THEN 'STALE'
+      ELSE 'UNKNOWN'
+    END AS freshnessStateValue,
+    COALESCE(
+      summary.eligibleActiveSourceAsOf,
+      summary.activeSourceAsOf,
+      summary.anySourceAsOf
+    ) AS sourceAsOfValue,
+    CONCAT(
+      COALESCE(
+        NULLIF(page.firecrawlEnvelope.id, ''),
+        page.operationRequestId
+      ),
+      CASE WHEN page.page IS NULL THEN ':sentinel' ELSE ':web:' END,
+      CASE
+        WHEN page.page IS NULL THEN ''
+        ELSE LPAD(CAST(COALESCE(page.pageOrdinal, 0) AS STRING), 4, '0')
+      END
+    ) AS sourceListingIdentifierValue,
+    CONCAT(
+      'firecrawl:',
+      COALESCE(
+        NULLIF(page.pageDomain, ''),
+        NULLIF(LOWER(TRIM(page.domain)), ''),
+        LOWER(page.publisherId)
+      )
+    ) AS providerIdentifierValue
+  FROM page_inputs AS page
+  LEFT JOIN candidate_summary AS summary
+    ON page.acquisitionId = summary.acquisitionId
+    AND page.pageOrdinal <=> summary.pageOrdinal
+),
+projected_pages AS (
+  SELECT
+    classified.*,
+    CASE
+      WHEN classified.failureReason = 'EMPTY_WEB_RESULTS'
+        THEN 'LISTING_ABSENT'
+      WHEN classified.failureReason IS NOT NULL THEN 'LOOKUP_FAILED'
+      ELSE 'LISTING_FOUND'
+    END AS observationOutcomeValue,
+    CASE
+      WHEN classified.failureReason IS NOT NULL THEN 'UNKNOWN'
+      WHEN classified.hasStructuredConflict THEN 'OTHER'
+      WHEN classified.eligibleActiveCount > 0 THEN 'ACTIVE'
+      WHEN classified.eligibleInactiveCount > 0
+        THEN classified.eligibleInactiveStatus
+      WHEN classified.activeSignalCount > 0 THEN 'ACTIVE'
+      WHEN classified.inactiveSignalCount > 0 THEN 'OTHER'
+      ELSE 'UNKNOWN'
+    END AS marketStatusValue,
+    CASE
+      WHEN classified.failureReason IS NOT NULL THEN 'NOT_APPLICABLE'
+      WHEN classified.hasStructuredConflict THEN 'REJECTED'
+      WHEN
+        classified.eligibleActiveCount > 0
+        AND SIZE(classified.eligiblePriceKeys) = 1
+        THEN 'PARSED'
+      WHEN
+        classified.eligibleActiveCount > 0
+        AND classified.explicitPriceFieldCount = 0
+        THEN 'ABSENT'
+      WHEN classified.explicitPriceFieldCount > 0 THEN 'REJECTED'
+      ELSE 'ABSENT'
+    END AS priceParseStatusValue,
+    CONCAT_WS(
+      '|',
+      CONCAT(
+        'statusCode=',
+        COALESCE(
+          CAST(classified.page.metadata.statusCode AS STRING),
+          CAST(classified.httpStatus AS STRING),
+          'null'
+        )
+      ),
+      CASE
+        WHEN classified.page.metadata.cacheState IS NOT NULL
+          THEN CONCAT('cacheState=', classified.page.metadata.cacheState)
+        ELSE NULL
+      END,
+      CASE
+        WHEN classified.page.metadata.robots IS NOT NULL
+          THEN CONCAT('robots=', classified.page.metadata.robots)
+        ELSE NULL
+      END,
+      CONCAT(
+        'jsonLdBlocks=',
+        CAST(COALESCE(classified.structuredBlockCount, 0) AS STRING)
+      ),
+      CASE
+        WHEN classified.sourceAsOfBasisValue IS NOT NULL
+          THEN CONCAT('asOf=', classified.sourceAsOfBasisValue)
+        ELSE NULL
+      END,
+      CASE
+        WHEN classified.failureReason IS NOT NULL
+          THEN CONCAT('failure=', classified.failureReason)
+        WHEN classified.hasStructuredConflict THEN 'signal=CONFLICT'
+        WHEN classified.eligibleActiveCount > 0
+          THEN 'signal=ACTIVE_STRUCTURED'
+        WHEN classified.eligibleInactiveCount > 0
+          THEN CONCAT(
+            'signal=',
+            COALESCE(classified.eligibleInactiveStatus, 'INACTIVE_STRUCTURED')
+          )
+        WHEN classified.activeSignalCount > 0
+          THEN 'signal=ACTIVE_INELIGIBLE'
+        WHEN classified.inactiveSignalCount > 0
+          THEN 'signal=INACTIVE_INELIGIBLE'
+        ELSE 'signal=UNKNOWN'
+      END,
+      CASE
+        WHEN classified.visibleOverridePhrase IS NOT NULL
+          THEN CONCAT(
+            'visibleStatus=',
+            UPPER(REPLACE(classified.visibleOverridePhrase, ' ', '_'))
+          )
+        ELSE NULL
+      END,
+      CASE
+        WHEN COALESCE(classified.estimatePriceCount, 0) > 0
+          THEN 'priceRejected=ESTIMATE'
+        ELSE NULL
+      END,
+      CASE
+        WHEN COALESCE(classified.offerPriceCount, 0) > 0
+          THEN 'priceRejected=OFFER'
+        ELSE NULL
+      END,
+      CASE
+        WHEN COALESCE(classified.assessedValuePriceCount, 0) > 0
+          THEN 'priceRejected=ASSESSED_VALUE'
+        ELSE NULL
+      END,
+      CASE
+        WHEN COALESCE(classified.auctionBidPriceCount, 0) > 0
+          THEN 'priceRejected=AUCTION_BID'
+        ELSE NULL
+      END,
+      CASE
+        WHEN COALESCE(classified.rentPriceCount, 0) > 0
+          THEN 'priceRejected=RENT'
+        ELSE NULL
+      END,
+      -- A non-sale offer (for example a lease) is a stated status, not a
+      -- bare SoldOut.
+      CASE
+        WHEN COALESCE(classified.nonSaleOfferCount, 0) > 0
+          THEN 'offer=NON_SALE'
+        ELSE NULL
+      END
+    ) AS sourceStatusValue
+  FROM classified_pages AS classified
+),
+identified_pages AS (
+  SELECT
+    projected.*,
+    SHA2(
+      CONCAT_WS(
+        '|',
+        projected.providerIdentifierValue,
+        projected.sourceListingIdentifierValue,
+        DATE_FORMAT(
+          projected.retrievedAt,
+          "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        ),
+        projected.evidenceArtifactSha256Value
+      ),
+      256
+    ) AS observationIdentifierValue
+  FROM projected_pages AS projected
+)
+SELECT
+  '1.0.0' AS model_version,
+  observationIdentifierValue AS observation_identifier,
+  providerIdentifierValue AS provider_identifier,
+  operationRequestId AS source_request_identifier,
+  sourceListingIdentifierValue AS source_listing_identifier,
+  pageUrl AS source_url,
+  sourceAsOfValue AS source_as_of,
+  sourceStatusValue AS source_status,
+  retrievedAt AS retrieved_at,
+  observationOutcomeValue AS observation_outcome,
+  marketStatusValue AS market_status,
+  CASE
+    WHEN priceParseStatusValue = 'PARSED'
+      THEN TRY_CAST(
+        ROUND(
+          TRY_CAST(
+            ELEMENT_AT(
+              SPLIT(ELEMENT_AT(eligiblePriceKeys, 1), ':'),
+              2
+            )
+            AS DECIMAL(20, 2)
+          ) * 100
+        )
+        AS BIGINT
+      )
+    ELSE CAST(NULL AS BIGINT)
+  END AS asking_price_amount_minor,
+  CASE
+    WHEN priceParseStatusValue = 'PARSED'
+      THEN ELEMENT_AT(
+        SPLIT(ELEMENT_AT(eligiblePriceKeys, 1), ':'),
+        1
+      )
+    ELSE CAST(NULL AS STRING)
+  END AS asking_price_currency,
+  priceParseStatusValue AS price_parse_status,
+  CASE
+    WHEN evidenceArtifactUriValue IS NOT NULL THEN evidenceArtifactUriValue
+    ELSE RAISE_ERROR('Firecrawl evidence artifact URI is required')
+  END AS evidence_artifact_uri,
+  CASE
+    WHEN evidenceArtifactSha256Value IS NOT NULL
+      THEN evidenceArtifactSha256Value
+    ELSE RAISE_ERROR('Firecrawl evidence artifact digest is required')
+  END AS evidence_artifact_sha256,
+  CASE
+    WHEN failureReason IS NULL THEN exactAddressMatchStateValue
+    ELSE 'UNKNOWN'
+  END AS exact_address_match_state,
+  CASE
+    WHEN failureReason IS NULL THEN freshnessStateValue
+    ELSE 'UNKNOWN'
+  END AS freshness_state,
+  freshnessEvaluatedAtValue AS freshness_evaluated_at,
+  governedContext.freshnessPolicyVersion AS freshness_policy_version,
+  CASE
+    WHEN failureReason IS NULL OR failureReason = 'EMPTY_WEB_RESULTS'
+      THEN 'PARTIAL'
+    ELSE 'UNAVAILABLE'
+  END AS coverage_state,
+  'SUPPORTING' AS authority_state,
+  NAMED_STRUCT(
+    'listing_observation_has_address',
+    COALESCE(governedContext.addressReference, ''),
+    'listing_observation_has_file',
+    COALESCE(fileReferences, ARRAY('')),
+    'listing_observation_has_property',
+    governedContext.independentPropertyReference
+  ) AS relationships
+FROM identified_pages

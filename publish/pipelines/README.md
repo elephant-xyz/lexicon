@@ -126,12 +126,12 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
-#### Policy v3 (`1.0.3` to `1.0.7`; `1.0.7` current)
+#### Policy v3 (`1.0.3` to `1.0.8`; `1.0.7` current)
 
-Versions `1.0.3` to `1.0.7` use `sale-availability-firecrawl-policy-v3`.
-`1.0.7` is current in `catalog.json`; `1.0.2` and `1.0.6` stay enabled, and the
+Versions `1.0.3` to `1.0.8` use `sale-availability-firecrawl-policy-v3`.
+`1.0.7` is current in `catalog.json`; `1.0.2` and `1.0.6` stay enabled, the
 intermediate `1.0.3` to `1.0.5` are never published, since `1.0.6` carries all
-of their rules. A catalog change takes effect in a stage only
+of their rules, and `1.0.8` is a candidate. A catalog change takes effect in a stage only
 when that stage's catalog pointer is moved by a separate, approved publication.
 All keep the output columns, enums, and reason-code vocabulary of
 `1.0.2`. Visible text and embedded application state still never establish
@@ -196,6 +196,16 @@ price) outranks InStock; a search filter menu that lists several statuses after
 changes. Its fixture extends the `1.0.6` cases with 8 synthetic regressions and
 gives the non-exact page of `v5-pending-home-reason-with-non-exact-page` another
 ZIP, with unchanged expectations.
+
+`1.0.8` adds one rule to `1.0.7`. A fresh exact page whose only not-active
+evidence is a bare SoldOut or OutOfStock, with no status stated in words and no
+non-sale offer (how property-record pages without a current listing look, for
+example Zillow's "Off market"), no longer conflicts with a fresh exact active
+listing, unless every such listing is a noindex copy. Coming-soon, pending,
+under-contract and stated off-market or sold statuses, and rental offers, still
+conflict. The listing query adds `offer=NON_SALE` to `source_status` so rental
+offers stay distinguishable. Its fixture extends the `1.0.7` cases with 3
+synthetic regressions.
 
 ## Local resolution
 
