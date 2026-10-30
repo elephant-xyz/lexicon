@@ -126,13 +126,14 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
-#### Policy v3 (`1.0.3` to `1.0.6`; `1.0.6` current)
+#### Policy v3 (`1.0.3` to `1.0.7`; `1.0.6` current)
 
-Versions `1.0.3`, `1.0.4`, `1.0.5` and `1.0.6` use `sale-availability-firecrawl-policy-v3`.
-`1.0.6` is current in `catalog.json`; `1.0.2` stays enabled and the intermediate
+Versions `1.0.3` to `1.0.7` use `sale-availability-firecrawl-policy-v3`.
+`1.0.6` is current in `catalog.json`; `1.0.2` stays enabled, the intermediate
 `1.0.3` to `1.0.5` are never published, since `1.0.6` carries all of their
-rules. A catalog change takes effect in a stage only when that stage's catalog
-pointer is moved by a separate, approved publication. All keep the output columns, enums, and reason-code vocabulary of
+rules, and `1.0.7` is a candidate. A catalog change takes effect in a stage only
+when that stage's catalog pointer is moved by a separate, approved publication.
+All keep the output columns, enums, and reason-code vocabulary of
 `1.0.2`. Visible text and embedded application state still never establish
 `FOR_SALE` or a price; they can only take one away:
 
@@ -180,6 +181,21 @@ fresh match for the requested home, as for every other conclusion; a search
 results page, a neighbour's page or a stale page no longer does. A fresh exact
 off-market page still conflicts with active listings. Its fixture extends the
 `1.0.5` cases with 6 synthetic regressions.
+
+`1.0.7` adds four rules to `1.0.6`, from comparing production answers
+with MLS data on 2026-10-26 and 2026-10-29. First, the same street (house number, street name
+and unit), state and ZIP5 under another city name is the same home: portals
+name a home's city as a neighbourhood, a postal city or a metro. Another ZIP or
+house number is still another home, and a requested unit still needs that unit.
+Second, a unit designator before a single letter (`Unit C`) is dropped like one
+before a number. Third, street names split or joined differently (`Glen Cove`,
+`Glencove`) compare equal when the house numbers agree. Fourth, an explicit
+`Listing Status` field (HAR prints `Listing Status Under Contract - P` after the
+price) outranks InStock; a search filter menu that lists several statuses after
+`Listing Status` is not such a field. Only the listing query
+changes. Its fixture extends the `1.0.6` cases with 8 synthetic regressions and
+gives the non-exact page of `v5-pending-home-reason-with-non-exact-page` another
+ZIP, with unchanged expectations.
 
 ## Local resolution
 

@@ -1269,6 +1269,159 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
+  it('keeps candidate result mapping 1.0.7 unpublished with pinned Oct 29 MLS regressions', () => {
+    expect(
+      catalog.entries.some(
+        entry =>
+          entry.kind === 'mapping' && entry.id === resultMappingId && entry.version === '1.0.7'
+      )
+    ).toBe(false);
+
+    const root = path.join(transformRoot, 'mappings', resultMappingId, '1.0.7');
+    const previousRoot = path.join(transformRoot, 'mappings', resultMappingId, '1.0.6');
+    const manifest = readJson<MappingManifest>(path.join(root, 'manifest.json'));
+    const previousManifest = readJson<MappingManifest>(path.join(previousRoot, 'manifest.json'));
+    expect(manifest).toMatchObject({
+      contractVersion: 2,
+      id: resultMappingId,
+      version: '1.0.7',
+      status: 'ENABLED',
+      from: previousManifest.from,
+      to: previousManifest.to,
+      inputs: previousManifest.inputs,
+      output: previousManifest.output,
+    });
+    for (const [index, output] of manifest.outputs.entries()) {
+      expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
+      expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
+        previousManifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+      );
+      for (const invariant of output.invariantEvidence) {
+        expect(invariant.querySha256s).toEqual([output.querySha256]);
+        for (const test of invariant.tests) {
+          expect(test.path).toBe('tests/firecrawl-policy-v3-cases.json');
+          expect(sha256(path.join(root, test.path))).toBe(test.sha256);
+        }
+      }
+    }
+    // The address rules change only the listing query.
+    expect(manifest.outputs[1]!.querySha256).toBe(previousManifest.outputs[1]!.querySha256);
+
+    const rawFixture = readFileSync(
+      path.join(root, 'tests', 'firecrawl-policy-v3-cases.json'),
+      'utf8'
+    );
+    type FixtureCase = {
+      caseId: string;
+      failureMode?: string;
+      envelope: unknown;
+      expectedObservations: unknown[];
+      expectedAssessment: {
+        availabilityStatus: string;
+        listPriceAmountMinor: number | null;
+        reasonCodes: string[];
+      };
+    };
+    const fixture = JSON.parse(rawFixture) as {
+      cases: FixtureCase[];
+      regressionCases1_0_7: { caseIds: string[]; changedCarriedCases: Record<string, string> };
+    };
+    const previousFixture = readJson<{ cases: FixtureCase[] }>(
+      path.join(previousRoot, 'tests', 'firecrawl-policy-v3-cases.json')
+    );
+    // The 1.0.6 cases carry forward; the one changed case keeps its expectations.
+    const carried = fixture.cases.slice(0, previousFixture.cases.length);
+    expect(Object.keys(fixture.regressionCases1_0_7.changedCarriedCases)).toEqual([
+      'v5-pending-home-reason-with-non-exact-page',
+    ]);
+    for (const [index, item] of carried.entries()) {
+      const previous = previousFixture.cases[index]!;
+      if (item.caseId in fixture.regressionCases1_0_7.changedCarriedCases) {
+        expect(item.caseId).toBe(previous.caseId);
+        expect(item.expectedObservations).toEqual(previous.expectedObservations);
+        expect(item.expectedAssessment).toEqual(previous.expectedAssessment);
+      } else {
+        expect(item).toEqual(previous);
+      }
+    }
+    const added = fixture.cases.slice(previousFixture.cases.length);
+    expect(added.map(item => item.caseId)).toEqual(fixture.regressionCases1_0_7.caseIds);
+    expect(
+      Object.fromEntries(
+        added.map(item => [
+          item.caseId,
+          [
+            item.failureMode,
+            item.expectedAssessment.availabilityStatus,
+            item.expectedAssessment.listPriceAmountMinor,
+            item.expectedAssessment.reasonCodes.join(','),
+          ],
+        ])
+      )
+    ).toEqual({
+      'v7-city-alias-same-street-and-zip': [
+        'city-alias-as-non-exact',
+        'FOR_SALE',
+        41200000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v7-unit-letter-designator': [
+        'unit-letter-as-non-exact',
+        'FOR_SALE',
+        26800000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v7-joined-street-name': [
+        'joined-street-name-as-non-exact',
+        'FOR_SALE',
+        35900000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v7-city-alias-other-zip-stays-non-exact': [
+        'city-alias-as-non-exact',
+        'UNKNOWN',
+        null,
+        'NON_EXACT_MATCH',
+      ],
+      'v7-city-alias-other-house-stays-non-exact': [
+        'city-alias-as-non-exact',
+        'UNKNOWN',
+        null,
+        'NON_EXACT_MATCH',
+      ],
+      'v7-unit-requested-street-only-page-stays-non-exact': [
+        'unit-letter-as-non-exact',
+        'UNKNOWN',
+        null,
+        'NON_EXACT_MATCH',
+      ],
+      'v7-listing-status-label-after-price': [
+        'status-after-price-ignored',
+        'UNKNOWN',
+        null,
+        'NO_EXPLICIT_ACTIVE_SIGNAL',
+      ],
+      'v7-listing-status-filter-menu-is-not-a-label': [
+        'status-after-price-ignored',
+        'FOR_SALE',
+        38900000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+    });
+    expect(rawFixture).not.toMatch(
+      /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com|opendoor\.com|xome\.com|homes\.com|usphonebook\.com|har\.com|compass\.com|remax\.com/iu
+    );
+
+    const listingSql = readFileSync(path.join(root, 'queries', 'listing_observations.sql'), 'utf8');
+    expect(listingSql).toContain('AS normalizedStructuredStreetKey');
+    expect(listingSql).toContain('AS addressAliasMatch');
+    expect(listingSql).toContain("WHEN normalized.addressAliasMatch THEN 'EXACT'");
+    expect(listingSql).toContain('(?= [a-z]?[0-9]| [a-z]( |$))');
+    expect(listingSql).toContain('AS listingStatusLabel');
+    expect(listingSql).toContain("' listing status (active|for sale|");
+    expect(listingSql).not.toContain("'NOT_FOR_SALE'");
+  });
+
   it('pins inline completion only on mappings with an exactly-one assessment output', () => {
     const evidenceMapping = mapping(evidenceMappingId).manifest;
     const assessmentMapping = mapping(assessmentMappingId).manifest;
