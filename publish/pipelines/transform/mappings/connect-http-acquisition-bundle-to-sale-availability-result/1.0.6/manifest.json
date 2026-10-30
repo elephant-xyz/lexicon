@@ -1,0 +1,176 @@
+{
+  "contractVersion": 2,
+  "id": "connect-http-acquisition-bundle-to-sale-availability-result",
+  "version": "1.0.6",
+  "status": "ENABLED",
+  "engine": "spark-sql",
+  "from": {
+    "name": "connect-http-acquisition-bundle",
+    "version": "1.0.0"
+  },
+  "to": {
+    "name": "sale-availability-result",
+    "version": "1.0.0"
+  },
+  "inputs": [
+    {
+      "table": "acquisition_records",
+      "view": "source_acquisition_records",
+      "required": true,
+      "format": "jsonl"
+    },
+    {
+      "table": "raw_documents",
+      "view": "source_raw_documents",
+      "required": true,
+      "format": "jsonl"
+    }
+  ],
+  "output": {
+    "shape": "tabular",
+    "format": "parquet",
+    "delivery": {
+      "mode": "inline",
+      "dataset": "sale_availability_assessments",
+      "cardinality": "exactly-one",
+      "maxBytes": 65536,
+      "requireVersionId": true
+    }
+  },
+  "outputs": [
+    {
+      "dataset": "listing_observations",
+      "dependsOn": [],
+      "queryPath": "queries/listing_observations.sql",
+      "querySha256": "002ea38864b6e7b3e446ad80f8e8d409d302b9b0077ee955daea2643c6a5c99c",
+      "invariantEvidence": [
+        {
+          "invariant": "deterministic_observation_identity",
+          "querySha256s": [
+            "002ea38864b6e7b3e446ad80f8e8d409d302b9b0077ee955daea2643c6a5c99c"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins deterministic page identities and replay while bounded extraction evaluates first, later, top-level-array, and @graph JSON-LD blocks without changing source page cardinality."
+            }
+          ]
+        },
+        {
+          "invariant": "rejected_price_is_null",
+          "querySha256s": [
+            "002ea38864b6e7b3e446ad80f8e8d409d302b9b0077ee955daea2643c6a5c99c"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins price only from one eligible exact, fresh, explicitly active structured block and nulls missing-currency, stale, non-exact, malformed, over-limit, text-only, application-state-only, and conflicting evidence. Freshness uses dateModified, then lastReviewed, then the retrieval time of a provably live (cacheState miss, no cachedAt, HTTP 200) fetch; datePosted and datePublished never establish freshness. A visible pending, contingent, under-contract, under-agreement, auction, off-market, sold or not-currently-for-sale label before the displayed price, or an explicit inactive structured listing status in the same block, outranks InStock. A price labelled as an estimate, rent, assessed value or auction bid is neither a list price nor an active signal; a price labelled as an offer, or equal to the page's own offer or estimate amount and not to its list price, is rejected. Several availability fields in one block are conflicting evidence unless they share one value and the block names exactly one street address."
+            }
+          ]
+        },
+        {
+          "invariant": "relationship_endpoints_exist",
+          "querySha256s": [
+            "002ea38864b6e7b3e446ad80f8e8d409d302b9b0077ee955daea2643c6a5c99c"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins the existing address, FileRef, optional independent-property endpoints, and one deterministic sentinel observation for empty or failed envelopes."
+            }
+          ],
+          "engineChecks": [
+            {
+              "kind": "array-sorted-unique",
+              "jsonPointer": "/relationships/listing_observation_has_file"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "dataset": "sale_availability_assessments",
+      "dependsOn": [
+        "listing_observations"
+      ],
+      "queryPath": "queries/sale_availability_assessments.sql",
+      "querySha256": "d7c06074e315abceb0bb012d820e44217ec854fd56fbfc5b2fc1dfeed8235f18",
+      "invariantEvidence": [
+        {
+          "invariant": "availability_boolean_projection",
+          "querySha256s": [
+            "d7c06074e315abceb0bb012d820e44217ec854fd56fbfc5b2fc1dfeed8235f18"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins true only for fresh, exact, explicit structured active evidence that no visible or structured inactive status overrides, and null for unknown, pending, under-contract, estimate-only or conflicting broad-web evidence. A self-contradicting page is conflicting evidence only when it is an exact and fresh match for the requested home."
+            }
+          ]
+        },
+        {
+          "invariant": "deterministic_assessment_identity",
+          "querySha256s": [
+            "d7c06074e315abceb0bb012d820e44217ec854fd56fbfc5b2fc1dfeed8235f18"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins subject, Firecrawl policy v3, window, sorted observation references, and deterministic replay independently of generated output."
+            }
+          ]
+        },
+        {
+          "invariant": "sorted_observation_references",
+          "querySha256s": [
+            "d7c06074e315abceb0bb012d820e44217ec854fd56fbfc5b2fc1dfeed8235f18"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins ascending unique observation references across one-page, three-page, malformed, bounded-limit, and sentinel assessments."
+            }
+          ],
+          "engineChecks": [
+            {
+              "kind": "array-sorted-unique",
+              "jsonPointer": "/relationships/sale_availability_assessment_has_listing_observation"
+            }
+          ]
+        },
+        {
+          "invariant": "relationship_endpoints_exist",
+          "querySha256s": [
+            "d7c06074e315abceb0bb012d820e44217ec854fd56fbfc5b2fc1dfeed8235f18"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins the existing address, sorted observation, and optional independently established property relationships."
+            }
+          ]
+        },
+        {
+          "invariant": "eligible_list_price_projection",
+          "querySha256s": [
+            "d7c06074e315abceb0bb012d820e44217ec854fd56fbfc5b2fc1dfeed8235f18"
+          ],
+          "tests": [
+            {
+              "path": "tests/firecrawl-policy-v3-cases.json",
+              "sha256": "e4ff273f29f9c3e185f3c35c077c3b22713a891f833f1a94ca07ed2dfa8df38b",
+              "description": "Pins price only from the same eligible structured block as status, exact address, and freshness; unrelated software offers, application-state prices, offer prices and estimate, rent, assessed-value or auction-bid amounts are never the list price."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

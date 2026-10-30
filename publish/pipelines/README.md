@@ -126,6 +126,59 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
+#### Policy v3 candidates (`1.0.3`, `1.0.4`, `1.0.5`, `1.0.6`)
+
+Candidate versions `1.0.3`, `1.0.4`, `1.0.5` and `1.0.6` use `sale-availability-firecrawl-policy-v3`
+and are not in `catalog.json`; `1.0.2` stays current until a separate, approved
+promotion. All keep the output columns, enums, and reason-code vocabulary of
+`1.0.2`. Visible text and embedded application state still never establish
+`FOR_SALE` or a price; they can only take one away:
+
+- The rendered words just before the first displayed copy of a block's price
+  label that price. A pending, contingent, under-contract, under-agreement,
+  auction, off-market, sold, or not-currently-for-sale label overrides InStock.
+- A price labelled as an estimate (including Zestimate), rent, assessed or tax
+  value, or auction bid is neither a list price nor an active signal. A price
+  labelled as an offer (for example Buy with Opendoor) is rejected, and the page
+  stays active.
+- Address keys compare after USPS suffix and directional abbreviation, unit
+  designator removal, and ZIP+4 removal.
+
+`1.0.4` adds three rules to `1.0.3`. First, an explicit inactive structured
+listing status in the same block (for example `listingStatus: Pending` or
+`homeStatus: CONTINGENT`) outranks InStock. Second, a whole-dollar price that
+equals the page's own offer or estimate value in application state (for example
+`buyDirectPrice` or `zestimate`) is rejected unless it also equals the page's
+`listPrice`. Third, more pending, off-market, offer, rent, assessed-value, and
+bid label variants are recognised. Its fixture extends the `1.0.3` cases with
+17 synthetic regressions for these failure modes.
+
+`1.0.5` adds four rules to `1.0.4`, from comparing production answers with MLS
+data on 2026-10-26. First, a page about another property no longer matches the
+requested address through a passing mention (a nearby-homes card, a resident's
+other address): when its title or URL leads with another house number, its
+blocks without an address are `NON_EXACT`. Second, fresh exact active prices
+that disagree resolve to the newest one when every other price was stated more
+than a day earlier; prices within a day of each other still conflict. Third,
+more USPS suffixes are abbreviated (for example Bend/Bnd), and Saint, Mount and
+Fort compare with St, Mt and Ft in street and city names. Fourth, a home found
+fresh, exact and not active (pending, under contract, off market) is reported as
+`NO_EXPLICIT_ACTIVE_SIGNAL` rather than `NON_EXACT_MATCH` when another page is
+non-exact; other reason codes are unchanged. A single fresh exact off-market
+page still conflicts with active listings. Its fixture extends the `1.0.4` cases
+with 10 synthetic regressions.
+
+`1.0.6` adds two rules to `1.0.5`, from replaying production `CONFLICT` answers
+on 2026-10-30. First, a structured block with several availability fields is no
+longer ambiguous when they all carry the same value and the block names exactly
+one street address (a listing's offer repeated in its open-house event); several
+addresses or disagreeing values in one block stay ambiguous. Second, a
+self-contradicting page makes the answer `CONFLICT` only when it is an exact and
+fresh match for the requested home, as for every other conclusion; a search
+results page, a neighbour's page or a stale page no longer does. A fresh exact
+off-market page still conflicts with active listings. Its fixture extends the
+`1.0.5` cases with 6 synthetic regressions.
+
 ## Local resolution
 
 Set `ELEPHANT_LEXICON_ROOT` to this repo checkout, or place `lexicon` as a sibling

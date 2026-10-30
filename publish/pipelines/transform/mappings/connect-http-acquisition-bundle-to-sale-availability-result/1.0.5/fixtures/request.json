@@ -1,0 +1,19 @@
+{
+  "contractVersion": 2,
+  "from": "connect-http-acquisition-bundle",
+  "to": "sale-availability-result",
+  "inputs": [
+    {
+      "table": "acquisition_records",
+      "s3Uri": "s3://synthetic-transform-input/sale-availability/acquisition_records.jsonl"
+    },
+    {
+      "table": "raw_documents",
+      "s3Uri": "s3://synthetic-transform-input/sale-availability/raw_documents.jsonl"
+    }
+  ],
+  "output": {
+    "s3Prefix": "s3://synthetic-transform-output/sale-availability/firecrawl-review"
+  },
+  "costCeilingUsd": 10
+}
