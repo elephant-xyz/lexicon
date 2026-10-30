@@ -862,15 +862,28 @@ visible_price_candidates AS (
         = located.requestedHouseNumber
       AND REPLACE(located.structuredAddressKey, ' ', '')
         = REPLACE(located.requestedAddressKey, ' ', '')
-    ) AS addressAliasMatch
+    ) AS addressAliasMatch,
+    -- An explicit "Listing Status" field in the rendered page (for example
+    -- "Listing Status Under Contract - P") states the page's status even when
+    -- it is printed after the price rather than before it; '' when absent.
+    -- A search filter menu lists several statuses in a row ("Listing Status
+    -- Coming Soon Open Houses Contingent Pending"), so a status followed by
+    -- another status word is not a label.
+    REGEXP_EXTRACT(
+      CONCAT(' ', located.visibleTextKey, ' '),
+      ' listing status (active|for sale|new listing|sale pending|pending|contingent|under contract|under agreement|offer accepted|accepted offer|coming soon|off market|sold|withdrawn|expired|cancelled|canceled) (?!(?:active|for sale|new|sale|pending|contingent|under|offer|accepted|coming|off|sold|withdrawn|expired|cancell?ed|open houses?|price reduced|foreclosures?|auctions?)( |$))',
+      1
+    ) AS listingStatusLabel
   FROM address_normalized_candidates AS located
 ),
 visible_status_candidates AS (
   SELECT
     labelled.*,
+    -- The pattern takes the last status phrase, so a "Listing Status" label,
+    -- appended after a separator, wins over the words before the price.
     NULLIF(
       REGEXP_EXTRACT(
-        CONCAT(COALESCE(labelled.visiblePriceContext, ''), ' '),
+        CONCAT(COALESCE(labelled.visiblePriceContext, ''), ' | ', labelled.listingStatusLabel, ' '),
         '^.*(?:^| )((?<!not )(?<!not currently )(?<!no longer )for sale|active|new listing|price reduced|sale pending|pending|contingent|under contract|under agreement|offer accepted|accepted offer|accepting backups?|backup offers?|pre ?foreclosure|foreclosure auction|auction|off market|off the market|sold|not for sale|not currently for sale|no longer for sale|no longer available|withdrawn|expired|cancelled|canceled|delisted|coming soon) ',
         1
       ),

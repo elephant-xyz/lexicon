@@ -5600,6 +5600,133 @@
           "NON_EXACT_MATCH"
         ]
       }
+    },
+    {
+      "caseId": "v7-listing-status-label-after-price",
+      "failureMode": "status-after-price-ignored",
+      "description": "A \"Listing Status\" field printed after the price (Under Contract - P) outranks InStock.",
+      "addressReference": "address:synthetic:v7-listing-status-label-after-price",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"5120 Pecan Hollow Ln, Example City, FL 32000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:10:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-v7-listing-status-label-after-price",
+        "data": {
+          "web": [
+            {
+              "url": "https://listing-one.example.invalid/p/v7-listing-status-label-after-price-a",
+              "rawHtml": "<!doctype html><html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:30:00.000Z\",\"mainEntity\":{\"@type\":\"Residence\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"5120 Pecan Hollow Ln\",\"addressLocality\":\"Example City\",\"addressRegion\":\"FL\",\"postalCode\":\"32000\"}},\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"450000\",\"priceCurrency\":\"USD\"}}</script></head><body><h1>5120 Pecan Hollow Ln, Example City, FL 32000</h1><div>$450,000</div><div>For Sale</div><div>Under Contract - P</div><dl><dt>Listing Status</dt><dd>Under Contract - P</dd><dt>Address</dt><dd>5120 Pecan Hollow Ln</dd></dl></body></html>",
+              "metadata": {
+                "sourceURL": "https://listing-one.example.invalid/p/v7-listing-status-label-after-price-a",
+                "url": "https://listing-one.example.invalid/p/v7-listing-status-label-after-price-a",
+                "title": "Synthetic listing",
+                "description": "Synthetic policy-v3 1.0.7 fixture",
+                "cacheState": "miss",
+                "contentType": "text/html; charset=utf-8",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:listing-one.example.invalid",
+          "sourceListingIdentifier": "fc-v7-listing-status-label-after-price:web:0000",
+          "sourceUrl": "https://listing-one.example.invalid/p/v7-listing-status-label-after-price-a",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "UNDER_CONTRACT",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "REJECTED",
+          "askingPriceAmountMinor": null,
+          "askingPriceCurrency": null,
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "statusCode=200",
+            "asOf=DATE_MODIFIED",
+            "signal=UNDER_CONTRACT",
+            "visibleStatus=UNDER_CONTRACT"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "UNKNOWN",
+        "isForSale": null,
+        "listPriceAmountMinor": null,
+        "listPriceCurrency": null,
+        "reasonCodes": [
+          "NO_EXPLICIT_ACTIVE_SIGNAL"
+        ]
+      }
+    },
+    {
+      "caseId": "v7-listing-status-filter-menu-is-not-a-label",
+      "failureMode": "status-after-price-ignored",
+      "description": "Guard: a search filter menu listing several statuses after \"Listing Status\" is not a status label.",
+      "addressReference": "address:synthetic:v7-listing-status-filter-menu-is-not-a-label",
+      "independentPropertyReference": null,
+      "exactAddressQuery": "\"6604 Bramble Way, Example City, FL 32000, US\" \"for sale\"",
+      "retrievedAt": "2026-10-08T20:10:00.000Z",
+      "envelope": {
+        "success": true,
+        "id": "fc-v7-listing-status-filter-menu-is-not-a-label",
+        "data": {
+          "web": [
+            {
+              "url": "https://listing-one.example.invalid/p/v7-listing-status-filter-menu-is-not-a-label-a",
+              "rawHtml": "<!doctype html><html><head><script type=\"application/ld+json\">{\"@type\":\"RealEstateListing\",\"dateModified\":\"2026-10-08T18:30:00.000Z\",\"mainEntity\":{\"@type\":\"Residence\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"6604 Bramble Way\",\"addressLocality\":\"Example City\",\"addressRegion\":\"FL\",\"postalCode\":\"32000\"}},\"offers\":{\"@type\":\"Offer\",\"availability\":\"https://schema.org/InStock\",\"price\":\"389000\",\"priceCurrency\":\"USD\"}}</script></head><body><h1>6604 Bramble Way, Example City, FL 32000</h1><nav><span>Listing Status</span><span>Coming Soon</span><span>Open Houses</span><span>Contingent</span><span>Pending</span></nav><div>For sale</div><div>$389,000</div></body></html>",
+              "metadata": {
+                "sourceURL": "https://listing-one.example.invalid/p/v7-listing-status-filter-menu-is-not-a-label-a",
+                "url": "https://listing-one.example.invalid/p/v7-listing-status-filter-menu-is-not-a-label-a",
+                "title": "Synthetic listing",
+                "description": "Synthetic policy-v3 1.0.7 fixture",
+                "cacheState": "miss",
+                "contentType": "text/html; charset=utf-8",
+                "robots": "index,follow",
+                "statusCode": 200
+              }
+            }
+          ]
+        },
+        "creditsUsed": 1
+      },
+      "expectedObservations": [
+        {
+          "pageOrdinal": 0,
+          "providerIdentifier": "firecrawl:listing-one.example.invalid",
+          "sourceListingIdentifier": "fc-v7-listing-status-filter-menu-is-not-a-label:web:0000",
+          "sourceUrl": "https://listing-one.example.invalid/p/v7-listing-status-filter-menu-is-not-a-label-a",
+          "observationOutcome": "LISTING_FOUND",
+          "marketStatus": "ACTIVE",
+          "exactAddressMatchState": "EXACT",
+          "freshnessState": "FRESH",
+          "priceParseStatus": "PARSED",
+          "askingPriceAmountMinor": 38900000,
+          "askingPriceCurrency": "USD",
+          "coverageState": "PARTIAL",
+          "authorityState": "SUPPORTING",
+          "sourceStatusContains": [
+            "statusCode=200",
+            "asOf=DATE_MODIFIED",
+            "signal=ACTIVE_STRUCTURED"
+          ]
+        }
+      ],
+      "expectedAssessment": {
+        "availabilityStatus": "FOR_SALE",
+        "isForSale": true,
+        "listPriceAmountMinor": 38900000,
+        "listPriceCurrency": "USD",
+        "reasonCodes": [
+          "ACTIVE_LISTING_PRICE_AVAILABLE"
+        ]
+      }
     }
   ],
   "replays": [
@@ -5855,14 +5982,15 @@
     ]
   },
   "regressionCases1_0_7": {
-    "description": "Added in 1.0.7 for the address mismatches found comparing production answers with MLS data on 2026-10-29; synthetic hosts and addresses only.",
+    "description": "Added in 1.0.7 for the address mismatches and HAR listing statuses found comparing production answers with MLS data on 2026-10-26 and 2026-10-29; synthetic hosts and addresses only.",
     "changedCarriedCases": {
       "v5-pending-home-reason-with-non-exact-page": "Its non-exact page now also has another ZIP; 1.0.7 treats the same street, state and ZIP under another city name as the same home. Expectations are unchanged."
     },
     "failureModes": {
       "city-alias-as-non-exact": "The same street, unit, state and ZIP5 under another city name is the same home; another ZIP or house number is not.",
       "unit-letter-as-non-exact": "A unit designator before a single letter is dropped like one before a number; a requested unit still needs that unit on the page.",
-      "joined-street-name-as-non-exact": "Street names split or joined differently compare equal once spaces are removed, when the house numbers agree."
+      "joined-street-name-as-non-exact": "Street names split or joined differently compare equal once spaces are removed, when the house numbers agree.",
+      "status-after-price-ignored": "An explicit \"Listing Status\" field outranks InStock even when printed after the price; a search filter menu listing several statuses is not such a field."
     },
     "caseIds": [
       "v7-city-alias-same-street-and-zip",
@@ -5870,7 +5998,9 @@
       "v7-joined-street-name",
       "v7-city-alias-other-zip-stays-non-exact",
       "v7-city-alias-other-house-stays-non-exact",
-      "v7-unit-requested-street-only-page-stays-non-exact"
+      "v7-unit-requested-street-only-page-stays-non-exact",
+      "v7-listing-status-label-after-price",
+      "v7-listing-status-filter-menu-is-not-a-label"
     ]
   }
 }

@@ -1395,6 +1395,18 @@ describe('sale availability pipeline contracts', () => {
         null,
         'NON_EXACT_MATCH',
       ],
+      'v7-listing-status-label-after-price': [
+        'status-after-price-ignored',
+        'UNKNOWN',
+        null,
+        'NO_EXPLICIT_ACTIVE_SIGNAL',
+      ],
+      'v7-listing-status-filter-menu-is-not-a-label': [
+        'status-after-price-ignored',
+        'FOR_SALE',
+        38900000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
     });
     expect(rawFixture).not.toMatch(
       /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com|opendoor\.com|xome\.com|homes\.com|usphonebook\.com|har\.com|compass\.com|remax\.com/iu
@@ -1405,6 +1417,8 @@ describe('sale availability pipeline contracts', () => {
     expect(listingSql).toContain('AS addressAliasMatch');
     expect(listingSql).toContain("WHEN normalized.addressAliasMatch THEN 'EXACT'");
     expect(listingSql).toContain('(?= [a-z]?[0-9]| [a-z]( |$))');
+    expect(listingSql).toContain('AS listingStatusLabel');
+    expect(listingSql).toContain("' listing status (active|for sale|");
     expect(listingSql).not.toContain("'NOT_FOR_SALE'");
   });
 

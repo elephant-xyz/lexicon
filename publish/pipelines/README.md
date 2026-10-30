@@ -182,15 +182,18 @@ results page, a neighbour's page or a stale page no longer does. A fresh exact
 off-market page still conflicts with active listings. Its fixture extends the
 `1.0.5` cases with 6 synthetic regressions.
 
-`1.0.7` adds three address rules to `1.0.6`, from comparing production answers
-with MLS data on 2026-10-29. First, the same street (house number, street name
+`1.0.7` adds four rules to `1.0.6`, from comparing production answers
+with MLS data on 2026-10-26 and 2026-10-29. First, the same street (house number, street name
 and unit), state and ZIP5 under another city name is the same home: portals
 name a home's city as a neighbourhood, a postal city or a metro. Another ZIP or
 house number is still another home, and a requested unit still needs that unit.
 Second, a unit designator before a single letter (`Unit C`) is dropped like one
 before a number. Third, street names split or joined differently (`Glen Cove`,
-`Glencove`) compare equal when the house numbers agree. Only the listing query
-changes. Its fixture extends the `1.0.6` cases with 6 synthetic regressions and
+`Glencove`) compare equal when the house numbers agree. Fourth, an explicit
+`Listing Status` field (HAR prints `Listing Status Under Contract - P` after the
+price) outranks InStock; a search filter menu that lists several statuses after
+`Listing Status` is not such a field. Only the listing query
+changes. Its fixture extends the `1.0.6` cases with 8 synthetic regressions and
 gives the non-exact page of `v5-pending-home-reason-with-non-exact-page` another
 ZIP, with unchanged expectations.
 
