@@ -147,13 +147,20 @@ function dataset(language: PipelineLanguage, type: string): PipelineDataset {
   return match!;
 }
 
-function mapping(id: string): {
+// The current catalog mapping, or the catalog entry of one version when given.
+function mapping(
+  id: string,
+  version?: string
+): {
   root: string;
   manifest: MappingManifest;
   catalogEntry: TransformCatalog['entries'][number];
 } {
   const catalogEntry = catalog.entries.find(
-    entry => entry.kind === 'mapping' && entry.id === id && entry.current === true
+    entry =>
+      entry.kind === 'mapping' &&
+      entry.id === id &&
+      (version === undefined ? entry.current === true : entry.version === version)
   );
   expect(catalogEntry, id).toBeDefined();
   const manifestPath = path.join(transformRoot, catalogEntry!.path);
@@ -467,7 +474,7 @@ describe('sale availability pipeline contracts', () => {
   });
 
   it('publishes one Firecrawl mapping with ordered dependent Parquet outputs', () => {
-    const bundle = mapping(resultMappingId);
+    const bundle = mapping(resultMappingId, '1.0.2');
     expect(bundle.catalogEntry).toMatchObject({
       version: '1.0.2',
       status: 'ENABLED',
@@ -524,7 +531,7 @@ describe('sale availability pipeline contracts', () => {
   });
 
   it('pins synthetic fail-closed Firecrawl policy and version-free wire request fixtures', () => {
-    const bundle = mapping(resultMappingId);
+    const bundle = mapping(resultMappingId, '1.0.2');
     const fixturePath = path.join(bundle.root, 'tests', 'firecrawl-policy-v2-cases.json');
     const rawFixture = readFileSync(fixturePath, 'utf8');
     const fixture = JSON.parse(rawFixture) as {
@@ -707,8 +714,8 @@ describe('sale availability pipeline contracts', () => {
   });
 
   it('keeps candidate result mapping 1.0.3 unpublished with pinned policy-v3 regressions', () => {
-    const current = mapping(resultMappingId);
-    expect(current.catalogEntry.version).toBe('1.0.2');
+    const published = mapping(resultMappingId, '1.0.2');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.6');
     expect(
       catalog.entries.some(
         entry =>
@@ -723,18 +730,18 @@ describe('sale availability pipeline contracts', () => {
       id: resultMappingId,
       version: '1.0.3',
       status: 'ENABLED',
-      from: current.manifest.from,
-      to: current.manifest.to,
-      inputs: current.manifest.inputs,
-      output: current.manifest.output,
+      from: published.manifest.from,
+      to: published.manifest.to,
+      inputs: published.manifest.inputs,
+      output: published.manifest.output,
     });
     expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
-      current.manifest.outputs.map(output => [output.dataset, output.dependsOn])
+      published.manifest.outputs.map(output => [output.dataset, output.dependsOn])
     );
     for (const [index, output] of manifest.outputs.entries()) {
       expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
       expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
-        current.manifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+        published.manifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
       );
       for (const invariant of output.invariantEvidence) {
         expect(invariant.querySha256s).toEqual([output.querySha256]);
@@ -757,7 +764,7 @@ describe('sale availability pipeline contracts', () => {
       }>;
     };
     const v2Fixture = readJson<{ cases: Array<{ caseId: string }> }>(
-      path.join(current.root, 'tests', 'firecrawl-policy-v2-cases.json')
+      path.join(published.root, 'tests', 'firecrawl-policy-v2-cases.json')
     );
     expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v3');
     expect(fixture.cases.slice(0, v2Fixture.cases.length).map(item => item.caseId)).toEqual(
@@ -801,8 +808,8 @@ describe('sale availability pipeline contracts', () => {
   });
 
   it('keeps candidate result mapping 1.0.4 unpublished with pinned production failure-mode regressions', () => {
-    const current = mapping(resultMappingId);
-    expect(current.catalogEntry.version).toBe('1.0.2');
+    const published = mapping(resultMappingId, '1.0.2');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.6');
     expect(
       catalog.entries.some(
         entry =>
@@ -820,18 +827,18 @@ describe('sale availability pipeline contracts', () => {
       id: resultMappingId,
       version: '1.0.4',
       status: 'ENABLED',
-      from: current.manifest.from,
-      to: current.manifest.to,
-      inputs: current.manifest.inputs,
-      output: current.manifest.output,
+      from: published.manifest.from,
+      to: published.manifest.to,
+      inputs: published.manifest.inputs,
+      output: published.manifest.output,
     });
     expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
-      current.manifest.outputs.map(output => [output.dataset, output.dependsOn])
+      published.manifest.outputs.map(output => [output.dataset, output.dependsOn])
     );
     for (const [index, output] of manifest.outputs.entries()) {
       expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
       expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
-        current.manifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+        published.manifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
       );
       for (const invariant of output.invariantEvidence) {
         expect(invariant.querySha256s).toEqual([output.querySha256]);
@@ -950,8 +957,8 @@ describe('sale availability pipeline contracts', () => {
   });
 
   it('keeps candidate result mapping 1.0.5 unpublished with pinned Oct 26 comparison regressions', () => {
-    const current = mapping(resultMappingId);
-    expect(current.catalogEntry.version).toBe('1.0.2');
+    const published = mapping(resultMappingId, '1.0.2');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.6');
     expect(
       catalog.entries.some(
         entry =>
@@ -970,10 +977,10 @@ describe('sale availability pipeline contracts', () => {
       id: resultMappingId,
       version: '1.0.5',
       status: 'ENABLED',
-      from: current.manifest.from,
-      to: current.manifest.to,
-      inputs: current.manifest.inputs,
-      output: current.manifest.output,
+      from: published.manifest.from,
+      to: published.manifest.to,
+      inputs: published.manifest.inputs,
+      output: published.manifest.output,
     });
     expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
       previousManifest.outputs.map(output => [output.dataset, output.dependsOn])
@@ -1109,15 +1116,29 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
-  it('keeps candidate result mapping 1.0.6 unpublished with pinned Oct 30 replay regressions', () => {
-    const current = mapping(resultMappingId);
-    expect(current.catalogEntry.version).toBe('1.0.2');
+  it('makes result mapping 1.0.6 current with pinned Oct 30 replay regressions', () => {
+    const published = mapping(resultMappingId, '1.0.2');
+    expect(published.catalogEntry.current).toBe(false);
+    expect(published.catalogEntry.status).toBe('ENABLED');
+    const promoted = mapping(resultMappingId);
+    expect(promoted.catalogEntry).toMatchObject({
+      version: '1.0.6',
+      status: 'ENABLED',
+      from: 'connect-http-acquisition-bundle',
+      to: 'sale-availability-result',
+    });
+    expect(
+      catalog.entries.filter(
+        entry => entry.kind === 'mapping' && entry.id === resultMappingId && entry.current
+      )
+    ).toHaveLength(1);
+    // The intermediate candidates are never published; 1.0.6 carries their rules.
     expect(
       catalog.entries.some(
         entry =>
           entry.kind === 'mapping' &&
           entry.id === resultMappingId &&
-          ['1.0.3', '1.0.4', '1.0.5', '1.0.6'].includes(entry.version)
+          ['1.0.3', '1.0.4', '1.0.5'].includes(entry.version ?? '')
       )
     ).toBe(false);
 
@@ -1130,10 +1151,10 @@ describe('sale availability pipeline contracts', () => {
       id: resultMappingId,
       version: '1.0.6',
       status: 'ENABLED',
-      from: current.manifest.from,
-      to: current.manifest.to,
-      inputs: current.manifest.inputs,
-      output: current.manifest.output,
+      from: published.manifest.from,
+      to: published.manifest.to,
+      inputs: published.manifest.inputs,
+      output: published.manifest.output,
     });
     expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
       previousManifest.outputs.map(output => [output.dataset, output.dependsOn])
