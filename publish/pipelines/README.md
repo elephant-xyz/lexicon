@@ -126,9 +126,9 @@ Transform callers select the pair only by `from` and `to`; wire requests contain
 no language versions, mapping identity, formats, or output-dataset selectors.
 The previous two-step mappings remain enabled and unchanged for compatibility.
 
-#### Policy v3 candidates (`1.0.3`, `1.0.4`, `1.0.5`)
+#### Policy v3 candidates (`1.0.3`, `1.0.4`, `1.0.5`, `1.0.6`)
 
-Candidate versions `1.0.3`, `1.0.4` and `1.0.5` use `sale-availability-firecrawl-policy-v3`
+Candidate versions `1.0.3`, `1.0.4`, `1.0.5` and `1.0.6` use `sale-availability-firecrawl-policy-v3`
 and are not in `catalog.json`; `1.0.2` stays current until a separate, approved
 promotion. All keep the output columns, enums, and reason-code vocabulary of
 `1.0.2`. Visible text and embedded application state still never establish
@@ -167,6 +167,17 @@ fresh, exact and not active (pending, under contract, off market) is reported as
 non-exact; other reason codes are unchanged. A single fresh exact off-market
 page still conflicts with active listings. Its fixture extends the `1.0.4` cases
 with 10 synthetic regressions.
+
+`1.0.6` adds two rules to `1.0.5`, from replaying production `CONFLICT` answers
+on 2026-10-30. First, a structured block with several availability fields is no
+longer ambiguous when they all carry the same value and the block names exactly
+one street address (a listing's offer repeated in its open-house event); several
+addresses or disagreeing values in one block stay ambiguous. Second, a
+self-contradicting page makes the answer `CONFLICT` only when it is an exact and
+fresh match for the requested home, as for every other conclusion; a search
+results page, a neighbour's page or a stale page no longer does. A fresh exact
+off-market page still conflicts with active listings. Its fixture extends the
+`1.0.5` cases with 6 synthetic regressions.
 
 ## Local resolution
 

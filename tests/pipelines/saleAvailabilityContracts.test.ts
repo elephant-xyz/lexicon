@@ -1109,6 +1109,145 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
+  it('keeps candidate result mapping 1.0.6 unpublished with pinned Oct 30 replay regressions', () => {
+    const current = mapping(resultMappingId);
+    expect(current.catalogEntry.version).toBe('1.0.2');
+    expect(
+      catalog.entries.some(
+        entry =>
+          entry.kind === 'mapping' &&
+          entry.id === resultMappingId &&
+          ['1.0.3', '1.0.4', '1.0.5', '1.0.6'].includes(entry.version)
+      )
+    ).toBe(false);
+
+    const root = path.join(transformRoot, 'mappings', resultMappingId, '1.0.6');
+    const previousRoot = path.join(transformRoot, 'mappings', resultMappingId, '1.0.5');
+    const manifest = readJson<MappingManifest>(path.join(root, 'manifest.json'));
+    const previousManifest = readJson<MappingManifest>(path.join(previousRoot, 'manifest.json'));
+    expect(manifest).toMatchObject({
+      contractVersion: 2,
+      id: resultMappingId,
+      version: '1.0.6',
+      status: 'ENABLED',
+      from: current.manifest.from,
+      to: current.manifest.to,
+      inputs: current.manifest.inputs,
+      output: current.manifest.output,
+    });
+    expect(manifest.outputs.map(output => [output.dataset, output.dependsOn])).toEqual(
+      previousManifest.outputs.map(output => [output.dataset, output.dependsOn])
+    );
+    for (const [index, output] of manifest.outputs.entries()) {
+      expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
+      expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
+        previousManifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+      );
+      for (const invariant of output.invariantEvidence) {
+        expect(invariant.querySha256s).toEqual([output.querySha256]);
+        for (const test of invariant.tests) {
+          expect(test.path).toBe('tests/firecrawl-policy-v3-cases.json');
+          expect(sha256(path.join(root, test.path))).toBe(test.sha256);
+        }
+      }
+    }
+
+    const rawFixture = readFileSync(
+      path.join(root, 'tests', 'firecrawl-policy-v3-cases.json'),
+      'utf8'
+    );
+    const fixture = JSON.parse(rawFixture) as {
+      policyVersion: string;
+      cases: Array<{
+        caseId: string;
+        failureMode?: string;
+        expectedAssessment: {
+          availabilityStatus: string;
+          listPriceAmountMinor: number | null;
+          reasonCodes: string[];
+        };
+      }>;
+      regressionCases1_0_6: { caseIds: string[] };
+    };
+    const previousFixture = readJson<{ cases: unknown[] }>(
+      path.join(previousRoot, 'tests', 'firecrawl-policy-v3-cases.json')
+    );
+    expect(fixture.policyVersion).toBe('sale-availability-firecrawl-policy-v3');
+    // The 1.0.5 cases carry forward unchanged, expectations included.
+    expect(fixture.cases.slice(0, previousFixture.cases.length)).toEqual(previousFixture.cases);
+    const added = fixture.cases.slice(previousFixture.cases.length);
+    expect(added.map(item => item.caseId)).toEqual(fixture.regressionCases1_0_6.caseIds);
+    expect(
+      Object.fromEntries(
+        added.map(item => [
+          item.caseId,
+          [
+            item.failureMode,
+            item.expectedAssessment.availabilityStatus,
+            item.expectedAssessment.listPriceAmountMinor,
+            item.expectedAssessment.reasonCodes.join(','),
+          ],
+        ])
+      )
+    ).toEqual({
+      'v6-open-house-repeats-instock': [
+        'repeated-status-as-ambiguous',
+        'FOR_SALE',
+        41000000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v6-repeated-instock-for-several-homes-stays-ambiguous': [
+        'repeated-status-as-ambiguous',
+        'CONFLICT',
+        null,
+        'CONFLICTING_STRUCTURED_EVIDENCE',
+      ],
+      'v6-instock-and-soldout-in-one-block-stays-ambiguous': [
+        'repeated-status-as-ambiguous',
+        'CONFLICT',
+        null,
+        'CONFLICTING_STRUCTURED_EVIDENCE',
+      ],
+      'v6-non-exact-self-conflict-page-ignored': [
+        'irrelevant-self-conflict-as-conflict',
+        'FOR_SALE',
+        35500000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v6-stale-self-conflict-page-ignored': [
+        'irrelevant-self-conflict-as-conflict',
+        'FOR_SALE',
+        29800000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v6-fresh-exact-self-conflict-still-conflicts': [
+        'irrelevant-self-conflict-as-conflict',
+        'CONFLICT',
+        null,
+        'CONFLICTING_STRUCTURED_EVIDENCE',
+      ],
+    });
+    expect(rawFixture).not.toMatch(
+      /movoto\.com|trulia\.com|irsauctions\.gov|zillow\.com|redfin\.com|realtor\.com|homepath\.com|opendoor\.com|xome\.com|homes\.com|usphonebook\.com/iu
+    );
+
+    const listingSql = readFileSync(path.join(root, 'queries', 'listing_observations.sql'), 'utf8');
+    expect(listingSql).toContain('AS availabilityValues');
+    expect(listingSql).toContain('AS streetAddressValues');
+    expect(listingSql).toContain('AS pageNamesOtherProperty');
+    expect(listingSql).not.toContain('"datePosted"');
+    expect(listingSql).not.toContain("'NOT_FOR_SALE'");
+    const assessmentSql = readFileSync(
+      path.join(root, 'queries', 'sale_availability_assessments.sql'),
+      'utf8'
+    );
+    expect(assessmentSql).toContain('AS currentPriceKeys');
+    expect(assessmentSql).toMatch(
+      /signal=CONFLICT%'\s+AND exact_address_match_state = 'EXACT'\s+AND freshness_state = 'FRESH'/u
+    );
+    expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
+  });
+
   it('pins inline completion only on mappings with an exactly-one assessment output', () => {
     const evidenceMapping = mapping(evidenceMappingId).manifest;
     const assessmentMapping = mapping(assessmentMappingId).manifest;
