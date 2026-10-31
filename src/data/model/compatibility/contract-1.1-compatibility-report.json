@@ -252,6 +252,9 @@
       "voucher__has_lead",
       "voucher__has_person"
     ],
+    "addedProperties": [
+      "property.hoa_mandatory"
+    ],
     "removedVertices": [],
     "removedRelationships": [],
     "changedVertices": [],
@@ -271,12 +274,12 @@
   "verdict": "ZERO_BREAKING_STRICT_ADDITIVE",
   "model": {
     "governanceBaseReleaseId": "rel-30b456730cd6ee29",
-    "sourceDigest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
-    "sourceByteLength": 1106172,
-    "candidateDigest": "sha256:d85a36437e48d608beaa8bc4dec50d5609ff9e08d7d4e6385e7ce385ef26b574",
-    "plannedReleaseId": "rel-d85a36437e48d608",
-    "compiledDigest": "sha256:0f9a400f71675313652b484cb49f68f332f8b2a192bfcc0bf9349bfc3854bdf3",
-    "compiledByteLength": 468058,
+    "sourceDigest": "sha256:47f36c85717f15865e0f8493912b315219bba013ca99f69e085bd0f422cbdba0",
+    "sourceByteLength": 1107228,
+    "candidateDigest": "sha256:b36afe133ce45935e4877a7a4b57dea2810f1de32359ce49dcc558b6bce9f504",
+    "plannedReleaseId": "rel-b36afe133ce45935",
+    "compiledDigest": "sha256:39c7f0f5744997617fd1af19281c80ae04896fff4278eedff142faa21ee20ff6",
+    "compiledByteLength": 469049,
     "dependencyLockDigest": "sha256:a657cddf7dc63b924ba8ed596dce724a5a7d5ff8b8f6e14e6a9e48a62ff27362",
     "dependencyLockByteLength": 267,
     "compilerVersion": "2.2.0",
@@ -285,15 +288,15 @@
     "request": {
       "vocabularyId": "lexicon",
       "baseReleaseId": "rel-30b456730cd6ee29",
-      "sourceDigest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
+      "sourceDigest": "sha256:47f36c85717f15865e0f8493912b315219bba013ca99f69e085bd0f422cbdba0",
       "proposedRevisions": [],
       "artifacts": [
         {
           "artifactId": "elephant-lexicon-contract-1-1-compatibility",
           "fileName": "elephant-lexicon.composition.json",
           "mediaType": "application/json",
-          "digest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
-          "byteLength": 1106172,
+          "digest": "sha256:47f36c85717f15865e0f8493912b315219bba013ca99f69e085bd0f422cbdba0",
+          "byteLength": 1107228,
           "governsExecutionOnly": false
         }
       ],

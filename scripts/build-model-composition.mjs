@@ -18,8 +18,8 @@ const compositionPath = path.join(root, 'src/data/model/elephant-lexicon.composi
 const omissionsPath = path.join(root, 'src/data/model/omissions.json');
 
 export const SOURCE_DIGEST =
-  'sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c';
-export const SOURCE_REVISION = 'dbf2b2dea8f332aff28b3444ceffd44f9e17364d';
+  'sha256:a9dcf540c4d30c93303b84a6125fd894b4b37078aee67d728074aa4e506eaaa0';
+export const SOURCE_REVISION = 'c98c34347d90615a0710093db63b485d04b0585f';
 export const CONTRACT_VERSION = '1.1';
 export const ACTIVE_EXTENSION_DIGEST =
   'sha256:07e2289b6eab0d55eefc229b4b34375ba8be941905e63c39d1943fb1c66882a5';
@@ -27,11 +27,14 @@ export const BASE_RELEASE_ID = 'model-shared-base-v2.0.0';
 export const BASE_RELEASE_DIGEST =
   'sha256:c8309ebae693d026ec33f0f862639eb85b61f77cfc166c499e5ead4655f56f41';
 export const COMPILED_DIGEST =
-  'sha256:0f9a400f71675313652b484cb49f68f332f8b2a192bfcc0bf9349bfc3854bdf3';
+  'sha256:39c7f0f5744997617fd1af19281c80ae04896fff4278eedff142faa21ee20ff6';
 export const DEPENDENCY_LOCK_DIGEST =
   'sha256:a657cddf7dc63b924ba8ed596dce724a5a7d5ff8b8f6e14e6a9e48a62ff27362';
 export const GOVERNANCE_BASE_RELEASE_ID = 'rel-30b456730cd6ee29';
 export const DOCUMENT_ARTIFACT_ID = 'elephant-lexicon-contract-1-1-compatibility';
+export const APPROVED_ADDITIVE_PROPERTIES = Object.freeze({
+  property: Object.freeze(['hoa_mandatory']),
+});
 const BASE_LABELS = new Set(['person', 'company', 'address', 'payment']);
 const MAX_DEFINITIONS = 2000;
 const IDENTIFIER = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
@@ -226,7 +229,7 @@ export function buildModelComposition({ lexicon, choices, runtime = {}, compatib
     candidateDigest,
     plannedReleaseId: `rel-${candidateDigest.slice(7, 23)}`,
     compiledDigest: COMPILED_DIGEST,
-    compiledByteLength: 468058,
+    compiledByteLength: 469049,
     dependencyLockDigest: DEPENDENCY_LOCK_DIGEST,
     dependencyLockByteLength: 267,
     compilerVersion: '2.2.0',
@@ -517,17 +520,46 @@ function applyCompatibilityBaseline(definitions, baseline, omissions) {
     fail('an exact installed Persist extension baseline is required');
   }
   const byId = new Map(definitions.map(definition => [definition.definitionId, definition]));
+  const installedVertices = new Set(baseline.vertices.map(vertex => vertex.type));
+  const addedProperties = [];
 
   for (const vertex of baseline.vertices) {
     const definition = byId.get(vertex.type);
     if (definition?.body.kind !== 'vertex') {
       fail(`installed vertex ${vertex.type} is missing or changes kind`);
     }
-    definition.body.properties = structuredClone(vertex.properties);
+    const sourceProperties = definition.body.properties;
+    const mergedProperties = structuredClone(vertex.properties);
+    for (const propertyName of APPROVED_ADDITIVE_PROPERTIES[vertex.type] ?? []) {
+      if (Object.hasOwn(vertex.properties, propertyName)) {
+        fail(`approved additive property ${vertex.type}.${propertyName} is already installed`);
+      }
+      const candidateProperty = sourceProperties[propertyName];
+      if (candidateProperty === undefined) {
+        fail(`approved additive property ${vertex.type}.${propertyName} is missing from source`);
+      }
+      if (
+        definition.body.required.includes(propertyName) ||
+        candidateProperty.required === true ||
+        candidateProperty.nullable !== true
+      ) {
+        fail(
+          `approved additive property ${vertex.type}.${propertyName} must be optional and nullable`
+        );
+      }
+      mergedProperties[propertyName] = structuredClone(candidateProperty);
+      addedProperties.push(`${vertex.type}.${propertyName}`);
+    }
+    definition.body.properties = mergedProperties;
     definition.body.required = [...vertex.required];
     definition.body.indexes = structuredClone(vertex.indexes ?? {});
     replaceOptional(definition.body, 'embeddings', vertex.embeddings);
     replaceOptional(definition.body, 'allOf', vertex.allOf);
+  }
+  for (const vertexType of Object.keys(APPROVED_ADDITIVE_PROPERTIES)) {
+    if (!installedVertices.has(vertexType)) {
+      fail(`approved additive property owner ${vertexType} is not an installed vertex`);
+    }
   }
 
   for (const edge of baseline.edges) {
@@ -560,7 +592,7 @@ function applyCompatibilityBaseline(definitions, baseline, omissions) {
   const changedVertices = baseline.vertices
     .filter(vertex => {
       const definition = byId.get(vertex.type);
-      return canonicalJson(runtimeVertex(definition)) !== canonicalJson(vertex);
+      return canonicalJson(baselineComparableVertex(definition)) !== canonicalJson(vertex);
     })
     .map(vertex => vertex.type);
   const changedRelationships = baseline.edges
@@ -608,6 +640,7 @@ function applyCompatibilityBaseline(definitions, baseline, omissions) {
     delta: {
       addedVertices: candidateVertices.filter(label => !baselineVertices.has(label)).sort(),
       addedRelationships: candidateEdges.filter(label => !baselineEdges.has(label)).sort(),
+      addedProperties: addedProperties.sort(),
       removedVertices,
       removedRelationships,
       changedVertices,
@@ -625,7 +658,8 @@ function applyCompatibilityBaseline(definitions, baseline, omissions) {
   omissions.decisions.push({
     kind: 'installedPersistCompatibility',
     baselineDigest: ACTIVE_EXTENSION_DIGEST,
-    rule: 'Every installed vertex and relationship keeps its label, kind, endpoints, properties, required fields, indexes, embeddings and constraints; source-only changes apply only to new relationship labels.',
+    approvedAdditiveProperties: addedProperties,
+    rule: 'Every installed vertex and relationship keeps its label, kind, endpoints, existing properties, required fields, indexes, embeddings and constraints. Only explicitly approved optional nullable properties and new relationship labels may be added.',
   });
   return report;
 }
@@ -649,6 +683,16 @@ function runtimeVertex(definition) {
     ...(body.embeddings === undefined ? {} : { embeddings: body.embeddings }),
     ...(body.allOf === undefined ? {} : { allOf: body.allOf }),
   };
+}
+
+function baselineComparableVertex(definition) {
+  const runtime = runtimeVertex(definition);
+  if (runtime === null) return null;
+  const comparable = structuredClone(runtime);
+  for (const propertyName of APPROVED_ADDITIVE_PROPERTIES[definition.definitionId] ?? []) {
+    delete comparable.properties[propertyName];
+  }
+  return comparable;
 }
 
 function runtimeRelationship(definition) {

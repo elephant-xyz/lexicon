@@ -9,12 +9,13 @@ the immutable component object is S3 version
 The Model composition generator treats this document as a compatibility floor:
 
 - all 213 installed vertices and 292 installed relationships retain their labels,
-  kinds, endpoints, properties, required fields, indexes, embeddings, and
-  constraints;
+  kinds, endpoints, existing properties, required fields, indexes, embeddings,
+  and constraints;
 - `payment` remains imported from `model-shared-base-v2.0.0`;
 - the legacy `phone_call` relationship remains owned by the base and is not
   replaced by a vertex;
-- only the 233 missing relationship labels are added by the extension;
+- only the 233 missing relationship labels and the reviewed optional, nullable
+  `property.hoa_mandatory` boolean are added by the extension;
 - restrictive source constraints are deferred until data compliance and a
   migration are separately approved.
 

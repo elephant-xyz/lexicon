@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   ACTIVE_EXTENSION_DIGEST,
+  APPROVED_ADDITIVE_PROPERTIES,
   BASE_RELEASE_DIGEST,
   BASE_RELEASE_ID,
   COMPILED_DIGEST,
@@ -53,6 +54,7 @@ type Built = {
     delta: {
       addedVertices: string[];
       addedRelationships: string[];
+      addedProperties: string[];
       removedVertices: string[];
       removedRelationships: string[];
       changedVertices: string[];
@@ -76,7 +78,11 @@ type Built = {
   };
 };
 type Lexicon = {
-  classes: Array<{ type: string; relationships?: Record<string, { targets?: string[] }> }>;
+  classes: Array<{
+    type: string;
+    properties?: Record<string, Record<string, unknown>>;
+    relationships?: Record<string, { targets?: string[] }>;
+  }>;
   data_groups: Array<{
     label: string;
     relationships: Array<{ from: string; to: string; relationship_type: string }>;
@@ -200,7 +206,7 @@ describe('Model composition of the Elephant lexicon', () => {
     }
   });
 
-  it('keeps every installed definition and adds exactly 233 relationships', () => {
+  it('keeps every installed definition and adds only governed compatible fields', () => {
     expect(built.compatibility.baseline).toMatchObject({
       digest: ACTIVE_EXTENSION_DIGEST,
       vertices: 213,
@@ -214,6 +220,7 @@ describe('Model composition of the Elephant lexicon', () => {
     });
     expect(built.compatibility.delta.addedVertices).toEqual([]);
     expect(built.compatibility.delta.addedRelationships).toHaveLength(233);
+    expect(built.compatibility.delta.addedProperties).toEqual(['property.hoa_mandatory']);
     expect(built.compatibility.delta.removedVertices).toEqual([]);
     expect(built.compatibility.delta.removedRelationships).toEqual([]);
     expect(built.compatibility.delta.changedVertices).toEqual([]);
@@ -222,14 +229,22 @@ describe('Model composition of the Elephant lexicon', () => {
     expect(built.compatibility.delta.labelKindChanges).toEqual([]);
     expect(built.compatibility.delta.restrictiveConstraintChanges).toEqual([]);
     expect(built.compatibility.verdict).toBe('ZERO_BREAKING_STRICT_ADDITIVE');
+    expect(APPROVED_ADDITIVE_PROPERTIES).toEqual({
+      property: ['hoa_mandatory'],
+    });
+    expect(properties('property').hoa_mandatory).toMatchObject({
+      type: 'boolean',
+      nullable: true,
+    });
+    expect(properties('property').hoa_mandatory.required).toBeUndefined();
     expect(built.compatibility.model).toMatchObject({
       governanceBaseReleaseId: 'rel-30b456730cd6ee29',
-      sourceDigest: 'sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa',
-      sourceByteLength: 1106172,
-      candidateDigest: 'sha256:d85a36437e48d608beaa8bc4dec50d5609ff9e08d7d4e6385e7ce385ef26b574',
-      plannedReleaseId: 'rel-d85a36437e48d608',
+      sourceDigest: 'sha256:47f36c85717f15865e0f8493912b315219bba013ca99f69e085bd0f422cbdba0',
+      sourceByteLength: 1107228,
+      candidateDigest: 'sha256:b36afe133ce45935e4877a7a4b57dea2810f1de32359ce49dcc558b6bce9f504',
+      plannedReleaseId: 'rel-b36afe133ce45935',
       compiledDigest: COMPILED_DIGEST,
-      compiledByteLength: 468058,
+      compiledByteLength: 469049,
       dependencyLockDigest: DEPENDENCY_LOCK_DIGEST,
       dependencyLockByteLength: 267,
     });
@@ -243,6 +258,23 @@ describe('Model composition of the Elephant lexicon', () => {
     expect(properties('unnormalized_address').county_jurisdiction.enum).toBeUndefined();
     expect(definitions.get('listing_observation')?.body.allOf).toBeUndefined();
     expect(definitions.get('sale_availability_assessment')?.body.allOf).toBeUndefined();
+  });
+
+  it('fails closed when the approved property is missing, required, or non-nullable', () => {
+    const missing = JSON.parse(JSON.stringify(sources.lexicon)) as Lexicon;
+    delete missing.classes.find(item => item.type === 'property')!.properties!.hoa_mandatory;
+    expect(() => buildModelComposition({ ...sources, lexicon: missing })).toThrow(
+      /property\.hoa_mandatory is missing from source/
+    );
+
+    const restrictive = JSON.parse(JSON.stringify(sources.lexicon)) as Lexicon;
+    restrictive.classes.find(item => item.type === 'property')!.properties!.hoa_mandatory = {
+      type: 'boolean',
+      required: true,
+    };
+    expect(() => buildModelComposition({ ...sources, lexicon: restrictive })).toThrow(
+      /property\.hoa_mandatory must be optional and nullable/
+    );
   });
 
   it('accepts representative installed values while retaining compatible type checks', () => {
