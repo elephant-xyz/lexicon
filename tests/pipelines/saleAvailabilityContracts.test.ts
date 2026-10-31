@@ -715,7 +715,7 @@ describe('sale availability pipeline contracts', () => {
 
   it('keeps candidate result mapping 1.0.3 unpublished with pinned policy-v3 regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
-    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.7');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.8');
     expect(
       catalog.entries.some(
         entry =>
@@ -809,7 +809,7 @@ describe('sale availability pipeline contracts', () => {
 
   it('keeps candidate result mapping 1.0.4 unpublished with pinned production failure-mode regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
-    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.7');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.8');
     expect(
       catalog.entries.some(
         entry =>
@@ -958,7 +958,7 @@ describe('sale availability pipeline contracts', () => {
 
   it('keeps candidate result mapping 1.0.5 unpublished with pinned Oct 26 comparison regressions', () => {
     const published = mapping(resultMappingId, '1.0.2');
-    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.7');
+    expect(mapping(resultMappingId).catalogEntry.version).toBe('1.0.8');
     expect(
       catalog.entries.some(
         entry =>
@@ -1270,9 +1270,10 @@ describe('sale availability pipeline contracts', () => {
     expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
-  it('makes result mapping 1.0.7 current with pinned Oct 29 MLS regressions', () => {
-    expect(mapping(resultMappingId).catalogEntry).toMatchObject({
+  it('keeps result mapping 1.0.7 published with pinned Oct 29 MLS regressions', () => {
+    expect(mapping(resultMappingId, '1.0.7').catalogEntry).toMatchObject({
       version: '1.0.7',
+      current: false,
       status: 'ENABLED',
       from: 'connect-http-acquisition-bundle',
       to: 'sale-availability-result',
@@ -1426,6 +1427,118 @@ describe('sale availability pipeline contracts', () => {
     expect(listingSql).toContain('AS listingStatusLabel');
     expect(listingSql).toContain("' listing status (active|for sale|");
     expect(listingSql).not.toContain("'NOT_FOR_SALE'");
+  });
+
+  it('makes result mapping 1.0.8 current with pinned off-market regressions', () => {
+    expect(mapping(resultMappingId).catalogEntry).toMatchObject({
+      version: '1.0.8',
+      status: 'ENABLED',
+      from: 'connect-http-acquisition-bundle',
+      to: 'sale-availability-result',
+    });
+    expect(
+      catalog.entries.filter(
+        entry => entry.kind === 'mapping' && entry.id === resultMappingId && entry.current
+      )
+    ).toHaveLength(1);
+
+    const root = path.join(transformRoot, 'mappings', resultMappingId, '1.0.8');
+    const previousRoot = path.join(transformRoot, 'mappings', resultMappingId, '1.0.7');
+    const manifest = readJson<MappingManifest>(path.join(root, 'manifest.json'));
+    const previousManifest = readJson<MappingManifest>(path.join(previousRoot, 'manifest.json'));
+    expect(manifest).toMatchObject({
+      contractVersion: 2,
+      id: resultMappingId,
+      version: '1.0.8',
+      status: 'ENABLED',
+      from: previousManifest.from,
+      to: previousManifest.to,
+      inputs: previousManifest.inputs,
+      output: previousManifest.output,
+    });
+    for (const [index, output] of manifest.outputs.entries()) {
+      expect(sha256(path.join(root, output.queryPath))).toBe(output.querySha256);
+      expect(output.invariantEvidence.map(item => item.invariant)).toEqual(
+        previousManifest.outputs[index]!.invariantEvidence.map(item => item.invariant)
+      );
+      for (const invariant of output.invariantEvidence) {
+        expect(invariant.querySha256s).toEqual([output.querySha256]);
+        for (const test of invariant.tests) {
+          expect(test.path).toBe('tests/firecrawl-policy-v3-cases.json');
+          expect(sha256(path.join(root, test.path))).toBe(test.sha256);
+        }
+      }
+    }
+
+    const rawFixture = readFileSync(
+      path.join(root, 'tests', 'firecrawl-policy-v3-cases.json'),
+      'utf8'
+    );
+    const fixture = JSON.parse(rawFixture) as {
+      cases: Array<{
+        caseId: string;
+        failureMode?: string;
+        expectedAssessment: {
+          availabilityStatus: string;
+          listPriceAmountMinor: number | null;
+          reasonCodes: string[];
+        };
+      }>;
+      regressionCases1_0_8: { caseIds: string[] };
+    };
+    const previousFixture = readJson<{ cases: unknown[] }>(
+      path.join(previousRoot, 'tests', 'firecrawl-policy-v3-cases.json')
+    );
+    // The 1.0.7 cases carry forward unchanged, expectations included.
+    expect(fixture.cases.slice(0, previousFixture.cases.length)).toEqual(previousFixture.cases);
+    const added = fixture.cases.slice(previousFixture.cases.length);
+    expect(added.map(item => item.caseId)).toEqual(fixture.regressionCases1_0_8.caseIds);
+    expect(
+      Object.fromEntries(
+        added.map(item => [
+          item.caseId,
+          [
+            item.failureMode,
+            item.expectedAssessment.availabilityStatus,
+            item.expectedAssessment.listPriceAmountMinor,
+            item.expectedAssessment.reasonCodes.join(','),
+          ],
+        ])
+      )
+    ).toEqual({
+      'v8-bare-soldout-record-yields-to-active-listing': [
+        'generic-off-market-as-conflict',
+        'FOR_SALE',
+        41200000,
+        'ACTIVE_LISTING_PRICE_AVAILABLE',
+      ],
+      'v8-bare-soldout-record-vs-noindex-copy-conflicts': [
+        'generic-off-market-as-conflict',
+        'CONFLICT',
+        null,
+        'CONFLICTING_FRESH_EXACT_EVIDENCE',
+      ],
+      'v8-stated-off-market-still-conflicts': [
+        'generic-off-market-as-conflict',
+        'CONFLICT',
+        null,
+        'CONFLICTING_FRESH_EXACT_EVIDENCE',
+      ],
+    });
+    expect(rawFixture).not.toMatch(
+      /movoto\.com|trulia\.com|zillow\.com|redfin\.com|realtor\.com|homes\.com|har\.com|compass\.com|remax\.com/iu
+    );
+
+    const listingSql = readFileSync(path.join(root, 'queries', 'listing_observations.sql'), 'utf8');
+    expect(listingSql).toContain("THEN 'offer=NON_SALE'");
+    const assessmentSql = readFileSync(
+      path.join(root, 'queries', 'sale_availability_assessments.sql'),
+      'utf8'
+    );
+    expect(assessmentSql).toContain('AS genericInactiveFreshExactCount');
+    expect(assessmentSql).toContain('AS indexableActiveConclusionCount');
+    expect(assessmentSql).toContain("source_status NOT LIKE '%robots=%noindex%'");
+    expect(assessmentSql).not.toContain("'NOT_FOR_SALE'");
   });
 
   it('pins inline completion only on mappings with an exactly-one assessment output', () => {
