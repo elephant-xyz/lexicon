@@ -1,9 +1,9 @@
 {
   "source": {
     "repository": "https://github.com/elephant-xyz/lexicon",
-    "revision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
+    "revision": "c98c34347d90615a0710093db63b485d04b0585f",
     "path": "src/data/lexicon.json",
-    "digest": "sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c"
+    "digest": "sha256:a9dcf540c4d30c93303b84a6125fd894b4b37078aee67d728074aa4e506eaaa0"
   },
   "decisions": [
     {
@@ -49,7 +49,10 @@
     {
       "kind": "installedPersistCompatibility",
       "baselineDigest": "sha256:07e2289b6eab0d55eefc229b4b34375ba8be941905e63c39d1943fb1c66882a5",
-      "rule": "Every installed vertex and relationship keeps its label, kind, endpoints, properties, required fields, indexes, embeddings and constraints; source-only changes apply only to new relationship labels."
+      "approvedAdditiveProperties": [
+        "property.hoa_mandatory"
+      ],
+      "rule": "Every installed vertex and relationship keeps its label, kind, endpoints, existing properties, required fields, indexes, embeddings and constraints. Only explicitly approved optional nullable properties and new relationship labels may be added."
     }
   ],
   "duplicateChoices": {

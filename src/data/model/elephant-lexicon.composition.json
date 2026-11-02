@@ -758,9 +758,9 @@
       {
         "alias": "elephant-lexicon",
         "repository": "https://github.com/elephant-xyz/lexicon",
-        "revision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
+        "revision": "c98c34347d90615a0710093db63b485d04b0585f",
         "path": "src/data/lexicon.json",
-        "digest": "sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c"
+        "digest": "sha256:a9dcf540c4d30c93303b84a6125fd894b4b37078aee67d728074aa4e506eaaa0"
       }
     ],
     "topVertex": {
@@ -12952,6 +12952,11 @@
           "zoning": {
             "comment": "Zoning is a system of land-use regulation created by local governments to control how property and land within a community can be used.",
             "type": "string"
+          },
+          "hoa_mandatory": {
+            "type": "boolean",
+            "comment": "Evidence-safe tri-state indicator for whether at least one in-scope mandatory homeowners association applies to this exact property under the reviewed domain contract. Set true only when authoritative or adjudicated exact-property evidence proves mandatory membership or dues. Set false only when such evidence affirmatively proves that no in-scope mandatory homeowners association applies. Omit or set null when evidence is unknown, unresolved, unavailable, conflicting, or inference-only; absence must never default to false. Search snippets, subdivision or nearby-property inference, CDD or tax records, voluntary civic associations, condominium or cooperative status under a different legal regime, and missing fee data do not establish this value. Preserve master and sub-association distinctions in their association records; this field answers only whether at least one in-scope mandatory homeowners association applies.",
+            "nullable": true
           }
         },
         "required": [],
