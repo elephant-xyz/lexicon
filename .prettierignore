@@ -3,6 +3,7 @@ node_modules/
 
 # Build outputs
 build/
+cdk.out/
 dist/
 *.min.js
 *.min.css

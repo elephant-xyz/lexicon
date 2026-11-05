@@ -90,6 +90,25 @@ export default [
     },
   },
 
+  // Model runtime and CDK execute in Node.js
+  {
+    files: ['model/**/*.ts'],
+    languageOptions: {
+      globals: {
+        fetch: 'readonly',
+        URL: 'readonly',
+        AbortSignal: 'readonly',
+        Response: 'readonly',
+      },
+    },
+    rules: {
+      'react-hooks/rules-of-hooks': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react/no-unescaped-entities': 'off',
+      'jsx-a11y/label-has-associated-control': 'off',
+    },
+  },
+
   // Test files specific configuration
   {
     files: ['tests/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}', '**/*.spec.{js,jsx,ts,tsx}'],
@@ -136,7 +155,7 @@ export default [
 
   // Configuration files
   {
-    files: ['*.config.{js,ts}', 'vite.config.ts'],
+    files: ['*.config.{js,ts}', 'vite.config.ts', 'model/bin/**/*.ts', 'model/lib/**/*.ts'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       'no-console': 'off',
@@ -145,7 +164,7 @@ export default [
 
   // Ignore patterns
   {
-    ignores: ['dist/', 'build/', 'node_modules/', 'coverage/', '*.min.js', 'public/'],
+    ignores: ['dist/', 'build/', 'cdk.out/', 'node_modules/', 'coverage/', '*.min.js', 'public/'],
   },
 
   // Prettier configuration (must be last)

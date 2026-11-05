@@ -1,0 +1,12 @@
+{
+  "app": "npx tsx model/bin/model-publication.ts",
+  "context": {
+    "account": "708502238428",
+    "region": "us-east-2",
+    "stage": "review",
+    "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
+    "@aws-cdk/core:checkSecretUsage": true,
+    "@aws-cdk/core:target-partitions": ["aws"],
+    "@aws-cdk/core:newStyleStackSynthesis": true
+  }
+}
