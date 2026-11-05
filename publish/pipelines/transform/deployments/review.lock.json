@@ -3,25 +3,59 @@
   "stage": "review",
   "accountId": "708502238428",
   "region": "us-east-2",
-  "publishedAt": "2026-10-08T04:35:48Z",
+  "publishedAt": "2026-10-09T13:25:34Z",
+  "publication": {
+    "mode": "CONTROLLED_OPERATOR",
+    "sourceBranch": "main",
+    "sourceRevision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
+    "workingTreeCleanAtPublication": true,
+    "modelPublicationReviewUsed": false,
+    "transformApiMutationPerformedByPublicationOperator": false,
+    "immutableCreateOnly": true,
+    "catalogPublishedLast": true,
+    "catalogCompareAndSwap": {
+      "previousVersionId": "x057oScrpeVYAgTGBcW2IypEnusL4L1W",
+      "ifMatchETag": "\"4ebaa77755f0f207ecff96f2db61023f\"",
+      "adjacentVersionReadback": true
+    },
+    "checks": {
+      "targetedVitestFiles": 4,
+      "targetedVitestTests": 24,
+      "targetedVitestPassed": true,
+      "productionBuildPassed": true,
+      "byteForByteReadback": true
+    }
+  },
   "bucket": {
     "name": "transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p",
     "versioned": true,
     "prefix": "config/transform/",
-    "publishedObjectCount": 55
+    "publishedObjectCount": 61
   },
   "catalog": {
     "s3Uri": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/config/transform/catalog.json",
-    "versionId": "x057oScrpeVYAgTGBcW2IypEnusL4L1W",
-    "eTag": "\"4ebaa77755f0f207ecff96f2db61023f\"",
-    "size": 9396,
-    "sha256": "98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045",
-    "localReadbackMatched": true
+    "versionId": "EEoZsHslzYHllFg_54qzPpf036KdMcvQ",
+    "eTag": "\"7e882e5a1e114e5544a724ede55751e6\"",
+    "size": 9864,
+    "sha256": "df00361432379273184975753dbb22872116524e25532b51012eff5cacc99a68",
+    "localReadbackMatched": true,
+    "previousVersion": {
+      "versionId": "x057oScrpeVYAgTGBcW2IypEnusL4L1W",
+      "eTag": "\"4ebaa77755f0f207ecff96f2db61023f\"",
+      "size": 9396,
+      "sha256": "98d2cefe8e6d9303e2e1b864523c5d3a1dfe10a09211bebeea76ed7111330045",
+      "bytesUnchanged": true
+    }
   },
   "pointer": {
     "name": "/lexicon/transform-catalog-uri",
-    "version": 1,
-    "value": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/config/transform/catalog.json"
+    "version": 2,
+    "value": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/config/transform/catalog.json",
+    "lastModifiedDate": "2026-10-09T13:25:33.663Z",
+    "previousVersion": {
+      "version": 1,
+      "value": "s3://transformpipelinestack-databuckete3889a50-bz8ut4jvzj6p/config/transform/catalog.json"
+    }
   },
   "saleAvailabilityArtifacts": {
     "sourceDefinition": {
@@ -92,21 +126,58 @@
     },
     "firecrawlResultMapping": {
       "id": "connect-http-acquisition-bundle-to-sale-availability-result",
-      "version": "1.0.0",
-      "manifestVersionId": "nR_nTZQmdgOfeFddIF8R2frrifI9w9_U",
-      "manifestSha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
-      "observationQueryVersionId": "4ov8L.SKNv3PQbePRFiwjgw0y75s2b5O",
-      "observationQuerySha256": "c5f4442d3b6429ce6648d9ab5b3856ab41e78c00ee4d4b8687c9be54cf504133",
-      "assessmentQueryVersionId": "8dIoxMbyuioQ9mQQL0HWcN4zXdwG53pp",
-      "assessmentQuerySha256": "be89d0d4249ec642f8181ddf95b338b40cf547d1143a4db8c3824ea90524f0e3",
-      "requestFixtureVersionId": "Wk0uuy_YwKpUhnzSEh5JrXPRgFHmFy2F",
+      "version": "1.0.1",
+      "manifestVersionId": "gph3p_8w1_FVQH6u87GYQovIs3VeE.pD",
+      "manifestSha256": "b41c0c651028cfcbf0ee8d69d436d1cc22fa74123c9f65dc07870316f8d3533d",
+      "observationQueryVersionId": "7bXp7JWqlzZh_zxLid8hFQXHD6Tv_0_c",
+      "observationQuerySha256": "cd2ea105698144beb026b186c88b76e34bd01f3406b33594ec865dc78d787634",
+      "assessmentQueryVersionId": "zTF8VEzgON8UJ9AbKkiv1omTyao_hBTj",
+      "assessmentQuerySha256": "0a3594583f0202820bd682f8e6bf7a026fb8a11d411a99d88d05a90ff38f8eeb",
+      "requestFixtureVersionId": "txXEwKhK8FrGcAKbzGE6JQtZ9aPPDiIU",
       "requestFixtureSha256": "ddc8ff6c906a7a977b7b97a1f87c3bd00c3899be5def50a487373f1c92dc7cda",
-      "packagingFixtureVersionId": "6JD9om_KpZncBzkwT2iANBw2FD8qtdzx",
-      "packagingFixtureSha256": "309fb4efbd1f781060392e51c58d9c9af1eca5516f13be0ba5158e2c70c2a5c5",
-      "testsVersionId": "eudhyqL5nWu.i.9sJohIrHhknsjyoFUZ",
-      "testsSha256": "ffdd480cda6a1793578da79df3564d540bffe52894370d2477981c475313b9b6",
-      "registrationObjectVersionId": "QAufZ90Ks6M4_FGgRz0veqHlqDuEh4l8",
-      "registration": "REGISTERED"
+      "packagingFixtureVersionId": "kQZL2FFnee4Jdmtf91LwT1V8aTv8zBzl",
+      "packagingFixtureSha256": "fa8b7fcc56b1eb933518542705be2ea0567d0113096d556cab5fc0e31dd793e0",
+      "testsVersionId": "DfdeosPvQes0fC4B9TCxz4MbIUbzMxrY",
+      "testsSha256": "c0a01f3259de7f4410411d49aaa80b1d6666da01bee1646e08a6af43dbb83dc0",
+      "registration": "REGISTERED_AFTER_PUBLICATION",
+      "registrationPerformedByPublicationOperator": false,
+      "registrationObjectVersionId": "hENDTWs9woj712b_.WYlxYppZ9unbZUe",
+      "registrationObjectSha256": "c0ba0e47ae80bce95f8c0a53c59318dc47c74ec114db5d2c61bc80c7b80dd833",
+      "registeredAt": "2026-10-09T13:26:36.210Z",
+      "registrationReadbackMatched": true,
+      "registrationApiRequestIds": [
+        "13b919bf-5274-44f1-a6b5-d1f6e693d898",
+        "65f821c9-9637-4c1e-8608-7a05441e6924",
+        "d02f92ce-cf6f-46dd-adcf-983033213e25"
+      ],
+      "execution": "NOT_RUN",
+      "providerCallStarted": false,
+      "previousVersion": {
+        "version": "1.0.0",
+        "current": false,
+        "manifestVersionId": "nR_nTZQmdgOfeFddIF8R2frrifI9w9_U",
+        "manifestSha256": "81ef63e6579cc4b92af8463c641265f6c5253e4456c6bff37da7012fe3c07dae",
+        "observationQueryVersionId": "4ov8L.SKNv3PQbePRFiwjgw0y75s2b5O",
+        "observationQuerySha256": "c5f4442d3b6429ce6648d9ab5b3856ab41e78c00ee4d4b8687c9be54cf504133",
+        "assessmentQueryVersionId": "8dIoxMbyuioQ9mQQL0HWcN4zXdwG53pp",
+        "assessmentQuerySha256": "be89d0d4249ec642f8181ddf95b338b40cf547d1143a4db8c3824ea90524f0e3",
+        "requestFixtureVersionId": "Wk0uuy_YwKpUhnzSEh5JrXPRgFHmFy2F",
+        "requestFixtureSha256": "ddc8ff6c906a7a977b7b97a1f87c3bd00c3899be5def50a487373f1c92dc7cda",
+        "packagingFixtureVersionId": "6JD9om_KpZncBzkwT2iANBw2FD8qtdzx",
+        "packagingFixtureSha256": "309fb4efbd1f781060392e51c58d9c9af1eca5516f13be0ba5158e2c70c2a5c5",
+        "testsVersionId": "eudhyqL5nWu.i.9sJohIrHhknsjyoFUZ",
+        "testsSha256": "ffdd480cda6a1793578da79df3564d540bffe52894370d2477981c475313b9b6",
+        "registrationObjectVersionId": "QAufZ90Ks6M4_FGgRz0veqHlqDuEh4l8",
+        "registration": "REGISTERED",
+        "bytesUnchanged": true
+      },
+      "handoff": {
+        "owner": "Kecleon",
+        "registration": "OBSERVED_COMPLETE",
+        "providerFreeDevReplays": 2,
+        "providerFreeDevReplaysCompleted": 0,
+        "maxCostUsdEach": 0.1
+      }
     }
   },
   "inertSearchCandidate": {
@@ -158,6 +229,7 @@
     "mapping112AssessmentReplayId": "verify-assessment-120-2500e7c7-96be-4c3d-8903-41d1b152e02a",
     "mapping112AssessmentReason": "NO_PROVIDER_MATCH",
     "firecrawlOneRun": {
+      "mappingVersion": "1.0.0",
       "executionId": "firecrawl-result-review-20261008T044000Z",
       "executionArn": "arn:aws:states:us-east-2:708502238428:execution:TransformPipelineStack-transform-pipeline:firecrawl-result-review-20261008T044000Z",
       "glueJobRunId": "jr_a910e0980f5856bf5f6f3d110d9c908d775a5c5bb3790089fd4c8f7290bdd14c",
