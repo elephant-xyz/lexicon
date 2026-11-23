@@ -18,8 +18,8 @@ const compositionPath = path.join(root, 'src/data/model/elephant-lexicon.composi
 const omissionsPath = path.join(root, 'src/data/model/omissions.json');
 
 export const SOURCE_DIGEST =
-  'sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c';
-export const SOURCE_REVISION = 'dbf2b2dea8f332aff28b3444ceffd44f9e17364d';
+  'sha256:26a04f074da2330cee5ae41e5ba1ba4a85789b2d164973ac0042fd71f9fab737';
+export const SOURCE_REVISION = 'd2a6bd1bd2ebe6d8fe0d14a3ee5572eb5b947fb0';
 export const CONTRACT_VERSION = '1.1';
 export const ACTIVE_EXTENSION_DIGEST =
   'sha256:07e2289b6eab0d55eefc229b4b34375ba8be941905e63c39d1943fb1c66882a5';

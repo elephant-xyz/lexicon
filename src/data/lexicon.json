@@ -17345,6 +17345,15 @@
           "type": "decimal",
           "format": "currency",
           "optional": true
+        },
+        "job_value_amount": {
+          "comment": "The declared value of the work the permit authorizes, in US dollars, as printed by the issuing authority (for example a building department's total job valuation). It is the estimated cost of the construction work, not the permit fee (see fee). Omit or set null when the authority does not print a valuation; never estimate or derive it.",
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "currency",
+          "optional": true
         }
       }
     },

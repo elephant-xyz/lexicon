@@ -271,10 +271,10 @@
   "verdict": "ZERO_BREAKING_STRICT_ADDITIVE",
   "model": {
     "governanceBaseReleaseId": "rel-30b456730cd6ee29",
-    "sourceDigest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
+    "sourceDigest": "sha256:c1e158dd46baeb5ac7a7252285c958bcc3cd4781e217ae1993e477a5915b704a",
     "sourceByteLength": 1106172,
-    "candidateDigest": "sha256:d85a36437e48d608beaa8bc4dec50d5609ff9e08d7d4e6385e7ce385ef26b574",
-    "plannedReleaseId": "rel-d85a36437e48d608",
+    "candidateDigest": "sha256:8c3a273a7e20fa005a290b005167d4954f854a95ccde1d374ae5ce75ddc455d8",
+    "plannedReleaseId": "rel-8c3a273a7e20fa00",
     "compiledDigest": "sha256:0f9a400f71675313652b484cb49f68f332f8b2a192bfcc0bf9349bfc3854bdf3",
     "compiledByteLength": 468058,
     "dependencyLockDigest": "sha256:a657cddf7dc63b924ba8ed596dce724a5a7d5ff8b8f6e14e6a9e48a62ff27362",
@@ -285,14 +285,14 @@
     "request": {
       "vocabularyId": "lexicon",
       "baseReleaseId": "rel-30b456730cd6ee29",
-      "sourceDigest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
+      "sourceDigest": "sha256:c1e158dd46baeb5ac7a7252285c958bcc3cd4781e217ae1993e477a5915b704a",
       "proposedRevisions": [],
       "artifacts": [
         {
           "artifactId": "elephant-lexicon-contract-1-1-compatibility",
           "fileName": "elephant-lexicon.composition.json",
           "mediaType": "application/json",
-          "digest": "sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa",
+          "digest": "sha256:c1e158dd46baeb5ac7a7252285c958bcc3cd4781e217ae1993e477a5915b704a",
           "byteLength": 1106172,
           "governsExecutionOnly": false
         }

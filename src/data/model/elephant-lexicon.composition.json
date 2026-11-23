@@ -758,9 +758,9 @@
       {
         "alias": "elephant-lexicon",
         "repository": "https://github.com/elephant-xyz/lexicon",
-        "revision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
+        "revision": "d2a6bd1bd2ebe6d8fe0d14a3ee5572eb5b947fb0",
         "path": "src/data/lexicon.json",
-        "digest": "sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c"
+        "digest": "sha256:26a04f074da2330cee5ae41e5ba1ba4a85789b2d164973ac0042fd71f9fab737"
       }
     ],
     "topVertex": {
