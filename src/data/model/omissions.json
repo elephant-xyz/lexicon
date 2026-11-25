@@ -1,9 +1,9 @@
 {
   "source": {
     "repository": "https://github.com/elephant-xyz/lexicon",
-    "revision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
+    "revision": "4ce938f2489c7f80de1696cb96f02ba559a5aa51",
     "path": "src/data/lexicon.json",
-    "digest": "sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c"
+    "digest": "sha256:6b2945b48092da65ba872310c7a6242e8efba10ebbf521fb6f697b0c49e2f50f"
   },
   "decisions": [
     {
