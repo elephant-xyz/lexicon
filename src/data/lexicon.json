@@ -9785,8 +9785,11 @@
           ]
         },
         "homeowners_association_amount": {
-          "type": "decimal",
-          "comment": "Amount of HOA fees",
+          "type": [
+            "number",
+            "null"
+          ],
+          "comment": "Amount of HOA fees. Null when the source does not publish the fee (official HOA registries identify associations without fees).",
           "format": "currency"
         },
         "homeowners_association_year": {
@@ -9885,6 +9888,24 @@
           ],
           "minLength": 1,
           "comment": "IPFS CID of the property-management company object. Storing this CID on the HOA is the HOA-to-property-management relationship."
+        },
+        "recording_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "comment": "Recording date of the association's recorded declaration or management certificate in the county real property records.",
+          "optional": true
+        },
+        "instrument_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Recorder's instrument number of the association's recorded declaration or management certificate.",
+          "optional": true
         }
       },
       "relationships": {
@@ -12779,9 +12800,12 @@
           ]
         },
         "loan_amount": {
-          "type": "decimal",
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "currency",
-          "comment": "Loan amount refers to the total amount of money that a borrower borrows from a lender to purchase a property. This amount is typically based on the purchase price of the property, minus any down payment that the borrower is able to make."
+          "comment": "Loan amount refers to the total amount of money that a borrower borrows from a lender to purchase a property. This amount is typically based on the purchase price of the property, minus any down payment that the borrower is able to make. Null when the source does not publish it (most recorder indexes carry no amount)."
         },
         "loan_closing_date": {
           "type": [
@@ -12832,9 +12856,12 @@
           ]
         },
         "note_amount": {
-          "type": "decimal",
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "currency",
-          "comment": "The amount to be repaid as disclosed on the note."
+          "comment": "The amount to be repaid as disclosed on the note. Null when the note is not available (recorder indexes do not carry it)."
         },
         "note_date": {
           "type": [
@@ -12846,9 +12873,12 @@
           "minLength": 1
         },
         "note_rate_percent": {
-          "type": "decimal",
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "rate_percent",
-          "comment": "The actual interest rate as disclosed on the note."
+          "comment": "The actual interest rate as disclosed on the note. Null when the note is not available (recorder indexes do not carry it)."
         },
         "occupancy": {
           "enum": [
@@ -12864,8 +12894,78 @@
           ]
         },
         "prepayment_penalty_indicator": {
-          "type": "boolean",
-          "comment": "Indicates whether the loan includes a penalty charged to the borrower in the event of prepayment."
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "comment": "Indicates whether the loan includes a penalty charged to the borrower in the event of prepayment. Null when unknown; do not default to false."
+        },
+        "recording_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "comment": "Date the mortgage, deed of trust or security deed was recorded by the county recorder. Not the note date or the closing date.",
+          "optional": true
+        },
+        "instrument_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Recorder's instrument, document or file number for the recorded mortgage, deed of trust or security deed.",
+          "optional": true
+        },
+        "book": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Official records book in which the mortgage was recorded, where the recorder uses book and page.",
+          "optional": true
+        },
+        "page": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Official records page at which the mortgage was recorded, where the recorder uses book and page.",
+          "optional": true
+        },
+        "lien_status": {
+          "enum": [
+            "released",
+            "unknown",
+            null
+          ],
+          "type": [
+            "string",
+            "null"
+          ],
+          "comment": "Status of the recorded lien. 'released' only when a matching release, satisfaction, reconveyance or cancellation is recorded; otherwise 'unknown'. Index data cannot prove a lien is still open.",
+          "optional": true
+        },
+        "release_recording_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "comment": "Recording date of the matching full release, satisfaction, reconveyance or cancellation.",
+          "optional": true
+        },
+        "release_instrument_number": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "comment": "Instrument number (or book/page) of the matching full release, satisfaction, reconveyance or cancellation.",
+          "optional": true
         }
       },
       "relationships": {}

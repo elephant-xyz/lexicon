@@ -3,7 +3,7 @@
     "repository": "https://github.com/elephant-xyz/lexicon",
     "revision": "dbf2b2dea8f332aff28b3444ceffd44f9e17364d",
     "path": "src/data/lexicon.json",
-    "digest": "sha256:25c991cc323a0642776726674c99a549d53ca30f3a9c89507e261a014183659c"
+    "digest": "sha256:e7abe4d66912f485fa24d67f2f94fd1e08a2c86a0f8b461b7b2bc0041910708d"
   },
   "decisions": [
     {
@@ -447,12 +447,6 @@
       "to": "string/date-time"
     },
     {
-      "class": "homeowners_association",
-      "property": "homeowners_association_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
       "class": "identity",
       "property": "identity_verified_datetime",
       "from": "dateTime",
@@ -695,24 +689,6 @@
     {
       "class": "loan_timeline",
       "property": "unpaid_principal_interest_balance_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "loan",
-      "property": "loan_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "loan",
-      "property": "note_amount",
-      "from": "decimal",
-      "to": "number"
-    },
-    {
-      "class": "loan",
-      "property": "note_rate_percent",
       "from": "decimal",
       "to": "number"
     },
@@ -2019,7 +1995,7 @@
     "dataGroupRelationships": 98,
     "relationshipsOmitted": 12,
     "definitions": 738,
-    "typeMappings": 217,
+    "typeMappings": 213,
     "normalizations": 5,
     "droppedConstraints": 32,
     "droppedProperties": 36

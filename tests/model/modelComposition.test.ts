@@ -224,10 +224,10 @@ describe('Model composition of the Elephant lexicon', () => {
     expect(built.compatibility.verdict).toBe('ZERO_BREAKING_STRICT_ADDITIVE');
     expect(built.compatibility.model).toMatchObject({
       governanceBaseReleaseId: 'rel-30b456730cd6ee29',
-      sourceDigest: 'sha256:7c5661c45f3cbc9eed245a87acb658ff9e4300a809c2ca3d3092d24028ce62fa',
+      sourceDigest: 'sha256:03f279c66504dfe9fb19bbcd61bb32c14d0f4eb7f8a79541d7ba199b23fb3a0b',
       sourceByteLength: 1106172,
-      candidateDigest: 'sha256:d85a36437e48d608beaa8bc4dec50d5609ff9e08d7d4e6385e7ce385ef26b574',
-      plannedReleaseId: 'rel-d85a36437e48d608',
+      candidateDigest: 'sha256:ea8d47843bcea3dc0ca401d9984e6ed8e4b22a571f224f941a1a45185e6d3690',
+      plannedReleaseId: 'rel-ea8d47843bcea3dc',
       compiledDigest: COMPILED_DIGEST,
       compiledByteLength: 468058,
       dependencyLockDigest: DEPENDENCY_LOCK_DIGEST,
