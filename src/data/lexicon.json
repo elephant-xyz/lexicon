@@ -13122,9 +13122,12 @@
           "minLength": 1
         },
         "note_rate_percent": {
-          "type": "decimal",
+          "type": [
+            "number",
+            "null"
+          ],
           "format": "rate_percent",
-          "comment": "The actual interest rate as disclosed on the note."
+          "comment": "The actual interest rate as disclosed on the note. Null when the recorded security instrument does not state it (the rate is usually only on the unrecorded promissory note)."
         },
         "occupancy": {
           "enum": [
@@ -13140,8 +13143,11 @@
           ]
         },
         "prepayment_penalty_indicator": {
-          "type": "boolean",
-          "comment": "Indicates whether the loan includes a penalty charged to the borrower in the event of prepayment."
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "comment": "Indicates whether the loan includes a penalty charged to the borrower in the event of prepayment. Null when the recorded instrument does not say (no prepayment rider)."
         }
       },
       "relationships": {}

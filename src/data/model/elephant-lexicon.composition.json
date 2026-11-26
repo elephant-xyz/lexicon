@@ -760,7 +760,7 @@
         "repository": "https://github.com/elephant-xyz/lexicon",
         "revision": "4ce938f2489c7f80de1696cb96f02ba559a5aa51",
         "path": "src/data/lexicon.json",
-        "digest": "sha256:6b2945b48092da65ba872310c7a6242e8efba10ebbf521fb6f697b0c49e2f50f"
+        "digest": "sha256:c331a0536453c57fb79a96600d14997296d87b78acabd47e4d70a51e089ef90d"
       }
     ],
     "topVertex": {
